@@ -1,0 +1,149 @@
+(file created 2013-03-29, last updated 2013-03-29)
+
+Type name:
+application
+
+Subtype name:
+font-sfnt
+
+Required parameters:
+None
+
+Optional parameters:
+Since the new media type is intended to cover all SFNT-based font 
+formats, it may sometimes be desirable to provide additional information 
+about particular features of the font resource in question. Various font 
+outline formats can be utilized as part of the font data set, e.g. a 
+font compliant with the ISO/IEC 14496-22 standard may contain either 
+TrueType or CFF (Adobe PostScript Compact Font Format) outlines. 
+Similarly, fonts may implement support for various text layout 
+mechanisms such as OpenType layout, Apple Advanced Typography or 
+Graphite (developed by SIL International). The following optional 
+parameters can be used to specify a set of features a particular font 
+resource would support:
+
+1) Name: Outlines
+Value: TTF, CFF
+This parameter can be used to specify the type of outlines supported by 
+the font. Value "TTF" shall be used when a font resource contains glyph 
+outlines in TrueType format, and value "CFF" shall be used to identify 
+fonts containing CFF outlines.
+
+2) Name: Layout
+Value: OTF, AAT, SIL
+This parameter identifies the type of implemented support for advanced 
+text layout features. The predefined values "OTF", "AAT" and " SIL" 
+respectively indicate support for OpenType text layout, Apple Advanced 
+Typography or Graphite SIL.
+
+Encoding considerations:
+binary
+
+Security considerations:
+Fonts are collections of different tables containing data structures 
+that represent different types of information, including glyph outlines 
+in various data formats, hinting instructions, metrics and layout 
+information for multiple languages and writing systems, rules for glyph 
+substitution and positioning, etc. Depending on the data format used to 
+represent the glyph data the font may contain either TrueType or 
+PostScript outlines and their respective hint instructions. There are 
+many existing, already standardized font table tags and formats that 
+allow an unspecified number of entries containing predefined data fields 
+for storage of variable length binary data.
+
+Many existing (TrueType, OpenType and OFF, SIL Graphite, WOFF and many 
+other) font formats are based on the table-based SFNT (scalable font) 
+format which is extremely flexible, highly extensible and offers an 
+opportunity to introduce additional table structures when needed, in a 
+way that would not affect existing font rendering engines and text 
+layout implementations. However, this very extensibility may present 
+specific security concerns – the flexibility and ease of adding new data 
+structures makes it easy for any arbitrary data to be hidden inside a 
+font file. There is a significant risk that the flexibility of font data 
+structures may be exploited to hide malicious binary content disguised 
+as a font data component.
+
+Fonts may contain 'hints' – programmatic instructions that are executed 
+by the font engine for the alignment of graphical elements of glyph 
+outlines with the target display pixel grid. Depending on the font 
+technology utilized in the creation of a font these hints may represent 
+active code interpreted and executed by the font rasterizer. Even though 
+hints operate within the confines of the glyph outline conversion system 
+and have no access outside the font rendering engine, hint instructions 
+can be, however, quite complex, and a maliciously designed complex font 
+could cause undue resource consumption (e.g. memory or CPU cycles) on a 
+machine interpreting it. Indeed, fonts are sufficiently complex, and 
+most (if not all) interpreters cannot be completely protected from 
+malicious fonts without undue performance penalties.
+
+Widespread use of fonts as necessary component of visual content 
+presentation warrants that a careful attention should be given to 
+security considerations whenever a font is either embedded into an 
+electronic document or transmitted alongside media content.
+
+Interoperability considerations:
+As it was noted in the first paragraph of the "Security considerations" 
+section, the same font format wrapper can be used to encode fonts with 
+different types of glyph data represented as either TrueType or 
+PostScript (CFF) outlines. Existing font rendering engines may not be 
+able to process some of the particular outline formats, and downloading 
+a font resource that contains unsupported glyph data format would result 
+in inability of application to render and display text. Therefore, it 
+would be extremely useful to clearly identify the format of the glyph 
+outline data within a font using an optional parameter, and allow 
+applications to make decisions about downloading a particular font 
+resource sooner. Similar, another optional parameter is suggested to 
+identify the type of text shaping and layout mechanism that is supported 
+by a font. Please note that as new outline formats and text shaping 
+mechanisms may be defined in the future, the set of allowed values for 
+two optional parameters defined by this application may be extended.
+
+Published specification:
+As of the date of this submission, the main published specification is 
+ISO/IEC 14496-22:2009 "Open Font Format". This media type registration 
+is extracted from the ISO/IEC 14496-22/AMD2 of Open Font Format (OFF) 
+specification being developed by ISO/IEC SC29/WG11.
+
+Applications that use this media type:
+Any and all applications that are able to create, edit or display 
+textual media content.
+
+SFNT-based font formats provide certain levels of protection of data 
+integrity - such mechanisms include e.g. checksums and digital 
+signatures (see ISO/IEC 14496-22 for details). However, SFNT-based fonts 
+provide neither privacy nor confidentiality protection internally; if 
+needed, such protection should be provided externally.
+
+
+Additional information:
+
+Magic number(s):
+The TrueType fonts and OFF / OpenType fonts containing TrueType outlines 
+should use 0x00010000 as the 'sfnt' version number.
+The OFF / OpenType fonts containing CFF data should use the tag 'OTTO' 
+as 'sfnt' version number.
+
+File extension(s):
+Font file extensions used for OFF / OpenType fonts: .ttf, .otf
+Typically, .ttf extension is only used for fonts containing TrueType 
+outlines, while .otf extension can be used for any OpenType/OFF font, 
+either with TrueType or CFF outlilnes.
+
+Macintosh file type code(s):
+(no code specified)
+
+Person & email address to contact for further information:
+Vladimir Levantovsky (vladimir.levantovsky&monotypeimaging.com).
+
+Intended usage:
+COMMON
+
+Restrictions on usage:
+None
+
+Author:
+The ISO/IEC 14496-22 "Open Font Format" specification is a product of 
+the ISO/IEC JTC1 SC29/WG11.
+
+Change controller:
+The ISO/IEC has change control over this specification. 

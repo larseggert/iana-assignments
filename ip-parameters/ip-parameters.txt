@@ -1,0 +1,165 @@
+                                                                  IP OPTION NUMBERS
+
+   Last Updated
+           2013-05-28
+
+   Note
+
+ The Internet Protocol (IP) has provision for optional header fields
+ identified by an option type field.  Options 0 and 1 are exactly one
+ octet which is their type field.  All other options have their one
+ octet type field, followed by a one octet length field, followed by
+ length-2 octets of option data.  The option type field is sub-divided
+ into a one bit copied flag, a two bit class field, and a five bit
+ option number.  These taken together form an eight bit value for the
+ option type field.  IP options are commonly refered to by this value.
+
+   Available Formats
+           [IMG]
+           XML [IMG]
+           HTML [IMG]
+           Plain text
+
+   Registries included below
+
+     * IP TIME TO LIVE PARAMETER
+     * IP TOS PARAMETERS
+     * Type-of-Service Values
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Copy Class Number Value                         Name                                     Reference
+    0     0     0      0   EOOL   - End of Options List                          [RFC791][Jon_Postel]
+    0     0     1      1   NOP    - No Operation                                 [RFC791][Jon_Postel]
+    1     0     2     130  SEC    - Security                                     [RFC1108]
+    1     0     3     131  LSR    - Loose Source Route                           [RFC791][Jon_Postel]
+    0     2     4     68   TS     - Time Stamp                                   [RFC791][Jon_Postel]
+    1     0     5     133  E-SEC  - Extended Security                            [RFC1108]
+    1     0     6     134  CIPSO  - Commercial Security                          [draft-ietf-cipso-ipsecurity-01]
+    0     0     7      7   RR     - Record Route                                 [RFC791][Jon_Postel]
+    1     0     8     136  SID    - Stream ID                                    [RFC791][Jon_Postel][RFC6814][1]
+    1     0     9     137  SSR    - Strict Source Route                          [RFC791][Jon_Postel]
+    0     0     10    10   ZSU    - Experimental Measurement                     [ZSu]
+    0     0     11    11   MTUP   - MTU Probe                                    [RFC1063][RFC1191][1]
+    0     0     12    12   MTUR   - MTU Reply                                    [RFC1063][RFC1191][1]
+    1     2     13    205  FINN   - Experimental Flow Control                    [Greg_Finn]
+    1     0     14    142  VISA   - Experimental Access Control                  [Deborah_Estrin][RFC6814][1]
+    0     0     15    15   ENCODE - ???                                          [VerSteeg][RFC6814][1]
+    1     0     16    144  IMITD  - IMI Traffic Descriptor                       [Lee]
+    1     0     17    145  EIP    - Extended Internet Protocol                   [RFC1385][RFC6814][1]
+    0     2     18    82   TR     - Traceroute                                   [RFC1393][RFC6814][1]
+    1     0     19    147  ADDEXT - Address Extension                            [Ullmann IPv7][RFC6814][1]
+    1     0     20    148  RTRALT - Router Alert                                 [RFC2113]
+    1     0     21    149  SDB    - Selective Directed Broadcast                 [Charles_Bud_Graff][RFC6814][1]
+    1     0     22    150         - Unassigned (Released 18 October 2005)
+    1     0     23    151  DPS    - Dynamic Packet State                         [Andy_Malis][RFC6814][1]
+    1     0     24    152  UMP    - Upstream Multicast Pkt.                      [Dino_Farinacci][RFC6814][1]
+    0     0     25    25   QS     - Quick-Start                                  [RFC4782]
+    0     0     30    30   EXP    - RFC3692-style Experiment [2]                 [RFC4727]
+    0     2     30    94   EXP    - RFC3692-style Experiment [2]                 [RFC4727]
+    1     0     30    158  EXP    - RFC3692-style Experiment [2]                 [RFC4727]
+    1     2     30    222  EXP    - RFC3692-style Experiment [2]                 [RFC4727]
+
+IP TIME TO LIVE PARAMETER
+
+   Note
+
+ The current recommended default time to live (TTL) for the Internet
+ Protocol (IP) is 64 [RFC791], [RFC1122].
+
+IP TOS PARAMETERS
+
+   Description
+
+ This documents the default Type-of-Service values that are currently
+ recommended for the most important Internet protocols.
+
+   Available Formats
+           [IMG]
+           CSV
+
+   TOS Value      Description             Reference
+     0000    Default                [Obsoleted by RFC2474]
+     0001    Minimize Monetary Cost [Obsoleted by RFC2474]
+     0010    Maximize Reliability   [Obsoleted by RFC2474]
+     0100    Maximize Throughput    [Obsoleted by RFC2474]
+     1000    Minimize Delay         [Obsoleted by RFC2474]
+     1111    Maximize Security      [Obsoleted by RFC2474]
+
+Type-of-Service Values
+
+   Note
+
+ The TOS value is used to indicate "better".  Only one TOS value or
+ property can be requested in any one IP datagram.
+
+ Generally, protocols which are involved in direct interaction with a
+ human should select low delay, while data transfers which may involve
+ large blocks of data are need high throughput.  Finally, high reliability
+ is most important for datagram-based Internet management functions.
+
+ Application protocols not included in these tables should be able to
+ make appropriate choice of low delay (8 decimal, 1000 binary) or high
+ throughput (4 decimal, 0100 binary).
+
+ The following are recommended values for TOS.
+
+ An application may (at the request of the user) substitute
+ 0001 (minimize monetary cost) for any of the below values.
+
+   Available Formats
+           [IMG]
+           CSV
+
+        Protocol             TOS Value             Description
+   TELNET [3]          1000                  (minimize delay)
+   FTP
+     Control         1000                  (minimize delay)
+     Data [4]        0100                  (maximize throughput)
+   TFTP                1000                  (minimize delay)
+   SMTP [5]
+     Command phase   1000                  (minimize delay)
+     DATA phase      0100                  (maximize throughput)
+   Domain Name Service
+     UDP Query       1000                  (minimize delay)
+     TCP Query       0000
+     Zone Transfer   0100                  (maximize throughput)
+   NNTP                0001                  (minimize monetary cost)
+   ICMP
+     Errors          0000
+     Requests        0000 [6]
+     Responses       <same as request> [6]
+   Any IGP             0010                  (maximize reliability)
+   EGP                 0000
+   SNMP                0010                  (maximize reliability)
+   BOOTP               0000
+
+                                                                        People
+
+           ID                 Name                Contact URI         Last Updated
+   [Andy_Malis]        Andy Malis          mailto:agmalis&gmail.com   2013-05-28
+   [Charles_Bud_Graff] Charles "Bud" Graff mailto:bud&fotlan.army.mil 1995-03
+   [Deborah_Estrin]    Deborah Estrin      mailto:Estrin&usc.edu      1994-10
+   [Dino_Farinacci]    Dino Farinacci      mailto:dino&cisco.com      1999-05
+   [Greg_Finn]         Greg Finn           mailto:Finn&isi.edu        1994-10
+   [Jon_Postel]        Jon Postel          mailto:postel&isi.edu      1994-10
+
+                                                                      Footnotes
+
+   [1] obsoleted IP Option Number
+   [2] It is only appropriate to use these values
+       in explicitly-configured experiments; they MUST NOT be shipped as
+       defaults in implementations.  See RFC 3692 for details.
+   [3] Includes all interactive user protocols (e.g., rlogin).
+   [4] Includes all bulk data transfer protocols (e.g., rcp).
+   [5] If the implementation does not support changing the TOS
+       during the lifetime of the connection, then the
+       recommended TOS on opening the connection is the default
+       TOS (0000).
+   [6] Although ICMP request messages are normally sent with
+       the default TOS, there are sometimes good reasons why they
+       would be sent with some other TOS value.  An ICMP
+       response always uses the same TOS value as was used in the
+       corresponding ICMP request message.

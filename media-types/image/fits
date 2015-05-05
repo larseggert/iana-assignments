@@ -1,0 +1,240 @@
+(RFC 4047 published April 2005, subtype last updated April 2005)
+
+MIME media type name: image
+
+MIME subtype name: fits
+
+Required parameters: none
+
+Optional parameters: none
+
+Encoding considerations: binary
+
+FITS files can be quite large. When transferred via HTTP it may be
+efficient for the transaction to make use of content-coding or
+transfer-coding values such as "gzip", "compress", or "deflate".
+
+Security considerations:
+
+FITS provides a means of transporting arrays and tables of data and
+keyword/value pairs of metadata. The standard FITS keywords are
+either mandatory or reserved. Mandatory keywords provide information
+necessary for correct interpretation of the data; reserved keywords
+merely provide standard bits of metadata. As such, the current
+standard FITS keywords do not pose security risks.
+
+A FITS file author may insert additional keywords with semantics that
+are not described by the standard. Parties exchanging FITS files may
+employ locally defined conventions that use various keywords and
+their values to induce actions on the part of the recipient. There
+are existing local conventions where such keywords are used to
+request the reading of other files and/or URIs. There are other
+local conventions where such keywords are used to modify the state of
+a telescope and/or instrument. The security implications of local
+conventions such as these SHOULD be analyzed by the parties employing
+them.
+
+Interoperability considerations:
+
+FITS files have been successfully transported between wildly
+different computers since 1979. The difficulty most likely to be
+encountered by a FITS application is inability to acquire the
+computational resources required by a very large FITS file.
+
+Published specification:
+
+The specification for this content type is published as a series of
+papers in refereed astronomical journals:
+
+Hanisch, R., et al., "Definition of the Flexible Image Transport
+System (FITS)", Astronomy & Astrophysics, 376, p. 359, 2001.
+
+Greisen, E. and M. Calabretta, "Representations of world
+coordinates in FITS", Astronomy & Astrophysics, 395, p. 1061, 2002.
+
+Calabretta, M. and E. Greisen, "Representations of celestial
+coordinates in FITS", Astronomy & Astrophysics, 395, p. 1077, 2002.
+
+Copies of these specifications can also be found via:
+
+http://fits.gsfc.nasa.gov/
+http://archive.stsci.edu/fits/
+http://www.cv.nrao.edu/fits/
+http://heasarc.gsfc.nasa.gov/docs/heasarc/fits.html
+
+Applications that use this media type:
+
+There are many astronomical image viewing and data reduction
+applications including, but not limited to, the following list:
+
+IRAF http://iraf.noao.edu/
+AIPS http://www.aoc.nrao.edu/aips/
+AIPS++ http://aips2.nrao.edu/
+MIDAS http://www.eso.org/projects/esomidas/
+ds9 http://hea-www.harvard.edu/RD/ds9/
+fv http://heasarc.gsfc.nasa.gov/ftools/fv/
+Aladin http://aladin.u-strasbg.fr/
+Starlink http://star-www.rl.ac.uk/
+Miriad http://bima.astro.umd.edu/miriad/
+STSDAS http://www.stsci.edu/resources/software_hardware/stsdas
+PROS http://hea-www.harvard.edu/PROS/pros.html
+CIAO http://cxc.harvard.edu/ciao/
+XANADU http://heasarc.gsfc.nasa.gov/docs/xanadu/xanadu.html
+HESSI http://hesperia.gsfc.nasa.gov/ssw/hessi/doc/
+FITSview http://www.nrao.edu/software/fitsview/
+XMM-SAS http://xmm.vilspa.esa.es/external/xmm_sw_cal/sas_frame.shtml
+
+Non-astronomical FITS image display applications include:
+
+netpbm http://netpbm.sourceforge.net/
+gimp http://www.gimp.org/
+IDL http://www.rsinc.com/
+ImageMagick http://www.imagemagick.com/
+Mathematica http://www.wolfram.com/
+MatLab http://www.mathworks.com/
+xv http://www.trilon.com/xv/xv.html
+
+There are also two FITS plug-ins for Adobe Photoshop
+(http://www.adobe.com/products/photoshop/), available at
+http://astroshed.com/fitsplug/fitsplug.htm and
+http://www.spacetelescope.org/projects/fits_liberator/
+
+At the present time many of the applications listed above are not
+designed to support use as viewers of "image/fits" files in
+association with web browsers.
+
+Additional information:
+
+A FITS file described with the media type "image/fits" SHOULD have a
+PHDU with positive integer values for the NAXIS and NAXISn keywords,
+and hence SHOULD contain at least one pixel. Files with 4 or more
+non-degenerate axes (NAXISn>1) SHOULD be described as
+"application/fits", not as "image/fits". (In rare cases it may be
+appropriate to describe a NULL image -- a dataless container for FITS
+keywords, with NAXIS=0 or NAXISn=0 -- or an image with 4+ non-
+degenerate axes as "image/fits" but this usage is discouraged because
+such files may confuse simple image viewer applications.)
+
+FITS files declared as "image/fits" MAY also have one or more
+conforming XHDUs following their PHDUs. These extension HDUs MAY
+contain standard, non-linear, world coordinate system (WCS)
+information in the form of tables or images. The extension HDUs MAY
+also contain other, non-standard metadata pertaining to the image in
+the PHDU in the forms of keywords and tables.
+
+A FITS file described with the media type "image/fits" SHOULD be
+principally intended to communicate the single data array in the
+PHDU. This means that "image/fits" SHOULD NOT be applied to FITS
+files containing MEF (multi-exposure-frame) mosaic images. Also,
+random groups files MUST be described as "application/fits" and not
+as "image/fits".
+
+A FITS file described with the media type "image/fits" is also valid
+as a file of media type "application/fits". The choice of
+classification depends on the context and intended usage.
+
+Recommendations for application writers:
+
+An application that is intended to handle "image/fits" SHOULD be able
+to provide a user with a manifest of all of the HDUs that are present
+in the file and with all of the keyword/value pairs from each of the
+HDUs. An application writer MAY choose to ignore HDUs beyond the
+PHDU, but even in this case the application SHOULD be able to present
+the user with the keyword/value pairs from the PHDU.
+
+Note that an application intended to render "image/fits" for viewing
+by a user has significantly more responsibility than an application
+intended to handle, e.g., "image/tiff" or "image/gif". FITS data
+arrays contain elements which typically represent the values of a
+physical quantity at some coordinate location. Consequently they
+need not contain any pixel rendering information in the form of
+transfer functions, and there is no mechanism for color look-up
+tables. An application SHOULD provide this functionality, either
+statically using a more or less sophisticated algorithm, or
+interactively allowing a user various degrees of choice.
+
+Furthermore, the elements in a FITS data array may be integers or
+floating-point numbers. The dynamic range of the data array values
+may exceed that of the display medium and the eye, and their
+distribution may be highly nonuniform. Logarithmic, square-root, and
+quadratic transfer functions along with histogram equalization
+techniques have proved helpful for rendering FITS data arrays. Some
+elements of the array may have values which indicate that their data
+are undefined or invalid; these should be rendered distinctly. Via
+WCS Paper I [WCS1] the standard permits "CTYPEnnn = 'COMPLEX'" to
+assert that a data array contains complex numbers (future revisions
+might admit other elements such as quaternions or general tensors).
+
+Three-dimensional data arrays (NAXIS=3 with NAXIS1, NAXIS2 and NAXIS3
+> 1) are of special interest. Applications intended to handle
+"image/fits" MAY default to displaying the first 2D plane of such an
+image cube, or they MAY default to presenting such an image in a
+fashion akin to that used for an animated GIF, or they MAY present
+the data cube as a mosaic of "thumbnail" images. Even in the absence
+of WCS indication of a temporal axis the time-lapse movie-looping
+display technique can be effective, and application writers SHOULD
+consider offering it for all three-dimensional arrays.
+
+An "image/fits" PHDU with NAXIS=1 is describing a one-dimensional
+entity such as a spectrum or a time series. Applications intended to
+handle "image/fits" MAY default to displaying such an image as a
+graphical plot rather than as a two-dimensional picture with a single
+row.
+
+An application that cannot handle an image with dimensionality other
+than 2 SHOULD gracefully indicate its limitations to its users when
+it encounters NAXIS=1 or NAXIS=3 cases, while still providing access
+to the keyword/value pairs.
+
+FITS files with degenerate axes (i.e., one or more NAXISn=1) MAY be
+described as "image/fits", but the first axes SHOULD be non-
+degenerate (i.e., the degenerate axes SHOULD be the highest
+dimensions). An algorithm designed to render only two-dimensional
+images will be capable of displaying such an NAXIS=3 or NAXIS=4 FITS
+array that has one or two of the axes consisting of a single pixel,
+and an application writer SHOULD consider coding this capability into
+the application. Writers of new applications which generate FITS
+files intended to be described as "image/fits" SHOULD consider using
+the WCSAXES keyword [WCS1] to declare the dimensionality of such
+degenerate axes, so that NAXIS can be used to convey the number of
+non-degenerate axes.
+
+Magic number(s): "SIMPLE = T"
+
+Jeff Uphoff of the National Radio Astronomy Observatory (NRAO) has
+contributed database entries for the magic number file which is used
+by the Unix "file" command. Magic number files with these entries
+are distributed with a variety of Unix-like operating systems. In
+addition to recognizing a FITS file using the string given above, the
+Uphoff entries also recognize the data type of the pixels in the
+PHDU.
+
+File extension(s): fits
+
+This file extension SHOULD NOT be interpreted as a prescription.
+
+The FITS standard originated in the era when files were stored and
+exchanged via magnetic tape; it does not prescribe any nomenclature
+for files on disk. Various sites within the FITS community have
+long-established practices where files are presumed to be FITS by
+context. File extensions used at such sites commonly indicate
+content of the file instead of the data format.
+
+In the absence of other information it is reasonably safe to presume
+that a file name ending in ".fits" is intended to be a FITS file.
+Nevertheless, there are other commonly used extensions; e.g., ".fit",
+".fts", and many others not suitable for listing in a media type
+registration.
+
+Intended usage: Common
+
+Persons to contact for further information:
+
+"Steve Allen" <sla&ucolick.org>
+"Don Wells" <dwells&nrao.edu>
+
+Author/Change controller:
+
+"Steve Allen" <sla&ucolick.org>
+
+The IAU FITS Working Group may authorize changes to this document.

@@ -1,0 +1,83 @@
+                                              Post Office Protocol version 3 (POP3) Extension Mechanism
+
+   Last Updated
+           2013-03-13
+
+   Note
+
+ The POP3 Extension Mechanism [RFC2449] updates [RFC1939] to define a
+ mechanism to announce support for optional commands, extensions, and
+ unconditional server behavior.  Please see Section 1 of [RFC2449]  for
+ details regarding POP3 Extensions.
+
+   Available Formats
+           [IMG]
+           XML [IMG]
+           HTML [IMG]
+           Plain text
+
+   Registries included below
+
+     * POP3 Capabilities
+     * POP3 Response Codes
+
+POP3 Capabilities
+
+   Registration Procedure(s)
+
+ Standards Track or IESG approved experimental RFC
+
+   Reference
+           [RFC2449]
+
+   Available Formats
+           [IMG]
+           CSV
+
+      CAPA Tag        CAPA Args     Added Cmds           Cmds Affected              List     Diffs         Cmd Valid             References
+   TOP            none              TOP        none                              both        no    TRANSACTION               [RFC2449][RFC1939]
+   USER           none              USER, PASS none                              both        no    AUTHENTICATION            [RFC2449][RFC1939]
+   SASL           mech list         AUTH       none                              both        no    AUTHENTICATION            [RFC2449][RFC5034]
+   RESP-CODES     none              none       none                              both        no    n/a                       [RFC2449]
+   LOGIN-DELAY    secs, USER        none       USER, PASS, APOP, AUTH            both        yes   n/a                       [RFC2449]
+   PIPELINING     none              none       all                               both        no    n/a                       [RFC2449]
+   EXPIRE         days, NEVER, USER none       none                              both        yes   n/a                       [RFC2449]
+   UIDL           none              UIDL       none                              both        no    TRANSACTION               [RFC2449][RFC1939]
+   IMPLEMENTATION text              none       none                              TRANS, both no    n/a                       [RFC2449][RFC1939]
+   STLS           none              STLS       USER, PASS, CAPA                  both        no    AUTHENTICATION            [RFC2595]
+   AUTH-RESP-CODE none              none       none                              both        no    n/a                       [RFC3206]
+   UTF8           USER              UTF8       USER, PASS, APOP, LIST, TOP, RETR both        no    AUTHORIZATION             [RFC6856]
+   LANG           none              LANG       all                               both        no    AUTHORIZATION TRANSACTION [RFC6856]
+
+POP3 Response Codes
+
+   Registration Procedure(s)
+
+ RFC Specification Required
+
+   Reference
+           [RFC2449]
+
+   Note
+
+ Please see section 9 of [RFC2449]  for details regarding Response Codes.
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Response Code Response Types                              Commands                              Reference
+   LOGIN-DELAY   -ERR           USER[1], PASS, APOP, AUTH                                          [RFC2449]
+   IN-USE        -ERR           PASS, APOP, AUTH                                                   [RFC2449]
+   SYS/PERM      -ERR           All commands                                                       [RFC3206]
+   SYS/TEMP      -ERR           All commands                                                       [RFC3206]
+   AUTH          -ERR           Any authentication command including AUTH USER [2], PASS, or APOP. [RFC3206]
+   UTF8          -ERR           LIST, TOP, RETR                                                    [RFC6856]
+
+                                                                      Footnotes
+
+   [1] see spec for details
+   [2] Returning the AUTH response code to the USER command reveals
+       to the client that the specified user exists.  It is strongly
+       RECOMMENDED that the server not issue this response code to the
+       USER command.

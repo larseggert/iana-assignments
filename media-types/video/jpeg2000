@@ -1,0 +1,146 @@
+(registered by RFC 5371, optional parameters added by RFC 5372)
+
+Type name: video
+
+Subtype name: jpeg2000
+
+Required parameters:
+
+   rate:  The RTP timestamp clock rate.  The default rate is 90000,
+      but other rates MAY be specified.  Rates below 1000 Hz SHOULD
+      NOT be used.
+
+   sampling:  A list of values specifying the color space of the
+      payload data.
+
+      Acceptable values:
+
+         RGB:  standard Red, Green, Blue color space.
+
+         BGR:  standard Blue, Green, Red color space.
+
+         RGBA:  standard Red, Green, Blue, Alpha color space.
+
+         BGRA:  standard Blue, Green, Red, Alpha color space.
+
+         YCbCr-4:4:4:  standard YCbCr color space; no subsampling.
+
+         YCbCr-4:2:2:  standard YCbCr color space; Cb and Cr are
+            subsampled horizontally by 1/2.
+
+         YCbCr-4:2:0:  standard YCbCr color space; Cb and Cr are
+            subsampled horizontally and vertically by 1/2.
+
+         YCbCr-4:1:1:  standard YCbCr color space; Cb and Cr are
+            subsampled vertically by 1/4.
+
+         GRAYSCALE:  basically, a single component image of just
+            multilevels of grey.
+
+         EXTENSION VALUE:  Additional color samplings can be
+            registered with the current listing of registered color
+            samplings at: Color Sampling Registration Authority.
+            Please refer to RTP Format for Uncompressed Video
+            [RFC4175].
+
+Optional parameters:
+
+   interlace:  Interlace scanning.  If the payload is in interlace
+      format, the acceptable value is "1"; otherwise, the value
+      should be "0".  Each complete image forms, vertically, half the
+      display.  The tp value MUST properly specify the field the
+      image represents: odd(tp=1) or even(tp=2).  If this option is
+      not present, the payload MUST be in progressive format and the
+      tp MUST be set to 0.
+
+   width:  A parameter describing the maximum width of the video
+      stream.  This parameter MUST appear when height is present.
+      Acceptable values: -- an integer value between 0 --
+      4,294,967,295.
+
+   height:  A parameter describing the maximum height of the video
+      stream.  This parameter MUST appear when width is present.
+      Acceptable values: -- an integer value between 0 --
+      4,294,967,295.
+
+   mhc:  Main Header Compensation.  This option is used when a sender
+      and/or receiver is utilizing the Main Header Compensation
+      technique as specified in this document.  Acceptable values
+      when using the Main Header Compensation technique is "1";
+      otherwise, it should be "0".
+
+      This is a list of options to be included when the sender or
+      receiver is utilizing the priority table option as specified in
+      this document.
+
+   pt:  Priority Table.  This option is followed by a comma-separated
+      list of pre-defined priority table definitions to be used by
+      sender or receiver.
+
+      The option appearing front most in the option line is the most
+      important and the next are of decreasing importance.
+
+         Acceptable values:
+
+         progression:  this table follows the progression ordering of
+            the codestream.
+
+         layer:  this table follows the layer ordering of the
+            codestream.
+
+         resolution:  this table follows the resolution ordering of
+            the codestream.
+
+         component:  this table follows the component ordering of the
+            codestream.
+
+         default:  this table follows the packet ordering of the
+            codestream.
+
+The receiver MUST ignore any unspecified parameters.
+
+Encoding considerations:
+
+   This media type is framed and binary, see Section 4.8 of
+   [RFC4288].
+
+Security considerations: See Section 9 of this document.
+
+Interoperability considerations:
+
+   The JPEG 2000 video stream is a sequence of JPEG 2000 still
+   images.  An implementation compliant with [JPEG2000Pt_1] can
+   decode and attempt to display the encoded JPEG 2000 video stream.
+
+Published specification: ISO/IEC 15444-1 | ITU-T Rec. T.800
+
+Applications that use this media type:
+
+   video streaming and communication
+
+Person and email address to contact for further information:
+
+   Eisaburo Itakura, Satoshi Futemma, Andrew Leung
+   Email: itakura&sm.sony.co.jp, satosi-f&sm.sony.co.jp,
+   andrew&ualberta.net
+
+Intended usage: COMMON
+
+Restrictions on Usage:
+
+   This media type depends on RTP framing, and hence is only defined
+   for the transfer via RTP [RFC3550].  Transport within other
+   framing protocols is not defined at the time.
+
+Author/Change Controller:
+
+   Author:
+
+      Eisaburo Itakura, Satoshi Futemma, Andrew Leung
+      Email: itakura&sm.sony.co.jp, satosi-f&sm.sony.co.jp,
+      andrew&ualberta.net
+
+   Change controller:
+
+      IETF Audio/Video Transport Working Group delegated from the
+      IESG.

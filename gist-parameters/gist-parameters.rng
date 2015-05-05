@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" ns="http://www.iana.org/assignments">
+
+  <include href="../_support/iana-registry.rng"/>
+
+  
+
+  <define name="values">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <zeroOrMore>
+        <element name="record">
+          <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+          <element name="value"><ref name="genericRange"/></element>
+          <element name="description"><text/></element>
+          <ref name="references"/>
+        </element>
+      </zeroOrMore>
+    </element>
+  </define>
+  
+  <define name="errorcodes">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <zeroOrMore>
+        <element name="record">
+          <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+          <element name="value"><ref name="genericRange"/></element>
+          <element name="description"><text/></element>
+          <element name="class"><text/></element>
+          <element name="additional"><text/></element>
+          <ref name="references"/>
+        </element>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <start>
+    <element name="registry">
+      <ref name="registryMeta"/>
+      
+      <!-- NSLP IDs -->      
+      <ref name="values"/>
+      
+      <!-- Message Types -->           
+      
+      <ref name="values"/>
+      
+      <!-- Object Types -->      
+      
+      <ref name="values"/>
+      
+      <!-- Message Routing Methods -->       
+      
+      <ref name="values"/>
+
+      <!-- MA-Protocol-IDs --> 
+      
+      <ref name="values"/>
+
+      <!-- Error Codes --> 
+      <ref name="errorcodes"/>
+
+      <!-- Error Code 1 Subcodes -->      
+      <ref name="values"/>
+      
+      <!-- Error Code 9 Subcodes -->      
+      <ref name="values"/>
+      
+      <!-- Error Code 10 Subcodes -->      
+      <ref name="values"/>
+      
+      <!-- Error Code 12 Subcodes -->      
+      <ref name="values"/>
+      
+      <!-- Additional Information Types -->      
+      <ref name="values"/>
+
+      <ref name="people"/>
+    </element>
+  </start>
+
+</grammar>

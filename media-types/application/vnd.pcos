@@ -1,0 +1,117 @@
+(registered 2014-01-31, last updated 2014-01-31)
+
+Name : Slawomir Lisznianski
+
+Email : sl&pushcoin.com
+
+MIME media type name : Application
+
+MIME subtype name : Vendor Tree - vnd.pcos
+
+Required parameters : None
+
+Optional parameters :
+None
+
+Encoding considerations : binary
+
+
+Security considerations :
+While PCOS itself does not offer privacy nor data integrity, it
+provides the foundation for adding message authenticity and integrity
+services.
+
+One of the problems with text-based Internet messages, like
+"application/json" or XML, with respect to data integrity is their
+liberal use of whitespace and arbitrary order of name-value fields. In
+short, two text messages carrying the same information may, and often
+will, yield different signatures.
+
+PCOS packs data "densely" and follows strict structure (schema). As a
+result, there won't be ambiguities regarding message boundaries nor
+parts included in the signature. With PCOS, remote peers signing a
+message independently will always arrive at identical signatures as long
+as the information going into the message was the same.
+
+In addition to signing, to facilitate ease of encryption of arbitary
+payloads, including non-PCOS derived payloads, PCOS supports wrapping
+and segmentation of messages:
+
+Encrypted PCOS wraps -> Signed PCOS wraps -> Payload
+
+A PCOS message may consist of multiple segments, and each segment
+include PCOS or non-PCOS payload. A special meta-segment, following the
+message-header and present in every conforming PCOS message, provides
+information (an index) regarding data segments included in the message.
+Thanks to this index, the receiver may efficiently (without full
+parsing) choose to skip certain segments and proceed to parts it cares for.
+
+In this manner, PCOS can contain other PCOS or non-PCOS payloads, like
+PNG or PDF files with minimal additional overhead.
+
+It is fair to mention here that PCOS can wrap an executable binary,
+which can cause harm if chosen to be executed by the receiving party.
+This is no different than running a program found in a ZIP archive or an
+email attachment.
+
+PCOS parsers themselves do not execute any scripts nor code within
+encoded messages. Parsers rely on static schema, obtained independently
+from the message, to decode payloads. Without the schema, it's
+impossible to reconstruct the original object. Also if the schema used
+by the message-generating side was different than the schema used by the
+message-receiving side, the decoded message will not match the original.
+While the receiving-side's parser will not crash nor "run out of
+bounds", it may not always realize the decoded message is incorrect.
+It's the application's responsibility to include schema-version or a
+checksum directly into the PCOS message, to determine if the decoded
+message is valid.
+
+The PCOS messages contain information to be parsed and processed by the
+recipient's PCOS system. These messages may contain and such systems may
+permit explicit system level commands to be executed while processing
+the PCOS data. To the extent that a PCOS system will execute arbitrary
+command strings, recipients of PCOS messages may be a risk.
+
+Interoperability considerations :
+The serialization is language and platform neutral.
+
+Published specification :
+https://github.com/slisznia/pcos
+
+Applications which use this media :
+A growing number of open-source mobile point of sale applications distributed 
+on the Google Play market, as well as consumer applications on Android and 
+iPhone markets.
+
+- https://play.google.com/store/apps/details?id=com.pushcoin.merchant&hl=en
+- https://play.google.com/store/apps/details?id=com.pushcoin.icebreaker&hl=en
+- https://itunes.apple.com/us/app/pushcoin/id535035214?ls=1&mt=8
+
+Fragment identifier considerations :
+None
+
+Restrictions on usage :
+There are no restrictions on usage.
+
+Provisional registration? (standards tree only) :
+
+
+Additional information :
+
+1. Deprecated alias names for this type : -
+2. Magic number(s) : PCOS
+3. File extension(s) : -
+4. Macintosh file type code : -
+5. Object Identifiers: -
+
+
+
+Person to contact for further information :
+
+1. Name : Slawomir Lisznianski
+2. Email : sl&pushcoin.com
+
+Intended usage : Common
+None
+
+Author/Change controller : Slawomir Lisznianski, sl&pushcoin.com

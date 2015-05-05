@@ -1,0 +1,869 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:ietf:params:xml:ns:msc-mixer"
+ xmlns:fw="urn:ietf:params:xml:ns:control:framework-attributes"
+ elementFormDefault="qualified"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema"
+ xmlns="urn:ietf:params:xml:ns:msc-mixer"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+ <xsd:annotation>
+  <xsd:documentation>
+   IETF MediaCtrl Mixer 1.0 (20110104)
+
+   This is the schema of the Mixer control package. It
+   defines request, response and notification elements for
+   mixing.
+
+   The schema namespace is urn:ietf:params:xml:ns:msc-mixer
+
+  </xsd:documentation>
+ </xsd:annotation>
+
+
+ <!--
+  #############################################################
+
+  SCHEMA IMPORTS
+
+  #############################################################
+ -->
+
+
+ <xsd:import
+  namespace="urn:ietf:params:xml:ns:control:framework-attributes"
+  schemaLocation="framework.xsd">
+  <xsd:annotation>
+   <xsd:documentation>
+    This import brings in the framework attributes for
+    conferenceid and connectionid.
+   </xsd:documentation>
+  </xsd:annotation>
+ </xsd:import>
+
+
+ <!--
+  #####################################################
+
+  Extensible core type
+
+  #####################################################
+ -->
+
+
+ <xsd:complexType name="Tcore">
+  <xsd:annotation>
+   <xsd:documentation>
+    This type is extended by other (non-mixed) component types to
+    allow attributes from other namespaces.
+   </xsd:documentation>
+  </xsd:annotation>
+  <xsd:sequence/>
+  <xsd:anyAttribute namespace="##other" processContents="lax" />
+ </xsd:complexType>
+
+
+ <!--
+  #####################################################
+
+  TOP LEVEL ELEMENT: mscmixer
+
+  #####################################################
+ -->
+
+ <xsd:complexType name="mscmixerType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:choice>
+      <xsd:element ref="createconference" />
+      <xsd:element ref="modifyconference" />
+      <xsd:element ref="destroyconference" />
+      <xsd:element ref="join" />
+      <xsd:element ref="unjoin" />
+      <xsd:element ref="modifyjoin" />
+      <xsd:element ref="response" />
+      <xsd:element ref="event" />
+      <xsd:element ref="audit" />
+      <xsd:element ref="auditresponse" />
+      <xsd:any namespace="##other" minOccurs="0"
+       maxOccurs="unbounded" processContents="lax" />
+     </xsd:choice>
+    </xsd:sequence>
+    <xsd:attribute name="version" type="version.datatype"
+     use="required" />
+    <xsd:attribute name="desclang" type="xsd:language"
+     default="i-default" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="mscmixer" type="mscmixerType" />
+
+
+ <!--
+  #####################################################
+
+  CONFERENCE MANAGEMENT TYPES
+
+  #####################################################
+ -->
+
+ <!--  createconference -->
+
+ <xsd:complexType name="createconferenceType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="codecs" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="audio-mixing" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="video-layouts" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="video-switch" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="subscribe" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:any namespace="##other"
+      processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="conferenceid" type="xsd:string" />
+    <xsd:attribute name="reserved-talkers"
+     type="xsd:nonNegativeInteger" default="0" />
+    <xsd:attribute name="reserved-listeners"
+     type="xsd:nonNegativeInteger" default="0" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="createconference" type="createconferenceType" />
+
+ <!--  modifyconference -->
+
+ <xsd:complexType name="modifyconferenceType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="codecs" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="audio-mixing" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="video-layouts" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="video-switch" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="subscribe" />
+     <xsd:any namespace="##other"
+      processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="conferenceid" type="xsd:string"
+     use="required" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="modifyconference" type="modifyconferenceType" />
+
+
+ <!--  destroyconference -->
+
+ <xsd:complexType name="destroyconferenceType">
+ <xsd:complexContent>
+   <xsd:extension base="Tcore">
+   <xsd:sequence>
+    <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   <xsd:attribute name="conferenceid" type="xsd:string"
+   use="required" />
+   </xsd:extension>
+   </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="destroyconference"
+  type="destroyconferenceType" />
+
+
+
+
+ <!--
+  #####################################################
+
+  JOIN TYPES
+
+  #####################################################
+ -->
+
+ <xsd:complexType name="joinType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="stream" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other"
+      processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="id1" type="xsd:string"
+     use="required" />
+    <xsd:attribute name="id2" type="xsd:string"
+     use="required" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="join" type="joinType" />
+
+ <xsd:complexType name="modifyjoinType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="stream" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other"
+      processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="id1" type="xsd:string"
+     use="required" />
+    <xsd:attribute name="id2" type="xsd:string"
+     use="required" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="modifyjoin" type="modifyjoinType" />
+
+
+ <xsd:complexType name="unjoinType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="stream" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other"
+      processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="id1" type="xsd:string"
+     use="required" />
+    <xsd:attribute name="id2" type="xsd:string"
+     use="required" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="unjoin" type="unjoinType" />
+
+ <!--
+  #####################################################
+
+  OTHER TYPES
+
+  #####################################################
+ -->
+
+ <xsd:complexType name="eventType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:choice>
+      <xsd:element ref="active-talkers-notify"
+       minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="unjoin-notify"
+       minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="conferenceexit"
+       minOccurs="0" maxOccurs="1" />
+      <xsd:any namespace="##other" minOccurs="0"
+       maxOccurs="unbounded" processContents="lax" />
+     </xsd:choice>
+    </xsd:sequence>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="event" type="eventType" />
+
+ <xsd:complexType name="activetalkersnotifyType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="active-talker" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="conferenceid" type="xsd:string"
+     use="required" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="active-talkers-notify"
+  type="activetalkersnotifyType" />
+
+
+ <xsd:complexType name="activetalkerType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attributeGroup ref="fw:framework-attributes" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="active-talker" type="activetalkerType" />
+
+
+ <xsd:complexType name="unjoinnotifyType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="status" type="xsd:nonNegativeInteger"
+      use="required" />
+    <xsd:attribute name="reason" type="xsd:string" />
+      <xsd:attribute name="desclang" type="xsd:language"/>
+    <xsd:attribute name="id1" type="xsd:string"
+     use="required" />
+    <xsd:attribute name="id2" type="xsd:string"
+     use="required" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="unjoin-notify" type="unjoinnotifyType" />
+
+
+
+ <!--  conferenceexit-->
+
+ <xsd:complexType name="conferenceexitType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="conferenceid" type="xsd:string"
+     use="required" />
+    <xsd:attribute name="status"
+     type="xsd:nonNegativeInteger" use="required" />
+    <xsd:attribute name="reason" type="xsd:string" />
+      <xsd:attribute name="desclang" type="xsd:language"/>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="conferenceexit" type="conferenceexitType" />
+
+
+
+ <xsd:complexType name="responseType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+   <xsd:sequence>
+    <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="status" type="status.datatype"
+     use="required" />
+    <xsd:attribute name="reason" type="xsd:string" />
+      <xsd:attribute name="desclang" type="xsd:language"/>
+    <xsd:attributeGroup ref="fw:framework-attributes" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+
+ <xsd:element name="response" type="responseType" />
+
+
+ <xsd:complexType name="subscribeType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="active-talkers-sub"
+      minOccurs="0" maxOccurs="1" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="subscribe" type="subscribeType" />
+
+ <xsd:complexType name="activetalkerssubType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="interval"
+     type="xsd:nonNegativeInteger" default="3" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="active-talkers-sub"
+  type="activetalkerssubType" />
+
+
+ <xsd:complexType name="streamType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="volume" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="clamp" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="region" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="priority" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="media" type="media.datatype"
+     use="required" />
+    <xsd:attribute name="label" type="label.datatype" />
+    <xsd:attribute name="direction"
+     type="direction.datatype" default="sendrecv" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="stream" type="streamType" />
+
+
+ <xsd:complexType name="volumeType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="controltype"
+     type="volumecontroltype.datatype" use="required" />
+    <xsd:attribute name="value" type="xsd:string" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="volume" type="volumeType" />
+
+
+ <xsd:complexType name="clampType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="tones" type="xsd:string"
+     default="1 2 3 4 5 6 7 8 9 0 * # A B C D"/>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="clamp" type="clampType" />
+
+
+ <!--  region  -->
+ <xsd:simpleType name="regionType">
+  <xsd:restriction base="xsd:NMTOKEN" />
+ </xsd:simpleType>
+
+ <xsd:element name="region" type="regionType" />
+
+
+ <!--  priority  -->
+ <xsd:simpleType name="priorityType">
+  <xsd:restriction base="xsd:positiveInteger" />
+ </xsd:simpleType>
+
+ <xsd:element name="priority" type="priorityType" />
+
+ <xsd:complexType name="audiomixingType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+   <xsd:sequence>
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="type" type="audiomix.datatype"
+     default="nbest" />
+    <xsd:attribute name="n" type="xsd:nonNegativeInteger"
+     default="0" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="audio-mixing" type="audiomixingType" />
+
+ <!-- video-switch -->
+
+ <xsd:complexType name="videoswitchType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+      <xsd:choice>
+       <xsd:element name="vas" type="Tcore"/>
+       <xsd:element name="controller" type="Tcore"/>
+       <xsd:any namespace="##other" processContents="lax" />
+     </xsd:choice>
+    </xsd:sequence>
+    <xsd:attribute name="interval"
+     type="xsd:nonNegativeInteger" default="3" />
+    <xsd:attribute name="activespeakermix"
+     type="xsd:boolean" default="false" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="video-switch" type="videoswitchType" />
+
+ <!-- video-layouts -->
+
+ <xsd:complexType name="videolayoutsType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="video-layout" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="video-layouts" type="videolayoutsType" />
+
+
+ <!-- video-layout -->
+ <xsd:complexType name="videolayoutType">
+ <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:choice>
+       <xsd:element name="single-view" type="Tcore"/>
+       <xsd:element name="dual-view" type="Tcore"/>
+       <xsd:element name="dual-view-crop" type="Tcore"/>
+       <xsd:element name="dual-view-2x1" type="Tcore"/>
+       <xsd:element name="dual-view-2x1-crop" type="Tcore"/>
+       <xsd:element name="quad-view" type="Tcore"/>
+       <xsd:element name="multiple-3x3" type="Tcore"/>
+       <xsd:element name="multiple-4x4" type="Tcore"/>
+       <xsd:element name="multiple-5x1" type="Tcore"/>
+       <xsd:any namespace="##other" processContents="lax" />
+     </xsd:choice>
+    </xsd:sequence>
+   <xsd:attribute name="min-participants"
+     type="xsd:positiveInteger" default="1" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="video-layout" type="videolayoutType" />
+
+ <xsd:complexType name="auditType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+   <xsd:sequence>
+   <xsd:any namespace="##other" minOccurs="0"
+    maxOccurs="unbounded" processContents="lax" />
+   </xsd:sequence>
+    <xsd:attribute name="capabilities"
+     type="xsd:boolean" default="true" />
+    <xsd:attribute name="mixers" type="xsd:boolean"
+     default="true" />
+    <xsd:attribute name="conferenceid" type="xsd:string" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="audit" type="auditType" />
+
+
+ <xsd:complexType name="auditresponseType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="capabilities" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="mixers" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="status" type="status.datatype"
+     use="required" />
+    <xsd:attribute name="reason" type="xsd:string" />
+      <xsd:attribute name="desclang" type="xsd:language"/>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="auditresponse" type="auditresponseType" />
+
+ <!-- mixers -->
+
+ <xsd:complexType name="mixersType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="conferenceaudit" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:element ref="joinaudit" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="mixers" type="mixersType" />
+
+ <!--  joinaudit -->
+
+ <xsd:complexType name="joinauditType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:any namespace="##other"
+      processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="id1" type="xsd:string"
+     use="required" />
+    <xsd:attribute name="id2" type="xsd:string"
+     use="required" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="joinaudit" type="joinauditType" />
+
+ <!-- conferenceaudit -->
+
+ <xsd:complexType name="conferenceauditType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="codecs" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="participants" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="video-layout" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="conferenceid" type="xsd:string"
+     use="required" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="conferenceaudit" type="conferenceauditType" />
+
+
+ <!-- participants -->
+
+ <xsd:complexType name="participantsType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="participant" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="participants" type="participantsType" />
+
+ <!-- participant -->
+
+ <xsd:complexType name="participantType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:string"
+     use="required" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="participant" type="participantType" />
+
+ <!-- capabilities -->
+
+ <xsd:complexType name="capabilitiesType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="codecs" minOccurs="1"
+      maxOccurs="1" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="capabilities" type="capabilitiesType" />
+
+
+ <!-- codecs -->
+
+ <xsd:complexType name="codecsType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="codec" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="codecs" type="codecsType" />
+
+ <!-- codec -->
+
+ <xsd:complexType name="codecType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="subtype" minOccurs="1"
+      maxOccurs="1" />
+     <xsd:element ref="params" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+     <xsd:attribute name="name" type="xsd:string"
+     use="required" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="codec" type="codecType" />
+
+ <!-- subtype -->
+
+ <xsd:simpleType name="subtypeType">
+  <xsd:restriction base="xsd:string" />
+ </xsd:simpleType>
+
+ <xsd:element name="subtype" type="subtypeType" />
+
+
+ <!-- params -->
+ <xsd:complexType name="paramsType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="param" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="params" type="paramsType" />
+
+
+ <!--  param -->
+    <!--  doesn't extend tCore since its content model is mixed -->
+ <xsd:complexType name="paramType" mixed="true">
+  <xsd:sequence/>
+  <xsd:attribute name="name" type="xsd:string" use="required" />
+  <xsd:attribute name="type" type="mime.datatype"
+  default="text/plain" />
+     <xsd:attribute name="encoding" type="xsd:string"/>
+ </xsd:complexType>
+ <xsd:element name="param" type="paramType" />
+
+
+ <!--
+  ####################################################
+
+  DATATYPES
+
+  ####################################################
+ -->
+
+<xsd:simpleType name="version.datatype">
+  <xsd:restriction base="xsd:NMTOKEN">
+   <xsd:enumeration value="1.0" />
+  </xsd:restriction>
+ </xsd:simpleType>
+
+ <xsd:simpleType name="eventname.datatype">
+  <xsd:restriction base="xsd:NMTOKEN">
+   <xsd:pattern value="[a-zA-Z0-9\.]+" />
+  </xsd:restriction>
+ </xsd:simpleType>
+
+ <xsd:simpleType name="audiomix.datatype">
+  <xsd:restriction base="xsd:NMTOKEN">
+   <xsd:enumeration value="nbest" />
+   <xsd:enumeration value="controller" />
+  </xsd:restriction>
+ </xsd:simpleType>
+
+ <xsd:simpleType name="media.datatype">
+  <xsd:restriction base="xsd:string" />
+ </xsd:simpleType>
+
+ <xsd:simpleType name="label.datatype">
+  <xsd:restriction base="xsd:string" />
+ </xsd:simpleType>
+
+ <xsd:simpleType name="status.datatype">
+  <xsd:restriction base="xsd:positiveInteger">
+   <xsd:pattern value="[0-9][0-9][0-9]" />
+  </xsd:restriction>
+ </xsd:simpleType>
+
+ <xsd:simpleType name="direction.datatype">
+  <xsd:restriction base="xsd:NMTOKEN">
+   <xsd:enumeration value="sendonly" />
+   <xsd:enumeration value="recvonly" />
+   <xsd:enumeration value="sendrecv" />
+   <xsd:enumeration value="inactive" />
+  </xsd:restriction>
+ </xsd:simpleType>
+
+
+ <xsd:simpleType name="mime.datatype">
+  <xsd:restriction base="xsd:string" />
+ </xsd:simpleType>
+
+
+ <xsd:simpleType name="volumecontroltype.datatype">
+  <xsd:restriction base="xsd:NMTOKEN">
+   <xsd:enumeration value="automatic" />
+   <xsd:enumeration value="setgain" />
+   <xsd:enumeration value="setstate" />
+  </xsd:restriction>
+ </xsd:simpleType>
+
+
+</xsd:schema>

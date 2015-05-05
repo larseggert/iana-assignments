@@ -1,0 +1,58 @@
+(RFC 5109 published December 2007, subtype last updated December 2007)
+
+Type name: application
+
+Subtype name: ulpfec
+
+Required parameters:
+
+rate: The RTP timestamp rate that is used to mark the time of
+   transmission of the FEC packet in a separate stream.  In cases in
+   which it is sent as redundant data to another stream, the rate
+   SHALL be the same as the primary encoding it is used to protect.
+   When used in a separate stream, the rate SHALL be larger than 1000
+   Hz to provide sufficient resolution to RTCP operations.  The
+   selected rate MAY be any value above 1000 Hz, but is RECOMMENDED
+   to match the rate of the media this stream protects.
+
+Optional parameters:
+
+onelevelonly: This specifies whether only one level of FEC protection
+   is used.  The permissible values are 0 and 1.  If 1 is signaled,
+   only one level of FEC protection SHALL be used in the stream.  If
+   0 is signaled, more than one level of FEC protection MAY be used.
+   If omitted, it has the default value of 0.
+
+Encoding considerations: This format is framed (see Section 4.8 in
+the template document [3]) and contains binary data.
+
+Security considerations: The same security considerations apply to
+these media type registrations as to the payloads for them, as
+detailed in RFC 5109.
+
+Interoperability considerations: none
+
+Published specification: RFC 5109
+
+Applications that use this media type: Multimedia applications that
+seek to improve resiliency to loss by sending additional data with
+the media stream.
+
+Additional information: none
+
+Person & email address to contact for further information:
+   Adam Li adamli&hyervision.com
+   IETF Audio/Video Transport Working Group
+
+Intended usage: COMMON
+
+Restrictions on usage: This media type depends on RTP framing, and
+hence is only defined for transfer via RTP [1].  Transport within
+other framing protocols SHALL NOT be defined as this is a robustness
+mechanism for RTP.
+
+Author:
+   Adam Li adamli&hyervision.com
+
+Change controller:
+   IETF Audio/Video Transport Working Group delegated from the IESG.

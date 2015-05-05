@@ -1,0 +1,224 @@
+<?xml version='1.0'?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  ns="http://www.iana.org/assignments">
+
+  <include href="../_support/iana-registry.rng"/>
+
+  <define name="value_name_xref">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <zeroOrMore>
+        <element name="record">
+          <optional>
+            <attribute name="date"><ref name="genericDate"/></attribute>
+          </optional>
+          <optional>
+            <attribute name="updated"><ref name="genericDate"/></attribute>
+          </optional>
+          <element name="value"><ref name="genericRange"/></element>
+          <element name="name"><text/></element>
+          <ref name="references"/>
+        </element>
+      </zeroOrMore>
+      <ref name="footnotes"/>
+    </element>
+  </define>
+
+  <define name="permissiveRange_name_xref">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <zeroOrMore>
+        <element name="record">
+          <optional>
+            <attribute name="date"><ref name="genericDate"/></attribute>
+          </optional>
+          <optional>
+            <attribute name="updated"><ref name="genericDate"/></attribute>
+          </optional>
+          <element name="value"><data type="string">
+              <param name="pattern">[\da-fA-Fx]+(\s*-\s*([\da-fA-Fx]+))?</param>
+          </data></element>
+          <element name="name">
+            <ref name="text_with_references"/>
+          </element>
+          <ref name="references"/>
+        </element>
+      </zeroOrMore>
+      <ref name="footnotes"/>
+    </element>
+  </define>
+
+
+  <start>
+    <element name="registry">
+      <ref name="registryMeta"/>
+
+      <!-- PPP DLL Protocol Numbers -->
+      <ref name="permissiveRange_name_xref"/>
+
+      <!-- PPP Link Control Protocol (LCP) and Internet Protocol Control Protocol (IPCP) Codes -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional>
+              <attribute name="date"><ref name="genericDate"/></attribute>
+            </optional>
+            <optional>
+            <attribute name="updated"><ref name="genericDate"/></attribute>
+          </optional>
+            <element name="value"><ref name="genericRange"/></element>
+            <element name="name"><text/></element>
+            <ref name="references"/>
+            <optional>
+              <element name="note"><text/></element>
+            </optional>
+          </element>
+        </zeroOrMore>
+        <ref name="footnotes"/>
+      </element>
+
+      <!-- PPP LCP Configuration Option Types -->
+      <ref name="value_name_xref"/>
+
+      <!-- PPP TNCP Configuration Option Types -->
+      <ref name="value_name_xref"/>
+
+      <!-- PPP ECP Configuration Option Types -->
+      <ref name="value_name_xref"/>
+
+      <!-- PPP CCP Configuration Option Types -->
+      <ref name="value_name_xref"/>
+
+      <!-- PPP SDCP Configuration Options -->
+      <ref name="value_name_xref"/>
+
+      <!-- PPP Authentication Algorithms -->
+      <ref name="value_name_xref"/>
+
+      <!-- PPP LCP FCS-Alternatives -->
+      <ref name="value_name_xref"/>
+
+      <!-- PPP Multilink Endpoint Discriminator Class -->
+      <ref name="value_name_xref"/>
+
+      <!-- PPP LCP Callback Operation Fields -->
+      <ref name="value_name_xref"/>
+
+      <!-- PPP ATCP Configuration Option Types -->
+      <ref name="value_name_xref"/>
+
+      <!-- PPP OSINLCP Configuration Option Types -->
+      <ref name="value_name_xref"/>
+
+      <!-- PPP Banyan Vines Configuration Option Types -->
+      <ref name="value_name_xref"/>
+
+      <!-- PPP Bridging Configuration Option Types -->
+      <ref name="value_name_xref"/>
+
+      <!-- PPP Bridging MAC Types -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional>
+              <attribute name="date"><ref name="genericDate"/></attribute>
+            </optional>
+            <optional>
+            <attribute name="updated"><ref name="genericDate"/></attribute>
+          </optional>
+            <element name="value"><ref name="genericRange"/></element>
+            <element name="name"><text/></element>
+            <optional>
+              <element name="format"><text/></element>
+            </optional>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+      </element>
+
+      <!-- PPP Bridging Spanning Tree -->
+      <ref name="value_name_xref"/>
+
+      <!-- PPP (IPXCP) Configuration Options -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional>
+              <attribute name="date"><ref name="genericDate"/></attribute>
+            </optional>
+            <optional>
+            <attribute name="updated"><ref name="genericDate"/></attribute>
+          </optional>
+            <element name="value"><ref name="genericRange"/></element>
+            <element name="name"><text/></element>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+        <!-- IPX Compression Protocol Values (Value 3) -->
+        <ref name="value_name_xref"/>
+
+        <!-- IPX Routing Protocol Options (Value 4) -->
+        <ref name="value_name_xref"/>
+
+        <ref name="footnotes"/>
+      </element>
+
+      <!-- NetBIOS Frames Control Protocol (NBFCP) Configuration Options -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional>
+              <attribute name="date"><ref name="genericDate"/></attribute>
+            </optional>
+            <optional>
+            <attribute name="updated"><ref name="genericDate"/></attribute>
+          </optional>
+            <element name="value"><ref name="genericRange"/></element>
+            <element name="name"><text/></element>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+
+        <!-- NBFCP Configuration Options - Name-Projection 'Added' field (value 1) -->
+        <ref name="permissiveRange_name_xref"/>
+
+        <!-- NBFCP Configuration Options - Peer-Information (value 2) -->
+        <ref name="value_name_xref"/>
+
+        <ref name="footnotes"/>
+      </element>
+
+      <!-- PPP EAP Request/Response Types  -->
+      <ref name="value_name_xref"/>
+
+      <!-- PPP Vendor Specific OUI Options -->
+      <ref name="permissiveRange_name_xref"/>
+
+      <!-- PPP IPCP Configuration Option Types -->
+      <ref name="value_name_xref"/>
+
+      <!-- PPP IPv6CP Configuration Options -->
+      <ref name="value_name_xref"/>
+
+      <!-- IP-Compression-Protocol Types -->
+      <ref name="permissiveRange_name_xref"/>
+
+      <!-- IPv6-Compression-Protocol Types -->
+      <ref name="permissiveRange_name_xref"/>
+
+      <!-- Header Compression Configuration Option Suboption -->
+      <ref name="value_name_xref"/>
+
+      <!-- ROHC Configuration Option Suboption Identifier Values  -->
+      <ref name="value_name_xref"/>
+
+      <ref name="people"/>
+    </element>
+  </start>
+
+</grammar>

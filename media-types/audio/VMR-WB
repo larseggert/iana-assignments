@@ -1,0 +1,99 @@
+(registered by RFC4348; optional parameters updated by RFC4424)
+
+   Note, the receiver MUST ignore any unspecified parameter and use the
+   default values instead.  Also note that if no input parameters are
+   defined, the default values will be used.
+
+Media Type name:      audio
+
+Media subtype name:   VMR-WB
+
+Required parameters:  none
+
+Furthermore, if the interleaving parameter is present, the parameter
+"octet-align=1" MUST also be present.
+
+OPTIONAL parameters:
+
+  mode-set:       Requested VMR-WB operating mode set.  Restricts
+                  the active operating modes to a subset of all
+                  modes.  Possible values are a comma-separated
+                  list of integer values.  Currently, this list
+                  includes modes 0, 1, 2, 3, and 4 
+                  [3GPP2 C.S0052-A v1.0][RFC4424], but MAY be
+                  extended in the future.  If such mode-set is
+                  specified during session initiation, the encoder
+                  MUST NOT use modes outside of the subset.  If not
+                  present, all operating modes in the set 0 to 4 are
+                  allowed for the session.
+
+  channels:       The number of audio channels.  The possible
+                  values and their respective channel order
+                  is specified in Section 4.1 in [6].  If
+                  omitted, it has the default value of 1.
+
+  octet-align:    RTP payload format; permissible values are 0 and
+                  1.  If 1, octet-aligned payload format SHALL be
+                  used.  If 0 or if not present, header-free payload
+                  format is employed (default).
+
+  maxptime:       See RFC 3267 [4]
+
+
+  interleaving:   Indicates that frame-block level
+                  interleaving SHALL be used for the session.
+                  Its value defines the maximum number of
+                  frame-blocks allowed in an interleaving
+                  group (see Section 6.3.1).  If this
+                  parameter is not present, interleaving
+                  SHALL NOT be used.  The presence of this
+                  parameter also implies automatically that
+                  octet-aligned operation SHALL be used.
+
+  ptime:          See RFC2327 [5].  It SHALL be at least one
+                  frame size for VMR-WB.
+
+  dtx:            Permissible values are 0 and 1.  The default
+                  is 0 (i.e., No DTX) where VMR-WB normally
+                  operates as a continuous variable-rate
+                  codec.  If dtx=1, the VMR-WB codec will
+                  operate in discontinuous transmission mode
+                  where silence descriptor (SID) frames are
+                  sent by the VMR-WB encoder during silence
+                  intervals with an adjustable update
+                  frequency.  The selection of the SID update-rate
+                  depends on the implementation and
+                  other network considerations that are
+                  beyond the scope of this specification.
+
+Encoding considerations:
+
+       This type is only defined for transfer of VMR-WB-encoded data
+       via RTP (RFC 3550) using the payload formats specified in
+       Section 6 of RFC 4348.
+
+Security considerations:
+
+       See Section 8 of RFC 4348.
+
+Public specification:
+
+       The VMR-WB speech codec is specified in
+       3GPP2 specifications C.S0052-0 version 1.0.
+       Transfer methods are specified in RFC 4348.
+
+Additional information:
+
+Person & email address to contact for further information:
+
+       Sassan Ahmadi, Ph.D.        sassan.ahmadi&ieee.org
+
+Intended usage: COMMON.
+
+  It is expected that many VoIP, multimedia messaging and
+  streaming applications (as well as mobile applications)
+  will use this type.
+
+Author/Change controller:
+
+  IETF Audio/Video Transport working group delegated from the IESG

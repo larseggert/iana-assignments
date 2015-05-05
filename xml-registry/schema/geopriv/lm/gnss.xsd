@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<xs:schema
+    xmlns:gnss="urn:ietf:params:xml:ns:geopriv:lm:gnss"
+    xmlns:bt="urn:ietf:params:xml:ns:geopriv:lm:basetypes"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="urn:ietf:params:xml:ns:geopriv:lm:gnss"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified">
+
+  <xs:annotation>
+    <xs:appinfo
+    source="urn:ietf:params:xml:schema:geopriv:lm:gnss">
+    </xs:appinfo>
+    <xs:documentation source="http://www.rfc-editor.org/rfc/rfc7105.txt">
+      This schema defines a set of GNSS location measurements
+    </xs:documentation>
+  </xs:annotation>
+
+ <xs:import namespace="urn:ietf:params:xml:ns:geopriv:lm:basetypes"/>
+
+  <!-- GNSS -->
+  <xs:element name="gnss" type="gnss:gnssMeasurementType">
+    <xs:unique name="gnssSatellite">
+      <xs:selector xpath="sat"/>
+      <xs:field xpath="@num"/>
+    </xs:unique>
+  </xs:element>
+
+  <xs:complexType name="gnssMeasurementType">
+    <xs:complexContent>
+      <xs:restriction base="xs:anyType">
+    <xs:sequence>
+      <xs:element name="gnssTime" type="bt:nnDoubleWithRMSError"
+              minOccurs="0"/>
+      <xs:element name="sat" type="gnss:gnssSatelliteType"
+              minOccurs="1" maxOccurs="64"/>
+      <xs:any namespace="##other" processContents="lax"
+          minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="system" type="xs:token" use="required"/>
+    <xs:attribute name="signal" type="xs:token"/>
+    <xs:anyAttribute namespace="##any" processContents="lax"/>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="gnssSatelliteType">
+    <xs:complexContent>
+      <xs:restriction base="xs:anyType">
+    <xs:sequence>
+      <xs:element name="doppler" type="bt:doubleWithRMSError"/>
+      <xs:element name="codephase"
+              type="bt:nnDoubleWithRMSError"/>
+      <xs:element name="cn0" type="bt:nonNegativeDouble"/>
+      <xs:element name="mp" type="bt:positiveDouble"
+              minOccurs="0"/>
+      <xs:element name="cq" type="gnss:codePhaseQualityType"
+              minOccurs="0"/>
+      <xs:element name="adr" type="xs:double" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="num" type="xs:positiveInteger"
+              use="required"/>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="codePhaseQualityType">
+    <xs:complexContent>
+      <xs:restriction base="xs:anyType">
+    <xs:attribute name="continuous" type="xs:boolean"
+              default="true"/>
+    <xs:attribute name="direct" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="direct"/>
+          <xs:enumeration value="inverted"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

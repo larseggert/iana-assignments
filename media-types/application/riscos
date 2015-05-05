@@ -1,0 +1,99 @@
+
+
+Date: Wed, 21 Jun 1995 16:48:16 +0100 (BST)
+From: Nick Smith <nas&ant.co.uk>
+
+
+MIME type name: application
+
+MIME subtype name: riscos
+
+Required parameters: none
+
+Optional parameters: name, type, load, exec, access
+
+Encoding considerations:
+
+Acorn RISC OS filetypes cover a wide range of file formats, some of
+which are 7-bit ASCII, but mostly are 8-bit binary formats. There are
+no (RISC OS imposed) limits on line lengths. Parts will typically be
+encoded as 7bit or Base64.
+
+Security considerations:
+
+Executable images may be sent with this subtype - the user should
+explicitly make the decision to run any executable, not the MUA.
+
+Published specification:
+
+This document. For further details, see the RISC OS Programmers
+Reference Manuals, published by Acorn Computers Ltd, ISBN
+1-85250-110-3.
+
+Parameters
+----------
+
+NAME=3D3D"<filename>,<filetype>"
+
+Name parameter can give just filename, or the fully specified
+filepath, with a 3 or 4 digit hex number that is the encoded filetype
+of the file contained. If the filetype field is missing, then choose a
+sensible default based on the encoding type.  
+
+  eg, NAME=3D3D"README,fff" 
+  eg, NAME=3D3D"SCSI::HardDisc.$.Mail.SpoolFile,0dc"
+  
+TYPE=3D3D"<filetype>"
+
+Filetype in textual form. The remote MUA may not understand a
+particular filetype (because the user does not have the relevant
+editor package), and so this field can clue the user as to what they
+need to run the file.  This field has a maximum width of 8 bytes, and
+may contain spaces.
+
+  eg, TYPE=3D3D"Text"
+  eg, TYPE"ImpDoc"
+  
+LOAD=3D3D<load addr>
+
+Load address of file, as an 8-digit hex number (32-bit word). In the
+case of a filetyped file, this contains the filetype, and part of the
+coded 5-byte time-date stamp for the file (see PRMs for more details).
+
+  eg, LOAD=3D3D&FFF01234
+
+EXEC=3D3D<exec addr>
+
+Execution address of file, as an 8-digit hex number (32-bit word).  In
+the case of a filetyped file, this contains part of the encoded 5-byte
+time- date stamp for the file (see PRMs for more details).
+
+  eg, EXEC=3D3D&0035FD23
+  
+ACCESS=3D3D<access byte>
+
+This is the encoded file access bits as a 2-digit hex number (8-bit
+byte).  Currently only certain bit fields are defined to map to access
+permissions.  See PRMs for details of currently defined bit fields.
+
+  eg, ACCESS=3D3D&02
+      
+Person & email address to contact for further information:
+
+N.A.Smith, ANT Limited,PO Box 300,Cambridge,CB1 2EG, UK.
+<nas&ant.co.uk>
+
+N.B.Van Someren, 24 Hooper Street,Cambridge,CB1 2NZ, UK.
+<nicko&ant.co.uk>
+
+[]
+
+
+
+
+
+
+
+
+
+

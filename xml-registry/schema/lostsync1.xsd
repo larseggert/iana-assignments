@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<grammar ns="urn:ietf:params:xml:ns:lostsync1"
+        xmlns="http://relaxng.org/ns/structure/1.0"
+        xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+        datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+            <include href="lost.rng"/>
+
+            <start combine="choice">
+
+             <a:documentation> Location-to-Service Translation (LoST) Synchronization Protocol</a:documentation>
+
+                <choice>
+                    <ref name="pushMappings"/>
+                    <ref name="pushMappingsResponse"/>
+                    <ref name="getMappingsRequest"/>
+                    <ref name="getMappingsResponse"/>
+                </choice>
+            </start>
+
+
+            <define name="pushMappings">
+                <element name="pushMappings">
+                        <oneOrMore>
+                            <ref name="mapping"/>
+                        </oneOrMore>
+
+                    <ref name="extensionPoint"/>
+                </element>
+            </define>
+
+            <define name="pushMappingsResponse">
+                <element name="pushMappingsResponse">
+                    <ref name="extensionPoint"/>
+                </element>
+            </define>
+
+             <define name="getMappingsRequest">
+                  <element name="getMappingsRequest">
+                    <choice>
+                         <ref name="exists"></ref>
+                         <ref name="extensionPoint"/>
+                    </choice>
+                </element>
+            </define>
+
+             <define name="exists">
+                  <element name="exists">
+                       <oneOrMore>
+                            <element name="mapping-fingerprint">
+                                 <attribute name="source">
+                                      <data type="token"/>
+                                 </attribute>
+                                 <attribute name="sourceId">
+                                      <data type="token"/>
+                                 </attribute>
+                                 <attribute name="lastUpdated">
+                                      <data type="dateTime"/>
+                                 </attribute>
+                                 <ref name="extensionPoint"/>
+                            </element>
+                       </oneOrMore>
+                  </element>
+             </define>
+
+            <define name="getMappingsResponse">
+                <element name="getMappingsResponse">
+                        <oneOrMore>
+                            <ref name="mapping"/>
+                        </oneOrMore>
+                    <ref name="extensionPoint"/>
+                </element>
+            </define>
+
+             <!-- error messages -->
+
+             <define name="notDeleted">
+                  <element name="notDeleted">
+                       <ref name="basicException"/>
+                       <oneOrMore>
+                            <ref name="mapping"/>
+                       </oneOrMore>
+                  </element>
+             </define>
+        </grammar>

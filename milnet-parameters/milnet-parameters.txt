@@ -1,0 +1,188 @@
+                                                         Milnet Parameters - Registry closed
+
+   Last Updated
+           2001-08-23
+
+   Available Formats
+           [IMG]
+           XML [IMG]
+           HTML [IMG]
+           Plain text
+
+   Registries included below
+
+     * Milnet Link Numbers
+     * Milnet Logical Addresses
+     * Milnet X.25 Address Mappings
+
+Milnet Link Numbers
+
+   Registration Procedure(s)
+
+ Registry closed
+
+   Note
+
+ The word "link" here refers to a field in the original MILNET Host/IMP
+ interface leader.  The link was originally defined as an 8-bit field.
+ Later specifications defined this field as the "message-id" with a
+ length of 12 bits.  The name link now refers to the high order 8 bits of
+ this 12-bit message-id field.  The Host/IMP interface is defined in BBN
+ Report 1822 [BBN, "Specifications for the Interconnection of a Host and
+ an IMP", Report 1822, Bolt Beranek and Newman, Cambridge,
+ Massachusetts, revised, December 1981.].
+
+ The low-order 4 bits of the message-id field are called the sub-link.
+ Unless explicitly specified otherwise for a particular protocol, there
+ is no sender to receiver significance to the sub-link.  The sender may
+ use the sub-link in any way he chooses (it is returned in the RFNM by
+ the destination IMP), the receiver should ignore the sub-link.
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Decimal           Description                                                           Reference
+    0-63   BBNCC Monitoring                 [Michael_Brescia]
+   64-149  Unassigned                       [Jon_Postel]
+                                            ["The Ethernet, A Local Area Network: Data Link Layer and Physical Layer Specification", AA-K759B-TK,
+                                            Digital Equipment Corporation, Maynard, MA. Also as: "The Ethernet - A Local Area Network", Version
+     150   Xerox NS IDP                     1.0, Digital Equipment Corporation, Intel Corporation, Xerox Corporation, September 1980. And: "The
+                                            Ethernet, A Local Area Network: Data Link Layer and Physical Layer Specifications", Digital, Intel and
+                                            Xerox, November 1982. And: XEROX, "The Ethernet, A Local Area Network: Data Link Layer and Physical
+                                            Layer Specification", X3T51/80-50, Xerox Corporation, Stamford, CT., October 1980.][Fonda_Pallone]
+     151   Unassigned                       [Jon_Postel]
+                                            [Boggs, D., J. Shoch, E. Taft, and R. Metcalfe, "PUP: An Internetwork Architecture", XEROX Palo Alto
+     152   PARC Universal Protocol          Research Center, CSL-79-10, July 1979; also in IEEE Transactions on Communication, Volume COM-28,
+                                            Number 4, April 1980.][Fonda_Pallone]
+     153   TIP Status Reporting             [Jim_Herman]
+     154   TIP Accounting                   [Jim_Herman]
+     155   Internet Protocol [regular]      [RFC791][Jon_Postel]
+   156-158 Internet Protocol [experimental] [RFC791][Jon_Postel]
+     159   Figleaf Link                     [Joseph_Walters_Jr]
+     160   Blacker Local Network Protocol   [Dennis_Morris]
+   161-194 Unassigned                       [Jon_Postel]
+     195   ISO-IP                           [RFC926][Robert_Myhill]
+   196-247 Experimental Protocols           [Jon_Postel]
+   248-255 Network Maintenance              [Jim_Herman]
+
+Milnet Logical Addresses
+
+   Registration Procedure(s)
+
+ Registry closed
+
+   Note
+
+ The MILNET facility for "logical addressing" is described in [RFC878]
+ and [RFC1005].  A portion of the possible logical addresses are
+ reserved for standard uses.
+
+ There are 49,152 possible logical host addresses.  Of these, 256 are
+ reserved for assignment to well-known functions.  Assignments for
+ well-known functions are made by the IANA.  Assignments for other
+ logical host addresses are made by the NIC.
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Decimal      Description          Reference
+      0    Reserved              [Jon_Postel]
+      1    The BBN Core Gateways [Michael_Brescia]
+    2-254  Unassigned            [Jon_Postel]
+     255   Reserved              [Jon_Postel]
+
+Milnet X.25 Address Mappings
+
+   Registration Procedure(s)
+
+ Registry closed
+
+   Note
+
+ All MILNET hosts are assigned addresses by the Defense Data Network
+ (DDN).  The address of a MILNET host may be obtained from the Network
+ Information Center (NIC), represented as an ASCII text string in what
+ is called "host table format".  This section describes the process by
+ which MILNET X.25 addresses may be derived from addresses in the NIC
+ host table format.
+
+ A NIC host table address consists of the ASCII text string
+ representations of four decimal numbers separated by periods,
+ corresponding to the four octeted of a thirty-two bit Internet
+ address.  The four decimal numbers are referred to in this section as
+ "n", "h' "l", and "i".  Thus, a host table address may be represented
+ as: "n.h.l.i".  Each of these four numbers will have either one, two,
+ or three decimal digits and will never have a value greater than 255.
+ For example, in the host table, address: "10.2.0.124", n=10, h=2, l=0,
+ and i=124.  To convert a host table address to a MILNET X.25 address:
+
+ 1.  If h < 64, the host table address corresponds to the X.25
+ physical address:
+
+
+ ZZZZ F IIIHHZZ (SS)
+
+ where:
+
+      ZZZZ = 0000    as required
+
+      F = 0          because the address is a physical address;
+
+      III            is a three decimal digit respresentation of
+                     "i", right-adjusted and padded with leading
+                     zeros if required;
+
+      HH             is a two decimal digit representation of "h",
+                     right-adjusted and padded with leading zeros
+                     if required;
+
+      ZZ = 00        and
+
+      (SS)           is optional
+
+
+ In the example given above, the host table address 10.2.0.124
+ corresponds to the X.25 physical address 000001240200.
+
+ 2.  If h > 64 or h = 64, the host table address corresponds to the
+ X.25 logical address
+
+
+ ZZZZ F RRRRRZZ (SS)
+
+ where:
+
+      ZZZZ = 0000    as required
+
+      F = 1          because the address is a logical address;
+
+      RRRRR          is a five decimal digit representation of
+                     the result "r" of the calculation
+
+                              r = h * 256 + i
+
+                     (Note that the decimal representation of
+                     "r" will always require five digits);
+
+      ZZ = 00        and
+
+      (SS)           is optional
+
+ Thus, the host table address 10.83.0.207 corresponds to the X.25
+ logical address 000012145500.
+
+ In both cases, the "n" and "l" fields of the host table address are
+ not used.
+
+                                                                        People
+
+           ID                 Name                   Contact URI           Last Updated
+   [Dennis_Morris]     Dennis Morris       mailto:Morrisd&imo-uvax.dca.mil
+   [Fonda_Pallone]     Fonda Pallone
+   [Jim_Herman]        Jim Herman          mailto:Herman&ccj.bbn.com
+   [Jon_Postel]        Jon Postel          mailto:postel&isi.edu
+   [Joseph_Walters_Jr] Joseph Walters, Jr. mailto:JWalters&BBN.COM
+   [Michael_Brescia]   Michael Brescia     mailto:Brescia&ccv.bbn.com
+   [Robert_Myhill]     Robert Myhill       mailto:Myhill&ccs.bbn.com

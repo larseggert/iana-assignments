@@ -1,0 +1,57 @@
+(last updated 2010-03-08)
+
+Name : GeoGebra
+
+Email : office&geogebra.org
+
+MIME media type name : Application
+
+MIME subtype name : Vendor Tree - vnd.geogebra.tool
+
+Required parameters :
+
+Optional parameters :
+
+
+Encoding considerations : binary
+This media type may require encoding on transports not capable of handling binary.
+
+Security considerations :
+There has been no examination of possible security risks associated
+with GeoGebra files.
+
+Interoperability considerations :
+This file format is cross-platform. Files are encoded in UTF-8 and
+compressed using zip.
+
+Published specification :
+
+
+Applications which use this media :
+Currently this media type is used only by GeoGebra (http://www.geogebra.org), a
+free and multi-platform dynamic mathematics software for schools that joins
+geometry, algebra and calculus.
+
+Additional information :
+
+1. Magic number(s) : NOT USED
+2. File extension(s) : ggt
+3. Macintosh file type code : NOT USED
+4. Object Identifiers: NOT USED
+
+
+
+Person to contact for further information :
+
+1. Name : Dr. Yves Kreis
+2. Email : yves&geogebra.org
+
+Intended usage : Common
+This mime type shall be used to identify macro files for the multi-platform
+dynamic mathematics software GeoGebra.
+
+Author/Change controller : Dr. Markus Hohenwarter (markus&geogebra.org)
+Dr. Yves Kreis (yves&geogebra.org)
+
+
+(file created 2009-03-13)

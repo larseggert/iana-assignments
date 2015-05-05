@@ -1,0 +1,468 @@
+                                                        Internet Key Exchange (IKE) Attributes
+
+   Last Updated
+           2013-05-23
+
+   Note
+
+ Attribute Assigned Numbers
+
+ Attributes negotiated during phase one use the following definitions.
+ Phase two attributes are defined in the applicable DOI specification
+ (for example, IPsec attributes are defined in the IPsec DOI), with the
+ exception of a group description when Quick Mode includes an ephemeral
+ Diffie-Hellman exchange.  Attribute types can be either Basic (B) or
+ Variable-length (V). Encoding of these attributes is defined in the
+ base ISAKMP specification as Type/Value (Basic) and Type/Length/Value
+ (Variable).
+
+ Attributes described as basic MUST NOT be encoded as variable.
+ Variable length attributes MAY be encoded as basic attributes if their
+ value can fit into two octets. If this is the case, an attribute
+ offered as variable (or basic) by the initiator of this protocol MAY
+ be returned to the initiator as a basic (or variable).
+
+   Available Formats
+           [IMG]
+           XML [IMG]
+           HTML [IMG]
+           Plain text
+
+   Registries included below
+
+     * Attribute Classes
+     * Encryption Algorithm Class Values (Value 1)
+     * Hash Algorithm (Value 2)
+     * IPSEC Authentication Methods (Value 3)
+     * Group Description (Value 4)
+     * Group Type (Value 5)
+     * Life Type (Value 11)
+     * PRF (Value 13)
+     * Exchange Type
+     * Additional Exchanges Defined-- XCHG values
+     * ISAKMP Domain of Interpretation (DOI)
+     * Next Payload Types
+     * Notify Message Types
+     * Notify Messages - Error Types (1-8191)
+
+          * Notify Messages - Status Types (16384-24575)
+
+Attribute Classes
+
+   Reference
+           [RFC2409]
+
+   Available Formats
+           [IMG]
+           CSV
+
+      Range                      Registration Procedures
+     1-16383   Standards-track RFC
+   16384-32767 Reserved for private use among mutually consenting parties.
+
+      Value                  Class                Type Reference
+        1      Encryption Algorithm               B    [RFC2409]
+        2      Hash Algorithm                     B    [RFC2409]
+        3      Authentication Method              B    [RFC2409]
+        4      Group Description                  B    [RFC2409]
+        5      Group Type                         B    [RFC2409]
+        6      Group Prime/Irreducible Polynomial V    [RFC2409]
+        7      Group Generator One                V    [RFC2409]
+        8      Group Generator Two                V    [RFC2409]
+        9      Group Curve A                      V    [RFC2409]
+       10      Group Curve B                      V    [RFC2409]
+       11      Life Type                          B    [RFC2409]
+       12      Life Duration                      V    [RFC2409]
+       13      PRF                                B    [RFC2409]
+       14      Key Length                         B    [RFC2409]
+       15      Field Size                         B    [RFC2409]
+       16      Group Order                        V    [RFC2409]
+    17-16383   Unassigned
+   16384-32767 Reserved for private use
+
+Encryption Algorithm Class Values (Value 1)
+
+   Reference
+           [RFC2409]
+
+   Available Formats
+           [IMG]
+           CSV
+
+      Range                      Registration Procedures
+     1-65000   Specification required
+   65001-65535 Reserved for private use among mutually consenting parties.
+
+      Value      Ecryption Algorithm    Reference
+        0      Reserved
+        1      DES-CBC                  [RFC2405]
+        2      IDEA-CBC                 [RFC2409]
+        3      Blowfish-CBC             [RFC2409]
+        4      RC5-R16-B64-CBC          [RFC2409]
+        5      3DES-CBC                 [RFC2409]
+        6      CAST-CBC                 [RFC2409]
+        7      AES-CBC                  [RFC3602]
+        8      CAMELLIA-CBC             [RFC4312]
+     9-65000   Unassigned
+   65001-65535 Reserved for private use
+
+Hash Algorithm (Value 2)
+
+   Reference
+           [RFC2409]
+
+   Available Formats
+           [IMG]
+           CSV
+
+      Range                      Registration Procedures
+     1-65000   Specification required
+   65001-65535 Reserved for private use among mutually consenting parties.
+
+      Value         Hash Algorithm                                             Reference
+        0      Reserved
+        1      MD5                      [RFC1321]
+        2      SHA                      [NIST, FIPS PUB 180-1: Secure Hash Standard, April 1995.]
+        3      Tiger                    [Anderson, R., and Biham, E., "Fast Software Encryption", Springer LNCS v. 1039, 1996.]
+        4      SHA2-256                 [Marcus_Leech][RFC4868]
+        5      SHA2-384                 [Marcus_Leech][RFC4868]
+        6      SHA2-512                 [Marcus_Leech][RFC4868]
+     7-65000   Unassigned
+   65001-65535 Reserved for private use
+
+IPSEC Authentication Methods (Value 3)
+
+   Reference
+           [RFC2409]
+
+   Available Formats
+           [IMG]
+           CSV
+
+      Range                      Registration Procedures
+     1-65000   Standards-track RFC
+   65001-65535 Reserved for private use among mutually consenting parties.
+
+      Value                        Method                      Reference
+        0      Reserved
+        1      pre-shared key                                  [RFC2409]
+        2      DSS signatures                                  [RFC2409]
+        3      RSA signatures                                  [RFC2409]
+        4      Encryption with RSA                             [RFC2409]
+        5      Revised encryption with RSA                     [RFC2409]
+        6      Reserved (was Encryption with El-Gamal)
+        7      Reserved (was Revised encryption with El-Gamal)
+        8      Reserved (was ECDSA signatures)
+        9      ECDSA with SHA-256 on the P-256 curve           [RFC4754]
+       10      ECDSA with SHA-384 on the P-384 curve           [RFC4754]
+       11      ECDSA with SHA-512 on the P-521 curve           [RFC4754]
+    12-65000   Unassigned
+   65001-65535 Reserved for private use
+
+Group Description (Value 4)
+
+   Reference
+           [RFC2409]
+
+   Note
+
+ these values were reserved as per draft-ipsec-ike-ecc-groups
+ which never made it to the RFC. These values might be used by some
+ implementations as currently registered in the registry, but new
+ implementations should not use them.
+
+   Available Formats
+           [IMG]
+           CSV
+
+      Range                      Registration Procedures
+     1-32767   RFC required
+   32768-65535 Reserved for private use among mutually consenting parties.
+
+      Value                      Group Description                               Reference                          Note
+        0      Reserved
+        1      default 768-bit MODP group                            [RFC2409]                         Section 6.1
+        2      alternate 1024-bit MODP group                         [RFC2409]                         Section 6.2
+        3      EC2N group on GP[2^155]                               [RFC2409]                         Section 6.3
+        4      EC2N group on GP[2^185]                               [RFC2409]                         Section 6.4
+        5      1536-bit MODP group                                   [RFC3526]                         Section 2
+        6      EC2N group over GF[2^163](see Note)                   [draft-ietf-ipsec-ike-ecc-groups] Section 2.1
+        7      EC2N group over GF[2^163](see Note)                   [draft-ietf-ipsec-ike-ecc-groups] Section 2.2
+        8      EC2N group over GF[2^283](see Note)                   [draft-ietf-ipsec-ike-ecc-groups] Section 2.3
+        9      EC2N group over GF[2^283](see Note)                   [draft-ietf-ipsec-ike-ecc-groups] Section 2.4
+       10      EC2N group over GF[2^409](see Note)                   [draft-ietf-ipsec-ike-ecc-groups] Section 2.5
+       11      EC2N group over GF[2^409](see Note)                   [draft-ietf-ipsec-ike-ecc-groups] Section 2.6
+       12      EC2N group over GF[2^571](see Note)                   [draft-ietf-ipsec-ike-ecc-groups] Section 2.7
+       13      EC2N group over GF[2^571](see Note)                   [draft-ietf-ipsec-ike-ecc-groups] Section 2.8
+       14      2048-bit MODP group                                   [RFC3526]                         Section 3
+       15      3072-bit MODP group                                   [RFC3526]                         Section 4
+       16      4096-bit MODP group                                   [RFC3526]                         Section 5
+       17      6144-bit MODP group                                   [RFC3526]                         Section 6
+       18      8192-bit MODP group                                   [RFC3526]                         Section 7
+       19      256-bit random ECP group                              [RFC5903]
+       20      384-bit random ECP group                              [RFC5903]
+       21      521-bit random ECP group                              [RFC5903]
+       22      1024-bit MODP Group with 160-bit Prime Order Subgroup [RFC5114]
+       23      2048-bit MODP Group with 224-bit Prime Order Subgroup [RFC5114]
+       24      2048-bit MODP Group with 256-bit Prime Order Subgroup [RFC5114]
+       25      192-bit Random ECP Group                              [RFC5114]
+       26      224-bit Random ECP Group                              [RFC5114]
+       27      224-bit Brainpool ECP group                           [RFC6932]                         Section 2.1. Not for RFC 2409.
+       28      256-bit Brainpool ECP group                           [RFC6932]                         Section 2.2. Not for RFC 2409.
+       29      384-bit Brainpool ECP group                           [RFC6932]                         Section 2.3. Not for RFC 2409.
+       30      512-bit Brainpool ECP group                           [RFC6932]                         Section 2.4. Not for RFC 2409.
+    31-32767   Unassigned
+   32768-65535 Reserved for private use
+
+Group Type (Value 5)
+
+   Reference
+           [RFC2409]
+
+   Available Formats
+           [IMG]
+           CSV
+
+      Range                      Registration Procedures
+     1-65000   Specification required
+   65001-65535 Reserved for private use among mutually consenting parties.
+
+      Value                   Group Type                Reference
+        0      Reserved
+        1      MODP (modular exponentiation group)      [RFC2409]
+        2      ECP (elliptic curve group over GF[P])    [RFC2409]
+        3      EC2N (elliptic curve group over GF[2^N]) [RFC2409]
+     4-65000   Unassigned
+   65001-65535 Reserved for private use
+
+Life Type (Value 11)
+
+   Reference
+           [RFC2409]
+
+   Note
+
+ For a given "Life Type" the value of the "Life Duration" attribute defines
+ the actual length of the SA life-- either a number of seconds, or a number
+ of kbytes protected.
+
+   Available Formats
+           [IMG]
+           CSV
+
+      Range                      Registration Procedures
+     1-65000   Specification Required
+   65001-65535 Reserved for private use among mutually consenting parties.
+
+      Value           Life Type         Reference
+        0      Reserved
+        1      seconds                  [RFC2409]
+        2      kilobytes                [RFC2409]
+     3-65000   Unassigned
+   65001-65535 Reserved for private use
+
+PRF (Value 13)
+
+   Reference
+           [RFC2409]
+
+      Range                      Registration Procedures
+     1-65000   Specification required
+   65001-65535 Reserved for private use among mutually consenting parties.
+
+   Value  Description  Reference
+   No registrations at this time.
+
+Exchange Type
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC2408]
+
+   Note
+
+ DOI Specific use is the Additional Exchanges Defined registry
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Value     Exchange Type    Reference
+      0    NONE                [RFC2408]
+      1    Base                [RFC2408]
+      2    Identity Protection [RFC2408]
+      3    Authentication Only [RFC2408]
+      4    Aggressive          [RFC2408]
+      5    Informational       [RFC2408]
+    6-31   ISAKMP Future Use
+   32-239  DOI Specific Use
+   240-255 Private Use
+
+Additional Exchanges Defined-- XCHG values
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC2409]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Value     Phase      Reference
+    32   Quick Mode     [RFC2409]
+    33   New Group Mode [RFC2409]
+
+ISAKMP Domain of Interpretation (DOI)
+
+   Registration Procedure(s)
+
+ Standards-track RFC
+
+   Reference
+           [RFC2408]
+
+   Note
+
+ The Domain of Interpretation is a 32-bit value which identifies the
+ context in which the Security Association payload is to be evaluated.
+ Requests for assignments of new domain of interpretation identifiers
+ must be accompanied by a public specification, such as an Internet RFC.
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Value  DOI   Reference
+     0   ISAKMP [RFC2408]
+     1   IPSEC  [RFC2407]
+     2   GDOI   [RFC3547]
+
+Next Payload Types
+
+   Reference
+           [RFC2408]
+
+   Note
+
+ The Next Payload type is an 8-bit value that indicates the type of the
+ next payload in the message.
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures              Note
+    0-127  RFC required
+   128-255 Reserved for private use Amongst cooperating systems.
+
+    Value        Next Payload Type           Reference
+      0    NONE                          [RFC2408]
+      1    Security Association (SA)     [RFC2408]
+      2    Proposal (P)                  [RFC2408]
+      3    Transform (T)                 [RFC2408]
+      4    Key Exchange (KE)             [RFC2408]
+      5    Identification (ID)           [RFC2408]
+      6    Certificate (CERT)            [RFC2408]
+      7    Certificate Request (CR)      [RFC2408]
+      8    Hash (HASH)                   [RFC2408]
+      9    Signature (SIG)               [RFC2408]
+     10    Nonce (NONCE)                 [RFC2408]
+     11    Notification (N)              [RFC2408]
+     12    Delete (D)                    [RFC2408]
+     13    Vendor ID (VID)               [RFC2408]
+     14    Reserved, not to be used      [Dukes]
+     15    SA KEK Payload (SAK)          [RFC3547][RFC6407]
+     16    SA TEK Payload (SAT)          [RFC3547][RFC6407]
+     17    Key Download (KD)             [RFC3547]
+     18    Sequence Number (SEQ)         [RFC3547]
+     19    Proof of Possession (POP)     [RFC3547]
+     20    NAT Discovery (NAT-D)         [RFC3947]
+     21    NAT Original Address (NAT-OA) [RFC3947]
+     22    Group Associated Policy (GAP) [RFC6407]
+   23-127  Unassigned
+   128-255 Reserved for private use
+
+Notify Message Types
+
+   Reference
+           [RFC2408]
+
+   Available Formats
+           [IMG]
+           CSV
+
+       Range          Registration Procedures       Note
+     1 - 8191    Error types
+   8192 - 16383  Doi-Specific Error types
+   16384 - 24575 Status types RESERVED (Future Use)
+   24576 - 32767 DOI-specific Status codes
+   32768 - 40959 Private Use
+   40960 - 65535 RESERVED (Future Use)
+
+Notify Messages - Error Types (1-8191)
+
+   Registration Procedure(s)
+
+ RFC required
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Value  Nofity Messages - Error Types Reference
+      1    INVALID-PAYLOAD-TYPE          [RFC2408]
+      2    DOI-NOT-SUPPORTED             [RFC2408]
+      3    SITUATION-NOT-SUPPORTED       [RFC2408]
+      4    INVALID-COOKIE                [RFC2408]
+      5    INVALID-MAJOR-VERSION         [RFC2408]
+      6    INVALID-MINOR-VERSION         [RFC2408]
+      7    INVALID-EXCHANGE-TYPE         [RFC2408]
+      8    INVALID-FLAGS                 [RFC2408]
+      9    INVALID-MESSAGE-ID            [RFC2408]
+     10    INVALID-PROTOCOL-ID           [RFC2408]
+     11    INVALID-SPI                   [RFC2408]
+     12    INVALID-TRANSFORM-ID          [RFC2408]
+     13    ATTRIBUTES-NOT-SUPPORTED      [RFC2408]
+     14    NO-PROPOSAL-CHOSEN            [RFC2408]
+     15    BAD-PROPOSAL-SYNTAX           [RFC2408]
+     16    PAYLOAD-MALFORMED             [RFC2408]
+     17    INVALID-KEY-INFORMATION       [RFC2408]
+     18    INVALID-ID-INFORMATION        [RFC2408]
+     19    INVALID-CERT-ENCODING         [RFC2408]
+     20    INVALID-CERTIFICATE           [RFC2408]
+     21    CERT-TYPE-UNSUPPORTED         [RFC2408]
+     22    INVALID-CERT-AUTHORITY        [RFC2408]
+     23    INVALID-HASH-INFORMATION      [RFC2408]
+     24    AUTHENTICATION-FAILED         [RFC2408]
+     25    INVALID-SIGNATURE             [RFC2408]
+     26    ADDRESS-NOTIFICATION          [RFC2408]
+     27    NOTIFY-SA-LIFETIME            [RFC2408]
+     28    CERTIFICATE-UNAVAILABLE       [RFC2408]
+     29    UNSUPPORTED-EXCHANGE-TYPE     [RFC2408]
+     30    UNEQUAL-PAYLOAD-LENGTHS       [RFC2408]
+   31-8191 RESERVED (Future Use)
+
+  Notify Messages - Status Types (16384-24575)
+
+   Registration Procedure(s)
+
+ RFC required
+
+   Available Formats
+           [IMG]
+           CSV
+
+      Value    Nofity Messages - Status Types Reference
+      16384    CONNECTED                      [RFC2408]
+   16385-24575 RESERVED (Future Use)
+
+                                                                        People
+
+         ID           Name               Contact URI            Last Updated
+   [Marcus_Leech] Marcus Leech mailto:mleech&nortelnetworks.com 2000-10

@@ -1,0 +1,52 @@
+URI scheme name.
+acr
+
+Status.
+provisional
+
+URI scheme syntax.
+See Appendix H.1 in [1]. 
+
+URI scheme semantics.
+The "acr" URI describes an anonymous reference that can be mapped to a resource or a user or a group of resources or users, and that may include information which hints to an authority that can perform such mapping.
+
+Encoding considerations.
+The syntax definition above contains a complete enumeration of allowed characters, and contains provisions for percent-encoding of unsafe characters.
+
+Applications/protocols that use this URI scheme name.
+This URI scheme has been defined in [1] for use with a number of OMA RESTful Network APIs (of which [2] is an example). 
+
+Interoperability considerations.
+This URI scheme has been defined for use with the OMA RESTful Network APIs. Multibyte character sets are not supported.
+
+Security considerations.
+Reproduced from Appendix H.4 in [1]. 
+
+Since the ACR is used to protect the identity of a user or a device the forwarding party must not disclose information that would or can be used to reveal the identity of the user. However the network code or domain name will reveal some information of the user’s affiliation or service provider.
+The security considerations parallel those for the "tel" URI [RFC3966].
+Web clients and similar tools MUST NOT use the "acr" URI to place telephone calls or send messages without the explicit consent of the user of that client. Placing calls or sending messages automatically without appropriate user confirmation may incur a number of risks, such as those described below:
+o Calls or messages may incur costs.
+o The URI may be used to place malicious or annoying calls.
+o A call will take the user's phone line off-hook, thus preventing its use.
+o A call may reveal the user's possibly unlisted phone number to the remote 
+host in the caller identification data and may allow the attacker to 
+correlate the user's phone number with other information, such as an e-mail 
+or IP address.
+This is particularly important for "acr" URIs embedded in HTML links, as a malicious party may hide the true nature of the URI in the link text, as in
+<a href="acr:123456">Find free information here</a>
+<a href="acr:123456">Call Foobar organization for help</a>
+
+"acr" URIs may still reveal private information if the mapping from a user identity to an anonymous-customer-identifier is designed poorly. It is advised to ensure that the anonymous-customer-identifier is sufficiently random, e.g. by applying a hashing step. 
+It needs to be noted that hashing is prone to accelerated brute force attacks e.g. using rainbow tables; in particular if the space of clear text is small, as this may be the case if phone numbers are hashed directly. Countermeasures such as salting need to be considered. In addition, the use of a hash function that is strong enough (i.e. produces a sufficient number of bits) is necessary to prevent such attacks from being successful in practice.
+
+Contact.
+Uwe [dot] Rauschenbach [at] nokia [dot] com
+
+Author/Change controller.
+OMNA – Open Mobile Naming Authority of the Open Mobile Alliance
+OMA-OMNA [at] mail [dot] openmobilealliance [dot] org
+
+References.
+[1] OMA RESTful Network API for Anonymous Customer Reference Management, OMA-TS-REST_NetAPI_ACR-V1_0, The Open Mobile Alliance. URL: http://www.openmobilealliance.org/tech/extref/OMA-TS-REST_NetAPI_ACR-V1_0.zip 
+
+[2] OMA RESTful Network API for Chat, OMA-TS-REST_NetAPI_Chat-V1_0, The Open Mobile Alliance. URL: http://technical.openmobilealliance.org/Technical/technical-information/release-program/current-releases/restfulnetworkapi-chat-v1-0 

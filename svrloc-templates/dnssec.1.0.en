@@ -1,0 +1,48 @@
+# Name of submitter: Thierry Moreau, CONNOTECH
+#
+# Language of service template: English
+#
+# The attributes defined in this template are defined in detail in
+# [DNSSEC-ROOTP] draft-moreau-srvloc-dnssec-priming-02.txt.
+#
+# Security Considerations: See section 5 in [DNSSEC-ROOTP].
+#
+
+template-type=dnssec
+
+template-version=1.0
+
+template-description=
+A concrete service type associated with DNSSEC root nameservice
+discovery, where SLPv2 UAs are assisting DNSSEC-aware DNS resolver
+entities in locating the DNSSEC-aware root nameservice.
+
+template-url-syntax=
+url-path = "/" domain-name
+domain-name = ; The domain-name URL part is the absolute domain
+; name of the DNS root nameserver. See section 5.1
+; in [RFC1035] for the character representation of
+; domain-name.
+
+ta=opaque M L
+# The list of DNS root trust anchor keys. Each opaque value is the
+# DNS wire encoding of the DS RDATA field (including a key tag, a
+# protocol indication, a digest type, and a digest value per
+# [RFC4034] or [RFC4509]) that would be prepared for a DNSKEY RR
+# present in the DNSKEY RRset at the root zone apex in the DNS root
+# nameservice.
+
+timers-roll=keyword
+# When present in a service registration, the DNS root nameservice
+# supports the trust anchor rollover specified in
+# work-in-progress reference [TIMERS-ROLL].
+
+slp-roll=string O L
+# When present in a service registration, the SLPv2 SA entity
+# supports the DNS root trust anchor key rollover method specified
+# in the reference [DNSSEC-ROOTP] subsection 4.2. The string value
+# is the SLP SPI string, and MUST NOT be empty if present. Note
+# that a signed slp-roll attribute is a self-referencing signature
+# for this SPI value (similar to an X.509 self-signed certificate),
+# and thus not a complete authentication of the legitimate public
+# key for this SPI value.

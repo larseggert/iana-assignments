@@ -1,0 +1,52 @@
+<?xml version='1.0'?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  ns="http://www.iana.org/assignments">
+
+  <include href="../_support/iana-registry.rng"/>
+
+  <start>
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <zeroOrMore>
+        <element name="record">
+          <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+          <optional><attribute name="updated"><ref name="genericDate"/></attribute></optional>
+          <element name="prefix">
+            <data type="string">
+              <param name="pattern">[012]\d\d/8</param>
+            </data>
+          </element>
+          <element name="designation"><text/></element>
+          <optional>
+            <element name="date"><data type="gYearMonth"/></element>
+          </optional>
+          <optional><element name="whois"><text/></element></optional>
+          <optional><ref name="rdap"/></optional>
+          <element name="status">
+            <choice>
+              <value>ALLOCATED</value>
+              <value>UNALLOCATED</value>
+              <value>RESERVED</value>
+              <value>LEGACY</value>
+            </choice>
+          </element>
+          <ref name="references"/>
+        </element>
+      </zeroOrMore>
+      <ref name="footnotes"/>
+      <ref name="people"/>
+    </element>
+  </start>
+
+  <define name="rdap">
+    <element name="rdap">
+      <oneOrMore>
+        <element name="server">
+          <data type="anyURI"/>
+        </element>
+      </oneOrMore>
+    </element>
+  </define>
+
+</grammar>

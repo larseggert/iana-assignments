@@ -1,0 +1,464 @@
+                                             Internet Small Computer System Interface (iSCSI) Parameters
+
+   Created
+           2003-04-16
+
+   Last Updated
+           2014-04-08
+
+   Available Formats
+           [IMG]
+           XML [IMG]
+           HTML [IMG]
+           Plain text
+
+   Registries included below
+
+     * iSCSI authentication methods
+     * iSCSI digests
+     * SRP_GROUP key values
+     * iSCSI Opcodes
+     * iSCSI Login/Text Keys
+     * iSCSI Asynchronous Events
+     * iSCSI Task Management Function Codes
+     * iSCSI Login Response Status Codes
+
+          * Status-Detail for Status-Class=0x00
+          * Status-Detail for Status-Class=0x01
+          * Status-Detail for Status-Class=0x02
+          * Status-Detail for Status-Class=0x03
+
+     * iSCSI Reject Reason Codes
+     * iSER Opcodes
+     * iSCSI Protocol Level
+     * iSCSI Task Management Function Response Codes
+
+iSCSI authentication methods
+
+   Registration Procedure(s)
+
+ IETF Review
+
+   Reference
+           [RFC7143]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Number        Authentication Method      Reference
+       0     Reserved
+       1     CHAP                            [RFC7143]
+       2     SRP                             [RFC7143]
+       3     KRB5                            [RFC7143]
+       4     SPKM1 (OBSOLETE)                [RFC7143]
+       5     SPKM2 (OBSOLETE)                [RFC7143]
+     6-255   Reserved (Not assigned by IANA) [RFC7143]
+   256-65535 Unassigned
+
+iSCSI digests
+
+   Registration Procedure(s)
+
+ IETF Review
+
+   Reference
+           [RFC7143]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Number               Digest              Reference
+       0     Reserved                        [RFC7143]
+       1     CRC32c                          [RFC7143]
+     2-255   Reserved (Not assigned by IANA) [RFC7143]
+   256-65535 Unassigned
+
+SRP_GROUP key values
+
+   Registration Procedure(s)
+
+ Designated Expert with Specification Required
+
+   Reference
+           [RFC3723]
+
+   Note
+
+ When a MODP group is used with SRP, the generator (g)
+ value differs from the usual generator of 2.  Consult the
+ appropriate reference for the correct generator to use.
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Key Value  Group Description  Reference
+    SRP-768  768 bit SRP group   [RFC3723]
+   SRP-1024  1024 bit SRP group  [RFC3723]
+   SRP-1280  1280 bit SRP group  [RFC3723]
+   SRP-1536  1536 bit SRP group  [RFC3723]
+   SRP-2048  2048 bit SRP group  [RFC3723]
+   MODP-3072 3072 bit MODP group [RFC3723]
+   MODP-4096 4096 bit MODP group [RFC3723]
+   MODP-6144 6144 bit MODP group [RFC3723]
+   MODP-8192 8192 bit MODP group [RFC3723]
+
+iSCSI Opcodes
+
+   Registration Procedure(s)
+
+ Standards Action to define the semantics of the opcode;
+ Expert Review to select the specific opcode(s)
+
+   Reference
+           [RFC7143]
+
+   Note
+
+ Namespace details: Numerical values that can fit in
+ one octet with most significant two bits (bits 0 and 1)
+ already designated by [RFC7143], bit 0 being reserved and
+ bit 1 for immediate delivery. Bit 2 is designated to identify
+ the originator of the opcode. Bit 2 = 0 for initiator and
+ Bit 2 = 1 for target.
+
+   Note
+
+ Reserved to IANA:
+     0x07-0x0f, 0x13-0x1b (initiator codes)
+     0x27-0x2f, 0x33-0x3b (target codes)
+
+ Reserved to IANA for allocation only if no opcode pair is available:
+     0x11, 0x12, 0x1f (initiator codes)
+     0x30 (target codes)
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Opcode   Originator             Operation Name             Reference
+     0x00    Initiator  NOP-Out                                [RFC7143]
+     0x01    Initiator  SCSI Command                           [RFC7143]
+     0x02    Initiator  SCSI Task Management Function Request  [RFC7143]
+     0x03    Initiator  Login Request                          [RFC7143]
+     0x04    Initiator  Text Request                           [RFC7143]
+     0x05    Initiator  SCSI Data-Out                          [RFC7143]
+     0x06    Initiator  Logout Request                         [RFC7143]
+     0x10    Initiator  SNACK Request                          [RFC7143]
+   0x1c-0x1e Initiator  Vendor-specific codes                  [RFC7143]
+     0x20      Target   NOP-In                                 [RFC7143]
+     0x21      Target   SCSI Response                          [RFC7143]
+     0x22      Target   SCSI Task Management Function Response [RFC7143]
+     0x23      Target   Login Response                         [RFC7143]
+     0x24      Target   Text Response                          [RFC7143]
+     0x25      Target   SCSI Data-In                           [RFC7143]
+     0x26      Target   Logout Response                        [RFC7143]
+     0x31      Target   Ready To Transfer (R2T)                [RFC7143]
+     0x32      Target   Asynchronous Message                   [RFC7143]
+   0x3c-0x3e   Target   Vendor-specific codes                  [RFC7143]
+     0x3f      Target   Reject                                 [RFC7143]
+
+iSCSI Login/Text Keys
+
+   Registration Procedure(s)
+
+ IETF Review
+
+   Reference
+           [RFC7145][RFC7143]
+
+   Available Formats
+           [IMG]
+           CSV
+
+                 Key                Reference
+   AuthMethod                       [RFC7143]
+   DataDigest                       [RFC7143]
+   DataPDUInOrder                   [RFC7143]
+   DataSequenceInOrder              [RFC7143]
+   DefaultTime2Retain               [RFC7143]
+   DefaultTime2Wait                 [RFC7143]
+   ErrorRecoveryLevel               [RFC7143]
+   FirstBurstLength                 [RFC7143]
+   HeaderDigest                     [RFC7143]
+   ImmediateData                    [RFC7143]
+   InitialR2T                       [RFC7143]
+   InitiatorAlias                   [RFC7143]
+   InitiatorName                    [RFC7143]
+   InitiatorRecvDataSegmentLength   [RFC7145]
+   iSCSIProtocolLevel               [RFC7144]
+   iSERHelloRequired                [RFC7145]
+   MaxAHSLength                     [RFC7145]
+   MaxBurstLength                   [RFC7143]
+   MaxConnections                   [RFC7143]
+   MaxOutstandingR2T                [RFC7143]
+   MaxOutstandingUnexpectedPDUs     [RFC7145]
+   MaxRecvDataSegmentLength         [RFC7143]
+   RDMAExtensions                   [RFC7145]
+   SendTargets                      [RFC7143]
+   SessionType                      [RFC7143]
+   TaggedBufferForSolicitedDataOnly [RFC7145]
+   TargetAddress                    [RFC7143]
+   TargetAlias                      [RFC7143]
+   TargetName                       [RFC7143]
+   TargetPortalGroupTag             [RFC7143]
+   TargetRecvDataSegmentLength      [RFC7145]
+   TaskReporting                    [RFC7143]
+   X#NodeArchitecture               [RFC7143]
+
+iSCSI Asynchronous Events
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC7143]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Event Number         Description          Reference
+   (one octet)
+        0       SCSI Async Event             [RFC7143]
+        1       Logout Request               [RFC7143]
+        2       Connection drop notification [RFC7143]
+        3       Session drop notification    [RFC7143]
+        4       Negotiation Request          [RFC7143]
+        5       Task termination             [RFC7143]
+      6-247     Unassigned
+     248-254    Vendor-unique                [RFC7143]
+       255      Vendor-unique                [RFC7143]
+
+iSCSI Task Management Function Codes
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC7143]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   TMF Code       Description        Reference
+   (7 bits)
+      1     ABORT TASK               [RFC7143]
+      2     ABORT TASK SET           [RFC7143]
+      3     CLEAR ACA                [RFC7143]
+      4     CLEAR TASK SET           [RFC7143]
+      5     LOGICAL UNIT RESET       [RFC7143]
+      6     TARGET WARM RESET        [RFC7143]
+      7     TARGET COLD RESET        [RFC7143]
+      8     TASK REASSIGN            [RFC7143]
+      9     QUERY TASK               [RFC7144]
+      10    QUERY TASK SET           [RFC7144]
+      11    I_T NEXUS RESET          [RFC7144]
+      12    QUERY ASYNCHRONOUS EVENT [RFC7144]
+    13-127  Unassigned
+
+iSCSI Login Response Status Codes
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC7143]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Status Class   Description   Reference
+   (one octet)
+       0x00     Success         [RFC7143]
+       0x01     Redirection     [RFC7143]
+       0x02     Initiator Error [RFC7143]
+       0x03     Target Error    [RFC7143]
+    0x04-0x0e   Unassigned
+       0x0f     Vendor-Unique   [RFC7143]
+    0x10-0xff   Unassigned
+
+  Status-Detail for Status-Class=0x00
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC7143]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Status Class Status Code Description Reference
+     (fixed)    (one octet)
+       0x00        0x00     Success     [RFC7143]
+       0x00      0x01-0xff  Unassigned
+
+  Status-Detail for Status-Class=0x01
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC7143]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Status Class Status Code       Description        Reference
+     (fixed)    (one octet)
+       0x01        0x01     Target moved temporarily [RFC7143]
+       0x01        0x02     Target moved permanently [RFC7143]
+       0x01      0x03-0xff  Unassigned
+
+  Status-Detail for Status-Class=0x02
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC7143]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Status Class Status Code        Description         Reference
+     (fixed)    (one octet)
+       0x02        0x00     Initiator error            [RFC7143]
+       0x02        0x01     Authentication failure     [RFC7143]
+       0x02        0x02     Authorization failure      [RFC7143]
+       0x02        0x03     Not found                  [RFC7143]
+       0x02        0x04     Target removed             [RFC7143]
+       0x02        0x05     Unsupported version        [RFC7143]
+       0x02        0x06     Too many connections       [RFC7143]
+       0x02        0x07     Missing parameter          [RFC7143]
+       0x02        0x08     Can't include in session   [RFC7143]
+       0x02        0x09     Session type not supported [RFC7143]
+       0x02        0x0a     Session does not exist     [RFC7143]
+       0x02        0x0b     Invalid during login       [RFC7143]
+       0x02      0x0c-0xff  Unassigned
+
+  Status-Detail for Status-Class=0x03
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC7143]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Status Class Status Code     Description     Reference
+     (fixed)    (one octet)
+       0x03        0x00     Target error        [RFC7143]
+       0x03        0x01     Service unavailable [RFC7143]
+       0x03        0x02     Out of resources    [RFC7143]
+       0x03      0x03-0xff  Unassigned
+
+iSCSI Reject Reason Codes
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC7143]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Reason Code       Description        Reference
+   (one octet)
+      0x01     Reserved                 [RFC7143]
+      0x02     Data digest error        [RFC7143]
+      0x03     SNACK Reject             [RFC7143]
+      0x04     Protocol Error           [RFC7143]
+      0x05     Command not supported    [RFC7143]
+      0x06     Immediate command reject [RFC7143]
+      0x07     Task in progress         [RFC7143]
+      0x08     Invalid data ack         [RFC7143]
+      0x09     Invalid PDU field        [RFC7143]
+      0x0a     Long op reject           [RFC7143]
+      0x0b     "Deprecated reason code" [RFC7143]
+      0x0c     Waiting for Logout       [RFC7143]
+    0x0d-0xff  Unassigned
+
+iSER Opcodes
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC7145]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Value        Description       Reference
+     0x1   iSCSI control-type PDU  [RFC7145]
+     0x2   iSER Hello Message      [RFC7145]
+     0x3   iSER HelloReply Message [RFC7145]
+   0x4-0xf Unassigned
+
+iSCSI Protocol Level
+
+   Registration Procedure(s)
+
+ Expert Review and Standards Action
+
+   Reference
+           [RFC7144]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Value    Description     Reference
+     0   No version claimed [RFC7144]
+     1   RFC7143            [RFC7143]
+     2   RFC7144            [RFC7144]
+   3-31  Unassigned
+
+iSCSI Task Management Function Response Codes
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC7144]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Value               Operation Name               Reference
+     0   Function complete                          [RFC7143]
+     1   Task does not exist                        [RFC7143]
+     2   LUN does not exist                         [RFC7143]
+     3   Task still allegiant                       [RFC7143]
+     4   Task allegiance reassignment not supported [RFC7143]
+     5   Task management function not supported     [RFC7143]
+     6   Function authorization failed              [RFC7143]
+     7   Function succeeded                         [RFC7144]
+   8-254 Unassigned
+    255  Function rejected                          [RFC7143]

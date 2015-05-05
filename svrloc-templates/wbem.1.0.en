@@ -1,0 +1,212 @@
+# Name of submitters: DMTF <technical&dmtf.org>
+#                     DMTF Interop WG <wg-interop&dmtf.org>
+#
+# Language of service template: en
+#
+# Security Considerations:
+#    Information about the specific WBEM Server implementation or the
+#    Operating System platform may be deemed a security risk in certain
+#    environments. Therefore these attributes are optional but
+#    recommended. For example, exposing the authentication mechanisms
+#    exposes a vulnerability unless SLP is autheticated.
+#
+
+# DMTF Document Information
+# DSP0206 - WBEM SLP Template
+# Version - 1.0
+# Status - Preliminary
+# Date - January 27, 2004
+# Author(s) - Jim Davis, WBEM Solutions, Inc.
+#             Karl Schopmeyer, Inova Europe Inc.
+#             Erik Guttman, Sun Microsystems, Inc.
+#	      Mike Day, IBM
+# Copyright
+# Copyright 2004 Distributed Management Task Force, Inc. (DMTF).
+# All rights reserved.
+# DMTF is a not-for-profit association of industry members dedicated
+# to promoting enterprise and systems management and interoperability.
+# DMTF specifications and documents may be reproduced for uses
+# consistent with this purpose by members and non-members,
+# provided that correct
+# attribution is given. As DMTF specifications may be
+# revised from time to time, the particular version and
+# release date should always be noted.
+# Implementation of certain elements of this standard or
+# proposed standard may be subject to third party patent
+# rights, including provisional patent rights (herein
+# "patent rights"). DMTF makes no representations to users
+# of the standard as to the existence of such rights, and
+# is not responsible to recognize, disclose, or identify
+# any or all such third party patent right, owners or
+# claimants, nor for any incomplete or inaccurate
+# identification or disclosure of such rights, owners or
+# claimants. DMTF shall have no liability to any party, in
+# any manner or circumstance, under any legal theory
+# whatsoever, for failure to recognize, disclose, or
+# identify any such third party patent rights, or for such
+# party’s reliance on the standard or incorporation
+# thereof in its product, protocols or testing procedures.
+# DMTF shall have no liability to any party implementing
+# such standard, whether such implementation is foreseeable
+# or not, nor to any patent owner or claimant, and shall
+# have no liability or responsibility for costs or losses
+# incurred if a standard is withdrawn or modified after
+# publication, and shall be indemnified and held harmless
+# by any party implementing the standard from any and all
+# claims of infringement by a patent owner for such
+# implementations.
+# For information about patents held by third-parties
+# which have notified the DMTF that, in their opinion, such
+# patent may relate to or impact implementations of DMTF
+# standards, visit
+# http://www.dmtf.org/about/policies/disclosures.php.
+
+# Terminology
+# The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+# "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in
+# this document are to be interpreted as described in RFC 2119.
+#
+# Value Format/Definition
+# For each description below that states the value MUST be 
+# the CIM_ClassName.PropertyName value. The format/rules for these 
+# values are defined in the Interop Model of the CIM Schema. For 
+# example, for CIM Schema 2.8, see the file CIM_Interop28.mof.
+# This SLP Template requires a minimum Schema version of 2.7 
+# to support the required values. Some of the optional values
+# require CIM Schema version 2.8
+# The CIM Schema can be found at http://dmtf.org/ on the CIM Standards
+# page.
+ 
+#Template Text:
+#-------------------------template begins here-----------------------
+
+template-type=wbem
+
+template-version=1.0
+
+template-description=
+    This template describes the attributes used for advertising
+    WBEM Servers.
+
+template-url-syntax=string
+#The template-url-syntax MUST be the WBEM URI Mapping of
+#the location of one service access point offered by the WBEM Server 
+#over TCP transport. This attribute must provide sufficient addressing 
+#information so that the WBEM Server can be addressed directly using 
+#the URL.  The WBEM URI Mapping is defined in the WBEM URI Mapping 
+#Specification 1.0.0 (DSP0207).
+# Example: (template-url-syntax=https://localhost:5989)
+
+service-hi-name=string O
+# This string is used as a name of the CIM service for human
+# interfaces. This attribute MUST be the
+# CIM_ObjectManager.ElementName property value.
+
+service-hi-description=string O
+# This string is used as a description of the CIM service for
+# human interfaces.This attribute MUST be the 
+# CIM_ObjectManager.Description property value.
+
+service-id=string L
+# The ID of this WBEM Server. The value MUST be the 
+# CIM_ObjectManager.Name property value.
+
+CommunicationMechanism=string L
+# The communication mechanism (protocol) used by the CIM Object Manager for
+# this service-location-tcp defined in this advertisement. This information 
+# MUST be the CIM_ObjectManagerCommunicationMechanism.CommunicationMechanism
+# property value.
+# CIM-XML is defined in the CIM Operations over HTTP specification which can 
+# be found at http://dmtf.org/
+"Unknown", "Other", "cim-xml"
+
+OtherCommunicationMechanismDescription = String L O
+# The other communication mechanism defined for the CIM Server in the case
+# the "Other" value is set in the CommunicationMechanism string.
+# This attribute MUST be the CIM_ObjectManagerCommunicationMechanism.OtherCommunicationMechanism
+# property value. This attribute is optional because it is only required if the
+# "other" value is set in CommunicationMechansim. The value returned is
+# a free-form string.
+
+InteropSchemaNamespace=string L M
+# Namespace within the target WBEM Server where the CIM Interop Schema can be
+# accessed. Multiple namespaces may be provided. Each namespace provided
+# MUST contain the same information.
+ 
+ProtocolVersion=String O L
+# The version of the protocol. It MUST be the
+# CIM_ObjectManagerCommunicationMechanism.Version property value.
+
+FunctionalProfilesSupported=string L M
+# ProfilesSupported defines the CIM Operation profiles supported by the
+# CIM Object Manager. This attribute MUST be the
+# CIM_ObjectManagerCommunicationMechansim.FunctionalProfilesSupported 
+# property value.
+"Unknown", "Other", "Basic Read", "Basic Write",
+"Schema Manipulation", "Instance Manipulation",
+"Association Traversal", "Query Execution",
+"Qualifier Declaration", "Indications"
+
+FunctionalProfileDescriptions=string L O M
+# Other profile description if the "other" value is set in the ProfilesSupported
+# attribute.  This attribute is optional because it is returned only if the "other"
+# value is set in the ProfilesSupported attribute. If provided it MUST
+# be equal to the CIM_ObjectManagerCommunicationMechanism.FunctionalProfileDescriptions
+# property value.
+
+MultipleOperationsSupported=Boolean
+# Defines whether the CIM Object Manager supports batch operations.
+# This attribute MUST be the 
+# CIM_ObjectManagerCommunicationMechanism.MultipleOperationsSupported
+# property value.
+
+AuthenticationMechanismsSupported=String L M
+# Defines the authentication mechanism supported by the CIM Object Manager.
+# This attributed MUST be the
+# CIM_ObjectManagerCommunicationMechanism.AuthenticationMechanismsSupported property value.
+"Unknown", "None", "Other", "Basic", "Digest"
+ 
+AuthenticationMechansimDescriptions=String L O M
+# Defines other Authentication mechanisms supported by the CIM Object Manager
+# in the case where the "Other" value is set in any of the
+# AuthenticationMechanismSupported attribute values. If provided, this attribute MUST be the
+# CIM_ObjectManagerCommunicationMechanism.AuthenticationMechansimDescriptions
+# property value.
+
+Namespace=string L M O
+# Namespace(s) supported on the CIM Object Manager.
+# This attribute MUST be the 
+# CIM_Namespace.name property value for each instance of CIM_Namespace
+# that exists. This attribute is optional.  
+# NOTE: This value is literal (L) because
+# the namespace names MUST not be translated into other languages.
+ 
+Classinfo=string M O
+# This attributes is optional but if used, the values MUST be the
+# CIM_Namespace.Classinfo property value.
+# The values represent the classinfo (CIM Schema version, etc.) for
+# the namespaces defined in the corresponding namespace listed in the
+# Namespace attribute. Each entry in this attribute MUST correspond
+# to the namespace defined in the same position of the namespace
+# attribute. There must be one entry in this attribute for each
+# entry in the namespace attribute.
+
+
+RegisteredProfilesSupported=string L M 
+# RegisteredProfilesSupported defines the Profiles that 
+# this WBEM Server has support for. Each entry in this 
+# attribute MUST be in the form of 
+# Organization:Profile Name{:Subprofile Name} 
+#
+# examples: 
+#     DMTF:CIM Server 
+#     DMTF:CIM Server:Protocol Adapter 
+#     DMTF:CIM Server:Provider Registration 
+# The Organization MUST be the 
+# CIM_RegisteredProfile.RegisteredOrganization property value.
+# The Profile Name MUST be the 
+# CIM_RegisteredProfile.RegisteredName property value. 
+# The subprofile Name MUST be the 
+# CIM_RegisteredProfile.RegisteredName property value when it is 
+# used as a Dependent in the CIM_SubProfileRequiresProfile
+# association for the specified Profile Name (used as the antecedent).

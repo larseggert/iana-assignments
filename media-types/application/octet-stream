@@ -1,0 +1,35 @@
+(RFC 2045 and 2046 published November 1996, subtype last updated April November 1996)
+
+The "octet-stream" subtype is used to indicate that a body contains
+arbitrary binary data.  The set of currently defined parameters is:
+
+ (1)   TYPE -- the general type or category of binary data.
+       This is intended as information for the human recipient
+       rather than for any automatic processing.
+
+ (2)   PADDING -- the number of bits of padding that were
+       appended to the bit-stream comprising the actual
+       contents to produce the enclosed 8bit byte-oriented
+       data.  This is useful for enclosing a bit-stream in a
+       body when the total number of bits is not a multiple of
+       8.
+
+Both of these parameters are optional.
+
+An additional parameter, "CONVERSIONS", was defined in RFC 1341 but
+has since been removed.  RFC 1341 also defined the use of a "NAME"
+parameter which gave a suggested file name to be used if the data
+were to be written to a file.  This has been deprecated in
+anticipation of a separate Content-Disposition header field, to be
+defined in a subsequent RFC.
+
+The recommended action for an implementation that receives an
+"application/octet-stream" entity is to simply offer to put the data
+in a file, with any Content-Transfer-Encoding undone, or perhaps to
+use it as input to a user-specified process.
+
+To reduce the danger of transmitting rogue programs, it is strongly
+recommended that implementations NOT implement a path-search
+mechanism whereby an arbitrary program named in the Content-Type
+parameter (e.g., an "interpreter=" parameter) is found and executed
+using the message body as input.

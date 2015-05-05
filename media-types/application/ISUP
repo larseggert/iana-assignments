@@ -1,0 +1,75 @@
+(RFC 3204 published December 2001, subtype last updated December 2001)
+
+Media type name: application
+Media subtype name: ISUP
+Required parameters: version
+Optional parameters: base
+Encoding scheme: binary
+Security considerations: See section 5.
+
+The ISUP message is encapsulated beginning with the Message Type Code
+(i.e., omitting Routing Label and Circuit ID Code).
+
+The use of the 'version' parameter allows network administrators to
+identify specific versions of ISUP that will be exchanged on a
+bilateral basis. This enables a particular client such as a
+SoftSwitch/Media Gateway Controller to recognize and parse the
+message correctly, or (possibly) to reject the message if the
+specified ISUP version is not supported. This specification places no
+constraints on the values that may be used in 'version'; these are
+left to the discretion of the network administrator.
+
+This 'version' could, for example, be used to identify a network-
+specific implementation of ISUP, e.g., X-NetxProprietaryISUPv3, or to
+identify a well-known standard version of ISUP, e.g., itu-t or ansi.
+
+A 'base' parameter can optionally be included in some cases (e.g., if
+the receiver may not recognize the 'version' string) to specify that
+the encapsulated ISUP can also be processed using the identified
+'base' specification. Table 1 provides a list of 'base' values
+supported by the 'application/ISUP' media type, including whether or
+not the forward compatibility mechanism defined in ITU-T 1992 ISUP is
+supported.
+
+Table 1: ISUP 'base' values
+
+base protocol compatibility
+
+itu-t88 ITU-T Q.761-4 (1988) no
+itu-t92+ ITU-T Q.761-4 (1992) yes
+ansi88 ANSI T1.113-1988 no
+ansi00 ANSI T1.113-2000 yes
+etsi121 ETS 300 121 no
+etsi356 ES 300 356 yes
+gr317 BELLCORE GR-317 no
+ttc87 JT-Q761-4(1987-1992) no
+ttc93+ JT-Q761-4(1993-) yes
+
+The Content-Disposition header [5] may be included to describe how
+the encapsulated ISUP is to be processed, and in particular what the
+handling should be if the received Content-Type is not recognized.
+The default disposition-type for an ISUP message body is "signal".
+This type indicates that the body part contains signaling information
+associated with the session, but does not describe the session.
+
+Supplementing the description of the Content-Disposition header in
+[5], as well as any characterization of the Content-Disposition
+header in the SIP standard, is the following BNF describing
+disposition-types and disposition-params that may be used in the
+header of ISUP and QSIG MIME bodies.
+
+Content-Disposition = "Content-Disposition" ":"
+disposition-type *( ";" disposition-param )
+disposition-type = "signal" | disp-extension-token
+disposition-param = "handling" "="
+( "optional" | "required" | other-handling )
+| generic-param
+other-handling = token
+disp-extension-token = token
+
+A full definition of the use of the "handling" parameter is given in
+the IANA Considerations section [in RFC 3204]. The following is how a
+typical header would look ('base' may be omitted):
+
+Content-Type: application/ISUP; version=nxv3; base=etsi121
+Content-Disposition: signal; handling=optional

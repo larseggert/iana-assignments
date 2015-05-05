@@ -1,0 +1,114 @@
+(Last updated 24 March 2006)
+
+Name : Kumar Swaminathan
+
+Email : kswami&hns.com
+
+MIME media type name : Video
+
+MIME subtype name : Vendor Tree - vnd.hns.video
+
+Required parameters : None
+
+Optional parameters : None
+
+Encoding considerations : binary
+This media type may require encoding on transports not capable of
+handling binary.
+
+Security considerations : 
+The media type is not intended for execuatble or active content.
+Integrity and Privacy are handled at a higher level since the intended
+application is content delivery services for enterprise applications. 
+The server or sender, receiver or client plays the primary role in 
+call establishment, authentication, and privacy prior to launching 
+the media player. These are not tied to any media type. Other 
+security considerations, if any, have not been assessed.
+
+Interoperability considerations :
+The media subtype is intended for identifying video content that
+requires decoding of compressed video by HNS rendering plugins and
+libraries that get invoked when using a Real Media Player (on all
+OS).
+
+The video content would have to be created by an utility
+that converts the compressed video payloads to a RM container
+format (recognized by Real Media Player and developed using
+RealSystemSDK) and which contains
+1. Compressed Video Payloads MIME type and specific Video Decoder
+Library stored in its Media Properties Header
+2. Compressed Video samples with each sample containing a header
+that contains information such as its timestamp, its size, and
+indication of whether it is a key frame.
+
+Published specification :
+Intended for use by HNS products and services. For further
+information please contact Kumar Swaminathan at 301-428-5705 or 
+swami&hns.com.
+
+Applications which use this media :
+The intended applications are media content delivery services for
+enterprise applications. The media payload is expected to be MPEG-
+4 AVC based for video. Other compression formats are not excluded
+but these are the formats that are being considered at this time.
+The client player is Real Media Player with the HNS developed
+rendering plugins and decoding libraries for the various codecs.
+
+Additional information :
+
+1. Magic number(s) : N/A
+2. File extension(s) : .rm
+3. Macintosh file type code : N/A
+4. Object Identifiers: N/A
+
+The server/sender provides for the conversion of the compressed 
+media payloads to an RM container format that is
+recognized by any Real Player. The RM container contains
+1. Compressed Video Payloads MIME type and specific Video
+Decoder Library stored in its Media Properties Header
+2. Compressed Audio Payloads MIME type and specific Audio
+Decoder Library stored in its Media Properties Header
+3. Compressed Video and Audio samples with each sample
+containing a header that contains information such as its timestamp, 
+its size,and indication of whether it is a key frame.
+
+The receiver/client video and audio rendering plug-ins are invoked by
+the Real Media Player for rendering of video and audio frames from
+the RM file, encoded at the sender/server. These plug-ins are
+invoked for rendering frames with mime types video/x-pn-hns1video
+and audio/x-pn-hns1audio to-day but these extended MIME types
+will eventually be replaced by "video/vnd.hns.video" and
+"audio/vnd/hns.audio" after registartion of these media sub-types.
+When RealPlayer is starting it accesses all rendering plug-ins in
+the plugins folder and asks them which mime type they support. The
+HNS video rendering plug-in hnsrvpln responds with  
+video/vnd.hns.video while the HNS audio rendering plug-in
+hnsrapln responds with audio/x-pn-hns1audio to that request. The
+header of the every stream of RM file contains mime type. When
+RealPlayer receives stream header it finds renderer plug-in
+responsible for that mime type and forward all related stream data
+to that plug-in.
+
+HNS video rendering plug-in hnsrvpln uses the decoder library which is
+specified in the Video Stream PropertiesHeader of the RM file. For
+example, a library HnsAvcBpDec has been implemented which
+corresponds to HNS implementation of MPEG-4 AVC Baseline Profile.
+Similarly, the HNS audio rendering plug-in hnsrapln uses the
+decoder library which is specified in the Audio Stream Properties
+Header of the RM file. For example, the library HnsLpcmDec
+corresponds to Linear PCM decoder.
+
+Person to contact for further information :
+
+1. Name : Kumar Swaminathan
+
+2. Email : kswami&hns.com
+
+Intended usage : Limited Use
+
+Intended for use by HNS developed products and services.
+
+
+Author/Change controller : Kumar Swaminathan
+
+(File created 23 March 2006)

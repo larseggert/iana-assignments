@@ -1,0 +1,722 @@
+                                                      Common Open Policy Service (COPS) Protocol
+
+   Created
+           2000-11
+
+   Last Updated
+           2012-09-28
+
+   Available Formats
+           [IMG]
+           XML [IMG]
+           HTML [IMG]
+           Plain text
+
+   Registries included below
+
+     * Client Types Values
+
+          * Client-type Values (0x0001-0x3FFF)
+          * Client-Type Values (0x8000-0xFFFF)
+
+     * C-Num and C-Type Values
+     * R-Types, Reason-Codes, Report-Types, Decision Object Command-Codes/Flags, and Error-Codes
+
+          * R-Types
+          * Reason-Codes
+          * Report-Types
+          * Decision Object Command-Codes
+          * Decision Object Flags
+          * Error Codes
+
+     * M-Types, Reason Sub-Codes, and Error Sub-codes
+     * Client-type = 0 Flags and Error-SubCodes
+
+          * Flags
+
+     * COPS-PR Object S-Num, S-Types, and Error-Codes
+
+          * Global Provisioning Error (GPERR) (s-num=4, s-type=1)
+          * Class-Specific Provisioning Error (CPERR) (s-num=5, s-type=1)
+
+     * P-types
+
+          * AUTH_SESSION X-Types (0x04)
+          * AUTH_ENT_ID (X-Type 1) SubType values
+          * SOURCE_ADDR (X-Type 3) SubType values
+          * DEST_ADDR (X-Type 4) SubType values
+          * START_TIME (X-Type 5) SubType values
+          * END_TIME (X-Type 6) SubType values
+          * RESOURCES (X-Type 7) SubType values
+
+     * A-types
+
+          * POLICY_LOCATOR (A-Type 1) SubType values
+          * CREDENTIAL (A-Type 2) SubType values
+          * POLICY_ERROR_CODE ErrorValues (A-Type 4)
+
+     * Merge Strategies
+     * ADMISSION_PRI (P-Type 0x05) Error Codes
+     * Receiver Proxy Control Policy Element (P-Type 0x07) Control-Value field
+
+Client Types Values
+
+   Reference
+           [RFC2748]
+
+   Note
+
+ Client-type values in the range 0x4000 - 0x7FFF are reserved for
+ Private Use as defined in [RFC2434]. These Client-types
+ are not tracked by IANA and are not to be used in standards or
+ general-release products, as their uniqueness cannot be assured.
+
+   Available Formats
+           [IMG]
+           CSV
+
+       Range     Registration Procedures              Notes
+        0x0      IETF Consensus          Defined by RFC4261
+    0x001-0x3FF  Specification Required  COPS extension document required
+   0x4000-0x7FFF Reserved                Private Use
+   0x8000-0xFFFF First Come First Served
+
+  Client-type Values (0x0001-0x3FFF)
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Value   Name   PIB Module         Description         Reference
+     1                        COPS Usage for RSVP        [RFC2749]
+     2   diffServ dsPolicyPib DiffServ QoS, DIFFSERV-PIB [RFC3317]
+
+  Client-Type Values (0x8000-0xFFFF)
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Value     Name    PIB Module                         Description                                                 Reference
+   0x8001                       IP Highway                                                  [Shai_Herzog]
+   0x8002                       IP Highway                                                  [Shai_Herzog]
+   0x8003                       IP Highway                                                  [Shai_Herzog]
+   0x8004                       IP Highway                                                  [Shai_Herzog]
+   0x8005                       Fujitsu Application Server Software Division                [Tetsuharu_Hanada]
+   0x8006                       HP OpenView PolicyXpert                                     [Brian_O_Keefe]
+   0x8007                       HP OpenView PolicyXpert COPS-PR PXPIB                       [Brian_O_Keefe]
+   0x8008                       PacketCable Dynamic Quality of Service                      [Jason_Gaedtke]
+   0x8009 go3gppPib  go3gppPib  COPS usage for 3GPP GO interface                            [ftp://ftp.3gpp.org/specs/Specs/archive/29_series/29.207/]
+   0x800a                       PacketCable Multimedia
+                                [http://www.packetcable.com/specifications/multimedia.html]
+   0x800b                       Juniper Networks                                            [John_Scano]
+   0x800c ITUT-RwPIB ITUT-RwPIB Q.3303.1 (Rw interface) COPS alternative                    [ITU-T Recommendation Q.3303.1]
+   0x800d ITUT-RcPIB ITUT-RcPIB Q.3304.1 (Rc interface) COPS alternative                    [ITU-T Recommendation Q.3304.1]
+
+C-Num and C-Type Values
+
+   Registration Procedure(s)
+
+ IETF Consensus
+
+   Reference
+           [RFC2748]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   c-num c-type                 Description                  Reference
+   0x01   0x01  Handle                                       [RFC2748]
+   0x02   0x01  Context                                      [RFC2748]
+   0x03   0x01  In-Interface, IPv4                           [RFC2748]
+   0x03   0x02  In-Interface, IPv6                           [RFC2748]
+   0x04   0x01  Out-Interface, IPv4                          [RFC2748]
+   0x04   0x02  Out-Interface, IPv6                          [RFC2748]
+   0x05   0x01  Reason                                       [RFC2748]
+   0x06   0x01  Decision, Flags                              [RFC2748]
+   0x06   0x02  Decision, Stateless Data                     [RFC2748]
+   0x06   0x03  Decision, Replacement Data                   [RFC2748]
+   0x06   0x04  Decision, Client Specific Decision Data      [RFC2748]
+   0x06   0x05  Decision, Named Decision Data                [RFC2748]
+   0x07   0x01  LPDP Decision, Flags                         [RFC2748]
+   0x07   0x02  LPDP Decision, Stateless Data                [RFC2748]
+   0x07   0x03  LPDP Decision, Replacement Data              [RFC2748]
+   0x07   0x04  LPDP Decision, Client Specific Decision Data [RFC2748]
+   0x07   0x05  LPDP Decision, Named Decision Data           [RFC2748]
+   0x08   0x01  Error                                        [RFC2748]
+   0x09   0x01  Client Specific Information, Signaled        [RFC2748]
+   0x09   0x02  Client Specific Information, Named           [RFC2748]
+   0x0A   0x01  Keep-Alive Timer                             [RFC2748]
+   0x0B   0x01  PEP Identification                           [RFC2748]
+   0x0C   0x01  Report-Type                                  [RFC2748]
+   0x0D   0x01  PDP Redirect Address, IPv4 + TCP Port        [RFC2748]
+   0x0D   0x02  PDP Redirect Address, IPv6 + TCP Port        [RFC2748]
+   0x0E   0x01  Last PDP Address, IPv4 + TCP Port            [RFC2748]
+   0x0E   0x02  Last PDP Address, IPv6 + TCP Port            [RFC2748]
+   0x0F   0x01  Accounting Timer                             [RFC2748]
+   0x10   0x01  Message Integrity                            [RFC2748]
+   0x10   0x02  Message Integrity, Integrity-TLS             [RFC4261]
+
+R-Types, Reason-Codes, Report-Types, Decision Object Command-Codes/Flags, and Error-Codes
+
+   Registration Procedure(s)
+
+ IETF Consensus
+
+   Reference
+           [RFC2748]
+
+  R-Types
+
+   Available Formats
+           [IMG]
+           CSV
+
+   R-Type                Description                 Reference
+    0x01  Incoming-Message/Admission Control request [RFC2748]
+    0x02  Resource-Allocation request                [RFC2748]
+    0x04  Outgoing-Message request                   [RFC2748]
+    0x08  Configuration request                      [RFC2748]
+
+  Reason-Codes
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Reason-Code        Description         Reference
+        1      Unspecified                [RFC2748]
+        2      Management                 [RFC2748]
+        3      Preempted                  [RFC2748]
+        4      Tear                       [RFC2748]
+        5      Timeout                    [RFC2748]
+        6      Route Change               [RFC2748]
+        7      Insufficient Resources     [RFC2748]
+        8      PDP's Directive            [RFC2748]
+        9      Unsupported decision       [RFC2748]
+       10      Synchronize Handle Unknown [RFC2748]
+       11      Transient Handle           [RFC2748]
+       12      Malformed Decision         [RFC2748]
+       13      Unknown COPS Object        [RFC2748]
+
+  Report-Types
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Report-Type Description Reference
+        1      Success     [RFC2748]
+        2      Failure     [RFC2748]
+        3      Accounting  [RFC2748]
+
+  Decision Object Command-Codes
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Command-Code  Description  Reference
+        0       NULL Decision [RFC2748]
+        1       Install       [RFC2748]
+        2       Remove        [RFC2748]
+
+  Decision Object Flags
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Decision-Flag  Description  Reference
+       0x01      Trigger Error [RFC2748]
+       0x02      Request-State [RFC3084]
+
+  Error Codes
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Error-Code              Description               Reference
+       1      Bad handle                             [RFC2748]
+       2      Invalid handle reference               [RFC2748]
+       3      Bad message format                     [RFC2748]
+       4      Unable to process                      [RFC2748]
+       5      Mandatory client-specific info missing [RFC2748]
+       6      Unsupported client-type                [RFC2748]
+       7      Mandatory COPS object missing          [RFC2748]
+       8      Client Failure                         [RFC2748]
+       9      Communication Failure                  [RFC2748]
+       10     Unspecified                            [RFC2748]
+       11     Shutting down                          [RFC2748]
+       12     Redirect to Preferred Server           [RFC2748]
+       13     Unknown COPS Object                    [RFC2748]
+       14     Authentication Failure                 [RFC2748]
+       15     Authentication Required                [RFC2748]
+
+M-Types, Reason Sub-Codes, and Error Sub-codes
+
+   Registration Procedure(s)
+
+ Values are assigned relative to the respective Client-type
+
+   Reference
+           [RFC2748]
+
+   No registrations at this time.
+
+Client-type = 0 Flags and Error-SubCodes
+
+   Registration Procedure(s)
+
+ IETF Consensus
+
+   Reference
+           [RFC4261]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Error-Code Error-SubCode Octet 2 Error-SubCode Octet 3            Description            Reference
+       15              16                     0           No security                       [RFC4261]
+       15              16                     2           Integrity-TLS supported/preferred [RFC4261]
+
+  Flags
+
+   Registration Procedure(s)
+
+ IETF Consensus
+
+   Reference
+           [RFC4261]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Value   Flag   Reference
+   0x01  StartTLS [RFC4261]
+
+COPS-PR Object S-Num, S-Types, and Error-Codes
+
+   Registration Procedure(s)
+
+ IETF Consensus
+
+   Reference
+           [RFC3084]
+
+   Note
+
+ Additional COPS-PR [RFC3084] Object S-Num, S-Types, and Error-Codes
+ MAY be defined for use with future COPS-PR Client-types, but such
+ additions require IETF Consensus as defined in [RFC2434].
+
+   Available Formats
+           [IMG]
+           CSV
+
+   s-num s-type val        Description (s-num, s-type)         Reference
+   0x01     0x01    Complete PRID, BER                         [RFC3084]
+   0x02     0x01    Prefix PRID, BER                           [RFC3084]
+   0x03     0x01    EPD, BER                                   [RFC3084]
+   0x04     0x01    GPERR, BER                                 [RFC3084]
+   0x05     0x01    CPERR, BER                                 [RFC3084]
+   0x06     0x01    ErrorPRID, BER                             [RFC3084]
+            0x02    Reserved for transport of XML encoded data [RFC3084]
+
+  Global Provisioning Error (GPERR) (s-num=4, s-type=1)
+
+   Registration Procedure(s)
+
+ IETF Consensus
+
+   Reference
+           [RFC3084]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Value         Name         Reference
+     1   availMemLow          [RFC3084]
+     2   availMemExhausted    [RFC3084]
+     3   unknownASN.1Tag      [RFC3084]
+     4   maxMsgSizeExceeded   [RFC3084]
+     5   unknownError         [RFC3084]
+     6   maxRequestStatesOpen [RFC3084]
+     7   invalidASN.1Length   [RFC3084]
+     8   invalidObjectPad     [RFC3084]
+     9   unknownPIBData       [RFC3084]
+    10   unknownCOPSPRObject  [RFC3084]
+    11   malformedDecision    [RFC3084]
+
+  Class-Specific Provisioning Error (CPERR) (s-num=5, s-type=1)
+
+   Registration Procedure(s)
+
+ IETF Consensus
+
+   Reference
+           [RFC3084]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Value         Name          Reference
+     1   priSpaceExhausted     [RFC3084]
+     2   priInstanceInvalid    [RFC3084]
+     3   attrValueInvalid      [RFC3084]
+     4   attrValueSupLimited   [RFC3084]
+     5   attrEnumSupLimited    [RFC3084]
+     6   attrMaxLengthExceeded [RFC3084]
+     7   attrReferenceUnknown  [RFC3084]
+     8   priNotifyOnly         [RFC3084]
+     9   unknownPrc            [RFC3084]
+    10   tooFewAttrs           [RFC3084]
+    11   invalidAttrType       [RFC3084]
+    12   deletedInRef          [RFC3084]
+    13   priSpecificError      [RFC3084]
+
+P-types
+
+   Reference
+           [RFC2750]
+
+   Available Formats
+           [IMG]
+           CSV
+
+      Range    Registration Procedures       Note
+     0-49151   IETF Consensus
+   49152-53247 First Come First Served  Vendor-specific
+   53248-65535 Reserved for Private Use
+
+   P-Type    Description    Reference
+    0x01  PREEMPTION_PRI    [RFC3181]
+    0x02  AUTH_USER         [RFC3182]
+    0x03  AUTH_APP          [RFC3182]
+    0x04  AUTH_SESSION      [RFC3520]
+    0x05  ADMISSION_PRI     [RFC6401]
+    0x06  APP_RESOURCE_PRI  [RFC6401]
+    0x07  REC_PROXY_CONTROL [RFC5946]
+
+  AUTH_SESSION X-Types (0x04)
+
+   Reference
+           [RFC3520]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+    0-127  IETF Consensus
+   128-255 Private Use
+
+   X-Type      Description     Reference
+      0    Reserved
+      1    AUTH_ENT_ID         [RFC3520]
+      2    SESSION_ID          [RFC3520]
+      3    SOURCE_ADDR         [RFC3520]
+      4    DEST_ADDR           [RFC3520]
+      5    START_TIME          [RFC3520]
+      6    END_TIME            [RFC3520]
+      7    RESOURCES           [RFC3520]
+      8    AUTHENTICATION_DATA [RFC3520]
+    9-127  Unassigned
+   128-255 Reserved
+
+  AUTH_ENT_ID (X-Type 1) SubType values
+
+   Reference
+           [RFC3520]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+    0-127  IETF Consensus
+   128-255 Private Use
+
+   SubType  Description  Reference
+      0    Reserved
+      1    IPV4_ADDRESS  [RFC3520]
+      2    IPV6_ADDRESS  [RFC3520]
+      3    FQDN          [RFC3520]
+      4    ASCII_DN      [RFC3520]
+      5    UNICODE_DN    [RFC3520]
+      6    URI           [RFC3520]
+      7    KRB_PRINCIPAL [RFC3520]
+      8    X509_V3_CERT  [RFC3520]
+      9    PGP_CERT      [RFC3520]
+   10-127  Unassigned
+   128-255 Reserved
+
+  SOURCE_ADDR (X-Type 3) SubType values
+
+   Reference
+           [RFC3520]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+    0-127  IETF Consensus
+   128-255 Private Use
+
+   SubType  Description  Reference
+      0    Reserved
+      1    IPV4_ADDRESS  [RFC3520]
+      2    IPV6_ADDRESS  [RFC3520]
+      3    UDP_PORT_LIST [RFC3520]
+      4    TCP_PORT_LIST [RFC3520]
+    5-127  Unassigned
+   128-255 Reserved
+
+  DEST_ADDR (X-Type 4) SubType values
+
+   Reference
+           [RFC3520]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+    0-127  IETF Consensus
+   128-255 Private Use
+
+   SubType  Description  Reference
+      0    Reserved
+      1    IPV4_ADDRESS  [RFC3520]
+      2    IPV6_ADDRESS  [RFC3520]
+      3    UDP_PORT_LIST [RFC3520]
+      4    TCP_PORT_LIST [RFC3520]
+    5-127  Unassigned
+   128-255 Reserved
+
+  START_TIME (X-Type 5) SubType values
+
+   Reference
+           [RFC3520]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+    0-127  IETF Consensus
+   128-255 Private Use
+
+   SubType  Description  Reference
+      0    Reserved
+      1    NTP_TIMESTAMP [RFC3520]
+    2-127  Unassigned
+   128-255 Reserved
+
+  END_TIME (X-Type 6) SubType values
+
+   Reference
+           [RFC3520]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+    0-127  IETF Consensus
+   128-255 Private Use
+
+   SubType  Description  Reference
+      0    Reserved
+      1    NTP_TIMESTAMP [RFC3520]
+    2-127  Unassigned
+   128-255 Reserved
+
+  RESOURCES (X-Type 7) SubType values
+
+   Reference
+           [RFC3520]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+    0-127  IETF Consensus
+   128-255 Private Use
+
+   SubType Description Reference
+      0    Reserved
+      1    BANDWIDTH   [RFC3520]
+      2    FLOW_SPEC   [RFC3520]
+      3    SDP         [RFC3520]
+      4    DSCP        [RFC3520]
+    5-127  Unassigned
+   128-255 Reserved
+
+A-types
+
+   Reference
+           [RFC3182]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+    0-127  IETF Consensus
+   128-255 Private Use
+
+   A-Type      Description     Reference
+      0    Reserved
+      1    POLICY_LOCATOR      [RFC3182]
+      2    CREDENTIAL          [RFC3182]
+      3    DIGITAL_SIGNATURE   [RFC3182]
+      4    POLICY_ERROR_OBJECT [RFC3182]
+    5-127  Unassigned
+   128-255 Reserved
+
+  POLICY_LOCATOR (A-Type 1) SubType values
+
+   Reference
+           [RFC3182]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+    0-127  IETF Consensus
+   128-255 Private Use
+
+   SubType    Description     Reference
+      0    Reserved
+      1    ASCII_DN           [RFC3182]
+      2    UNICODE_DN         [RFC3182]
+      3    ASCII_DN_ENCRYPT   [RFC3182]
+      4    UNICODE_DN_ENCRYPT [RFC3182]
+    5-127  Unassigned
+   128-255 Reserved
+
+  CREDENTIAL (A-Type 2) SubType values
+
+   Reference
+           [RFC3182]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+    0-127  IETF Consensus
+   128-255 Private Use
+
+   SubType Description  Reference
+      0    Reserved
+      1    ASCII_ID     [RFC3182]
+      2    UNICODE_ID   [RFC3182]
+      3    KERBEROS_TKT [RFC3182]
+      4    X509_V3_CERT [RFC3182]
+      5    PGP_CERT     [RFC3182]
+    6-127  Unassigned
+   128-255 Reserved
+
+  POLICY_ERROR_CODE ErrorValues (A-Type 4)
+
+   Reference
+           [RFC3182]
+
+   Available Formats
+           [IMG]
+           CSV
+
+      Range    Registration Procedures
+     0-32767   IETF Consensus
+   32768-65535 Private Use
+
+   ErrorValue           Description          Reference
+        0      Reserved
+        1      ErrorValue ERROR_NO_MORE_INFO [RFC3182]
+        2      UNSUPPORTED_CREDENTIAL_TYPE   [RFC3182]
+        3      INSUFFICIENT_PRIVILEGES       [RFC3182]
+        4      EXPIRED_CREDENTIAL            [RFC3182]
+        5      IDENTITY_CHANGED              [RFC3182]
+     6-32767   Unassigned
+   32768-65535 Reserved
+
+Merge Strategies
+
+   Reference
+           [RFC6401]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+    0-127  IETF Review
+   128-240 First Come First Served
+
+    Value             Description                Reference
+      0    Reserved                          [RFC6401]
+      1    Take priority of highest QoS      [RFC3181][RFC6401]
+      2    Take highest priority             [RFC3181][RFC6401]
+      3    Force Error on heterogenous merge [RFC3181][RFC6401]
+    4-240  Unassigned
+   241-255 Reserved for Private Use          [RFC6401]
+
+ADMISSION_PRI (P-Type 0x05) Error Codes
+
+   Reference
+           [RFC6401]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+    0-127  IETF Review
+   128-240 First Come First Served
+
+    Value                         Description                         Reference
+      0    NO_ERROR Value used for regular ADMISSION_PRI elements     [RFC6401]
+      1    Reserved                                                   [RFC6401]
+      2    HETEROGENEOUS This element encountered heterogeneous merge [RFC6401]
+    3-240  Unassigned
+   241-255 Reserved for Private Use                                   [RFC6401]
+
+Receiver Proxy Control Policy Element (P-Type 0x07) Control-Value field
+
+   Reference
+           [RFC5946]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+    0-127  IETF Review
+   128-240 First Come First Served
+
+    Value         Description        Reference
+      0    Reserved                  [RFC5946]
+      1    Receiver-Proxy-Needed     [RFC5946]
+      2    Receiver-Proxy-Not-Needed [RFC5946]
+    3-240  Unassigned
+   241-255 Reserved for Private Use  [RFC5946]
+
+                                                                        People
+
+           ID               Name                  Contact URI             Last Updated
+   [Brian_O_Keefe]    Brian O'Keefe    mailto:brian_okeefe&hp.com         2001-05
+   [Jason_Gaedtke]    Jason Gaedtke    mailto:j.gaedtke&cablelabs.com     2001-12
+   [John_Scano]       John Scano       mailto:jscano&juniper.net          2005-01
+   [Shai_Herzog]      Shai Herzog      mailto:herzog&policyconsulting.com 1999-11
+   [Tetsuharu_Hanada] Tetsuharu Hanada mailto:hanada&pc.fujitsu.com       2000-12

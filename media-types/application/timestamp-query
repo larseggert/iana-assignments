@@ -1,0 +1,34 @@
+(RFC 3161 published August 2001, subtype last updated April August 2001)
+
+This section specifies a means for conveying ASN.1-encoded messages
+for the protocol exchanges described in Section 2 and Appendix D via
+Internet mail.
+
+Two MIME objects are specified as follows:
+
+Content-Type: application/timestamp-query
+Content-Transfer-Encoding: base64
+<<the ASN.1 DER-encoded Time-Stamp message, base64-encoded>>
+
+Content-Type: application/timestamp-reply
+Content-Transfer-Encoding: base64
+<<the ASN.1 DER-encoded Time-Stamp message, base64-encoded>>
+
+These MIME objects can be respectively sent and received using common
+MIME processing engines and provides a simple Internet mail transport
+for Time-Stamp messages.
+
+For the application/timestamp-query and application/timestamp-reply
+MIME types, implementations SHOULD include the optional "name" and
+"filename" parameters.  Including a file name helps preserve type
+information when time-stamp queries and replies are saved as files.
+When these parameters are included, a file name with the appropriate
+extension SHOULD be selected:
+
+        MIME Type                     File Extension
+   application/timestamp-query            .TSQ
+   application/timestamp-reply            .TSR
+
+In addition, the file name SHOULD be limited to eight characters
+followed by a three letter extension.  The eight character filename
+base can be any distinct name.

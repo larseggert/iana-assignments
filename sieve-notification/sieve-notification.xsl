@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet xmlns="http://www.w3.org/1999/xhtml" xmlns:iana="http://www.iana.org/assignments" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+
+  <xsl:import href="../_support/iana-registry.xsl"/>
+
+  <xsl:template name="iana:record_header">
+    <tr><th>Name</th><th>URI</th><th>Options</th><th>Contact</th><th>Reference</th></tr>
+  </xsl:template>
+
+  <xsl:template match="iana:record">
+    <tr>
+      <td align="left"><xsl:value-of select="iana:name"/></td>
+      <td align="left"><xsl:apply-templates select="iana:uri"/></td>
+      <td align="left"><xsl:value-of select="iana:options"/></td>
+      <td align="left"><xsl:apply-templates select="iana:contact"/></td>
+      <td><xsl:apply-templates select="iana:xref"/></td>
+    </tr>
+  </xsl:template>
+
+</xsl:stylesheet>

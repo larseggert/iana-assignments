@@ -1,0 +1,73 @@
+(registered 2010-08-26)
+
+IMAP keyword name: $Junk
+
+Purpose (description):
+The user (or a delivery agent on behalf of the user)
+may choose to mark a message as definitely
+containing junk ($Junk; see also the related keyword
+$NotJunk). The $Junk keyword
+can be used to mark (and potentially move/delete
+messages later), group or hide undesirable messages.
+
+Private or Shared on a server: BOTH (see Note 3)
+
+Is it an advisory keyword or may it cause an automatic action:
+This keyword is advisory.
+
+When/by whom the keyword is set/cleared:
+$Junk can be set either by a delivery agent or a mail client
+on users behalf. The user must be able to set or clear $Junk
+at any time.
+If the mail client hides all messages with $Junk keyword
+from the current view, the mail client MUST implement a mode
+when it is possible to see all messages marked as $Junk.
+
+Related keywords: $NotJunk
+
+Related IMAP capabilities: None
+
+Security considerations:
+A message marked the with $Junk keyword by one
+user might not be considered junk by another (or even by the same
+user
+under different circumstances). Any automated action taken by
+the mail
+system or by the MUA in response to this keyword needs to take
+that into
+account. Destructive action (such as expunging a message as soon as
+the $Junk keyword is applied) can cause loss of desired messages, and
+mail systems and MUAs SHOULD NOT take such actions.
+
+Published specification (recommended):
+
+Person & email address to contact for further information:
+Alexey Melnikov <alexey.melnikov&isode.com>
+
+Intended usage: COMMON
+
+Owner/Change controller: IESG
+
+Note:
+1). $Junk and $NotJunk are mutually exclusive. If more than one of
+them is set for a message, the mail client MUST treat this as if
+neither of them is set and SHOULD remove both of them from the IMAP
+server.
+
+2). There are existing clients that use mutually exclusive keywords
+Junk and NotJunk to mark a message as definitely containing
+/definitely non containing junk information. Use of
+"Junk"/"NotJunk" is deprecated, mail clients should be using
+"$Junk"/"$NotJunk" instead.
+
+3). Because different users might have differing views of what
+constitutes "junk", server implementations SHOULD favor the use
+of a private keyword, to allow the most flexibility. However,
+because it will often be the case that there's broad agreement
+on the categorization of most messages in this regard, it
+will make the most sense for systems that implement
+shared messages to use a shared keyword, and to allow
+individual users to override that designation for themselves.
+An implementation might even take multiple overrides as a
+suggestion to change the shared flag, and consider that a
+useful optimization.

@@ -1,0 +1,988 @@
+RSVP PARAMETERS
+
+(last updated 2007-01-24)
+
+Information on RSVP Assignment and Modification Guidelines can 
+be found in [RFC3936].
+
+ Message Types
+ Class Names, Class Numbers, and Class Types
+ Virtual Destination Ports
+ Error Codes and Values
+---------------------------------------------------------------------
+
+Message Types
+
+An 8-bit number that identifies the function of the RSVP message.
+
+  1  =  Path                                  [RFC2205]
+  2  =  Resv                                  [RFC2205]
+  3  =  PathErr                               [RFC2205]
+  4  =  ResvErr                               [RFC2205]
+  5  =  PathTear                              [RFC2205]
+  6  =  ResvTear                              [RFC2205]
+  7  =  ResvConf                              [RFC2205]
+  8  =  DREQ                                  [RFC2745]
+  9  =  DREP                                  [RFC2745]
+ 10 =  ResvTearConfirm                        [Baker]
+ 11 =  Unassigned
+ 12 =  Bundle                                 [RFC2961]
+ 13 =  ACK                                    [RFC2961]
+ 14 =  Reserved				
+ 15 =  Srefresh                               [RFC2961]
+ 20 =  Hello                                  [RFC3209]
+ 21 =  Notify Message                         [RFC3473]   
+ 25 =  Integrity Challenge                    [RFC2747, RFC3097]
+ 26 =  Integrity Response                     [RFC2747, RFC3097]
+
+ 66 =  DSBM_willing                           [SBM]
+ 67 =  I_AM_DSBM                              [SBM]
+
+---------------------------------------------------------------------
+
+Class Names, Class Numbers, and Class Types
+
+Each class of data object in an RSVP message is identified by a Class
+Name and an 8-bit Class Number.  The Class Name is all upper-case.
+Within each object class there is an 8-bit Class Type (also known as a
+C-Type).  The following lists shows the Class Number and Class Name for
+each class, followed by the corresponding Class Types.
+
+Class
+Number  Class Name                            Reference
+------  -----------------------               ---------
+     0  NULL                                  [RFC2205]
+            
+          Class Types or C-Types:
+          Ignored.
+
+     1  SESSION                               [RFC2205]
+
+        Class Types or C-Types:
+	
+          1   IPv4                            [RFC2205]
+          2   IPv6                            [RFC2205]
+          3   IPv4/GPI                        [RFC2207]
+          4   IPv6/GPI                        [RFC2207]
+          5   unassigned                      [IANA]
+          6   tagged_tunnel_IPv4              [Baker]
+          7   LSP Tunnel IPv4                 [RFC3209]
+          8   LSP Tunnel IPv6                 [RFC3209]
+          9   RSVP-Aggregate-IP4              [RFC3175]
+         10   RSVP-Aggregate-IP6              [RFC3175]
+         11   UNI_Ipv4_Session object         [RFC3476]                           
+         12   UNI_IPv6 SESSION object (ASON)  [RFC3474]
+         13   unassigned
+         14   unassigned
+         15   ENNI_IPv4 SESSION object (ASON) [RFC3474]
+         16   ENNI_IPv6 SESSION object (ASON) [RFC3474]
+
+     2  unassigned
+
+     3  RSVP_HOP                              [RFC2205]
+
+        Class Types or C-Types:
+
+          1   IPv4                            [RFC2205]
+          2   IPv6                            [RFC2205]
+          3   IPv4 IF_ID RSVP_HOP             [RFC3473]  
+          4   IPv6 IF_ID RSVP_HOP             [RFC3473] 
+
+     4  INTEGRITY                             [RFC2205]
+
+        Class Types or C-Types:
+
+          1   Type 1 Integrity Value          [Integrity]
+
+     5  TIME_VALUES                           [RFC2205]
+
+        Class Types or C-Types:
+
+          1   Type 1 Time Value               [RFC2205]
+
+     6  ERROR_SPEC                            [RFC2205]
+
+        Class Types or C-Types:
+
+          1   IPv4                            [RFC2205]
+          2   IPv6                            [RFC2205]
+          3   IPv4 IF_ID ERROR_SPEC           [RFC3473] 
+          4   IPv6 IF_ID ERROR_SPEC           [RFC3473] 
+
+     7  SCOPE                                 [RFC2205]
+
+        Class Types or C-Types:
+
+          1   IPv4                            [RFC2205]
+          2   IPv6                            [RFC2205]
+
+      8  STYLE                                [RFC2205]
+
+         Class Types or C-Types:
+
+           1   Type 1 Style                   [RFC2205]
+
+      9  FLOWSPEC                             [RFC2205]
+
+         Class Types or C-Types:
+
+           1   Reserved                       [RFC2205]
+           2   Int-serv Flowspec              [RFC2210]
+           3   Deprecated                     [IESG]
+           4   SONET/SDH FLOWSPEC             [RFC4606]
+           5   G.709                          [RFC4328]
+
+     10  FILTER_SPEC                          [RFC2205]
+
+         Class Types or C-Types:
+
+           1   IPv4                           [RFC2205]
+           2   IPv6                           [RFC2205]
+           3   IPv6 Flow Label                [RFC2205]
+           4   IPv4/GPI                       [RFC2207]
+           5   IPv6/GPI                       [RFC2207]
+           6   tagged_tunnel_IPv4             [Baker]
+           7   LSP Tunnel IPv4                [RFC3209]
+           8   LSP Tunnel IPv6                [RFC3209]
+           9   RSVP-Aggregate-IP4             [RFC3175]
+          10   RSVP-Aggregate-IP6             [RFC3175]
+
+    11  SENDER_TEMPLATE                       [RFC2205]
+
+        Class Types or C-Types:
+
+          1   IPv4                            [RFC2205]
+          2   IPv6                            [RFC2205]
+          3   IPv6 Flow Label                 [RFC2205]
+          4   IPv4/GPI                        [RFC2207]
+          5   IPv6/GPI                        [RFC2207]
+          6   tagged_tunnel_IPv4              [Baker]
+          7   LSP Tunnel IPv4                 [RFC3209]
+          8   LSP Tunnel IPv6                 [RFC3209]
+          9   RSVP-Aggregate-IP4              [RFC3175]
+         10   RSVP-Aggregate-IP6              [RFC3175]
+
+    12  SENDER_TSPEC                          [RFC2205]
+
+        Class Types or C-Types:
+
+          2   Int-serv                        [RFC2210]
+          3   Deprecated                      [IESG]
+          4   SONET/SDH SENDER_TSPEC          [RFC4606]
+          5   G.709                           [RFC4328]
+
+    13  ADSPEC                                [RFC2205]
+
+        Class Types or C-Types:
+
+          2   Int-serv                        [RFC2210]
+
+    14  POLICY_DATA                           [RFC2205]
+
+        Class Types or C-Types:
+
+          1   Type 1 policy data              [RFC2205]
+
+    15  RESV_CONFIRM                          [RFC2205]
+
+        Class Types or C-Types:
+
+          1   IPv4                            [RFC2205]
+          2   IPv6                            [RFC2205]
+
+    16  RSVP_LABEL                            [RFC3209]
+
+        Class Types or C-Types:
+
+          1   Type 1 Label                    [RFC3209]
+          2   Generalized_Label               [RFC3473] 
+          3   Waveband_Switching_Label C-Type [RFC3473] 
+
+    17  HOP_COUNT                             [Davie]
+
+        Class Types or C-Types:
+
+          1   IPv4                            [Davie]
+
+    18  STRICT_SOURCE_ROUTE                   [Baker]
+
+        Class Types or C-Types:
+
+          1   Default                         [Baker]
+
+    19  LABEL_REQUEST                         [RFC3209]
+
+        Class Types or C-Types:
+                 
+          1   Without Label Range             [RFC3209]
+          2   With ATM Label Range            [RFC3209]
+          3   With Frame Relay Label Range    [RFC3209]
+          4   Generalized_Label_Request       [RFC3473] 
+
+    20  EXPLICIT_ROUTE                        [RFC3209]
+
+        Class Types or C-Types:
+                
+          1   Type 1 Explicit Route           [RFC3209]
+
+              Sub-object type
+                1   IPv4 prefix               [RFC3209]
+                2   IPv6 prefix               [RFC3209]
+                3   Label                     [RFC3473] 
+                4   Unnumbered Interface ID   [RFC3477]
+               32   Autonomous system number  [RFC3209]
+               37   Reserved                  [RFC-ietf-ccamp-gmpls-segment-recovery-03.txt]
+
+    21  ROUTE_RECORD                          [RFC3209]
+        (also known as RECORD_ROUTE)
+ 
+        Class Types or C-Types:
+                
+          1   Type 1 Route Record             [RFC3209]
+              
+              Sub-object type
+                1   IPv4 address              [RFC3209]
+                2   IPv6 address              [RFC3209]
+                3   Label                     [RFC3473] 
+                4   Unnumbered Interface ID   [RFC3477]
+                5   RRO Attributes            [RFC4420]
+               37   Reserved                  [RFC-ietf-ccamp-gmpls-segment-recovery-03.txt]
+ 
+    22  HELLO                                 [RFC3209]
+
+        Class Types or C-Types:
+
+          1   Request                         [RFC3209]
+          2   Acknowledgment                  [RFC3209]
+
+    23  MESSAGE_ID                            [RFC2961]
+
+        Class Types or C-Types:
+
+          1   Type 1 Message ID               [RFC2961]
+
+    24  MESSAGE_ID_ACK                        [RFC2961]
+
+        Class Types or C-Types:
+
+          1   MESSAGE_ID_ACK                  [RFC2961]
+          2   MESSAGE_ID_NACK                 [RFC2961]
+
+    25  MESSAGE_ID_LIST                       [RFC2961]
+
+        Class Types or C-Types:
+
+          1   Message ID list                 [RFC2961]
+          2   IPv4 Message ID Source list     [RFC2961]
+          3   IPv6 Message ID Source list     [RFC2961]
+          4   IPv4 Message ID Multicast list  [RFC2961]
+          5   IPv6 Message ID Multicast list  [RFC2961]
+
+ 26-29  Unassigned
+
+    30  DIAGNOSTIC                            [RFC2745]
+
+        Class Type of C-Type
+
+          1   IPv4                            [RFC2745]
+          2   IPv6                            [RFC2745]
+
+    31  ROUTE                                 [RFC2745]
+
+        Class Types or C-Types:
+
+          1   IPv4                            [RFC2745]
+          2   IPv6                            [RFC2745]
+
+    32  DIAG_RESPONSE                         [RFC2745]
+
+        Class Types or C-Types:
+
+          1   IPv4                            [RFC2745]
+          2   IPv6                            [RFC2745]
+
+    33  DIAG_SELECT                           [RFC2745]
+
+        Class Types or C-Types:
+
+          1 Type 1 Diagnostic Select          [RFC2745]
+
+    34  RECOVERY_LABEL                        [RFC3473] 
+
+        Class Types or C-types:
+		
+          Same values as RSVP_LABEL (C-Num 16)
+        
+    35  UPSTREAM_LABEL                        [RFC3473] 
+
+        Class Types or C-types:
+		
+          Same values as RSVP_LABEL (C-Num 16)
+
+    36  LABEL_SET                             [RFC3473] 
+
+        Class Types or C-types:
+		
+          1   Type 1 Label_set                [RFC3473] 
+
+    37  PROTECTION                            [RFC3473] 
+
+        Class Types or C-types:
+		
+          1   Type 1 Protection               [RFC3473] 
+          2   Type 2                          [RFC-ietf-ccamp-gmpls-recovery-e2e-signaling-04.txt]
+          
+    38  PRIMARY PATH ROUTE                    [RFC-ietf-ccamp-gmpls-recovery-e2e-signaling-04.txt]
+    
+        Class Types of C-Types
+         
+          1   Type 1 Primary Path Route       [RFC-ietf-ccamp-gmpls-recovery-e2e-signaling-04.txt]
+
+ 39-41  Unassigned
+
+    42  DSBM IP ADDRESS                       [SBM2]
+
+        Class Types or C-Types:
+
+          1  IPv4                             [SBM2]
+          2  IPv6                             [SBM2]
+
+    43  SBM_PRIORITY                          [SBM2]
+
+        Class Types or C-Types:
+
+          1   default                         [SBM2]
+
+    44  DSBM TIMER INTERVALS                  [SBM2]
+
+        Class Types or C-Types:
+
+          1   default                         [SBM2]
+
+    45  SBM_INFO                              [SBM2]
+
+        Class Types or C-Types:
+
+          1   Media Type                      [SBM2]
+
+ 46-62  Unassigned
+
+    63  DETOUR                                [RFC4090]
+
+        Class Types or C-Types:
+
+          7  IPv4                             [RFC4090] 
+          8  IPv6                             [RFC4090]
+ 
+    64  CHALLENGE                             [Integrity]
+
+        Class Types or C-Types:
+
+          1 Type 1 Challenge Value            [Integrity]
+
+    65  DIFF-SERV                             [RFC3270]
+
+        Class Types or C-Types:
+
+          1   Diff-Serv object for an E-LSP   [RFC3270] 
+          2   Diff-Serv object for an L-LSP   [RFC3270]
+
+    66  CLASSTYPE                             [RFC4124]
+
+        Class Types or C-Types:
+
+          1  Type 1                           [RFC4124]
+
+    67  LSP_REQUIRED_ATTRIBUTES               [RFC4420] 
+
+        Class Types or C-types:
+
+          1   LSP Required Attributess TLVs   [RFC4420]
+
+68-127  Unassigned
+
+   128  NODE_CHAR                             [Tunnel]
+
+        Class Types or C-Types:
+
+          Should be zero; ignored.            [Tunnel]
+
+   129  SUGGESTED_LABEL                       [RFC3473] 
+
+        Class Types or C-types:
+
+          Same values as RSVP_LABEL (C-Num 16)
+
+   130  ACCEPTABLE_LABEL_SET                  [RFC3473] 
+
+        Class Types or C-types:
+
+          Same values as LABEL_SET (C-Num 36)
+
+   131  RESTART_CAP                           [RFC3473] 
+
+        Class Types or C-types:
+
+          1   Type 1 Restart capabilities     [RFC3473] 
+
+132-160 Unassigned
+
+   161  RSVP_HOP_L2                           [SBM2]
+
+        Class Types or C-Types:
+
+          1   IEEE Canonical Address          [SBM2]
+
+   162  LAN_NHOP_L2                           [SBM2]
+
+        Class Types or C-Types:
+
+          1   IEEE Canonical Address          [SBM2]
+
+   163  LAN_NHOP_L3                           [SBM2]
+
+        Class Types or C-Types:
+
+          1   IPv4                            [SBM2]
+          2   IPv6                            [SBM2]
+
+   164  LAN_LOOPBACK                          [SBM2]
+
+        Class Types or C-Types:
+
+          1   IPv4                            [SBM2]
+          2   IPv6                            [SBM2]
+
+   165  TCLASS                                [SBM2]
+
+166-191 Unassigned
+
+   192  SESSION_ASSOC                         [Tunnel]
+
+        Class Types or C-Types:
+
+          Should be zero, ignored.            [Tunnel]
+
+   193  LSP_TUNNEL_INTERFACE_ID               [RFC3477]
+
+        Class Types or C-Types:
+
+          1   Forward/Reverse Interface ID    [RFC3477]
+
+   194 Unassigned
+
+   195  NOTIFY_REQUEST                        [RFC3473] 
+
+        Class Types or C-Types:
+
+          1   IPv4 Notify Request             [RFC3473] 
+          2   IPv6 Notify Request             [RFC3473] 
+
+   196  ADMIN-STATUS                          [RFC3473] 
+
+        Class Types or C-types:
+
+          1   Type 1 Admin status             [RFC3473] 
+
+   197  LSP_ATTRIBUTES                        [RFC4420] 
+
+        Class Types or C-types:
+
+          1   LSP Attributess TLVs            [RFC4420] 
+          
+   198  ALARM_SPEC                            [RFC4783]
+   
+        Class Types or C-Types:
+        
+          1   Type 1  RESERVED                [RFC4783]
+          2   Type 2  RESERVED                [RFC4783]
+          3   IPv4 IF_ID ALARM_SPEC           [RFC4783]
+          4   IPv6 IF_ID ALARM_SPEC           [RFC4783]
+       
+   199  ASSOCIATION                           [RFC-ietf-ccamp-gmpls-recovery-e2e-signaling-04.txt]
+   
+        Class Types or C-Types
+        
+          1   Type 1 IPv4 Association         [RFC-ietf-ccamp-gmpls-recovery-e2e-signaling-04.txt]
+          2   Type 2 IPv6 Association         [RFC-ietf-ccamp-gmpls-recovery-e2e-signaling-04.txt]
+          
+   200  SECONDARY_EXPLICIT_ROUTE              [RFC-ietf-ccamp-gmpls-segment-recovery-03.txt]
+   
+        Class Types or C-Types
+        
+          1   Type 1 Explicit Route           [RFC3209]
+
+              Sub-object type
+                1   IPv4 prefix               [RFC3209]
+                2   IPv6 prefix               [RFC3209]
+                3   Label                     [RFC3473] 
+                4   Unnumbered Interface ID   [RFC3477]
+               32   Autonomous system number  [RFC3209]
+               37   Reserved                  [RFC-ietf-ccamp-gmpls-segment-recovery-03.txt]
+               
+   201  SECONDARY_RECORD_ROUTE                [RFC-ietf-ccamp-gmpls-segment-recovery-03.txt]
+   
+        Class Types or C-Types
+        
+          1   Type 1 Explicit Route           [RFC3209]
+
+              Sub-object type
+                1   IPv4 prefix               [RFC3209]
+                2   IPv6 prefix               [RFC3209]
+                3   Label                     [RFC3473] 
+                4   Unnumbered Interface ID   [RFC3477]
+               32   Autonomous system number  [RFC3209]
+               37   Reserved                  [RFC-ietf-ccamp-gmpls-segment-recovery-03.txt]
+
+202-204  Unassigned
+
+   205   FAST_REROUTE                         [RFC4090]
+
+        Class Types or C-types:
+
+          1   Type 1             [RFC4090] 
+          7   Type 7  RESERVED   [RFC4090]
+
+206 Unassigned
+
+   207  SESSION_ATTRIBUTE                     [RFC3209]
+
+        Class Types or C-Types:
+
+          1   LSP_TUNNEL_RA                   [RFC3209]
+          7   LSP Tunnel                      [RFC3209]
+
+208-223 Unassigned
+
+---------------------------------------------------------------------
+
+Class Numbers 224-255 are assigned by IANA using FCFS allocation.
+RSVP will silently ignore, but FORWARD an object with a Class Number
+in this range that it does not understand.
+
+   224  Unassigned
+
+   225  DCLASS                                 [DCLASS]
+
+   226  PACKETCABLE EXTENSIONS                 [PKTCABLE]
+
+        Class Types or C-Types:
+
+          1 Reverse-Rspec                      [PKTCABLE]
+          2 Reverse-Session                    [PKTCABLE]
+          3 Reverse-Sender-Template            [PKTCABLE]
+          4 Reverse-Sender-Tspec               [PKTCABLE]
+          5 Forward-Rspec                      [PKTCABLE]
+          6 Component-Tspec                    [PKTCABLE]
+          7 Resource-ID                        [PKTCABLE]
+          8 Gate-ID                            [PKTCABLE]
+          9 Commit-Entity                      [PKTCABLE]
+
+   227  ATM_SERVICECLASS                       [RFC3496]
+
+        Class Types or C-Types:
+
+          1 ATM Service class                  [RFC3496]
+
+
+   228  CALL_OPS (ASON)                        [RFC3474] 
+
+        Class Types or C-Types:
+
+          1 Type 1 CALL_OPS                    [RFC3474]
+
+
+   229  GENERALIZED_UNI                        [RFC3476]
+
+        Class Types or C-Types: 
+
+        1   Type 1 Generalized UNI             [RFC3476]
+
+            Sub-object type          
+            1 - Source TNA                     [RFC3476]
+              Sub-object sub-type   
+                1  Ipv4                        [RFC3476]
+                2  Ipv6                        [RFC3476]
+                3  NSAP                        [RFC3476]
+
+            Sub-object type      
+            2 - Destination TNA
+              Sub-object sub-type   
+                1  Ipv4                        [RFC3476]
+                2  Ipv6                        [RFC3476]
+                3  NSAP                        [RFC3476]
+
+            Sub-object type  
+            3 - Diversity                      [RFC3476]
+              Sub-object sub-type   
+                1  Diversity                   [RFC3476]
+
+            Sub-object type  
+            4 - Egress Label                   [RFC3476]
+              Sub-object sub-type   
+                1  Egress Label                [RFC3476]
+                2  SPC_LABEL                   [RFC3474]
+
+            Sub-object type  
+            5 - Service level                  [RFC3476]
+              Sub-object sub-type   
+                1  Service level               [RFC3476]
+
+   230  CALL_ID                                [RFC3474]
+
+        Class Types or C-Types:
+
+          1 Operator specific                  [RFC3474]
+
+          2 Globally unique                    [RFC3474]
+          Sub-object type         
+           0x01 Source LSR address is 4-bytes  [RFC3474]
+           0x02 Source LSR address is 16-bytes [RFC3474] 
+           0x03 Source LSR address is 20-bytes [RFC3474] 
+           0x04 Source LSR address is 6-bytes  [RFC3474]
+           0x7f the source LSR address has the [RFC3474] 
+                length defined by the vendor
+
+
+   231  3GPP2_Object                             [3GPP2]
+
+        Class Types or C-Types:
+
+          1 Component                            [3GPP2]
+
+232-254 Unassigned
+
+   255  Reserved
+
+---------------------------------------------------------------------
+
+Virtual Destination Ports
+
+RFC 2207 describes a set of virtual destination ports for use with
+IPSEC.
+
+   The range of possible vDstPort values is broken down into sections,
+   in a fashion similar to the UDP/TCP port ranges.
+
+             0              Illegal Value
+             1 - 10         Reserved. Contact authors.
+             11 - 8191      Assigned by IANA
+             8192 - 65535   Dynamic
+
+   IANA is directed to assign the well-known vDstPorts using the
+   following criteria:  Anyone who asks for an assigned vDstPort must
+   provide a) a Point of Contact, b) a brief description of intended
+   use, and c) a short name to be associated with the assignment (e.g.
+   "ftp").
+
+None are currently assigned.
+
+---------------------------------------------------------------------
+
+Error Codes and Globally-Defined Error Value Sub-Codes
+
+An Error Code is an 8-bit quantity that appears in an ERROR_SPEC
+object to broadly define an error condition.  With each Error Code
+there may be a 16-bit Error Value that further specifies the cause
+of the error.  Error Values may be globally defined, in which case
+the sub-code component is assigned by IANA [RFC2205].
+
+The following list extends the basic list of Error Codes and Values that
+are defined in [RFC2205].
+
+Error Code	Meaning
+   0   See [RFC2205]
+   
+   1 Admission Control Failure                    [RFC2205]
+
+      The sixteen bits of the Error Value field are
+        ssur cccc cccc cccc
+      as defined in [RFC2205]
+
+      The following globally-defined sub-codes may appear in the low-
+      order 12 bits when ssur = 0000:
+
+      1 = Delay bound cannot be met               [RFC2205]
+      2 = Requested bandwidth unavailable         [RFC2205]
+      3 = MTU in flowspec larger than             [RFC2205]
+          interface MTU
+      4 = LSP Admission Failure                   [RFC-ietf-ccamp-gmpls-recovery-e2e-signaling-04.txt]
+      5 = Bad Association Type                    [RFC-ietf-ccamp-gmpls-recovery-e2e-signaling-04.txt]
+
+   2  Policy Control Failure                      [RFC2205]
+
+      This Error Code has the following globally-defined Error
+      Value sub-codes:
+
+        0 = Information reporting                 [RFC2750]
+        1 = Warning                               [RFC2750]
+        2 = Reason unknown                        [RFC2750]
+        3 = Generic Policy Rejection              [RFC2750]
+        4 = Quota or Accounting violation         [RFC2750]
+        5 = Flow was preempted                    [RFC2750]
+        6 = Previously installed policy expired   [RFC2750]
+            (not refreshed)
+        7 = Previous policy data was replaced &   [RFC2750]
+            caused rejection
+        8 = Policies could not be merged          [RFC2750]
+            (multicast)
+        9 = PDP down or non functioning           [RFC2750]
+       10 = Third Party Server (e.g., Kerberos)   [RFC2750]
+            unavailable
+       11 = POLICY_DATA object has bad syntax     [RFC2750]
+       12 = POLICY_DATA object failed Integrity   [RFC2750]
+            Check
+       13 = POLICY_ELEMENT object has bad syntax  [RFC2750]
+       14 = Mandatory PE Missing (Empty PE is in  [RFC2750]
+            the PD object)
+       15 = PEP Out of resources to handle        [RFC2750]
+            policies.
+       16 = PDP encountered bad RSVP objects or   [RFC2750]
+            syntax
+       17 = Service type was rejected             [RFC2750]
+       18 = Reservation Style was rejected        [RFC2750]
+       19 = FlowSpec was rejected (too large)     [RFC2750]
+       20 = Hard Pre-empted                       [RFC-ietf-ccamp-gmpls-recovery-e2e-signaling-04.txt]
+      100 = Unauthorized sender                   [RFC3476]
+      101 = Unauthorized receiver                 [RFC3476]
+      102 = ERR_PARTIAL_PREEMPT                   [RFC4495]
+
+   3-23 See [RFC2205]
+  
+  24  Routing Problem                             [RFC3209]
+
+      This Error Code has the following globally-defined Error
+      Value sub-codes:
+
+        1 = Bad EXPLICIT_ROUTE object             [RFC3209]
+        2 = Bad strict node                       [RFC3209]
+        3 = Bad loose node                        [RFC3209]
+        4 = Bad initial subobject                 [RFC3209]
+        5 = No route available toward             [RFC3209]
+            destination
+        6 = Unacceptable label value              [RFC3209]
+        7 = RRO indicated routing loops           [RFC3209]
+        8 = MPLS being negotiated, but a          [RFC3209]
+            non-RSVP-capable router stands 
+            in the path
+        9 = MPLS label allocation failure         [RFC3209]
+       10 = Unsupported L3PID                     [RFC3209]
+       11 = Label Set                             [RFC3473] 
+       12 = Switching Type                        [RFC3473] 
+       13 = Unassigned                            [RFC3473] 
+       14 = Unsupported Encoding                  [RFC3473] 
+       15 = Unsupported Link Protection           [RFC3473] 
+       16 = Unknown Interface Index               [RFC3477]
+       17 = Unsupported LSP Protection            [RFC-ietf-ccamp-gmpls-recovery-e2e-signaling-04.txt]
+       18 = PROTECTION object not applicable      [RFC-ietf-ccamp-gmpls-recovery-e2e-signaling-04.txt]
+       19 = Bad PRIMARY PATH_ROUTE object         [RFC-ietf-ccamp-gmpls-recovery-e2e-signaling-04.txt]
+       20 = PRIMARY PATH_ROUTE object not         [RFC-ietf-ccamp-gmpls-recovery-e2e-signaling-04.txt]
+            applicable
+       21 = LSP Segment Protection Failed         [RFC-ietf-ccamp-gmpls-segment-recovery-03.txt]
+    22-99 = Unassigned
+      100 = Diversity not available               [RFC3476]
+      101 = Service level not available           [RFC3476]
+      102 = Invalid/Unknown connection ID         [RFC3476]
+      103 = No route available toward             [RFC3474]             
+            source (ASON) 
+      104 = Unacceptable interface ID (ASON)      [RFC3474]
+      105 = Invalid/unknown call ID (ASON)        [RFC3474]
+      106 = Invalid SPC interface ID/label        [RFC3474]
+            (ASON)
+
+  25  Notify Error                                [RFC3209]
+
+      This Error Code has the following globally-defined Error
+      Value sub-codes:
+
+        1 = RRO too large for MTU                 [RFC3209]
+        2 = RRO Notification                      [RFC3209]
+        3 = Tunnel locally repaired               [RFC3209]
+        4 = Control Channel Active State          [RFC3473] 
+        5 = Control Channel Degraded State        [RFC3473]  
+        6 = Preferable path exists                [RFC4736]
+        7 = Local link maintenance required       [RFC4736]
+        8 = Local node maintenance required       [RFC4736]
+        9 = LSP Failure                           [RFC-ietf-ccamp-gmpls-recovery-e2e-signaling-04.txt]
+       10 = LSP Recovered                         [RFC-ietf-ccamp-gmpls-recovery-e2e-signaling-04.txt]
+       11 = LSP Locally Failed                    [RFC-ietf-ccamp-gmpls-recovery-e2e-signaling-04.txt]
+
+  26  NEW-AGGREGATE-NEEDED                        [RFC3175]
+  
+  27  Diffserv Error                              [RFC3270]
+        
+      This Error Code has the following globally-defined Error
+      Value sub-codes:
+
+        1 = Unexpected DIFFSERV object            [RFC3270]
+        2 = Unsupported PHB                       [RFC3270]
+        3 = Invalid EXP<-->PHB mapping            [RFC3270]
+        4 = Unsupported PSC                       [RFC3270]
+        5 = Per-LSP context allocation            [RFC3270]
+            failure
+
+  28  Diff-Serv-aware TE Error                    [RFC4124]
+        1 = Unexpected CLASSTYPE object           [RFC4124]
+        2 = Unsupported Class-Type                [RFC4124]
+        3 = Invalid Class-Type value              [RFC4124]
+        4 = Class-Type and setup priority do      [RFC4124]
+            not form a configured TE-Class 
+        5 = Class-Type and holding priority       [RFC4124]
+            do not form a configured TE-Class 
+        6 = Class-Type and setup priority do      [RFC4124]
+            not form a configured TE-Class AND 
+            Class-Type and holding priority do 
+            not form a configured TE-Class 
+        7 = Inconsistency between signaled        [RFC4124]
+            PSC and signaled Class-Type 
+        8 = Inconsistency between signaled        [RFC4124]
+            PHBs and signaled Class-Type 
+
+  29  Unknown Attributes TLV                      [RFC4420]
+
+  30  Unknown Attributes Bit                      [RFC4420]
+  
+  31  Alarms                                      [RFC4783]
+  
+         The Error Value sub-codes for this Error Code
+         have values and meanings identical to the values
+         and meanings defined in the IANAItuProbableCause
+         Textual Convention of IANA-ITU-ALARM-TC-MIB
+         in the Alarm MIB [RFC3877].
+
+  
+References
+----------
+
+[DCLASS] Yoram Bernet <draft-bernet-dclass-01.txt>, June 1999.
+
+[RFC2205] Braden, R., et al, "Resource ReSerVation Protocol (RSVP) --
+	  Version 1 Functional Specification", RFC 2205, September 1997.
+
+[RFC2207] Berger, L., and T. O'Malley, "RSVP Extensions for IPSEC Data
+          Flow", RFC 2207, FORE Systems, BBN, September 1997.
+
+[RFC2210] Wroclawski, J., "The Use of RSVP with IETF Integrated
+	  Services", RFC 2210, MIT LCS, September 1997.
+
+[RFC2745]  Zhang, L, and A. Terzis, "RSVP Diagnostic Messages",
+	   RFC 2745, January 2000.
+
+[RFC2961] Berger, L., et al, "RSVP Refresh Overhead Reduction
+          Extensions", RFC 2961, March 2001.
+
+[RFC3097]  Braden, B. and L. Zhang, "RSVP Cryptographic Authentication
+           - Updated Message Type Value", RFC 3097, April 2001.
+
+[Integrity] Baker, Fred, "RSVP Cryptographic Authentication",
+	  RFC 2747, January 2000.
+
+[RFC3209] D. Awduche, L. Berger, D. Gan, T. Li, V. Srinivasan, and
+          G. Swallow, "RSVP-TE: Extensions to RSVP for LSP Tunnels",
+		  RFC 3209, December 2001.
+
+[PKTCABLE] Anon, "PacketCable Dynamic Quality-of-Service
+           Specification", PKT-SP-DQOS-O01-991201, date unknown.
+           Available from
+           http://www.packetcable.com/specs/pkt-sp-dqos-I01-991201.pdf.
+
+[SBM]     Yavatkar, R., et al, "SBM (Subnet Bandwidth Manager): A
+          Proposal for Admission Control over IEEE 802-style
+          networks", Internet Draft, July 1997.
+
+[SBM2]	   Yavatkar, R., et al, "SBM (Subnet Bandwidth Manager):
+	   Protocol for RSVP-based Admission Control over IEEE
+	   802-style networks", Internet Draft, November 1997.
+
+[Tunnel]   Terzis, A., et al, "RSVP Operation Over IP Tunnels",
+	   RFC 2746, January 2000.
+
+[RFC3175]  F. Baker, C. Iturralde, F. Le Faucheur, B. Davie, 
+           "Aggregation of RSVP for IPv4 and IPv6 Reservations",
+           RFC 3175, September 2001.
+
+[RFC3270]  F. Faucheur, L. Wu, B. Davie, S. Davari, P. Vaananen, 
+           R. Krishnan, P. Cheval, and J. Heinanen, "MPLS Support 
+           of Differentiated Services", RFC 3270, May 2002.
+
+[RFC3473]  L. Berger, Editor, "Generalized Multi-Protocol Label 
+           Switching (GMPLS) Signaling Resource ReserVation 
+           Protocol-Traffic Engineering (RSVP-TE) Extensions", 
+           RFC 3473, January 2003.
+
+[RFC3496]  A. Malis and T. Hsiao, "Protocol Extension for Support 
+           of ATM Service Class-aware MPLS Traffic Engineering",
+           RFC 3496, March 2003.
+
+[RFC3474]  Z. Lin, D. pendarakis, Generalized MPLS (GMPLS) RSVP-TE
+           Usage and Extensions For Automatically Switched Optical
+           Network (ASON), RFC 3474, March 2003.
+
+[RFC3476]  B. Rajagopalan, LDP and RSVP Extensions for Optical UNI
+           Signaling, RFC 3476, March 2003.
+
+[RFC3477]  K. Kompella and Y. Rekhter, "Signalling Unnumbered Links 
+           in RSVP-TE", RFC 3477, January 2003.
+
+[IESG]     IESG, "IESG on IANA allocations for ietf-ccamp-gmpls-sonet-sdh-08.txt"
+           <http://www1.ietf.org/mail-archive/ietf-announce/Current/msg28150.html>,
+           January 2004.
+
+[RFC3936]  K. Kompella and J. Lang, "Procedures for Modifying RSVP", RFC 3936,
+           October 2004.
+
+[RFC4090]  P. Pan, Ed., G. Swallow, Ed., and A. Atlas, Ed., "Fast Reroute 
+           Extensions to RSVP-TE for LSP Tunnels", RFC 4090, May 2005.
+
+[RFC4124]  Le Faucheur, F., Ed., "Protocol extensions for support of  
+           Differentiated-Service-aware MPLS Traffic Engineering", 
+           RFC 4124, June 2005.
+
+[RFC4420]  A. Farrel, D. Papadimitriou, J. P. Vasseur and A. Ayyangar,
+           "Encoding of Attributes for  Multiprotocol Label Switching 
+           (MPLS) Label Switched Path (LSP) Establishment Using RSVP-TE",
+           RFC 4420, February 2006.
+
+[RFC4328]  D. Papadimitriou, Ed., "Generalized MPLS (GMPLS) Signaling 
+           Extensions for G.709 Optical Transport Networks Control",
+           RFC 4328, January 2006.
+
+[RFC4495]  J. Polk and S. Dhesikan, "A Resource Reservation Protocol 
+           Extension for the Reduction of Bandwidth of a Reservation Flow",
+           RFC 4495, May 2006.
+
+[RFC4606]  E. Mannie and D. Papadimitriou, "Generalized Multi-Protocol 
+           Label Switching (GMPLS) Extensions for Synchronous Optical 
+           Network (SONET) and Synchronous Digital Hierarchy (SDH) Control", 
+           RFC 4606, August 2006.
+
+[RFC4736]  JP. Vasseur, Y. Ikejiri, and R. Zhang, "Reoptimization of 
+           Multiprotocol Label Switching (MPLS) Traffic Engineering (TE) 
+           loosely routed Label Switch Path (LSP)", RFC 4736, November 2006.
+           
+[RFC4783]  Lou Berger, Ed., "GMPLS - Communication of Alarm Information",
+           RFC 4783, December 2006.
+           
+[RFC-ietf-ccamp-gmpls-recovery-e2e-signaling-04.txt]
+           L.P. Lang, Y. Rekhter, and D. Papadimitriou, "RSVP-TE Extensions
+           in support of End-to-End Generalized Multi-Protocol Label 
+           Switching (GMPLS) Recovery", RFC XXXX, Month, Year
+           
+[RFC-ietf-ccamp-gmpls-segment-recovery-03.txt]           
+           Lou Berger, Igor Bryskin, Dimitri Papadimitriou, and Adrian Farrel,
+           "GMPLS Based Segment Recovery", RFC XXXX, Month Year
+
+People
+------
+[Baker] Fred Baker <fred&cisco.com>, March 1998.
+
+[Davie] Bruce Davie <bsd&cisco.com>, March 1998.
+
+[IANA] Internet Assigned Numbers Authority, <iana&iana.org>, March 1998.
+
+[3GPP2] 3GPP2, Kuntal Chowdury, <chowdury&nortelnetworks.com>, April 2003.
+
+
+[]
+
+

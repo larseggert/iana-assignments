@@ -1,0 +1,223 @@
+                                                    Transmission Control Protocol (TCP) Parameters
+
+   Last Updated
+           2014-12-31
+
+   Available Formats
+           [IMG]
+           XML [IMG]
+           HTML [IMG]
+           Plain text
+
+   Registries included below
+
+     * TCP Option Kind Numbers
+     * TCP Alternate Checksum Numbers
+     * Cryptographic Algorithms for TCP-AO Registration
+     * MPTCP Option Subtypes
+     * MPTCP Handshake Algorithms
+     * TCP Experimental Option Experiment Identifiers (TCP ExIDs)
+
+TCP Option Kind Numbers
+
+   Registration Procedure(s)
+
+ IESG Approval or Standards Action
+
+   Reference
+           [RFC2780]
+
+   Note
+
+ The Transmission Control Protocol (TCP) has provision for optional
+ header fields identified by an option kind field.  Options 0 and 1 are
+ exactly one octet which is their kind field.  All other options have
+ their one octet kind field, followed by a one octet length field,
+ followed by length-2 octets of option data.
+
+ [*] It is only appropriate to use these values in explicitly-
+     configured experiments; they MUST NOT be shipped as defaults in
+     implementations.  See [RFC3692] for details.
+
+ [**] These values have been deployed in the Internet without proper
+     IANA assignment. At some point, these numbers may be officially
+     allocated for some new purpose. It is therefore strongly recommended
+     that implementers migrate to mechanisms with IANA-assigned values to
+     avoid potential issues with their systems or products at a later point.
+
+ [***] This value has been deployed on the Internet in ways that are
+     not compatible with the documented use in this IANA allocation.
+
+
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Kind   Length                                    Meaning                                                Reference
+   0      -        End of Option List                                                          [RFC793]
+   1      -        No-Operation                                                                [RFC793]
+   2      4        Maximum Segment Size                                                        [RFC793]
+   3      3        Window Scale                                                                [RFC7323]
+   4      2        SACK Permitted                                                              [RFC2018]
+   5      N        SACK                                                                        [RFC2018]
+   6      6        Echo (obsoleted by option 8)                                                [RFC1072][RFC6247]
+   7      6        Echo Reply (obsoleted by option 8)                                          [RFC1072][RFC6247]
+   8      10       Timestamps                                                                  [RFC7323]
+   9      2        Partial Order Connection Permitted (obsolete)                               [RFC1693][RFC6247]
+   10     3        Partial Order Service Profile (obsolete)                                    [RFC1693][RFC6247]
+   11              CC (obsolete)                                                               [RFC1644][RFC6247]
+   12              CC.NEW (obsolete)                                                           [RFC1644][RFC6247]
+   13              CC.ECHO (obsolete)                                                          [RFC1644][RFC6247]
+   14     3        TCP Alternate Checksum Request (obsolete)                                   [RFC1146][RFC6247]
+   15     N        TCP Alternate Checksum Data (obsolete)                                      [RFC1146][RFC6247]
+   16              Skeeter                                                                     [Stev_Knowles]
+   17              Bubba                                                                       [Stev_Knowles]
+   18     3        Trailer Checksum Option                                                     [Subbu_Subramaniam][Monroe_Bridges]
+   19     18       MD5 Signature Option (obsoleted by option 29)                               [RFC2385]
+   20              SCPS Capabilities                                                           [Keith_Scott]
+   21              Selective Negative Acknowledgements                                         [Keith_Scott]
+   22              Record Boundaries                                                           [Keith_Scott]
+   23              Corruption experienced                                                      [Keith_Scott]
+   24              SNAP                                                                        [Vladimir_Sukonnik]
+   25              Unassigned (released 2000-12-18)
+   26              TCP Compression Filter                                                      [Steve_Bellovin]
+   27     8        Quick-Start Response                                                        [RFC4782]
+   28     4        User Timeout Option (also, other known unauthorized use) [***][1]           [RFC5482]
+   29              TCP Authentication Option (TCP-AO)                                          [RFC5925]
+   30     N        Multipath TCP (MPTCP)                                                       [RFC6824]
+   31              Reserved (known unauthorized use without proper IANA assignment) [**]
+   32              Reserved (known unauthorized use without proper IANA assignment) [**]
+   33              Reserved (known unauthorized use without proper IANA assignment) [**]
+   34     variable TCP Fast Open Cookie                                                        [RFC7413]
+   35-75           Reserved
+   69              Reserved (known unauthorized use without proper IANA assignment) [**]
+   70              Reserved (known unauthorized use without proper IANA assignment) [**]
+   71-75           Reserved
+   76              Reserved (known unauthorized use without proper IANA assignment) [**]
+   77              Reserved (known unauthorized use without proper IANA assignment) [**]
+   78              Reserved (known unauthorized use without proper IANA assignment) [**]
+   79-252          Reserved
+   253    N        RFC3692-style Experiment 1 (also improperly used for shipping products) [*] [RFC4727]
+   254    N        RFC3692-style Experiment 2 (also improperly used for shipping products) [*] [RFC4727]
+
+TCP Alternate Checksum Numbers
+
+   Registration Procedure(s)
+
+ Not defined
+
+   Reference
+           [RFC1146]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Number         Description          Reference
+   0      TCP Checksum                 [RFC1146]
+   1      8-bit Fletchers's algorithm  [RFC1146]
+   2      16-bit Fletchers's algorithm [RFC1146]
+   3      Redundant Checksum Avoidance [J_Kay]
+
+Cryptographic Algorithms for TCP-AO Registration
+
+   Registration Procedure(s)
+
+ RFC Publication After Expert Review
+
+   Reference
+           [RFC5926]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Algorithm Reference
+   SHA1      [RFC5926]
+   AES128    [RFC5926]
+
+MPTCP Option Subtypes
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC6824]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Value           Symbol                                    Name                                   Reference
+   0x0     MP_CAPABLE               Multipath Capable                                         [RFC6824], Section 3.1
+   0x1     MP_JOIN                  Join Connection                                           [RFC6824], Section 3.2
+   0x2     DSS                      Data Sequence Signal (Data ACK and Data Sequence Mapping) [RFC6824], Section 3.3
+   0x3     ADD_ADDR                 Add Address                                               [RFC6824], Section 3.4.1
+   0x4     REMOVE_ADDR              Remove Address                                            [RFC6824], Section 3.4.2
+   0x5     MP_PRIO                  Change Subflow Priority                                   [RFC6824], Section 3.3.8
+   0x6     MP_FAIL                  Fallback                                                  [RFC6824], Section 3.6
+   0x7     MP_FASTCLOSE             Fast Close                                                [RFC6824], Section 3.5
+   0x8-0xe Unassigned
+   0xf     Reserved for Private Use                                                           [RFC6824]
+
+MPTCP Handshake Algorithms
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC6824]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Flag Bit      Meaning            Reference
+   A        Checksum required [RFC6824], Section 3.1
+   B        Extensibility     [RFC6824], Section 3.2
+   C-G      Unassigned
+   H        HMAC-SHA1         [RFC6824], Section 3.2
+
+TCP Experimental Option Experiment Identifiers (TCP ExIDs)
+
+   Registration Procedure(s)
+
+ First Come First Served
+
+   Reference
+           [RFC6994]
+
+   Note
+
+ IANA will record known duplicate uses.
+
+
+   Available Formats
+           [IMG]
+           CSV
+
+      Value                      Description                                  Reference
+   0x0348      Host ID                                         [draft-williams-exp-tcp-host-id-opt]
+   0x0ED0      Extended Data Offset                            [draft-ietf-tcpm-tcp-edo]
+   0x5323      Service Number                                  [draft-touch-tcpm-sno]
+   0x75EC FFEE Timestamp Interval                              [draft-trammell-tcpm-timestamp-interval]
+   0xE2D4 C3D9 Shared Memory communications over RMDA protocol [draft-fox-tcpm-shared-memory-rdma]
+   0xF989      Fast Open                                       [RFC7413]
+
+                                                                        People
+
+           ID                Name                   Contact URI             Last Updated
+   [J_Kay]             J. Kay            mailto:jkay&ucsd.edu               1994-09
+   [Keith_Scott]       Keith Scott       mailto:kscott&mitre.org            1999-02
+   [Monroe_Bridges]    Monroe Bridges    mailto:monroe&cup.hp.com           1994-09
+   [Stev_Knowles]      Stev Knowles      mailto:stev&ftp.com                1995-03
+   [Steve_Bellovin]    Steve Bellovin    mailto:smb&research.att.com        2000-03
+   [Subbu_Subramaniam] Subbu Subramaniam mailto:subbu&cup.hp.com            1994-09
+   [Vladimir_Sukonnik] Vladimir Sukonnik mailto:vladimir&sitaranetworks.com 1999-02
+
+                                                                       Footnote
+
+   [1] [https://devcentral.f5.com/tech-tips/articles/accessing-tcp-options-from-irules]

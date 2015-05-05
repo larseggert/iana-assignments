@@ -1,0 +1,168 @@
+(per RFC4396)
+
+Media type: video
+
+Media subtype: 3gpp-tt
+
+Required parameters
+
+     rate:
+             Refer to Section 3 in RFC 4396.
+
+     sver:
+             The parameter "sver" contains a list of supported
+             backwards-compatible versions of the timed text format
+             specification (3GPP TS 26.245) that the sender accepts
+             to receive (and that are the same that it would be
+             willing to send).  The first value is the value
+             preferred to receive (or preferred to send).  The first
+             value MAY be followed by a comma-separated list of
+             versions that SHOULD be used as alternatives.  The order
+             is meaningful, being first the most preferred and last
+             the least preferred.  Each entry has the format
+             Zi(xi*256+yi), where "Zi" is the number of the Release
+             and "xi" and "yi" are taken from the 3GPP specification
+             version (i.e., vZi.xi.yi).  For example, for 3GPP TS
+             26.245 v6.0.0, Zi(xi*256+yi)=6(0), the version value is
+             "60".  (Note that "60" is the concatenation of the
+             values Zi=6 and (xi*256+yi)=0 and not their product.)
+
+             If no "sver" value is available, for example, when
+             streaming out of a 3GP file, the default value "60",
+             corresponding to the 3GPP Release 6 version of 3GPP TS
+             26.245, SHALL be used.
+
+Optional parameters:
+
+     tx:
+             This parameter indicates the horizontal translation
+             offset in pixels of the text track with respect to the
+             origin of the video track.  This value is the decimal
+             representation of a 16-bit signed integer.  Refer to TS
+             3GPP 26.245 for an illustration of this parameter.
+
+     ty:
+             This parameter indicates the vertical translation offset
+             in pixels of the text track with respect to the origin
+             of the video track.  This value is the decimal
+             representation of a 16-bit signed integer.  Refer to TS
+             3GPP 26.245 for an illustration of this parameter.
+
+     layer:
+             This parameter indicates the proximity of the text track
+             to the viewer.  More negative values mean closer to the
+             viewer.  This parameter has no units.  This value is the
+             decimal representation of a 16-bit signed integer.
+
+     tx3g:
+             This parameter MUST be used for conveying sample
+             descriptions out-of-band.  It contains a comma-separated
+             list of base64-encoded entries.  The entries of this
+             list MAY follow any particular order and the list SHALL
+             NOT be empty.  Each entry is the result of running
+             base64 encoding over the concatenation of the (static)
+             SIDX value as an 8-bit unsigned integer and the (static)
+             sample description for that SIDX, in that order.  The
+             format of a sample description entry can be found in
+             3GPP TS 26.245 Release 6 and later releases.  All
+             servers and clients MUST understand this parameter and
+             MUST be capable of using the sample description(s)
+             contained in it.  Please refer to RFC 3548 [6] for
+             details on the base64 encoding.
+
+     width:
+             This parameter indicates the width in pixels of the text
+             track or area of the text being sent.  This value is the
+             decimal representation of a 32-bit unsigned integer.
+             Refer to TS 3GPP 26.245 for an illustration of this
+             parameter.
+
+     height:
+             This parameter indicates the height in pixels of the
+             text track being sent.  This value is the decimal
+             representation of a 32-bit unsigned integer.  Refer to
+             TS 3GPP 26.245 for an illustration of this parameter.
+
+     max-w:
+             This parameter indicates display capabilities.  This is
+             the maximum "width" value that the sender of this
+             parameter supports.  This value is the decimal
+             representation of a 32-bit unsigned integer.
+
+     max-h:
+             This parameter indicates display capabilities.  This is
+             the maximum "height" value that the sender of this
+             parameter supports.  This value is the decimal
+             representation of a 32-bit unsigned integer.
+
+Encoding considerations:
+
+     This media type is framed (see Section 4.8 in [29]) and
+     partially contains binary data.
+
+Restrictions on usage:
+
+     This media type depends on RTP framing, and hence is only
+     defined for transfer via RTP [3].  Transport within other
+     framing protocols is not defined at this time.
+
+Security considerations:
+
+     Please refer to Section 11 of RFC 4396.
+
+Interoperability considerations:
+
+     The 3GPP Timed Text media format and its file storage is
+     specified in Release 6 of 3GPP TS 26.245, "Transparent end-to-
+     end packet switched streaming service (PSS); Timed Text Format
+     (Release 6)".  Note also that 3GPP may in future releases
+     specify extensions or updates to the timed text media format in
+     a backwards-compatible way, e.g., new modifier boxes or
+     extensions to the sample descriptions.  The payload format
+     defined in RFC 4396 allows for such extensions.  For future 3GPP
+     Releases of the Timed Text Format, the parameter "sver" is used
+     to identify the exact specification used.
+
+     The defined storage format for 3GPP Timed Text format is the
+     3GPP File Format (3GP) [30]. 3GP files may be transferred using
+     the media type video/3gpp as registered by RFC 3839 [31].  The
+     3GPP File Format is a container file that may contain, e.g.,
+     audio and video that may be synchronized with the 3GPP Timed
+     Text.
+
+Published specification: RFC 4396
+
+Applications which use this media type:
+
+     Multimedia streaming applications.
+
+Additional information:
+
+     The 3GPP Timed Text media format is specified in 3GPP TS 26.245,
+     "Transparent end-to-end packet switched streaming service (PSS);
+     Timed Text Format (Release 6)".  This document and future
+     extensions to the 3GPP Timed Text format are publicly available
+     at http://www.3gpp.org.
+
+     Magic number(s): None.
+
+     File extension(s): None.
+
+     Macintosh File Type Code(s): None.
+
+Person & email address to contact for further information:
+
+     Jose Rey, jose.rey&eu.panasonic.com
+     Yoshinori Matsui, matsui.yoshinori&jp.panasonic.com
+     Audio/Video Transport Working Group.
+
+Intended usage: COMMON
+
+Authors:
+     Jose Rey
+     Yoshinori Matsui
+
+Change controller: IETF Audio/Video Transport Working Group delegated
+     from the IESG.
+
+

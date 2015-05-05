@@ -1,0 +1,96 @@
+default namespace ns1 = "urn:ietf:params:xml:ns:lost-ext"
+
+##
+##    Extensions to the Location-to-Service Translation (LoST)
+##    Protocol
+
+##
+##    LoST Extensions define three new elements: limit, region, and
+##    serviceLocation.
+##
+start =
+  limit
+  | region
+  | serviceLocation
+
+##
+##    A limit to the number of returned results.
+##
+div {
+  limit=
+    element limit {
+      xsd:positiveInteger
+    }
+}
+
+##
+##   A boolean variable to request a search
+##   based on either service areas or distance.
+##
+##   NOTE: The W3C XML Schema has two different
+##         lexical representations for boolean:
+##         '1' or 'true' vs. '0' or 'false'.
+##
+div {
+  region=
+    element region {
+      xsd:boolean
+    }
+
+
+
+Forte & Schulzrinne           Experimental                     [Page 16]
+
+
+RFC 6451                     LoST Extensions               December 2011
+
+
+}
+
+##
+##    Location Information
+##
+div {
+  locationInformation =
+    extensionPoint+,
+    attribute profile { xsd:NMTOKEN }?
+}
+
+##
+##    Location Information about the returned point
+##    of service.
+##
+div {
+  serviceLocation=
+    element serviceLocation { locationInformation }+
+}
+
+##
+##    Patterns for inclusion of elements from schemas in
+##    other namespaces.
+##
+div {
+
+  ##
+  ##    Any element not in the LoST Extensions
+  ##    namespace.
+  ##
+  notLostExt = element * - (ns1:* | ns1:*) { anyElement }
+
+  ##
+  ##    A wildcard pattern for including any element
+  ##    from any other namespace.
+  ##
+  anyElement =
+    (element * { anyElement }
+     | attribute * { text }
+     | text)*
+
+  ##
+  ##    A point where future extensions
+  ##    (elements from other namespaces)
+  ##    can be added.
+  ##
+  extensionPoint = notLostExt*
+}
+

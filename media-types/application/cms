@@ -1,0 +1,180 @@
+(registered 2014-02-11, last updated 2014-04-14)
+
+Type name: application
+
+Subtype name: cms
+
+Required parameters: None.
+
+Optional parameters:
+
+      encapsulatingContent=y; where y is one or more CMS ECT
+      (Encapsulating Content Type) identifiers; multiple values are
+      encapsulated in quotes and separated by a folding-whitespace, a
+      comma, and folding-whitespace.  ECT values are based on content
+      types found in [RFC3274], [RFC4073], [RFC5083], [RFC5652], and
+      [RFC6032].  This list can later be extended; see Section 4.
+
+         authData
+         compressedData
+         contentCollection
+         contentInfo
+         contentWithAttrs
+         authEnvelopedData
+         encryptedKeyPkg
+         digestData
+         encryptedData
+         envelopedData
+         signedData
+
+
+   innerContent=x; where x is one or more CMS ICT (Inner Content Type)
+   identifiers; multiple values encapsulated in quotes and are separated
+   by a folding-whitespace, a comma, and folding-whitespace.  ICT values
+   are based on content types found in [RFC4108], [RFC5914], [RFC5934],
+   [RFC5958], [RFC6031], and [RFC7191].  This list can later be
+   extended; see Section 4.
+
+         firmwarePackage
+         firmwareLoadReceipt
+         firmwareLoadError
+         aKeyPackage
+         sKeyPackage
+         trustAnchorList
+         TAMP-statusQuery
+         TAMP-statusResponse
+         TAMP-update
+         TAMP-updateConfirm
+         TAMP-apexUpdate
+         TAMP-apexUpdateConfirm
+         TAMP-communityUpdate
+         TAMP-communityUpdateConfirm
+         TAMP-seqNumAdjust
+         TAMP-seqNumAdjustConfirm
+         TAMP-error
+         keyPackageReceipt
+         keyPackageError
+
+   The optional parameters are case sensitive.
+
+   Encoding considerations:
+
+      Binary.
+
+      [RFC5652] requires that the outermost encapsulation be
+      ContentInfo.
+
+
+   Security considerations:
+
+      The following security considerations apply:
+
+      RFC       | CMS Protecting Content Type and Algorithms
+      ----------+-------------------------------------------
+      [RFC3370] | signedData, envelopedData,
+      [RFC5652] | digestedData, encryptedData, and
+      [RFC5753] | authData
+      [RFC5754] |
+      ----------+-------------------------------------------
+      [RFC5958] | aKeyPackage
+      [RFC5959] |
+      [RFC6162] |
+      ----------+-------------------------------------------
+      [RFC6031] | sKeyPackage
+      [RFC6160] |
+      ----------+-------------------------------------------
+      [RFC6032] | encryptedKeyPkg
+      [RFC6033] |
+      [RFC6161] |
+      ----------+-------------------------------------------
+      [RFC5914] | trustAnchorList
+      ----------+-------------------------------------------
+      [RFC3274] | compressedData
+      ----------+-------------------------------------------
+      [RFC5083] | authEnvelopedData
+      [RFC5084] |
+      ----------+-------------------------------------------
+      [RFC4073] | contentCollection and
+                | contentWithAttrs
+      ----------+-------------------------------------------
+      [RFC4108] | firmwarePackage,
+                | firmwareLoadReceipt, and
+                | firmwareLoadError
+      ----------+-------------------------------------------
+      [RFC5934] | TAMP-statusQuery, TAMP-statusResponse,
+                | TAMP-update, TAMP-updateConfirm,
+                | TAMP-apexUpdate,
+                | TAMP-apexUpdateConfirm,
+                | TAMP-communityUpdate,
+                | TAMP-communityUpdateConfirm,
+                | TAMP-seqNumAdjust,
+                | TAMP-seqNumAdjustConfirm, and
+                | TAMP-error
+      ----------+-------------------------------------------
+      [RFC7191] |keyPackageReceipt and keyPackageError
+      ----------+-------------------------------------------
+
+
+      In some circumstances, significant information can be leaked by
+      disclosing what the innermost ASN.1 structure is.  In these cases,
+      it is acceptable to disclose the wrappers without disclosing the
+      inner content type.
+
+      ASN.1 encoding rules (e.g., DER and BER) have a type-length-value
+      structure, and it is easy to construct malicious content with
+      invalid length fields that can cause buffer overrun conditions.
+      ASN.1 encoding rules allows for arbitrary levels of nesting, which
+      may make it possible to construct malicious content that will
+      cause a stack overflow.  Interpreters of ASN.1 structures should
+      be aware of these issues and should take appropriate measures to
+      guard against buffer overflows and stack overruns in particular
+      and malicious content in general.
+
+   Interoperability considerations:
+
+      See [RFC3274], [RFC4073], [RFC4108], [RFC5083], [RFC5652],
+      [RFC5914], [RFC5934], [RFC5958], [RFC6031], [RFC6032], and
+      [RFC7191].
+
+      In all cases, CMS content types are encapsulated within
+      ContentInfo structures [RFC5652]; that is the outermost enveloping
+      structure is ContentInfo.
+
+      CMS [RFC5652] defines slightly different processing rules for
+      SignedData than does PKCS #7 [RFC2315].  This media type employs
+      the CMS processing rules.
+
+      The Content-Type header field of all application/cms objects
+      SHOULD include the optional "encapsulatingContent" and
+      "innerContent" parameters.
+
+      The Content-Disposition header field [RFC4021] can also be
+      included along with Content-Type's optional name parameter.
+
+   Published specification: This specification.
+
+   Applications that use this media type:
+
+      Applications that support CMS (Cryptographic Message Syntax)
+      content types.
+
+   Fragment identifier considerations: N/A
+
+
+   Additional information:
+
+      Magic number(s): None
+      File extension(s): .cmsc
+      Macintosh File Type Code(s):
+
+   Person & email address to contact for further information:
+
+      Sean Turner <turners&ieca.com>
+
+   Intended usage: COMMON
+
+   Restrictions on usage: none
+
+   Author: Sean Turner <turners&ieca.com>
+
+   Change controller: The IESG <iesg&ietf.org>

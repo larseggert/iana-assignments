@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema targetNamespace="urn:ietf:params:xml:ns:iodef-sci-1.0"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:iodef="urn:ietf:params:xml:ns:iodef-1.0"
+ xmlns:sci="urn:ietf:params:xml:ns:iodef-sci-1.0"
+ elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+<xsd:import namespace="urn:ietf:params:xml:ns:iodef-1.0"
+ schemaLocation="http://www.iana.org/assignments/xml-registry/schema/iodef-1.0.xsd"/>
+
+<xsd:complexType name="XMLDATA">
+  <xsd:complexContent>
+    <xsd:restriction base="iodef:ExtensionType">
+      <xsd:sequence>
+        <xsd:any namespace="##any" processContents="lax" minOccurs="0"
+         maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="dtype" type="iodef:dtype-type"
+       use="required" fixed="xml"/>
+      <xsd:attribute name="ext-dtype" type="xsd:string" use="prohibited"/>
+      <xsd:attribute name="meaning" type="xsd:string"/>
+      <xsd:attribute name="formatid" type="xsd:string"/>
+      <xsd:attribute name="restriction" type="iodef:restriction-type"/>
+    </xsd:restriction>
+  </xsd:complexContent>
+</xsd:complexType>
+<xsd:complexType name="BasicStructure">
+  <xsd:sequence>
+    <xsd:choice>
+      <xsd:element name="RawData" type="sci:XMLDATA"
+       minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element ref="iodef:Reference" minOccurs="0"
+       maxOccurs="unbounded"/>
+    </xsd:choice>
+  </xsd:sequence>
+  <xsd:attribute name="SpecID" type="xsd:string" use="required"/>
+  <xsd:attribute name="ext-SpecID" type="xsd:string"/>
+  <xsd:attribute name="ContentID" type="xsd:string"/>
+</xsd:complexType>
+
+<xsd:element name="Scoring" type="sci:BasicStructure"/>
+<xsd:element name="Platform" type="sci:BasicStructure"/>
+<xsd:element name="EventReport" type="sci:BasicStructure"/>
+<xsd:element name="Verification" type="sci:BasicStructure"/>
+<xsd:element name="Remediation" type="sci:BasicStructure"/>
+<xsd:element name="AttackPattern">
+  <xsd:complexType>
+    <xsd:complexContent>
+      <xsd:extension base="sci:BasicStructure">
+        <sequence>
+          <xsd:element ref="sci:Platform" minOccurs="0"
+           maxOccurs="unbounded"/>
+        </sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+</xsd:element>
+<xsd:element name="Vulnerability">
+  <xsd:complexType>
+    <xsd:complexContent>
+      <xsd:extension base="sci:BasicStructure">
+        <sequence>
+          <xsd:element ref="sci:Platform" minOccurs="0"
+           maxOccurs="unbounded"/>
+          <xsd:element ref="sci:Scoring" minOccurs="0"
+           maxOccurs="unbounded"/>
+        </sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+</xsd:element>
+<xsd:element name="Weakness">
+  <xsd:complexType>
+    <xsd:complexContent>
+      <xsd:extension base="sci:BasicStructure">
+        <sequence>
+          <xsd:element ref="sci:Platform" minOccurs="0"
+           maxOccurs="unbounded"/>
+          <xsd:element ref="sci:Scoring" minOccurs="0"
+           maxOccurs="unbounded"/>
+        </sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+</xsd:element>
+
+</xsd:schema>

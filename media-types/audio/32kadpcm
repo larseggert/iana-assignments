@@ -1,0 +1,79 @@
+(RFC 2421 published September 1998, subtype last updated June 2004)
+
+MIME media type name: audio
+
+MIME subtype name: 32KADPCM
+
+Required parameters: none
+
+Optional parameters: none
+
+Encoding considerations:
+
+   Binary or Base-64 generally preferred
+
+Security considerations:
+
+   There are no known security risks with the sending or playing
+   of raw audio data  Audio data is typically interpreted only by
+   an audio codec.  Unintended information introduced into the
+   data stream will result in noise.
+
+Interoperability considerations:
+
+   The four bit code word ordering within a byte may differ
+   between existing implementations of G.726 codecs.  Since this
+   content only permits the little endian ordering, codecs that
+   support the opposite ordering must reorder the code words
+   before storing to or retrieving from this content type.
+
+Published specification:
+
+   ITU-T G.726 with little endian ordering
+
+Applications which use this media type:
+
+   Primarily voice messaging
+
+Additional information:
+
+   Magic number(s): ? File extension(s): .726 Macintosh File Type
+   Code(s):  APCM
+
+    Little Endian Ordering:
+
+    The 4-bit code words of the G.726 encoding MUST be packed into
+    octets/bytes as follows:  the first code word (A) is placed in
+    the four least significant bits of the first octet, with the
+    least significant bit (LSB) of the code word (A0) in the least
+    significant bit of the octet;  the second code word (B) is
+    placed in the four most significant bits of the first octet,
+    with the most significant bit (MSB) of the code word (B3) in
+    the most significant bit of the octet. Subsequent pairs of the
+    code words shall be packed in the same way into successive
+    octets, with the first code word of each pair placed in the
+    least significant four bits of the octet.  It is preferred
+    that the voice sample be extended with silence such that the
+    encoded value comprises an even number of code words.
+    However, if the voice sample comprises an odd number of code
+    words, then the last code word shall be discarded.
+
+            +--+--+--+--+--+--+--+--+
+            |B3|B2|B1|B0|A3|A2|A1|A0|
+            +--+--+--+--+--+--+--+--+
+    MSB ->  | 7| 6| 5| 4| 3| 2| 1| 0|  <- LSB
+            +--+--+--+--+--+--+--+--+
+
+            32K ADPCM / Octet Mapping
+
+Person & email address to contact for further information:
+
+  Glenn W. Parsons gparsons&NortelNetworks.com
+
+  Gregory M. Vaudreuil GregV&ieee.org
+
+Intended usage: COMMON
+
+Author/Change controller:
+
+  Glenn W. Parsons & Gregory M. Vaudreuil

@@ -1,0 +1,796 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl" href="ancp.xsl"?>
+<?oxygen RNGSchema="ancp.rng" type="xml"?>
+<registry xmlns="http://www.iana.org/assignments" id="ancp">
+  <title>Access Node Control Protocol (ANCP)</title>
+  <created>2011-05-19</created>
+  <updated>2014-07-07</updated>
+  
+  <registry id="message-types">
+    <title>ANCP Message Types</title>
+    <xref type="rfc" data="rfc6320"/>
+    <registration_rule>Standards Action</registration_rule>
+    <note> The values for Message Type MAY range from 0 to 255, but new Message Types SHOULD be assigned values sequentially from 90 onwards.</note>
+    <record>
+      <value>0-9</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>10</value>
+      <description>Adjacency Protocol</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>11-31</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>32</value>
+      <description>Port Management</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>33-79</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>80</value>
+      <description>Port Up</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>81</value>
+      <description>Port Down</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>82-84</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>85</value>
+      <description>Adjacency Update</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>86-90</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>91</value>
+      <description>Generic Response</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>92</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>93</value>
+      <description>Provisioning</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>94-143</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>144</value>
+      <description>Multicast Replication Control</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>145</value>
+      <description>Multicast Admission Control</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>146</value>
+      <description>Bandwidth Reallocation Request</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>147</value>
+      <description>Bandwidth Transfer</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>148</value>
+      <description>Delegated Bandwidth Query</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>149</value>
+      <description>Multicast Flow Query</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>150</value>
+      <description>Committed Bandwidth Report</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>151-255</value>
+      <description>Unassigned</description>
+    </record>
+  </registry>
+  
+  <registry id="result-codes">
+    <title>ANCP Result Codes</title>
+    <xref type="rfc" data="rfc6320"/>
+    <range>
+      <value>0x0-0xFFF</value>
+      <registration_rule>IETF Review</registration_rule>
+      <note>IANA SHOULD allocate new Result Code values from this range
+sequentially beginning at 0x64.</note>
+    </range>
+    <range>
+      <value>0x1000-0xFFFFFF</value>
+      <registration_rule>Specification Required</registration_rule>
+      <note>IANA SHOULD allocate new Result Code values from this
+        range sequentially beginning at 0x1000.</note>
+    </range>
+    <record>
+      <value>0x0</value>
+      <description>No result</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x1</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>0x2</value>
+      <description>Invalid request message</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x3-0x5</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>0x6</value>
+      <description>One or more of the specified ports are down</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x7-0x12</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>0x13</value>
+      <description>Out of resources</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x14-0x50</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>0x51</value>
+      <description>Request message type not implemented</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x52</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>0x53</value>
+      <description>Malformed message</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x54</value>
+      <description>Mandatory TLV missing</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x55</value>
+      <description>Invalid TLV contents</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x56-0x63</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>0x64</value>
+      <description>Command error.</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>0x65</value>
+      <description>Invalid flow address.</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record><record>
+      <value>0x66</value>
+      <description>Multicast flow does not exist.</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>0x67</value>
+      <description>Invalid preferred bandwidth amount.</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>0x68</value>
+      <description>Inconsistent views of delegated bandwidth amount.</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>0x69</value>
+      <description>Bandwidth request conflict.</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>0x6A-0x495</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>0x500</value>
+      <description>One or more of the specified ports do not exist</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x501</value>
+      <description>Loopback test timed out</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x502</value>
+      <description>Reserved</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x503</value>
+      <description>DSL line status showtime</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x504</value>
+      <description>DSL line status idle</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x505</value>
+      <description>DSL line status silent</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x506</value>
+      <description>DSL line status training</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x507</value>
+      <description>DSL line integrity error</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x508</value>
+      <description>DSLAM resource not available</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x509</value>
+      <description>Invalid test parameter</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x50A-0xFFFFFF</value>
+      <description>Unassigned</description>
+    </record>
+  </registry>
+  
+  
+  <registry id="port-management-functions">
+    <title>ANCP Port Management Functions</title>
+    <xref type="rfc" data="rfc6320"/>
+    <registration_rule>Standards Action</registration_rule>
+    <record>
+      <value>0</value>
+      <description>Reserved</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>1-7</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>8</value>
+      <description>Configure Connection Service Data</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>9</value>
+      <description>Remote Loopback</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>10-255</value>
+      <description>Unassigned</description>
+    </record>
+  </registry>
+  
+  
+  <registry id="technology-types">
+    <title>ANCP Technology Types</title>
+    <xref type="rfc" data="rfc6320"/>
+    <registration_rule>Expert Review</registration_rule>
+    <record>
+      <value>0</value>
+      <description>Not technology dependent</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>1</value>
+      <description>Passive Optical Network (PON)</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>2-4</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>5</value>
+      <description>Digital Subscriber Line (DSL)</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>6-254</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>255</value>
+      <description>Reserved</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+  </registry>
+
+
+  <registry id="command-codes">
+    <title>ANCP Command Codes</title>
+    <xref type="rfc" data="rfc6320"/>
+    <registration_rule>Standards Action</registration_rule>
+    <record>
+      <value>0</value>
+      <description>Reserved</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>1</value>
+      <description>Add</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>2</value>
+      <description>Delete</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>3</value>
+      <description>Delete All</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>4</value>
+      <description>Admission Control Reject</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>5</value>
+      <description>Conditional Access Reject</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>6</value>
+      <description>Admission Control and Conditional Access Reject</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>7-255</value>
+      <description>Unassigned</description>
+    </record>
+  </registry>
+
+  <registry id="tlv-types">
+    <title>ANCP TLV Types</title>
+    <xref type="rfc" data="rfc6320"/>
+    <range>
+      <value>0x0000-0x1FFF</value>
+      <registration_rule>IETF Review</registration_rule>
+      <note>IANA SHOULD allocate new Result Code values from this range 
+        sequentially beginning at 0x100.</note>
+    </range>
+    <range>
+      <value>0x2000-0xFFFF</value>
+      <registration_rule>Specification Required</registration_rule>
+      <note>IANA SHOULD allocate new Result Code values from this
+        range sequentially beginning at 0x2000.</note>
+    </range>
+    <record>
+      <value>0x0000</value>
+      <description>Reserved</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0001</value>
+      <description>Access-Loop-Circuit-ID</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0002</value>
+      <description>Access-Loop-Remote-ID</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0003</value>
+      <description>Access-Aggregation-Circuit-ID-ASCII</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0004</value>
+      <description>DSL-Line-Attributes</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0005</value>
+      <description>Service-Profile-Name</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0006</value>
+      <description>Access-Aggregation-Circuit-ID-Binary</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0007</value>
+      <description>OAM-Loopback-Test-Parameters</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0008</value>
+      <description>Opaque-Data</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0009</value>
+      <description>OAM-Loopback-Test-Response-String</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x000A-0x0010</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>0x0011</value>
+      <description>Command</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0012</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>0x0013</value>
+      <description>Multicast-Service-Profile</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>0x0014</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>0x0015</value>
+      <description>Bandwidth-Allocation</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>0x0016</value>
+      <description>Bandwidth-Request</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>0x0017</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>0x0018</value>
+      <description>Multicast-Service-Profile-Name</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>0x0019</value>
+      <description>Multicast-Flow</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>0x001a-0x0020</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>0x0021</value>
+      <description>List-Action</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>0x0022</value>
+      <description>Sequence-Number</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>0x0023</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>0x0024</value>
+      <description>White-List-CAC</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>0x0025</value>
+      <description>MRepCtl-CAC</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>0x0026-0x0080</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>0x0081</value>
+      <description>Actual-Net-Data-Rate-Upstream</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0082</value>
+      <description>Actual-Net-Data-Rate-Downstream</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0083</value>
+      <description>Minimum-Net-Data-Rate-Upstream</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0084</value>
+      <description>Minimum-Net-Data-Rate-Downstream</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0085</value>
+      <description>Attainable-Net-Data-Rate-Upstream</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0086</value>
+      <description>Attainable-Net-Data-Rate-Downstream</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0087</value>
+      <description>Maximum-Net-Data-Rate-Upstream</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0088</value>
+      <description>Maximum-Net-Data-Rate-Downstream</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0089</value>
+      <description>Minimum-Net-Low-Power-Data-Rate-Upstream</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x008A</value>
+      <description>Minimum-Net-Low-Power-Data-Rate-Downstream</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x008B</value>
+      <description>Maximum-Interleaving-Delay-Upstream</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x008C</value>
+      <description>Actual-Interleaving-Delay-Upstream</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x008D</value>
+      <description>Maximum-Interleaving-Delay-Downstream</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x008E</value>
+      <description>Actual-Interleaving-Delay-Downstream</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x008F</value>
+      <description>DSL-Line-State</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0090</value>
+      <description>Access-Loop-Encapsulation</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0091</value>
+      <description>DSL-Type</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0092</value>
+      <description>Request-Source-IP</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>0x0093</value>
+      <description>Request-Source-MAC</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>0x0094</value>
+      <description>Report-Buffering-Time</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>0x0095</value>
+      <description>Committed-Bandwidth</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>0x0096</value>
+      <description>Request-Source-Device-Id</description>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>0x0097-0x0105</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>0x0106</value>
+      <description>Status-Info</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x0107-0x0FFF</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>0x1000</value>
+      <description>Target (single access line variant)</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x1001-0x1020</value>
+      <description>Reserved for Target variants</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>0x1021-0xFFFF</value>
+      <description>Unassigned</description>
+    </record>
+  </registry>
+
+
+  <registry id="capability-types">
+    <title>ANCP Capability Types</title>
+    <xref type="rfc" data="rfc6320"/>
+    <registration_rule>Standards Action</registration_rule>
+    <record>
+      <value>0</value>
+      <description>Reserved</description>
+      <type/>
+      <data/>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>1</value>
+      <description>DSL Topology Discovery</description>
+      <type>5</type>
+      <data>No</data>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>2</value>
+      <description>DSL Line Configuration</description>
+      <type>5</type>
+      <data>No</data>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>3</value>
+      <description>NAS-Initiated Multicast Replication</description>
+      <type>0</type>
+      <data>No</data>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>4</value>
+      <description>DSL Line Testing</description>
+      <type>5</type>
+      <data>No</data>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>5</value>
+      <description>Committed Bandwidth Reporting</description>
+      <type>0</type>
+      <data>No</data>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>6</value>
+      <description>Conditional Access and Admission Control With White and Black Lists</description>
+      <type>0</type>
+      <data>No</data>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>7</value>
+      <description>Conditional Access and Admission Control With Grey Lists</description>
+      <type>0</type>
+      <data>No</data>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>8</value>
+      <description>Bandwidth Delegation</description>
+      <type>0</type>
+      <data>No</data>
+      <xref type="rfc" data="rfc7256"/>
+    </record>
+    <record>
+      <value>9-255</value>
+      <description>Unassigned</description>
+      <type/>
+      <data/>
+    </record>
+  </registry>
+  
+  
+  <registry id="joint-version">
+    <title>Joint GSMP / ANCP Version Registry</title>
+    <xref type="rfc" data="rfc6320"/>
+    <registration_rule>Standards Action</registration_rule>
+    <record>
+      <value>0</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>1</value>
+      <description>GSMP Version 1</description>
+      <xref type="rfc" data="rfc1987"/>
+    </record>
+    <record>
+      <value>2</value>
+      <description>GSMP Version 2</description>
+      <xref type="rfc" data="rfc2297"/>
+    </record>
+    <record>
+      <value>3</value>
+      <description>GSMP Version 3</description>
+      <xref type="rfc" data="rfc3292"/>
+    </record>
+    <record>
+      <value>4-49</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>50</value>
+      <description>ANCP Version 1</description>
+      <xref type="rfc" data="rfc6320"/>
+    </record>
+    <record>
+      <value>51-255</value>
+      <description>Unassigned</description>
+    </record>
+  </registry>
+  
+  
+  <people/>
+</registry>

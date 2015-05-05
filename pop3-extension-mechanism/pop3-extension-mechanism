@@ -1,0 +1,114 @@
+Post Office Protocol version 3 (POP3) Extension Mechanism
+
+(last updated 2012-05-21)
+
+Registries included below:
+- POP3 Capabilities
+- POP3 Response Codes
+
+Note: 
+The POP3 Extension Mechanism [RFC2449] updates [RFC1939] to define a
+mechanism to announce support for optional commands, extensions, and
+unconditional server behavior.  Please see Section 1 of RFC2449 for 
+details regarding POP3 Extensions.
+
+
+Registry Name: POP3 Capabilities
+Reference: [RFC2449]
+Registration Procedures: Standards Track or IESG approved experimental RFC
+
+Registry:
+CAPA Tag        CAPA Args   Added Cmds  Cmds Affected  List         Diffs      Cmd Valid       References
+--------------  ----------  ----------  -------------  -----------  ---------  --------------  ----------
+TOP             none        TOP         none           both         no         TRANSACTION     [RFC2449][RFC1939]
+
+USER            none        USER,       none           both         no         AUTHENTICATION  [RFC2449][RFC1939]
+                            PASS
+
+SASL            mech list   AUTH        none           both         no         AUTHENTICATION  [RFC2449][RFC5034]
+
+RESP-CODES      none        none        none           both         no         n/a             [RFC2449]
+
+LOGIN-DELAY     secs,       none        USER,          both         yes        n/a             [RFC2449]
+                USER                    PASS, 
+                                        APOP, 
+                                        AUTH
+
+PIPELINING      none        none        all            both         no         n/a             [RFC2449]
+
+EXPIRE          days,       none        none           both         yes        n/a             [RFC2449]
+                NEVER, 
+                USER
+
+UIDL            none        UIDL        none           both         no         TRANSACTION     [RFC2449][RFC1939]
+
+IMPLEMENTATION  text        none        none           TRANS,       no         n/a             [RFC2449][RFC1939]
+                                                       both
+
+STLS            none        STLS        USER,          both         no         AUTHENTICATION  [RFC2595]
+                                        PASS, 
+                                        CAPA
+
+AUTH-RESP-CODE  none        none        none           both         no         n/a             [RFC3206]
+
+UTF8            USER        UTF8        USER,          both         no         AUTHORIZATION   [RFC5721]
+                                        PASS,
+                                        APOP, 
+                                        LIST, 
+                                        TOP, 
+                                        RETR
+
+LANG            none        LANG        all            both         no         AUTHORIZATION   [RFC5721]
+                                                                               TRANSACTION
+
+
+Registry Name: POP3 Response Codes
+Reference: [RFC2449]
+Registration Procedures: RFC Specification Required
+
+Note: Please see section 9 of RFC2449 for details regarding Response Codes.
+
+* - see spec for details
+
+Note: Returning the AUTH response code to the USER command reveals
+to the client that the specified user exists.  It is strongly
+RECOMMENDED that the server not issue this response code to the
+USER command.
+
+Registry:
+Response Code  Response Types  Commands                           Reference
+-------------  --------------  ---------------------------------  ---------
+LOGIN-DELAY    -ERR            USER*, PASS, APOP, AUTH            [RFC2449]
+IN-USE         -ERR            PASS, APOP, AUTH                   [RFC2449]
+SYS/PERM       -ERR            All commands                       [RFC3206]
+SYS/TEMP       -ERR            All commands                       [RFC3206]
+AUTH           -ERR            Any authentication command         [RFC3206]
+                               including AUTH USER (see note),
+                               PASS, or APOP.
+
+
+References
+----------
+[RFC1734] Myers, J., "POP3 AUTHentication command", RFC 1734, December
+          1994.
+
+[RFC1939] Myers, J. and M. Rose, "Post Office Protocol -- Version 3",
+          STD 53, RFC 1939, May 1996.
+
+[RFC2449] Gellens, R., Newman, C. and L. Lundblade, "POP3 Extension
+          Mechanism", RFC 2449, November 1998.
+
+[RFC2595] Newman, C., "Using TLS with IMAP, POP3 and ACAP", RFC 2595,
+          Innosoft, June 1999.
+
+[RFC3206] R. Gellens, "The SYS and AUTH POP Response Codes", RFC3206,
+          February 2002.
+
+[RFC5034] R. Siemborski, A. Menon-Sen, "POP3 SASL Authentication 
+          Mechanism",  RFC 5034, July 2007.
+
+[RFC5721] R. Gellens, C. Newman, "POP3 Support for UTF-8", RFC 5721,
+          February 2010.
+
+[]
+

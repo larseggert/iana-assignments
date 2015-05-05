@@ -1,0 +1,48 @@
+(RFC 5537 published November 2009, subtype last updated November 2009)
+
+MIME type name:           application
+
+MIME subtype name:        news-transmission
+
+Required parameters:      none
+
+Optional parameters:      One and only one of "usage=moderate",
+                          "usage=inject", or "usage=relay".
+
+Encoding considerations:  A transfer-encoding different from that
+                          of the article transmitted MAY be
+                          supplied to ensure correct transmission
+                          over some 7bit transport medium.
+
+Security considerations:  News articles may constitute "control
+                          messages", which can have effects on a
+                          host's news system beyond just addition
+                          of information.  Since control messages
+                          may occur in normal news flow, most hosts
+                          are suitably defended against undesired
+                          effects already, but transmission of news
+                          articles via mail may bypass
+                          firewall-type defenses.
+
+Published specification:  RFC 5537
+
+Body part:                A complete proto-article ready for
+                          injection into Netnews or an article
+                          being relayed to another agent.
+
+Applications that use this media type:
+                          Injecting agents, Netnews moderators.
+
+Intended usage:           COMMON
+
+Change controller:        IETF
+
+usage=moderate indicates the article is intended for a moderator,
+usage=inject for an injecting agent, and usage=relay for a relaying
+agent.  The entity receiving the article may only implement one type
+of agent, in which case the parameter MAY be omitted.
+
+Contrary to the prior registration of this media type, article
+batches are not permitted as a body part.  Multiple messages or a
+message with multiple application/news-transmission parts may be used
+instead.

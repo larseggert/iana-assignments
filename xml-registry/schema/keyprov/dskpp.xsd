@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   xmlns:dskpp="urn:ietf:params:xml:ns:keyprov:dskpp"
+   xmlns:pskc="urn:ietf:params:xml:ns:keyprov:pskc"
+   xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+   targetNamespace="urn:ietf:params:xml:ns:keyprov:dskpp"
+   elementFormDefault="qualified" attributeFormDefault="unqualified"
+      version="1.0">
+   <xs:import namespace="http://www.w3.org/2000/09/xmldsig#"
+      schemaLocation=
+      "http://www.w3.org/TR/2002/REC-xmldsig-core-20020212/
+      xmldsig-core-schema.xsd"/>
+   <xs:import namespace="urn:ietf:params:xml:ns:keyprov:pskc"
+      schemaLocation="keyprov-pskc-1.0.xsd"/>
+   <xs:complexType name="AbstractRequestType" abstract="true">
+      <xs:annotation>
+         <xs:documentation> Basic types </xs:documentation>
+      </xs:annotation>
+      <xs:attribute name="Version" type="dskpp:VersionType"
+         use="required"/>
+   </xs:complexType>
+
+   <xs:complexType name="AbstractResponseType" abstract="true">
+      <xs:annotation>
+         <xs:documentation> Basic types </xs:documentation>
+      </xs:annotation>
+      <xs:attribute name="Version" type="dskpp:VersionType"
+         use="required"/>
+      <xs:attribute name="SessionID" type="dskpp:IdentifierType" />
+      <xs:attribute name="Status" type="dskpp:StatusCode"
+         use="required"/>
+   </xs:complexType>
+
+   <xs:simpleType name="VersionType">
+      <xs:restriction base="xs:string">
+         <xs:pattern value="\d{1,2}\.\d{1,3}" />
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:simpleType name="IdentifierType">
+      <xs:restriction base="xs:string">
+         <xs:maxLength value="128" />
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:simpleType name="StatusCode">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Continue" />
+         <xs:enumeration value="Success" />
+         <xs:enumeration value="Abort" />
+         <xs:enumeration value="AccessDenied" />
+         <xs:enumeration value="MalformedRequest" />
+         <xs:enumeration value="UnknownRequest" />
+         <xs:enumeration value="UnknownCriticalExtension" />
+         <xs:enumeration value="UnsupportedVersion" />
+         <xs:enumeration value="NoSupportedKeyTypes" />
+         <xs:enumeration value="NoSupportedEncryptionAlgorithms" />
+         <xs:enumeration value="NoSupportedMacAlgorithms" />
+         <xs:enumeration value="NoProtocolVariants" />
+         <xs:enumeration value="NoSupportedKeyPackages" />
+         <xs:enumeration value="AuthenticationDataMissing" />
+         <xs:enumeration value="AuthenticationDataInvalid" />
+         <xs:enumeration value="InitializationFailed" />
+         <xs:enumeration value="ProvisioningPeriodExpired" />
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="DeviceIdentifierDataType">
+      <xs:choice>
+         <xs:element name="DeviceId" type="pskc:DeviceInfoType" />
+         <xs:any namespace="##other" processContents="strict" />
+      </xs:choice>
+   </xs:complexType>
+
+   <xs:simpleType name="PlatformType">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="Hardware" />
+         <xs:enumeration value="Software" />
+         <xs:enumeration value="Unspecified" />
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="TokenPlatformInfoType">
+      <xs:attribute name="KeyLocation"
+         type="dskpp:PlatformType"/>
+      <xs:attribute name="AlgorithmLocation"
+         type="dskpp:PlatformType"/>
+   </xs:complexType>
+
+   <xs:simpleType name="NonceType">
+      <xs:restriction base="xs:base64Binary">
+         <xs:minLength value="16" />
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="AlgorithmsType">
+      <xs:sequence maxOccurs="unbounded">
+         <xs:element name="Algorithm" type="dskpp:AlgorithmType"/>
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:simpleType name="AlgorithmType">
+      <xs:restriction base="xs:anyURI" />
+   </xs:simpleType>
+
+   <xs:complexType name="ProtocolVariantsType">
+      <xs:sequence>
+         <xs:element name="FourPass" minOccurs="0" />
+         <xs:element name="TwoPass"
+            type="dskpp:KeyProtectionDataType" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="KeyProtectionDataType">
+      <xs:annotation>
+         <xs:documentation xml:lang="en">
+            This element is only valid for two-pass DSKPP.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence maxOccurs="unbounded">
+        <xs:element name="SupportedKeyProtectionMethod"
+           type="xs:anyURI"/>
+        <xs:element name="Payload"
+           type="dskpp:PayloadType" minOccurs="0"/>
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="PayloadType">
+      <xs:choice>
+         <xs:element name="Nonce" type="dskpp:NonceType" />
+         <xs:any namespace="##other" processContents="strict"/>
+      </xs:choice>
+   </xs:complexType>
+
+   <xs:complexType name="KeyPackagesFormatType">
+      <xs:sequence maxOccurs="unbounded">
+         <xs:element name="KeyPackageFormat"
+            type="dskpp:KeyPackageFormatType"/>
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:simpleType name="KeyPackageFormatType">
+      <xs:restriction base="xs:anyURI" />
+   </xs:simpleType>
+
+   <xs:complexType name="AuthenticationDataType">
+      <xs:annotation>
+         <xs:documentation xml:lang="en">
+            Authentication data contains a MAC.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:element name="ClientID"
+            type="dskpp:IdentifierType" minOccurs="0"/>
+         <xs:choice>
+            <xs:element name="AuthenticationCodeMac"
+               type="dskpp:AuthenticationMacType"/>
+            <xs:any namespace="##other" processContents="strict" />
+         </xs:choice>
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="AuthenticationMacType">
+      <xs:sequence>
+         <xs:element minOccurs="0" name="Nonce"
+            type="dskpp:NonceType"/>
+         <xs:element minOccurs="0" name="IterationCount"
+            type="xs:int"/>
+         <xs:element name="Mac" type="dskpp:MacType" />
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="MacType">
+      <xs:simpleContent>
+         <xs:extension base="xs:base64Binary">
+            <xs:attribute name="MacAlgorithm" type="xs:anyURI"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="KeyPackageType">
+      <xs:sequence>
+         <xs:element minOccurs="0" name="ServerID"
+            type="xs:anyURI"/>
+         <xs:element minOccurs="0" name="KeyProtectionMethod"
+            type="xs:anyURI" />
+         <xs:choice>
+            <xs:element name="KeyContainer"
+               type="pskc:KeyContainerType"/>
+            <xs:any namespace="##other" processContents="strict"/>
+         </xs:choice>
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="InitializationTriggerType">
+      <xs:sequence>
+         <xs:element minOccurs="0" name="DeviceIdentifierData"
+            type="dskpp:DeviceIdentifierDataType" />
+         <xs:element minOccurs="0" name="KeyID"
+            type="xs:base64Binary"/>
+         <xs:element minOccurs="0" name="TokenPlatformInfo"
+            type="dskpp:TokenPlatformInfoType" />
+         <xs:element name="AuthenticationData"
+            type="dskpp:AuthenticationDataType" />
+         <xs:element minOccurs="0" name="ServerUrl"
+            type="xs:anyURI"/>
+         <xs:any minOccurs="0" namespace="##other"
+            processContents="strict" />
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="ExtensionsType">
+      <xs:annotation>
+         <xs:documentation> Extension types </xs:documentation>
+      </xs:annotation>
+      <xs:sequence maxOccurs="unbounded">
+         <xs:element name="Extension"
+            type="dskpp:AbstractExtensionType"/>
+      </xs:sequence>
+   </xs:complexType>
+
+   <xs:complexType name="AbstractExtensionType" abstract="true">
+      <xs:attribute name="Critical" type="xs:boolean" />
+   </xs:complexType>
+
+   <xs:complexType name="ClientInfoType">
+      <xs:complexContent mixed="false">
+         <xs:extension base="dskpp:AbstractExtensionType">
+            <xs:sequence>
+               <xs:element name="Data" type="xs:base64Binary"/>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:complexType name="ServerInfoType">
+      <xs:complexContent mixed="false">
+         <xs:extension base="dskpp:AbstractExtensionType">
+            <xs:sequence>
+               <xs:element name="Data" type="xs:base64Binary"/>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:element name="KeyProvTrigger"
+      type="dskpp:KeyProvTriggerType">
+      <xs:annotation>
+         <xs:documentation> DSKPP PDUs </xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   <xs:complexType name="KeyProvTriggerType">
+      <xs:annotation>
+      <xs:documentation xml:lang="en">
+         Message used to trigger the device to initiate a
+         DSKPP protocol run.
+      </xs:documentation>
+      </xs:annotation>
+      <xs:sequence>
+         <xs:choice>
+            <xs:element name="InitializationTrigger"
+               type="dskpp:InitializationTriggerType" />
+            <xs:any namespace="##other" processContents="strict"/>
+         </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="Version" type="dskpp:VersionType"/>
+   </xs:complexType>
+
+   <xs:element name="KeyProvClientHello"
+      type="dskpp:KeyProvClientHelloPDU">
+      <xs:annotation>
+         <xs:documentation>KeyProvClientHello PDU</xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   <xs:complexType name="KeyProvClientHelloPDU">
+      <xs:annotation>
+         <xs:documentation xml:lang="en">
+            Message sent from DSKPP client to DSKPP server to
+            initiate a DSKPP session.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:complexContent mixed="false">
+         <xs:extension base="dskpp:AbstractRequestType">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="DeviceIdentifierData"
+                  type="dskpp:DeviceIdentifierDataType" />
+               <xs:element minOccurs="0" name="KeyID"
+                  type="xs:base64Binary" />
+               <xs:element minOccurs="0" name="ClientNonce"
+                  type="dskpp:NonceType" />
+               <xs:element name="SupportedKeyTypes"
+                  type="dskpp:AlgorithmsType" />
+               <xs:element name="SupportedEncryptionAlgorithms"
+                  type="dskpp:AlgorithmsType" />
+               <xs:element name="SupportedMacAlgorithms"
+                  type="dskpp:AlgorithmsType" />
+               <xs:element minOccurs="0"
+                  name="SupportedProtocolVariants"
+                  type="dskpp:ProtocolVariantsType" />
+               <xs:element minOccurs="0" name="SupportedKeyPackages"
+                  type="dskpp:KeyPackagesFormatType" />
+               <xs:element minOccurs="0" name="AuthenticationData"
+                  type="dskpp:AuthenticationDataType" />
+               <xs:element minOccurs="0" name="Extensions"
+                  type="dskpp:ExtensionsType" />
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:element name="KeyProvServerHello"
+      type="dskpp:KeyProvServerHelloPDU">
+      <xs:annotation>
+         <xs:documentation>KeyProvServerHello PDU</xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   <xs:complexType name="KeyProvServerHelloPDU">
+      <xs:annotation>
+         <xs:documentation xml:lang="en">
+            Response message sent from DSKPP server to DSKPP client
+            in four-pass DSKPP.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:complexContent mixed="false">
+         <xs:extension base="dskpp:AbstractResponseType">
+            <xs:sequence minOccurs="0">
+               <xs:element name="KeyType"
+                  type="dskpp:AlgorithmType"/>
+               <xs:element name="EncryptionAlgorithm"
+                  type="dskpp:AlgorithmType" />
+               <xs:element name="MacAlgorithm"
+                  type="dskpp:AlgorithmType"/>
+               <xs:element name="EncryptionKey"
+                  type="ds:KeyInfoType"/>
+               <xs:element name="KeyPackageFormat"
+                  type="dskpp:KeyPackageFormatType" />
+               <xs:element name="Payload" type="dskpp:PayloadType"/>
+               <xs:element minOccurs="0" name="Extensions"
+                  type="dskpp:ExtensionsType" />
+               <xs:element minOccurs="0" name="Mac"
+                  type="dskpp:MacType"/>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:element name="KeyProvClientNonce"
+      type="dskpp:KeyProvClientNoncePDU">
+      <xs:annotation>
+         <xs:documentation>KeyProvClientNonce PDU</xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   <xs:complexType name="KeyProvClientNoncePDU">
+      <xs:annotation>
+         <xs:documentation xml:lang="en">
+            Response message sent from DSKPP client to
+            DSKPP server in a four-pass DSKPP session.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:complexContent mixed="false">
+         <xs:extension base="dskpp:AbstractRequestType">
+            <xs:sequence>
+               <xs:element name="EncryptedNonce"
+                  type="xs:base64Binary"/>
+               <xs:element minOccurs="0" name="AuthenticationData"
+                  type="dskpp:AuthenticationDataType" />
+               <xs:element minOccurs="0" name="Extensions"
+                  type="dskpp:ExtensionsType" />
+            </xs:sequence>
+            <xs:attribute name="SessionID"
+               type="dskpp:IdentifierType" use="required"/>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+
+   <xs:element name="KeyProvServerFinished"
+      type="dskpp:KeyProvServerFinishedPDU">
+      <xs:annotation>
+         <xs:documentation>
+            KeyProvServerFinished PDU
+         </xs:documentation>
+      </xs:annotation>
+   </xs:element>
+   <xs:complexType name="KeyProvServerFinishedPDU">
+      <xs:annotation>
+         <xs:documentation xml:lang="en">
+            Final message sent from DSKPP server to DSKPP client in
+            a DSKPP session. A MAC value serves for key
+            confirmation, and optional AuthenticationData serves for
+            server authentication.
+         </xs:documentation>
+      </xs:annotation>
+      <xs:complexContent mixed="false">
+         <xs:extension base="dskpp:AbstractResponseType">
+            <xs:sequence minOccurs="0">
+               <xs:element name="KeyPackage"
+                  type="dskpp:KeyPackageType" />
+               <xs:element minOccurs="0" name="Extensions"
+                  type="dskpp:ExtensionsType" />
+               <xs:element name="Mac" type="dskpp:MacType" />
+               <xs:element minOccurs="0" name="AuthenticationData"
+                  type="dskpp:AuthenticationMacType" />
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+ </xs:schema>
+

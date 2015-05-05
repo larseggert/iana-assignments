@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           targetNamespace="urn:ietf:params:xml:ns:iodef-phish-1.0"
+           xmlns="urn:ietf:params:xml:ns:iodef-1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:phish="urn:ietf:params:xml:ns:iodef-phish-1.0"
+           xmlns:iodef="urn:ietf:params:xml:ns:iodef-1.0"
+           xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+  <xs:import namespace="http://www.w3.org/2000/09/xmldsig#"
+     schemaLocation=
+"http://www.w3.org/TR/2002/REC-xmldsig-core-20020212
+            /xmldsig-core-schema.xsd"/>
+  <xs:import namespace="urn:ietf:params:xml:ns:iodef-1.0"
+      schemaLocation=
+"http://www.iana.org/assignments/xml-registry/schema/iodef-1.0.xsd"/>
+
+  <!--
+
+  This Schema complies with RFC5901.
+
+  ==========================================================
+  ===  Top Level Class:  PhraudReport                    ===
+  ==========================================================
+
+  It is incorporated within an
+  IODEF.Incident.EventData.AdditionalData element.
+
+  All the top-level or major elements are defined as xs:types to make
+  future extension easier.
+
+  -->
+
+  <xs:element name="PhraudReport">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="PhishNameRef"
+                type="iodef:MLStringType"/>
+        <xs:element minOccurs="0" name="PhishNameLocalRef"
+                type="iodef:MLStringType"/>
+        <xs:element minOccurs="0" name="FraudParameter"
+                    type="iodef:MLStringType"/>
+        <xs:element maxOccurs="unbounded" minOccurs="0"
+                    name="FraudedBrandName" type="iodef:MLStringType"/>
+        <xs:element maxOccurs="unbounded" minOccurs="1"
+                    name="LureSource" type="phish:LureSource.type"/>
+        <xs:element maxOccurs="unbounded" minOccurs="1"
+                    name="OriginatingSensor"
+                    type="phish:OriginatingSensor.type"/>
+        <xs:element maxOccurs="1" minOccurs="0" name="EmailRecord"
+                    type="phish:EmailRecord.type"/>
+        <xs:element maxOccurs="unbounded" minOccurs="0"
+                    name="DCSite"  type="phish:DCSite.type"/>
+        <xs:element maxOccurs="unbounded" minOccurs="0"
+                    ref="phish:TakeDownInfo"/>
+        <xs:element maxOccurs="unbounded" minOccurs="0"
+                    ref="phish:ArchivedData"/>
+        <xs:element maxOccurs="unbounded" minOccurs="0"
+                    name="RelatedData" type="xs:anyURI"/>
+        <xs:element maxOccurs="unbounded" minOccurs="0"
+                    name="CorrelationData" type="iodef:MLStringType"/>
+        <xs:element maxOccurs="1" minOccurs="0" name="PRComments"
+                    type="iodef:MLStringType"/>
+      </xs:sequence>
+
+      <xs:attribute default="1.0" name="Version" use="optional"/>
+
+      <xs:attribute name="FraudType" type="phish:FraudType.type"
+                    use="required"/>
+
+      <xs:attribute name="ext-value" type="xs:string" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="FraudType.type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="phishing"/>
+      <xs:enumeration value="recruiting"/>
+      <xs:enumeration value="malware distribution"/>
+      <xs:enumeration value="fraudulent site"/>
+      <xs:enumeration value="dnsspoof"/>
+      <xs:enumeration value="archive"/>
+      <xs:enumeration value="other"/>
+      <xs:enumeration value="unknown"/>
+      <xs:enumeration value="ext-value"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!--
+==========================================================
+===           End of the Top-Level Element             ===
+==========================================================
+-->
+
+  <!--
+  ==========================================================
+  ===           The Lure Source Element                  ===
+  ==========================================================
+  -->
+
+  <xs:complexType mixed="false" name="LureSource.type">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="1"
+              ref="iodef:System"/>
+
+      <xs:element minOccurs="0" maxOccurs="unbounded"
+              ref="phish:DomainData"/>
+
+      <xs:element minOccurs="0" name="IncludedMalware"
+                  type="phish:IncludedMalware.type"/>
+
+      <xs:element minOccurs="0" name="FilesDownloaded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" name="File"
+                   type="iodef:MLStringType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+
+      <xs:element minOccurs="0" name="WindowsRegistryKeysModified">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="Key">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Name" type="xs:string"/>
+                  <xs:element name="Value" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!--
+  ===    LureSource sub-elements    ===
+  -->
+  <xs:complexType name="IncludedMalware.type">
+    <xs:sequence>
+      <xs:element name="Name"
+              maxOccurs="unbounded" type="iodef:MLStringType"/>
+      <xs:element minOccurs="0" ref="ds:Reference"/>
+      <xs:element minOccurs="0" name="Data">
+        <xs:complexType >
+            <xs:simpleContent>
+                  <xs:extension base="xs:hexBinary">
+                      <xs:attribute default="55AA55AA55AA55BB"
+                           name="XORPattern" type="xs:hexBinary"/>
+                   </xs:extension>
+            </xs:simpleContent>
+       </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!--
+ ===========================================================
+ ===  The EmailRecord Element                            ===
+ ===========================================================
+  -->
+
+  <xs:complexType name="EmailRecord.type">
+    <xs:sequence>
+      <xs:element name="EmailCount" type="xs:integer"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="EmailMessage"
+                    type="iodef:MLStringType"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="EmailComments"
+                  type="iodef:MLStringType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!--
+ ===========================================================
+ ===  The Data Collection Site (DCSite) Info Element     ===
+ ===========================================================
+  -->
+
+  <xs:complexType name="DCSite.type">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="SiteURL">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="iodef:MLStringType">
+                <xs:attribute ref="phish:confidence"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="Domain">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="iodef:MLStringType">
+                <xs:attribute ref="phish:confidence"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="EmailSite">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="iodef:MLStringType">
+                <xs:attribute ref="phish:confidence"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+
+        <xs:element name="System">
+         <xs:complexType id="SystemType">
+            <xs:sequence>
+              <xs:element ref="iodef:Address"/>
+            </xs:sequence>
+            <xs:attribute ref="phish:confidence"/>
+         </xs:complexType>
+        </xs:element>
+
+        <xs:element name="Unknown">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="iodef:MLStringType">
+                <xs:attribute  ref="phish:confidence"/>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+      <xs:element ref="iodef:Node" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element minOccurs="0" ref="phish:DomainData"/>
+
+      <xs:element minOccurs="0" ref="iodef:Assessment"/>
+    </xs:sequence>
+
+    <xs:attribute name="DCType" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="web"/>
+          <xs:enumeration value="email"/>
+          <xs:enumeration value="keylogger"/>
+          <xs:enumeration value="automation"/>
+          <xs:enumeration value="unspecified"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <!--
+==============================================
+==== The Domain Data Element used in System =====
+==============================================
+-->
+
+  <xs:element name="DomainData">
+    <xs:complexType id="DomainData.type">
+      <xs:sequence>
+        <xs:element maxOccurs="1"
+                  name="Name" type="iodef:MLStringType"/>
+        <xs:element maxOccurs="1" minOccurs="0"
+                  name="DateDomainWasChecked" type="xs:dateTime"/>
+        <xs:element maxOccurs="1" minOccurs="0" name="RegistrationDate"
+                  type="xs:dateTime"/>
+        <xs:element maxOccurs="1" minOccurs="0" name="ExpirationDate"
+                  type="xs:dateTime"/>
+        <xs:element maxOccurs="unbounded" minOccurs="0"
+                 name="Nameservers">
+          <xs:complexType id="Nameservers.type">
+            <xs:sequence>
+              <xs:element name="Server" type="iodef:MLStringType"/>
+              <xs:element ref="iodef:Address" maxOccurs="unbounded"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:choice id="DomainContacts" maxOccurs="1" minOccurs="0">
+          <xs:element name="SameDomainContact"
+                     type="iodef:MLStringType"/>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="1"
+                        ref="iodef:Contact"/>
+          </xs:sequence>
+        </xs:choice>
+      </xs:sequence>
+      <xs:attribute name="SystemStatus">
+        <xs:simpleType id="SystemStatus.type">
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="spoofed"/>
+            <xs:enumeration value="fraudulent"/>
+            <xs:enumeration value="innocent-hacked"/>
+            <xs:enumeration value="innocent-hijacked"/>
+            <xs:enumeration value="unknown"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+
+      <xs:attribute name="DomainStatus">
+        <xs:simpleType id="DomainStatus.type">
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="reservedDelegation"/>
+            <xs:enumeration value="assignedAndActive"/>
+            <xs:enumeration value="assignedAndInactive"/>
+            <xs:enumeration value="assignedAndOnHold"/>
+            <xs:enumeration value="revoked"/>
+            <xs:enumeration value="transferPending"/>
+            <xs:enumeration value="registryLock"/>
+            <xs:enumeration value="registrarLock"/>
+            <xs:enumeration value="other"/>
+            <xs:enumeration value="unknown"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Confidence">
+    <xs:simpleType>
+      <xs:restriction base="xs:nonNegativeInteger">
+          <xs:minInclusive value="0"/>
+          <xs:maxInclusive value="100"/>
+       </xs:restriction>
+     </xs:simpleType>
+  </xs:element>
+
+<xs:attribute name="confidence">
+  <xs:simpleType>
+    <xs:restriction base="xs:nonNegativeInteger">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="100"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:attribute>
+
+  <!--
+=========================================================
+= ext-role Values for use within the DomainContact Contacts element  ==
+=========================================================
+-->
+
+  <xs:simpleType name="ext-role">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="billingContacts"/>
+      <xs:enumeration value="technicalContacts"/>
+      <xs:enumeration value="administrativeContacts"/>
+      <xs:enumeration value="legalContacts"/>
+      <xs:enumeration value="zoneContacts"/>
+      <xs:enumeration value="abuseContacts"/>
+      <xs:enumeration value="securityContacts"/>
+      <xs:enumeration value="otherContacts"/>
+      <xs:enumeration value="hostingProvider"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!--
+=================================================
+===  The Originating Sensor Data Element                           ===
+=================================================
+-->
+
+  <xs:complexType name="OriginatingSensor.type">
+    <xs:sequence>
+      <xs:element name="DateFirstSeen" type="xs:dateTime"/>
+      <xs:element maxOccurs="unbounded" minOccurs="1"
+                ref="iodef:System"/>
+    </xs:sequence>
+
+    <xs:attribute name="OriginatingSensorType" use="required">
+      <xs:simpleType id="OriginatingSensorType.type">
+        <xs:restriction base="xs:NMTOKENS">
+          <xs:enumeration value="web"/>
+          <xs:enumeration value="webgateway"/>
+          <xs:enumeration value="mailgateway"/>
+          <xs:enumeration value="browser"/>
+          <xs:enumeration value="ispsensor"/>
+          <xs:enumeration value="human"/>
+          <xs:enumeration value="honeypot"/>
+          <xs:enumeration value="other"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <!--
+======================================================
+===            The Take Down Data structure.                      ===
+======================================================
+-->
+
+  <xs:element name="TakeDownInfo" type="phish:TakeDownInfo.type"/>
+
+  <xs:complexType name="TakeDownInfo.type">
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="0" name="TakeDownDate"
+                  type="xs:dateTime"/>
+
+      <xs:element maxOccurs="unbounded" minOccurs="0"
+              name="TakeDownAgency"  type="iodef:MLStringType"/>
+
+      <xs:element maxOccurs="unbounded" minOccurs="0"
+              name="TakeDownComments"  type="iodef:MLStringType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!--
+=========================================================
+===         The Archived Data Element                           ===
+=========================================================
+-->
+
+  <xs:element name="ArchivedData" type="phish:ArchivedData.type"/>
+
+  <xs:complexType name="ArchivedData.type">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="URL" type="xs:anyURI"/>
+      <xs:element minOccurs="0" name="Comments"
+              type="iodef:MLStringType"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="Data"
+                  type="xs:base64Binary"/>
+    </xs:sequence>
+
+    <xs:attribute name="type" use="required">
+      <xs:simpleType id="ArchivedDataType.type">
+        <xs:restriction base="xs:NMTOKENS">
+          <xs:enumeration value="collectionsite"/>
+          <xs:enumeration value="basecamp"/>
+          <xs:enumeration value="sendersite"/>
+          <xs:enumeration value="credentialInfo"/>
+          <xs:enumeration value="unspecified"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+</xs:schema>

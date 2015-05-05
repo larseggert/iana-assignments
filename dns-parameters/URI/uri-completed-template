@@ -1,0 +1,104 @@
+--begin 5395 template URI--
+A.   Submission Date:
+
+     May 23, 2009
+	[expert note: resubmission 2011-01-27]
+
+B.   Submission Type:
+
+     [X] New RRTYPE
+     [ ] Modification to existing RRTYPE
+
+C.   Contact Information for submitter:
+
+     Name: Patrik Faltstrom
+     Email Address: paf at cisco.com
+     International telephone number: +46-8-6859131
+     Other contact handles:
+     (Note: This information will be publicly posted.)
+
+D.   Motivation for the new RRTYPE application?
+
+     There is no easy way to get from a domain name to a URI.  Some
+     mechanisms exists via use of the NAPTR [RFC3403] resource
+     record.  That implies quite complicated rules that are
+     simplified via the S-NAPTR [RFC3958] specification.  But, the
+     ability to directly look up a URI still exists.  This
+     specification uses a prefix based naming mechanism originated in
+     the definition of the SRV [RFC2782] resource record, and the
+     RDATA is a URI, encoded as one text field.
+
+     See also Section 1 in RFC-faltstrom-uri-14.
+
+E.   Description of the proposed RR type.
+
+     The format of the URI resource record is as follows:
+
+
+     Ownername TTL Class URI Priority Weight Target
+
+
+     The URI RR has service information encoded in its ownername.  In
+     order to encode the service for a specific owner name one uses
+     service parameters.  Valid service parameters used are either
+     Enumservice Registrations registered by IANA, or prefixes used
+     for the SRV resource record.
+
+     The wire format of the RDATA is as follows:
+
+
+                         1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 3 3
+     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |          Priority             |          Weight               |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    /                                                               /
+    /                             Target                            /
+    /                                                               /
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+
+F.   What existing RRTYPE or RRTYPEs come closest to filling that
+     need and why are they unsatisfactory?
+
+     The RRTYPE that come closest is the NAPTR resource record.  It
+     is for example used in the DDDS and S-NAPTR algorithms.  The
+     main problem with the NAPTR is that selection of what record (or
+     records) one is interested in is based on data stored in the
+     RDATA portion of the NAPTR resource record.  This, as explained
+     in RFC 5507 [RFC5507], is not optimal for DNS lookups.  Further,
+     most applications using NAPTR resource records uses regular
+     expression based rewrite rules for creation of the URI, and that
+     has shown be complicated to implement.
+
+     The second closest RRTYPE is the SRV record that given a
+     prefixed based naming just like is suggested for the URI
+     resource record, one get back a port number and domain name.
+     This can also be used for creation of a URI, but, only URIs
+     without path components.
+
+G.   What mnemonic is requested for the new RRTYPE (optional)?
+
+     URI
+
+H.   Does the requested RRTYPE make use of any existing IANA Registry
+     or require the creation of a new IANA sub-registry in DNS
+     Parameters?
+
+     Yes, partially.
+
+     One of the mechanisms to select a service is to use the
+     Enumservice Registry managed by IANA.  Another is to use
+     services and protocols used for SRV records.
+
+I.   Does the proposal require/expect any changes in DNS servers/
+     resolvers that prevent the new type from being processed as an
+     unknown RRTYPE (see [RFC3597])?
+
+     No
+
+J.   Comments:
+
+     None
+
+--end 5395 template URI--

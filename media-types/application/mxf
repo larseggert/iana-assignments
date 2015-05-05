@@ -1,0 +1,84 @@
+(RFC 4539 published May 2006, subtype last updated May 2006)
+
+Subtype name: mxf
+
+Required parameters: none
+
+Optional parameters: ULs
+
+The optional parameter ULs is a single Uniform Resource Name (URN),
+or a comma-separated list of multiple URNs of SMPTE Universal Labels
+(which are defined by SMPTE 400M [SMPTE400M]).
+
+This optional parameter provides hints to the decoder regarding the
+structure of the MXF file, which could include Operational Pattern,
+essence types, descriptive metadata schemes, and other elements that
+are identified by their SMPTE Universal Label.
+
+SMPTE Universal Labels are Object Identifiers (OIDs), as specified by
+[ASN1].  Thus, a URN of a SMPTE Universal Label can use the OID URN
+namespace specified in [RFC3061], or any other future URN namespace
+that is appropriate for SMPTE Universal Labels.
+
+Note that, per [RFC2045], some characters (including the comma used
+to separate multiple values) require that the entire parameter value
+be enclosed in quotes.
+
+Below is an example of use of the optional parameter.  The two SMPTE
+Universal Labels indicate that the MXF file uses the OP1a Operational
+Pattern and contains IEC DV video at 25 Mbps, 525 lines, 59.94 fps
+interlaced essence.
+
+   Content-Type:  application/mxf;
+      ULs="urn:oid:1.3.52.4.1.1.1.13.1.2.1.1.1,
+      urn:oid:1.3.52.4.1.1.1.4.1.2.2.2.1.1"
+
+Encoding considerations: binary
+
+Security considerations: Application/mxf objects are not signed but
+may be partially encrypted internally.  External security mechanisms
+must be employed to ensure content confidentiality.  MXF, through
+metadata extensions, may allow executable code to be transferred in
+the file.  It is suggested that no unauthenticated executables
+decoded from an MXF file be executed.  Some compressed essence types
+carried in MXF may carry a risk that certain pathological bitstreams
+could lead to potential denial-of-service attacks against these
+essence decoders.
+
+Interoperability considerations: MXF provides a standard wrapping for
+a number of audio and video essence types according to a number of
+different Operational Patterns (OP).  Thus, interoperability depends
+upon whether the MXF file decoder has the capability to match the
+features of the MXF file encoder.  An Application Specification (AS)
+can ensure that MXF encoders and decoders can interoperate
+effectively.
+
+Published specification: RFC 4539, SMPTE 377M [SMPTE377M]
+
+Applications that use this media type: MXF is a wrapper for many
+types of audio and video essence types in use by many applications in
+the broadcast and digital cinema industries.  These include
+non-linear editing systems, video servers, video camera systems,
+digital asset management systems, and digital video distribution
+systems.
+
+Additional information:
+
+   Magic number(s): none
+
+   File extension(s): .mxf
+
+   Macintosh File Type Code(s): "mxf "
+
+Person & email address to contact for further information:
+Thomas Edwards
+email: tedwards&pbs.org
+
+Intended usage: COMMON
+
+Restrictions on usage: none
+
+Author/Change controller:
+
+Thomas Edwards
+email: tedwards&pbs.org

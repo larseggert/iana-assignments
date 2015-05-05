@@ -1,0 +1,411 @@
+<?xml version="1.0"?>
+    <grammar xmlns="http://relaxng.org/ns/structure/1.0"
+     ns="urn:ietf:params:xml:ns:mediadataset"
+     datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+       <start>
+          <choice>
+                <element name="session-info">
+                    <interleave>
+                    <optional>
+                        <ref name="ElementStreams"/>
+                    </optional>
+                    <zeroOrMore>
+                        <ref name="ElementMaxBandwidth"/>
+                    </zeroOrMore>
+                    <zeroOrMore>
+                        <ref name="ElementMaxSessionBandwidth"/>
+                    </zeroOrMore>
+                    <zeroOrMore>
+                        <ref name="ElementMaxStreamBandwidth"/>
+                    </zeroOrMore>
+                    <zeroOrMore>
+                        <ref name="ElementMediaIntermediaries"/>
+                    </zeroOrMore>
+                    <zeroOrMore>
+                        <ref name="ElementQoSDSCP"/>
+                    </zeroOrMore>
+                    <zeroOrMore>
+                        <ref name="ElementAny"/>
+                    </zeroOrMore>
+                    </interleave>
+                </element>
+
+                <element name="session-policy">
+                    <interleave>
+                    <optional>
+                        <ref name="ElementContext"/>
+                    </optional>
+                    <optional>
+                        <ref name="ElementLocalPorts"/>
+                    </optional>
+                    <zeroOrMore>
+                        <ref name="ElementMediaTypesAllowed"/>
+                    </zeroOrMore>
+                    <zeroOrMore>
+                        <ref name="ElementMediaTypesExcluded"/>
+                    </zeroOrMore>
+                    <zeroOrMore>
+                        <ref name="ElementCodecsAllowed"/>
+                    </zeroOrMore>
+                    <zeroOrMore>
+                        <ref name="ElementCodecsExcluded"/>
+                    </zeroOrMore>
+                    <zeroOrMore>
+                        <ref name="ElementMaxBandwidth"/>
+                    </zeroOrMore>
+                    <zeroOrMore>
+                        <ref name="ElementMaxSessionBandwidth"/>
+                    </zeroOrMore>
+                    <zeroOrMore>
+                        <ref name="ElementMaxStreamBandwidth"/>
+                    </zeroOrMore>
+                    <zeroOrMore>
+                        <ref name="ElementQoSDSCP"/>
+                    </zeroOrMore>
+                    <zeroOrMore>
+                        <ref name="ElementAny"/>
+                    </zeroOrMore>
+                    </interleave>
+               </element>
+            </choice>
+        </start>
+
+        <define name="ElementMediaTypesAllowed">
+            <element name="media-types-allowed">
+                <ref name="PolicyGeneralAttributes"/>
+                <zeroOrMore>
+                   <ref name="ElementMediaType"/>
+                </zeroOrMore>
+            </element>
+        </define>
+
+        <define name="ElementMediaTypesExcluded">
+            <element name="media-types-excluded">
+                <ref name="PolicyGeneralAttributes"/>
+                 <zeroOrMore>
+                   <ref name="ElementMediaType"/>
+                </zeroOrMore>
+            </element>
+        </define>
+
+        <define name="ElementMediaType">
+            <element name="media-type">
+                <data type="string" />
+                <optional>
+                  <ref name="AttributeQ"/>
+                </optional>
+                <optional>
+                  <ref name="AttributeGeneric"/>
+                </optional>
+            </element>
+        </define>
+
+        <define name="ElementCodecsAllowed">
+            <element name="codecs-allowed">
+              <ref name="PolicyGeneralAttributes"/>
+                <zeroOrMore>
+                   <ref name="ElementCodec"/>
+                </zeroOrMore>
+            </element>
+        </define>
+
+        <define name="ElementCodecsExcluded">
+            <element name="codecs-excluded">
+              <ref name="PolicyGeneralAttributes"/>
+                <zeroOrMore>
+                   <ref name="ElementCodec"/>
+                </zeroOrMore>
+            </element>
+        </define>
+
+        <define name="ElementCodec">
+            <element name="codec">
+                <optional>
+                  <ref name="AttributeQ"/>
+                </optional>
+                <optional>
+                  <ref name="AttributeGeneric"/>
+                </optional>
+                <element name="media-type-subtype">
+                  <data type="string" />
+                </element>
+                <zeroOrMore>
+                  <element name="mime-parameter">
+                    <data type="string" />
+                  </element>
+                </zeroOrMore>
+            </element>
+        </define>
+
+        <define name="ElementStreams">
+            <element name="streams">
+                <optional>
+                  <ref name="AttributeGeneric"/>
+                </optional>
+                <zeroOrMore>
+                  <ref name="ElementStream"/>
+                </zeroOrMore>
+            </element>
+        </define>
+
+        <define name="ElementStream">
+            <element name="stream">
+                <optional>
+                  <ref name="AttributeDirection"/>
+                </optional>
+                <optional>
+                  <ref name="AttributeLabel"/>
+                </optional>
+                <optional>
+                  <ref name="AttributeEnabled"/>
+                </optional>
+                <optional>
+                  <ref name="AttributeGeneric"/>
+                </optional>
+                <ref name="ElementMediaType"/>
+                <oneOrMore>
+                  <ref name="ElementCodec"/>
+                </oneOrMore>
+                <element name="local-host-port">
+                  <data type="string" />
+                </element>
+                <optional>
+                  <element name="remote-host-port">
+                    <data type="string" />
+                  </element>
+                </optional>
+            </element>
+        </define>
+
+        <define name="ElementMaxBandwidth">
+           <element name="max-bw">
+                <data type="integer" />
+                <ref name="PolicyGeneralAttributes"/>
+            </element>
+        </define>
+
+        <define name="ElementMaxSessionBandwidth">
+            <element name="max-session-bw">
+                <data type="integer" />
+                <ref name="PolicyGeneralAttributes"/>
+            </element>
+        </define>
+
+        <define name="ElementMaxStreamBandwidth">
+            <element name="max-stream-bw">
+                <data type="integer" />
+                <ref name="PolicyGeneralAttributes"/>
+                <optional>
+                  <ref name="AttributeMediaType"/>
+                </optional>
+                <optional>
+                  <ref name="AttributeLabel"/>
+                </optional>
+            </element>
+        </define>
+
+        <define name="ElementMediaIntermediaries">
+            <element name="media-intermediaries">
+               <ref name="PolicyGeneralAttributes"/>
+                <oneOrMore>
+                  <choice>
+                    <element name="fixed-intermediary">
+                      <element name="int-host-port">
+                        <data type="string" />
+                      </element>
+                      <zeroOrMore>
+                        <element name="int-addl-port">
+                          <data type="integer" />
+                        </element>
+                      </zeroOrMore>
+                    </element>
+
+                    <element name="turn-intermediary">
+                      <element name="int-host-port">
+                        <data type="string" />
+                      </element>
+                      <zeroOrMore>
+                        <element name="int-addl-port">
+                          <data type="integer" />
+                        </element>
+                      </zeroOrMore>
+                      <zeroOrMore>
+                        <element name="shared-secret">
+                          <data type="string" />
+                        </element>
+                      </zeroOrMore>
+                    </element>
+                  </choice>
+                </oneOrMore>
+            </element>
+        </define>
+
+        <define name="ElementQoSDSCP">
+            <element name="qos-dscp">
+                <data type="integer" />
+                <ref name="PolicyGeneralAttributes"/>
+                <optional>
+                  <ref name="AttributeMediaType"/>
+                </optional>
+            </element>
+        </define>
+
+        <define name="ElementLocalPorts">
+            <element name="local-ports">
+                <data type="string" />
+                <interleave>
+                  <optional>
+                    <ref name="AttributeVisibility"/>
+                  </optional>
+                  <optional>
+                    <ref name="AttributeGeneric"/>
+                  </optional>
+               </interleave>
+            </element>
+        </define>
+
+        <define name="ElementContext">
+            <element name="context">
+                <interleave>
+                <optional>
+                  <element name="info">
+                    <data type="string" />
+                  </element>
+                </optional>
+                 <optional>
+                 <element name="policy-server-URI">
+                    <data type="string" />
+                  </element>
+                </optional>
+                 <optional>
+                 <element name="token">
+                    <data type="token" />
+                  </element>
+                </optional>
+                <optional>
+                 <element name="request-URI">
+                    <data type="string" />
+                  </element>
+                </optional>
+                 <zeroOrMore>
+                  <element name="contact">
+                     <data type="string" />
+                  </element>
+                </zeroOrMore>
+                </interleave>
+            </element>
+        </define>
+
+        <define name="PolicyGeneralAttributes">
+                  <optional>
+                    <ref name="AttributeVisibility"/>
+                  </optional>
+                  <optional>
+                    <ref name="AttributeDirection"/>
+                  </optional>
+                  <optional>
+                    <ref name="AttributeGeneric"/>
+                  </optional>
+        </define>
+
+
+       <define name="AttributeVisibility">
+           <attribute name="visibility">
+             <choice>
+               <value>hidden</value>
+               <value>visible</value>
+             </choice>
+           </attribute>
+       </define>
+
+       <define name="AttributeDirection">
+           <attribute name="direction">
+             <choice>
+               <value>sendonly</value>
+               <value>recvonly</value>
+               <value>sendrecv</value>
+             </choice>
+           </attribute>
+       </define>
+
+       <define name="AttributeQ">
+           <attribute name="q">
+             <data type="decimal" />
+           </attribute>
+       </define>
+
+       <define name="AttributeMediaType">
+           <attribute name="media-type">
+             <data type="string" />
+           </attribute>
+       </define>
+
+       <define name="AttributeLabel">
+           <attribute name="label">
+             <data type="string" />
+           </attribute>
+       </define>
+
+       <define name="AttributeEnabled">
+           <attribute name="enabled">
+             <data type="boolean" />
+           </attribute>
+       </define>
+
+        <define name="AttributeGeneric">
+            <zeroOrMore>
+             <attribute>
+              <anyName>
+               <except>
+                <name ns="">visibility</name>
+                <name ns="">direction</name>
+                <name ns="">q</name>
+                <name ns="">media-type</name>
+                <name ns="">label</name>
+                <name ns="">enabled</name>
+               </except>
+              </anyName>
+             </attribute>
+            </zeroOrMore>
+        </define>
+
+        <define name="ElementAny">
+          <element>
+            <anyName>
+              <except>
+                <name>context</name>
+                <name>streams</name>
+                <name>max-bw</name>
+                <name>max-session-bw</name>
+                <name>max-stream-bw</name>
+                <name>media-intermediaries</name>
+                <name>qos-dscp</name>
+                <name>local-ports</name>
+                <name>media-types-allowed</name>
+                <name>media-types-excluded</name>
+                <name>media-type</name>
+                <name>codecs-allowed</name>
+                <name>codecs-excluded</name>
+              </except>
+            </anyName>
+            <ref name="anyExtension"/>
+          </element>
+        </define>
+
+        <define name="anyExtension">
+          <zeroOrMore>
+            <choice>
+              <element>
+                <anyName/>
+                <ref name="anyExtension"/>
+              </element>
+              <attribute>
+                <anyName/>
+              </attribute>
+              <text/>
+            </choice>
+          </zeroOrMore>
+        </define>
+
+    </grammar>

@@ -1,0 +1,151 @@
+(last updated 2011-03-30)
+
+Name : Glen Turner
+
+Email : gdt&gdt.id.au
+
+MIME media type name : Application
+
+MIME subtype name : Vendor Tree - vnd.tcpdump.pcap
+
+Required parameters : None.
+
+Optional parameters : None.
+
+Encoding considerations : binary
+
+
+Security considerations :
+The media does not contain "active content" (see RFC4288 section 4.6).
+However a packet capture may contain traffic created by software which uses 
+"active content".
+Attempts to decode the contents of these captured packets beyond a simple hex 
+dump may require the interpretation of "active content".
+Such interpretation should take care not to use files and other resources on the 
+machine inspecting the packet capture.
+
+The media does not contain "compressed content" (see RFC4288 section 4.6). 
+However a packet capture may contain traffic created by software which uses 
+
+compression. Attempts to decode the contents of these captured packets beyond a 
+simple hex dump may require decompression. Such decompression should take care 
+to ameliorate the risk of excessive resource use on the machine inspecting the 
+packet capture.
+
+The media does not contain XML. However a packet capture may contain traffic 
+created by software which uses XML. Attempts to decode the contents of these 
+captured packets beyond a simple hex dump may require the parsing of XML. Such 
+parsing should take care to ameliorate the risks noted in Section 10 "Security 
+Considerations" of RFC3023 "XML Media Types".
+
+The media does not contain ASN.1. However a packet capture may contain traffic 
+created by software which uses ASN.1. Attempts to decode the contents of these 
+captured packets beyond a simple hex dump may require the parsing of ASN.1. Such 
+parsing has a history of implementation flaws which can be exploited for denial of 
+service or access. There were 39 distinct NIST CVE entries concerning the 
+interpretation of ASN.1 between 2004 and 2010.
+
+The general header and the packet headers may form a covert channel which 
+identifies the class of host which created the media.
+
+The media contains captured network packets. These packets may reveal the private 
+matters of network users. Those network users may be unaware that a packet 
+capture has taken place. Even where software attempts to preserve network user 
+privacy by encrypting packet content (such as by using Transport Layer Security or 
+IPsec) the packets' headers and timing are still subject to traffic analysis.
+
+It is strongly recommended that packet captures be encrypted when further 
+transmitted (such as by e-mail or web) to preserve network users' privacy from 
+further interception.
+
+Bugs may exist in some reading programs which could possibly be exploited to gain 
+unauthorized access to a recipient's system. Apart from noting this possibility, there 
+is no specific action to take to prevent this, apart from the timely correction of such 
+bugs if any are found.
+
+Interoperability considerations :
+A network protocol capture is written in host byte order. The first four bytes form a 
+magic number.
+
+0xa1b2c3d4 indicates that the reader has the same byte order as the writer. 
+0xd4c3b2a1 indicates that the reader has a different byte order from the writer and 
+so the reader should swap bytes in the general header, in the packet header and in 
+some link layer headers. The other bytes of the captured packet are always in the 
+order they appeared on the wire.
+
+The accuracy and resolution of the time stamp on each packet and the moment 
+during packet processing when the timestamp is applied depends upon the host's 
+hardware and its operating system.
+
+As a result of the two items above, differing hosts capturing the same traffic at the 
+same moment may not produce the same pcap media.
+
+The header contains major and minor version numbers to allow a reading program 
+to determine if it is compatible with the media. A reading program is not compatible 
+if it encounters a major version number greater than it expects.
+
+Data link types are assigned by tcpdump.org and defined in the source code of 
+libpcap, which is available from www.tcpdump.org.
+
+The data link types LINKTYPE_USER0 to LINKTYPE_USER15 are reserved for local 
+use and thus captures containing those data link types are intentionally not 
+interoperable.
+
+Published specification :
+The specification is contained within the libpcap source code. At the time of 
+application (2011) the specification was in UNIX manual format with the name 
+pcap-savefile.manfile.in. Source code for libpcap is available from
+<http://www.tcpdump.org/>.
+
+Further information is available from the web page "Libpcap File Format". At the 
+time of application (2011) this was at
+<http://wiki.wireshark.org/Development/LibpcapFileFormat>.
+
+The pcap file format was invented for use by tcpdump. Tcpdump and its pcap file 
+format was created by V Jacobson, C Leres and S McCanne. It was included in 
+Berkeley Software Distribution (BSD) UNIX, and is widely available on many 
+systems.
+
+Applications which use this media :
+Libpcap, a C library to capture network packets for POSIX-like systems.
+Net::Pcap, Jpcap, python-libpcap, Ruby/Pcap are respectively Perl, Java, Python and 
+Ruby bindings for libpcap.
+
+WinPcap, a port of libpcap for Microsoft Windows.
+
+Libpcap and WinPcap are in turn used by:
+
+Snort, a network intrusion detector.
+
+Tcpdump, a command line tool to capture and display network packets.
+
+WinDump, a port of tcpdump to Microsoft Windows.
+
+Wireshark (formerly Ethereal), a graphical tool to capture, display and analyse 
+network packets.
+
+Many other programs which capture, display, analyse, manipulate and replay 
+network traffic use this media format.
+
+Additional information :
+
+1. Magic number(s) : 0xa1b2c3d4, 0xd4c3b2a1
+2. File extension(s) : .pcap, .cap, .dmp
+3. Macintosh file type code : None.
+4. Object Identifiers: None.
+
+For further information see <http://www.tcpdump.org/>.
+
+Person to contact for further information :
+
+1. Name : Guy Harris
+2. Email : guy&alum.mit.edu
+
+Intended usage : Common
+Network captures written in the pcap format are widely used in the data networking 
+community. They can be sent in email with a strong expectation that the receiver's 
+network capture software can read them.
+
+Author/Change controller : Guy Harris <guy&alum.mit.edu>
+
+(file created 2011-03-30)

@@ -1,0 +1,128 @@
+(RFC 5405 published January 2009)
+
+Media Type Definition
+
+   The media type for the G.719 codec is allocated from the IETF tree
+   since G.719 has the potential to become a widely used audio codec in
+   general Voice over IP (VoIP), teleconferencing, and streaming
+   applications.  This media type registration covers real-time transfer
+   via RTP.
+
+   Note, any unspecified parameter MUST be ignored by the receiver to
+   ensure that additional parameters can be added in any future revision
+   of this specification.
+
+   Type name: audio
+
+   Subtype name: G719
+
+   Required parameters: none
+
+   Optional parameters:
+
+   interleaving:  Indicates that interleaved mode SHALL be used for the
+      payload.  The parameter specifies the number of frame-block slots
+      available in a de-interleaving buffer (including the frame that is
+      ready to be consumed) for each source.  Its value is equal to one
+      plus the maximum number of frames that can precede any frame in
+      transmission order and follow the frame in RTP timestamp order.
+      The value MUST be greater than zero.  If this parameter is not
+      present, interleaved mode SHALL NOT be used.
+
+   int-delay:  The minimal media time delay in milliseconds that is
+      needed to avoid underrun in the de-interleaving buffer before
+      starting decoding, i.e., the difference in RTP timestamp ticks
+      between the earliest and latest audio frame present in the de-
+      interleaving buffer expressed in milliseconds.  The value is a
+      stream property and provided per source.  The allowed values are
+      zero to the largest value expressible by an unsigned 16-bit
+      integer (65535).  Please note that in practice, the largest value
+      that can be used is equal to the declared size of the interleaving
+      buffer of the receiver.  If the value for some reason is larger
+      than the receiver buffer declared by or for the receiver, this
+      value defaults to the size of the receiver buffer.  For sources
+      for which this value hasn't been provided, the value defaults to
+      the size of the receiver buffer.  The format is a comma-separated
+      list of synchronization source (SSRC) ":" delay in ms pairs, which
+      in ABNF [RFC5234] is expressed as:
+
+        int-delay = "int-delay=" source-delay *("," source-delay)
+		  
+		  source-delay = SSRC ":" delay-value
+		  
+		  SSRC = 1*8HEXDIG ; The 32-bit SSRC encoded in hex format
+		  
+		  delay-value = 1*5DIGIT ; The delay value in milliseconds
+
+		  Example: int-delay=ABCD1234:1000,4321DCB:640
+
+		  NOTE: No white space allowed in the parameter before the end of
+		  all the value pairs
+
+   max-red:  The maximum duration in milliseconds that elapses between
+      the primary (first) transmission of a frame and any redundant
+      transmission that the sender will use.  This parameter allows a
+      receiver to have a bounded delay when redundancy is used.  Allowed
+      values are between zero (no redundancy will be used) and 65535.
+      If the parameter is omitted, no limitation on the use of
+      redundancy is present.
+
+   channels:  The number of audio channels.  The possible values (1-6)
+      and their respective channel order is specified in Section 4.1 of
+      [RFC3551].  If omitted, it has the default value of 1.
+
+   CBR:  Constant Bitrate (CBR) indicates the exact codec bitrate in
+      bits per second (not including the overhead from packetization,
+      RTP header, or lower layers) that the codec MUST use.  "CBR" is to
+      be used when the dynamic rate cannot be supported (one case is,
+      e.g., gateway to H.320).  "CBR" is mostly used for gateways to
+      circuit switch networks.  Therefore, the "CBR" is the rate not
+      including any FEC as specified in Section 4.3.1.  If FEC is to be
+      used, the "b=" parameter MUST be used to allow the extra bitrate
+      needed to send the redundant information.  It is RECOMMENDED that
+      this parameter is only used when necessary to establish a working
+      communication.  The usage of this parameter has implications for
+      congestion control that need to be considered; see Section 9.
+
+   ptime:  see [RFC4566].
+
+   maxptime:  see [RFC4566].
+
+   Encoding considerations:  This media type is framed and binary; see
+      Section 4.8 of [RFC4288].
+
+   Security considerations:  See Section 10 of RFC 5404.
+
+   Interoperability considerations:  The support of the Interleaving
+      mode is not mandatory and needs to be negotiated.  See Section 7.2
+      for how to do that for SDP-based protocols.
+
+   Published specification:  RFC 5404
+
+   Applications that use this media type:  Real-time audio applications
+      like Voice over IP and teleconference, and multi-media streaming.
+
+   Additional information:  none
+
+   Person & email address to contact for further         information:
+      Ingemar Johansson
+      <ingemar.s.johansson&ericsson.com>
+
+   Intended usage:  COMMON
+
+   Restrictions on usage:  This media type depends on RTP framing, and
+      hence is only defined for transfer via RTP [RFC3550].  Transport
+      within other framing protocols is not defined at this time.
+
+   Author:
+      Ingemar Johansson <ingemar.s.johansson&ericsson.com>
+      Magnus Westerlund <magnus.westerlund&ericsson.com>
+
+   Change controller:  IETF Audio/Video Transport working group
+      delegated from the IESG.
+
+   Additionally, note that file storage of G.719-encoded audio in ISO
+   base media file format is specified in Annex A of [ITU-T-G719].
+   Thus, media file formats such as MP4 (audio/mp4 or video/mp4)
+   [RFC4337] and 3GP (audio/3GPP and video/3GPP) [RFC3839] can contain
+   G.719-encoded audio.

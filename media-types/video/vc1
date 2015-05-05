@@ -1,0 +1,357 @@
+(per RFC4425)
+
+Type name:  video
+
+Subtype name:  vc1
+
+Required parameters:
+
+      profile:
+         The value is an integer identifying the VC-1 profile.  The
+         following values are defined:
+
+         0: Simple profile
+         1: Main profile
+         3: Advanced profile
+
+         If the profile parameter is used to indicate properties of a
+         coded bit stream, it indicates the VC-1 profile that a
+         decoder has to support when it decodes the bit stream.
+
+         If the profile parameter is used for capability exchange or
+         in a session setup procedure, it indicates the VC-1 profile
+         that the codec supports.
+
+         level:
+         The value is an integer that specifies the level of the VC-1
+         profile.
+
+         For Advanced profile, valid values are 0 through 4, which
+         correspond to levels L0 through L4, respectively.  For
+         Simple and Main profiles, the following values are defined:
+
+         1: Low Level
+         2: Medium Level
+         3: High Level (only valid for Main profile)
+
+         If the level parameter is used to indicate properties of a
+         coded bit stream, it indicates the highest level of the VC-1
+         profile that a decoder has to support when it decodes the
+         bit stream.  Note that support for a level implies support
+         for all numerically lower levels of the given profile.
+
+         If the level parameter is used for capability exchange or in
+         a session setup procedure, it indicates the highest level of
+         the VC-1 profile that the codec supports.  See section 6.3
+         of RFC 4425 for specific rules for how this parameter is
+         used with the SDP Offer/Answer model.
+
+Optional parameters:
+
+      config:
+         The value is a base16 [6] (hexadecimal) representation of an
+         octet string that expresses the decoder initialization
+         parameters.  Decoder initialization parameters are mapped
+         onto the base16 octet string in an MSB-first basis.  The
+         first bit of the decoder initialization parameters MUST be
+         located at the MSB of the first octet.  If the decoder
+         initialization parameters are not multiples of 8 bits, up to
+         7 zero-valued padding bits MUST be added in the last octet
+         to achieve octet alignment.
+
+         For Simple and Main profiles, the decoder initialization
+         parameters are STRUCT_C, as defined in Annex J of SMPTE 421M
+         [1].
+
+         For Advanced profile, the decoder initialization parameters
+         are a sequence layer header directly followed by an entry-
+         point header.  The two headers MUST be in EBDU format,
+         meaning that they must include their Start Codes and must
+         use the encapsulation method defined in Annex E of SMPTE
+         421M [1].
+
+      width:
+         The value is an integer greater than zero, specifying the
+         maximum horizontal size of the coded frames, in luma samples
+         (pixels in the luma picture).
+
+         For Simple and Main profiles, the value SHALL be identical
+         to the actual horizontal size of the coded frames.
+
+         For Advanced profile, the value SHALL be greater than, or
+         equal to, the largest horizontal size of the coded frames.
+
+         If this parameter is not specified, it defaults to the
+         maximum horizontal size allowed by the specified profile and
+         level.
+
+      height:
+         The value is an integer greater than zero, specifying the
+         maximum vertical size of the coded frames, in luma samples
+         (pixels in a progressively coded luma picture).
+
+         For Simple and Main profiles, the value SHALL be identical
+         to the actual vertical size of the coded frames.
+
+         For Advanced profile, the value SHALL be greater than, or
+         equal to, the largest vertical size of the coded frames.
+
+         If this parameter is not specified, it defaults to the
+         maximum vertical size allowed by the specified profile and
+         level.
+
+      bitrate:
+         The value is an integer greater than zero, specifying the
+         peak transmission rate of the coded bit stream in bits per
+         second.  The number does not include the overhead caused by
+         RTP encapsulation, i.e., it does not include the AU headers,
+         or any of the RTP, UDP, or IP headers.
+
+         If this parameter is not specified, it defaults to the
+         maximum bit rate allowed by the specified profile and level.
+         See the values for "RMax" in Annex D of SMPTE 421M [1].
+
+      buffer:
+         The value is an integer specifying the leaky bucket size, B,
+         in milliseconds, required to contain a stream transmitted at
+         the transmission rate specified by the bitrate parameter.
+         This parameter is defined in the hypothetical reference
+         decoder model for VC-1, in Annex C of SMPTE 421M [1].
+
+         Note that this parameter relates to the codec bit stream
+         only, and does not account for any buffering time that may
+         be required to compensate for jitter in the network.
+
+         If this parameter is not specified, it defaults to the
+         maximum buffer size allowed by the specified profile and
+         level.  See the values for "BMax" and "RMax" in Annex D of
+         SMPTE 421M [1].
+
+      framerate:
+         The value is an integer greater than zero, specifying the
+         maximum number of frames per second in the coded bit stream,
+         multiplied by 1000 and rounded to the nearest integer value.
+         For example, 30000/1001 (approximately 29.97) frames per
+         second is represented as 29970.
+
+         This parameter can be used to control resource allocation at
+         the receiver.  For example, a receiver may choose to perform
+         additional post-processing on decoded frames only if the
+         frame rate is expected to be low.  The parameter MUST NOT be
+         used for pacing of the rendering process, since the actual
+         frame rate may differ from the specified value.
+
+         If the parameter is not specified, it defaults to the
+         maximum frame rate allowed by the specified profile and
+         level.
+
+      bpic:
+         This parameter signals that B- and BI-pictures may be
+         present when Advanced profile is used.  If this parameter is
+         present, and B- or BI-pictures may be present in the coded
+         bit stream, this parameter MUST be equal to 1.
+
+         A value of 0 indicates that B- and BI-pictures SHALL NOT be
+         present in the coded bit stream, even if the sequence layer
+         header changes.  Inclusion of this parameter with a value of
+         0 is RECOMMENDED, if neither B- nor BI-pictures are included
+         in the coded bit stream.
+
+         This parameter MUST NOT be used with Simple and Main
+         profiles. For Main profile, the presence of B- and
+         BI-pictures is indicated by the MAXBFRAMES field in STRUCT_C
+         decoder initialization parameter.
+
+         For Advanced profile, if this parameter is not specified, a
+         value of 1 SHALL be assumed.
+
+      mode:
+         The value is an integer specifying the use of the sequence
+         layer header and the entry-point header.  This parameter is
+         only defined for Advanced profile.  The following values are
+         defined:
+
+         0: Both the sequence layer header and the entry-point header
+            may change, and changed headers will be included in the
+            RTP packets.
+         1: The sequence layer header specified in the config
+            parameter never changes.  The rules in section 4.8 of RFC
+            4425 MUST be followed.
+         3: The sequence layer header and the entry-point header
+            specified in the config parameter never change.  The
+            rules in section 4.9 of RFC 4425 MUST be followed.
+
+         If the mode parameter is not specified, a value of 0 SHALL
+         be assumed.  The mode parameter SHOULD be specified if modes
+         1 or 3 apply to the VC-1 bit stream.
+
+      max-width, max-height, max-bitrate, max-buffer, max-framerate:
+         These parameters are defined for use in a capability
+         exchange procedure.  The parameters do not signal properties
+         of the coded bit stream, but rather upper limits or
+         preferred values for the "width", "height", "bitrate",
+         "buffer", and "framerate" parameters.  Section 6.3 of RFC
+         4425 provides specific rules for how these parameters are
+         used with the SDP Offer/Answer model.
+
+         Receivers that signal support for a given profile and level
+         MUST support the maximum values for these parameters for
+         that profile and level.  For example, a receiver that
+         indicates support for Main profile, Low level, must support
+         a width of 352 luma samples and a height of 288 luma
+         samples, even if this requires scaling the image to fit the
+         resolution of a smaller display device.
+
+         A receiver MAY use any of the max-width, max-height, max-
+         bitrate, max-buffer, and max-framerate parameters to
+         indicate preferred capabilities.  For example, a receiver
+         may choose to specify values for max-width and max-height
+         that match the resolution of its display device, since a bit
+         stream encoded using those parameters would not need to be
+         rescaled.
+
+         If any of the max-width, max-height, max-bitrate, max-
+         buffer, and max-framerate parameters signal a capability
+         that is less than the required capabilities of the signaled
+         profile and level, then the parameter SHALL be interpreted
+         as a preferred value for that capability.
+
+         Any of the parameters MAY also be used to signal
+         capabilities that exceed the required capabilities of the
+         signaled profile and level.  In that case, the parameter
+         SHALL be interpreted as the maximum value that can be
+         supported for that capability.
+
+         When more than one parameter from the set (max-width,
+         max-height, max-bitrate, max-buffer, and max-framerate) is
+         present, all signaled capabilities MUST be supported
+         simultaneously.
+
+         A sender or receiver MUST NOT use these parameters to signal
+         capabilities that meet the requirements of a higher level of
+         the VC-1 profile than that specified in the "level"
+         parameter, even if the sender or receiver can support all
+         the properties of the higher level, except if specifying a
+         higher level is not allowed due to other restrictions.  As
+         an example of such a restriction, in the SDP Offer/Answer
+         model, the value of the level parameter that can be used in
+         an Answer is limited by what was specified in the Offer.
+
+      max-width:
+         The value is an integer greater than zero, specifying a
+         horizontal size for the coded frames, in luma samples
+         (pixels in the luma picture).  If the value is less than the
+         maximum horizontal size allowed by the profile and level,
+         then the value specifies the preferred horizontal size.
+         Otherwise, it specifies the maximum horizontal size that is
+         supported.
+
+         If this parameter is not specified, it defaults to the
+         maximum horizontal size allowed by the specified profile and
+         level.
+
+      max-height:
+         The value is an integer greater than zero, specifying a
+         vertical size for the coded frames, in luma samples (pixels
+         in a progressively coded luma picture).  If the value is
+         less than the maximum vertical size allowed by the profile
+         and level, then the value specifies the preferred vertical
+         size.  Otherwise, it specifies the maximum vertical size
+         that is supported.
+
+         If this parameter is not specified, it defaults to the
+         maximum vertical size allowed by the specified profile and
+         level.
+
+      max-bitrate:
+         The value is an integer greater than zero, specifying a peak
+         transmission rate for the coded bit stream in bits per
+         second.  The number does not include the overhead caused by
+         RTP encapsulation, i.e., it does not include the AU headers,
+         or any of the RTP, UDP, or IP headers.
+
+         If the value is less than the maximum bit rate allowed by
+         the profile and level, then the value specifies the
+         preferred bit rate.  Otherwise, it specifies the maximum bit
+         rate that is supported.
+
+         If this parameter is not specified, it defaults to the
+         maximum bit rate allowed by the specified profile and level.
+         See the values for "RMax" in Annex D of SMPTE 421M [1].
+
+      max-buffer:
+         The value is an integer specifying a leaky bucket size, B,
+         in milliseconds, required to contain a stream transmitted at
+         the transmission rate specified by the max-bitrate
+         parameter.  This parameter is defined in the hypothetical
+         reference decoder model for VC-1, in Annex C of SMPTE 421M
+         [1].
+
+         Note that this parameter relates to the codec bit stream
+         only and does not account for any buffering time that may be
+         required to compensate for jitter in the network.
+
+         If the value is less than the maximum leaky bucket size
+         allowed by the max-bitrate parameter and the profile and
+         level, then the value specifies the preferred leaky bucket
+         size.  Otherwise, it specifies the maximum leaky bucket size
+         that is supported for the bit rate specified by the max-
+         bitrate parameter.
+
+         If this parameter is not specified, it defaults to the
+         maximum buffer size allowed by the specified profile and
+         level.  See the values for "BMax" and "RMax" in Annex D of
+         SMPTE 421M [1].
+
+      max-framerate:
+         The value is an integer greater than zero, specifying a
+         number of frames per second for the coded bit stream.  The
+         value is the frame rate multiplied by 1000 and rounded to
+         the nearest integer value.  For example, 30000/1001
+         (approximately 29.97) frames per second is represented as
+         29970.
+
+         If the value is less than the maximum frame rate allowed by
+         the profile and level, then the value specifies the
+         preferred frame rate.  Otherwise, it specifies the maximum
+         frame rate that is supported.
+
+         If the parameter is not specified, it defaults to the
+         maximum frame rate allowed by the specified profile and
+         level.
+
+Encoding considerations:
+         This media type is framed and contains binary data.
+
+Security considerations:
+         See Section 7 of RFC 4425.
+
+Interoperability considerations:
+        None.
+
+Published specification:
+        RFC 4425.
+
+Applications that use this media type:
+        Multimedia streaming and conferencing tools.
+
+Additional Information:
+        None.
+
+Person & email address to contact for further information:
+        Anders Klemets <anderskl&microsoft.com>
+        IETF AVT working group.
+
+Intended Usage:
+        COMMON
+
+Restrictions on usage:
+        This media type depends on RTP framing; therefore, it is
+        only defined for transfer via RTP [3].
+
+Authors:
+        Anders Klemets
+
+Change controller:
+        IETF Audio/Video Transport Working Group delegated from the
+        IESG.

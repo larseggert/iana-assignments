@@ -1,0 +1,107 @@
+(per RFC2483)
+
+Name : Ron Daniel Jr.
+
+E-mail : rdaniel&lanl.gov
+
+MIME media type name : Text
+
+MIME subtype name : IETF Tree - uri-list
+
+Required parameters : none
+
+Optional parameters : charset
+
+Currently, URIs can be represented using US-ASCII. However, there
+are many non-standard URIs which use special character sets.
+Discussion of how to best achieve internationalization of URIs is
+underway. This registration will be updated with a discussion of the
+URI charsets once that discussion has concluded.
+
+Encoding considerations : Some transfer protocols, such as SMTP,
+place limits on the length of lines. Very long URIs might exceed
+those limits. Systems must therefore be prepared to use a suitable
+content transfer encoding. This is anticipated to be a rare
+occurance.
+
+Security considerations : Client software should be aware of the
+security considerations of URIs.  For example, accessing some URIs
+can result in sending a death threat to a head of state, frequently
+prompting a visit from the relevant protective service.  Accessing
+other URIs may result in financial obligations, or access to
+resources considered inappropriate by one's employer.
+
+While the legitimate provider of a uri-list could exploit these
+properties for good or ill, it is more likely that uri-lists will be
+falsified in order to exploit such characteristics of URIs.
+
+Additionally, the lookup and reverse lookup potential of the uri-
+list may be attractive to traffic analysts. URI lists may also
+reveal confidential information, such as the location of sensitive
+information.
+
+Because of these considerations, external confidentiality measures
+should be available to protect uri-list responses when appropriate.
+
+Interoperability considerations : none known
+
+Published specification : Uniform Resource Locators (URLs) and
+Uniform Resource Names (URNs) are two instances of the more general
+class of identifiers known as Uniform Resource Identifiers (URIs).
+URN resolution methods frequently wish to return lists of URLs for a
+resource so that fault-tolerance and load balancing can be achieved.
+The text/uri-list format is intended to be a very simple format for
+communicating such lists of URLs (and URNs) in a form suitable for
+automatic processing.
+
+The format of text/uri-list resources is:
+
+1) Any lines beginning with the '#' character are comment lines
+    and are ignored during processing. (Note that URIs may contain
+    the '#' character, so it is only a comment character when it is
+    the first character on a line.)
+
+2) The remaining non-comment lines shall be URIs (URNs or URLs),
+    encoded according to the URL or URN specifications (RFC2141,
+    RFC1738 and RFC2396). Each URI shall appear on one and only one
+    line. Very long URIs are not broken in the text/uri-list format.
+    Content-transfer-encodings may be used to enforce line length
+    limitations.
+
+3) As for all text/* formats, lines are terminated with a CRLF pair.
+
+In applications where one URI has been mapped to a list of URIs, the
+first line of the text/uri-list response SHOULD be a comment giving
+the original URI.
+
+An example of the format is given below:
+
+  # urn:isbn:0-201-08372-8
+  http://www.huh.org/books/foo.html
+  http://www.huh.org/books/foo.pdf
+  ftp://ftp.foo.org/books/foo.txt
+
+Applications which use this media : URN resolvers are the initial
+applications. Web clients and proxies are applications that are
+likely to support this format in the future.
+
+Additional information :
+
+1. Magic number(s) : none at this time
+2. File extension(s) : .uris or .uri recommended
+3. Macintosh file type code : URIs recommended
+
+This media type is the product of the URN working group of the IETF.
+
+Person to contact for further information :
+
+1. Name : Ron Daniel Jr.
+2. E-mail : rdaniel&lanl.gov
+
+Intended usage : Limited Use
+The text/uri-list media type is intended for use in applications
+which utilize URIs for replicated resources.
+
+Author/Change controller : Ron Daniel Jr.
+Los Alamos National Laboratory
+rdaniel&lanl.gov

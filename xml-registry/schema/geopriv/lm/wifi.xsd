@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<xs:schema
+    xmlns:wifi="urn:ietf:params:xml:ns:geopriv:lm:wifi"
+    xmlns:bt="urn:ietf:params:xml:ns:geopriv:lm:basetypes"
+    xmlns:gml="http://www.opengis.net/gml"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="urn:ietf:params:xml:ns:geopriv:lm:wifi"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified">
+
+  <xs:annotation>
+    <xs:appinfo
+    source="urn:ietf:params:xml:schema:geopriv:lm:wifi">
+      802.11 location measurements
+    </xs:appinfo>
+    <xs:documentation source="http://www.rfc-editor.org/rfc/rfc7105.txt">
+     This schema defines a basic set of 802.11 location measurements.
+    </xs:documentation>
+  </xs:annotation>
+
+ <xs:import namespace="urn:ietf:params:xml:ns:geopriv:lm:basetypes"/>
+  <xs:import namespace="http://www.opengis.net/gml"/>
+
+  <xs:element name="wifi" type="wifi:wifiNetworkType"/>
+
+  <xs:complexType name="wifiNetworkType">
+    <xs:complexContent>
+      <xs:restriction base="xs:anyType">
+    <xs:sequence>
+      <xs:element name="nicType" type="xs:token"
+              minOccurs="0"/>
+      <xs:element name="ap" type="wifi:wifiType"
+              maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:anyAttribute namespace="##any" processContents="lax"/>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="wifiType">
+    <xs:complexContent>
+      <xs:restriction base="xs:anyType">
+    <xs:sequence>
+      <xs:element name="bssid" type="wifi:bssidType"/>
+      <xs:element name="ssid" type="wifi:ssidType"
+              minOccurs="0"/>
+      <xs:element name="channel" type="xs:nonNegativeInteger"
+              minOccurs="0"/>
+      <xs:element name="location" minOccurs="0"
+              type="xs:anyType"/>
+      <xs:element name="type" type="wifi:networkType"
+              minOccurs="0"/>
+      <xs:element name="regclass" type="wifi:regclassType"
+              minOccurs="0"/>
+      <xs:element name="antenna" type="wifi:octetType"
+              minOccurs="0"/>
+      <xs:element name="flightTime" minOccurs="0"
+              type="bt:nnDoubleWithRMSError"/>
+      <xs:element name="apSignal" type="wifi:signalType"
+              minOccurs="0"/>
+      <xs:element name="deviceSignal" type="wifi:signalType"
+              minOccurs="0"/>
+      <xs:any namespace="##other" processContents="lax"
+          minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="serving" type="xs:boolean"
+              default="false"/>
+    <xs:anyAttribute namespace="##any" processContents="lax"/>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="bssidType">
+    <xs:simpleContent>
+      <xs:extension base="bt:macAddressType">
+    <xs:attribute name="verified" type="xs:boolean"
+              default="false"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <!-- Note that this pattern does not prevent multibyte UTF-8
+       sequences that result in a SSID longer than 32 octets. -->
+  <xs:simpleType name="ssidType">
+    <xs:restriction base="xs:token">
+      <xs:pattern value="(\\[\da-fA-F]{2}|[^\\]){0,32}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="networkType">
+    <xs:restriction base="xs:token">
+      <xs:pattern value="[a-zA-Z]+"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="regclassType">
+    <xs:simpleContent>
+      <xs:extension base="wifi:octetType">
+    <xs:attribute name="country">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="[A-Z]{2}[OIX]?"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="octetType">
+    <xs:restriction base="xs:nonNegativeInteger">
+      <xs:maxInclusive value="255"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="signalType">
+    <xs:complexContent>
+      <xs:restriction base="xs:anyType">
+    <xs:sequence>
+      <xs:element name="transmit" type="xs:double"
+              minOccurs="0"/>
+      <xs:element name="gain" type="xs:double" minOccurs="0"/>
+      <xs:element name="rcpi" type="wifi:rssiType"
+              minOccurs="0"/>
+      <xs:element name="rsni" type="bt:doubleWithRMSError"
+              minOccurs="0"/>
+      <xs:any namespace="##other" processContents="lax"
+          minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="rssiType">
+    <xs:simpleContent>
+      <xs:extension base="bt:doubleWithRMSError">
+    <xs:attribute name="dBm" type="xs:boolean" default="true"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <!-- Measurement Request elements -->
+  <xs:element name="type" type="wifi:networkType"/>
+  <xs:element name="parameter" type="wifi:parameterType"/>
+
+  <xs:complexType name="parameterType">
+    <xs:simpleContent>
+      <xs:extension base="xs:QName">
+    <xs:attribute name="context" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="ap"/>
+          <xs:enumeration value="device"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+</xs:schema>

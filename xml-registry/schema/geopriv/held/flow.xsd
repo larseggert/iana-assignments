@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:ietf:params:xml:ns:geopriv:held:flow"
+ xmlns:xs="http://www.w3.org/2001/XMLSchema"
+ xmlns:flow="urn:ietf:params:xml:ns:geopriv:held:flow"
+ elementFormDefault="qualified">
+
+ <xs:annotation>
+   <xs:appinfo
+     source="urn:ietf:params:xml:schema:geopriv:held:flow">
+     HELD Flow Identity</xs:appinfo>
+   <xs:documentation
+     source="http://tools.ietf.org/html/draft-ietf-geopriv-flow-identity">
+     This document defines Flow Identity elements for HELD.
+   </xs:documentation>
+ </xs:annotation>
+
+ <xs:element name="flow" type="flow:flowIdentity"/>
+
+ <xs:complexType name="flowIdentity">
+   <xs:sequence>
+     <xs:element name="src" type="flow:flowEndpoint"/>
+     <xs:element name="dst" type="flow:flowEndpoint"/>
+   </xs:sequence>
+   <xs:attribute name="target" default="src">
+     <xs:simpleType>
+       <xs:restriction base="xs:token">
+         <xs:pattern value="(src|dst)"/>
+       </xs:restriction>
+     </xs:simpleType>
+   </xs:attribute>
+   <xs:attribute name="layer3" use="required">
+     <xs:simpleType>
+       <xs:restriction base="xs:token">
+         <xs:pattern value="(ipv4|ipv6)"/>
+       </xs:restriction>
+     </xs:simpleType>
+   </xs:attribute>
+   <xs:attribute name="layer4" use="required">
+     <xs:simpleType>
+       <xs:restriction base="xs:token">
+         <xs:pattern value="(udp|tcp|sctp|dccp|\d+)"/>
+       </xs:restriction>
+     </xs:simpleType>
+   </xs:attribute>
+ </xs:complexType>
+ <xs:complexType name="flowEndpoint">
+   <xs:all>
+     <xs:element name="address">
+       <xs:simpleType>
+         <xs:restriction base="xs:token"/>
+       </xs:simpleType>
+     </xs:element>
+     <xs:element name="port">
+       <xs:simpleType>
+         <xs:restriction base="xs:unsignedShort">
+           <xs:minInclusive value="1"/>
+         </xs:restriction>
+       </xs:simpleType>
+     </xs:element>
+   </xs:all>
+ </xs:complexType>
+</xs:schema>

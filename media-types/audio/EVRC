@@ -1,0 +1,82 @@
+(RFC 3558 published July 2003, updated January 2007 per RFC4788)
+
+Type name:  audio
+
+Subtype names:  EVRC
+
+Required parameters:  none
+
+Optional parameters:
+
+   ptime:  Defined as usual for RTP audio (see RFC 4566).
+
+   maxptime:  The maximum amount of media that can be encapsulated in
+      each packet, expressed as time in milliseconds.  The time SHALL
+      be calculated as the sum of the time the media present in the
+      packet represents.  The time SHOULD be a multiple of the
+      duration of a single codec data frame (20 msec).  If not
+      signaled, the default maxptime value SHALL be 200 milliseconds.
+
+   maxinterleave:  Maximum number for interleaving length (field LLL
+      in the Interleaving Octet).  The interleaving lengths used in
+      the entire session MUST NOT exceed this maximum value.  If not
+      signaled, the maxinterleave length SHALL be 5.
+
+   silencesupp:  see Section 6.1 for definition.  If this parameter
+      is not present, the default value 1 MUST be assumed.
+
+   dtxmax:  see Section 6.1
+
+   dtxmin:  see Section 6.1
+
+   hangover:  see Section 6.1
+
+Encoding considerations:
+   This media type is framed binary data (see RFC 4288, Section 4.8),
+   and is defined for transfer of EVRC-encoded data via RTP using the
+   Interleaved/Bundled packet format specified in Sections 4.1, 6,
+   and 7 of RFC 3558.  It is also defined for other transfer methods
+   using the storage format specified in Section 11 of RFC 3558.
+
+Security considerations:  See Section 14, "Security Considerations",
+   of RFC 3558.
+
+Interoperability considerations:
+   The DTX parameters are receiver options.  Existing RFC 3558
+   implementations will not send any of the DTX parameters in their
+   SDP and will ignore any DTX parameters they receive.  The adaptive
+   DTX behavior of DTX-capable EVRC codecs (as detailed in [8],
+   Section 4.3.5) ensures interoperability with non-DTX EVRC codecs.
+
+Published specification:
+   The EVRC vocoder is specified in 3GPP2 C.S0014 [2].  Transfer
+   methods are specified in RFC 3558.
+
+Applications that use this media type:
+   It is expected that many VoIP applications (as well as mobile
+   applications) will use this type.
+
+Additional information:
+   The following information applies for storage format only.
+
+      Magic number: #!EVRC\n (see Section 11 of RFC 3558)
+      File extensions: evc, EVC
+      Macintosh file type code: none
+      Object identifier or OID: none
+
+Person & email address to contact for further information:
+   Qiaobing Xie <Qiaobing.Xie&motorola.com>
+
+Intended usage:  COMMON
+
+Restrictions on usage:
+   This media type may be used with RTP framing (RFC 3550 [5]) and as
+   a storage format.  When used with RTP, the procedures in RFC 3558,
+   Section 4.1, MUST be followed.  In all other contexts, the storage
+   format defined in RFC 3558, Section 11, MUST be used.
+
+Author:
+   Adam Li/Qiaobing Xie
+
+Change controller:
+   IETF Audio/Video Transport working group delegated from the IESG.

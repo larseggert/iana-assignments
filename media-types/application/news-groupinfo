@@ -1,0 +1,71 @@
+(RFC 5537 published November 2009, subtype last updated November 2009)
+
+MIME type name:           application
+
+MIME subtype name:        news-groupinfo
+
+Required parameters:      none
+
+Optional parameters:      charset, which MUST be a charset
+                          registered for use with MIME text types.
+                          It has the same syntax as the parameter
+                          defined for text/plain [RFC2046].
+                          Specifies the charset of the body part.
+                          If not given, the charset defaults to
+                          US-ASCII [ASCII].
+
+Encoding considerations:  7bit or 8bit encoding MUST be used to
+                          maintain compatibility.
+
+Security considerations:  None.
+
+Interoperability considerations:
+                          Disposition should by default be inline.
+
+Applications that use this media type:
+                          Control message issuers, relaying
+                          agents, serving agents.
+
+Published specification:  RFC 5537
+
+Intended usage:           COMMON
+
+Change controller:        IETF
+
+The content of the application/news-groupinfo body part is defined
+as:
+
+   groupinfo-body      = [ newsgroups-tag CRLF ]
+                            newsgroups-line CRLF
+   newsgroups-tag      = %x46.6F.72 SP %x79.6F.75.72 SP
+                            %x6E.65.77.73.67.72.6F.75.70.73 SP
+                            %x66.69.6C.65.3A
+                            ; case sensitive
+                            ; "For your newsgroups file:"
+   newsgroups-line     = newsgroup-name
+                            [ 1*HTAB newsgroup-description ]
+                            [ *WSP moderation-flag ]
+   newsgroup-description
+                       = eightbit-utext *( *WSP eightbit-utext )
+   moderation-flag     = SP "(" %x4D.6F.64.65.72.61.74.65.64 ")"
+
+                            ; SPACE + case sensitive "(Moderated)"
+   eightbit-utext      = VCHAR / %d127-255
+
+This unusual format is backward-compatible with the scanning of the
+body of newgroup control messages for descriptions done by Netnews
+implementations that predate this specification.  Although optional,
+the <newsgroups-tag> SHOULD be included for backward compatibility.
+
+The <newsgroup-description> MUST NOT contain any occurrence of the
+string "(Moderated)" within it.  Moderated newsgroups MUST be marked
+by appending the case-sensitive text " (Moderated)" at the end.
+
+While a charset parameter is defined for this media type, most
+existing software does not understand MIME header fields or correctly
+handle descriptions in a variety of charsets.  Using a charset of US-
+ASCII where possible is therefore RECOMMENDED; if not possible, UTF-8
+[RFC3629] SHOULD be used.  Regardless of the charset used, the
+constraints of the above grammar MUST be met and the <newsgroup-name>
+MUST be represented in that charset using the same octets as would be
+used with a charset of US-ASCII.

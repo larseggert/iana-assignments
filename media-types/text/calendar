@@ -1,0 +1,134 @@
+(per RFC5545)
+
+Type name:  text
+
+Subtype name:  calendar
+
+Required parameters:  none
+
+Optional parameters:  charset, method, component, and optinfo
+
+   The "charset" parameter is defined in [RFC2046] for subtypes of
+   the "text" media type.  It is used to indicate the charset used in
+   the body part.  The charset supported by this revision of
+   iCalendar is UTF-8.  The use of any other charset is deprecated by
+   this revision of iCalendar; however, note that this revision
+   requires that compliant applications MUST accept iCalendar streams
+   using either the UTF-8 or US-ASCII charset.
+
+   The "method" parameter is used to convey the iCalendar object
+   method or transaction semantics for the calendaring and scheduling
+   information.  It also is an identifier for the restricted set of
+   properties and values of which the iCalendar object consists.  The
+   parameter is to be used as a guide for applications interpreting
+   the information contained within the body part.  It SHOULD NOT be
+   used to exclude or require particular pieces of information unless
+   the identified method definition specifically calls for this
+   behavior.  Unless specifically forbidden by a particular method
+   definition, a text/calendar content type can contain any set of
+   properties permitted by the Calendaring and Scheduling Core Object
+   Specification.  The "method" parameter MUST be specified and MUST
+   be set to the same value as the "METHOD" component property of the
+   iCalendar objects of the iCalendar stream if and only if the
+   iCalendar objects in the iCalendar stream all have a "METHOD"
+   component property set to the same value.
+
+   The value for the "method" parameter is defined as follows:
+
+    method  = 1*(ALPHA / DIGIT / "-")
+    ; IANA-registered iCalendar object method
+
+   The "component" parameter conveys the type of iCalendar calendar
+   component within the body part.  If the iCalendar object contains
+   more than one calendar component type, then multiple component
+   parameters MUST be specified.
+
+   The value for the "component" parameter is defined as follows:
+
+    component = "VEVENT"
+              / "VTODO"
+              / "VJOURNAL"
+              / "VFREEBUSY"
+              / "VTIMEZONE"
+              / iana-token
+              / x-name
+
+   The "optinfo" parameter conveys optional information about the
+   iCalendar object within the body part.  This parameter can only
+   specify semantics already specified by the iCalendar object and
+   that can be otherwise determined by parsing the body part.  In
+   addition, the optional information specified by this parameter
+   MUST be consistent with that information specified by the
+   iCalendar object.  For example, it can be used to convey the
+   "Attendee" response status to a meeting request.  The parameter
+   value consists of a string value.
+
+   The parameter can be specified multiple times.
+
+   The value for the "optinfo" parameter is defined as follows:
+
+    optinfo    = infovalue / qinfovalue
+
+    infovalue  = iana-token / x-name
+
+    qinfovalue = DQUOTE (infovalue) DQUOTE
+
+Encoding considerations:  This media type can contain 8bit
+   characters, so the use of quoted-printable or base64 MIME Content-
+   Transfer-Encodings might be necessary when iCalendar objects are
+   transferred across protocols restricted to the 7bit repertoire.
+   Note that a text valued property in the content entity can also
+   have content encoding of special characters using a BACKSLASH
+   character escapement technique.  This means that content values
+   can end up being encoded twice.
+
+Security considerations:  See Section 7.
+
+Interoperability considerations:  This media type is intended to
+   define a common format for conveying calendaring and scheduling
+   information between different systems.  It is heavily based on the
+   earlier [VCAL] industry specification.
+
+Published specification:  This specification.
+
+Applications that use this media type:  This media type is designed
+   for widespread use by Internet calendaring and scheduling
+   applications.  In addition, applications in the workflow and
+   document management area might find this content-type applicable.
+   The iTIP [2446bis], iMIP [2447bis], and CalDAV [RFC4791] Internet
+   protocols directly use this media type also.
+
+Additional information:
+
+   Magic number(s):  None.
+
+   File extension(s):  The file extension of "ics" is to be used to
+      designate a file containing (an arbitrary set of) calendaring
+      and scheduling information consistent with this MIME content
+      type.
+
+      The file extension of "ifb" is to be used to designate a file
+      containing free or busy time information consistent with this
+      MIME content type.
+
+   Macintosh file type code(s):  The file type code of "iCal" is to
+      be used in Apple MacIntosh operating system environments to
+      designate a file containing calendaring and scheduling
+      information consistent with this MIME media type.
+
+      The file type code of "iFBf" is to be used in Apple MacIntosh
+      operating system environments to designate a file containing
+      free or busy time information consistent with this MIME media
+      type.
+
+Person & email address to contact for further information:  See the
+   "Author's Address" section of this document.
+
+Intended usage:  COMMON
+
+Restrictions on usage:  There are no restrictions on where this media
+   type can be used.
+
+Author:  See the "Author's Address" section of this document.
+
+Change controller:  IETF

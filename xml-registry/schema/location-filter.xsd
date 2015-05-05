@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    targetNamespace="urn:ietf:params:xml:ns:location-filter"
+    xmlns:filter="urn:ietf:params:xml:ns:location-filter"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:gml="http://www.opengis.net/gml">
+
+    <xs:element name="enterOrExit" type="gml:GeometryPropertyType"/>
+
+    <xs:element name="moved" type="filter:movedType"/>
+
+    <xs:complexType name="movedType">
+       <xs:simpleContent>
+          <xs:extension base="xs:double">
+            <xs:anyAttribute namespace="##any" processContents="lax"/>
+          </xs:extension>
+       </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:element name="locationType" type="filter:locationTypeType"/>
+
+    <xs:simpleType name="locationTypeBase">
+        <xs:union>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="any"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+                <xs:restriction base="filter:locationTypeList">
+                    <xs:minLength value="1"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:union>
+    </xs:simpleType>
+
+    <xs:simpleType name="locationTypeList">
+        <xs:list>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="civic"/>
+                    <xs:enumeration value="geodetic"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:list>
+    </xs:simpleType>
+
+    <xs:complexType name="locationTypeType">
+          <xs:simpleContent>
+              <xs:extension base="filter:locationTypeBase">
+                  <xs:attribute name="exact" type="xs:boolean"
+                      use="optional" default="false"/>
+              </xs:extension>
+          </xs:simpleContent>
+      </xs:complexType>
+</xs:schema>
+

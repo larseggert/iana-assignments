@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" ns="http://www.iana.org/assignments">
+
+  <include href="../_support/iana-registry.rng"/>
+
+  
+
+  <define name="value_description_xref">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <zeroOrMore>
+        <element name="record">
+          <optional>
+            <attribute name="date"><ref name="genericDate"/></attribute>
+          </optional>
+          <element name="value"><ref name="genericRange"/></element>
+          <element name="description"><text/></element>
+          <ref name="references"/>
+        </element>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="recursive">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <zeroOrMore>
+        <choice>
+          <element name="record">
+            <optional>
+              <attribute name="date"><ref name="genericDate"/></attribute>
+            </optional>
+            <element name="value"><ref name="genericRange"/></element>
+            <element name="description"><text/></element>
+            <ref name="references"/>
+          </element>
+          <ref name="recursive"/>
+        </choice>
+      </zeroOrMore>
+    </element>
+  </define>
+
+    <!-- Behavior Configuration Flags -->
+      
+      <define name="behavior_config_flags">
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+            <element name="value"><ref name="genericRange"/></element>
+            <element name="bit_name"><text/></element>
+            <element name="description"><text/></element>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+        </element>
+      </define>
+        
+
+  <start>
+    <element name="registry">
+      <ref name="registryMeta"/>
+      
+      <ref name="value_description_xref"/>
+      
+      <ref name="recursive"/>
+      <ref name="behavior_config_flags"/>
+      <ref name="people"/>
+    </element>
+  </start>
+  
+
+      
+      
+
+</grammar>

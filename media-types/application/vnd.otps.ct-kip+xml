@@ -1,0 +1,252 @@
+(Last updated 23 March 2006)
+
+Name : Magnus Nyström
+
+Email : magnus&rsasecurity.com
+
+MIME media type name : Application
+
+MIME subtype name : Vendor Tree - vnd.otps.ct-kip+xml
+
+Required parameters : None
+
+Optional parameters :
+Same as charset parameter of application/xml as defined by RFC 3023.
+
+Encoding considerations : 8bit
+This media type may require encoding on transports not capable of
+handling 8 bit text.
+
+Security considerations :
+CT-KIP is a protocol for generation (or distribution) of shared 
+cryptographic keys. It does not carry executable content. The protocol 
+contains features that protects the privacy (and integrity) of generated 
+key material but does not protect certain other information, such as 
+meta-data about keys. When privacy, authenticity, or integrity of such 
+information is required CT-KIP should be run over a transport offering 
+these services such as TLS.
+
+For reference here is the Security Considerations section from the CT-KIP 
+specification (Copyright 2005 RSA Security Inc.):
+
+5. Security considerations
+
+5.1 General
+
+CT-KIP is designed to protect generated key material from exposure. No 
+other entities than the CT-KIP server and the cryptographic token will 
+have access to a generated KTOKEN if the cryptographic algorithms used are 
+of sufficient strength and, on the CT-KIP client side, generation and 
+encryption of RC and generation of KTOKEN takes place as specified and in 
+the token. This applies even if malicious software is present in the 
+CT-KIP client. As discussed in the following, CT-KIP does however not 
+protect against certain other threats resulting from man-in-the-middle 
+attacks and other forms of attacks. CT-KIP should therefore be run over a 
+transport providing privacy and integrity, such as HTTP over TLS with a 
+suitable ciphersuite, when such threats are a concern.
+
+5.2 Active attacks
+
+5.2.1 Introduction
+
+An active attacker may attempt to modify, delete, insert, replay or 
+reorder messages for a variety of purposes including service denial and 
+compromise of generated key material. In the following these attack 
+scenarios are analyzed.
+
+5.2.2 Message modifications
+
+Modifications to a <CT-KIPTrigger> message will either cause 
+denial-of-service (modifications of any of the identifiers or the nonce) 
+or the CT-KIP client to contact the wrong CT-KIP server. The latter is in 
+effect a man-in-the-middle attack and is discussed further in Section 
+5.2.7.
+
+An attacker may modify a <ClientHello> message. This means that the 
+attacker could indicate a different key or token than the one intended by 
+the CT-KIP client, and could also suggest other cryptographic algorithms 
+than the ones preferred by the CT-KIP client, e.g. cryptographically 
+weaker ones. The attacker could also suggest earlier versions of the 
+CT-KIP protocol, in case these versions have been shown to have 
+vulnerabilities. These modifications could lead to an attacker succeeding 
+in initializing or modifying another token than the one intended (i.e. the 
+server assigning the generated key to the wrong token), or gaining access 
+to a generated key through the use of weak cryptographic algorithms or 
+protocol versions. CT-KIP implementations may protect against the latter 
+by having strict policies about what versions and algorithms they support 
+and accept. The former threat (assignment of a generated key to the wrong 
+token) is not possible when the shared-key variant of CT-KIP is employed 
+(assuming existing shared keys are unique per token) but is possible in 
+the public-key variant. CT-KIP servers must therefore not accept 
+unilaterally provided token identifiers in the public-key variant. This is 
+also indicated in the protocol description. In the shared-key variant 
+however, an attacker may be able to provide the wrong identifier (possibly 
+also leading to the incorrect user being associated with the generated 
+key) if the attacker has real-time access to the token with the identified 
+key. In other words, the generated key is associated with the correct 
+token but the token is associated with the incorrect user. See further 
+Section 5.5 for a discussion of this threat and possible countermeasures.
+An attacker may also modify a <ServerHello> message. This means that the 
+attacker could indicate different key types, algorithms, or protocol 
+versions than the legitimate server would, e.g. cryptographically weaker 
+ones. The attacker could also provide a different nonce than the one sent 
+by the legitimate server. Clients will protect against the former through 
+strict adherence to policies regarding permissible algorithms and protocol 
+versions. The latter (wrong nonce) will not constitute a security problem 
+as a generated key won't match the key generated on the legitimate server. 
+Also, whenever the CT-KIP run would result in the replacement of an 
+existing key, the <Mac> element protects against modifications of RS.
+Modifications of <ClientNonce> messages are also possible. If an attacker 
+modifies the SessionID attribute then in effect a switch to another 
+session will occur at the server, assuming the new SessionID is valid at 
+that time on the server. It still will not allow the attacker to learn a 
+generated KTOKEN since RC has been wrapped for the legitimate server. 
+Modifications of the <EncryptedNonce> element, e.g. replacing it with a 
+value for which the attacker knows an underlying R'C, will not result in 
+the client changing its pre-CT-KIP state, since the server will be unable 
+to provide a valid MAC in its final message to the client. The server may 
+however end up storing K'TOKEN rather than KTOKEN. If the token has been 
+associated with a particular user, then this could constitute a seurity 
+problem. For a further discussion about this threat, and a possible 
+countermeasure, see Section 5.5 below. Note that use of SSL or TLS does 
+not protect against this attack if the attacker has access to the CT-KIP 
+client (e.g. through malicious software, "trojans").
+Finally, attackers may also modify the <ServerFinished> message. Replacing 
+the <Mac> element will only result in denial-of-service. Replacement of 
+any other element may cause the CT-KIP client to associate, e.g., the 
+wrong service with the generated key. CT-KIP should be run over a 
+transport providing privacy and integrity when this is a concern.
+
+5.2.3 Message deletion
+
+Message deletion will not cause any other harm than denial-of-service, 
+since a token shall not change its state (i.e. "commit" to a generated 
+key) until it receives the final message from the CT-KIP server and 
+successfully has processed that message, including validation of its MAC. 
+A deleted <ServerFinished> message will not cause the server to end up in 
+an inconsistent state vis-à-vis the token if the server implements the 
+suggestions in Section 5.5.
+
+5.2.4 Message insertion
+
+An active attacker may initiate a CT-KIP run at any time, and suggest any 
+token identifier. CT-KIP server implementations may receive some 
+protection against inadvertently initializing a token or inadvertently 
+replacing an existing key or assigning a key to a token by initializing 
+the CT-KIP run by use of the <CT-KIPTrigger>. The <TriggerNonce> element 
+allows the server to associate a CT-KIP protocol run with, e.g., an 
+earlier user-authenticated session. The security of this method therefore 
+depends on the ability to protect the <TriggerNonce> element in the CT-KIP 
+initialization message. If an eavesdropper is able to capture this 
+message he may race the legitimate user for a key initialization. CT-KIP 
+over a transport providing privacy and integrity, coupled with the 
+recommendations in Section 5.5 is recommended when this is a concern.
+Insertion of other messages into an existing protocol run is seen as 
+equivalent to modification of legitimately sent messages.
+
+5.2.5 Message replay
+
+Attempts to replay a previously recorded CT-KIP message will be detected 
+as the use of nonces ensures that both parties are live.
+
+5.2.6 Message reordering
+
+An attacker may attempt to re-order messages but this will be detected as 
+each message is of a unique type.
+
+5.2.7 Man in the middle
+
+In addition to other active attacks, an attacker posing as a man in the 
+middle may be able to provide his own public key to the CT-KIP client. 
+This threat and countermeasures to it are discussed in Section 3.3. An 
+attacker posing as a man-in-the-middle may also be acting as a proxy and 
+hence not interfere with CT-KIP runs but still learn valuable information, 
+see Section 5.3.
+
+5.3 Passive attacks
+
+Passive attackers may eavesdrop on CT-KIP runs to learn information that 
+later on may be used to impersonate users, mount active attacks, etc.
+If CT-KIP is not run over a transport providing privacy, a passive 
+attacker may learn:
+- What tokens a particular user is in possession of;
+- The identifiers of keys on those tokens and other attributes 
+pertaining to those keys, e.g. the lifetime of the keys; and
+- CT-KIP versions and cryptographic algorithms supported by a 
+particular CT-KIP client or server.
+Whenever the above is a concern, CT-KIP should be run over a transport 
+providing privacy. If man-in-the-middle attacks for the purposes described 
+above are a concern, the transport should also offer server-side 
+authentication.
+
+5.4 Cryptographic attacks
+
+An attacker with unlimited access to an initialized token may use the 
+token as an "oracle" to pre-compute values that later on may be used to 
+impersonate the CT-KIP server. Sections 3.6 and 3.8 contain discussions of 
+this threat and steps recommended to protect against it.
+
+5.5 Attacks on the interaction between CT-KIP and user authentication
+
+If keys generated in CT-KIP will be associated with a particular user at 
+the CT-KIP server (or a server trusted by, and communicating with the 
+CT-KIP server), then in order to protect against threats where an attacker 
+replaces a client-provided encrypted RC with his own R'C (regardless of 
+whether the public-key variant or the shared-secret variant of CT-KIP is 
+employed to encrypt the client nonce) the server should not commit to 
+associate a generated KTOKEN with the given token (user) until the user 
+simultaneously has proven both possession of a token containing KTOKEN and 
+some out-of-band provided authenticating information (e.g. a temporary 
+password). For example, if the token is a one-time password token, the 
+user could be required to authenticate with both a one-time password 
+generated by the token and an out-of-band provided temporary PIN in order 
+to have the server "commit" to the generated token value for the given 
+user. Preferably, the user should perform this operation from another host 
+than the one used to initialize the token, in order to minimize the risk 
+of malicious software on the client interfering with the process.
+Another threat arises when an attacker is able to trick a user to 
+authenticate to the attacker rather than to the legitimate service before 
+the CT-KIP protocol run. If successful, the attacker will then be able to 
+impersonate the user towards the legitimate service, and subsequently 
+receive a valid CT-KIP trigger. If the public-key variant of CT-KIP is 
+used, this may result in the attacker being able to (after a successful 
+CT-KIP protocol run) impersonate the user. Ordinary precautions must 
+therefore be in place to ensure that users authenticate only to legitimate 
+services.
+
+Interoperability considerations : 
+See the CT-KIP specification at http://www.rsasecurity.com/rsalabs/otps/
+
+Published specification :
+See the CT-KIP specification at http://www.rsasecurity.com/rsalabs/otps/
+
+Applications which use this media :
+Applications that use the CT-KIP protocol to initialize
+cryptographic tokens.
+
+Additional information :
+
+1. Magic number(s) : N/A
+2. File extension(s) : N/A
+3. Macintosh file type code : N/A
+4. Object Identifiers: N/A
+
+This is the MIME type for use with the CT-KIP protocol defined
+in the CT-KIP OTPS specification (see
+http://www.rsasecurity.com/rsalabs/otps). The use of ".otps"
+signals that the MIME type is associated with the OTPS suite
+of documents, the ".ct-kip" part that it is the CT-KIP
+specification, and the "+xml" part is in conformance with RFC 3023.
+
+Person to contact for further information :
+
+1. Name : Magnus Nyström
+2. Email : magnus&rsasecurity.com
+
+Intended usage : Common
+For transport of PDUs in the CT-KIP protocol (see
+http://www.rsasecurity.com/rsalabs/otps/)
+
+Author/Change controller : Magnus Nyström, RSA Security Inc.
+
+(File created 23 March 2006)

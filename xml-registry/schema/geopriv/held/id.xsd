@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema
+   targetNamespace="urn:ietf:params:xml:ns:geopriv:held:id"
+   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   xmlns:id="urn:ietf:params:xml:ns:geopriv:held:id"
+   elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+ <xs:annotation>
+   <xs:appinfo
+       source="urn:ietf:params:xml:schema:geopriv:held:id">
+     HELD Device Identity
+   </xs:appinfo>
+   <xs:documentation source="http://www.rfc-editor.org/rfc/rfc6155.txt">
+     This document defines Device identity elements for HELD.
+   </xs:documentation>
+ </xs:annotation>
+
+ <xs:element name="device" type="id:deviceIdentity"/>
+ <xs:complexType name="deviceIdentity">
+   <xs:sequence>
+     <xs:any namespace="##any" processContents="lax"
+             minOccurs="0" maxOccurs="unbounded"/>
+   </xs:sequence>
+ </xs:complexType>
+
+ <xs:element name="requiredIdentifiers" type="id:qnameList"/>
+ <xs:simpleType name="qnameList">
+   <xs:list itemType="xs:QName"/>
+ </xs:simpleType>
+
+ <xs:element name="ip" type="id:ipAddress"/>
+ <xs:complexType name="ipAddress">
+   <xs:simpleContent>
+     <xs:extension base="xs:token">
+       <xs:attribute name="v" use="required">
+         <xs:simpleType>
+           <xs:restriction base="xs:token">
+             <xs:pattern value="[\da-fA-F]"/>
+           </xs:restriction>
+         </xs:simpleType>
+       </xs:attribute>
+     </xs:extension>
+   </xs:simpleContent>
+ </xs:complexType>
+ <xs:element name="mac" type="id:macAddress"/>
+ <xs:simpleType name="macAddress">
+   <xs:restriction base="xs:token">
+     <xs:pattern
+ value="[\da-fA-F]{2}(-[\da-fA-F]{2}){5}((-[\da-fA-F]{2}){2})?"/>
+   </xs:restriction>
+ </xs:simpleType>
+
+ <xs:element name="udpport" type="id:portNumber"/>
+ <xs:element name="tcpport" type="id:portNumber"/>
+ <xs:element name="sctpport" type="id:portNumber"/>
+ <xs:element name="dccpport" type="id:portNumber"/>
+ <xs:simpleType name="portNumber">
+   <xs:restriction base="xs:nonNegativeInteger">
+     <xs:maxInclusive value="65535"/>
+   </xs:restriction>
+ </xs:simpleType>
+
+ <xs:element name="nai" type="id:naiType"/>
+ <xs:simpleType name="naiType">
+   <xs:restriction base="xs:token">
+     <xs:pattern
+         value="([^\\]|\\[\dA-Fa-f]{2})*
+                (@([A-Za-z\d]([A-Za-z\d\-]*[A-Za-z\d])*\.)+
+                 [A-Za-z\d]([A-Za-z\d\-]*[A-Za-z\d])*)?"/>
+   </xs:restriction>
+ </xs:simpleType>
+
+ <xs:element name="uri" type="xs:anyURI"/>
+ <xs:element name="fqdn" type="xs:token"/>
+
+ <xs:element name="duid" type="xs:hexBinary"/>
+
+ <xs:element name="msisdn" type="id:e164"/>
+ <xs:element name="imsi" type="id:e164"/>
+ <xs:element name="imei" type="id:digit15"/>
+ <xs:element name="min" type="id:digit10"/>
+ <xs:element name="mdn" type="id:e164"/>
+ <xs:simpleType name="digits">
+   <xs:restriction base="xs:token">
+     <xs:pattern value="[\d]+"/>
+   </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="e164">
+   <xs:restriction base="id:digit15">
+     <xs:minLength value="6"/>
+   </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="digit15">
+   <xs:restriction base="id:digits">
+     <xs:maxLength value="15"/>
+   </xs:restriction>
+ </xs:simpleType>
+ <xs:simpleType name="digit10">
+   <xs:restriction base="id:digits">
+     <xs:length value="10"/>
+   </xs:restriction>
+ </xs:simpleType>
+
+</xs:schema>

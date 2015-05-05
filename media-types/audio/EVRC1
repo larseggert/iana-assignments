@@ -1,0 +1,122 @@
+(RFC 4788 published January 2007, subtype last updated January 2007)
+
+Type name:  audio
+
+Subtype names:  EVRC1
+
+Required parameters:  none
+
+Optional parameters:
+
+   ptime:  See RFC 4566 [7].
+
+   maxptime:  The maximum amount of media that can be encapsulated in
+      each packet, expressed as time in milliseconds.  The time MUST
+      be calculated as the sum of the time the media present in the
+      packet represents.  The time SHOULD be a multiple of the
+      duration of a single codec data frame (20 msec).  If not
+      signaled, the default maxptime value MUST be 200 milliseconds.
+
+   fixedrate:  Indicates the EVRC rate of the session while in
+      single-rate operation.  Valid values include: 0.5 and 1, where
+      a value of 0.5 indicates the 1/2 rate, while a value of 1
+      indicates the full rate.  If this parameter is not present, 1/2
+      rate is assumed.
+
+   silencesupp:  Permissible values are 0 and 1.  A value of 1
+      indicates that the sender of this parameter: a) is capable of
+      receiving silence-suppressed speech using DTX, AND b) is
+      capable of and will send out silence-suppressed speech using
+      DTX, unless the other end indicates that it does not want to
+      receive silence-suppressed speech using DTX.
+
+      A value of 0 indicates that the sender of this parameter: a)
+      does NOT want to receive silence-suppressed speech using DTX,
+      AND b) will NOT send out silence-suppressed speech using DTX.
+
+      If this parameter is not present, the default value 1 MUST be
+      assumed.  If the RTP receiver indicates through the use of SIP
+      signaling or other means that it is incapable of or unwilling
+      to use silence suppression using DTX, silence suppression using
+      DTX as specified in this document MUST NOT be used for the
+      session.
+
+   dtxmax:  Permissible values are from 0 to 255.  Indicates the
+      maximum DTX update interval in number of frames.  During DTX,
+      the RTP sender occasionally updates the RTP receiver about the
+      change in background noise characteristics, etc., by sending a
+      new silence frame to the RTP receiver.  The RTP receiver may
+      use 'dtxmax' to indicate to the RTP sender the maximum interval
+      (in number of frames) between any two DTX updates it expects to
+      receive from the RTP sender.
+
+      If this parameter is not present in a session that uses DTX,
+      the default value 32, as specified in [8], MUST be assumed.
+      This parameter MUST be ignored if silence suppression using DTX
+      is not used for the session.
+
+      Note also that if the RTP receiver elects to detect DTX using
+      dtxmax, the dtxmax parameter will affect the amount of delay
+      the RTP receiver sees before detecting DTX in the stream.
+
+   dtxmin:  Permissible values are from 0 to 255.  Indicates the
+      minimum DTX update interval in number of frames.  The RTP
+      receiver may use 'dtxmin' to indicate to the RTP sender the
+      minimal interval (in number of frames) between any two DTX
+      updates it expects to receive from the RTP sender.
+
+      If this parameter is not present, the default value 12, as
+      specified in [8] MUST be assumed.  This parameter MUST be
+      ignored if silence suppression using DTX is not used for the
+      session.
+
+   hangover:  Permissible values are from 0 to 255.  Indicates the
+      number of consecutive silence frames transmitted at the end of
+      an active speech interval but before the DTX interval begins.
+      When setting up an RTP session that uses DTX, an RTP receiver
+      can use this parameter to signal the number of silence frames
+      it expects to receive before the beginning of DTX.  While
+      hangover=0 is allowed, it is RECOMMENDED that hangover be set
+      to 1 or greater since the presence of silence frames at the end
+      of an active speech can help the RTP receiver to identify the
+      beginning of the DTX period.
+
+      If this parameter is not present for a session that uses DTX,
+      the default value 1, as specified in [8] MUST be assumed.  This
+      parameter MUST be ignored if silence suppression using DTX is
+      not used for the session.
+
+Encoding considerations:
+   This media type is framed binary data (see RFC 4288, Section 4.8)
+   and is defined for transfer of EVRC-encoded data via RTP, using
+   the compact bundled format as described in RFC 4788.
+
+Security considerations:  See Section 9 of RFC 4788.
+
+Interoperability considerations:  none
+
+Published specification:
+   The EVRC vocoder is specified in 3GPP2 C.S0014 [2].  Transfer
+   method with compact bundled RTP format is specified in RFC 4788.
+
+Applications that use this media type:
+   It is expected that many VoIP applications (as well as mobile
+   applications) will use this type.
+
+Additional information:  none
+
+Person & email address to contact for further information:
+   Qiaobing Xie <Qiaobing.Xie&motorola.com>
+
+Intended usage:  COMMON
+
+Restrictions on usage:
+   This media type depends on RTP framing; hence, it is only defined
+   for transfer via RTP (RFC 3550 [5]).  Transfer within other
+   framing protocols is not defined at this time.
+
+Author:
+   Qiaobing Xie
+
+Change controller:
+   IETF Audio/Video Transport working group delegated from the IESG.

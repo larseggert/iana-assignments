@@ -1,0 +1,519 @@
+                                                            Pseudowire Name Spaces (PWE3)
+
+   Created
+           2005-12-12
+
+   Last Updated
+           2015-02-25
+
+   Available Formats
+           [IMG]
+           XML [IMG]
+           HTML [IMG]
+           Plain text
+
+   Registries included below
+
+     * MPLS Pseudowire Types Registry
+     * Pseudowire Interface Parameters Sub-TLV type Registry
+     * Attachment Individual Identifier Type Registry
+     * Attachment Group Identifier (AGI) Type Registry
+     * Pseudowire Status Codes Registry
+     * Pseudowire Associated Channel Types
+     * Associated Channel Header TLV Registry (DELETED)
+     * Header Compression Over MPLS PW Control Word Packet Type
+     * MPLS VCCV Control Channel (CC) Types
+     * MPLS VCCV Connectivity Verification (CV) Types
+     * Pseudowire Switching Point PE sub-TLV Type
+     * CC/CV MEP-ID TLV Registry
+     * PW Generic Protocol Flags
+     * L2VPN PE Stack Capabilities
+     * G-ACh Advertisement Protocol Application Registry
+     * G-ACh Advertisement Protocol TLV Registry
+     * G-ACh Advertisement Protocol: Ethernet Interface Parameters
+     * VCCV Extended CV Types
+     * ICC RG Parameter Types
+
+MPLS Pseudowire Types Registry
+
+   Expert(s)
+
+ Stewart Bryant, Danny McPherson
+
+   Reference
+           [RFC4446]
+
+   Available Formats
+           [IMG]
+           CSV
+
+     Range    Registration Procedures                    Note
+    31-1024   Expert Review
+   1025-4096  IETF Consensus
+   4097-32766 First Come First Served reserved for vendor proprietary extensions
+     32767    IETF Consensus
+
+   PW Type                  Description                                                          Reference
+   0x0001  Frame Relay DLCI ( Martini Mode )             [RFC4619]
+   0x0002  ATM AAL5 SDU VCC transport                    [[ATM]]
+   0x0003  ATM transparent cell transport                [RFC4717]
+   0x0004  Ethernet Tagged Mode                          [RFC4448]
+   0x0005  Ethernet                                      [RFC4448]
+   0x0006  HDLC                                          [RFC4618]
+   0x0007  PPP                                           [RFC4618]
+   0x0008  SONET/SDH Circuit Emulation Service Over MPLS [RFC5143]
+           Encapsulation
+   0x0009  ATM n-to-one VCC cell transport               [RFC4717]
+   0x000A  ATM n-to-one VPC cell transport               [RFC4717]
+   0x000B  IP Layer2 Transport                           [RFC3032]
+   0x000C  ATM one-to-one VCC Cell Mode                  [RFC4717]
+   0x000D  ATM one-to-one VPC Cell Mode                  [RFC4717]
+   0x000E  ATM AAL5 PDU VCC transport                    [RFC4717]
+   0x000F  Frame-Relay Port mode                         [RFC4619]
+   0x0010  SONET/SDH Circuit Emulation over Packet       [RFC4842]
+   0x0011  Structure-agnostic E1 over Packet             [RFC4553]
+   0x0012  Structure-agnostic T1 (DS1) over Packet       [RFC4553]
+   0x0013  Structure-agnostic E3 over Packet             [RFC4553]
+   0x0014  Structure-agnostic T3 (DS3) over Packet       [RFC4553]
+   0x0015  CESoPSN basic mode                            [RFC5086]
+   0x0016  TDMoIP AAL1 Mode                              [RFC5087]
+   0x0017  CESoPSN TDM with CAS                          [RFC5086]
+   0x0018  TDMoIP AAL2 Mode                              [RFC5087]
+   0x0019  Frame Relay DLCI                              [RFC4619]
+   0x001A  ROHC Transport Header-compressed Packets      [RFC5795][RFC4901]
+   0x001B  ECRTP Transport Header-compressed Packets     [RFC3545][RFC4901]
+   0x001C  IPHC Transport Header-compressed Packets      [RFC2507][RFC4901]
+   0x001D  cRTP Transport Header-compressed Packets      [RFC2508][RFC4901]
+   0x001E  ATM VP Virtual Trunk                          ["The Use of Virtual Trunks for ATM/MPLS Control Plane Interworking Specification", MFA
+                                                         Forum 9.0.0, MFA Forum, February 2006.]
+   0x001F  FC Port Mode                                  [RFC6307]
+   0x7FFF  Wildcard                                      [RFC4863]
+
+Pseudowire Interface Parameters Sub-TLV type Registry
+
+   Expert(s)
+
+ Stewart Bryant, Danny McPherson
+
+   Reference
+           [RFC4446]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures                    Note
+    2-64   Expert Review
+   65-127  IETF Consensus
+   128-254 First Come First Served reserved for vendor proprietary extensions
+     255   IETF Consensus
+
+   Parameter ID Length                        Description                                    Reference
+   0x01      4         Interface MTU in octets                                    [RFC4447]
+   0x02      4         Maximum Number of concatenated ATM cells                   [RFC4717]
+   0x03      up to 82  Optional Interface Description string                      [RFC4447]
+   0x04      4         CEP/TDM Payload Bytes                                      [RFC4842]
+   0x05      4         CEP options                                                [RFC4842]
+   0x06      4         Requested VLAN ID                                          [RFC4448]
+   0x07      6         CEP/TDM bit-rate                                           [RFC4842]
+   0x08      4         Frame-Relay DLCI Length                                    [RFC4619]
+   0x09      4         Fragmentation indicator                                    [RFC4623]
+   0x0A      4         FCS retention indicator                                    [RFC4720]
+   0x0B      4/8/12    TDM options                                                [RFC5287]
+   0x0C      4         VCCV parameter                                             [RFC5085]
+   0x0D      up to 256 bytes ROHC over MPLS configuration [RFC3241]               [RFC4901]
+   0x0E      4         Number of TDMoIP AAL1 cells per packet                     [RFC5287]
+   0x0F      up to 256 bytes CRTP/ECRTP/IPHC HC over MPLS configuration [RFC3544] [RFC4901]
+   0x10      4         TDMoIP AAL1 mode                                           [RFC5287]
+   0x11      8 or more TDMoIP AAL2 Options                                        [RFC5287]
+   0x12                Reserved                                                   [RFC6307]
+   0x13                Reserved                                                   [RFC6307]
+   0x14                Reserved                                                   [RFC6307]
+   0x15                Reserved                                                   [RFC6307]
+   0x16      4         Stack capability                                           [RFC6575]
+   0x17      4         Flow Label                                                 [RFC6391]
+   0x18      4         PW Generic Protocol Flags                                  [RFC6478]
+   0x19      variable  VCCV Extended CV Parameter                                 [RFC7189]
+   0x1A      8         E-Tree                                                     [draft-ietf-l2vpn-vpls-pe-etree]
+   0x1B-0xFF           Unassigned
+
+Attachment Individual Identifier Type Registry
+
+   Expert(s)
+
+ Stewart Bryant, Danny McPherson
+
+   Reference
+           [RFC4446]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures                    Note
+    2-64   Expert Review
+   65-127  IETF Consensus
+   128-254 First Come First Served reserved for vendor proprietary extensions
+     255   IETF Consensus
+
+   AII Type      Length                 Description                                                  Reference
+   0x01     4                A 32 bit unsigned number local     [RFC6074]
+                             identifier
+   0x02     variable 8 or 12 Aggregate Identifier               [RFC5003]
+   0x03     variable 1 to 33 ATM/FR Control Channel             ["ATM and Frame Relay to MPLS Control Plane Interworking: Client-Server", MFA Forum
+                                                                10.0.0, MFA Forum, September 2006.]
+   0x04     variable 3 to 35 ATM/FR Signaling Call Reference    ["ATM and Frame Relay to MPLS Control Plane Interworking: Client-Server", MFA Forum
+                                                                10.0.0, MFA Forum, September 2006.]
+   0x05     variable 2 to 30 Frame Relay Port and Connection    [Soft Permanent Virtual Circuit Interworking between MPLS Pseudowires and ATM, MFA
+                             Identifier                         Forum, work in progress (this specification is at the baseline text stage).]
+   0x06     variable 2 to 30 ATM Port and Connection Identifier [Soft Permanent Virtual Circuit Interworking between MPLS Pseudowires and ATM, MFA
+                                                                Forum, work in progress (this specification is at the baseline text stage).]
+
+Attachment Group Identifier (AGI) Type Registry
+
+   Expert(s)
+
+ Stewart Bryant, Danny McPherson
+
+   Reference
+           [RFC4446]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures                    Note
+    2-64   Expert Review
+   65-127  IETF Consensus
+   128-254 First Come First Served reserved for vendor proprietary extensions
+     255   IETF Consensus
+
+   AGI Type Length    Description     Reference
+   0x01     8      Extended Community [RFC6074]
+
+Pseudowire Status Codes Registry
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Stewart Bryant, Danny McPherson
+
+   Reference
+           [RFC4446]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Bit Mask                    Description                        Reference
+   0x00000000 Pseudowire forwarding (clear all failures)       [RFC4447][RFC4446]
+   0x00000001 Pseudowire Not Forwarding                        [RFC4447][RFC4446]
+   0x00000002 Local Attachment Circuit (ingress) Receive Fault [RFC4447][RFC4446]
+   0x00000004 Local Attachment Circuit (egress) Transmit Fault [RFC4447][RFC4446]
+   0x00000008 Local PSN-facing PW (ingress) Receive Fault      [RFC4447][RFC4446]
+   0x00000010 Local PSN-facing PW (egress) Transmit Fault      [RFC4447][RFC4446]
+   0x00000020 PW Preferential Forwarding Status                [RFC6870]
+   0x00000040 PW Request Switchover Status                     [RFC6870]
+
+Pseudowire Associated Channel Types
+
+   Reference
+           [RFC4385][RFC5586][RFC Errata 1940][RFC7026][RFC7214]
+
+   Note
+
+ Renamed "MPLS Generalized Associated Channel (G-ACh) Types (including Pseudowire
+ Associated Channel Types)" and moved to [http://www.iana.org/assignments/g-ach-parameters]
+ per [RFC7214].
+
+
+   No registrations at this time.
+
+Associated Channel Header TLV Registry (DELETED)
+
+   Reference
+           [RFC5586][RFC7026]
+
+   Note
+
+ Registry deleted per [RFC7026].
+
+
+   No registrations at this time.
+
+Header Compression Over MPLS PW Control Word Packet Type
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Reference
+           [RFC4901]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Packet Type      Description
+   0           ROHC Small-CIDs
+   1           ROHC Large-CIDs
+   2           FULL_HEADER
+   3           COMPRESSED_TCP
+   4           COMPRESSED_TCP_NODELTA
+   5           COMPRESSED_NON_TCP
+   6           COMPRESSED_RTP_8
+   7           COMPRESSED_RTP_16
+   8           COMPRESSED_UDP_8
+   9           COMPRESSED_UDP_16
+   10          CONTEXT_STATE
+   11-15       Unassigned
+
+MPLS VCCV Control Channel (CC) Types
+
+   Registration Procedure(s)
+
+ IETF Consensus
+
+   Reference
+           [RFC5085]
+
+   Note
+
+ Bit numbering: In this sub-registry, the most significant (high order) bit
+ is labeled Bit 7, and the least significant (low order) bit is labeled Bit 0,
+ see parenthetical "Value".
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Bit (Value)                                 Description                                  Reference
+   0 (0x01)    Type 1: PWE3 Control Word with 0001b as first nibble (PW-ACH, see [RFC4385]) [RFC5085]
+   1 (0x02)    Type 2: MPLS Router Alert Label                                              [RFC5085]
+   2 (0x04)    Type 3: MPLS PW Label with TTL == 1                                          [RFC5085]
+   3 (0x08)    Reserved                                                                     [RFC5085]
+   4 (0x10)    Reserved                                                                     [RFC5085]
+   5 (0x20)    Reserved                                                                     [RFC5085]
+   6 (0x40)    Reserved                                                                     [RFC5085]
+   7 (0x80)    Reserved                                                                     [RFC5085]
+
+MPLS VCCV Connectivity Verification (CV) Types
+
+   Registration Procedure(s)
+
+ IETF Consensus
+
+   Reference
+           [RFC5085]
+
+   Note
+
+ Bit numbering: In this sub-registry, the most significant (high order) bit
+ is labeled Bit 7, and the least significant (low order) bit is labeled Bit 0,
+ see parenthetical "Value".
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Bit (Value)                                   Description                                    Reference
+   0 (0x01)    ICMP Ping                                                                        [RFC5085]
+   1 (0x02)    LSP Ping                                                                         [RFC5085]
+   2 (0x04)    BFD IP/UDP-encapsulated, for PW Fault Detection only                             [RFC5885]
+   3 (0x08)    BFD IP/UDP-encapsulated, for PW Fault Detection and AC/PW Fault Status Signaling [RFC5885]
+   4 (0x10)    BFD PW-ACH-encapsulated, for PW Fault Detection only                             [RFC5885]
+   5 (0x20)    BFD PW-ACH-encapsulated, for PW Fault Detection and AC/PW Fault Status Signaling [RFC5885]
+   6 (0x40)    Reserved                                                                         [RFC5085]
+   7 (0x80)    Reserved                                                                         [RFC5085]
+
+Pseudowire Switching Point PE sub-TLV Type
+
+   Expert(s)
+
+ Primary: Stewart Bryant; secondary: Matthew Bocci
+
+   Reference
+           [RFC6073]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures                    Note
+      0    IETF Review
+    1-64   Expert Review
+   65-127  IETF Review
+   128-254 First Come First Served reserved for vendor proprietary extensions
+     255   IETF Review
+
+     Type     Length                               Description                                  Reference
+   0x00               Unassigned
+   0x01      4        PWid of last PW segment traversed                                     [RFC6073]
+   0x02      variable PW Switching Point description string                                 [RFC6073]
+   0x03      4/16     Local IP address of PW Switching Point                                [RFC6073]
+   0x04      4/16     Remote IP address of last PW Switching Point traversed or of the T-PE [RFC6073]
+   0x05      variable FEC Element of last PW segment traversed                              [RFC6073]
+   0x06      14       L2 PW address of PW Switching Point                                   [RFC6073][RFC7267]
+   0x07      24       Static PW/MPLS-TP PW segment ID of last PW segment traversed          [RFC6478]
+   0x08-0xFF          Unassigned
+
+CC/CV MEP-ID TLV Registry
+
+   Reference
+           [RFC6428][RFC7214]
+
+   Note
+
+ Moved to [http://www.iana.org/assignments/g-ach-parameters]
+ per [RFC7214].
+
+
+   No registrations at this time.
+
+PW Generic Protocol Flags
+
+   Registration Procedure(s)
+
+ IETF Review
+
+   Reference
+           [RFC6478]
+
+   Available Formats
+           [IMG]
+           CSV
+
+       Bit (Value)        Description    Reference
+   0 (0x0001)           S-PE bypass mode [RFC6478]
+   1-15 (0x0002-0x8000) Unassigned
+
+L2VPN PE Stack Capabilities
+
+   Registration Procedure(s)
+
+ IETF Review
+
+   Reference
+           [RFC6575]
+
+   Available Formats
+           [IMG]
+           CSV
+
+       Bit (Value)           Description      Reference
+   0 (0x0001)           IPv6 stack capability [RFC6575]
+   1-15 (0x0002-0x8000) Unassigned
+
+G-ACh Advertisement Protocol Application Registry
+
+   Reference
+           [RFC7212][RFC7214]
+
+   Note
+
+ Moved to [http://www.iana.org/assignments/g-ach-parameters]
+ per [RFC7214].
+
+
+   No registrations at this time.
+
+G-ACh Advertisement Protocol TLV Registry
+
+   Reference
+           [RFC7212][RFC7214]
+
+   Note
+
+ Moved to [http://www.iana.org/assignments/g-ach-parameters]
+ per [RFC7214].
+
+
+   No registrations at this time.
+
+G-ACh Advertisement Protocol: Ethernet Interface Parameters
+
+   Reference
+           [RFC7213][RFC7214]
+
+   Note
+
+ Moved to [http://www.iana.org/assignments/g-ach-parameters]
+ per [RFC7214].
+
+
+   No registrations at this time.
+
+VCCV Extended CV Types
+
+   Registration Procedure(s)
+
+ IETF Review
+
+   Reference
+           [RFC7189]
+
+   Available Formats
+           [IMG]
+           CSV
+
+       Bit (Value)                                   Description                                Reference
+   Bit 0 (0x01)        Independent mode for PW Fault Detection only                             [RFC7189]
+   Bit 1 (0x02)        Independent mode for PW Fault Detection and AC/PW Fault Status Signaling [RFC7189]
+   Bit 2 (0x04)        Coordinated mode for PW Fault Detection only                             [RFC7189]
+   Bit 3 (0x08)        Coordinated mode for PW Fault Detection and AC/PW Fault Status Signaling [RFC7189]
+   Bit 4-7 (0x10-0x80) Unassigned
+
+ICC RG Parameter Types
+
+   Expert(s)
+
+ Stewart Bryant, Matthew Bocci
+
+   Reference
+           [RFC7275]
+
+   Available Formats
+           [IMG]
+           CSV
+
+       Range     Registration Procedures             Note
+      0x0000     IETF Review
+   0x003B-0x1FFF Expert Review
+   0x2000-0x2FFF IETF Review
+   0x3000-0x3FFE First Come First Served Vendor Proprietary Extensions
+      0x3FFF     IETF Review
+
+       Type                 Description             Reference
+   0x0000        Unassigned
+   0x0001        ICC Sender Name                    [RFC7275]
+   0x0002        NAK TLV                            [RFC7275]
+   0x0003        Requested Protocol Version TLV     [RFC7275]
+   0x0004        Disconnect Code TLV                [RFC7275]
+   0x0005        ICC RG ID TLV                      [RFC7275]
+   0x0006-0x000F Reserved                           [RFC7275]
+   0x0010        PW-RED Connect TLV                 [RFC7275]
+   0x0011        PW-RED Disconnect TLV              [RFC7275]
+   0x0012        PW-RED Config TLV                  [RFC7275]
+   0x0013        Service Name TLV                   [RFC7275]
+   0x0014        PW ID TLV                          [RFC7275]
+   0x0015        Generalized PW ID TLV              [RFC7275]
+   0x0016        PW-RED State TLV                   [RFC7275]
+   0x0017        PW-RED Synchronization Request TLV [RFC7275]
+   0x0018        PW-RED Synchronization Data TLV    [RFC7275]
+   0x0019        PW-RED Disconnect Cause TLV        [RFC7275]
+   0x001A-0x002F Resrved                            [RFC7275]
+   0x0030        mLACP Connect TLV                  [RFC7275]
+   0x0031        mLACP Disconnect TLV               [RFC7275]
+   0x0032        mLACP System Config TLV            [RFC7275]
+   0x0033        mLACP Port Config TLV              [RFC7275]
+   0x0034        mLACP Port Priority TLV            [RFC7275]
+   0x0035        mLACP Port State TLV               [RFC7275]
+   0x0036        mLACP Aggregator Config TLV        [RFC7275]
+   0x0037        mLACP Aggregator State TLV         [RFC7275]
+   0x0038        mLACP Synchronization Request TLV  [RFC7275]
+   0x0039        mLACP Synchronization Data TLV     [RFC7275]
+   0x003A        mLACP Disconnect Cause TLV         [RFC7275]
+   0x003B-0x3FFF Unassigned

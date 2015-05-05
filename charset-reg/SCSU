@@ -1,0 +1,60 @@
+
+Charset name: SCSU
+
+Charset aliases: (none, except for the implicit csSCSU)
+
+Suitability for use in MIME text: No
+
+Published Specification:
+     Unicode Technical Report #6
+     "A Standard Compression Scheme for Unicode"
+     http://www.unicode.org/unicode/reports/tr6/
+
+     CCS & CES: The SCSU charset is a combination of the
+     Unicode and ISO 10646 Coded Character Set (CCS) with
+     the Character Encoding Scheme (CES) specified in
+     the above document. It covers exactly the
+     UTF-16-reachable subset of ISO 10646.
+     SCSU can also be classified as a Transfer Encoding
+     Syntax (TES), but one specifically designed for
+     Unicode/ISO 10646.
+
+ISO 10646 equivalency table: Same as specification.
+
+Additional Information:
+     SCSU is an encoding (CES/TES) of Unicode/ISO 10646
+     that allows significant size reduction of text compared
+     to UCS Transformation formats. It approximates the size of
+     text that is otherwise achieved with language-specific
+     charsets while encoding all of Unicode (up to U-0010ffff).
+     SCSU is byte-based, which helps further, traditional
+     compression (LZW etc.).
+     It is stateful and uses all byte values including NUL.
+     CRLF may or may not be represented by 0x0d 0x0a depending
+     on the encoder and the text.
+     Encoders can be trivial by emitting one command byte (0x0f)
+     followed by the text in UTF-16BE. Fairly simple encoders
+     yield good results with average text of any length.
+     Decoding is simple and requires no mapping tables.
+     If no control characters other than NUL, TAB, CR, and LF
+     are used, then text in US-ASCII or ISO-8859-1 is already
+     valid SCSU text.
+     There is a Unicode signature byte sequence defined
+     (0e fe ff, see specification).
+
+     SCSU is of no use for applications that require a canonical
+     representation of text. It is not suitable for
+     process-internal use.
+     This is an intentional part of its design.
+
+Personal & email address to contact for further information:
+     Markus W. Scherer
+     IBM Java Technology Center
+     10275 N. DeAnza Blvd
+     Cupertino, CA 95014-2237
+
+     markus.scherer&jtcsv.com
+     schererm&us.ibm.com
+
+Intended usage: LIMITED USE
+

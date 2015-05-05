@@ -1,0 +1,356 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl" href="pcp-parameters.xsl"?>
+<?oxygen RNGSchema="pcp-parameters.rng" type="xml"?>
+<registry xmlns="http://www.iana.org/assignments" id="pcp-parameters">
+  <title>Port Control Protocol (PCP) Parameters</title>
+  <created>2012-11-21</created>
+  <updated>2014-11-12</updated>
+  
+  <registry id="opcodes">
+    <title>PCP Opcodes</title>
+    <xref type="rfc" data="rfc6887"/>
+    <expert>Dan Wing, Stuart Cheshire</expert>
+    <range>
+      <value>0-31, 127</value>
+      <registration_rule>Standards Action</registration_rule>
+    </range>
+    <range>
+      <value>32-63</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range> 
+    <record>
+      <value>0</value>
+      <description>ANNOUNCE</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>1</value>
+      <description>MAP</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>2</value>
+      <description>PEER</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>3-63</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>64-95</value>
+      <description>Reserved</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>96-126</value>
+      <description>Reserved for Private Use</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>127</value>
+      <description>Reserved</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+  </registry>
+  
+  
+  <registry id="result-codes">
+    <title>PCP Result Codes</title>
+    <xref type="rfc" data="rfc6887"/>
+    <expert>Dan Wing, Stuart Cheshire</expert>
+    <range>
+      <value>0-127, 255</value>
+      <registration_rule>Standards Action</registration_rule>
+    </range>
+    <range>
+      <value>128-191</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>   
+    <record>
+      <value>0</value>
+      <name>SUCCESS</name>
+      <description>Success.</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>1</value>
+      <name>UNSUPP_VERSION</name>
+      <description>The version number at the start of the PCP Request
+        header is not recognized by this PCP server.  This is a long
+        lifetime error.  <xref type="rfc" data="rfc6887"/> describes PCP version 2.</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>2</value>
+      <name>NOT_AUTHORIZED</name>
+      <description>The requested operation is disabled for this PCP
+        client, or the PCP client requested an operation that cannot be
+        fulfilled by the PCP server's security policy.  This is a long
+        lifetime error.</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>3</value>
+      <name>MALFORMED_REQUEST</name>
+      <description>The request could not be successfully parsed.
+        This is a long lifetime error.</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>4</value>
+      <name>UNSUPP_OPCODE</name>
+      <description>Unsupported Opcode.  This is a long lifetime error.</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>5</value>
+      <name>UNSUPP_OPTION</name>
+      <description>Unsupported Option.  This error only occurs if the
+        Option is in the mandatory-to-process range.  This is a long
+        lifetime error.</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>6</value>
+      <name>MALFORMED_OPTION</name>
+      <description>Malformed Option (e.g., appears too many times,
+        invalid length).  This is a long lifetime error.</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>7</value>
+      <name>NETWORK_FAILURE</name>
+      <description>The PCP server or the device it controls are
+        experiencing a network failure of some sort (e.g., has not
+        obtained an External IP address).  This is a short lifetime error.</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>8</value>
+      <name>NO_RESOURCES</name>
+      <description>Request is well-formed and valid, but the server has
+        insufficient resources to complete the requested operation at this
+        time.  For example, the NAT device cannot create more mappings at
+        this time, is short of CPU cycles or memory, or is unable to
+        handle the request due to some other temporary condition.  The
+        same request may succeed in the future.  This is a system-wide
+        error, different from USER_EX_QUOTA.  This can be used as a catch-
+        all error, should no other error message be suitable.  This is a
+        short lifetime error.</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>9</value>
+      <name>UNSUPP_PROTOCOL</name>
+      <description>Unsupported transport protocol, e.g.  SCTP in a
+        NAT that handles only UDP and TCP.  This is a long lifetime error.</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>10</value>
+      <name>USER_EX_QUOTA</name>
+      <description>This attempt to create a new mapping would exceed
+        this subscriber's port quota.  This is a short lifetime error.</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>11</value>
+      <name>CANNOT_PROVIDE_EXTERNAL</name>
+      <description>The suggested external port and/or
+        external address cannot be provided.  This error MUST only be
+        returned for:
+        *  MAP requests that included the PREFER_FAILURE Option
+        (normal MAP requests will return an available external port); 
+        *  MAP requests for the SCTP protocol (PREFER_FAILURE is implied); 
+        *  PEER requests. 
+        
+        See Section 13.2 of <xref type="rfc" data="rfc6887"/> for processing details.  The error lifetime
+        depends on the reason for the failure.</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>12</value>
+      <name>ADDRESS_MISMATCH</name>
+      <description>The source IP address of the request packet does
+        not match the contents of the PCP Client's IP Address field, due
+        to an unexpected NAT on the path between the PCP client and the
+        PCP-controlled NAT or firewall.  This is a long lifetime error.</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>13</value>
+      <name>EXCESSIVE_REMOTE_PEERS</name>
+      <description>The PCP server was not able to create the
+        filters in this request.  This result code MUST only be returned
+        if the MAP request contained the FILTER Option.  See Section 13.3
+        for processing information.  This is a long lifetime error.</description>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>14-191</value>
+      <name>Unassigned</name>
+      <description/>
+    </record>
+    <record>
+      <value>192-254</value>
+      <name>Reserved for Private Use</name>
+      <description/>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>255</value>
+      <name>Reserved</name>
+      <description/>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+  </registry>
+  
+  
+  <registry id="options">
+    <title>PCP Options</title>
+    <xref type="rfc" data="rfc6887"/>
+    <expert>Dan Wing, Stuart Cheshire</expert>
+    <note>Values 0-127 are mandatory to process, and 128-255 are optional to process.</note>
+    <range>
+      <value>0-63, 127-191, 255</value>
+      <registration_rule>Standards Action</registration_rule>
+    </range>
+    <range>
+      <value>64-95, 192-223</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <record>
+      <value>0</value>
+      <name>Reserved</name>
+      <purpose/>
+      <valid-for/>
+      <length/>
+      <may-appear-in/>
+      <maximum/>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>1</value>
+      <name>THIRD_PARTY</name>
+      <purpose>Indicates the MAP or PEER request is for a host other
+        than the host sending the PCP Option.</purpose>
+      <valid-for>MAP, PEER</valid-for>
+      <length>16 octets</length>
+      <may-appear-in>Request.  May appear in response only if it
+        appeared in the associated request.</may-appear-in>
+      <maximum>1</maximum>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>2</value>
+      <name>PREFER_FAILURE</name>
+      <purpose>Indicates that the PCP server should not create an
+        alternative mapping if the suggested external port and address
+        cannot be mapped.</purpose>
+      <valid-for>MAP</valid-for>
+      <length>0</length>
+      <may-appear-in>Request.  May appear in response only if it
+        appeared in the associated request.</may-appear-in>
+      <maximum>1</maximum>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>3</value>
+      <name>FILTER</name>
+      <purpose>Specifies a filter for incoming packets.</purpose>
+      <valid-for>MAP</valid-for>
+      <length>20 octets</length>
+      <may-appear-in>Request.  May appear in response only if it
+        appeared in the associated request.</may-appear-in>
+      <maximum>As many as fit within maximum PCP message size.</maximum>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>4-95</value>
+      <name>Unassigned</name>
+      <purpose/>
+      <valid-for/>
+      <length/>
+      <may-appear-in/>
+      <maximum/>
+    </record>
+    <record>
+      <value>96-126</value>
+      <name>Reserved for Private Use</name>
+      <purpose/>
+      <valid-for/>
+      <length/>
+      <may-appear-in/>
+      <maximum/>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>127</value>
+      <name>Reserved</name>
+      <purpose/>
+      <valid-for/>
+      <length/>
+      <may-appear-in/>
+      <maximum/>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record date="2014-03-03">
+      <value>128</value>
+      <name>DESCRIPTION</name>
+      <purpose>Used to associate a text description with a mapping.</purpose>
+      <valid-for>MAP, PEER</valid-for>
+      <length>variable, maximum 1016 octets.</length>
+      <may-appear-in>Request.  May appear in response only if it
+        appeared in the associated request.</may-appear-in>
+      <maximum>1</maximum>
+      <xref type="rfc" data="rfc7220"/>
+    </record>
+    <record date="2014-03-03">
+      <value>129</value>
+      <name>PREFIX64</name>
+      <purpose>Learn the prefix used by the NAT64 to build
+          IPv4-converted IPv6 addresses. This is used by a host
+          for local address synthesis (e.g., when an IPv4 address
+          is present in referrals).</purpose>
+      <valid-for>MAP, ANNOUNCE</valid-for>
+      <length>variable</length>
+      <may-appear-in>request, response</may-appear-in>
+      <maximum>1 for a request. As many as fit within
+          the maximum PCP message size for a response.</maximum>
+      <xref type="rfc" data="rfc7225"/>
+    </record>
+    <record>
+      <value>130-223</value>
+      <name>Unassigned</name>
+      <purpose/>
+      <valid-for/>
+      <length/>
+      <may-appear-in/>
+      <maximum/>
+    </record>
+    <record>
+      <value>224-254</value>
+      <name>Reserved for Private Use</name>
+      <purpose/>
+      <valid-for/>
+      <length/>
+      <may-appear-in/>
+      <maximum/>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+    <record>
+      <value>255</value>
+      <name>Reserved</name>
+      <purpose/>
+      <valid-for/>
+      <length/>
+      <may-appear-in/>
+      <maximum/>
+      <xref type="rfc" data="rfc6887"/>
+    </record>
+  </registry>
+  
+  
+  <people/>
+</registry>

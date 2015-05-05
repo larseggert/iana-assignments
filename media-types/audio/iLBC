@@ -1,0 +1,65 @@
+(RFC 3952 published December 2004)
+
+MIME media type name: audio
+
+MIME subtype: iLBC
+
+Optional parameters:
+
+All of the parameters does apply for RTP transfer only.
+
+maxptime:The maximum amount of media which can be encapsulated in
+         each packet, expressed as time in milliseconds.  The time
+         SHALL be calculated as the sum of the time the media present
+         in the packet represents.  The time SHOULD be a multiple of
+         the frame size.  This attribute is probably only meaningful
+         for audio data, but may be used with other media types if it
+         makes sense.  It is a media attribute, and is not dependent
+         on charset.  Note that this attribute was introduced after
+         RFC 2327, and non updated implementations will ignore this
+         attribute.
+
+mode:    The iLBC operating frame mode (20 or 30 ms) that will be
+         encapsulated in each packet.  Values can be 0, 20 and 30
+         (where 0 is reserved, 20 stands for preferred 20 ms frame
+         size and 30 stands for preferred 30 ms frame size).
+
+ptime:   Defined as usual for RTP audio (see [5]).
+
+Encoding considerations:
+         This type is defined for transfer via both RTP (RFC 3550)
+         and stored-file methods as described in Section 4.1, of RFC
+         3952.  Audio data is binary data, and must be encoded for
+         non-binary transport; the Base64 encoding is suitable for
+         email.
+
+Security considerations:
+         See Section 6 of RFC 3952.
+
+Public specification:
+         Please refer to RFC 3951 [1].
+
+Additional information:
+         The following applies to stored-file transfer methods:
+
+         Magic number:
+         ASCII character string for:
+         o 30 ms frame size mode "#!iLBC30\n" (or 0x23 0x21
+         0x69 0x4C 0x42 0x43 0x33 0x30 0x0A in hexadecimal)
+         o 20 ms frame size mode "#!iLBC20\n" (or 0x23 0x21
+         0x69 0x4C 0x42 0x43 0x32 0x30 0x0A in hexadecimal)
+
+         File extensions: lbc, LBC
+         Macintosh file type code: none
+         Object identifier or OID: none
+
+Person & email address to contact for further information:
+         alan.duric&telio.no
+
+Intended usage: COMMON.
+         It is expected that many VoIP applications will use this
+         type.
+
+Author/Change controller:
+         alan.duric&telio.no
+         IETF Audio/Video transport working group

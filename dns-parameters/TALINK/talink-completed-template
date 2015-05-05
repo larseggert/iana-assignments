@@ -1,0 +1,100 @@
+
+Template from http://tools.ietf.org/html/rfc5395
+
+DNS RRTYPE PARAMETER ALLOCATION TEMPLATE
+
+When ready for formal consideration, this template is to be submitted
+to IANA for processing by emailing the template to
+dns-rrtype-applications&ietf.org.
+
+A.    Submission Date:
+	30, June 2009
+
+B.    Submission Type:
+	[X] New RRTYPE
+	[ ] Modification to existing RRTYPE
+	
+C.    Contact Information for submitter:
+	Name: Wouter Wijngaards
+	Email Address: wouter&nlnetlabs.nl
+	International telephone number: +31 20 888 4551
+	Other contact handles: -
+	(Note: This information will be publicly posted.)
+
+D.    Motivation for the new RRTYPE application?
+	Please keep this part at a high level to inform the Expert and
+	reviewers about uses of the RRTYPE.  Remember most reviewers
+	will be DNS experts that may have limited knowledge of your
+	application space.
+
+A double linked list of names that contain specific DNSKEY data at
+those names.  The type is to be used by applications that maintain trust
+anchors for DNS validators.  The DNSKEY data is used to rollover trust
+anchors to the current key.  Therefore they must know the start and end
+of the list, and be able to move forwards and backwards through the list.
+
+E.    Description of the proposed RR type.
+	This description can be provided in-line in the template, as an
+	attachment, or with a publicly available URL:
+
+The RR is a data type, can be handled as an RFC3597 unknown record.
+No additional section processing.
+
+The rdata is two domain names, presentation format is the two 
+domain names, wireformat the two domain names in uncompressed form.
+
+The type is used to link domain names. 
+TALINK _start_ _end_ for the list head and
+TALINK _prev_ _next_ for linking the elements.
+To end the list, the root label '.' is used to denote the endpoints.
+
+Thus, the root can be the list head, but not a list element.
+This is fine, saves space and is less complex than other solutions
+for flagging list endpoints or an empty list.
+
+F.    What existing RRTYPE or RRTYPEs come closest to filling that
+	need and why are they unsatisfactory?
+
+RP has two domain names but it means 'Responsible Person'.
+MINFO has two domain names but means 'Machine Information'.
+These types are compressed, which is nice.
+
+The PTR type is the right concept, but has only one domain
+name in its rdata, and I need two.  If I use two PTRs then
+the validator cannot distinguish the previous and next pointer,
+because the ordering of RRs in an RRset is not fixed.
+
+Another alternative is using PTR records at _start, _end, _prev and 
+_next prefixes for disambiguation.  Prefixes limit the domains that 
+can be used because of the max domain name length.  This is 
+the alternative I would consider if this application is denied.
+
+G.    What mnemonic is requested for the new RRTYPE (optional)?
+	Note: This can be left blank and the mnemonic decided after the
+	template is accepted.
+
+TALINK (Trust Anchor LINK).
+
+H.    Does the requested RRTYPE make use of any existing IANA
+	Registry or require the creation of a new IANA sub-registry in
+	DNS Parameters?
+	If so, please indicate which registry is to be used or created.
+	If a new sub-registry is needed, specify the allocation policy
+	for it and its initial contents.  Also include what the
+	modification procedures will be.
+
+No.
+
+I.    Does the proposal require/expect any changes in DNS
+	servers/resolvers that prevent the new type from being
+	processed as an unknown RRTYPE (see [RFC3597])?
+
+no changes.
+
+J.    Comments:
+
+[expert note: the approval of this application was contemporary
+with the draft http://tools.ietf.org/html/draft-wijngaards-dnsop-trust-history-02]
+
+-
+

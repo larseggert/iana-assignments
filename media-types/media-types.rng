@@ -1,0 +1,76 @@
+<?xml version='1.0'?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  ns="http://www.iana.org/assignments">
+
+  <include href="../_support/iana-registry.rng"/>
+
+  <define name="subtype">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <zeroOrMore>
+        <element name="record">
+          <optional>
+            <attribute name="date"><ref name="genericDate"/></attribute>
+          </optional>
+          <optional>
+            <attribute name="updated"><ref name="genericDate"/></attribute>
+          </optional>
+          <element name="name"><text/></element>
+          <optional>
+            <choice>
+              <group>
+                <element name="obsolete"><empty/></element>
+              </group>
+              <group>
+                <element name="deprecated"><text/></element>
+              </group>
+            </choice>
+          </optional>
+          <optional>
+            <element name="description"><text/></element>
+          </optional>
+          <ref name="references"/>
+          <optional>
+            <ref name="file"/>
+          </optional>
+        </element>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <start>
+    <element name="registry">
+      <ref name="registryMeta"/>
+
+      <!-- application -->
+      <ref name="subtype"/>
+
+      <!-- audio -->
+      <ref name="subtype"/>
+
+      <!-- example -->
+      <ref name="subtype"/>
+
+      <!-- image -->
+      <ref name="subtype"/>
+
+      <!-- message -->
+      <ref name="subtype"/>
+
+      <!-- model -->
+      <ref name="subtype"/>
+
+      <!-- multipart -->
+      <ref name="subtype"/>
+
+      <!-- text -->
+      <ref name="subtype"/>
+
+      <!-- video -->
+      <ref name="subtype"/>
+      <ref name="footnotes"/>
+      <ref name="people"/>
+    </element>
+  </start>
+</grammar>

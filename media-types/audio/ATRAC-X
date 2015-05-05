@@ -1,0 +1,81 @@
+(RFC 5584 published July 2009, subtype last updated July 2009)
+
+Type name:  audio
+
+Subtype name:  ATRAC-X
+
+Required parameters:
+
+rate:  Represents the sampling frequency in Hz of the original
+audio data.  Permissible values are 44100 and 48000.
+
+baseLayer:  Indicates the encoded bit-rate in kbps for the audio data
+to be streamed.  Permissible values are 32, 48, 64, 96, 128, 160,
+192, 256, 320, and 352.
+
+channelID:  Indicates the number of channels and channel layout
+according to the table1 in Section 7.4.  Note that this layout is
+different from that proposed in RFC 3551 [3].  However, as channelID
+= 0 defines an ambiguous channel layout, the channel mapping defined
+in Section 4.1 of [3] could be used.  Permissible values are 0, 1, 2,
+3, 4, 5, 6, 7.
+
+Optional parameters:
+
+ptime:  See RFC 4566 [2].
+
+maxptime:  See RFC 4566 [2].
+The frame length of ATRAC-X is 2048/44100 = 46.44...(ms) or
+2048/48000 = 42.67...(ms), but fractional value may not be applicable
+for the SDP definition.  So the value of the parameter MUST be a
+multiple of 47 (ms) or 43 (ms) considering safe transmission.
+
+If this parameter is not present, the sender MAY encapsulate a
+maximum of 16 encoded frames into one RTP packet, in streaming of
+ATRAC-X.
+
+maxRedundantFrames:  The maximum number of redundant frames that may
+be sent during a session in any given packet under the redundant
+framing mechanism detailed in the document.  Allowed values are
+integers in the range 0 to 15, inclusive.  If this parameter is not
+used, a default of 15 MUST be assumed.
+
+delayMode:  Indicates a desire to use low-delay features, in which
+case the decoder will process received data accordingly based on this
+value.  Permissible values are 2 and 4.
+
+Encoding considerations:  This media type is framed and contains
+binary data.
+
+Security considerations:  This media type does not carry active
+content.  See Section 9 of RFC 5584.
+
+Interoperability considerations:  none
+
+Published specification:  ATRAC-X Standard Specification [10]
+
+Applications that use this media type:
+Audio and video streaming and conferencing tools.
+
+Additional information:  none
+
+Magic number(s):  none
+File extension(s):  'atx', 'aa3', and 'omg'
+Macintosh file type code(s):  none
+
+Person and email address to contact for further information:
+Mitsuyuki Hatanaka
+Jun Matsumoto
+actech&jp.sony.com
+
+Intended usage:  COMMON
+
+Restrictions on usage:  This media type depends on RTP framing, and
+hence is only defined for transfer via RTP.
+
+Author:
+Mitsuyuki Hatanaka
+Jun Matsumoto
+actech&jp.sony.com
+
+Change controller:  IETF AVT WG delegated from the IESG

@@ -1,0 +1,43 @@
+
+# Names of submitters: Jonathan Wood <jonathan.wood&eng.sun.com>
+#                      Roberto Tam <roberto.tam&eng.sun.com>
+# Security Considerations:
+#   This NIS service type inherits the security considerations from the
+#   naming-directory service type.
+
+#==========================================================================
+
+#   NIS stands for Network Information Service, and was formerly known as
+#   YP. It uses ONC RPC [RFC1057] as its transport mechanism. This document
+#   describes a template providing a service: URL and attributes useful
+#   for dynamically discovering NIS+ servers; this type can be used with
+#   SLP [RFC2608]. Service templates and service: schemes are defined in 
+#   [RFC2609].
+#
+#   This type is intended to be used as a concrete portion of the
+#   abstract naming-directory type. The NIS type includes all attributes 
+#   from the naming-directory abstract type.
+#
+
+template-type=naming-directory:nis
+
+template-version=1.0
+
+template-description=
+  This is a concrete type; the abstract type for this service
+  is naming-directory (described in the 'naming-directory' 
+  service template). This type is used by NIS+ servers to 
+  advertise their services and NIS+ clients which wish to 
+  discover NIS+ servers.
+
+template-url-syntax=
+  url-path      = "nis://" addr "/" domain
+  addr          = ipv4-addr
+  domain        = string / string "." domain
+  ipv4-addr     = 1*3DIGIT 3( "." 1*3DIGIT )
+  string        = ISO Latin 1 character set except the
+                  character '/' (slash). The initial character
+                  may not be a terminal character or the
+                  characters '@' (at), '+' (plus), or (`-')
+                  hyphen.
+

@@ -1,0 +1,703 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl" href="ftp-commands-extensions.xsl"?>
+<?oxygen RNGSchema="ftp-commands-extensions.rng" type="xml"?>
+<registry xmlns="http://www.iana.org/assignments" id="ftp-commands-extensions">
+  <title>FTP Commands and Extensions</title>
+  <created>2010-01-07</created>
+  <updated>2014-03-14</updated>
+  <category>FTP parameters</category>
+
+<registry id="ftp-commands-extensions-2">
+  <title>FTP Commands and Extensions</title>
+  <xref type="rfc" data="rfc5797"/>
+  <range>
+  <value>registration marked "mandatory" ('m' in the "conf" column)</value>
+  <registration_rule>Standards Action</registration_rule>
+  </range>
+  <range>
+    <value>all other registrations</value>
+    <registration_rule>Specification Required</registration_rule>
+  </range>
+  <note>
+    Note: An IESG Standards Action is allowed to direct IANA to change the
+    Conformance Requirements listed for any entry. 
+    
+    The following commands are part of the base FTP specification
+    [RFC0959] and are listed in the registry with the immutable pseudo
+    FEAT code "base".
+    
+    Mandatory commands:
+    
+    ABOR, ACCT, ALLO, APPE, CWD, DELE, HELP, LIST, MODE, NLST, NOOP,
+    PASS, PASV, PORT, QUIT, REIN, REST, RETR, RNFR, RNTO, SITE, STAT,
+    STOR, STRU, TYPE, USER
+    
+    Optional commands:
+    
+    CDUP, MKD, PWD, RMD, SMNT, STOU, SYST
+    
+    Note: STD 3 [RFC1123] clarified and updated the status and
+    implementation requirements of these standard FTP commands, and it
+    contains important complementary information for the following
+    commands:
+    
+    LIST, NLST, PASV, REST, SITE, STOU
+  
+    The following commands were specified as experimental in an extension
+    to an early version of the FTP specification [RFC0775] but later
+    deprecated by RFC 1123 [RFC1123], because Standard FTP [RFC0959]
+    specifies their standard successors.  They are listed in the registry
+    with the immutable pseudo FEAT code "hist".
+  
+    XCUP, XCWD, XMKD, XPWD, XRMD
+  
+    Implementation note:  Deployed FTP clients still make use of the
+    deprecated commands and most FTP servers support them as aliases
+    for the standard commands.
+  
+    The following commands were specified as part of the "FOOBAR" IPng
+    effort in RFC 1545 [RFC1545] and, later, RFC 1639 [RFC1639] and are
+    now obsolete.  They are listed in the registry with the immutable
+    pseudo FEAT code "hist".
+  
+    LPRT, LPSV
+
+    Legend for the registry:
+
+        o  cmd (Command Name)
+
+            Amended versions of commands are tagged with a trailing "+"
+
+        o  FEAT Code
+
+            Keyword returned in FEAT response line for this command/extension:
+
+             - actual FEAT codes are given in upper case
+             - placeholders (pseudo FEAT codes) are shown in lower case
+             - "-N/A-" indicates a feature not related to one particular command
+
+            See the "Extension name" clause in Section 2.2 of
+            [RFC5797] for details.
+
+        o  description
+
+            Brief description of command / extension
+
+        o  type (Command Type)
+
+            Type or "kind" of command, based on Section 4.1 of [RFC959]:
+
+             'a'  ... access control
+             'p'  ... parameter setting
+             's'  ... service execution
+
+            Combinations like 'p/s' are possible.
+
+        o  conf (Conformance Requirements)
+
+            Expectation for support in modern FTP implementations:
+
+             'm'  ... mandatory to implement
+             'o'  ... optional
+             'h'  ... historic
+  </note>
+  <record>
+    <cmd>ABOR</cmd>
+    <feat>base</feat>
+    <description>Abort</description>
+    <type>s</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>ACCT</cmd>
+    <feat>base</feat>
+    <description>Account</description>
+    <type>a</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>ADAT</cmd>
+    <feat>secu</feat>
+    <description>Authentication/Security Data</description>
+    <type>a</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc2228"/>
+      <xref type="rfc" data="rfc2773"/>
+      <xref type="rfc" data="rfc4217"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>ALGS</cmd>
+    <feat/>
+    <description>FTP64 ALG status</description>
+    <type/>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc6384"/> Section 11</refs-notes>
+  </record>
+  
+  <record>
+    <cmd>ALLO</cmd>
+    <feat>base</feat>
+    <description>Allocate</description>
+    <type>s</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>APPE</cmd>
+    <feat>base</feat>
+    <description>Append (with create)</description>
+    <type>s</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>AUTH</cmd>
+    <feat>secu</feat>
+    <description>Authentication/Security Mechanism</description>
+    <type>a</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc2228"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>AUTH+</cmd>
+    <feat>AUTH</feat>
+    <description>Authentication/Security Mechanism</description>
+    <type>a</type>
+    <conf>o</conf>
+    <refs-notes><xref type="note" data="2"/><xref type="rfc" data="rfc2773"/><xref type="rfc" data="rfc4217"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>CCC</cmd>
+    <feat>secu</feat>
+    <description>Clear Command Channel</description>
+    <type>a</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc2228"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>CDUP</cmd>
+    <feat>base</feat>
+    <description>Change to Parent Directory</description>
+    <type>a</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>CONF</cmd>
+    <feat>secu</feat>
+    <description>Confidentiality Protected Command</description>
+    <type>a</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc2228"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>CWD</cmd>
+    <feat>base</feat>
+    <description>Change Working Directory</description>
+    <type>a</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>DELE</cmd>
+    <feat>base</feat>
+    <description>Delete File</description>
+    <type>s</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>ENC</cmd>
+    <feat>secu</feat>
+    <description>Privacy Protected Command</description>
+    <type>a</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc2228"/>
+      <xref type="rfc" data="rfc2773"/>
+      <xref type="rfc" data="rfc4217"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>EPRT</cmd>
+    <feat>nat6</feat>
+    <description>Extended Port</description>
+    <type>p</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc2428"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>EPSV</cmd>
+    <feat>nat6</feat>
+    <description>Extended Passive Mode</description>
+    <type>p</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc2428"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>FEAT</cmd>
+    <feat>feat</feat>
+    <description>Feature Negotiation</description>
+    <type>a</type>
+    <conf>m <xref type="note" data="1"/></conf>
+    <refs-notes><xref type="rfc" data="rfc2389"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>HELP</cmd>
+    <feat>base</feat>
+    <description>Help</description>
+    <type>s</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+
+  <record date="2014-01-16">
+    <cmd>HOST</cmd>
+    <feat>HOST</feat>
+    <description>Hostname</description>
+    <type>a</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc7151"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>LANG</cmd>
+    <feat>UTF8</feat>
+    <description>Language (for Server Messages)</description>
+    <type>p</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc2640"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>LIST</cmd>
+    <feat>base</feat>
+    <description>List</description>
+    <type>s</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/><xref type="rfc" data="rfc1123"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>LPRT</cmd>
+    <feat>hist</feat>
+    <description>Data Port {FOOBAR}</description>
+    <type>p</type>
+    <conf>h</conf>
+    <refs-notes><xref type="rfc" data="rfc1545"/><xref type="rfc" data="rfc1639"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>LPSV</cmd>
+    <feat>hist</feat>
+    <description>Passive Mode {FOOBAR}</description>
+    <type>p</type>
+    <conf>h</conf>
+    <refs-notes><xref type="rfc" data="rfc1545"/><xref type="rfc" data="rfc1639"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>MDTM</cmd>
+    <feat>MDTM</feat>
+    <description>File Modification Time</description>
+    <type>s</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc3659"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>MIC</cmd>
+    <feat>secu</feat>
+    <description>Integrity Protected Command</description>
+    <type>a</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc2228"/><xref type="rfc" data="rfc2773"/>
+      <xref type="rfc" data="rfc4217"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>MKD</cmd>
+    <feat>base</feat>
+    <description>Make Directory</description>
+    <type>s</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>MLSD</cmd>
+    <feat>MLST</feat>
+    <description>List Directory (for machine)</description>
+    <type>s</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc3659"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>MLST</cmd>
+    <feat>MLST</feat>
+    <description>List Single Object</description>
+    <type>s</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc3659"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>MODE</cmd>
+    <feat>base</feat>
+    <description>Transfer Mode</description>
+    <type>p</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>NLST</cmd>
+    <feat>base</feat>
+    <description>Name List</description>
+    <type>s</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/><xref type="rfc" data="rfc1123"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>NOOP</cmd>
+    <feat>base</feat>
+    <description>No-Op</description>
+    <type>s</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>OPTS</cmd>
+    <feat>feat</feat>
+    <description>Options</description>
+    <type>p</type>
+    <conf>m <xref type="note" data="1"/></conf>
+    <refs-notes><xref type="rfc" data="rfc2389"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>PASS</cmd>
+    <feat>base</feat>
+    <description>Password</description>
+    <type>a</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>PASV</cmd>
+    <feat>base</feat>
+    <description>Passive Mode</description>
+    <type>p</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/><xref type="rfc" data="rfc1123"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>PBSZ</cmd>
+    <feat>secu</feat>
+    <description>Protection Buffer Size</description>
+    <type>p</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc2228"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>PBSZ+</cmd>
+    <feat>PBSZ</feat>
+    <description>Protection Buffer Size</description>
+    <type>p</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc4217"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>PORT</cmd>
+    <feat>base</feat>
+    <description>Data Port</description>
+    <type>p</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>PROT</cmd>
+    <feat>secu</feat>
+    <description>Data Channel Protection Level</description>
+    <type>p</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc2228"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>PROT+</cmd>
+    <feat>PROT</feat>
+    <description>Data Channel Protection Level</description>
+    <type>p</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc4217"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>PWD</cmd>
+    <feat>base</feat>
+    <description>Print Directory</description>
+    <type>s</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>QUIT</cmd>
+    <feat>base</feat>
+    <description>Logout</description>
+    <type>a</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>REIN</cmd>
+    <feat>base</feat>
+    <description>Reinitialize</description>
+    <type>a</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>REST</cmd>
+    <feat>base</feat>
+    <description>Restart</description>
+    <type>s/p</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/><xref type="rfc" data="rfc1123"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>REST+</cmd>
+    <feat>REST</feat>
+    <description>Restart (for STREAM mode)</description>
+    <type>s/p</type>
+    <conf>m</conf>
+    <refs-notes><xref type="note" data="3"/><xref type="rfc" data="rfc3659"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>RETR</cmd>
+    <feat>base</feat>
+    <description>Retrieve</description>
+    <type>s</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>RMD</cmd>
+    <feat>base</feat>
+    <description>Remove Directory</description>
+    <type>s</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>RNFR</cmd>
+    <feat>base</feat>
+    <description>Rename From</description>
+    <type>s/p</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>RNTO</cmd>
+    <feat>base</feat>
+    <description>Rename From</description>
+    <type>s</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>SITE</cmd>
+    <feat>base</feat>
+    <description>Site Parameters</description>
+    <type>s</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/><xref type="rfc" data="rfc1123"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>SIZE</cmd>
+    <feat>SIZE</feat>
+    <description>File Size</description>
+    <type>s</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc3659"/></refs-notes>
+  </record> 
+  
+  <record>
+    <cmd>SMNT</cmd>
+    <feat>base</feat>
+    <description>Structure Mount</description>
+    <type>a</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>STAT</cmd>
+    <feat>base</feat>
+    <description>Status</description>
+    <type>s</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>STOR</cmd>
+    <feat>base</feat>
+    <description>Store</description>
+    <type>s</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>STOU</cmd>
+    <feat>base</feat>
+    <description>Store Unique</description>
+    <type>a</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/><xref type="rfc" data="rfc1123"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>STRU</cmd>
+    <feat>base</feat>
+    <description>File Structure</description>
+    <type>p</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>SYST</cmd>
+    <feat>base</feat>
+    <description>System</description>
+    <type>s</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>TYPE</cmd>
+    <feat>base</feat>
+    <description>Representation Type</description>
+    <type>p</type>
+    <conf>m</conf>
+    <refs-notes><xref type="note" data="4"/><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>USER</cmd>
+    <feat>base</feat>
+    <description>User Name</description>
+    <type>a</type>
+    <conf>m</conf>
+    <refs-notes><xref type="rfc" data="rfc959"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>XCUP</cmd>
+    <feat>hist</feat>
+    <description>{precursor for CDUP}</description>
+    <type>s</type>
+    <conf>h</conf>
+    <refs-notes><xref type="rfc" data="rfc775"/>
+      <xref type="rfc" data="rfc1123"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>XCWD</cmd>
+    <feat>hist</feat>
+    <description>{precursor for CWD}</description>
+    <type>s</type>
+    <conf>h</conf>
+    <refs-notes><xref type="rfc" data="rfc775"/>
+      <xref type="rfc" data="rfc1123"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>XMKD</cmd>
+    <feat>hist</feat>
+    <description>{precursor for MKD}</description>
+    <type>s</type>
+    <conf>h</conf>
+    <refs-notes><xref type="rfc" data="rfc775"/>
+      <xref type="rfc" data="rfc1123"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>XPWD</cmd>
+    <feat>hist</feat>
+    <description>{precursor for PWD}</description>
+    <type>s</type>
+    <conf>h</conf>
+    <refs-notes><xref type="rfc" data="rfc775"/>
+      <xref type="rfc" data="rfc1123"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>XRMD</cmd>
+    <feat>hist</feat>
+    <description>{precursor for RMD}</description>
+    <type>s</type>
+    <conf>h</conf>
+    <refs-notes><xref type="rfc" data="rfc775"/>
+      <xref type="rfc" data="rfc1123"/></refs-notes>
+  </record>
+  
+  <record>
+    <cmd>-N/A-</cmd>
+    <feat>TVFS</feat>
+    <description>Trivial Virtual File Store</description>
+    <type>p</type>
+    <conf>o</conf>
+    <refs-notes><xref type="rfc" data="rfc3659"/></refs-notes>
+  </record>
+</registry>
+
+<footnote anchor="1">While an IETF Standards Action would be required to make the FEAT
+mechanism [RFC2389] mandatory, implementation of that extension
+mechanism is clearly required in conjunction with any extension or
+feature that depends on it.</footnote>
+<footnote anchor="2">FEAT String for RFC 4217: AUTH TLS
+FEAT String for RFC 2773: AUTH KEA-SKIPJACK</footnote>
+    
+<footnote anchor="3">FEAT String: REST STREAM</footnote>
+    
+<footnote anchor="4">FEAT String: TYPE {semicolon-separated list of supported types}</footnote>
+
+<people/>
+</registry>

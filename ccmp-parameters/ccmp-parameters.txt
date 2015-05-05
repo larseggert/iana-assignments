@@ -1,0 +1,104 @@
+                                           Centralized Conferencing Manipulation Protocol (CCMP) Parameters
+
+   Created
+           2011-09-30
+
+   Last Updated
+           2012-03-26
+
+   Available Formats
+           [IMG]
+           XML [IMG]
+           HTML [IMG]
+           Plain text
+
+   Registries included below
+
+     * CCMP Message Types
+     * CCMP Response Codes
+
+CCMP Message Types
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Reference
+           [RFC6503]
+
+   Available Formats
+           [IMG]
+           CSV
+
+          Message                                                          Description                                                    Reference
+      optionsRequest     Used by a conference control client to query a conference server for its capabilities, in terms of supported     [RFC6503]
+                         messages.
+      optionsResponse    Returns a list of CCMP messages supported by the specific conference server.                                     [RFC6503]
+     blueprintsRequest   Used by a conference control client to query a conferencing system for its capabilities, in terms of available   [RFC6503]
+                         conference blueprints.
+    blueprintsResponse   The blueprintsResponse returns a list of blueprints supported by the specific conference server.                 [RFC6503]
+     blueprintRequest    Sent to retrieve the conference object associated with a specific blueprint.                                     [RFC6503]
+     blueprintResponse   Returns the conference object associated with a specific blueprint.                                              [RFC6503]
+       confsRequest      Used by a conference control client to query a conference server for its scheduled/active conferences.           [RFC6503]
+       confsResponse     Returns the list of the currently activated/scheduled conferences at the server.                                 [RFC6503]
+        confRequest      Used to create a conference object and/or to request an operation on the conference object as a whole.           [RFC6503]
+       confResponse      Indicates the result of the operation on the conference object as a whole.                                       [RFC6503]
+        userRequest      Used to request an operation on the "user" element in the conference object.                                     [RFC6503]
+       userResponse      Indicates the result of the requested operation on the "user" element in the conference object.                  [RFC6503]
+       usersRequest      Used to manipulate the "users" element in the conference object, including parameters such as the                [RFC6503]
+                         "allowed-users-list", "join-handling", etc.
+       usersResponse     Indicates the result of the request to manipulate the "users" element in the conference object.                  [RFC6503]
+   sidebarsByValRequest  Used to retrieve the "sidebars-by-val" element of the target conference object.                                  [RFC6503]
+   sidebarsByValResponse Returns the list of the sidebar-by-val conferences within the target conference object.                          [RFC6503]
+   sidebarsByRefRequest  Used to retrieve the "sidebars-by-ref" element of the target conference object.                                  [RFC6503]
+   sidebarsByRefResponse Returns the list of the sidebar-by-ref conferences associated with the target conference object.                 [RFC6503]
+    sidebarByValRequest  Used to request an operation on a sideber-by-val conference.                                                     [RFC6503]
+   sidebarByValResponse  Indicates the result of the request to manipulate a sidebar-by-val conference.                                   [RFC6503]
+    sidebarByRefRequest  Used to request an operation on a sidebar-by-ref conference.                                                     [RFC6503]
+   sidebarByRefResponse  Indicates the result of the request to manipulate a sidebar-by-ref conference.                                   [RFC6503]
+      extendedRequest    Provides for extensibility of the CCMP message types. Each extension is characterized by an extensionName that   [RFC6503]
+                         MUST be included in the extendedRequest.
+     extendedResponse    Returns the XML elements as defined for the specific extensionName.                                              [RFC6503]
+
+CCMP Response Codes
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Reference
+           [RFC6503]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Number    Default Reponse String                                               Description                                             Reference
+   200    Success                      The request was successfully processed.                                                            [RFC6503]
+   400    Bad Request                  The request was badly formed in some fashion.                                                      [RFC6503]
+   401    Unauthorized                 The user was not authorized for the specific operation on the conference object.                   [RFC6503]
+   403    Forbidden                    The specific operation is not valid for the target conference object.                              [RFC6503]
+   404    Object Not Found             The specific conference object was not found.                                                      [RFC6503]
+                                       A requested operation cannot be successfully completed by the server. For example, the
+   409    Conflict                     modification of an object cannot be applied because the client version of the object is obsolete   [RFC6503]
+                                       and the requested modifications collide with the up-to-date state of the object stored at the
+                                       server.
+   420    User Not Found               The user who is the target of the requested operation is unknown.                                  [RFC6503]
+   421    Invalid confUserID           The "confUserID" of the sender in the request is invalid.                                          [RFC6503]
+   422    Invalid Conference Password  A request to access/manipulate a password-protected conference object contained an invalid         [RFC6503]
+                                       "conference-password" parameter.
+   423    Conference Password Required A request to access/manipulate a password-protected conference object did not contain a            [RFC6503]
+                                       "conference-password" parameter.
+   424    Authentication Required      The server wants to authenticate the request through the "subject" parameter but the parameter is  [RFC6503]
+                                       not provided in the request.
+   425    Forbidden Delete Parent      The conferencing system cannot system cannot delete the specific conference object because it is a [RFC6503]
+                                       parent for another conference object.
+   426    Forbidden Change Protected   The target conference object cannot be changed (e.g., due to policies, roles or privileges).       [RFC6503]
+   427    Invalid Domain Name          The domain name in an AUTO_GENERATE_X instance in the conference object is not within the          [RFC6503]
+                                       conference server's domain of responsibility.
+   500    Server Internal Error        The conference server experienced some sort of internal error.                                     [RFC6503]
+   501    Not Implemented              The specific operation is not implemented on the conferencing system.                              [RFC6503]
+   510    Request Timeout              The request could not be processed within a reasonable time (as specified by the conferencing      [RFC6503]
+                                       system).
+   511    Resources Not Available      The conference server cannot execute a command because of resource issues, e.g. it cannot create a [RFC6503]
+                                       conference because the system has reached its limits on the number of conferences.

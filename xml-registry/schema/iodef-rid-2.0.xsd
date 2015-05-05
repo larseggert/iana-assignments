@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:iodef-rid="urn:ietf:params:xml:ns:iodef-rid-2.0"
+  xmlns:iodef="urn:ietf:params:xml:ns:iodef-1.0"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+  targetNamespace="urn:ietf:params:xml:ns:iodef-rid-2.0"
+  elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:import namespace="urn:ietf:params:xml:ns:iodef-1.0"
+    schemaLocation="http://www.iana.org/assignments/xml-registry/schema/iodef-1.0.xsd"/>
+  <xs:import namespace="http://www.w3.org/2000/09/xmldsig#"
+    schemaLocation="http://www.w3.org/TR/xmldsig-core/xmldsig-core-schema.xsd"/>
+  
+  <!-- ****************************************************************
+    *********************************************************************
+    ***  Real-time Inter-network Defense - RID XML Schema             ***
+    ***    Namespace - iodef-rid, January 2012                        ***
+    ***    The namespace is defined to support transport of IODEF     ***
+    ***     documents for exchanging incident information.            ***
+    *********************************************************************
+  -->
+  <!--RID messages acts as an envelope for IODEF and RID documents
+    to support the exchange of incident information-->
+  <!--
+    ====== Real-Time Inter-network Defense - RID ======
+    ====  Suggested definition for RID messaging ======
+  -->
+  
+  <xs:annotation>
+    <xs:documentation>XML Schema wrapper for IODEF</xs:documentation>
+  </xs:annotation>
+  <xs:element name="RID" type="iodef-rid:RIDType"/>
+  <xs:complexType name="RIDType">
+    <xs:sequence>
+      <xs:element ref="iodef-rid:RIDPolicy" minOccurs="0"/>
+      <xs:element ref="iodef-rid:RequestStatus" minOccurs="0"/>
+      <xs:element ref="iodef-rid:IncidentSource" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="lang"
+      type="xs:language" use="required"/>
+  </xs:complexType>
+  
+  <!--Used in Acknowledgement Message for RID-->
+  
+  <xs:element name="RequestStatus" type="iodef-rid:RequestStatusType"/>
+  <xs:complexType name="RequestStatusType">
+    <xs:attribute name="AuthorizationStatus" use="required">  
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:whiteSpace value="collapse"/>
+          <xs:enumeration value="Approved"/>
+          <xs:enumeration value="Denied"/>
+          <xs:enumeration value="Pending"/>
+          <xs:enumeration value="ext-value"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="ext-AuthorizationStatus"
+      type="xs:string" use="optional"/>
+    <xs:attribute name="Justification">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:whiteSpace value="collapse"/>
+          <xs:enumeration value="SystemResource"/>
+          <xs:enumeration value="Authentication"/>
+          <xs:enumeration value="AuthenticationOrigin"/>
+          <xs:enumeration value="Encryption"/>
+          <xs:enumeration value="UnrecognizedFormat"/>
+          <xs:enumeration value="CannotProcess"/>
+          <xs:enumeration value="Other"/>
+          <xs:enumeration value="ext-value"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="ext-Justification"
+      type="xs:string" use="optional"/>
+    <xs:attribute name="restriction" type="iodef:restriction-type"/>
+  </xs:complexType>
+  
+  <!--Incident Source Information for Result Message-->
+  
+  <xs:element name="IncidentSource" type="iodef-rid:IncidentSourceType"/>
+  <xs:complexType name="IncidentSourceType">
+    <xs:sequence>
+      <xs:element ref="iodef-rid:SourceFound"/>
+      <xs:element ref="iodef:Node" minOccurs="0"
+        maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="restriction" type="iodef:restriction-type"/>
+  </xs:complexType>
+  <xs:element name="SourceFound" type="xs:boolean"/>
+  
+  <!--
+    ====== Real-Time Inter-network Defense Policy - RIDPolicy ======
+    ======  Definition for RIDPolicy for messaging
+  -->
+  
+  <xs:annotation>
+    <xs:documentation>RID Policy used for transport of
+      messages</xs:documentation>
+  </xs:annotation>
+  
+  <!-- RIDPolicy information with setting information listed in RID
+    documentation -->
+  
+  <xs:element name="RIDPolicy" type="iodef-rid:RIDPolicyType"/>
+  <xs:complexType name="RIDPolicyType">
+    <xs:sequence>
+      <xs:element ref="iodef-rid:PolicyRegion" maxOccurs="unbounded"/>
+      <xs:element ref="iodef:Node"/>
+      <xs:element ref="iodef-rid:TrafficType" maxOccurs="unbounded"/>
+      <xs:element ref="iodef:IncidentID" minOccurs="0"/>
+      <xs:element ref="iodef-rid:ReportSchema" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="MsgType" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:whiteSpace value="collapse"/>
+          <xs:enumeration value="TraceRequest"/>
+          <xs:enumeration value="Acknowledgement"/>
+          <xs:enumeration value="Result"/>
+          <xs:enumeration value="InvestigationRequest"/>
+          <xs:enumeration value="Report"/>
+          <xs:enumeration value="Query"/>
+          <xs:enumeration value="ext-value"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="ext-MsgType" type="xs:string" use="optional"/>
+    <xs:attribute name="MsgDestination" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:whiteSpace value="collapse"/>
+          <xs:enumeration value="RIDSystem"/>
+          <xs:enumeration value="SourceOfIncident"/>
+          <xs:enumeration value="ext-value"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="ext-MsgDestination" type="xs:string"
+      use="optional"/>
+    <xs:attribute name="restriction" type="iodef:restriction-type"/>
+  </xs:complexType>
+  <xs:element name="PolicyRegion">
+    <xs:complexType>
+      <xs:attribute name="region" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:whiteSpace value="collapse"/>
+            <xs:enumeration value="ClientToSP"/>
+            <xs:enumeration value="SPToClient"/>
+            <xs:enumeration value="IntraConsortium"/>
+            <xs:enumeration value="PeerToPeer"/>
+            <xs:enumeration value="BetweenConsortiums"/>
+            <xs:enumeration value="ext-value"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="ext-region"
+        type="xs:string" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TrafficType">
+    <xs:complexType>
+      <xs:attribute name="type" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:NMTOKEN">
+            <xs:whiteSpace value="collapse"/>
+            <xs:enumeration value="Attack"/>
+            <xs:enumeration value="Network"/>
+            <xs:enumeration value="Content"/>
+            <xs:enumeration value="DataWithHandlingRequirements"/>
+            <xs:enumeration value="AudienceRestriction"/>
+            <xs:enumeration value="Other"/>
+            <xs:enumeration value="ext-value"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="ext-type"
+        type="xs:string" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <!--Used to include an enveloped XML document in RID-->
+  <xs:element name="ReportSchema" type="iodef-rid:ReportSchemaType"/>
+  <xs:complexType name="ReportSchemaType">
+    <xs:sequence>
+      <xs:element ref="iodef-rid:XMLDocument" minOccurs="1" maxOccurs="1"/>
+      <xs:element ref="iodef-rid:URL" minOccurs="0" maxOccurs="1"/>
+      <xs:element ref="iodef-rid:Signature" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="Version" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:whiteSpace value="collapse"/>
+          <xs:enumeration value="1.0"/>
+          <xs:enumeration value="ext-value"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="ext-Version"
+      type="xs:string" use="optional"/>
+    <xs:attribute name="XMLSchemaID" use="optional">
+      <xs:simpleType>
+        <xs:restriction base="xs:anyURI">
+          <xs:whiteSpace value="collapse"/>
+          <xs:enumeration value="urn:ietf:params:xml:ns:iodef-1.0"/>
+          <xs:enumeration value="ext-value"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="ext-XMLSchemaID"
+      type="xs:string" use="optional"/>
+  </xs:complexType>
+  <xs:element name="XMLDocument"
+    type="iodef:ExtensionType"/>
+  <xs:element name="URL"
+    type="xs:anyURI"/>
+  <xs:element name="Signature"
+    type="iodef:ExtensionType"/>
+</xs:schema>

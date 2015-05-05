@@ -1,0 +1,85 @@
+
+#  Name of submitter: Mikael Pahmp <Mikael.Pahmp&axis.com>
+#   
+#  Security Considerations:
+#    This service neither adds nor detracts from the security of the
+#    opaque raw-tcp data stream itself. See also the security
+#    considerations of the 'printer:' service template.
+
+# ------------------------------------------------------------------------
+
+#  This document defines the 'printer:raw-tcp' service type and the
+#  attributes associated with it.  It is a concrete service type of the
+#  printer service type for the Service Location Procotocol, Version 2 
+#  [RFC 2608].
+
+# Introduction
+
+#  Service Type templates are used to describe in a standard way those
+#  services which use the service: URL. The template described in this
+#  document extends the service type, called 'printer', with another 
+#  concrete service type, called raw-tcp.
+#
+
+# Raw TCP printing
+
+#  Printing using TCP for transparent communication between a client
+#  and a print service is common today. How print data, status,
+#  messages, etc is formatted when exchanged across the TCP connection
+#  varies. It is up to the printing client to determine how data should
+#  be formatted and interpreted. This may be determined based on the
+#  information available in the service attributes.
+#  
+#  For example, a client without any prior configuration may
+#  use the 'ieee-1284-device-id' attribute, described below, to select a
+#  printer driver for the advertised printer. The client can then let
+#  the printer driver communicate transparently with the printer service
+#  by opening a TCP connection to the host and port indicated by the
+#  advertised URL.
+
+# Service Attributes
+
+#  Attributes of the raw-tcp print service includes those defined
+#  in the 'printer' service type and a new optional attribute 
+#  'ieee-1284-device-id' defined in this service template. This 
+#  attribute is the Device ID string of the advertised printer as 
+#  defined in IEEE 1284:
+#
+#    "IEEE Std.1284-1994 Standard Signaling Method for a
+#     Bi-directional Parallel Peripheral Interface for Personal
+#     Computers", 1994.
+ 
+# ------------------------------------------------------------------------
+
+template-type = printer:raw-tcp
+
+template-version = 1.0
+
+template-description =
+  The printer:raw-tcp: URL describes a transparent bidirectional
+  communication channel for printing. Print data, status, messages,
+  etc is written or read by opening a TCP connection to the port in 
+  the service URL. How data is formatted and sent across the
+  connection is decided by the printing client and the printer
+  service and is not defined by this template.
+
+template-url-syntax=
+  url-path    = ippurl / lprurl / raw-tcp-url
+                ; This template adds 'raw-tcp-url' to the url-path
+                ; definition in the 'printer' service template.
+                ; 'ippurl' and 'lprurl' as defined in the 'printer'
+                ; service template.
+  raw-tcp-url = "raw-tcp://" hostport
+                ; raw-tcp URLs don't have a path section.
+  hostport    = host ":" port
+                ; raw-tcp doesn't have a well-known port assigned by
+                ; IANA. The port must therefor be specified in all
+                ; raw-tcp URLs.
+                ; 'host' and 'port' is as defined in the 'printer'
+                ; service template.
+
+ieee-1284-device-id = STRING L O
+# The Device ID string of this printer as defined in IEEE 1284 
+# which identifies the printer type, model, etc.
+
+

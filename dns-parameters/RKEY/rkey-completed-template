@@ -1,0 +1,85 @@
+		DNS RRTYPE PARAMETER ALLOCATION TEMPLATE
+
+
+   A.   Submission Date:
+
+	6/11/08
+
+   B.   Submission Type:
+        [x] New RRTYPE
+        [ ] Modification to existing RRTYPE
+
+   C.   Contact Information for submitter:
+               Name: Jim Reid
+               Email Address: jim at telnic.org
+               International telephone number: +44 20 7467 6474
+               Other contact handles: none
+        (Note: This information will be publicly posted)
+
+
+   D.   Motivation for the new RRTYPE application?
+
+   	Storage of keying material in the DNS is currently limited to
+   	keys used for Secure DNS and transaction authentication. This
+   	is somewhat limiting. It is possible to store encrypted data
+   	in the DNS: for instance in the RDATA of TXT records and some
+   	other RRtypes. A scheme for encrypting NAPTR records is
+   	outlined in draft-timms-encrypt-naptr-01. Defining an RRtype
+   	which can be used to publish the keys relating to this
+   	encrypted DNS data would provide an obvious method for
+   	clients to retrieve those keys so that the encrypted data can
+   	be decoded.
+
+
+   E.   Description of the proposed RR type.
+
+   	The format and structure of the proposed RRtype is almost
+   	identical to a KEY record. The only differences are the
+   	values of the record's flags and protocol fields. In the
+   	proposed RRtype, the flags field is set to zero and its
+   	protocol field set to 1. Further details about the record
+   	format and its potential applications is given in
+   	draft-reid-dnsext-rkey-00.txt.
+		[Note from expert: that was the last available
+		draft describing the RRTYPE as of the allocation
+		of the type code.]
+
+   F.   What existing RRTYPE or RRTYPEs come closest to filling that
+        need and why are they unsatisfactory?
+
+	The KEY and DNSKEY records are identical in format and
+	structure to the proposed RRtype. Their semantics are
+	different however. These RRtypes cannot be used for
+	publishing arbitrary application keys that could be used to
+	encrypt DNS resource records. DNSKEY is restricted to
+	signatures needed for Secure DNS, DNSSEC. The scope of the
+	KEY record was limited by RFC3445 to eliminate sub-typing and
+	prevent the RRtype being utilised for arbitrary application
+	keys. A new RRtype is therefore needed to permit application
+	keys specifically for encryption of DNS resource records to
+	be stored and published in the DNS.
+
+   G.   What mnemonic is requested for the new RRTYPE (optional)?
+        Note: this can be left blank and the mnemonic decided after the
+        template is accepted.
+
+	RKEY
+
+   H.   Does the requested RRTYPE make use of any existing IANA
+        Registry or require the creation of a new IANA Sub-registry and
+        in DNS Parameters?
+
+	Yes. The proposed RRtype uses the IANA sub-registry of
+	security algorithm numbers established by RFC2535 and updated
+	by RFC4034. The proposed RRtype does not require any
+	modifications to that sub-registry.
+
+   I.   Does the proposal require/expect any changes in DNS
+        servers/resolvers that prevent the new type from being
+        processed as an unknown RRTYPE (see [RFC3597])?
+
+	No.
+
+   J.   Comments:
+
+   	None.

@@ -1,0 +1,239 @@
+                                                      Media Control Channel Framework Parameters
+
+   Created
+           2011-03-08
+
+   Last Updated
+           2013-04-15
+
+   Available Formats
+           [IMG]
+           XML [IMG]
+           HTML [IMG]
+           Plain text
+
+   Registries included below
+
+     * Control Packages
+     * Method Names
+     * Status Codes
+     * Header Fields
+     * IVR Prompt Variable Type for Control Packages
+     * Mixer Control Package Status Code Registration
+     * MEDIACTRL Interactive Voice Response Control Package Status Codes
+
+Control Packages
+
+   Registration Procedure(s)
+
+ RFC Required
+
+   Reference
+           [RFC6230]
+
+   Available Formats
+           [IMG]
+           CSV
+
+        Name       Reference
+   msc-mixer/1.0   [RFC6505]
+   msc-ivr/1.0     [RFC6231]
+   mrb-publish/1.0 [RFC6917]
+
+Method Names
+
+   Registration Procedure(s)
+
+ RFC Required
+
+   Reference
+           [RFC6230]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Name   Reference
+   CONTROL [RFC6230]
+   REPORT  [RFC6230]
+   SYNC    [RFC6230]
+   K-ALIVE [RFC6230]
+
+Status Codes
+
+   Registration Procedure(s)
+
+ RFC Required
+
+   Reference
+           [RFC6230]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Code                                                            Description                                                            Reference
+   200  The 200 response code indicates the completion of a successful framework protocol transaction.                                    [RFC6230]
+   202  The 202 response code indicates the completion of a successful framework protocol transaction with additional information to be   [RFC6230]
+        provided at a later time through the REPORT mechanism defined in Section 6.3.2.
+   400  The 400 response code indicates that the request was syntactically incorrect.                                                     [RFC6230]
+   403  The server understood the request, but is refusing to fulfil it. The client SHOULD NOT repeat the request.                        [RFC6230]
+   405  Method not allowed. The primitive is not supported.                                                                               [RFC6230]
+   406  Message out of sequence.                                                                                                          [RFC6230]
+   420  Intended target of the request is for a Control Package that is not valid for the current session.                                [RFC6230]
+   421  Recipient does not wish to re-negotiate Control Packages at this moment in time.                                                  [RFC6230]
+   422  Recipient does not support any Control Packages listed in the SYNC message.                                                       [RFC6230]
+   423  Recipient has an existing transaction with the same transaction ID.                                                               [RFC6230]
+   481  The 481 response indicates that the transaction of the request does not exist. In response to a SYNC request, it indicates that   [RFC6230]
+        the corresponding SIP INVITE dialog usage does not exist.
+   500  The 500 response indicates that the recipient does not understand the request.                                                    [RFC6230]
+
+Header Fields
+
+   Registration Procedure(s)
+
+ RFC Required
+
+   Reference
+           [RFC6230]
+
+   Available Formats
+           [IMG]
+           CSV
+
+        Name       Reference
+   Control-Package [RFC6230]
+   Status          [RFC6230]
+   Seq             [RFC6230]
+   Timeout         [RFC6230]
+   Dialog-ID       [RFC6230]
+   Packages        [RFC6230]
+   Supported       [RFC6230]
+   Keep-Alive      [RFC6230]
+   Content-Type    [RFC6230]
+   Content-Length  [RFC6230]
+
+IVR Prompt Variable Type for Control Packages
+
+   Registration Procedure(s)
+
+ RFC Required
+
+   Reference
+           [RFC6231]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Variable Type Control Package Reference
+   date          msc-ivr/1.0     [RFC6231]
+   time          msc-ivr/1.0     [RFC6231]
+   digits        msc-ivr/1.0     [RFC6231]
+
+Mixer Control Package Status Code Registration
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC6505]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Code                  Summary                                                        Description                                       Reference
+   200  OK                                         request has succeeded.                                                                 [RFC6505]
+                                                   request is syntactically invalid: it is not valid with respect to the XML schema
+   400  Syntax error                               specified in Section 5 or it violates a co-occurrence constraint for a request element [RFC6505]
+                                                   defined in Section 4.
+   405  Conference already exists                  request uses an identifier to create a new conference (Section 4.2.1.1) that is        [RFC6505]
+                                                   already used by another conference on the MS.
+   406  Conference does not exist                  request uses an identifier for a conference that does not exist on the MS.             [RFC6505]
+   407  Incompatible stream configuration          request specifies a media stream configuration that is in conflict with itself, the    [RFC6505]
+                                                   connection, or conference capabilities (see Section 4.2.2.2).
+   408  Joining entities already joined            request attempts to create a join mixer (Section 4.2.2.2) where the entities are       [RFC6505]
+                                                   already joined.
+   409  Joining entities not joined                request attempts to manipulate a join mixer where the entities are not joined.         [RFC6505]
+   410  Unable to join - conference full           request attempts to join a participant to a conference (Section 4.2.2.2) but the       [RFC6505]
+                                                   conference is already full.
+   411  Unable to perform join mixer operation     request attempts to create, modify, or delete a join between entities but fails.       [RFC6505]
+   412  Connection does not exist                  request uses an identifier for a connection that does not exist on the MS.             [RFC6505]
+   419  Other execution error                      requested operation cannot be executed by the MS.                                      [RFC6505]
+   420  Conference reservation failed              request to create a new conference (Section 4.2.1.1) failed due to unsupported         [RFC6505]
+                                                   reservation of talkers listeners.
+   421  Unable to configure audio mix              request to create or modify a conference failed due to unsupported audio mix.          [RFC6505]
+   422  Unsupported media stream configuration     request contains one or more <stream> elements (Section 4.2.2.5) whose configuration   [RFC6505]
+                                                   is not supported by the MS.
+   423  Unable to configure video layouts          request to create or modify a conference failed due to unsupported video layout        [RFC6505]
+                                                   configuration.
+   424  Unable to configure video switch           request to create or modify a conference failed due to unsupported video switch        [RFC6505]
+                                                   configuration.
+   425  Unable to configure codecs                 request to create or modify a conference failed due to unsupported codec.              [RFC6505]
+   426  Unable to join - mixing connections not    request to join connection entities (Section 4.2.2.2) failed due to lack of support    [RFC6505]
+        supported                                  for mixing connections.
+   427  Unable to join - mixing conferences not    request to join conference entities (Section 4.2.2.2) failed due to lack of support    [RFC6505]
+        supported                                  for mixing conferences.
+   428  Unsupported foreign namespace attribute or the request contains attributes or elements from another namespace that the MS does    [RFC6505]
+        element                                    not support.
+   435  Other unsupported capability               request requires another capability not supported by the MS.                           [RFC6505]
+
+MEDIACTRL Interactive Voice Response Control Package Status Codes
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC6623]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Code                  Summary                                                        Description                                       Reference
+   200  OK                                         Request has succeeded.                                                                 [RFC6231]
+   400  Syntax error                               Request is syntactically invalid: it is not valid with respect to the XML schema or it [RFC6231]
+                                                   violates a co-occurrence constraint for a request element.
+   405  dialogid already exists                    Request uses a dialogid identifier for a new dialog that is already used by another    [RFC6231]
+                                                   dialog on the MS.
+   406  dialogid does not exist                    Request uses a dialogid identifier for a dialog that does not exist on the MS.         [RFC6231]
+   407  connectionid does not exist                Request uses a connectionid identifier for a connection that does not exist on the MS. [RFC6231]
+   408  conferenceid does not exist                Request uses a conferenceid identifier for a conference that does not exist on the MS. [RFC6231]
+   409  Resource cannot be retrieved               Request uses a URI to reference an external resource (e.g. dialog, media or grammar)   [RFC6231]
+                                                   that cannot be retrieved within the timeout interval
+   410  Dialog execution canceled                  Request to prepare or start a dialog that has been terminated by a <dialogterminate>   [RFC6231]
+   411  Incompatible stream configuration          Request specifies a media stream configuration that is in conflict with itself, or the [RFC6231]
+                                                   connection or conference capabilities.
+   412  Media stream not available                 Request specifies an operation for which a media stream is not available; for example, [RFC6231]
+                                                   playing a video media resource on a connection or conference without video streams.
+   413  Control keys with same value               The request contains a <control> element where some keys have the same value.          [RFC6231]
+   419  Other execution error                      Requested operation cannot be executed by the MS.                                      [RFC6231]
+   420  Unsupported URI scheme                     Request specifies a URI whose scheme is not supported by the MS.                       [RFC6231]
+   421  Unsupported dialog language                Request references an external dialog language not supported by the MS.                [RFC6231]
+   422  Unsupported playback format                Request references a media resource for playback whose format is not supported by the  [RFC6231]
+                                                   MS.
+   423  Unsupported record format                  Request references a media resource for recording whose format is not supported by the [RFC6231]
+                                                   MS.
+   424  Unsupported grammar format                 Request references a grammar whose format is not supported by the MS.                  [RFC6231]
+   425  Unsupported variable configuration         Request contains a prompt <variable> element not supported by the MS.                  [RFC6231]
+   426  Unsupported DTMF configuration             Request contains a prompt <dtmf> element not supported by the MS.                      [RFC6231]
+   427  Unsupported parameter                      Request contains a <param> element not supported by the MS.                            [RFC6231]
+   428  Unsupported media stream configuration     Request contains a <stream> element whose configuration is not supported by the MS.    [RFC6231]
+   429  Unsupported playback configuration         Request contains a <prompt> element that the MS is unable to play on the available     [RFC6231]
+                                                   output media streams.
+   430  Unsupported record configuration           Request contains a <record> element that the MS is unable to record with on the        [RFC6231]
+                                                   available input media streams.
+   431  Unsupported foreign namespace attribute or The request contains attributes or elements from another namespace that the MS does    [RFC6231]
+        element                                    not support.
+   432  Unsupported multiple dialog capability     The request tries to start another dialog on the same conference or connection where a [RFC6231]
+                                                   dialog is already running.
+   433  Unsupported collect and record capability  The request contains <collect> and <record> elements and the MS does not support these [RFC6231]
+                                                   operations simultaneously.
+   434  Unsupported VAD capability                 The request contains a <record> element where Voice Activity Detection (VAD) is        [RFC6231]
+                                                   required, but the MS does not support VAD.
+   435  Unsupported parallel playback              The request contains a prompt <par> element whose configuration is not supported by    [RFC6231]
+                                                   the MS.
+   439  Other unsupported capability               Request requires another capability not supported by the MS.                           [RFC6231]

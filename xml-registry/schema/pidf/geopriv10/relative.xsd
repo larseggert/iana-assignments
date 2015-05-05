@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<xs:schema
+   xmlns:rel="urn:ietf:params:xml:ns:pidf:geopriv10:relative"
+   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   xmlns:gml="http://www.opengis.net/gml"
+   targetNamespace="urn:ietf:params:xml:ns:pidf:geopriv10:relative"
+   elementFormDefault="qualified"
+   attributeFormDefault="unqualified">
+
+ <xs:annotation>
+   <xs:appinfo
+       source="urn:ietf:params:xml:schema:pidf:geopriv10:relative">
+     Relative Location for PIDF-LO
+   </xs:appinfo>
+   <xs:documentation source="http://tools.ietf.org/html/rfc7035">
+     This schema defines a location representation that allows for
+     the description of locations that are relative to another.
+     An optional map reference is also defined.
+   </xs:documentation>
+ </xs:annotation>
+
+ <xs:import namespace="http://www.opengis.net/gml"/>
+
+ <xs:element name="relative-location" type="rel:relativeType"/>
+
+ <xs:complexType name="relativeType">
+   <xs:complexContent>
+     <xs:restriction base="xs:anyType">
+       <xs:sequence>
+         <xs:element name="reference" type="rel:referenceType"/>
+         <xs:element name="offset" type="rel:offsetType"/>
+         <xs:any namespace="##any" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+       </xs:sequence>
+       <xs:anyAttribute namespace="##other" processContents="lax"/>
+     </xs:restriction>
+   </xs:complexContent>
+ </xs:complexType>
+
+ <xs:complexType name="referenceType">
+   <xs:complexContent>
+     <xs:restriction base="xs:anyType">
+       <xs:sequence>
+         <xs:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+       </xs:sequence>
+     </xs:restriction>
+   </xs:complexContent>
+ </xs:complexType>
+
+ <xs:complexType name="offsetType">
+   <xs:complexContent>
+     <xs:restriction base="xs:anyType">
+       <xs:sequence>
+         <xs:element ref="gml:_Geometry"/>
+         <xs:any namespace="##other" processContents="lax"
+                 minOccurs="0" maxOccurs="unbounded"/>
+       </xs:sequence>
+     </xs:restriction>
+   </xs:complexContent>
+ </xs:complexType>
+
+ <xs:element name="map" type="rel:mapType"/>
+ <xs:complexType name="mapType">
+   <xs:complexContent>
+     <xs:restriction base="xs:anyType">
+       <xs:sequence>
+         <xs:element name="url" type="rel:mapUrlType"/>
+         <xs:element name="offset" type="rel:doubleList"
+                     minOccurs="0"/>
+         <xs:element name="orientation" type="rel:doubleList"
+                     minOccurs="0"/>
+         <xs:element name="scale" type="rel:doubleList"
+                     minOccurs="0"/>
+       </xs:sequence>
+     </xs:restriction>
+   </xs:complexContent>
+ </xs:complexType>
+
+ <xs:complexType name="mapUrlType">
+   <xs:simpleContent>
+     <xs:extension base="xs:anyURI">
+       <xs:attribute name="type" type="rel:mimeType"
+                     default="application/octet-stream"/>
+     </xs:extension>
+   </xs:simpleContent>
+ </xs:complexType>
+ 
+ <xs:simpleType name="mimeType">
+   <xs:restriction base="xs:token">
+    <xs:pattern value="[!#$%&amp;'\*\+\-\.\dA-Z^_`a-z\|~]+/[!#$%&amp;'\*\+\-\.\dA-Z^_`a-z\|~]+([\t ]*;([\t ])*[!#$%&amp;'\*\+\-\.\dA-Z^_`a-z\|~]+=([!#$%&amp;'\*\+\-\.\dA-Z^_`a-z\|~]+|&quot;([!#-\[\]-~]|[\t ]*|\\[\t !-~])*&quot;))*"/>
+   </xs:restriction>
+ </xs:simpleType>
+
+ <xs:simpleType name="doubleList">
+   <xs:list itemType="xs:double"/>
+ </xs:simpleType>
+
+</xs:schema>

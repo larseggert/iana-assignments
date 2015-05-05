@@ -1,0 +1,103 @@
+(registered by RFC 3016; updated by RFC 6416, published October 2011)
+
+Type name: video
+
+Subtype name: MP4V-ES
+
+Required parameters: none
+
+Optional parameters:
+
+   "rate": This parameter is used only for RTP transport.  It
+   indicates the resolution of the timestamp field in the RTP header.
+   If this parameter is not specified, its default value of 90000 (90
+   kHz) is used.
+
+   "profile-level-id": A decimal representation of MPEG-4 Visual
+   Profile and Level indication value (profile_and_level_indication)
+   defined in Table G-1 of [14496-2].  This parameter MAY be used in
+   the capability exchange or session setup procedure to indicate the
+   MPEG-4 Visual Profile and Level combination of which the MPEG-4
+   Visual codec is capable.  If this parameter is not specified by
+   the procedure, its default value of 1 (Simple Profile/Level 1) is
+   used.
+
+   "config": This parameter SHALL be used to indicate the
+   configuration of the corresponding MPEG-4 Visual bitstream.  It
+   SHALL NOT be used to indicate the codec capability in the
+   capability exchange procedure.  It is a hexadecimal representation
+   of an octet string that expresses the MPEG-4 Visual configuration
+   information, as defined in Subclause 6.2.1 ("Start codes") of
+   [14496-2].  The configuration information is mapped onto the octet
+   string most significant bit (MSB) first.  The first bit of the
+   configuration information SHALL be located at the MSB of the first
+   octet.  The configuration information indicated by this parameter
+   SHALL be the same as the configuration information in the
+   corresponding MPEG-4 Visual stream, except for
+   first_half_vbv_occupancy and latter_half_vbv_occupancy (if they
+   exist), which may vary in the repeated configuration information
+   inside an MPEG-4 Visual stream.  (See Subclause 6.2.1, "Start
+   codes", of [14496-2].)
+
+Published specification:
+
+   The specifications for MPEG-4 Visual streams are presented in
+   [14496-2].  The RTP payload format is described in [RFC6416].
+
+Encoding considerations:
+
+   Video bitstreams MUST be generated according to MPEG-4 Visual
+   specifications [14496-2].  A video bitstream is binary data and
+   MUST be encoded for non-binary transport (for email, the Base64
+   encoding is sufficient).  This type is also defined for transfer
+   via RTP.  The RTP packets MUST be packetized according to the
+   MPEG-4 Visual RTP payload format defined in [RFC6416].
+
+Security considerations:
+
+   See Section 10 of [RFC6416].
+
+Interoperability considerations:
+
+   MPEG-4 Visual provides a large and rich set of tools for the
+   coding of visual objects.  For effective implementation of the
+   standard, subsets of the MPEG-4 Visual tool sets have been
+   provided for use in specific applications.  These subsets, called
+   'Profiles', limit the size of the tool set a decoder is required
+   to implement.  In order to restrict computational complexity, one
+   or more Levels are set for each Profile.  A Profile@Level
+   combination allows:
+
+   *  a codec builder to implement only the subset of the standard he
+      needs, while maintaining interworking with other MPEG-4 devices
+      included in the same combination, and
+
+   *  checking whether MPEG-4 devices comply with the standard
+      ('conformance testing').
+
+   The visual stream SHALL be compliant with the MPEG-4 Visual
+   Profile@Level specified by the parameter "profile-level-id".
+   Interoperability between a sender and a receiver may be achieved
+   by specifying the parameter "profile-level-id" or by arranging a
+   capability exchange/announcement procedure for this parameter.
+
+Applications that use this media type:
+
+   Audio and visual streaming and conferencing tools
+
+Additional information: none
+
+Person and email address to contact for further information:
+
+   See Authors' Addresses section at the end of [RFC6416].
+
+Intended usage: COMMON
+
+Author:
+
+   See Authors' Addresses section at the end of [RFC6416].
+
+Change controller:
+
+   IETF Audio/Video Transport Payloads working group delegated from
+   the IESG.

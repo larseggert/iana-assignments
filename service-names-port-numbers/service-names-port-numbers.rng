@@ -1,0 +1,42 @@
+<?xml version='1.0'?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  ns="http://www.iana.org/assignments">
+
+  <include href="../_support/iana-registry.rng"/>
+
+  <start>
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <zeroOrMore>
+        <element name="record">
+          <interleave>
+            <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+            <optional><attribute name="updated"><ref name="genericDate"/></attribute></optional>
+            <optional><element name="name"><text/></element></optional>
+            <optional>
+              <element name="protocol">
+                <choice>
+                  <value>tcp</value>
+                  <value>udp</value>
+                  <value>sctp</value>
+                  <value>dccp</value>
+                </choice>
+              </element>
+            </optional>
+            <element name="description"><ref name="richText"/></element>
+            <optional><element name="number"><ref name="genericRange"/></element></optional>
+            <optional><element name="sc"><data type="unsignedInt"/></element></optional>
+            <optional><element name="note"><ref name="richText"/></element></optional>
+            <optional><element name="unauthorized"><text/></element></optional>
+            <ref name="references"/>
+            <optional><element name="assignee"><ref name="references"/></element></optional>
+          </interleave>
+        </element>
+      </zeroOrMore>
+      <ref name="footnotes"/>
+      <ref name="people"/>
+    </element>
+  </start>
+
+</grammar>

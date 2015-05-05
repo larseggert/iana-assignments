@@ -1,0 +1,76 @@
+<?xml version='1.0'?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  ns="http://www.iana.org/assignments">
+
+  <include href="../_support/iana-registry.rng"/>
+
+  <define name="value_description_xref">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <zeroOrMore>
+        <element name="record">
+          <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+          <element name="value"><text/></element>
+          <element name="description"><ref name="richText"/></element>
+          <ref name="references"/>
+        </element>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="value_xref">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <zeroOrMore>
+        <element name="record">
+          <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+          <element name="value"><text/></element>
+          <ref name="references"/>
+        </element>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <start>
+    <element name="registry">
+      <ref name="registryMeta"/>
+
+      <!-- Algorithm/Name -->
+      <ref name="value_description_xref"/>
+
+      <!-- Brand/BrandId -->
+      <ref name="value_description_xref"/>
+
+      <!-- CurrencyAmount/CurrCode -->
+      <ref name="value_xref"/>
+
+      <!-- CurrencyAmount/CurrCodeType -->
+      <ref name="value_xref"/>
+
+      <!-- DeliveryData/DelivMethod -->
+      <ref name="value_xref"/>
+
+      <!-- PackagedContent/Content -->
+      <ref name="value_xref"/>
+
+      <!-- RelatedTo/RelationshipType -->
+      <ref name="value_xref"/>
+
+      <!-- Status/StatusType -->
+      <ref name="value_xref"/>
+
+      <!-- TradingRole/Trading Role -->
+      <ref name="value_xref"/>
+
+      <!-- TransId/IotpTransType -->
+      <ref name="value_xref"/>
+
+      <!-- Attribute/Content -->
+      <ref name="value_xref"/>
+
+      <ref name="people"/>
+    </element>
+  </start>
+
+</grammar>

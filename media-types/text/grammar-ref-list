@@ -1,0 +1,58 @@
+(RFC 6787 published November 2012, subtype last updated November 2012)
+
+MIME media type name:  text
+
+MIME subtype name:  text/grammar-ref-list
+
+Required parameters:  none
+
+Optional parameters:  none
+
+Encoding considerations:  Depending on the transfer protocol, a
+   transfer encoding may be necessary to deal with very long lines.
+
+Security considerations:  This media type contains URIs that may
+   represent references to external resources.  As these resources
+   are assumed to be speech recognition grammars, similar
+   considerations as for the media types 'application/srgs' and
+   'application/srgs+xml' apply.
+
+Interoperability considerations:  '>' must be percent encoded in URIs
+   according to RFC 3986 [RFC3986].
+
+Published specification:  The RECOGNIZE method of the MRCP protocol
+   performs a recognition operation that matches input against a set
+   of grammars.  When matching against more than one grammar, it is
+   sometimes necessary to use different weights for the individual
+   grammars.  These weights are not a property of the grammar
+   resource itself but qualify the reference to that grammar for the
+   particular recognition operation initiated by the RECOGNIZE
+   method.  The format of the proposed 'text/grammar-ref-list' media
+   type is as follows:
+
+   body       = *reference
+   reference  = "<" uri ">" [parameters] CRLF
+   parameters = ";" parameter *(";" parameter)
+   parameter  = attribute "=" value
+
+   This specification currently only defines a 'weight' parameter,
+   but new parameters MAY be added through the "Grammar Reference
+   List Parameters" IANA registry established through this
+   specification.  Example:
+
+         <http://example.com/grammars/field1.gram>
+         <http://example.com/grammars/field2.gram>;weight="0.85"
+         <session:field3&form-level.store>;weight="0.9"
+         <http://example.com/grammars/universals.gram>;weight="0.75"
+
+Applications that use this media type:  MRCPv2 clients and servers
+
+Additional information:  none
+
+Magic number(s):  none
+
+Person & email address to contact for further information:
+   Sarvi Shanmugham, sarvi&cisco.com
+
+Intended usage:  This media type is expected to be used only in
+   conjunction with MRCPv2.

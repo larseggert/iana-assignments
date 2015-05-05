@@ -1,0 +1,51 @@
+
+# Name of submitter: JSR-160 Expert Group <jsr-160-comments&jcp.org>
+# Language of service template: en
+# Security considerations: 
+#    Security is defined by each of the concrete service types. 
+#    See those templates for further details.
+
+template-type=jmx
+
+template-version=1.0
+
+template-description=
+     This is an abstract service type.  The purpose of the jmx service
+     type is to organize in a single category all JMX Connectors that
+     make it possible to access JMX Agents remotely.
+     JMX Connectors are defined by the Java Specification Request 160
+     (JSR 160). More information on JSR 160 can be obtained from the
+     Java Community Process Home Page at:
+          http://www.jcp.org/en/jsr/detail?id=160
+
+template-url-syntax=
+     url-path=  ;  Depends on the concrete service type.
+		;  See those templates.
+
+AgentName= string L
+# The name of the JMX Agent - see JSR 160 specification.
+
+ProtocolType= string O L
+# The type of the protocol supported by the JMX Connector.
+# Currently only two protocols are mandatory in the specification: "rmi" and 
+# "iiop". A third optional protocol is also standardized: "jmxmp".
+# However this could be extended in the future to support other types
+# of protocols, e.g. "http", "https", "soap", "beep", etc...
+# Thus, the allowed values of this attribute are at least "rmi" and "iiop"
+# for every implementation; additionally "jmxmp" for implementations that
+# support it; and other protocol names that are understood by client and
+# server.
+# The value of this attribute is the same as the protocol name that appears
+# after "service:jmx:" in the Service URL.  Registering the ProtocolType
+# attribute means clients can search for connectors of a particular type.
+
+AgentHost= string O M L
+# The host name or IP address of the host on which the JMX Agent is running.
+# If multiple values are given they must be aliases to the same host.
+
+Property= string O M L
+# Additional properties qualifying the agent, in the form of Java-like
+# properties, e.g. "com.sun.jmx.remote.connect.timeout=200"
+# Note that in order to include '=' in an attribute value, it must be
+# escaped.  Thus the example would be encoded as
+# "com.sun.jmx.remote.connect.timeout\3D200"

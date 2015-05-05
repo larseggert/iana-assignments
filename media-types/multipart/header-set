@@ -1,0 +1,248 @@
+Internet Draft                              Silicon Graphics, Inc.
+Expiration <4/94>                                   5 October 1993
+                                
+                                
+                                
+                                
+                                
+                    MIME Multipart/Header-Set
+
+
+                 draft-crocker-headerset-00.txt
+                                
+                                                                
+
+
+
+STATUS OF THIS MEMO
+
+This document is an Internet Draft.  Internet Drafts are working
+documents of the Internet Engineering Task Force (IETF), its
+Areas, and its Working Groups.  (Note that other groups may also
+distribute working documents as Internet Drafts).
+
+Internet Drafts are draft documents valid for a maximum of six
+months. Internet Drafts may be updated, replaced, or obsolete by
+other documents at any time.  It is not appropriate is use
+Internet Drafts as reference material or to cite them other than
+as a "working draft" or "work in progress."
+
+Please check the Internet Draft abstract listing contained in the
+IETF Shadow Directories (cd internet-drafts) to learn the current
+status of this or any other Internet Draft.
+
+
+
+SUMMARY
+
+Data often are aggregated with an initial set of descriptor
+information, followed by some number of user data portions.  This
+specification formalizes the occurrences of such aggregations as
+a MIME Multipart Content-type.  It is intended that MIME
+processors which are aware of the Header-Set construct will be
+able to process the user data portions, even when they do not
+understand the specific header (or descriptor) information which
+begins the set.
+
+
+
+
+D. Crocker                                                       1
+
+
+Internet Draft        Multipart/Header-Set    (Expiration:  4/94)
+
+
+TABLE OF CONTENTS
+
+1.        INTRODUCTION
+2.        Header-Set Content-Subtype Usage in MIME
+3.        Header-Set Specification
+4.        Header-Set Examples
+7.        REFERENCES
+8.        SECURITY CONSIDERATIONS
+9.        ACKNOWLEDGMENTS
+10.       CONTACT
+
+
+
+1.  INTRODUCTION
+
+Data often are aggregated with an initial set of descriptor
+information, followed by some number of user data portions.  Such
+aggregations derive from a specialized environment, such as a
+particular operating system file structure, or a tailored
+communication environment, such as privacy enhanced mail.  In
+particular, one portion of the data contains all of the data
+special to that environment and the remainder is regular user-
+data, possibly of a type registered within MIME [BORE92].
+
+This specification formalizes the occurrences of such
+aggregations as a MIME Multipart Content-type.  It dictates that
+the descriptor header information shall occur as the first MIME
+body-part at the beginning of the Multipart set, and is then
+followed by one or more MIME body-parts containing user data.
+
+It is intended that MIME processors which are aware of the Header-
+Set construct will be able to process the user data portions,
+even when they do not understand the specific header (or
+descriptor) information which begins the set.  As an example, a
+recipient on one operating system may still be able to identify
+and process the user-data portion(s) even when the specific
+header descriptor is intended for an entirely different and
+unrelated operating system.  In addition, specifications for MIME
+usage which conform to this model will not need to define two
+MIME types, one for the Multipart containing "bucket" and one for
+the specific Application label to distinguish the portion
+containing application-specific data.
+
+
+
+
+D. Crocker                                                       2
+
+
+Internet Draft        Multipart/Header-Set    (Expiration:  4/94)
+
+
+2.  Header-Set Content-Subtype Usage in MIME
+
+Header-set information is specified by:
+
+MIME type name:                 MULTIPART
+
+MIME subtype name:              HEADER-SET
+
+Required parameters:            Any pertaining to MULTIPART/Mixed
+
+Optional parameters:            Any pertaining to MULTIPART/Mixed
+
+Encoding considerations:        none
+
+Security considerations:        See separate section in the
+                                document.
+
+Published specification:        Contained in the following
+                                section.
+
+Rationale:
+       
+       Permits recipients to process user-data even when they
+       cannot process the more specialized header descriptor
+       information.  Also, reduces the number of registered MIME
+       Content-types, since those which conform to this model
+       need to register only an Application sub-type and are not
+       also required to register a Multipart subtype.
+
+Contact-info:                   See Contact section, below.
+
+Detail specific to MIME-based usage:
+       
+       Provides for a MULTIPART MIME body-part which declares
+       that the first sub-part in the MULTIPART shall contain a
+       header which provides descriptive information about the
+       one or more remaining sub-parts in that MULTIPART.  It is
+       expected that the first sub-part will typically be an
+       Content-type:Application sub-type.
+
+
+
+3.  Header-Set Specification
+
+A MIME Content-Type:Multipart/Header-Set body part is a distinct
+section of a message and contains two, or more, sub-parts within
+in.  The first sub-part is the header and any following sub-parts
+compose the set of user data associated with that header.
+
+D. Crocker                                                       3
+
+
+Internet Draft        Multipart/Header-Set    (Expiration:  4/94)
+
+
+Typically, the header sub-part will be a registered Content-
+Type:Application sub-type, but this is not required.
+
+The Content-Type:Application subtype will declare the "context"
+and base of interpretation for processing the MULTIPART body-part
+in its entirety.  However, the user data body-parts may also be
+processed separately, to the extent that the receiver understands
+the individual MIME subparts.
+
+
+
+4.  Header-Set Examples
+
+Assume that a user is sending data from the FOO file system, with
+its file-system specific information registered as
+Application/Filesys-FOO, and the user data containing US-ASCII
+text:
+
+
+To:
+Subject:
+From:
+Date:
+Mime-Version: 1.00
+Content-Type: MULTIPART/HEADER-SET; boundary=Boundary-1
+
+--Boundary-1
+Content-Type:    APPLICATION/Filesys-FOO
+
+(Descriptive information specific to the FOO file system's
+storage of the following user data.)
+
+--Boundary-1
+Content-Type:    TEXT/plain
+
+(Regular text user-data)
+
+--Boundary-1--
+
+
+7.  REFERENCES
+
+[BORE92]    Borenstein, N. & Freed, N., "MIME
+            (Multipurpose Internet Mail Extensions):  Mechanisms
+            for specifying and describing the format of Internet
+            Message Bodies.  March, 1992, Network Information
+            Center, RFC 1341.
+
+
+D. Crocker                                                       4
+
+
+Internet Draft        Multipart/Header-Set    (Expiration:  4/94)
+
+
+8.  SECURITY CONSIDERATIONS
+
+Specific header parts may contain security-related information.
+To the extent that Header-set facilitates the transmission of
+operating-system sensitive data, it may open a door for easier
+relaxation of security rules than is intended either by the
+sender or the administrator of the sender's system.
+
+
+
+9.   ACKNOWLEDGMENTS
+
+Header-Set developed from the continuing 882ext working group
+discussions.
+
+
+
+10.  CONTACT
+
+name:     David H. Crocker;
+work      <email:  dcrocker&sgi.com;
+          org:     Silicon Graphics, Inc.;
+          street:  2011 N. Shoreline Blvd.;
+          box:     7311;
+          geo:     Mountain View / CA / US;    code: 94039-7311;
+          phone:   +1 415 390 1804;          fax: +1 415 962 8404>
+
+
+D. Crocker                                                       5
+
+

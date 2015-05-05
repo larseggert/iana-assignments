@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+  targetNamespace="urn:ietf:params:xml:ns:geolocation-policy"
+  xmlns:gp="urn:ietf:params:xml:ns:geolocation-policy"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified">
+
+  <!-- Import Common Policy-->
+  <xs:import namespace="urn:ietf:params:xml:ns:common-policy"/>
+
+  <!-- This import brings in the XML language attribute xml:lang-->
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+    schemaLocation="http://www.w3.org/2001/xml.xsd"/>
+
+  <!-- Geopriv Conditions -->
+
+  <xs:element name="location-condition"
+    type="gp:locationconditionType"/>
+
+  <xs:complexType name="locationconditionType">
+    <xs:complexContent>
+      <xs:restriction base="xs:anyType">
+        <xs:choice minOccurs="1" maxOccurs="unbounded">
+          <xs:element name="location" type="gp:locationType"
+            minOccurs="1" maxOccurs="unbounded"/>
+          <xs:any namespace="##other" processContents="lax"
+            minOccurs="0" maxOccurs="unbounded"/>
+        </xs:choice>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="locationType">
+    <xs:complexContent>
+      <xs:restriction base="xs:anyType">
+        <xs:choice minOccurs="1" maxOccurs="unbounded">
+          <xs:any namespace="##other" processContents="lax"
+            minOccurs="0" maxOccurs="unbounded"/>
+        </xs:choice>
+        <xs:attribute name="profile" type="xs:string"/>
+        <xs:attribute name="label" type="xs:string"/>
+        <xs:attribute ref="xml:lang" />
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- Geopriv transformations -->
+  <xs:element name="set-retransmission-allowed"
+    type="xs:boolean" default="false"/>
+  <xs:element name="set-retention-expiry"
+    type="xs:integer" default="0"/>
+  <xs:element name="set-note-well"
+    type="gp:notewellType"/>
+  <xs:element name="keep-rule-reference"
+    type="xs:boolean" default="false"/>
+
+  <xs:element name="provide-location"
+    type="gp:providelocationType"/>
+
+  <xs:complexType name="notewellType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute ref="xml:lang" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="providelocationType">
+    <xs:complexContent>
+      <xs:restriction base="xs:anyType">
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:any namespace="##other" processContents="lax"
+            minOccurs="0" maxOccurs="unbounded"/>
+        </xs:choice>
+        <xs:attribute name="profile" type="xs:string" />
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+</xs:schema>
+

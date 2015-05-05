@@ -1,0 +1,53 @@
+(RFC 1848 published October 1995, subtype last updated October 1995)
+
+(1)  MIME type name: application
+
+(2)  MIME subtype name: moss-signature
+
+(3)  Required parameters: none
+
+(4)  Optional parameters: none
+
+(5)  Encoding considerations: quoted-printable is always sufficient
+
+(6)  Security considerations: none
+
+The "application/moss-signature" content type is used on the second
+body part of an enclosing multipart/signed.  Its content is comprised
+of the digital signature of the data in the first body part of the
+enclosing multipart/signed and other control information required to
+verify that signature, as defined by Section 2.1.2.  The label
+"application/moss-signature" must be used as the value of the
+protocol parameter of the enclosing multipart/signed; the protocol
+parameter must be present.
+
+Part of the signature verification information will be the Message
+Integrity Check (MIC) algorithm(s) used during the signature creation
+process.  The MIC algorithm(s) identified in this body part must
+match the MIC algorithm(s) identified in the micalg parameter of the
+enclosing multipart/signed.  If it does (they do) not, a user agent
+should identify the discrepancy to a user and it may choose to either
+halt or continue processing, giving precedence to the algorithm(s)
+identified in this body part.
+
+An application/moss-signature body part is constructed as follows:
+
+   Content-Type: application/moss-signature
+
+   <mosssig>
+
+where the grammar token <mosssig> is defined as follows.
+
+   <mosssig>       ::= <version> ( 1*<origasymflds> )
+
+   <version>       ::= "Version:" "5" CRLF
+
+   <origasymflds>  ::= <origid> <micinfo>
+
+   <origid>        ::= "Originator-ID:" <id> CRLF
+
+   <micinfo>       ::= "MIC-Info:" <micalgid> "," <ikalgid> ","
+                       <asymsignmic> CRLF
+
+The token <id> is defined in Section 4.  All other tokens are defined
+in Section 2.1.2.3.

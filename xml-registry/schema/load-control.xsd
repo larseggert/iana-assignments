@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="urn:ietf:params:xml:ns:load-control"
+    xmlns:lc="urn:ietf:params:xml:ns:load-control"
+    xmlns:cp="urn:ietf:params:xml:ns:common-policy"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified"
+    attributedFormDefault="unqualified">
+
+<xs:import namespace="urn:ietf:params:xml:ns:common-policy"/>
+
+<!-- RULESET -->
+
+<xs:element name="ruleset">
+  <xs:complexType>
+    <xs:complexContent>
+      <xs:restriction base="xs:anyType">
+        <xs:sequence>
+          <xs:element name="rule" type="cp:ruleType"
+          minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+      </xs:restriction>
+    </xs:complexContent>
+    <xs:attribute name="version" type="xs:integer" use="required"/>
+    <xs:attribute name="state" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="full"/>
+          <xs:enumeration value="partial"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+</xs:element>
+
+<!-- CONDITIONS -->
+
+<!-- CALL IDENTITY -->
+<xs:element name="call-identity" type="lc:call-identity-type"/>
+
+<!-- CALL IDENTITY TYPE -->
+<xs:complexType name="call-identity-type">
+  <xs:choice>
+    <xs:element name="sip" type="lc:sip-id-type"/>
+    <any namespace="##other" processContents="lax" minOccurs="0"
+    maxOccurs="unbounded"/>
+  </xs:choice>
+  <anyAtrribute namespace="##other" processContents="lax"/>
+</xs:complexType>
+
+<!-- SIP ID TYPE -->
+<xs:complexType name="sip-id-type">
+  <xs:sequence>
+    <element name="from" type="lc:identityType" minOccurs="0"/>
+    <element name="to" type="lc:identityType" minOccurs="0"/>
+    <element name="request-uri" type="lc:identityType"
+    minOccurs="0"/>
+    <element name="p-asserted-identity" type="lc:identityType"
+    minOccurs="0"/>
+    <any namespace="##other" processContents="lax" minOccurs="0"
+    maxOccurs="unbounded"/>
+  </xs:sequence>
+  <anyAtrribute namespace="##other" processContents="lax"/>
+</xs:complexType>
+
+<!-- IDENTITY TYPE -->
+<xs:complexType name="identityType">
+  <xs:complexContent>
+    <xs:restriction base="xs:anyType">
+      <xs:choice minOccurs="1" maxOccurs="unbounded">
+        <xs:element name="one" type="cp:oneType"/>
+        <xs:element name="many" type="lc:manyType"/>
+        <xs:element name="many-tel" type="lc:manyTelType"/>
+        <xs:any namespace="##other" processContents="lax"/>
+      </xs:choice>
+    </xs:restriction>
+  </xs:complexContent>
+</xs:complexType>
+
+<!-- MANY-TEL TYPE -->
+<xs:complexType name="manyTelType">
+  <xs:complexContent>
+    <xs:restriction base="xs:anyType">
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="except-tel" type="lc:exceptTelType"/>
+        <xs:any namespace="##other"
+        minOccurs="0" processContents="lax"/>
+      </xs:choice>
+      <xs:attribute name="prefix"
+      use="optional" type="xs:string"/>
+    </xs:restriction>
+  </xs:complexContent>
+</xs:complexType>
+
+<!-- EXCEPT-TEL TYPE -->
+<xs:complexType name="exceptTelType">
+  <xs:attribute name="prefix" type="xs:string" use="optional"/>
+  <xs:attribute name="id" type="xs:anyURI" use="optional"/>
+</xs:complexType>
+
+<!-- METHOD -->
+<xs:element name="method" type="lc:method-type"/>
+
+<!-- METHOD TYPE -->
+<xs:simpleType name="method-type">
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="INVITE"/>
+    <xs:enumeration value="MESSAGE"/>
+    <xs:enumeration value="REGISTER"/>
+    <xs:enumeration value="SUBSCRIBE"/>
+    <xs:enumeration value="OPTIONS"/>
+    <xs:enumeration value="PUBLISH"/>
+  </xs:restriction>
+</xs:simpleType>
+
+<!-- TARGET SIP ENTITY -->
+<xs:element name="target-sip-entity" type="xs:anyURI" minOccurs="0"/>
+
+<!-- ACTIONS -->
+<xs:element name="accept">
+  <xs:choice>
+    <element name="rate" type="xs:decimal" minOccurs="0"/>
+    <element name="win" type="xs:integer" minOccurs="0"/>
+    <element name="percent" type="xs:decimal" minOccurs="0"/>
+    <any namespace="##other" processContents="lax" minOccurs="0"
+    maxOccurs="unbounded"/>
+  </xs:choice>
+  <xs:attribute name="alt-action" type="xs:string" default="reject"/>
+  <xs:attribute name="alt-target" type="lc:alt-target-type"
+  use="optional"/>
+  <anyAtrribute namespace="##other" processContents="lax"/>
+</xs:element>
+
+<!-- ALT TARGET TYPE -->
+<xs:simpleType name="alt-target-type">
+  <xs:list itemType="xs:anyURI"/>
+</xs:simpleType>
+
+</xs:schema>

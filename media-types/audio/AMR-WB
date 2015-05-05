@@ -1,0 +1,169 @@
+(RFC 3267 published June 2002, subtype last updated April 2007 per RFC4867)
+
+Media Type name:     audio
+
+Media subtype name:  AMR-WB
+
+Required parameters: none
+
+Optional parameters:
+
+  These parameters apply to RTP transfer only.
+
+  octet-align: Permissible values are 0 and 1.  If 1, octet-aligned
+		   operation SHALL be used.  If 0 or if not present,
+		   bandwidth-efficient operation is employed.
+
+  mode-set:  Restricts the active codec mode set to a subset of all
+		   modes, for example, to be able to support transport
+		   channels such as GSM networks in gateway use cases.
+		   Possible values are a comma-separated list of modes from
+		   the set: 0,...,8 (see Table 1a [4]).  The SID frame type
+		   9, SPEECH_LOST (frame type 14), and NO_DATA (frame type
+		   15) are never included in the mode set, but can always
+		   be used.  If mode-set is specified, it MUST be abided,
+		   and frames encoded with modes outside of the subset MUST
+		   NOT be sent in any RTP payload or used in codec mode
+		   requests.  If not present, all codec modes are allowed
+		   for the payload type.
+
+  mode-change-period: Specifies a number of frame-blocks, N (1 or
+		   2), that is the frame-block period at which codec mode
+		   changes are allowed for the sender.  The initial phase of
+		   the interval is arbitrary, but changes must be separated
+		   by multiples of N frame-blocks, i.e., a value of 2
+		   allows the sender to change mode every second frame-
+		   block.  The value of N SHALL be either 1 or 2.  If this
+		   parameter is not present, mode changes are allowed at
+		   Any time during the session, i.e., N=1.
+
+  mode-change-capability: Specifies if the client is capable to
+		   transmit with a restricted mode change period.  The
+		   parameter may take value of 1 or 2.  A value of 1
+		   indicates that the client is not capable of restricting
+		   the mode change period to 2, and that the codec mode may
+		   be changed at any point.  A value of 2 indicates that the
+		   client has the capability to restrict the mode change
+		   period to 2, and thus that the client can correctly
+		   interoperate with a receiver requiring a mode-change-
+		   period=2.  If this parameter is not present, the mode-
+		   change restriction capability is not supported, i.e.
+		   mode-change-capability=1.  To be able to interoperate
+		   fully with gateways to circuit switched networks (for
+		   example, GSM networks), transmissions with restricted
+		   mode changes (mode-change-capability=2) are required.
+		   Thus, clients are RECOMMENDED to have the capability to
+		   support transmission according to
+		   mode-change-capability=2.
+
+  mode-change-neighbor: Permissible values are 0 and 1.  If 1, the
+		   sender SHOULD only perform mode changes to the
+		   neighboring modes in the active codec mode set.
+		   Neighboring modes are the ones closest in bit rate to
+		   the current mode, either the next higher or next lower
+		   rate.  If 0 or if not present, change between any two
+		   modes in the active codec mode set is allowed.
+
+  maxptime: The maximum amount of media which can be encapsulated
+		   in a payload packet, expressed as time in milliseconds.
+		   The time is calculated as the sum of the time that the
+		   media present in the packet represents.  The time SHOULD
+		   be an integer multiple of the frame size.  If this
+		   parameter is not present, the sender MAY encapsulate any
+		   number of speech frames into one RTP packet.
+
+  crc: Permissible values are 0 and 1.  If 1, frame CRCs SHALL be
+		   included in the payload.  If 0 or not present, CRCs
+		   SHALL NOT be used.  If crc=1, this also implies
+		   automatically that octet-aligned operation SHALL be used
+		   for the session.
+
+  robust-sorting: Permissible values are 0 and 1.  If 1, the
+		   payload SHALL employ robust payload sorting.  If 0 or if
+		   not present, simple payload sorting SHALL be used.  If
+		   robust-sorting=1, this also implies automatically that
+		   octet-aligned operation SHALL be used for the session.
+
+  interleaving: Indicates that frame-block level interleaving SHALL
+		   be used for the session, and its value defines the
+		   maximum number of frame-blocks allowed in an
+		   interleaving group (see Section 4.4.1).  If this
+		   parameter is not present, interleaving SHALL NOT be
+		   used.  The presence of this parameter also implies
+		   automatically that octet-aligned operation SHALL be
+		   used.
+
+  ptime: see RFC 2327 [11].
+
+  channels: The number of audio channels.  The possible values
+		   (1-6) and their respective channel order is specified in
+		   Section 4.1 in [12].  If omitted, it has the default
+		   value of 1.
+
+  max-red: The maximum duration in milliseconds that elapses between
+		   the primary (first) transmission of a frame and any
+		   redundant transmission that the sender will use.  This
+		   parameter allows a receiver to have a bounded delay when
+		   redundancy is used.  Allowed values are between 0 (no
+		   redundancy will be used) and 65535.  If the parameter is
+		   omitted, no limitation on the use of redundancy is
+		   present.
+
+Encoding considerations:
+	The Audio data is binary data, and must be encoded for non-
+	binary transport; the Base64 encoding is suitable for email.
+	When used in RTP context the data is framed as defined in [14].
+
+Security considerations:
+	See Section 7 of RFC 4867.
+
+Public specification:
+	RFC 4867
+	3GPP TS 26.190, 26.192, 26.193, 26.201
+
+Applications that use this media type:
+	This media type is used in numerous applications needing
+	transport or storage of encoded voice.  Some examples include;
+	Voice over IP, streaming media, voice messaging, and voice
+	recording on digital cameras.
+
+Additional information:
+	The following applies to stored-file transfer methods:
+
+	Magic numbers:
+	  single-channel:
+	  ASCII character string "#!AMR-WB\n"
+	  (or 0x2321414d522d57420a in hexadecimal)
+	  multi-channel:
+	  ASCII character string "#!AMR-WB_MC1.0\n"
+	  (or 0x2321414d522d57425F4D43312E300a in hexadecimal)
+	File extensions: awb, AWB
+	Macintosh file type code: amrw
+	Object identifier or OID: none
+
+	AMR-WB speech frames may also be stored in the file format "3GP"
+	defined in 3GPP TS 26.244 [31] and identified using the media
+	type "audio/3GPP" or "video/3GPP" as registered by RFC 3839
+	[32].
+
+Person & email address to contact for further information:
+	Magnus Westerlund <magnus.westerlund&ericsson.com>
+	Ari Lakaniemi <ari.lakaniemi&nokia.com>
+
+Intended usage: COMMON.
+	This media type is widely used in streaming, VoIP, and messaging
+	applications on many types of devices.
+
+Restrictions on usage:
+	When this media type is used in the context of transfer over
+	RTP, the RTP payload format specified in Section 4 SHALL be
+	used.  In all other contexts, the file format defined in Section
+	5 SHALL be used.
+
+Author:
+	Magnus Westerlund <magnus.westerlund&ericsson.com>
+	Ari Lakaniemi <ari.lakaniemi&nokia.com>
+
+Change controller:
+	IETF Audio/Video Transport working group delegated from the
+	IESG.

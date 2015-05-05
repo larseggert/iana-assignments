@@ -1,0 +1,40 @@
+(RFC 4707 published April 2011, subtype last updated April 2011)
+
+The IANA has registered the application/nasdata media type as defined
+by the following information:
+
+Media type name:     application
+Media subtype name:  nasdata
+Required parameters: none
+Optional parameters: level
+
+                     The NAS protocol level number for the enclosed
+                     NAS data package.  If not present, the
+                     protocol level defaults to 1.
+
+Encoding scheme: NAS data is plain text; no special encodings are
+needed.
+
+Security considerations: see below
+
+Security Considerations
+
+Security issues are only addressed in respect to server-server
+communication in this protocol level.  Username and password
+combinations in the GETA and GETP commands can be used to make sure
+that connections are only accepted from authorized clients.  PGP keys
+according to [RFC2440] are used to sign NAS data in server-server
+communication in order to validate that the data is authentic and has
+not been tampered with.
+
+Every server does have the possibility (in both server-server and
+server-client communication) to deny some commands or the whole
+connection according to the client's IP number.
+
+No mechanisms are defined in the current protocol level to allow a
+client to validate that it is talking to a legitimate server or that
+the data it receives is authentic.
+
+A stronger authentication scheme will be provided in a higher
+protocol level.
+

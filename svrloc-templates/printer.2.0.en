@@ -1,0 +1,1001 @@
+
+#   Name of submitters: Pete St. Pierre <Pete.StPierre&eng.sun.com>
+#                       Scott Isaacson <sisaacson&novell.com>
+#                       Ira McDonald <imcdonal&sdsp.mc.xerox.com>
+#
+#   Security Considerations
+#
+#   When used with SLPv2, this 'service:printer:' template inherits all
+#   of the security issues described in section 17 'Security
+#   Considerations' of "Service Location Protocol, Version 2" [13].  
+#
+#   By advertising the security methods for each supported printer URL
+#   the printer may expose information useful to attackers.  SLPv2
+#   security or another security method SHOULD be used to authenticate
+#   any service advertisements.  
+
+# -----------------------------------------------------------------------
+
+# Abstract
+
+#   This document is a product of the Service Location and Internet
+#   Printing Protocol Working Groups of the Internet Engineering Task
+#   Force (IETF).  Comments should be sent to the srvloc&srvloc.org and
+#   ipp&pwg.org mailing lists.  
+#   
+#   This document defines the 'service:printer:' abstract type and the
+#   attributes associated with it.  This 'service:printer:' template is
+#   designed to be used in conjunction with the Service Location
+#   Protocol, Version 2 (SLPv2) [13], but may be used with any directory
+#   service which supports attribute/value pair registration, such as the
+#   Lightweight Directory Access Protocol, Version 3 (LDAPv3 [16]).  
+#   
+#   The 'service:printer:' type is specified as an abstract service type.
+#   Printers advertised with the 'service:printer:' abstract type may be 
+#   accessible by one or more print protocols, such as IPP [3] and LPR
+#   [2].  
+
+# -----------------------------------------------------------------------
+
+# Introduction
+
+#   Service Type templates are used to describe in a standard way those
+#   services which use the 'service:' URL.  The template described in
+#   this document is an abstract service type that includes concrete
+#   types such as the printing protocol defined in RFC 1179 [2], "Line
+#   Printer Daemon Protocol".  This template defines the
+#   'service:printer:' abstract type.  
+#   
+#   The 'service:printer:' abstract type supports consistent registration
+#   of printer services.  The attributes described within this document
+#   are derived from previous specifications developed by the IETF IPP WG
+#   and IETF Printer MIB WG.  
+#   
+#   The attributes specified are intended to facilitate both automatic
+#   and manual selection of services, not to provide service state,
+#   statistics, or notification.  The target audience of service
+#   attributes consists of users, either software agents or end users.  
+
+# -----------------------------------------------------------------------
+
+# Terminology
+
+#   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+#   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this 
+#   document are to be interpreted as described in RFC 2119 [14].  
+
+# -----------------------------------------------------------------------
+
+# Template url-path Definition
+
+#   The 'service:printer:' type is an abstract type.  Because an abstract
+#   service type may contain one of many concrete types, the 'url-path'
+#   associated with a 'service:printer:' URL may vary.  IPP and LPR
+#   printers are presently supported by this 'service:printer:' template.
+#   Other printer protocols MAY be supported by extension templates or by
+#   future updates of this abstract 'service:printer:' template.  
+
+# -----------------------------------------------------------------------
+
+# IPP
+
+#   An IPP Printer object is defined in "IPP/1.1 Model and Semantics"
+#   [3].  An IPP printer concrete URL is defined in "IPP/1.1 Encoding and
+#   Transport" [9].  
+#   
+#   Examples of valid 'service:' URLs for IPP printers include:  
+#   
+#   service:printer:ipp://server.sun.com/cgi-bin/public-printer
+#   service:printer:ipp://foo.sun.com/printers?public-printer
+
+# -----------------------------------------------------------------------
+
+# LPR
+
+#   An LPR accessible printer MAY include a queue name as the last part
+#   of the URL.  If the queue name is absent, the print server is assumed
+#   to use a default print queue.  The definition of an LPR printer
+#   concrete URL is specified in this document, in the 'service:printer:'
+#   template.  
+#   
+#   Examples of valid 'service:' URLs for LPR printers include:  
+#   
+#   service:printer:lpr://server.sun.com
+#   service:printer:lpr://server.sun.com/public-printer
+
+# -----------------------------------------------------------------------
+
+# Printer Service Template
+
+#   The 'service:printer:' template defined below conforms to the grammar
+#   described in "Service Templates and service: Schemes".  Please refer 
+#   to [4] for detailed explanation of the syntax.
+#
+#   Name of submitters: Pete St. Pierre <Pete.StPierre&eng.sun.com>
+#                       Scott Isaacson <sisaacson&novell.com>
+#                       Ira McDonald <imcdonald&sharplabs.com>
+#
+#   Language of service template: en (English)
+#
+#   Security Considerations:
+#      By advertising the security methods for each supported printer URL
+#      the printer may expose information useful to attackers.  SLPv2
+#      security or another security method SHOULD be used to authenticate
+#      any service advertisements.
+
+#   -------------------- template begins here --------------------
+template-type = printer
+
+template-version = 2.0
+
+template-description =
+  The 'service:printer:' template describes the attributes
+  supported by network printing devices.  Devices may be
+  either directly connected to a network or managed by a
+  print server.  The device or server understands one or
+  more network print protocols such as IPP or LPR.
+
+template-url-syntax =
+  url-path    = ippurl / lprurl
+  ippurl      = IPP URL as defined in [9]
+  lprurl      = "lpr://" hostport [ "/" qname ]
+  hostport    = host [ ":" port ]
+  host        = hostname / hostnumber
+  hostname    = *( domainlabel "." ) toplabel
+  domainlabel = alphanum /
+                alphanum * [alphanum / "-"] alphanum
+  toplabel    = alpha / alpha * [alphanum / "-"] alphanum
+  hostnumber  = ipv4-number / ipv6-number
+  ipv4-number = 1*3digit 3*3("." 1*3digit)
+  ipv6-number = 32*hex
+  3digit      = digit digit digit
+  port        = 1*digit
+  alphanum    = alpha / digit
+  alpha       = "a" / "b" / "c" / "d" / "e" / "f" / "g" /
+                "h" / "i" / "j" / "k" / "l" / "m" / "n" /
+                "o" / "p" / "q" / "r" / "s" / "t" / "u" /
+                "v" / "w" / "x" / "y" / "z" /
+                "A" / "B" / "C" / "D" / "E" / "F" / "G" /
+                "H" / "I" / "J" / "K" / "L" / "M" / "N" /
+                "O" / "P" / "Q" / "R" / "S" / "T" / "U" /
+                "V" / "W" / "X" / "Y" / "Z"
+  digit       = "0" / "1" / "2" / "3" / "4" / "5" / "6" /
+                "7" / "8" / "9"
+
+printer-xri-supported = STRING L
+# REQUIRED for all registrations by conforming SLP SAs
+# IPP 'printer-uri-supported'
+# IPP 'uri-authentication-supported'
+# IPP 'uri-authentication-supported'
+# The unordered list of XRI (extended resource identifiers)
+# supported by this printer.  Each member of the list
+# consists of a URI (uniform resource identifier) followed
+# by optional authentication and security metaparameters.
+# The keywords for URI and their metaparameters are:
+#   'uri'  == IPP 'printer-uri-supported' value
+#   'auth' == IPP 'uri-authentication-supported' value
+#   'sec'  == IPP 'uri-security-supported' value
+# Legal values of the 'auth' metaparameter include
+#   'none' (no authentication for this URI)
+#   'requesting-user-name' (from operation request)
+#   'basic' (HTTP/1.1 Basic, RFC 2617 [18])
+#   'digest' (HTTP/1.1 Basic, RFC 2617 [18])
+#   'certificate' (from certificate)
+# per IPP Model [3] (extensions MAY also be used).
+# A missing 'auth' metaparameter SHALL mean 'none'.
+# Legal values of the 'sec' metaparameter include
+#   'none' (no security for this URI)
+#   'ssl3' (Netscape SSL3)
+#   'tls' (IETF TLS/1.0, RFC 2246 [15])
+# per IPP Model [3] (extensions MAY also be used).
+# A missing 'sec' metaparameter SHALL mean 'none'.
+# Each metaparameter of a list member is delimited by '<'.
+# Each list member (including the last) is delimited by '>'.
+# For example:
+#   'uri=ipp://foo.com< auth=digest< sec=tls< >
+#   'uri=lpr://bar.com< auth=none< sec=none< >
+# Registrations MAY consolidate values for metaparameters,
+# as in the following example:
+#   'uri=ipp://foo.com< auth=basic,digest< sec=tls,ssl3< >
+
+printer-name = STRING
+# REQUIRED for all registrations by conforming SLP SAs
+# IPP 'printer-name'
+# The site-specific administrative name of this printer.
+# This value of this attribute SHOULD be in the language
+# specified in 'printer-natural-language-configured'
+# (although the printer's name may be in any language).
+# This name MAY be the last part of the printer's URI or it
+# MAY be completely unrelated.
+# This name MAY contain characters that are not allowed in a
+# conventional URI (which conforms to RFC 2396 [17]).
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'unknown'.
+
+printer-natural-language-configured = STRING L O
+unknown
+# RECOMMENDED for all registrations by conforming SLP SAs
+# IPP 'natural-language-configured'
+# The configured language in which error and status messages
+# will be generated (by default) by this printer.
+# Also, the (declared) language of the attributes
+# 'printer-name', 'printer-location', 'printer-info',
+# 'printer-make-and-model', 'printer-media-local-supported',
+# 'printer-current-operator', 'printer-service-person'.
+# For example:
+#   'en-us' (US English) or 'fr-fr' (French in France)
+# Legal values of language tags conform to RFC 1766
+# 'Tags for the Identification of Languages' [5].
+# For coherence with IPP Model [3], language tags in this
+# attribute SHALL be lowercase normalized.
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'unknown'.
+# However, it is STRONGLY RECOMMENDED that this attribute
+# be supported and that it be set to a meaningful value.
+
+printer-location = STRING O
+unknown
+# RECOMMENDED for all registrations by conforming SLP SAs
+# IPP 'printer-location'
+# The physical location of this printer.
+# This value of this attribute SHOULD be in the language
+# specified in 'printer-natural-language-configured'.
+# A free form description of this printer's physical
+# location, for example:
+#   'Orlando office, 2nd floor, near the fire escape'
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'unknown'.
+# However, it is STRONGLY RECOMMENDED that this attribute
+# be supported and that it be set to a meaningful value so
+# that users can determine this printer's physical location
+# for printer selection (before print job submission) and
+# for output collection (after print job completion).
+
+printer-info = STRING O
+unknown
+# IPP 'printer-info'
+# Additional descriptive information on this printer.
+# This value of this attribute SHOULD be in the language
+# specified in 'printer-natural-language-configured'.
+# A free form string that may contain any site-specific
+# descriptive information about this printer.
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'unknown'.
+
+printer-more-info = STRING L O
+unknown
+# IPP 'printer-more-info'
+# A URI used to obtain more information about this specific
+# printer.  For example, this could be an 'http:' URI
+# referencing an HTML page accessible to a Web Browser.
+# The information obtained from this URI is intended for
+# end user consumption.
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'unknown'.
+
+printer-make-and-model = STRING O
+unknown
+# IPP 'printer-make-and-model'
+# The manufacturer, make, and model of this printer,
+# a simple text string defined by the manufacturer.
+# This value of this attribute SHOULD be in the language
+# specified in 'printer-natural-language-configured'.
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'unknown'.
+
+printer-ipp-versions-supported = STRING L M O
+none
+# IPP 'ipp-versions-supported'
+# The unordered list of 'major.minor' IPP versions
+# supported by this printer or 'none'.
+# For example:
+#   '1.0, 1.1'
+# Legal values include 'none', '1.0', and '1.1',
+# per IPP Model [3] (extensions MAY also be used).
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'none'.
+
+printer-multiple-document-jobs-supported = STRING L O
+unknown
+# IPP 'multiple-document-jobs-supported'
+# Indicates whether this printer supports more than one
+# document per job.
+# This template attribute is an extended boolean.
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'unknown'.
+unknown, true, false
+
+printer-charset-configured = STRING L O
+utf-8
+# IPP 'charset-configured'
+# The configured charset in which error and status messages
+# will be generated (by default) by this printer.
+# For example:
+#   'utf-8' (ISO 10646/Unicode) or 'iso-8859-1' (Latin1)
+# Legal values of charset tags (names/aliases) come from
+# the IANA Registry of Coded Character Sets [6] and
+# the '(preferred MIME name)' SHALL be used as the tag.
+# For coherence with IPP Model [3], charset tags in this
+# attribute SHALL be lowercase normalized.
+
+printer-charset-supported = STRING L M O
+utf-8
+# IPP 'charset-supported'
+# The possible charsets in which error and status messages
+# may be generated (if requested) by this printer.
+# Also, the possible charsets for printer string attributes
+# set by operator, system administrator, or manufacturer.
+# For example:
+#   'utf-8' (ISO 10646/Unicode) or 'iso-8859-1' (Latin1)
+# Legal values of charset tags (names/aliases) come from
+# the IANA Registry of Coded Character Sets [6] and
+# the '(preferred MIME name)' SHALL be used as the tag.
+# This attribute SHALL include the value 'utf-8', per
+# RFC 2277, 'IETF Policy on Charsets and Languages' [12].
+# For coherence with IPP Model [3], charset tags in this
+# attribute SHALL be lowercase normalized.
+
+printer-generated-natural-language-supported = STRING L M O
+unknown
+# RECOMMENDED for all registrations by conforming SLP SAs
+# IPP 'generated-natural-language-supported'
+# The possible languages in which error and status messages
+# may be generated (if requested) by this printer.
+# Also, the possible languages for printer string attributes
+# set by operator, system administrator, or manufacturer.
+# For example:
+#   'en-us' (US English) or 'fr-fr' (French in France)
+# Legal values of language tags conform to RFC 1766
+# 'Tags for the Identification of Languages' [5].
+# For coherence with IPP Model [3], language tags in this
+# attribute SHALL be lowercase normalized.
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'unknown'.
+# However, it is STRONGLY RECOMMENDED that this attribute
+# be supported and that it be set to a meaningful value.
+
+printer-document-format-supported = STRING L M O
+unknown
+# RECOMMENDED for all registrations by conforming SLP SAs
+# IPP 'document-format-supported'
+# The possible document formats in which data may be
+# interpreted and printed by this printer.
+# Legal values of document formats (MIME types) come from
+# the IANA Registry of Internet Media Types [11].
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'unknown'.
+# However, it is STRONGLY RECOMMENDED that this attribute
+# be supported and that it be set to a meaningful value.
+
+printer-color-supported = STRING L O
+unknown
+# IPP 'color-supported'
+# Indicates whether this printer is capable of any type of
+# color printing at all, including highlight color.
+# This template attribute is an extended boolean.
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'unknown'.
+unknown, true, false
+
+printer-compression-supported = STRING L M O
+none
+# RECOMMENDED for all registrations by conforming SLP SAs
+# IPP 'compression-supported'
+# The unordered list of compression algorithms supported
+# by this printer.
+# For example:
+#   'deflate, gzip'
+# Legal values include
+#   'none'
+#   'deflate' (public domain ZIP)
+#   'gzip' (GNU ZIP)
+#   'compress' (UNIX)
+# per IPP Model [3] (extensions MAY also be used).
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'none'.
+# However, it is STRONGLY RECOMMENDED that this attribute
+# be supported and that it be set to a meaningful value.
+
+printer-pages-per-minute = INTEGER O
+-1
+# IPP 'pages-per-minute'
+# The nominal number of pages per minute which may be
+# output by this printer (e.g., simplex, black-and-white).
+# This attribute is informative, NOT a service guarantee.
+# Typically, it is the value used in marketing literature
+# to describe this printer.
+# A value of '-1' indicates unknown.
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to '-1'.
+
+printer-pages-per-minute-color = INTEGER O
+-1
+# IPP 'pages-per-minute-color'
+# The nominal number of color pages per minute which may be
+# output by this printer (e.g., simplex, color).
+# This attribute is informative, NOT a service guarantee.
+# Typically, it is the value used in marketing literature
+# to describe this printer.
+# A value of '-1' indicates unknown.
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to '-1'.
+
+printer-finishings-supported = STRING L M O
+none
+# IPP 'finishings-supported'
+# The possible finishing operations supported by this
+# printer.
+# Legal values of finishings are defined in IPP Model [3].
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'none'.
+none, staple, punch, cover, bind,
+saddle-stitch, edge-stitch,
+staple-top-left, staple-bottom-left,
+staple-top-right, staple-bottom-right,
+edge-stitch-left, edge-stitch-top,
+edge-stitch-right, edge-stitch-bottom,
+staple-dual-left, staple-dual-top,
+staple-dual-right, staple-dual-bottom
+
+printer-number-up-supported = INTEGER M O
+1
+# IPP 'number-up-supported'
+# The possible numbers of print-stream pages to impose
+# upon a single side of an instance of a selected
+# medium.
+# Legal values of this attribute include 1, 2, and 4 [3].
+# Implementations may support other values.
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to '1'.
+
+printer-sides-supported = STRING L M O
+one-sided
+# IPP 'sides-supported'
+# (Compare with Salutation 'duplex-mode')
+# The number of impression sides (one or two) and the
+# two-sided impression rotations supported by this printer.
+# Salutation 'simplex' == IPP 'one-sided'
+# Salutation 'duplex' == IPP 'two-sided-long-edge'
+# Salutation 'tumble' == IPP 'two-sided-short-edge'
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'one-sided'.
+one-sided, two-sided-long-edge, two-sided-short-edge
+
+printer-media-supported = STRING L M O
+unknown
+# IPP 'media-supported' - only the standard keyword values
+# The standard names/types/sizes (and optional color
+# suffixes) of the media supported by this printer.
+# The values specified are NOT localized according to
+# 'printer-natural-language-configured', but are in a
+# fixed language of 'en-us' (US English).  For example:
+#   'iso-a4' or 'envelope' or 'na-letter-white'
+# Legal values of this attribute conform to ISO 10175
+# 'Document Printing Application (DPA)' [10] and
+# any IANA registered extensions, per IPP Model [3].
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'unknown'.
+
+printer-media-local-supported = STRING M O
+unknown
+# IPP 'media-supported' - only site-specific name values
+# Site-specific names of media supported by this printer.
+# This value of this attribute SHOULD be in the language
+# specified in 'printer-natural-language-configured'
+# (although the media names may be in any language).
+# For example:
+#   'purchasing-form' (site-specific name)
+# as opposed to (in 'media-supported' above):
+#   'na-letter' (standard keyword from ISO 10175 [10]).
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'unknown'.
+
+printer-resolution-supported = STRING L M O
+unknown
+# IPP 'printer-resolution-supported'
+# (Compare with 'printer-xri-supported' in this template)
+# The unordered list of resolutions supported for printing
+# documents by this printer.
+# Each resolution supported is a string with 3 fields:
+# 1) Crossfeed direction resolution (positive integer)
+# 2) Feed direction resolution (positive integer)
+# 3) Resolution unit (enumerated value - see below)
+# Each resolution field is delimited by '>', for example:
+#   '300> 300> dpi>, 600> 600> dpi>'
+# Legal values of resolution unit are
+#   'dpi' (dots per inch)
+#   'dpcm' (dots per centimeter)
+# per IPP Model [3] (extensions SHOULD NOT be used).
+# This attribute is derived from the Printer MIB [7].
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'unknown'.
+
+printer-print-quality-supported = STRING L M O
+unknown
+# IPP 'print-quality-supported'
+# The unordered list of print qualities supported for
+# printing documents on this printer.
+# For example:
+#   'draft, normal'
+# Legal values are defined in IPP Model [3].
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'unknown'.
+unknown, draft, normal, high
+
+printer-job-priority-supported = INTEGER O
+1
+# IPP 'job-priority-supported'
+# (Compare with Salutation 'priority-levels-supported')
+# Indicates the number of job priority levels supported.
+# An IPP conformant printer which supports job priority
+# must always support a full range of priorities from
+# '1' to '100' (to ensure consistent behavior), therefore
+# this template attribute describes the 'granularity'.
+# Legal values of this attribute are from '1' to '100'.
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to '1'.
+
+printer-copies-supported = INTEGER O
+-1
+# IPP 'copies-supported'
+# The maximum number of copies of a document
+# that may be printed as a single job.
+# A value of '0' indicates no maximum limit.
+# A value of '-1' indicates unknown.
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to '-1'.
+
+printer-job-k-octets-supported = INTEGER O
+-1
+# IPP 'job-k-octets-supported'
+# The maximum size in kilobytes (1,024 octets actually)
+# incoming print job that this printer will accept.
+# A value of '0' indicates no maximum limit.
+# A value of '-1' indicates unknown.
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to '-1'.
+
+printer-current-operator = STRING M O
+unknown
+# Printer MIB 'prtGeneralCurrentOperator'
+# The name of the current human operator responsible for
+# operating this printer.  It is suggested that this string
+# include information that would enable other humans to
+# reach the operator, such as a telephone number.
+# This value of this attribute SHOULD be in the language
+# specified in 'printer-natural-language-configured'
+# (although the person's name may be in any language).
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'unknown'.
+
+printer-service-person = STRING M O
+unknown
+# Printer MIB 'prtGeneralServicePerson'
+# The name of the current service person responsible for
+# servicing this printer.  It is suggested that this string
+# include information that would enable other humans to
+# reach the service person, such as a telephone number.
+# This value of this attribute SHOULD be in the language
+# specified in 'printer-natural-language-configured'
+# (although the person's name may be in any language).
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'unknown'.
+
+printer-delivery-orientation-supported = STRING L M O
+unknown
+# Printer MIB 'prtOutputPageDeliveryOrientation'
+# The possible delivery orientations of pages as they are
+# printed and ejected from this printer.
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'unknown'.
+unknown, face-up, face-down
+
+printer-stacking-order-supported = STRING L M O
+unknown
+# Printer MIB 'prtOutputStackingOrder'
+# (Compare with Salutation 'paper-output')
+# The possible stacking order of pages as they are printed
+# and ejected from this printer.
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'unknown'.
+unknown, first-to-last, last-to-first
+
+printer-output-features-supported = STRING L M O
+unknown
+# Printer MIB 'prtOutputFeaturesGroup'
+# (Compare with Salutation 'paper-output')
+# The possible output features supported by this printer.
+# 'bursting' == Printer MIB 'prtOutputBursting'
+# 'decollating' == Printer MIB 'prtOutputDecollating'
+# 'page-collating' == Printer MIB 'prtOutputPageCollated'
+# 'offset-stacking' == Printer MIB 'prtOutputOffestStacking'
+# If this printer information is not known to the SLP SA,
+# then this attribute SHALL be set to 'unknown'.
+unknown, bursting, decollating, page-collating,
+offset-stacking
+
+# -------------------- template ends here ----------------------
+
+# Summary of Required Attributes
+
+#   Attributes are associated with 'service:' URLs in order to provide a 
+#   dynamic search capability to service location clients.  SLP SAs
+#   SHOULD include OPTIONAL attributes in their service registrations.  
+#   
+#   Two (2) of the attributes defined in 'service:printer:' are REQUIRED 
+#   in all compliant service registrations by SLP SAs:  
+#   
+#   SLP Required Attribute                              IPP Generic Schem
+#   ----------------------                              -----------------
+#   printer-xri-supported                               r
+#   printer-name                                        r
+#   
+#   r   RECOMMENDED - Appendix E 'Generic Directory Schema' IPP Model [3]
+#       REQUIRED - SLP 'service:printer:' template
+#   m   Missing - Appendix E 'Generic Directory Schema' IPP Model [3]
+#       REQUIRED - SLP 'service:printer:' template
+
+
+# -----------------------------------------------------------------------
+
+# Rationale for Required Attributes
+
+#   'printer-xri-supported' 
+#   - REQUIRED in SLP 'service:printer:' to consolidate values from the
+#   following three IPP attributes (without parallel ordered attributes):
+#   'printer-uri-supported', 'uri-authentication-supported', and
+#   'uri-security-supported'.  
+#   
+#   All other REQUIRED SLP 'service:printer:' template attributes are
+#   RECOMMENDED in Appendix E 'Generic Directory Schema' IPP Model [3].  
+
+# Summary of Recommended Attributes
+
+#   Attributes are associated with 'service:' URLs in order to provide a 
+#   dynamic search capability to service location clients.  SLP SAs
+#   SHOULD include RECOMMENDED attributes in their service registrations.
+#   
+#   Some of the attributes defined in 'service:printer:' are RECOMMENDED
+#   in all compliant service registrations by SLP SAs:  
+#   
+#   SLP Recommended Attribute                           IPP Generic Schem
+#   -------------------------                           -----------------
+#   printer-location                                    o
+#   printer-natural-language-configured                 m
+#   printer-generated-natural-language-supported        o
+#   printer-document-format-supported                   r
+#   printer-compression-supported                       r
+#   
+#   r   RECOMMENDED - Appendix E 'Generic Directory Schema' IPP Model [3]
+#       OPTIONAL - SLP 'service:printer:'' template (with specified defau
+#   o   OPTIONAL - Appendix E 'Generic Directory Schema' IPP Model [3]
+#       OPTIONAL - SLP 'service:printer:'' template (with specified defau
+#   m   Missing - Appendix E 'Generic Directory Schema' IPP Model [3]
+#       OPTIONAL - SLP 'service:printer:'' template (with specified defau
+
+
+# -----------------------------------------------------------------------
+
+# Rationale for Recommended Attributes
+
+#   'printer-location' 
+#   - RECOMMENDED in SLP 'service:printer:' template to aid users in
+#   selecting appropriate printers (by physical proximity); 
+#   - OPTIONAL in Appendix E 'Generic Directory Schema' of IPP Model [3].
+#   
+#   'printer-natural-language-configured' 
+#   - RECOMMENDED in SLP 'service:printer:' template to specify language 
+#   tags for 'printer-name', 'printer-location', 'printer-info',
+#   'printer-make-and-model', 'printer-media-local-supported',
+#   'printer-current-operator', and 'printer-service-person' attributes; 
+#   - missing in Appendix E 'Generic Directory Schema' of IPP Model [3], 
+#   because the corresponding IPP attributes are language tagged in-band
+#   via the IPP 'textWithLanguage' syntax.  
+#   
+#   'printer-generated-natural-language-supported' 
+#   - RECOMMENDED in SLP 'service:printer:' template to aid users in
+#   selecting appropriate printers; 
+#   - OPTIONAL in Appendix E 'Generic Directory Schema' of IPP Model [3].
+#   
+#   All other RECOMMENDED SLP 'service:printer:' template attributes are 
+#   RECOMMENDED in Appendix E 'Generic Directory Schema' IPP Model [3].  
+
+
+# Summary of Optional Attributes
+
+#   Attributes are associated with 'service:' URLs in order to provide a 
+#   dynamic search capability to service location clients.  SLP SAs MAY
+#   include OPTIONAL attributes in their service registrations.  
+#   
+#   Most of the attributes defined in 'service:printer:' are OPTIONAL in
+#   all compliant service registrations by SLP SAs:  
+#   
+#   SLP Optional Attribute                              IPP Generic Schem
+#   ----------------------                              -----------------
+#   printer-info                                        o
+#   printer-more-info                                   o
+#   printer-make-and-model                              r
+#   printer-ipp-versions-supported                      r
+#   printer-multiple-document-jobs-supported            o
+#   printer-charset-configured                          m (SLP enhancemen
+#   printer-charset-supported                           o
+#   printer-color-supported                             r
+#   printer-finishings-supported                        r
+#   printer-number-up-supported                         o
+#   printer-sides-supported                             r
+#   printer-media-supported                             r
+#   printer-media-local-supported                       r (site-specific)
+#   printer-pages-per-minute                            o
+#   printer-pages-per-minute-color                      o
+#   printer-resolution-supported                        o
+#   printer-print-quality-supported                     o
+#   printer-job-priority-supported                      m (SLP enhancemen
+#   printer-copies-supported                            m (SLP enhancemen
+#   printer-job-k-octets-supported                      m (SLP enhancemen
+#   printer-current-operator                            m (from Printer M
+#   printer-service-person                              m (from Printer M
+#   printer-delivery-orientation-supported              m (from Printer M
+#   printer-stacking-order-supported                    m (from Printer M
+#   printer-output-features-supported                   m (from Printer M
+#   
+#   r   RECOMMENDED - Appendix E 'Generic Directory Schema' IPP Model [3]
+#       OPTIONAL - SLP 'service:printer:'' template (with specified default)
+#   o   OPTIONAL - Appendix E 'Generic Directory Schema' IPP Model [3]
+#       OPTIONAL - SLP 'service:printer:'' template (with specified default)
+#   m   Missing - Appendix E 'Generic Directory Schema' IPP Model [3]
+#       OPTIONAL - SLP 'service:printer:'' template (with specified default)
+
+# -----------------------------------------------------------------------
+
+# 7.1.  Rationale for Optional Attributes
+
+#   'printer-location', 'printer-make-and-model',
+#   'printer-color-supported', 'printer-finishings-supported',
+#   'printer-sides-supported', 'printer-media-supported', and
+#   'printer-media-local-supported' 
+#   - OPTIONAL in SLP 'service:printer:' template because network print
+#   servers may not be able to determine this information; 
+#   - RECOMMENDED in Appendix E 'Generic Directory Schema' of IPP Model
+#   [3].  
+#   
+#   'printer-ipp-versions-supported' 
+#   - OPTIONAL in SLP 'service:printer:' template because network
+#   printers may not support IPP; 
+#   - RECOMMENDED in Appendix E 'Generic Directory Schema' of IPP Model
+#   [3].  
+#   
+#   'printer-charset-configured' 
+#   - OPTIONAL in SLP 'service:printer:'' template to aid users in
+#   selecting appropriate printers; 
+#   - missing in Appendix E 'Generic Directory Schema' of IPP Model [3].
+#   
+#   'printer-job-priority-supported', 'printer-copies-supported', and
+#   'printer-job-k-octets-supported' 
+#   - OPTIONAL in SLP 'service:printer:'' template to aid users in
+#   selecting appropriate printers; 
+#   - missing in Appendix E 'Generic Directory Schema' of IPP Model [3].
+#   
+#   'printer-current-operator', 'printer-service-person',
+#   'printer-delivery-orientation-supported',
+#   'printer-stacking-order-supported', and
+#   'printer-output-features-supported' 
+#   - OPTIONAL in SLP 'service:printer:'' template to aid users in
+#   selecting appropriate printers; 
+#   - missing in Appendix E 'Generic Directory Schema' of IPP Model [3], 
+#   because they are only specified in the Printer MIB [7], not in IPP.  
+#   
+#   All other OPTIONAL SLP 'service:printer:' template attributes are
+#   also OPTIONAL in Appendix E 'Generic Directory Schema' IPP Model [3].
+
+# -----------------------------------------------------------------------
+
+# Summary of Attribute Origins
+
+#   The following table summarizes the origins of all of the attributes
+#   in the 'service:printer:' template (except 'template-xxx' generic
+#   attributes defined in "Service Templates and service: Schemes" [4]
+#   and required for all 'service:' templates).  The two source documents
+#   are IPP Model [3] and Printer MIB [7].  
+#   
+#   Attribute Name                                  IPP     Printer MIB
+#   --------------                                  ---     -----------
+#   printer-xri-supported                           X
+#   printer-name                                    X
+#   printer-natural-language-configured             X
+#   printer-location                                X
+#   printer-info                                    X
+#   printer-more-info                               X
+#   printer-make-and-model                          X
+#   printer-ipp-versions-supported                  X
+#   printer-multiple-document-jobs-supported        X
+#   printer-charset-configured                      X
+#   printer-charset-supported                       X
+#   printer-generated-natural-language-supported    X
+#   printer-document-format-supported               X
+#   printer-color-supported                         X
+#   printer-compression-supported                   X
+#   printer-pages-per-minute                        X
+#   printer-pages-per-minute-color                  X
+#   printer-finishings-supported                    X
+#   printer-number-up-supported                     X
+#   printer-sides-supported                         X
+#   printer-media-supported                         X
+#   printer-media-local-supported                   X
+#   printer-resolution-supported                    X
+#   printer-print-quality-supported                 X
+#   printer-job-priority-supported                  X
+#   printer-copies-supported                        X
+#   printer-job-k-octets-supported                  X
+#   printer-current-operator                                X
+#   printer-service-person                                  X
+#   delivery-orientation-supported                          X
+#   stacking-order-supported                                X
+#   output-features-supported                               X
+#   
+#   'printer-xri-supported' 
+#   - REQUIRED in SLP 'service:printer:' to consolidate values from the
+#   following three IPP attributes (without parallel ordered attributes):
+#   'printer-uri-supported', 'uri-authentication-supported', and
+#   'uri-security-supported'.  
+
+# -----------------------------------------------------------------------
+
+# IANA Considerations
+
+#   Registration of this 'service:printer:' template will follow the
+#   procedures defined in section 4 'A Procedure for Standardizing New
+#   Service Types' and section 5 'IANA Considerations' of "Service
+#   Templates and service: Schemes" [4].  
+
+# -----------------------------------------------------------------------
+
+# Internationalization Considerations
+
+#   All attribute values in registrations using the 'service:printer:'
+#   template MUST be encoded in UTF-8 characters, as required by "Service
+#   Location Protocol, Version 2" [13].  Also, a language tag for all of 
+#   the textual attributes in the 'service:printer:' template SHOULD be
+#   supplied in the attribute 'printer-natural-language-configured'.
+#   Therefore, all registrations using the 'service:printer:' template
+#   conform to "IETF Policy on Character Sets and Languages" [12].  
+
+# -----------------------------------------------------------------------
+
+# References
+
+#   [1] J. Veizades, E. Guttman, C. Perkins, S. Kaplan.  Service Location
+#   Protocol, RFC 2165, June 1997.  
+#   
+#   [2] L. McLaughlin.  Line Printer Daemon Protocol, RFC 1179, August
+#   1990.  
+#   
+#   [3] R. deBry, T. Hastings, R. Herriot, S. Isaacson, P. Powell.
+#   IPP/1.1:  Model and Semantics, <draft-ietf-ipp-model-v11-06.txt>
+#   (work in progress), March 2000.  
+#   
+#   [4] E. Guttman, C. Perkins, J. Kempf.  Service Templates and service:
+#   Schemes, RFC 2609, June 1999.  (Updates RFC 2165) 
+#   
+#   [5] H. Alvestrand.  Tags for the Identification of Languages, RFC
+#   1766.  March 1995.  
+#   
+#   [6] IANA Registry of Coded Character Sets:
+#   ftp://ftp.isi.edu/in-notes/iana/assignments/character-sets.  
+#   
+#   [7] R. Smith, F. Wright, T. Hastings, S. Zilles, J. Gyllenskog.
+#   Printer MIB, RFC 1759, March 1995.  
+#   
+#   [8] Salutation Consortium, Inc.  Salutation Architecture
+#   Specification V2.0, December 1996.  
+#   
+#   [9] R. Herriot, S. Butler, P. Moore, R. Turner.  IPP/1.1:  Encoding
+#   and Transport, <draft-ietf-ipp-protocol-v11-05.txt> (work in
+#   progress), March 2000.  
+#   
+#   [10] Information Technology - Document Printing Application (DPA),
+#   ISO/IEC 10175, June 1996.  
+#   
+#   [11] IANA Registry of Internet Media Types (also called MIME types):
+#   ftp://ftp.isi.edu/in-notes/iana/assignments/media-types 
+#   
+#   [12] H. Alvestrand.  IETF Policy on Character Sets and Languages, RFC
+#   2277, January 1998.  
+#   
+#   [13] E. Guttman, C. Perkins, J. Veizades, M. Day.  Service Location
+#   Protocol, Version 2, RFC 2608, June 1999.  (Updates RFC 2165) 
+#   
+#   [14] S. Bradner.  Key words for use in RFCs to Indicate Requirement
+#   Levels, RFC 2119, March 1997.  
+#   
+#   [15] T. Dierks, C. Allen.  TLS Protocol Version 1.0, RFC 2246,
+#   January 1999.  
+#   
+#   [16] M. Wahl, T. Howes, S. Kille.  Lightweight Directory Access
+#   Protocol Version 3, RFC 2251, December 1997.  
+#   
+#   [17] T. Berners-Lee, R. Fielding, L. Masinter.  URI Generic Syntax,
+#   RFC 2396, August 1998.  
+#   
+#   [18] J. Franks, P. Hallam-Baker, J. Hostetler, S. Lawrence, P. Leach,
+#   A. Luotonen, L. Stewart.  HTTP Authentication: Basic and Digest
+#   Access Authentication, RFC 2617, June 1999.  
+
+# -----------------------------------------------------------------------
+
+# Acknowledgments
+
+#   This document is a product of the Service Location and Internet
+#   Printing Protocol Working Groups of the Internet Engineering Task
+#   Force (IETF).  Comments should be sent to the srvloc&srvloc.org and
+#   ipp&pwg.org mailing lists.  
+#   
+#   Thanks to Jean Beha (Xerox), Jim Erwin (Novell), Pat Fleming (IBM),
+#   Tom Hastings (Xerox), Bob Herriot (Xerox), Ken Jones (Sun), James
+#   Kempf (Sun), Harry Lewis (IBM), Hugo Parra (Novell), Todd Rupper
+#   (Novell), and Randy Turner (formerly Sharp).  
+#   
+#   Appendix E 'Generic Directory Schema' in IPP/1.1 Model [3]
+#   (recommended and optional attributes for registering IPP printers)
+#   was the primary input to this 'service:printer:' template.  
+
+# -----------------------------------------------------------------------
+
+# Authors' Addresses
+
+#   Questions about this memo can be directed to:
+#   
+#   Pete St. Pierre
+#   Sun Microsystems
+#   901 San Antonio Avenue
+#   Palo Alto, CA 94043
+#   USA
+#   Phone: 650-786-5790
+#   EMail: Pete.StPierre&eng.sun.com
+#   
+#   Scott Isaccson
+#   Novell
+#   122 E 1700 S
+#   Provo, UT 84606
+#   USA
+#   Phone: 801-861-7366
+#   EMail: sisaacson&novell.com
+#   
+#   Ira McDonald
+#   High North
+#   221 Ridge Ave
+#   Grand Marais, MI 49839
+#   USA
+#   Phone: 906-494-2434 (or 2697)
+#   Email: imcdonald&sharplabs.com
+
+# -----------------------------------------------------------------------
+
+# Full Copyright Statement
+
+#   Copyright (C) The Internet Society (2000).  All Rights Reserved.  
+#   
+#   This document and translations of it may be copied and furnished to
+#   others, and derivative works that comment on or otherwise explain it 
+#   or assist in its implementation may be prepared, copied, published
+#   and distributed, in whole or in part, without restriction of any
+#   kind, provided that the above copyright notice and this paragraph are
+#   included on all such copies and derivative works.  However, this
+#   document itself may not be modified in any way, such as by removing
+#   the copyright notice or references to the Internet Society or other
+#   Internet organizations, except as needed for the purpose of
+#   developing Internet standards in which case the procedures for
+#   copyrights defined in the Internet Standards process must be
+#   followed, or as required to translate it into languages other than
+#   English.  
+#   
+#   The limited permissions granted above are perpetual and will not be
+#   revoked by the Internet Society or its successors or assigns.  
+#   
+#   This document and the information contained herein is provided on an 
+#   "AS IS" basis and THE INTERNET SOCIETY AND THE INTERNET ENGINEERING
+#   TASK FORCE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+#   BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+#   HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+#   MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE." 
+
+

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<xs:schema
+    xmlns:dhcp="urn:ietf:params:xml:ns:geopriv:lm:dhcp"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:bt="urn:ietf:params:xml:ns:geopriv:lm:basetypes"
+    targetNamespace="urn:ietf:params:xml:ns:geopriv:lm:dhcp"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified">
+
+  <xs:annotation>
+    <xs:appinfo
+    source="urn:ietf:params:xml:schema:geopriv:lm:dhcp">
+    </xs:appinfo>
+    <xs:documentation source="http://www.rfc-editor.org/rfc/rfc7105.txt">
+      This schema defines a set of DHCP location measurements.
+    </xs:documentation>
+  </xs:annotation>
+
+ <xs:import namespace="urn:ietf:params:xml:ns:geopriv:lm:basetypes"/>
+
+  <!-- DHCP Relay Agent Information Option -->
+  <xs:element name="dhcp-rai" type="dhcp:dhcpType"/>
+  <xs:complexType name="dhcpType">
+    <xs:complexContent>
+      <xs:restriction base="xs:anyType">
+    <xs:sequence>
+      <xs:element name="giaddr" type="bt:ipAddressType"/>
+      <xs:element name="circuit"
+              type="xs:hexBinary" minOccurs="0"/>
+      <xs:element name="remote"
+              type="dhcp:dhcpRemoteType" minOccurs="0"/>
+      <xs:element name="subscriber"
+              type="xs:hexBinary" minOccurs="0"/>
+      <xs:any namespace="##other" processContents="lax"
+          minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:anyAttribute namespace="##any" processContents="lax"/>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="dhcpRemoteType">
+    <xs:simpleContent>
+      <xs:extension base="xs:hexBinary">
+    <xs:attribute name="enterprise" type="xs:positiveInteger"
+              use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+</xs:schema>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar
+    xmlns="http://relaxng.org/ns/structure/1.0"
+    xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+    xmlns:slb="urn:ietf:params:xml:ns:lost1:slb"
+    ns="urn:ietf:params:xml:ns:lost1"
+    datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <include href="lost.rng">
+  <!-- redefinition of LoST elements -->
+    <start>
+      <choice>
+        <ref name="findService"/>
+        <ref name="listServices"/>
+        <ref name="listServicesByLocation"/>
+        <ref name="getServiceBoundary"/>
+        <ref name="findServiceResponse"/>
+        <ref name="listServicesResponse"/>
+        <ref name="listServicesByLocationResponse"/>
+        <ref name="getServiceBoundaryResponse"/>
+        <ref name="errors"/>
+        <ref name="redirect"/>
+
+        <!-- New in RFC6197 -->
+        <ref name="getServiceListBoundary"/>
+        <ref name="getServiceListBoundaryResponse"/>
+      </choice>
+    </start>
+
+    <define name="listServicesByLocation">
+      <element name="listServicesByLocation">
+        <ref name="requestLocation"/>
+        <ref name="commonRequestPattern"/>
+        <optional>
+          <attribute name="recursive">
+            <data type="boolean"/>
+            <a:defaultValue>true</a:defaultValue>
+          </attribute>
+        </optional>
+
+        <!-- New in RFC6197 -->
+        <optional>
+          <ref name="serviceListBoundaryRequest"/>
+        </optional>
+      </element>
+    </define>
+
+    <define name="listServicesByLocationResponse">
+      <element name="listServicesByLocationResponse">
+        <ref name="serviceList"/>
+        <ref name="commonResponsePattern"/>
+        <ref name="locationUsed"/>
+        <!-- New in RFC6197 -->
+        <optional>
+          <choice>
+            <ref name="serviceListBoundary"/>
+            <ref name="serviceListBoundaryReference"/>
+          </choice>
+        </optional>
+      </element>
+    </define>
+
+  </include>
+
+  <define name="serviceListBoundaryRequest">
+    <element name="slb:serviceListBoundaryRequest">
+      <optional>
+        <attribute name="type">
+          <choice>
+            <value>value</value>
+            <value>reference</value>
+          </choice>
+          <a:defaultValue>reference</a:defaultValue>
+        </attribute>
+      </optional>
+    </element>
+  </define>
+
+  <define name="serviceListBoundary">
+   <oneOrMore>
+    <element name="slb:serviceListBoundary">
+      <optional>
+        <ref name="expires"/>
+      </optional>
+      <ref name="locationInformation"/>
+      <ref name="extensionPoint"/>
+    </element>
+   </oneOrMore>
+  </define>
+
+  <define name="serviceListBoundaryReference">
+    <element name="slb:serviceListBoundaryReference">
+      <ref name="source"/>
+      <attribute name="serviceListKey">
+        <data type="token"/>
+      </attribute>
+    <ref name="extensionPoint"/>
+    </element>
+  </define>
+  <define name="getServiceListBoundary">
+    <element name="slb:getServiceListBoundary">
+      <attribute name="serviceListKey">
+        <data type="token"/>
+      </attribute>
+    <ref name="extensionPoint"/>
+    </element>
+  </define>
+
+  <define name="getServiceListBoundaryResponse">
+    <element name="slb:getServiceListBoundaryResponse">
+     <ref name="serviceListBoundary"/>
+     <ref name="path"/>
+     <ref name="extensionPoint"/>
+    </element>
+  </define>
+</grammar>
+

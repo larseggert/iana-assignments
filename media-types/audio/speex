@@ -1,0 +1,93 @@
+(registered by RFC5574)
+
+Media type name: audio
+
+Media subtype name: speex
+
+Required parameters:
+
+   rate:  RTP timestamp clock rate, which is equal to the sampling
+      rate in Hz.  The sampling rate MUST be either 8000, 16000, or
+      32000.
+
+Optional parameters:
+
+   ptime:  SHOULD be a multiple of 20 msec [RFC4566]
+
+   maxptime:  SHOULD be a multiple of 20 msec [RFC4566]
+
+   vbr:  variable bit-rate - either 'on', 'off', or 'vad' (defaults
+      to 'off').  If 'on', variable bit-rate is enabled.  If 'off',
+      disabled.  If set to 'vad', then constant bit-rate is used, but
+      silence will be encoded with special short frames to indicate a
+      lack of voice for that period.  This parameter is a preference
+      to the encoder.
+
+   cng:  comfort noise generation - either 'on' or 'off' (defaults to
+      'off').  If 'off', then silence frames will be silent; if 'on',
+      then those frames will be filled with comfort noise.  This
+      parameter is a preference to the encoder.
+
+   mode:  Comma-separated list of supported Speex decoding modes, in
+      order of preference.  The first is the most preferred and the
+      remaining is in decreasing order of preference.  The valid
+      modes are different for narrowband and wideband, and are
+      defined as follows:
+
+      *  {1,2,3,4,5,6,7,8,any} for narrowband
+
+      *  {0,1,2,3,4,5,6,7,8,9,10,any} for wideband and ultra-wideband
+
+      The 'mode' parameters may contain multiple values.  In this
+      case, the remote party SHOULD configure its encoder using the
+      first supported mode provided.  When 'any' is used, the offerer
+      indicates that it supports all decoding modes.  The 'mode'
+      parameter value MUST always be quoted.  If the 'mode' parameter
+      is not provided, the mode value is considered to be equivalent
+      to 'mode="3,any"' in narrowband and 'mode="8,any"' in wideband
+      and ultra-wideband.  Note that each Speex frame does contain
+      the mode (or bit-rate) that should be used to decode it.  Thus,
+      an application MUST be able to decode any Speex frame unless
+      the SDP clearly specifies that some modes are not supported
+      (e.g., by not including 'mode="any"').  Indicating support for
+      a given set of decoding modes also implies that the
+      implementation support the same encoding modes.
+
+Encoding considerations:
+
+   This media type is framed and binary, see Section 4.8 in
+   [RFC4288].
+
+Security considerations: See Section 6.
+
+Interoperability considerations:
+
+   None.
+
+Published specification:
+
+   RFC 5574.
+
+Applications that use this media type:
+
+   Audio streaming and conferencing applications.
+
+Additional information: none.
+
+Person and e-mail address to contact for further information:
+
+   Alfred E. Heggestad: aeh&db.org
+
+Intended usage: COMMON
+
+Restrictions on usage:
+
+   This media type depends on RTP framing, and hence is only defined
+   for transfer via RTP [RFC3550].  Transport within other framing
+   protocols is not defined at this time.
+
+Author: Alfred E. Heggestad
+
+Change controller:
+
+   IETF Audio/Video Transport working group delegated from the IESG.

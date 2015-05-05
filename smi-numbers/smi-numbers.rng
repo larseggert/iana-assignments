@@ -1,0 +1,427 @@
+<?xml version='1.0'?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  ns="http://www.iana.org/assignments">
+
+  <include href="../_support/iana-registry.rng"/>
+
+  <define name="value_name_description_xref">
+    <zeroOrMore>
+      <element name="record">
+        <optional>
+          <attribute name="date"><ref name="genericDate"/></attribute>
+        </optional>
+        <optional>
+          <attribute name="updated"><ref name="genericDate"/></attribute>
+        </optional>
+        <element name="value"><text/></element>
+        <element name="name"><text/></element>
+        <optional><element name="description"><text/></element></optional>
+        <optional><ref name="references"/></optional>
+      </element>
+    </zeroOrMore>
+  </define>
+
+  <define name="value_name_xref">
+    <zeroOrMore>
+      <element name="record">
+        <optional>
+          <attribute name="date"><ref name="genericDate"/></attribute>
+        </optional>
+        <optional>
+          <attribute name="updated"><ref name="genericDate"/></attribute>
+        </optional>
+        <element name="value"><text/></element>
+        <element name="name"><text/></element>
+        <optional><ref name="references"/></optional>
+      </element>
+    </zeroOrMore>
+  </define>
+
+  <define name="value_name_type_xref">
+    <zeroOrMore>
+      <element name="record">
+        <optional>
+          <attribute name="date"><ref name="genericDate"/></attribute>
+        </optional>
+        <optional>
+          <attribute name="updated"><ref name="genericDate"/></attribute>
+        </optional>
+        <element name="value"><text/></element>
+        <element name="name"><text/></element>
+        <optional><element name="type"><text/></element></optional>
+        <optional><ref name="references"/></optional>
+      </element>
+    </zeroOrMore>
+  </define>
+
+  <define name="value_description_xref">
+    <zeroOrMore>
+      <element name="record">
+        <optional>
+          <attribute name="date"><ref name="genericDate"/></attribute>
+        </optional>
+        <optional>
+          <attribute name="updated"><ref name="genericDate"/></attribute>
+        </optional>
+        <element name="value"><text/></element>
+        <optional><element name="description"><text/></element></optional>
+        <optional><ref name="references"/></optional>
+      </element>
+    </zeroOrMore>
+  </define>
+
+  <define name="reg_empty">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <ref name="footnotes"/>
+    </element>
+  </define>
+
+  <define name="reg_value_name_description_xref">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <ref name="value_name_description_xref"/>
+      <ref name="footnotes"/>
+    </element>
+  </define>
+
+  <define name="reg_value_name_xref">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <ref name="value_name_xref"/>
+      <ref name="footnotes"/>
+    </element>
+  </define>
+
+  <define name="reg_value_description_xref">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <ref name="value_description_xref"/>
+      <ref name="footnotes"/>
+    </element>
+  </define>
+
+  <start>
+    <element name="registry">
+      <ref name="registryMeta"/>
+
+      <!-- SMI Network Management Directory Codes -->
+      <ref name="reg_empty"/>
+
+      <!-- SMI Network Management MGMT Codes -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <ref name="value_name_description_xref"/>
+        <!-- SMI Network Management MGMT Codes Internet-standard MIB -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- Prefix: iso.org.dod.internet.mgmt.mib-2.interface.ifTable.ifEntry.ifType -->
+        <ref name="reg_empty"/>
+        <ref name="footnotes"/>
+      </element>
+
+      <!-- ifType definitions -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <ref name="value_name_description_xref"/>
+        <!-- Internet-standard MIB - mib-2.interface.ifTable.ifEntry.ifType.tunnelType -->
+        <ref name="reg_value_name_description_xref"/>
+        <ref name="footnotes"/>
+      </element>
+
+      <!-- Internet-standard MIB - Transmission Group  -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <ref name="value_name_description_xref"/>
+        <!-- MIB Transmission Group - Point-to-Point Protocol -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- MIB Transmission Group - MPLS STD MIB -->
+        <ref name="reg_value_name_xref"/>
+        <ref name="footnotes"/>
+      </element>
+
+      <!-- MIB - Remote Network Monitoring  -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <ref name="value_name_type_xref"/>
+        <!-- rmonConformance (Value 20) -->
+        <element name="registry">
+          <ref name="registryMeta"/>
+          <ref name="value_name_type_xref"/>
+        </element>
+        <ref name="footnotes"/>
+      </element>
+
+      <!-- Internet-standard MIB - Network Services Monitoring -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <!-- mib-2.application.assocTable.assocEntry.assocApplicationProtocol -->
+        <ref name="reg_value_name_xref"/>
+        <!-- mib-2.application.applTCPProtoID (1.3.6.1.2.1.27.4) -->
+        <ref name="reg_empty"/>
+        <!-- mib-2.application.applUDPProtoID (1.3.6.1.2.1.27.5) -->
+        <ref name="reg_empty"/>
+        <ref name="footnotes"/>
+      </element>
+
+      <!-- Internet-standard MIB - Mail Monitoring -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <!-- mib-2.mta.MailGroupTable.MailGroupEntry.mtaGroupMailProtocol -->
+        <ref name="reg_value_name_xref"/>
+        <ref name="footnotes"/>
+      </element>
+
+      <!-- SMI mib-2 snanauMIB Codes -->
+      <ref name="reg_value_name_description_xref"/>
+
+      <!-- spdActions -->
+      <ref name="reg_value_name_description_xref"/>
+
+      <!-- IPFIX-SELECTOR-MIB Functions -->
+      <ref name="reg_value_name_description_xref"/>
+
+      <!-- SMI pib PIB Codes -->
+      <ref name="reg_value_name_description_xref"/>
+
+      <!-- SMI Experimental Codes -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <ref name="value_name_description_xref"/>
+        <!-- SMI experimental PIB codes -->
+        <ref name="reg_value_name_description_xref"/>
+        <ref name="footnotes"/>
+      </element>
+
+      <!-- SMI Private Codes -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <ref name="value_name_description_xref"/>
+        <!-- SMI Private Enterprise Codes -->
+        <ref name="reg_empty"/>
+        <ref name="footnotes"/>
+      </element>
+
+      <!-- SMI Security Codes -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <ref name="value_name_description_xref"/>
+        <!-- SMI Security for Integrity Codes -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI Security for Confidentiality Codes -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI Security for Mechanism Codes -->
+        <ref name="reg_value_name_description_xref"/>
+        <!--SMI Security for S/MIME Mail Security 1.2.840.113549.1.9.16-->
+        <ref name="reg_value_description_xref"/>
+        <!--SMI Security for S/MIME 1.2.840.113549.1.9.16.0-->
+        <ref name="reg_value_description_xref"/>
+        <!--SMI Security for S/MIME 1.2.840.113549.1.9.16.1-->
+        <ref name="reg_value_description_xref"/>
+        <!--SMI Security for S/MIME 1.2.840.113549.1.9.16.2-->
+        <ref name="reg_value_description_xref"/>
+        <!--SMI Security for S/MIME 1.2.840.113549.1.9.16.3-->
+        <ref name="reg_value_description_xref"/>
+        <!--SMI Security for S/MIME 1.2.840.113549.1.9.16.4-->
+        <ref name="reg_value_description_xref"/>
+        <!--SMI Security for S/MIME 1.2.840.113549.1.9.16.5-->
+        <ref name="reg_value_description_xref"/>
+        <!--SMI Security for S/MIME 1.2.840.113549.1.9.16.6-->
+        <ref name="reg_value_description_xref"/>
+        <!--SMI Security for S/MIME 1.2.840.113549.1.9.16.7-->
+        <ref name="reg_value_description_xref"/>
+        <!--SMI Security for S/MIME 1.2.840.113549.1.9.16.8-->
+        <ref name="reg_value_description_xref"/>
+        <!--SMI Security for S/MIME 1.2.840.113549.1.9.16.9-->
+        <ref name="reg_value_description_xref"/>
+        <!--SMI Security for S/MIME 1.2.840.113549.1.9.16.10-->
+        <ref name="reg_value_description_xref"/>
+        <!--SMI Security for S/MIME 1.2.840.113549.1.9.16.11-->
+        <ref name="reg_value_description_xref"/>
+        <!--SMI Security for S/MIME 1.2.840.113549.1.9.16.12-->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for Mechanism SPKM Codes -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI Security for Mechanism MSP-Based IDUP (MIM) Codes -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI Security for PKIX -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX Module Identifier -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX Certificate Extension (1.3.6.1.5.5.7.1) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX Policy Qualifier (1.3.6.1.5.5.7.2) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX Extended Key Purpose (1.3.6.1.5.5.7.3) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX CMP Information Types (1.3.6.1.5.5.7.4) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX CRMF Registration (1.3.6.1.5.5.7.5) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX CRMF Registration Controls (1.3.6.1.5.5.7.5.1) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX CRMF Registration Information (1.3.6.1.5.5.7.5.2) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX Algorithms (1.3.6.1.5.5.7.6) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX CMC Controls (1.3.6.1.5.5.7.7) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX CMC GLA Requests and Responses (1.3.6.1.5.5.7.7.99) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX Other Name Forms (1.3.6.1.5.5.7.8) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX Personal Data Attributes (1.3.6.1.5.5.7.9) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX Attribute Certificate Attributes (1.3.6.1.5.5.7.10) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX Qualified Certificate Statements (1.3.6.1.5.5.7.11) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX CMC Content Types (1.3.6.1.5.5.7.12) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX OIDs Used Only for Testing (1.3.6.1.5.5.7.13) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX Certificate Policies (1.3.6.1.5.5.7.14) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX CMC Error Types (1.3.6.1.5.5.7.15) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX Revocation Information Types (1.3.6.1.5.5.7.16) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX SCVP Check Types (1.3.6.1.5.5.7.17) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX SCVP Want Back Types (1.3.6.1.5.5.7.18) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX SCVP Validation Policies and Algorithms (1.3.6.1.5.5.7.19) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX SCVP Name Validation Policy Errors (1.3.6.1.5.5.7.19.2) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX SCVP Basic Validation Policy Errors (1.3.6.1.5.5.7.19.3) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX SCVP Distinguished Name Validation Policy Errors (1.3.6.1.5.5.7.19.4) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX Other Logotype Identifiers (1.3.6.1.5.5.7.20) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX Proxy Certificate Policy Languages (1.3.6.1.5.5.7.21) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX Proxy Matching Rules (1.3.6.1.5.5.7.22) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX Subject Key Identifier Semantics (1.3.6.1.5.5.7.23) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX Access Descriptor (1.3.6.1.5.5.7.48) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for PKIX OCSP (1.3.6.1.5.5.7.48.1) -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for Mechanism IPsec Codes -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI Security for Mechanism isakmpOakley Codes -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI Security for Mechanism IPSec Certificate Usage Codes -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI Security for Mechanism ASN.1 Modules -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI Security for IAKERB GSS-API Mechanism Codes -->
+        <ref name="reg_value_description_xref"/>        
+        <!-- SMI Security for LTANS -->
+        <ref name="reg_value_description_xref"/>        
+        <!-- SMI Security for LTANS Module Identifier -->
+        <ref name="reg_value_description_xref"/>        
+        <!-- SMI Security for LTANS CMS Content Type -->
+        <ref name="reg_value_description_xref"/>        
+        <!-- SMI Security for LTANS ERS Encryption Method -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for Mechanism msec Codes -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for Mechanism msec module-identifers -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for Mechanism msec content-types -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for Mechanism msec security-suites -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for Mechanism msec protocol-identifiers -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for Mechanism msec rekey-methods -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for Mechanism msec rekey-reliability-methods -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for Mechanism msec distributed-operations-methods -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for Mechanism msec data-policies -->
+        <ref name="reg_value_description_xref"/>
+        <!-- SMI Security for Mechanism gsscma Codes -->
+        <ref name="reg_value_description_xref"/>
+        <!-- Object Identifiers for Application Bridging for federated Access -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- iso.org.dod.internet.security.mechanisms.abfab.mechanisms -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- iso.org.dod.internet.security.mechanisms.abfab.nametypes -->
+        <ref name="reg_value_name_description_xref"/>
+        <ref name="footnotes"/>
+      </element>
+
+      <!-- SMI Security for Name System Designators Codes (nametypes) -->
+      <ref name="reg_value_name_xref"/>
+
+      <!-- SMI Security Services Codes -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <ref name="value_name_description_xref"/>
+        <!-- SMI Security Services Codes (conf) -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI Security Services Codes (integrity) -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI Security Services Codes (doa) -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI Security Services Codes (non-rep) -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI Security Services Codes (acc) -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI Security Services Codes (dflow) -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI Security Services Codes (time) -->
+        <ref name="reg_value_name_description_xref"/>
+        <ref name="footnotes"/>
+      </element>
+
+     <!-- SMI SNMPv2 Codes -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <ref name="value_name_xref"/>
+        <!-- SNMPv2 snmpDomains Codes -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI SNMPv2 snmpModules Codes -->
+        <ref name="reg_value_name_description_xref"/>
+        <ref name="footnotes"/>
+      </element>
+
+      <!-- SNMP Management Architecture - Security Subsystem (SnmpSecurityModel) -->
+      <ref name="reg_empty"/>
+
+      <!-- SNMP Management Architecture - Message Processing Subsystem (SnmpMessageProcessingModel) -->
+      <ref name="reg_empty"/>
+
+     <!-- SMI mail Codes -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <ref name="value_name_description_xref"/>
+        <!-- SMI mail MIME MHS Codes -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI mail MIME MHS headings Codes -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI mail MIME MHS bodies Codes -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI mail MIME MHS bodies data Codes -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI mail MIME MHS bodies parameter Codes -->
+        <ref name="reg_value_name_description_xref"/>
+        <!-- SMI mail MIME-MHS core Codes -->
+        <ref name="reg_value_name_description_xref"/>
+        <ref name="footnotes"/>
+      </element>
+
+      <!-- SMI Features -->
+      <ref name="reg_empty"/>
+
+      <ref name="people"/>
+    </element>
+  </start>
+
+</grammar>

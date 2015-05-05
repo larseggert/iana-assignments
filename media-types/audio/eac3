@@ -1,0 +1,120 @@
+(RFC 4598 published July 2006, subtype last updated July 2006)
+
+Type name: audio
+
+Subtype name: eac3
+
+Required parameter:
+
+o  rate: The RTP timestamp clock rate that is equal to the audio
+   sampling rate.  Permitted rates are 32000, 44100, and 48000.
+
+Optional parameter:
+
+o  bitStreamConfig: The configuration of programs and substreams in
+   the bit stream, expressed as a sequence of ASCII characters.  This
+   parameter can serve two purposes.  First, during the creation of a
+   session, the bitStreamConfig parameter might be used to negotiate
+   a match between the requirements of a bit stream and the
+   capabilities of a receiver to avoid using network bandwidth for
+   data that cannot be used.  Second, it makes the configuration of
+   the bit stream explicit to the receiver so that whenever a packet
+   is lost, the receiver can identify which kind of frame(s) has been
+   lost to aid error mitigation.
+
+   The format for the value for this parameter is to represent each
+   substream of the bit stream by a single character indicating its
+   type, immediately followed by the number of audio channels
+   resulting if a frame of that substream (plus any other required
+   substreams) is decoded.  Note that even though Low-Frequency
+   Effects (LFE) channels are often described as "fractional"
+   channels (e.g., the ".1" in 5.1), for this parameter, an LFE
+   channel is counted as one (e.g., a 5.1-channel configuration is
+   indicated as 6).  The configuration of the bit stream MUST match
+   the value of this parameter for the duration of the session.
+
+   Allowed values for the substream type are as follows:
+
+   i - Independent substream.
+   d - Dependent substream.
+
+The E-AC-3 specification [ETSI] defines which configurations of bit
+streams are legal, which constrains the values the bitStreamConfig
+parameter will take.  Each program starts with, and contains exactly
+one, independent substream ('i').  Each independent substream is
+followed by between 0 and 8 dependent substreams ('d'), which belong
+to the same program.  See Section 2.1.2 for more discussion of
+programs and substreams.
+
+For example, consider a bit stream containing two programs:
+
+*  the first program with
+
+   +  a six-channel independent substream
+   +  a dependent substream containing the additional channels needed
+      for eight channels
+   +  a second dependent substream containing the further channels
+      needed for 14 channels
+
+*  along with a second program with
+
+   +  another six-channel independent substream
+   +  a dependent substream containing the additional channels needed
+      for eight channels
+
+Then the configuration of the bit stream is indicated as follows:
+
+   bitStreamConfig = i6d8d14i6d8
+
+When the bitStreamConfig parameter is being used in an offer/answer
+exchange, zero (0) for the number of channels for a substream in an
+answer is used to indicate a substream that the answerer desires not
+to receive.
+
+Encoding considerations:
+
+   This media type is framed and contains binary data.
+
+Security considerations:
+
+   See Section 6 of RFC 4598.
+
+Interoperability considerations:
+
+To maintain interoperability with AC-3-capable end-points, in cases
+where negotiation is possible, an E-AC-3 end-point SHOULD declare
+itself also as AC-3 capable (i.e., supporting also "audio/ac3" as
+specified in RFC 4184 [RFC4184]).  Note that all E-AC-3 end-points
+are required to be AC-3 capable.
+
+Published specification:
+
+   RFC 4598 and ETSI TS 102.366 [ETSI].
+
+Applications that use this media type:
+
+   Multichannel audio compression of audio, and audio for video.
+
+Additional information:
+
+   Magic number(s):  The first two octets of an E-AC-3 frame are
+      always the synchronization word, which has the hex value
+      0x0B77.
+
+Person & email address to contact for further information:
+
+   Brian Link <bdl&dolby.com> IETF AVT working group.
+
+Intended usage:
+
+   COMMON
+
+Restrictions on usage:
+
+   This media type depends on RTP framing, and hence is only defined
+   for transfer via RTP [RFC3550].  Transport within other framing
+   protocols is not defined at this time.
+
+Author/Change controller:
+
+   IETF Audio/Video Transport Working Group delegated from the IESG.

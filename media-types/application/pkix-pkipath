@@ -1,0 +1,65 @@
+(RFC 6066 published January 2011, subtype last updated January 2011)
+
+MIME media type name: application
+MIME subtype name: pkix-pkipath
+Required parameters: none
+
+Optional parameters: version (default value is "1")
+
+Encoding considerations:
+   Binary; this MIME type is a DER encoding of the ASN.1 type
+   PkiPath, defined as follows:
+     PkiPath ::= SEQUENCE OF Certificate
+     PkiPath is used to represent a certification path.  Within the
+     sequence, the order of certificates is such that the subject of
+     the first certificate is the issuer of the second certificate,
+     etc.
+   This is identical to the definition published in [X509-4th-TC1];
+   note that it is different from that in [X509-4th].
+
+   All Certificates MUST conform to [RFC5280].  (This should be
+   interpreted as a requirement to encode only PKIX-conformant
+   certificates using this type.  It does not necessarily require
+   that all certificates that are not strictly PKIX-conformant must
+   be rejected by relying parties, although the security consequences
+   of accepting any such certificates should be considered
+   carefully.)
+
+   DER (as opposed to BER) encoding MUST be used.  If this type is
+   sent over a 7-bit transport, base64 encoding SHOULD be used.
+
+Security considerations:
+   The security considerations of [X509-4th] and [RFC5280] (or any
+   updates to them) apply, as well as those of any protocol that uses
+   this type (e.g., TLS).
+
+   Note that this type only specifies a certificate chain that can be
+   assessed for validity according to the relying party's existing
+   configuration of trusted CAs; it is not intended to be used to
+   specify any change to that configuration.
+
+Interoperability considerations:
+   No specific interoperability problems are known with this type,
+   but for recommendations relating to X.509 certificates in general,
+   see [RFC5280].
+
+Published specification: This document and [RFC5280].
+
+Applications that use this media type:
+   TLS.  It may also be used by other protocols or for general
+   interchange of PKIX certificate chains.
+
+Additional information:
+   Magic number(s): DER-encoded ASN.1 can be easily recognized.
+     Further parsing is required to distinguish it from other ASN.1
+     types.
+   File extension(s): .pkipath
+   Macintosh File Type Code(s): not specified
+
+Person & email address to contact for further information:
+   Magnus Nystrom <mnystrom&microsoft.com>
+
+Intended usage: COMMON
+
+Change controller: IESG <iesg&ietf.org>
+

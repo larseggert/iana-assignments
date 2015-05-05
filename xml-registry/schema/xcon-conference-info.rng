@@ -1,0 +1,501 @@
+default namespace = "urn:ietf:params:xml:ns:conference-info"
+namespace xcon = "urn:ietf:params:xml:ns:xcon-conference-info"
+
+start = element conference-info { conference-type }
+# CONFERENCE TYPE
+conference-type =
+  attribute entity { text }
+  & anyAttribute
+  & conference-description-type?
+  & element host-info { host-type }?
+  & element conference-state { conference-state-type }?
+  & element users { users-type }?
+  & element sidebars-by-ref { uris-type }?
+  & element sidebars-by-val { sidebars-by-val-type }?
+  & element xcon:floor-information { floor-information-type }?
+  & anyElement*
+# CONFERENCE DESCRIPTION TYPE
+conference-description-type =
+  element conference-description {
+    attribute xml:lang { xsd:language }?
+    & anyAttribute
+    & element display-text { text }?
+    & element subject { text }?
+    & element free-text { text }?
+    & element keywords {
+        list { xsd:string* }
+      }?
+    & element conf-uris { uris-type }?
+    & element service-uris { uris-type }?
+    & element maximum-user-count { xsd:int }?
+    & element available-media { conference-media-type }?
+    & element xcon:language { xsd:language }?
+    & element xcon:allow-sidebars { xsd:boolean }?
+    & element xcon:cloning-parent { xsd:anyURI }?
+    & element xcon:sidebar-parent { xsd:anyURI }?
+    & element xcon:conference-time { conferencetime-type }?
+    & anyElement*
+  }
+# HOST TYPE
+host-type =
+  element display-text { text }?
+  & element web-page { xsd:anyURI }?
+  & element uris { uris-type }?
+  & anyElement*
+  & anyAttribute
+# CONFERENCE STATE TYPE
+conference-state-type =
+  anyAttribute
+  & element user-count { xsd:unsignedInt }?
+  & element active { xsd:boolean }?
+  & element locked { xsd:boolean }?
+  & element xcon:allow-conference-event-subscription { xsd:boolean }?
+  & anyElement*
+# CONFERENCE MEDIA TYPE
+conference-media-type =
+  anyAttribute
+  & element entry { conference-medium-type }*
+  & anyElement*
+# CONFERENCE MEDIUM TYPE
+conference-medium-type =
+  attribute label { text }
+  & anyAttribute
+  & element display-text { text }?
+  & element type { text }?
+  & element status { media-status-type }?
+  & element xcon:mixing-mode { mixing-mode-type }?
+  & element xcon:codecs { codecs-type }?
+  & element xcon:controls { control-type }?
+  & anyElement*
+# URIs TYPE
+uris-type =
+  anyAttribute
+  & element entry { uri-type }*
+  & anyElement*
+# URI TYPE
+uri-type =
+  element uri { xsd:anyURI }
+  & element display-text { text }?
+  & element purpose { text }?
+  & element modified { execution-type }?
+  & element xcon:conference-password { text }*
+  & anyElement*
+  & anyAttribute
+# USERS TYPE
+users-type =
+  anyAttribute
+  & element user { user-type }*
+  & element xcon:join-handling { join-handling-type }?
+  & element xcon:user-admission-policy { user-admission-policy-type }?
+  & element xcon:allowed-users-list { allowed-users-list-type }?
+  & element xcon:deny-users-list { deny-user-list-type }?
+  & anyElement*
+# USER TYPE
+user-type =
+  attribute entity { xsd:anyURI }
+  & anyAttribute
+  & element display-text { text }?
+  & element associated-aors { uris-type }?
+  & element roles {
+      element entry { single-role-type }+
+    }?
+  & element languages {
+      list { xsd:language }
+    }?
+  & element cascaded-focus { xsd:anyURI }?
+  & element endpoint { endpoint-type }*
+  & element xcon:provide-anonymity { provide-anonymity-type }?
+  & element xcon:allow-refer-users-dynamically { xsd:boolean }?
+  & element xcon:allow-invite-users-dynamically { xsd:boolean }?
+  & element xcon:allow-remove-users-dynamically { xsd:boolean }?
+  & anyElement*
+# ENDPOINT TYPE
+endpoint-type =
+  attribute entity { text }
+  & anyAttribute
+  & element display-text { text }?
+  & element referred { execution-type }?
+  & element status { endpoint-status-type }?
+  & element joining-method { joining-type }?
+  & element joining-info { execution-type }?
+  & element disconnection-method { disconnection-type }?
+  & element disconnection-info { execution-type }?
+  & element media { media-type }*
+  & element call-info { call-type }?
+  & anyElement*
+# ENDPOINT STATUS TYPE
+endpoint-status-type =
+  "pending"
+  | "dialing-out"
+  | "dialing-in"
+  | "alerting"
+  | "on-hold"
+  | "connected"
+  | "muted-via-focus"
+  | "disconnecting"
+  | "disconnected"
+  | free-text-extension
+# JOINING TYPE
+joining-type =
+  "dialed-in" | "dialed-out" | "focus-owner" | free-text-extension
+# DISCONNECTION TYPE
+disconnection-type =
+  "departed" | "booted" | "failed" | "busy" | free-text-extension
+# EXECUTION TYPE
+execution-type =
+  element when { xsd:dateTime }?
+  & element reason { text }?
+  & element by { xsd:anyURI }?
+  & anyAttribute
+# CALL TYPE
+call-type =
+  element sip { sip-dialog-id-type }
+  & anyElement*
+  & anyAttribute
+# SIP DIALOG ID TYPE
+sip-dialog-id-type =
+  element display-text { text }?
+  & element call-id { text }
+  & element from-tag { text }
+  & element to-tag { text }
+  & anyElement*
+  & anyAttribute
+# MEDIA TYPE
+media-type =
+  attribute id { xsd:int }
+  & anyAttribute
+  & element display-text { text }?
+  & element type { text }?
+  & element label { text }?
+  & element src-id { text }?
+  & element status { media-status-type }?
+  & element xcon:to-mixer { mixer-type }?
+  & element xcon:from-mixer { mixer-type }?
+  & anyElement*
+# MEDIA STATUS TYPE
+media-status-type =
+  "recvonly"
+  | "sendonly"
+  | "sendrecv"
+  | "inactive"
+  | free-text-extension
+# SIDEBARS-BY-VAL TYPE
+sidebars-by-val-type =
+  anyAttribute
+  & element entry { conference-type }*
+  & anyElement*
+# CONFERENCE TIME
+conferencetime-type =
+  anyAttribute
+  & element xcon:entry {
+      element xcon:base { text },
+      element xcon:mixing-start-offset {
+        time-type,
+        attribute required-participant { single-role-type },
+        anyAttribute
+      }?,
+      element xcon:mixing-end-offset {
+        time-type,
+        attribute required-participant { single-role-type },
+        anyAttribute
+      }?,
+      element xcon:can-join-after-offset { time-type }?,
+      element xcon:must-join-before-offset { time-type }?,
+      element xcon:request-user { time-type }?,
+      element xcon:notify-end-of-conference { xsd:nonNegativeInteger }?,
+      element xcon:allowed-extend-mixing-end-offset { xsd:boolean }?,
+      anyElement*
+    }*
+# TIME TYPE
+time-type = xsd:dateTime { pattern = ".+T.+Z.*" }
+# SINGLE ROLE TYPE
+single-role-type =
+  xsd:string "none"
+  | xsd:string "administrator"
+  | xsd:string "moderator"
+  | xsd:string "user"
+  | xsd:string "observer"
+  | xsd:string "participant"
+  | free-text-extension
+# MIXING MODE TYPE
+mixing-mode-type =
+  xsd:string "moderator-controlled"
+  | xsd:string "FCFS"
+  | xsd:string "automatic"
+  | free-text-extension
+# CODECS TYPE
+codecs-type =
+  attribute decision { decision-type }
+  & anyAttribute
+  & element xcon:codec { codec-type }*
+  & anyElement*
+# CODEC TYPE
+codec-type =
+  attribute name { text }
+  & attribute policy { policy-type }
+  & anyAttribute
+  & element xcon:subtype { text }?
+  & anyElement*
+# DECISION TYPE
+decision-type =
+  xsd:string "automatic"
+  | xsd:string "moderator-controlled"
+  | free-text-extension
+# POLICY TYPE
+policy-type =
+  xsd:string "allowed" | xsd:string "disallowed" | free-text-extension
+# CONTROL TYPE
+control-type =
+  anyAttribute
+  & element xcon:mute { xsd:boolean }?
+  & element xcon:pause-video { xsd:boolean }?
+  & element xcon:gain { gain-type }?
+  & element xcon:video-layout { video-layout-type }?
+  & anyElement*
+# GAIN TYPE
+gain-type = xsd:int { minInclusive = "-127" maxInclusive = "127" }
+# VIDEO LAYOUT TYPE
+video-layout-type =
+  xsd:string "single-view"
+  | xsd:string "dual-view"
+  | xsd:string "dual-view-crop"
+  | xsd:string "dual-view-2x1"
+  | xsd:string "dual-view-2x1-crop"
+  | xsd:string "quad-view"
+  | xsd:string "multiple-3x3"
+  | xsd:string "multiple-4x4"
+  | xsd:string "multiple-5x1"
+  | xsd:string "automatic"
+  | free-text-extension
+# FLOOR INFORMATION TYPE
+floor-information-type =
+  anyAttribute
+  & element xcon:conference-ID { xsd:unsignedLong }?
+  & element xcon:allow-floor-events { xsd:boolean }?
+  & element xcon:floor-request-handling { floor-request-type }?
+  & element xcon:conference-floor-policy { conference-floor-policy }?
+  & anyElement*
+# FLOOR REQUEST TYPE
+floor-request-type =
+  xsd:string "block" | xsd:string "confirm" | free-text-extension
+# CONFERENCE FLOOR POLICY
+conference-floor-policy =
+  anyAttribute
+  & element xcon:floor {
+      attribute id { text }
+      & anyAttribute
+      & element xcon:media-label { xsd:nonNegativeInteger }+
+      & element xcon:algorithm { algorithm-type }?
+      & element xcon:max-floor-users { xsd:nonNegativeInteger }?
+      & element xcon:moderator-id { xsd:nonNegativeInteger }?
+      & anyElement*
+    }+
+# ALGORITHM POLICY
+algorithm-type =
+  xsd:string "moderator-controlled"
+  | xsd:string "FCFS"
+  | xsd:string "random"
+  | free-text-extension
+# USERS ADMISSION POLICY
+user-admission-policy-type =
+  xsd:string "closedAuthenticated"
+  | xsd:string "openAuthenticated"
+  | xsd:string "anonymous"
+  | free-text-extension
+# JOIN HANDLING TYPE
+join-handling-type =
+  xsd:string "block"
+  | xsd:string "confirm"
+  | xsd:string "allow"
+  | xsd:string "authenticate"
+  | xsd:string "directed-operator"
+  | free-text-extension
+# DENY USERLIST
+deny-user-list-type =
+  anyAttribute
+  & element xcon:target {
+      attribute uri { xsd:anyURI },
+      anyAttribute
+    }*
+  & anyElement*
+# ALLOWED USERS LIST TYPE
+allowed-users-list-type =
+  anyAttribute
+  & element xcon:target { target-type }*
+  & element xcon:persistent-list { persistent-list-type }?
+  & anyElement*
+# PERSISTENT LIST TYPE
+persistent-list-type =
+  element xcon:user {
+    attribute name { text }
+    & attribute nickname { text }
+    & attribute id { text }
+    & anyAttribute
+    & element xcon:e-mail { text }*
+    & anyElement*
+  }*
+  & anyElement*
+# TARGET TYPE
+target-type =
+  attribute uri { xsd:anyURI },
+  attribute method { method-type },
+  anyAttribute
+# METHOD TYPE
+method-type =
+  xsd:string "dial-in"
+  | xsd:string "dial-out"
+  | xsd:string "refer"
+  | free-text-extension
+# ANONYMITY TYPE
+provide-anonymity-type =
+  "private" | "semi-private" | "hidden" | free-text-extension
+# MIXER TYPE
+mixer-type =
+  attribute name { mixer-name-type }
+  & anyAttribute
+  & element xcon:controls { control-type }*
+  & element xcon:floor {
+      attribute id { text },
+      anyAttribute,
+      xsd:boolean
+    }*
+  & anyElement*
+# MIXER NAME TYPE
+mixer-name-type =
+  "VideoIn" | "VideoOut" | "AudioOut" | "AudioIn" | free-text-extension
+
+# FREE TEXT EXTENSION
+#
+
+free-text-extension = text
+
+# *********************************
+# EXTENSIBILITY OF THE SCHEMA
+# *********************************
+
+# EXTENSIBILITY ELEMENTS
+#
+
+anyElement =
+  element * - (conference-description
+               | host-info
+               | conference-state
+               | users
+               | sidebars-by-ref
+               | sidebars-by-val
+               | display-text
+               | subject
+               | free-text
+               | keywords
+               | conf-uris
+               | service-uris
+               | maximum-user-count
+               | available-media
+               | web-page
+               | uris
+               | uri
+               | user-count
+               | active
+               | locked
+               | entry
+               | type
+
+               | status
+               | purpose
+               | modified
+               | user
+               | associated-aors
+               | roles
+               | languages
+               | cascaded-focus
+               | endpoint
+               | referred
+               | joining-method
+               | joining-info
+               | disconnection-method
+               | disconnection-info
+               | media
+               | call-info
+               | when
+               | reason
+               | by
+               | sip
+               | call-id
+               | from-tag
+               | to-tag
+               | label
+               | src-id
+               | xcon:conference-password
+               | xcon:mixing-mode
+               | xcon:codecs
+               | xcon:controls
+               | xcon:language
+               | xcon:allow-sidebars
+               | xcon:cloning-parent
+               | xcon:sidebar-parent
+               | xcon:allow-conference-event-subscription
+               | xcon:to-mixer
+               | xcon:provide-anonymity
+               | xcon:allow-refer-users-dynamically
+               | xcon:allow-invite-users-dynamically
+               | xcon:allow-remove-users-dynamically
+               | xcon:from-mixer
+               | xcon:join-handling
+               | xcon:user-admission-policy
+               | xcon:allowed-users-list
+               | xcon:deny-users-list
+               | xcon:floor-information
+               | xcon:conference-time
+               | xcon:provide-anonymity
+               | xcon:floor
+               | xcon:entry
+               | xcon:mixing-start-offset
+               | xcon:mixing-end-offset
+               | xcon:can-join-after-offset
+               | xcon:must-join-before-offset
+               | xcon:request-user
+               | xcon:notify-end-of-conference
+               | xcon:allowed-extend-mixing-end-offset
+               | xcon:codec
+               | xcon:subtype
+               | xcon:mute
+               | xcon:pause-video
+               | xcon:gain
+               | xcon:video-layout
+               | xcon:conference-ID
+               | xcon:allow-floor-events
+               | xcon:floor-request-handling
+               | xcon:conference-floor-policy
+               | xcon:media-label
+               | xcon:algorithm
+               | xcon:max-floor-users
+               | xcon:moderator-id
+               | xcon:target
+               | xcon:persistent-list
+               | xcon:e-mail
+               | xcon:user) { anyExtension }
+anyExtension =
+  (attribute * { text }
+   | any)*
+any =
+  element * {
+    (attribute * { text }
+     | text
+     | any)*
+  }
+
+# EXTENSIBILITY ATTRIBUTES
+#
+
+anyAttribute =
+  attribute * - (xml:lang
+                 | entity
+                 | required-participant
+                 | label
+                 | decision
+                 | name
+                 | policy
+                 | uri
+                 | method
+                 | id
+                 | nickname) { text }*

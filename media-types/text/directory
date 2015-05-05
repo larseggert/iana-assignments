@@ -1,0 +1,490 @@
+(defined in RFC2425, deprecated by RFC6350)
+
+MIME media type name: text
+
+MIME subtype name: directory
+
+Required parameters: charset
+
+The "charset" parameter is as defined in [RFC-2046] for other body
+parts.  It is used to identify the default character set used within
+the body part.
+
+Optional parameters: profile
+
+The "profile" parameter is used to convey the type(s) of entity(ies)
+to which the directory information pertains and the likely set of
+information associated with the entity(ies). It is intended only as a
+guide to applications interpreting the information contained within
+the body part. It SHOULD NOT be used to exclude or require particular
+pieces of information unless a profile definition specifically calls
+for this behavior. Unless specifically forbidden by a particular
+profile definition, a text/directory content type can contain
+arbitrary attribute/value pairs.
+
+The value of the "profile" parameter is defined as follows.  Profile
+names are case insensitive (i.e., the profile name "vCard" is the
+same as "VCARD" and "vcard" and "vcArD").
+
+      profile = x-name / iana-token
+
+      x-name = "x-" 1*(ALPHA / DIGIT / "-")
+          ; Names beginning with "x-" or "X-" are
+          ; reserved for experimental use not intended for released
+          ; products, or for use in bilateral agreements.
+
+      iana-token = <a publicly-defined extension token, registered
+                     with IANA, as specified in Section 9 of this
+                     document>
+
+Encoding considerations
+
+The default encoding is 8bit. Otherwise, as specified by the
+Content-Transfer-Encoding header field.
+
+Security considerations
+
+Directory information can be public or it can be protected from
+unauthorized access by the directory service in which it resides.
+Once the information leaves its native service, there can be no
+guarantee that the same care will be taken by all services handling
+the information.  Furthermore, this specification defines no access
+control mechanism by which information can be protected, or by which
+access control information can be conveyed.  Note that the integrity
+and privacy of a text/directory body part can be protected by
+enclosing it within an appropriate MIME-based security mechanism.
+
+Interoperability considerations
+
+In order to make sense of directory information, applications must
+share a common understanding of the types of information contained
+within the Content-Type (the directory schema).  This schema
+information is not defined in this document, but rather in companion
+documents (e.g., [MIME-VCARD]) that follow the requirements specified
+in this document, or in bilateral agreements between communicating
+parties.
+
+Published specification
+
+The text/directory Content-Type contains directory information,
+typically pertaining to a single directory entity or group of
+entities.  The content consists of one or more lines in the format
+given below.
+
+Line delimiting and folding
+
+Individual lines within the MIME text/directory Content Type body are
+delimited by the [RFC-822] line break, which is a CRLF sequence
+(ASCII decimal 13, followed by ASCII decimal 10). Long logical lines
+of text can be split into a multiple-physical-line representation
+using the following folding technique.
+
+A logical line MAY be continued on the next physical line anywhere
+between two characters by inserting a CRLF immediately followed by a
+single white space character (space, ASCII decimal 32, or horizontal
+tab, ASCII decimal 9).  At least one character must be present on the
+folded line. Any sequence of CRLF followed immediately by a single
+white space character is ignored (removed) when processing the
+content type.  For example the line:
+
+DESCRIPTION:This is a long description that exists on a long line.
+
+Can be represented as:
+
+DESCRIPTION:This is a long description
+  that exists on a long line.
+
+It could also be represented as:
+
+DESCRIPTION:This is a long descrip
+ tion that exists o
+ n a long line.
+
+The process of moving from this folded multiple-line representation
+of a type definition to its single line representation is called
+unfolding.  Unfolding is accomplished by regarding CRLF immediately
+followed by a white space character (namely HTAB ASCII decimal 9 or
+SPACE ASCII decimal 32) as equivalent to no characters at all (i.e.,
+the CRLF and single white space character are removed).
+
+ABNF content-type definition
+
+The following ABNF uses the notation of RFC 2234, which also defines
+CRLF, WSP, DQUOTE, VCHAR, ALPHA, and DIGIT.  After the unfolding of
+any folded lines as described above, the syntax for a line of this
+content type is as follows:
+
+contentline  = [group "."] name *(";" param) ":" value CRLF
+   ; When parsing a content line, folded lines MUST first
+   ; be unfolded according to the unfolding procedure
+   ; described above.
+   ; When generating a content line, lines longer than 75
+   ; characters SHOULD be folded according to the folding
+   ; procedure described above.
+
+group        = 1*(ALPHA / DIGIT / "-")
+
+name         = x-name / iana-token
+
+iana-token   = 1*(ALPHA / DIGIT / "-")
+   ; identifier registered with IANA
+
+x-name       = "x-" 1*(ALPHA / DIGIT / "-")
+   ; Names that begin with "x-" or "X-" are
+   ; reserved for experimental use, not intended for released
+   ; products, or for use in bilateral agreements.
+
+param        = param-name "=" param-value *("," param-value)
+
+param-name   = x-name / iana-token
+
+param-value  = ptext / quoted-string
+
+ptext  = *SAFE-CHAR
+
+value = *VALUE-CHAR
+      / valuespec      ; valuespec defined in section 5.8.4
+
+quoted-string = DQUOTE *QSAFE-CHAR DQUOTE
+
+NON-ASCII    = %x80-FF
+   ; use restricted by charset parameter
+   ; on outer MIME object (UTF-8 preferred)
+
+QSAFE-CHAR   = WSP / %x21 / %x23-7E / NON-ASCII
+   ; Any character except CTLs, DQUOTE
+
+SAFE-CHAR    = WSP / %x21 / %x23-2B / %x2D-39 / %x3C-7E / NON-ASCII
+   ; Any character except CTLs, DQUOTE, ";", ":", ","
+
+VALUE-CHAR   = WSP / VCHAR / NON-ASCII
+   ; any textual character
+
+A line that begins with a white space character is a continuation of
+the previous line, as described above. The white space character and
+immediately preceeding CRLF should be discarded when reconstructing
+the original line. Note that this line-folding convention differs
+from that found in RFC 822, in that the sequence <CRLF><WSP> found
+anywhere in the content indicates a continued line and should be
+removed.
+
+Various type names and the format of the corresponding values are
+defined as specified in Section 11.  Specifications MAY impose
+ordering on the type constructs within a body part, though none is
+required by default.  The various x-name constructs are used for
+bilaterally-agreed upon type names, parameter names and parameter
+values, or for use in experimental settings.
+
+Type names and parameter names are case insensitive (e.g., the type
+name "fn" is the same as "FN" and "Fn"). Parameter values MAY be case
+sensitive or case insensitive, depending on their definition.
+
+The group construct is used to group related attributes together.
+The group name is a syntactic convention used to indicate that all
+type names prefaced with the same group name SHOULD be grouped
+together when displayed by an application. It has no other
+significance.  Implementations that do not understand or support
+grouping MAY simply strip off any text before a "." to the left of
+the type name and present the types and values as normal.
+
+Each attribute defined in the text/directory body MAY have multiple
+values, if allowed in the definition of the profile in which the
+attribute is used. The general rule for encoding multi-valued items
+is to simply create a new content line for each value (including the
+type name).  However, it should be noted that some value types
+support encoding multiple values in a single content line by
+separating the values with a comma ",".  This approach has been taken
+for several of the content types defined below (date, time, integer,
+float), for space-saving reasons.
+
+Pre-defined Parameters
+
+The following parameters and value types are defined for general use.
+
+      predefined-param = encodingparm
+                       / valuetypeparm
+                       / languageparm
+                       / contextparm
+
+      encodingparm = "encoding" "=" encodingtype
+
+      encodingtype = "b"       ; from RFC 2047
+                 / iana-token  ; registered as described in
+                               ; section 15 of this document
+
+      valuetypeparm = "value" "=" valuetype
+
+      valuetype = "uri"        ; genericurl from secion 5 of RFC 1738
+                 / "text"
+                 / "date"
+                 / "time"
+                 / "date-time" ; date time
+                 / "integer"
+                 / "boolean"
+                 / "float"
+                 / x-name
+                 / iana-token  ; registered as described in
+                               ; section 15 of this document
+
+      languageparm = "language" "=" Language-Tag
+          ; Language-Tag is defined in section 2 of RFC 1766
+
+      contextparm = "context" "=" context
+
+      context = x-name
+              / iana-token
+
+The "language" type parameter is used to identify data in multiple
+languages.  There is no concept of "default" language, except as
+specified by any "Content-Language" MIME header parameter that is
+present.  The value of the "language" type parameter is a language
+tag as defined in Section 2 of [RFC-1766].
+
+The "context" type parameter is used to identify a context (e.g., a
+protocol) used in interpreting the value. This is used, for example,
+in the "source" type, defined below.
+
+The "encoding" type parameter is used to specify an alternate
+encoding for a value.  If the value contains a CRLF, it must be
+encoded, since CRLF is used to separate lines in the content-type
+itself.  Currently, only the "b" encoding is supported.
+
+The "b" encoding can also be useful for binary values that are mixed
+with other text information in the body part (e.g., a certificate).
+Using a per-value "b" encoding in this case leaves the other
+information in a more readable form. The encoded base 64 value can be
+split across multiple physical lines in the content type by using the
+line folding technique described above.
+
+The Content-Transfer-Encoding header field is used to specify the
+encoding used for the body part as a whole. The "encoding" type
+parameter is used to specify an encoding for a particular value
+(e.g., a certificate).  In this case, the Content-Transfer-Encoding
+header might specify "8bit", while the one certificate value might
+specify an encoding of "b" via an "encoding=b" type parameter.
+
+The Content-Transfer-Encoding and the encodings of individual types
+given by the "encoding" type parameter are independent of one
+another.  When encoding a text/directory body part for transmission,
+individual type encodings are performed first, then the entire body
+part is encoded according to the Content-Transfer-Encoding.  When
+decoding a text/directory body part, the Content-Transfer-Encoding is
+decoded first, and then any individual types with an "encoding" type
+parameter are decoded.
+
+The "value" parameter is optional, and is used to identify the value
+type (data type) and format of the value.  The use of these
+predefined formats is encouraged even if the value parameter is not
+explicity used.  By defining a standard set of value types and their
+formats, existing parsing and processing code can be leveraged.
+
+Including the value type explicitly as part of each property provides
+an extra hint to keep parsing simple and support more generalized
+applications.  For example a search engine would not have to know the
+particular value types for all of the items for which it is
+searching.  Because the value type is explicit in the definition, the
+search engine could look for dates in any item type and provide
+results that can still be interpreted.
+
+
+Pre-defined Value Types
+
+The format for values corresponding to the predefined valuetype
+specifications given above are defined.
+
+valuespec =  text-list
+           / genericurl       ; from section 5 of RFC 1738
+           / date-list
+           / time-list
+           / date-time-list
+           / boolean
+           / integer-list
+           / float-list
+           / iana-valuespec
+
+text-list = *TEXT-LIST-CHAR *("," *TEXT-LIST-CHAR)
+
+TEXT-LIST-CHAR = "\\" / "\," / "\n"
+               / <any VALUE-CHAR except , or \ or newline>
+    ; Backslashes, newlines, and commas must be encoded.
+    ; \n or \N can be used to encode a newline.
+
+date-list = date *("," date)
+
+time-list = time *("," time)
+
+date-time-list = date "T" time *("," date "T" time)
+
+boolean = "TRUE" / "FALSE"
+
+integer-list = integer *("," integer)
+
+integer = [sign] 1*DIGIT
+
+float-list = float *("," float)
+
+float = [sign] 1*DIGIT ["." 1*DIGIT]
+
+sign = "+" / "-"
+
+date = date-fullyear ["-"] date-month ["-"] date-mday
+
+date-fullyear = 4 DIGIT
+
+date-month = 2 DIGIT     ;01-12
+
+date-mday = 2 DIGIT      ;01-28, 01-29, 01-30, 01-31
+                         ;based on month/year
+
+time = time-hour [":"] time-minute [":"] time-second [time-secfrac]
+        [time-zone]
+
+time-hour = 2 DIGIT      ;00-23
+
+time-minute = 2 DIGIT    ;00-59
+
+time-second = 2 DIGIT    ;00-60 (leap second)
+
+time-secfrac = "," 1*DIGIT
+
+time-zone = "Z" / time-numzone
+
+time-numzome = sign time-hour [":"] time-minute
+
+iana-valuespec = <a publicly-defined valuetype format, registered
+                  with IANA, as defined in section 15 of this
+                  document>
+
+Some specific notes on the value types and formats:
+
+"text": The "text" value type should be used to identify values that
+contain human-readable text. The character set and language in which
+the text is represented is controlled by the charset content-header
+and the language type parameter and content-header.
+
+      Examples for "text":
+                 this is a text value
+                 this is one value,this is another
+                 this is a single value\, with a comma encoded
+
+A formatted text line break in a text value type MUST be represented
+as the character sequence backslash (ASCII decimal 92) followed by a
+Latin small letter n (ASCII decimal 110) or a Latin capital letter N
+(ASCII decimal 78), that is "\n" or "\N".
+
+For example a multiple line DESCRIPTION value of:
+
+Mythical Manager
+Hyjinx Software Division
+BabsCo, Inc.
+
+could be represented as:
+
+DESCRIPTION:Mythical Manager\nHyjinx Software Division\n
+ BabsCo\, Inc.\n
+
+demonstrating the \n literal formatted line break technique, the
+CRLF-followed-by-space line folding technique, and the backslash
+escape technique.
+
+"uri": The "uri" value type should be used to identify values that
+are referenced by a URI (including a Content-ID URI), instead of
+encoded in-line. These value references might be used if the value is
+too large, or otherwise undesirable to include directly. The format
+for the URI is as defined in RFC 1738.
+
+    Examples for "uri":
+               http://www.foobar.com/my/picture.jpg
+               ldap://ldap.foobar.com/cn=babs%20jensen
+
+"date", "time", and "date-time": Each of these value types is based
+on a subset of the definitions in ISO 8601 standard. Profiles MAY
+place further restrictions on "date" and "time" values.  Multiple
+"date" and "time" values can be specified using the comma-separated
+notation, unless restricted by a profile.
+
+    Examples for "date":
+                1985-04-12
+                1996-08-05,1996-11-11
+                19850412
+
+    Examples for "time":
+                10:22:00
+                102200
+                10:22:00.33
+                10:22:00.33Z
+                10:22:33,11:22:00
+                10:22:00-08:00
+
+    Examples for "date-time":
+                1996-10-22T14:00:00Z
+                1996-08-11T12:34:56Z
+                19960811T123456Z
+                1996-10-22T14:00:00Z,1996-08-11T12:34:56Z
+
+"boolean": The "boolean" value type is used to express boolen values.
+These values are case insensitive.
+
+    Examples: TRUE
+              false
+              True
+
+"integer": The "integer" value type is used to express signed
+integers in decimal format. If sign is not specified, the value is
+assumed positive "+". Multiple "integer" values can be specified
+using the comma-separated notation, unless restricted by a profile.
+
+    Examples: 1234567890
+              -1234556790
+              +1234556790,432109876
+
+"float": The "float" value type is used to express real numbers. If
+sign is not specified, the value is assumed positive "+". Multiple
+"float" values can be specified using the comma-separated notation,
+unless restricted by a profile.
+
+    Examples: 20.30
+              1000000.0000001
+              1.333,3.14
+
+Applications which use this media type: Various
+
+Additional information: None
+
+Person & email address to contact for further information
+
+Tim Howes
+Netscape Communications Corp.
+501 East Middlefield Rd.
+Mountain View, CA 94041
+USA
+howes&netscape.com
++1 415 937 3419
+
+Intended usage: COMMON
+
+Author/Change controller
+
+Tim Howes
+Netscape Communications Corp.
+501 East Middlefield Rd.
+Mountain View, CA 94041
+USA
+howes&netscape.com
++1 415 937 3419
+
+Mark Smith
+Netscape Communications Corp.
+501 East Middlefield Rd.
+Mountain View, CA 94041
+USA
+mcs&netscape.com
++1 415 937 3477
+
+Frank Dawson
+Lotus Development Corporation
+6544 Battleford Drive
+Raleigh, NC 27613-3502
+USA
+frank_dawson&lotus.com
++1-919-676-9515

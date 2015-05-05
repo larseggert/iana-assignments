@@ -1,0 +1,154 @@
+                                                        Port Control Protocol (PCP) Parameters
+
+   Created
+           2012-11-21
+
+   Last Updated
+           2014-11-12
+
+   Available Formats
+           [IMG]
+           XML [IMG]
+           HTML [IMG]
+           Plain text
+
+   Registries included below
+
+     * PCP Opcodes
+     * PCP Result Codes
+     * PCP Options
+
+PCP Opcodes
+
+   Expert(s)
+
+ Dan Wing, Stuart Cheshire
+
+   Reference
+           [RFC6887]
+
+   Available Formats
+           [IMG]
+           CSV
+
+     Range   Registration Procedures
+   0-31, 127 Standards Action
+     32-63   Specification Required
+
+   Value        Description        Reference
+   0      ANNOUNCE                 [RFC6887]
+   1      MAP                      [RFC6887]
+   2      PEER                     [RFC6887]
+   3-63   Unassigned
+   64-95  Reserved                 [RFC6887]
+   96-126 Reserved for Private Use [RFC6887]
+   127    Reserved                 [RFC6887]
+
+PCP Result Codes
+
+   Expert(s)
+
+ Dan Wing, Stuart Cheshire
+
+   Reference
+           [RFC6887]
+
+   Available Formats
+           [IMG]
+           CSV
+
+     Range    Registration Procedures
+   0-127, 255 Standards Action
+    128-191   Specification Required
+
+    Value            Name                                                        Description                                              Reference
+   0       SUCCESS                  Success.                                                                                              [RFC6887]
+   1       UNSUPP_VERSION           The version number at the start of the PCP Request header is not recognized by this PCP server. This  [RFC6887]
+                                    is a long lifetime error. [RFC6887] describes PCP version 2.
+   2       NOT_AUTHORIZED           The requested operation is disabled for this PCP client, or the PCP client requested an operation     [RFC6887]
+                                    that cannot be fulfilled by the PCP server's security policy. This is a long lifetime error.
+   3       MALFORMED_REQUEST        The request could not be successfully parsed. This is a long lifetime error.                          [RFC6887]
+   4       UNSUPP_OPCODE            Unsupported Opcode. This is a long lifetime error.                                                    [RFC6887]
+   5       UNSUPP_OPTION            Unsupported Option. This error only occurs if the Option is in the mandatory-to-process range. This   [RFC6887]
+                                    is a long lifetime error.
+   6       MALFORMED_OPTION         Malformed Option (e.g., appears too many times, invalid length). This is a long lifetime error.       [RFC6887]
+   7       NETWORK_FAILURE          The PCP server or the device it controls are experiencing a network failure of some sort (e.g., has   [RFC6887]
+                                    not obtained an External IP address). This is a short lifetime error.
+                                    Request is well-formed and valid, but the server has insufficient resources to complete the requested
+                                    operation at this time. For example, the NAT device cannot create more mappings at this time, is
+   8       NO_RESOURCES             short of CPU cycles or memory, or is unable to handle the request due to some other temporary         [RFC6887]
+                                    condition. The same request may succeed in the future. This is a system-wide error, different from
+                                    USER_EX_QUOTA. This can be used as a catch- all error, should no other error message be suitable.
+                                    This is a short lifetime error.
+   9       UNSUPP_PROTOCOL          Unsupported transport protocol, e.g. SCTP in a NAT that handles only UDP and TCP. This is a long      [RFC6887]
+                                    lifetime error.
+   10      USER_EX_QUOTA            This attempt to create a new mapping would exceed this subscriber's port quota. This is a short       [RFC6887]
+                                    lifetime error.
+                                    The suggested external port and/or external address cannot be provided. This error MUST only be
+                                    returned for: * MAP requests that included the PREFER_FAILURE Option (normal MAP requests will return
+   11      CANNOT_PROVIDE_EXTERNAL  an available external port); * MAP requests for the SCTP protocol (PREFER_FAILURE is implied); * PEER [RFC6887]
+                                    requests. See Section 13.2 of [RFC6887] for processing details. The error lifetime depends on the
+                                    reason for the failure.
+                                    The source IP address of the request packet does not match the contents of the PCP Client's IP
+   12      ADDRESS_MISMATCH         Address field, due to an unexpected NAT on the path between the PCP client and the PCP-controlled NAT [RFC6887]
+                                    or firewall. This is a long lifetime error.
+                                    The PCP server was not able to create the filters in this request. This result code MUST only be
+   13      EXCESSIVE_REMOTE_PEERS   returned if the MAP request contained the FILTER Option. See Section 13.3 for processing information. [RFC6887]
+                                    This is a long lifetime error.
+   14-191  Unassigned
+   192-254 Reserved for Private Use                                                                                                       [RFC6887]
+   255     Reserved                                                                                                                       [RFC6887]
+
+PCP Options
+
+   Expert(s)
+
+ Dan Wing, Stuart Cheshire
+
+   Reference
+           [RFC6887]
+
+   Note
+
+ Values 0-127 are mandatory to process, and 128-255 are optional to process.
+
+   Available Formats
+           [IMG]
+           CSV
+
+         Range        Registration Procedures
+   0-63, 127-191, 255 Standards Action
+     64-95, 192-223   Specification Required
+
+    Value          Name                        Purpose                   Valid for      Length       May Appear in    Maximum Occurrences Reference
+                                                                          Opcodes
+   0       Reserved                                                                                                                       [RFC6887]
+                                Indicates the MAP or PEER request is                              Request. May appear
+   1       THIRD_PARTY          for a host other than the host sending MAP, PEER     16 octets    in response only if 1                   [RFC6887]
+                                the PCP Option.                                                   it appeared in the
+                                                                                                  associated request.
+                                Indicates that the PCP server should                              Request. May appear
+   2       PREFER_FAILURE       not create an alternative mapping if   MAP           0            in response only if 1                   [RFC6887]
+                                the suggested external port and                                   it appeared in the
+                                address cannot be mapped.                                         associated request.
+                                                                                                  Request. May appear As many as fit
+   3       FILTER               Specifies a filter for incoming        MAP           20 octets    in response only if within maximum PCP  [RFC6887]
+                                packets.                                                          it appeared in the  message size.
+                                                                                                  associated request.
+   4-95    Unassigned
+   96-126  Reserved for Private                                                                                                           [RFC6887]
+           Use
+   127     Reserved                                                                                                                       [RFC6887]
+                                                                                     variable,    Request. May appear
+   128     DESCRIPTION          Used to associate a text description   MAP, PEER     maximum 1016 in response only if 1                   [RFC7220]
+                                with a mapping.                                      octets.      it appeared in the
+                                                                                                  associated request.
+                                Learn the prefix used by the NAT64 to                                                 1 for a request. As
+                                build IPv4-converted IPv6 addresses.                                                  many as fit within
+   129     PREFIX64             This is used by a host for local       MAP, ANNOUNCE variable     request, response   the maximum PCP     [RFC7225]
+                                address synthesis (e.g., when an IPv4                                                 message size for a
+                                address is present in referrals).                                                     response.
+   130-223 Unassigned
+   224-254 Reserved for Private                                                                                                           [RFC6887]
+           Use
+   255     Reserved                                                                                                                       [RFC6887]

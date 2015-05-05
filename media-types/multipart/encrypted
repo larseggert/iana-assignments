@@ -1,0 +1,121 @@
+(per RFC1847)
+
+(1)  MIME type name: multipart
+
+(2)  MIME subtype name: encrypted
+
+(3)  Required parameters: boundary, protocol
+
+(4)  Optional parameters: none
+
+(5)  Security considerations: none
+
+The multipart/encrypted content type contains exactly two body parts.
+The first body part contains the control information necessary to
+decrypt the data in the second body part and is labeled according to
+the value of the protocol parameter.  The second body part contains
+the data which was encrypted and is always labeled
+application/octet-stream.
+
+The attribute token for the protocol parameter is "protocol", i.e.,
+
+ parameter := "protocol" "=" value
+
+The value token is comprised of the type and sub-type tokens of the
+Content-Type: header of the first body part, i.e.,
+
+ value := <"> type "/" subtype <">
+
+where the type and subtype tokens are defined by the MIME [2]
+specification.  The semantics of the protocol parameter are defined
+according to its value.
+
+When creating a multipart/encrypted body part, the following sequence
+of steps describes the processing necessary.  It must be emphasized
+that these steps are descriptive, not prescriptive, and in no way
+impose restrictions or requirements on implementations of this
+specification.
+
+(1)  The contents of the body part to be protected is prepared according
+     to a local convention.  The contents are then transformed into a
+     MIME body part in canonical MIME format, including an appropriate
+     set of MIME headers.
+
+(2)  The body part (headers and content) to be encrypted is prepared for
+     encryption according to the value of the protocol parameter.  The
+     MIME headers of the encrypted body part are included in the
+     encryption to protect from disclosure the MIME labeling of the
+     data that is encrypted.
+
+(3)  The prepared body part is made available to the encryption process
+     according to a local convention.  The encryption process must make
+     available to a MIME implementation two data streams: the control
+     information necessary to decrypt the body part, which the MIME
+     implementation will place in the first body part and label
+     according to the value of the protocol parameter, and the
+     encrypted body part, which the MIME implementation will place in
+     the second body part and label application/octet-stream.  Thus,
+     when used in a multipart/encrypted, the application/octet-stream
+     data is comprised of a nested MIME body part.
+
+When receiving a multipart/encrypted body part, the following
+sequence of steps describes the processing necessary to decrypt the
+enclosed data.  It must be emphasized that these steps are
+descriptive, not prescriptive, and in no way impose restrictions or
+requirements on implementations of this specification.
+
+(1)  The second body part and the control information in the first body
+     part must be prepared for the decryption process according to the
+     value of the protocol parameter.
+
+(2)  The prepared body parts must be made available to the decryption
+     process according to a local convention.  The decryption process
+     must make available to the MIME implementation the result of the
+     decryption and the decrypted form of the encrypted body part.
+
+         NOTE: The result of the decryption process is likely to
+         include a testament of the success or failure of the
+         decryption.  Failure may be due to an inability to locate
+         the proper decryption key or the proper recipient field,
+         etc.  Implementors should note that the data, if any, of a
+         failed decryption process is pretty much guaranteed to be
+         garbage.
+
+(3)  The result of the decryption process is made available to the user
+     and the MIME implementation continues processing with the decrypted
+     body part, i.e., the body part returned by the decryption process.
+
+         NOTE: A MIME implementation will not be able to display the
+         received form of the second body part because the
+         application of encryption will transform the body part.
+         This transformation will not be described in the MIME
+         headers (Content-Type: and Content-Transfer-Encoding:) but,
+         rather, will be described in the content of the first body
+         part.  Therefore, an implementation should wait until the
+         encryption has been removed before attempting to display
+         the content.
+
+The following example is an illustration of a multipart/encrypted
+body part.  It is necessarily incomplete since the control
+information is defined by the security protocol, which must be
+specified in a separate document.
+
+ Content-Type: multipart/encrypted; protocol="TYPE/STYPE";
+         boundary="Encrypted Boundary"
+
+ --Encrypted Boundary
+ Content-Type: TYPE/STYPE
+
+ CONTROL INFORMATION for protocol "TYPE/STYPE" would be here
+
+ --Encrypted Boundary
+ Content-Type: application/octet-stream
+
+     Content-Type: text/plain; charset="us-ascii"
+
+     All of this indented text, including the indented headers,
+     would be unreadable since it would have been encrypted by
+     the protocol "TYPE/STYPE".  Also, this encrypted data could
+     be any type of data, labeled accordingly, of course.
+
+ --Encrypted Boundary--

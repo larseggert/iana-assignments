@@ -1,0 +1,395 @@
+
+#   Name of submitters: Jim Naugle <jnaugle&us.ibm.com>
+#                       Gregg Ledford <gledford&zephyrcorp.com>
+#                       K. Kasthurirangan <kasthuri&us.ibm.com>
+#
+#   Security Considerations:
+#   Service Location Protocol can help clients discover security
+#   services supported by the TN3270E server.  If security services are
+#   important or required, using SLP authentication is recommended.
+
+# --------------------------------------------------------------------------
+
+# Introduction and Terminology
+
+#   This document will provide information on Service Location Protocol
+#   implementation to discover TN3270E servers in a network and session
+#   balance among those servers.  The implementation follows the
+#   standards track RFC 2165, Service Location Protocol [1]. 
+
+
+# Terminology
+
+#   Session Balance - refers to the ability of TN3270E client to use
+#   server load information to establish a TN3270E connection to the
+#   TN3270E server with the least load at that time. The purpose is to
+#   distribute the connection of TN3270E sessions among more than one
+#   TN3270E server, and one server will not be excessively loaded.
+#   The term "load balance" is a more general term, with respect to
+#   server load, and in this document we are trying to focus on the
+#   TN3270E session connections to least loaded servers.
+
+# TN3270E Server Environment and Load
+
+#   TN3270E Servers are pervasive in today's networked environment. SLP
+#   provides emulator clients with a way to discover TN3270E servers in
+#   the network and session balance among the servers.  The TN3270E
+#   servers could be distributed across different SNA gateways with
+#   different connection methods to hosts.  The use of LU pools provides
+#   an easy way for administrators to provide users access to hosts.
+#   Administrators can add users to LU pools that have pre-configured
+#   LU's with specific attributes, like LU types and model types.
+#
+#   These LU pools would typically have LUs from several different
+#   gateways assigned, and as members of the LU pool make TN3270E
+#   session connections, they would be making connections to different
+#   TN3270E servers, with different load factors, so that session
+#   balancing could be accomplished. The use of LU pools is not a
+#   requirement for SLP and session balancing.  A TN3270E client could
+#   obtain a session by using SLP and session balancing to locate the
+#   least loaded server in the network.  On a service request a wild
+#   card "*" could be used when asking for LUPOOL if the emulator
+#   doesn't care which device types are supported in given pools or if
+#   it can assume given pools support only certain device types.
+#   (LUPOOL=xyz\t*)
+
+# TN3270E Server Load
+
+#   TN3270E servers providing load information, typically will include
+#   number of sessions available, not in current use,  as part of the
+#   calculation in determining load for that server. There can be other
+#   factors that might have an effect on server load.  An example would
+#   be if a server is not dedicated to only SNA traffic, and is handling
+#   other processes, like file services and print services, etc.  It is
+#   beyond the scope of this document to try to standardize the method
+#   individual server load calculations should be determined. Different
+#   vendors server's may calculate load information based upon factors
+#   they consider important, and methods for calculating load may change
+#   over time.
+#
+#   If the TN3270E server coexists in a network with other TN server
+#   implementations using SLP for session balancing, TN3270E server load
+#   could be adjusted to compensate for differences in load
+#   calculations.
+#
+#   One way to allow TN3270E server administrators to compensate for
+#   differences in implementations of calculating server load
+#   measurement is to provide the ability to modify the load calculation
+#   on the TN3270E server.  An element of control can be provided by
+#   allowing the administrator to modify the load measurement, by using
+#   an integral number between 0 and 100 (100 being the highest) to
+#   change the load. This load measurement acts as an additional factor
+#   on the server's actual load calculation, so that the administrator
+#   could bias up or down, the likelihood of that server being selected
+#   by a TN3270E client.
+#
+#   Load is defined as one of the attributes for the TN3270E server.
+#   A Load attribute should be provided at the server so clients can
+#   determine which server to make a connection. If a UA provides only
+#   a Service Type, in an Attribute Request,  then the reply includes
+#   all attributes and all values for that Service
+#
+#   Type, and Load would be included.  Attribute Requests can include a
+#   select clause, so you could be returned information on just load.
+#   For more information on Attribute Requests refer to Service Location
+#   Protocol.
+#
+#   An application could issue a  SL_GetService request to locate a
+#   TN3270E server. Then an application designed to perform least-load
+#   location of  a TN3270E service, could issue a series of SL_GetAttrs
+#   calls to obtain the load measurement of each server specified with
+#   a URL. It would specify a select clause similar to the one
+#   below to receive only load information.
+#
+#   URL = service:tn3270://9.37.51.254:23
+#   Attribute filter = LOAD
+#
+#   The attribute LOAD would be returned along with its value.  The
+#   application could then issue other SL_GetAttrs calls for each
+#   URL.
+#
+#   The application would then select the least loaded server as a
+#   connection target.  If it tries to connect to a server and that
+#   connection fails, it could then try to connect to the next
+#   least-loaded server.
+
+# TN3270E Client Implementation Information
+
+# Overview
+
+#   A TN3270E client that implements TN3270E SLP session balancing does
+#   not need to configure an IP Host Address for the TN3270E server it
+#   desires to connect to. Instead, the IP Host Address of the least
+#   loaded TN3270E server is discovered by using the SLP session
+#   balancing described in this document.
+#
+#   The discovery of the least loaded TN3270E server is done entirely
+#   outside of and before the TN3270E telnet negotiation. Once the IP
+#   Host address of the least loaded TN3270E server is discovered, the
+#   TN3270E client can then start normal TN3270E telnet negotiation.
+#
+#   The TN3270E client should allow for configuration of the
+#   following parameters:
+#
+#   Enable SLP Session Balancing
+#
+#   This configuration parameter indicates whether or not SLP session
+#   balancing is enabled. If it is enabled the following three
+#   configuration parameters must also be configured. If this
+#   parameter is disabled, SLP session balancing is not supported and
+#   normal TN3270E telnet negotiation is performed.
+#
+
+# TN3270E Sample Client Flow: 6.3.2 Query the list of TN3270E servers
+
+#   The TN3270E client then queries for the list of TN3270E servers
+#   supporting SLP. This is done by using the SL_GetService API call.
+#
+#   The request string contains information that determines which type
+#   of TN3270E servers that this client desires to connect to. The
+#   request string can contain the scope name, pool name, session type
+#   and 3270 screen size.
+#
+#   The string has the following format:
+#
+#   TN3270/<scope name>/LUPOOL == <pool name><TAB><device type>
+#
+#   The <scope name> is the name of the scope that is configured
+#   for the TN3270E client. If the scope is blank or null (unscoped
+#   request), then the scope is not inserted into the request string.
+#
+#   The <pool name> is a 1 to 8 character upper case string that
+#   indicates the name of the pool to which the TN3270E client desires
+#   to connect. For SLP session balancing, the same pool name must
+#   be configured on different TN3270E servers.
+#
+#   The <TAB> is the '/t' tab character which is hexadecimal 0x09.
+#   the <TAB> is a literal and will be used as a separator.
+#
+#   The <device type> can be any of the following:
+#
+#    3270DSC for TN3270E device type IBM-3287-1
+#    3270002 for TN3270E device types IBM-3278-2 and IBM-3278-2-E
+#    3270003 for TN3270E device types IBM-3278-3 and IBM-3278-3-E
+#    3270004 for TN3270E device types IBM-3278-4 and IBM-3278-4-E
+#    3270005 for TN3270E device types IBM-3278-5 and IBM-3278-5-E
+#    * for TN3270E device type IBM-DYNAMIC
+#
+#   Example:
+#
+#   For a TN3270E client searching for TN3270E servers in the
+#   ENGINEERING scope for a model 2 screen size and LUPOOL name pool2,
+#   the following request string would be constructed:
+#
+#   "TN3270/ENGINEERING/LUPOOL == POOL2<TAB>3270002"
+#
+#   Note: The " characters before and after the string are not
+#   part of the request string.
+
+# Determine loading of each TN3270E server
+
+#   An attribute request for "service:tn3270e" specifying the
+#   attribute LOAD can be made and you will get back all the available
+#   loads. Say these are 35,88,78.  You can then issue a service request
+#   for all tn3270e servers with "LOAD<40" for instance.  Even if the
+#   load changes between the time you get the attribute reply and when
+#   you issue the request, you will still get the best the network has
+#   to offer.
+#
+#   The TN3270E client then uses the TN3270E server's IP Host address to
+#   start normal Telnet TN3270E negotiation.
+
+# Recommendations
+
+#   It is recommended that the TN3270E client display the IP host
+#   address that is being used for the TN3270E connection. This gives
+#   the user knowledge of which TN3270E server the session is connected
+#   to. For example, the IP host address could be displayed in the
+#   Windows status bar.
+#
+#   It is also recommended that the TN3270E client display the resource
+#   name that is returned by the TN3270E server after connection and
+#   TN3270E negotiation is completed. This gives the user knowledge of
+#   which LU resource name in the LUPOOL the session is connected to.
+#   For example, the resource name could be displayed in the Windows
+#   status bar, or even in the 3270 OIA line.
+#
+#   In the event that after the TN3270E client has determined the least
+#   loaded server and the connection to that server fails for some
+#   reason, the connection should be closed and an attempt made to
+#   connect to other TN3270E servers in the list of least loaded
+#   servers.
+#
+#   For example, a TN3270E server may reject a connection to a specific
+#   pool if the pool is full, or if the device type does not match what
+#   is available in the pool. If this occurs, then an attempt to other
+#   least loaded TN3270E servers should be performed.
+
+# Sample Trace Flow of SLP and Session Balancing
+
+#   This sample trace flow is provided for informational purposes only.
+#
+#   SLP: SL_GetService Request: TN3270//LUPOOL == POOL2 3270002/
+#
+#   SLP: SL_GetService Reply: service:tn3270://206.109.45.139:23
+#
+#   SLP: SL_GetService Reply: service:tn3270://206.109.45.140:23
+#
+#   Connecting to 206.109.45.139...
+#
+#   TerminalType=NVT
+#
+#   Connection established
+#
+#   Recv <- DO TN3270E
+#
+#   Send -> WILL TN3270E
+#
+#   TerminalType=TN3270E
+#
+#   Recv <- SEND DEVICE_TYPE
+#
+#   Send -> DEVICE_TYPE REQUEST IBM-3278-2-E CONNECT POOL2
+#
+#   Recv <- DEVICE_TYPE IS IBM-3278-2-E CONNECT TN8003
+#
+#   Send -> FUNCTIONS REQUEST BIND_IMAGE SYSREQ
+#
+#   Recv <- FUNCTIONS IS BIND_IMAGE SYSREQ
+
+# --------------------------------------------------------------------------
+
+template-type=tn3270e
+
+template-version=1.0
+
+template-description=
+    The tn3270 service provides 3270 gateway access to an SNA network
+    via the TN3270 protocol. The attributes reflect the types of 3270
+    devices, LU Pools, and load information available on the server.
+
+template-url-syntax=
+; service:tn3270://<ipv4-number>:<port>
+; <ipv4-number>=defined by [draft-ietf-svrloc-service-scheme-13.txt]
+; <port>       =defined by [draft-ietf-svrloc-service-scheme-13.txt]
+
+load=integer X
+; This is the load balancing quantity to use in determining the
+; least loaded TN3270E server to attach to for the service. The
+; range of valid values is an integral 0 to 100 with 0 indicating the
+; lowest possible load and 100 the highest
+
+LU Pool=string X M
+; This attribute takes on one or more values as defined below.
+; The <TAB> char. 0x09 is literal and will be used as a separator.
+;
+;
+;   <pool name> = <name> / <name> "<TAB>" <dev type>
+;   <name>      = 1*ALPHANUM
+;   <dev type>  = "3270002" / "3270003" / "3270004" / "3270005" /
+;                 "3270DSC"
+;
+; Identifies the LU pool names of LU pools available for use on this
+; service with the associated device types supported in each pool.
+; Each value is a record where the first token is the pool name of
+; the pool and the second token is a device type supported in that
+; pool. A pool name without a device type indicates that LUs of
+; unknown type are included in the pool. Records associated with a
+; given pool name are repeated for each supported device type. A
+; given pool is included in a registration request if any PU profile
+; that contributes at least one LU to the pool is active on the
+; server. The range of valid dev_types are:
+;
+; dev_type    Meaning
+;
+; 3270002     Lu Type 2 Model 2
+;
+; 3270003     Lu Type 2 Model 3
+;
+; 3270004     Lu Type 2 Model 4
+;
+; 3270005     Lu Type 2 Model 5
+;
+; 3270DSC     Printer LU
+;
+
+BIND=keyword
+; The server supports the SNA bind image TN3270e function.
+
+DATA=keyword
+; The non-SNA 3270 data stream is supported by server.
+
+RESPONSES=keyword
+; The server supports SNA response mode.
+
+SCS=keyword
+; The server supports SNA 3270 SCS data stream.
+
+SYSREQ=keyword
+; The SYSREQ keyboard key is supported on server.
+
+RFC1576=keyword
+; RFC1576 options supported.
+
+RFC1646=keyword
+; RFC1646 options supported.
+
+RFC1647=keyword
+; RFC1647 options supported.
+
+security=string M
+; This is the security technique supported on the server and the
+; cipher specifications supported by this server.  The defined
+; values are:
+NONE, SSLV3
+
+Ciphersuites=string M
+NULL_NULL,
+NULL_MD5,
+NULL_SHA,
+RC4_MD5_EXPORT,
+RC4_MD5_US,
+RC4_SHA_US,
+RC2_MD5_EXPORT,
+DES_SHA_EXPORT,
+TRIPLE_DES_SHA_US
+; Additional values will be defined in future templates.
+
+platform=string X
+; This is the network operating system platform underlying the
+; advertising service. The defined values are:
+;
+; IW          Server uses IntranetWare or NetWare operating system
+;
+; NT          Server uses the Microsoft NT operating system
+;
+; OS2         Server uses the OS2 operating system
+;
+; AIX         Server uses the AIX operating system
+;
+IW,NT,OS2,AIX
+
+protocol=string X
+;   This is the protocol(s) supported by the server providing this
+;   service. The defined values are:
+;
+; IP          Server supports client connections over IP (TCP/IP or
+;             UDP/IP)
+;
+; IPX         Server supports client connections over IPX (SPX/IPX)
+;
+IP,IPX
+
+server name=string
+; This is the name of the server that was configured during
+; installation.
+
+release=string X
+; This is the version and release level of the server advertising
+; services. Its format is vv.rr.mm where "vv" is the major version
+; number, "rr" is the minor version number, and "mm" is the
+; modification level. All numbers are padded on the left with zeroes
+; to two characters.
+; Example: version 3, release 0, mod level 0 is "03.00.00"
+
+

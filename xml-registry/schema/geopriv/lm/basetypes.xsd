@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<xs:schema
+  xmlns:bt="urn:ietf:params:xml:ns:geopriv:lm:basetypes"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="urn:ietf:params:xml:ns:geopriv:lm:basetypes"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified">
+
+  <xs:annotation>
+    <xs:appinfo
+    source="urn:ietf:params:xml:schema:geopriv:lm:basetypes">
+    </xs:appinfo>
+    <xs:documentation source="http://www.rfc-editor.org/rfc/rfc7105.txt">
+      This schema defines a set of base type elements.
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:simpleType name="byteType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="255"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="twoByteType">
+    <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+      <xs:maxInclusive value="65535"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="nonNegativeDouble">
+    <xs:restriction base="xs:double">
+      <xs:minInclusive value="0.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="positiveDouble">
+    <xs:restriction base="bt:nonNegativeDouble">
+      <xs:minExclusive value="0.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="doubleWithRMSError">
+    <xs:simpleContent>
+      <xs:extension base="xs:double">
+    <xs:attribute name="rmsError" type="bt:positiveDouble"/>
+    <xs:attribute name="samples" type="xs:positiveInteger"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="nnDoubleWithRMSError">
+    <xs:simpleContent>
+      <xs:restriction base="bt:doubleWithRMSError">
+    <xs:minInclusive value="0"/>
+      </xs:restriction>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="ipAddressType">
+    <xs:union memberTypes="bt:IPv6AddressType bt:IPv4AddressType"/>
+  </xs:simpleType>
+
+  <!-- IPv6 format definition -->
+  <xs:simpleType name="IPv6AddressType">
+    <xs:annotation>
+      <xs:documentation>
+
+    An IP version 6 address, based on RFC 4291.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <!-- Fully specified address -->
+      <xs:pattern value="[0-9A-Fa-f]{1,4}(:[0-9A-Fa-f]{1,4}){7}"/>
+      <!-- Double colon start -->
+      <xs:pattern value=":(:[0-9A-Fa-f]{1,4}){1,7}"/>
+      <!-- Double colon middle -->
+      <xs:pattern value="([0-9A-Fa-f]{1,4}:){1,6}(:[0-9A-Fa-f]{1,4}){1}"/>
+      <xs:pattern value="([0-9A-Fa-f]{1,4}:){1,5}(:[0-9A-Fa-f]{1,4}){1,2}"/>
+      <xs:pattern value="([0-9A-Fa-f]{1,4}:){1,4}(:[0-9A-Fa-f]{1,4}){1,3}"/>
+      <xs:pattern value="([0-9A-Fa-f]{1,4}:){1,3}(:[0-9A-Fa-f]{1,4}){1,4}"/>
+      <xs:pattern value="([0-9A-Fa-f]{1,4}:){1,2}(:[0-9A-Fa-f]{1,4}){1,5}"/>
+      <xs:pattern value="([0-9A-Fa-f]{1,4}:){1}(:[0-9A-Fa-f]{1,4}){1,6}"/>
+      <!-- Double colon end -->
+      <xs:pattern value="([0-9A-Fa-f]{1,4}:){1,7}:"/>
+      <!-- IPv4-Compatible and IPv4-Mapped Addresses -->
+      <xs:pattern value="((:(:0{1,4}){0,3}:[fF]{4})|(0{1,4}:(:0{1,4}){0,2}:[fF]{4})|((0{1,4}:){2}(:0{1,4})?:[fF]{4})|((0{1,4}:){3}:[fF]{4})|((0{1,4}:){4}[fF]{4})):(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9])"/>
+      <!-- The unspecified address -->
+      <xs:pattern value="::"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- IPv4 format definition -->
+  <xs:simpleType name="IPv4AddressType">
+    <xs:restriction base="xs:token">
+      <xs:pattern value="(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|[0-1]?[0-9]?[0-9])"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- MAC address (EUI-48) or EUI-64 address -->
+
+  <xs:simpleType name="macAddressType">
+    <xs:restriction base="xs:token">
+      <xs:pattern value="[\da-fA-F]{2}(-[\da-fA-F]{2}){5}((-[\da-fA-F]{2}){2})?"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

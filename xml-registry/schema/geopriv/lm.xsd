@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<xs:schema
+    xmlns:lm="urn:ietf:params:xml:ns:geopriv:lm"
+    xmlns:bt="urn:ietf:params:xml:ns:geopriv:lm:basetypes"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="urn:ietf:params:xml:ns:geopriv:lm"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified">
+
+  <xs:annotation>
+    <xs:appinfo
+    source="urn:ietf:params:xml:schema:geopriv:lm">
+    </xs:appinfo>
+    <xs:documentation source="http://www.rfc-editor.org/rfc/rfc7105.txt">
+      This schema defines a framework for location measurements.
+    </xs:documentation>
+  </xs:annotation>
+
+ <xs:import namespace="urn:ietf:params:xml:ns:geopriv:lm:basetypes"/>
+
+  <xs:element name="measurements">
+    <xs:complexType>
+      <xs:complexContent>
+    <xs:restriction base="xs:anyType">
+      <xs:sequence>
+        <xs:any namespace="##other" processContents="lax"
+            minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attribute name="time" type="xs:dateTime"/>
+      <xs:attribute name="timeError" type="bt:positiveDouble"/>
+      <xs:attribute name="expires" type="xs:dateTime"/>
+      <xs:anyAttribute namespace="##any" processContents="lax"/>
+    </xs:restriction>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="measurementRequest"
+          type="lm:measurementRequestType"/>
+  <xs:complexType name="measurementRequestType">
+    <xs:complexContent>
+      <xs:restriction base="xs:anyType">
+    <xs:sequence>
+      <xs:element ref="lm:measurement"
+              minOccurs="0" maxOccurs="unbounded"/>
+      <xs:any namespace="##other" processContents="lax"
+          minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:element name="measurement" type="lm:measurementType"/>
+  <xs:complexType name="measurementType">
+    <xs:complexContent>
+      <xs:restriction base="xs:anyType">
+    <xs:sequence>
+      <xs:any namespace="##other" processContents="lax"
+          minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="type" type="xs:QName" use="required"/>
+    <xs:attribute name="samples" type="xs:positiveInteger"/>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <!-- PIDF-LO extension for source -->
+  <xs:element name="source" type="lm:sourceType"/>
+  <xs:simpleType name="sourceType">
+    <xs:list>
+      <xs:simpleType>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="lis"/>
+      <xs:enumeration value="device"/>
+      <xs:enumeration value="other"/>
+    </xs:restriction>
+      </xs:simpleType>
+    </xs:list>
+  </xs:simpleType>
+</xs:schema>

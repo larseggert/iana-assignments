@@ -1,0 +1,58 @@
+(RFC 4027 published April 2005, subtype last updated April 2005)
+
+MIME media type name: text
+
+MIME subtype name: dns
+
+Required parameters: None.
+
+Optional parameters: None.
+
+Encoding considerations: The data is textual and should be transfered
+in a line-oriented mode. Text literals may contain CRLF within the
+text. Binary transport is possible between systems that use the same
+end-of-line conventions. Master files are in general ASCII, but
+non-ASCII octet values may occur and are treated as opaque values by
+DNS software (compare RFC 1035, section 5). The master file format
+permits encoding arbitrary octet values by using the "\DDD" encoding.
+The use of "\DDD" encoding can be more reliable than transporting
+non-ASCII through MIME transports, if data passes through a gateway
+that re-encodes the character data.
+
+Security considerations: This media type identifies content as being
+DNS information in "master file" format, as documented in RFC 1035
+[2]. The DNS data may be security relevant as per to RFC 2538 [7],
+or may be secured information as per to RFC 2535 [6]. Securing the
+content further may be done with standard techniques, such as OpenPGP
+[5] or CMS [9], but this is outside of the scope here. Further
+security assessments are not available at this point.
+
+Interoperability considerations: There are interoperability concerns
+with master files, due to the widespread use of vendor-specific
+extensions. Non-ASCII comments within master files may have been
+encoded in locally chosen character sets, which may be difficult to
+transport interoperably. Non-ASCII data in general can become
+corrupted by re-encoding gateways. To achieve interoperability, one
+can use the master file format described in the specification and the
+"\DDD" encoding for non-ASCII octets. Further interoperability
+issues with unrecognized RR types exist, which may be handled as
+discussed in section 5 of RFC 3597 [8].
+
+Published specification: The format of data that could be tagged with
+this MIME type is documented in RFC 1035 [2].
+
+Applications that use this media type: DNS-related software,
+including software storing and using certificates stored in DNS.
+
+Additional information:
+Magic number(s): None.
+File extension(s): 'soa' and 'zone' are known to be used.
+Macintosh file type code(s): Unknown.
+
+Person & email address to contact for further information:
+
+Simon Josefsson simon&josefsson.org
+
+Intended usage: LIMITED USE
+
+Author/change controller: simon&josefsson.org

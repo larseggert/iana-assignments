@@ -1,0 +1,63 @@
+(RFC 6015 published October 2010, subtype last updated October 2010)
+
+Type name: video
+
+Subtype name: 1d-interleaved-parityfec
+
+Required parameters:
+
+o rate: The RTP timestamp (clock) rate in Hz. The (integer) rate
+SHALL be larger than 1000 to provide sufficient resolution to RTCP
+operations. However, it is RECOMMENDED to select the rate that
+matches the rate of the protected source RTP stream.
+
+o L: Number of columns of the source block. L is a positive integer
+that is less than or equal to 255.
+
+o D: Number of rows of the source block. D is a positive integer
+that is less than or equal to 255.
+
+o repair-window: The time that spans the FEC block (i.e., source
+packets and the corresponding repair packets). An FEC encoder
+processes a block of source packets and generates a number of
+repair packets, which are then transmitted within a certain
+duration not larger than the value of the repair window. At the
+receiver side, the FEC decoder should wait at least for the
+duration of the repair window after getting the first packet in an
+FEC block to allow all the repair packets to arrive (the waiting
+time can be adjusted if there are missing packets at the beginning
+of the FEC block). The FEC decoder can start decoding the already
+received packets sooner; however, it SHOULD NOT register an FEC
+decoding failure until it waits at least for the repair-window
+duration. The size of the repair window is specified in
+microseconds.
+
+Optional parameters: None.
+
+Encoding considerations: This media type is framed (see Section 4.8
+in the template document [RFC4288]) and contains binary data.
+
+Security considerations: See Section 9 of [RFC6015].
+
+Interoperability considerations: None.
+
+Published specification: [RFC6015].
+
+Applications that use this media type: Multimedia applications that
+want to improve resiliency against packet loss by sending redundant
+data in addition to the source media.
+
+Additional information: None.
+
+Person & email address to contact for further information: Ali Begen
+<abegen&cisco.com> and the IETF Audio/Video Transport Working Group.
+
+Intended usage: COMMON.
+
+Restriction on usage: This media type depends on RTP framing, and
+hence, is only defined for transport via RTP [RFC3550].
+
+Author: Ali Begen <abegen&cisco.com>.
+
+Change controller: IETF Audio/Video Transport Working Group delegated
+from the IESG.

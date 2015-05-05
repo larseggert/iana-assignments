@@ -1,0 +1,60 @@
+template-type=fcip:entity
+
+   template-version=1.0
+
+   template-description=
+     This is a concrete service type.  The fcip:entity service type is
+     used to register individual FCIP Entity addresses to be discovered
+     by others.  UAs will generally search for these by including one of
+     the following:
+     - the FCIP Entity Name for which an address is needed
+     - the FCIP Discovery Domain Name for which addresses are requested
+     - the service URL
+
+   template-url-syntax =
+     url-path = hostport
+     hostport = host [ ":" port ]
+     host = hostname / hostnumber
+     hostname = *( domainlabel "." ) toplabel
+     alphanum = ALPHA / DIGIT
+     domainlabel = alphanum / alphanum * [alphanum / "-"] alphanum
+     toplabel = ALPHA / ALPHA * [ alphanum / "-" ] alphanum
+     hostnumber = ipv4-number
+     ipv4-number = 1*3DIGIT 3("." 1*3DIGIT)
+     port = 1*DIGIT
+
+     ;
+     ; A DNS host name should be used along with the well-known
+     ; IANA FCIP port number for operation with NAT/NAPT devices.
+     ;
+     ; Examples:
+     ; service:fcip:entity://host.example.com
+     ; service:fcip:entity://192.0.2.0:4000
+     ;
+
+   fcip-entity-name = opaque L
+   # If the FCIP Entity is a VE_Port/B_Access implementation [FC-BB-2]
+   # residing in a switch, the fcip-entity-name is the Fibre Channel
+   # Switch Name [FC-SW-3].  Otherwise, the fcip-entity-name is the
+   # Fibre Channel Node Name [FC-FS] of the port (e.g., an Nx_Port)
+   # associated with the FCIP Entity.
+   # An entity representing multiple endpoints must register each of
+   # the endpoints using SLPv2.
+
+   transports = string M L
+   tcp
+   # This is a list of transport protocols that the registered entity
+   # supports.  FCIP is currently supported over TCP only.
+   tcp
+
+   mgmt-entity = string M O L
+   # The URL's of the management interface(s) are appropriate for SNMP,
+   # web-based, or telnet management of the FCIP Entity.
+   # Examples:
+   #  http://fcipentity.example.com:1080/
+   #  telnet://fcipentity.example.com
+
+   fcip-discovery-domain = string M L
+   fcip
+   # The fcip-discovery-domain string contains the name(s) of the FCIP
+   # discovery domain(s) to which this FCIP Entity belongs.

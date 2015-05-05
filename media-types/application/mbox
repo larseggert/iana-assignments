@@ -1,0 +1,73 @@
+(RFC 4155 published September 2005, subtype last updated September 2005)
+
+MIME media type name: application
+
+MIME subtype name: mbox
+
+Required parameters: none
+
+Optional parameters: The "format" parameter identifies the format of
+the mbox database and the messages contained therein. The default
+value for the "format" parameter is "default", and refers to the
+formatting rules defined in Appendix A of this memo. mbox databases
+that do not have a "format" parameter SHOULD be interpreted as having
+the implicit "format" value of "default". mbox databases that have
+an unknown value for the "format" parameter SHOULD be treated as
+opaque data objects, as if the media type had been specified as
+application/octet-stream. Additional values for the format parameter
+are to be defined in subsequent specifications, and registered with
+IANA.
+
+Encoding considerations: If an email client receives an mbox database
+as a message attachment, and then stores that attachment within a
+local mbox database, the contents of the two database files may
+become irreversibly intermingled, such that both databases are
+rendered unrecognizable. In order to avoid these collisions,
+messaging systems that support this specification MUST encode an mbox
+database (or at a minimum, the separator lines) with non-transparent
+transfer encoding (such as BASE64 or Quoted-Printable) whenever an
+application/mbox object is transferred via messaging protocols.
+Other transfer services are generally encouraged to adopt similar
+encoding strategies in order to allow for any subsequent
+retransmission that might occur, but this is not a requirement.
+Implementers should also be prepared to encode mbox data locally if
+non-compliant data is received.
+
+Security considerations: mbox data is passive, and does not generally
+represent a unique or new security threat. However, there is risk in
+sharing any kind of data, because unintentional information may be
+exposed, and this risk certainly applies to mbox data as well.
+
+Interoperability considerations: Due to the lack of a single
+authoritative specification for mbox databases, there are a large
+number of variations between database formats (refer to the
+introduction text for common examples), and it is expected that non-
+conformant data will be erroneously tagged or exchanged. Although
+the "default" format specified in this memo does not allow for these
+kinds of vagaries, prior negotiation or agreement between humans may
+sometimes be needed.
+
+Published specification: see Appendix A.
+
+Applications that use this media type: hundreds of messaging products
+make use of the mbox database format, in one form or another.
+
+Magic number(s): mbox database files can be recognized by having a
+leading character sequence of "From", followed by a single Space
+character (0x20), followed by additional printable character data
+(refer to the description in Appendix A for details). However,
+implementers are cautioned that all such files will not be compliant
+with all of the formatting rules, therefore implementers should treat
+these files with an appropriate amount of circumspection.
+
+File extension(s): mbox database files sometimes have an ".mbox"
+extension, but this is not required nor expected. As with magic
+numbers, implementers should avoid reflexive assumptions about the
+contents of such files.
+
+Macintosh File Type Code(s): None are known to be common.
+
+Person & email address to contact for further information: Eric A.
+Hall (ehall&ntrg.com)
+
+Intended usage: COMMON

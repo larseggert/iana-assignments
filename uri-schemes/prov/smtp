@@ -1,0 +1,45 @@
+(registered 2014-03-26, last updated 2014-03-26)
+
+URI scheme name: smtp
+
+Status: provisional
+
+URI scheme syntax:
+smtpuri = "smtp://" authority ["/" [ "?" query ]]
+authority = <defined in RFC 3986>
+query = <defined in RFC 3986>
+If :<port> is omitted from authority, the port defaults to 25.
+The query component is reserved for future extensions.
+
+URI scheme semantics:
+The smtp: URI scheme is used to designate SMTP servers (e.g.
+listener endpoints, S/MIME agents performing Domain signing), SMTP
+accounts.
+There is no MIME type associated with this URI.
+
+Encoding considerations:
+SMTP user names are UTF-8 strings and MUST be percent-encoded as
+required by the URI specification [RFC3986], Section 2.1.
+
+Applications/protocols that use this URI scheme name:
+The smtp: URI is intended to be used by applications that might
+need access to an SMTP server (for example email clients or MTAs)
+or for SMTP servers to describe their listener endpoints.
+
+
+Interoperability considerations:
+Several implementations are already using smtp: URIs for server
+configuration.
+
+Security considerations: Clients resolving smtp: URIs that wish to
+achieve data confidentiality and/or integrity SHOULD use the
+STARTTLS command (if supported by the server) before starting
+authentication, or use a SASL mechanism, such as GSSAPI, that
+provides a confidentiality security layer.
+
+
+Contact: Alexey Melnikov <alexey.melnikov&isode.com>
+
+Author/Change controller: IESG
+
+References: [draft-melnikov-smime-msa-to-mda] and [RFC5321].

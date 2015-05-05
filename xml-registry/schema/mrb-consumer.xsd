@@ -1,0 +1,986 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:ietf:params:xml:ns:mrb-consumer"
+ elementFormDefault="qualified" blockDefault="#all"
+ xmlns="urn:ietf:params:xml:ns:mrb-consumer"
+ xmlns:ca="urn:ietf:params:xml:ns:pidf:geopriv10:civicAddr"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+ <xsd:annotation>
+  <xsd:documentation>
+   IETF MediaCtrl MRB 1.0
+
+   This is the schema of the IETF MediaCtrl MRB Consumer interface.
+
+   The schema namespace is urn:ietf:params:xml:ns:mrb-consumer
+
+  </xsd:documentation>
+ </xsd:annotation>
+
+
+ <!--
+  #############################################################
+
+  SCHEMA IMPORTS
+
+  #############################################################
+ -->
+
+ <xsd:import namespace="http://www.w3.org/XML/1998/namespace"
+  schemaLocation="http://www.w3.org/2001/xml.xsd">
+  <xsd:annotation>
+   <xsd:documentation>
+    This import brings in the XML attributes for
+    xml:base, xml:lang, etc
+   </xsd:documentation>
+  </xsd:annotation>
+ </xsd:import>
+
+<xsd:import
+  namespace="urn:ietf:params:xml:ns:pidf:geopriv10:civicAddr"
+  schemaLocation="civicAddress.xsd">
+  <xsd:annotation>
+   <xsd:documentation>
+    This import brings in the civicAddress specification
+    from RFC5139.
+   </xsd:documentation>
+  </xsd:annotation>
+</xsd:import>
+
+<!--
+  #####################################################
+
+  Extensible core type
+
+  #####################################################
+ -->
+
+
+ <xsd:complexType name="Tcore">
+  <xsd:annotation>
+   <xsd:documentation>
+    This type is extended by other (non-mixed) component types to
+    allow attributes from other namespaces.
+   </xsd:documentation>
+  </xsd:annotation>
+  <xsd:sequence/>
+  <xsd:anyAttribute namespace="##other" processContents="lax" />
+ </xsd:complexType>
+
+
+<!--
+  #####################################################
+
+  TOP LEVEL ELEMENT: mrbconsumer
+
+  #####################################################
+ -->
+
+<xsd:complexType name="mrbconsumerType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:choice>
+      <xsd:element ref="mediaResourceRequest" />
+      <xsd:element ref="mediaResourceResponse" />
+      <xsd:any namespace="##other" minOccurs="0"
+       maxOccurs="unbounded" processContents="lax" />
+     </xsd:choice>
+    </xsd:sequence>
+    <xsd:attribute name="version" type="version.datatype"
+      use="required" />
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+</xsd:complexType>
+
+ <xsd:element name="mrbconsumer" type="mrbconsumerType" />
+
+<!--
+  #####################################################
+
+  mediaResourceRequest TYPE
+
+  #####################################################
+ -->
+
+<!--  mediaResourceRequst -->
+
+ <xsd:complexType name="mediaResourceRequestType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+      <xsd:element ref="generalInfo" minOccurs="0" />
+      <xsd:element ref="ivrInfo" minOccurs="0" />
+      <xsd:element ref="mixerInfo" minOccurs="0" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:string"
+      use="required" />
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="mediaResourceRequest"
+         type="mediaResourceRequestType" />
+
+<!--
+  #####################################################
+
+  generalInfo TYPE
+
+  #####################################################
+-->
+
+<!--  generalInfo -->
+
+<xsd:complexType name="generalInfoType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+      <xsd:element ref="session-info" minOccurs="0" />
+      <xsd:element ref="packages" minOccurs="0" />
+      <xsd:any namespace="##other" minOccurs="0"
+       maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+<xsd:element name="generalInfo" type="generalInfoType" />
+
+
+<!--  session-info -->
+
+<xsd:complexType name="session-infoType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+       <xsd:element name="session-id" type="id.datatype"/>
+       <xsd:element name="seq" type="xsd:nonNegativeInteger"/>
+       <xsd:element name="action" type="action.datatype"/>
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+<xsd:element name="session-info" type="session-infoType" />
+
+<!--  packages -->
+
+<xsd:complexType name="packagesType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+      <xsd:element name="package" type="xsd:string" minOccurs="0"
+        maxOccurs="unbounded" />
+      <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="packages" type="packagesType"/>
+
+
+<!--
+  #####################################################
+
+  ivrInfo TYPE
+
+  #####################################################
+-->
+
+<!--  ivrInfo -->
+
+<xsd:complexType name="ivrInfoType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+      <xsd:element ref="ivr-sessions" minOccurs="0" />
+      <xsd:element ref="file-formats" minOccurs="0" />
+      <xsd:element ref="dtmf-type" minOccurs="0" />
+      <xsd:element ref="tones" minOccurs="0" />
+      <xsd:element ref="asr-tts" minOccurs="0" />
+      <xsd:element ref="vxml" minOccurs="0" />
+      <xsd:element ref="location" minOccurs="0" />
+      <xsd:element ref="encryption" minOccurs="0" />
+      <xsd:element ref="application-data" minOccurs="0" />
+      <xsd:element ref="max-prepared-duration" minOccurs="0" />
+      <xsd:element ref="file-transfer-modes" minOccurs="0" />
+      <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+<xsd:element name="ivrInfo" type="ivrInfoType" />
+
+
+<!--
+  #####################################################
+
+  mixerInfo TYPE
+
+
+
+
+Boulton, et al.          Expires August 22, 2013              [Page 110]
+
+ 
+Internet-Draft          Media Resource Brokering           February 2013
+
+
+  #####################################################
+-->
+
+<!--  mixerInfo -->
+
+<xsd:complexType name="mixerInfoType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+      <xsd:element ref="mixers" minOccurs="0"/>
+      <xsd:element ref="file-formats" minOccurs="0"/>
+      <xsd:element ref="dtmf-type" minOccurs="0"/>
+      <xsd:element ref="tones" minOccurs="0"/>
+      <xsd:element ref="mixing-modes" minOccurs="0"/>
+      <xsd:element ref="application-data" minOccurs="0"/>
+      <xsd:element ref="location" minOccurs="0"/>
+      <xsd:element ref="encryption" minOccurs="0"/>
+      <xsd:any namespace="##other" minOccurs="0"
+       maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+<xsd:element name="mixerInfo" type="mixerInfoType" />
+
+
+<!--
+  #####################################################
+
+  mediaResourceResponse TYPE
+
+  #####################################################
+ -->
+
+<!--  mediaResourceResponse -->
+
+ <xsd:complexType name="mediaResourceResponseType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+       <xsd:element ref="response-session-info" minOccurs="0" />
+       <xsd:any namespace="##other" minOccurs="0"
+          maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:string"
+     use="required" />
+    <xsd:attribute name="status" type="status.datatype"
+     use="required" />
+    <xsd:attribute name="reason" type="xsd:string" />
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+
+ <xsd:element name="mediaResourceResponse"
+         type="mediaResourceResponseType" />
+
+
+<!--
+  ####################################################
+
+  ELEMENTS
+
+  ####################################################
+ -->
+
+<!--  response-session-info -->
+
+<xsd:complexType name="response-session-infoType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+       <xsd:element name="session-id" type="id.datatype"/>
+       <xsd:element name="seq" type="xsd:nonNegativeInteger"/>
+       <xsd:element name="expires" type="xsd:nonNegativeInteger"/>
+       <xsd:element ref="media-server-address"
+          minOccurs="0" maxOccurs="unbounded" />
+       <xsd:any namespace="##other" minOccurs="0"
+         maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+<xsd:element name="response-session-info"
+   type="response-session-infoType" />
+
+<!-- media-server-address -->
+
+<xsd:complexType name="media-server-addressTYPE">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element name="connection-id" type="xsd:string"
+         minOccurs="0" maxOccurs="unbounded" />
+     <xsd:element ref="ivr-sessions" minOccurs="0"/>
+     <xsd:element ref="mixers" minOccurs="0"/>
+     <xsd:any namespace="##other" minOccurs="0"
+         maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="uri" type="xsd:anyURI" use="required" />
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="media-server-address"
+    type="media-server-addressTYPE" />
+
+<!--  ivr-sessions -->
+
+<xsd:complexType name="ivr-sessionsType">
+ <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+      <xsd:element ref="rtp-codec" minOccurs="0"
+        maxOccurs="unbounded" />
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+<xsd:element name="ivr-sessions" type="ivr-sessionsType" />
+
+<xsd:complexType name="rtp-codecType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+      <xsd:element name="decoding" type="xsd:nonNegativeInteger" />
+      <xsd:element name="encoding" type="xsd:nonNegativeInteger" />
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string" use="required" />
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+<xsd:element name="rtp-codec" type="rtp-codecType" />
+
+
+<!-- file-formats -->
+
+<xsd:complexType name="file-formatsType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+       <xsd:element ref="required-format"
+         minOccurs="0" maxOccurs="unbounded" />
+       <xsd:any namespace="##other" minOccurs="0"
+         maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="file-formats" type="file-formatsType" />
+
+<xsd:complexType name="required-formatType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+      <xsd:element ref="required-file-package"
+         minOccurs="0" maxOccurs="unbounded" />
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string" use="required" />
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="required-format" type="required-formatType" />
+
+<xsd:complexType name="required-file-packageType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+       <xsd:element name="required-file-package-name" type="xsd:string"
+        minOccurs="0" maxOccurs="unbounded" />
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="required-file-package"
+  type="required-file-packageType" />
+
+<!--  dtmf-type -->
+
+<xsd:complexType name="dtmfType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+       <xsd:element ref="detect" />
+       <xsd:element ref="generate" />
+       <xsd:element ref="passthrough" />
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="dtmf" type="dtmfType" />
+
+<xsd:complexType name="detectType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+       <xsd:element ref="dtmf-type"
+        minOccurs="0" maxOccurs="unbounded" />
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="detect" type="detectType" />
+
+<xsd:complexType name="generateType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+       <xsd:element ref="dtmf-type"
+        minOccurs="0" maxOccurs="unbounded" />
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="generate" type="generateType" />
+
+<xsd:complexType name="passthroughType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+       <xsd:element ref="dtmf-type"
+        minOccurs="0" maxOccurs="unbounded" />
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="passthrough" type="passthroughType" />
+
+<xsd:complexType name="dtmf-typeType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="name" type="dtmf.datatype" use="required" />
+    <xsd:attribute name="package" type="xsd:string" use="required" />
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="dtmf-type" type="dtmf-typeType" />
+
+<!--  tones -->
+
+<xsd:complexType name="required-tonesType">
+ <xsd:complexContent>
+  <xsd:extension base="Tcore">
+   <xsd:sequence>
+      <xsd:element ref="country-codes"
+        minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="h248-codes"
+        minOccurs="0" maxOccurs="1" />
+      <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+   </xsd:sequence>
+   <xsd:anyAttribute namespace="##other" processContents="lax" />
+  </xsd:extension>
+ </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="tones" type="required-tonesType" />
+
+<xsd:complexType name="required-country-codesType">
+ <xsd:complexContent>
+  <xsd:extension base="Tcore">
+   <xsd:sequence>
+     <xsd:element ref="country-code"
+        minOccurs="0" maxOccurs="unbounded" />
+      <xsd:any namespace="##other" minOccurs="0"
+       maxOccurs="unbounded" processContents="lax" />
+   </xsd:sequence>
+   <xsd:anyAttribute namespace="##other" processContents="lax" />
+  </xsd:extension>
+ </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="country-codes"
+   type="required-country-codesType" />
+
+<xsd:complexType name="country-codeType" mixed="true">
+ <xsd:sequence>
+    <xsd:any namespace="##other" minOccurs="0"
+     maxOccurs="unbounded" processContents="lax" />
+ </xsd:sequence>
+ <xsd:attribute name="package" type="xsd:string" use="required" />
+ <xsd:anyAttribute namespace="##other" processContents="lax" />
+</xsd:complexType>
+
+<xsd:element name="country-code" type="country-codeType" />
+
+<xsd:complexType name="required-h248-codesType">
+ <xsd:complexContent>
+  <xsd:extension base="Tcore">
+   <xsd:sequence>
+     <xsd:element ref="h248-code"
+        minOccurs="0" maxOccurs="unbounded" />
+      <xsd:any namespace="##other" minOccurs="0"
+       maxOccurs="unbounded" processContents="lax" />
+   </xsd:sequence>
+   <xsd:anyAttribute namespace="##other" processContents="lax" />
+  </xsd:extension>
+ </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="h248-codes"
+   type="required-h248-codesType" />
+
+<xsd:complexType name="h248-codeType" mixed="true">
+ <xsd:sequence>
+    <xsd:any namespace="##other" minOccurs="0"
+     maxOccurs="unbounded" processContents="lax" />
+ </xsd:sequence>
+ <xsd:attribute name="package" type="xsd:string" use="required" />
+ <xsd:anyAttribute namespace="##other" processContents="lax" />
+</xsd:complexType>
+
+<xsd:element name="h248-code" type="h248-codeType" />
+
+<!--  asr-tts -->
+
+<xsd:complexType name="asr-ttsType">
+ <xsd:complexContent>
+  <xsd:extension base="Tcore">
+   <xsd:sequence>
+      <xsd:element ref="asr-support"
+        minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="tts-support"
+        minOccurs="0" maxOccurs="1" />
+      <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+   </xsd:sequence>
+   <xsd:anyAttribute namespace="##other" processContents="lax" />
+  </xsd:extension>
+ </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="asr-tts" type="asr-ttsType" />
+
+<xsd:complexType name="asr-supportType">
+ <xsd:complexContent>
+  <xsd:extension base="Tcore">
+   <xsd:sequence>
+     <xsd:element ref="language"
+        minOccurs="0" maxOccurs="unbounded" />
+      <xsd:any namespace="##other" minOccurs="0"
+       maxOccurs="unbounded" processContents="lax" />
+   </xsd:sequence>
+   <xsd:anyAttribute namespace="##other" processContents="lax" />
+  </xsd:extension>
+ </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="asr-support" type="asr-supportType" />
+
+<xsd:complexType name="tts-supportType">
+ <xsd:complexContent>
+  <xsd:extension base="Tcore">
+   <xsd:sequence>
+     <xsd:element ref="language"
+        minOccurs="0" maxOccurs="unbounded" />
+      <xsd:any namespace="##other" minOccurs="0"
+       maxOccurs="unbounded" processContents="lax" />
+   </xsd:sequence>
+   <xsd:anyAttribute namespace="##other" processContents="lax" />
+  </xsd:extension>
+ </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="tts-support" type="tts-supportType" />
+
+<xsd:complexType name="languageType">
+ <xsd:complexContent>
+  <xsd:extension base="Tcore">
+   <xsd:sequence>
+      <xsd:any namespace="##other" minOccurs="0"
+       maxOccurs="unbounded" processContents="lax" />
+   </xsd:sequence>
+   <xsd:attribute ref="xml:lang" />
+   <xsd:anyAttribute namespace="##other" processContents="lax" />
+  </xsd:extension>
+ </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="language" type="languageType" />
+
+
+<!--  vxml -->
+
+<xsd:complexType name="vxmlType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+      <xsd:element ref="vxml-mode"
+        minOccurs="0" maxOccurs="unbounded" />
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="vxml" type="vxmlType" />
+
+<xsd:complexType name="vxml-modeType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="package" type="xsd:string" use="required" />
+    <xsd:attribute name="require" type="vxml.datatype" use="required" />
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="vxml-mode" type="vxml-modeType" />
+
+<!--  location -->
+
+<xsd:complexType name="locationType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+       <xsd:element ref="ca:civicAddress"
+                        minOccurs="1" maxOccurs="1" />
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+<xsd:element name="location" type="locationType" />
+
+<!--  encryption -->
+
+ <xsd:complexType name="encryptionType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="encryption" type="encryptionType" />
+
+<!--  application-data -->
+
+<xsd:element name="application-data" type="appdata.datatype" />
+
+<!--  max-prepared-duration -->
+
+<xsd:complexType name="max-prepared-durationType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+      <xsd:element ref="max-time" />
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="max-prepared-duration"
+  type="max-prepared-durationType" />
+
+
+<xsd:complexType name="max-timeType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+      <xsd:element name="max-time-package" type="xsd:string" />
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="max-time-seconds" type="xsd:nonNegativeInteger"
+     use="required" />
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="max-time" type="max-timeType" />
+
+
+<!--  stream-mode -->
+
+<xsd:complexType name="file-transfer-modesType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+      <xsd:element ref="file-transfer-mode"
+        minOccurs="0" maxOccurs="unbounded" />
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="file-transfer-modes"
+             type="file-transfer-modesType" />
+
+<xsd:complexType name="file-transfer-modeType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="name" type="transfermode.datatype"
+     use="required" />
+    <xsd:attribute name="package" type="xsd:string" use="required" />
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="file-transfer-mode" type="file-transfer-modeType" />
+
+<!--  mixers -->
+
+<xsd:complexType name="mixerssessionsType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+      <xsd:element ref="mix" minOccurs="0"
+        maxOccurs="unbounded" />
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="mixers" type="mixerssessionsType" />
+
+<xsd:complexType name="mixType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+      <xsd:element ref="rtp-codec" minOccurs="0"
+        maxOccurs="unbounded" />
+       <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="users" type="xsd:nonNegativeInteger"
+     use="required" />
+    <xsd:anyAttribute namespace="##other" processContents="lax" />
+   </xsd:extension>
+  </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="mix" type="mixType" />
+
+
+<!--  mixing-modes -->
+
+<xsd:complexType name="mixing-modesType">
+ <xsd:complexContent>
+  <xsd:extension base="Tcore">
+   <xsd:sequence>
+      <xsd:element ref="audio-mixing-modes"
+        minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="video-mixing-modes"
+        minOccurs="0" maxOccurs="1" />
+      <xsd:any namespace="##other" minOccurs="0"
+        maxOccurs="unbounded" processContents="lax" />
+   </xsd:sequence>
+   <xsd:anyAttribute namespace="##other" processContents="lax" />
+  </xsd:extension>
+ </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="mixing-modes" type="mixing-modesType" />
+
+<xsd:complexType name="audio-mixing-modesType">
+ <xsd:complexContent>
+  <xsd:extension base="Tcore">
+   <xsd:sequence>
+     <xsd:element ref="audio-mixing-mode"
+        minOccurs="0" maxOccurs="unbounded" />
+      <xsd:any namespace="##other" minOccurs="0"
+       maxOccurs="unbounded" processContents="lax" />
+   </xsd:sequence>
+   <xsd:anyAttribute namespace="##other" processContents="lax" />
+  </xsd:extension>
+ </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="audio-mixing-modes" type="audio-mixing-modesType" />
+
+<xsd:complexType name="audio-mixing-modeType" mixed="true">
+ <xsd:sequence>
+    <xsd:any namespace="##other" minOccurs="0"
+     maxOccurs="unbounded" processContents="lax" />
+ </xsd:sequence>
+ <xsd:attribute name="package" type="xsd:string" use="required" />
+ <xsd:anyAttribute namespace="##other" processContents="lax" />
+</xsd:complexType>
+
+<xsd:element name="audio-mixing-mode" type="audio-mixing-modeType" />
+
+<xsd:complexType name="video-mixing-modesType">
+ <xsd:complexContent>
+  <xsd:extension base="Tcore">
+   <xsd:sequence>
+     <xsd:element ref="video-mixing-mode"
+        minOccurs="0" maxOccurs="unbounded" />
+      <xsd:any namespace="##other" minOccurs="0"
+       maxOccurs="unbounded" processContents="lax" />
+   </xsd:sequence>
+   <xsd:attribute name="vas" type="boolean.datatype"
+     default="false" />
+   <xsd:attribute name="activespeakermix" type="boolean.datatype"
+     default="false" />
+   <xsd:anyAttribute namespace="##other" processContents="lax" />
+  </xsd:extension>
+ </xsd:complexContent>
+</xsd:complexType>
+
+<xsd:element name="video-mixing-modes" type="video-mixing-modesType" />
+
+<xsd:complexType name="video-mixing-modeType" mixed="true">
+ <xsd:sequence>
+    <xsd:any namespace="##other" minOccurs="0"
+     maxOccurs="unbounded" processContents="lax" />
+ </xsd:sequence>
+ <xsd:attribute name="package" type="xsd:string" use="required" />
+ <xsd:anyAttribute namespace="##other" processContents="lax" />
+</xsd:complexType>
+
+<xsd:element name="video-mixing-mode" type="video-mixing-modeType" />
+
+
+<!--
+  ####################################################
+
+  DATATYPES
+
+  ####################################################
+ -->
+
+<xsd:simpleType name="version.datatype">
+  <xsd:restriction base="xsd:NMTOKEN">
+   <xsd:enumeration value="1.0" />
+  </xsd:restriction>
+</xsd:simpleType>
+
+<xsd:simpleType name="id.datatype">
+  <xsd:restriction base="xsd:NMTOKEN" />
+</xsd:simpleType>
+
+<xsd:simpleType name="status.datatype">
+  <xsd:restriction base="xsd:positiveInteger">
+   <xsd:pattern value="[0-9][0-9][0-9]" />
+  </xsd:restriction>
+</xsd:simpleType>
+
+<xsd:simpleType name="transfermode.datatype">
+  <xsd:restriction base="xsd:NMTOKEN"/>
+</xsd:simpleType>
+
+<xsd:simpleType name="action.datatype">
+  <xsd:restriction base="xsd:NMTOKEN">
+   <xsd:enumeration value="remove" />
+   <xsd:enumeration value="update" />
+  </xsd:restriction>
+</xsd:simpleType>
+
+<xsd:simpleType name="dtmf.datatype">
+  <xsd:restriction base="xsd:NMTOKEN"/>
+</xsd:simpleType>
+
+<xsd:simpleType name="boolean.datatype">
+  <xsd:restriction base="xsd:NMTOKEN">
+   <xsd:enumeration value="true" />
+   <xsd:enumeration value="false" />
+  </xsd:restriction>
+</xsd:simpleType>
+
+<xsd:simpleType name="vxml.datatype">
+  <xsd:restriction base="xsd:NMTOKEN"/>
+</xsd:simpleType>
+
+<xsd:simpleType name="appdata.datatype">
+  <xsd:restriction base="xsd:string" />
+ </xsd:simpleType>
+
+</xsd:schema>

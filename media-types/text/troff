@@ -1,0 +1,221 @@
+(per RFC4263)
+
+Type name: text
+
+Subtype name: troff
+
+Required parameters: none
+
+Optional parameters:
+
+   charset: Must be a charset registered for use with MIME text types
+      [N3.RFC2046], except where transport protocols are explicitly
+      exempted from that restriction.  Specifies the charset of the
+      media content.  With traditional source content, this will be
+      the default "US-ASCII" charset.  Some recent versions of troff
+      processing software can handle Unicode input charsets; however,
+      there may be interoperability issues if the input uses such a
+      charset (see "Interoperability considerations" below).
+
+   process: Human-readable additional information for formatting,
+      including environment variables, preprocessor arguments and
+      order, formatter arguments, and postprocessors.  The parameter
+      value may need to be quoted or encoded as provided for by
+      [N4.RFC2045] as amended by [N5.RFC2231] and [N6.Errata].
+      Generating implementations must not encode executable content
+      and other implementations must not attempt any execution or
+      other interpretation of the parameter value, as the parameter
+      value may be prose text.  Implementations SHOULD present the
+      parameter (after reassembly of continuation parameters, etc.)
+      as information related to the media type, particularly if the
+      media content is not immediately available (e.g., as with
+      message/external-body composite media [N3.RFC2046]).
+
+   resources: Lists any additional files or programs that are
+      required for formatting (e.g., via .cf, .nx, .pi, .so, and/or
+      .sy directives).
+
+   versions: Human-readable indication of any known specific versions
+      of preprocessors, formatter, macro packages, postprocessors,
+      etc., required to process the content.
+
+Encoding considerations:
+
+   7bit is adequate for traditional troff provided line endings are
+      canonicalized per [N3.RFC2046].  Transfer of this media type
+      content via some transport mechanisms may require or benefit
+      from encoding into a 7bit range via a suitable encoding method
+      such as the ones described in [N4.RFC2045].  In particular,
+      some lines in this media type might begin or end with
+      whitespace, and that leading and/or trailing whitespace might
+      be discarded or otherwise mangled if the media type is not
+      encoded for transport.
+
+   8bit may be used with Unicode characters represented as a series
+      of octets using the utf-8 charset [I4.RFC3629], where transport
+      methods permit 8bit content and where content line length is
+      suitable.  Transport encoding considerations for robustness may
+      also apply, and if a suitable 8bit encoding mechanism is
+      standardized, it might be applicable for protection of media
+      during transport.
+
+   binary may be necessary when raw Unicode is used or where line
+      lengths exceed the allowable maximum for 7bit and 8bit content
+      [N4.RFC2045], and may be used in environments (e.g., HTTP
+      [I5.RFC2616]) where Unicode characters may be transferred via a
+      non-MIME charset such as UTF-16 [I6.RFC2781].
+
+   framed encoding MAY be used, but is not required and is not
+      generally useful with this media type.
+
+Restrictions on usage: none
+
+Security considerations: Some troff directives (.sy and .pi) can
+   cause arbitrary external programs to be run.  Several troff
+   directives (.so, .nx, and .cf) may read external files (and/or
+   devices on systems that support device input via file system
+   semantics) during processing.  Several preprocessors have similar
+   features.  Some implementations have a "safe" mode that disables
+   some of these features.  Formatters and preprocessors are
+   programmable, and it is possible to provide input which specifies
+   an infinite loop, which could result in denial of service, even in
+   implementations that restrict use of directives that access
+   external resources.  Users of this media type SHOULD be vigilant
+   of the potential for damage that may be caused by careless
+   processing of media obtained from untrusted sources.
+
+   Processing of this media type other than by facilities that strip
+   or ignore potentially dangerous directives, and processing by
+   preprocessors and/or postprocessors, SHOULD NOT be invoked
+   automatically (i.e., without user confirmation).  In some cases,
+   as this is a text media type (i.e., it contains text that is
+   comprehensible without processing), it may be sufficient to
+   present the media type with no processing at all.  However, like
+   any other text media, this media type may contain control
+   characters, and implementers SHOULD take precautions against
+   untoward consequences of sending raw control characters to display
+   devices.
+
+   Users of this media type SHOULD carefully scrutinize suggested
+   command lines associated with the "process" parameter, contained
+   in comments within the media, or conveyed via external mechanisms,
+   both for attempts at social engineering and for the effects of
+   ill-considered values of the parameter.  While some
+   implementations may have "safe" modes, those using this media type
+   MUST NOT presume that they are available or active.
+
+   Comments may be included in troff source; comments are not
+   formatted for output.  However, they are of course readable in the
+   troff document source.  Authors should be careful about
+   information placed in comments, as such information may result in
+   a leak of information, or may have other undesirable consequences.
+
+   While it is possible to overlay text with graphics or otherwise
+   produce formatting instructions that would visually obscure text
+   when formatted, such measures do not prevent extracting text from
+   the document source, and might be ineffective in obscuring text
+   when formatted electronically, e.g., as PostScript or PDF.
+
+Interoperability considerations: Recent implementations of
+   formatters, macro packages, and preprocessors may include some
+   extended capabilities that are not present in earlier
+   implementations.  Use of such extensions obviously limits the
+   ability to produce consistent formatted output at sites with
+   implementations that do not support those extensions.  Use of any
+   such extensions in a particular document using this media type
+   SHOULD be indicated via the "versions" parameter value.
+
+   As mentioned in the Introduction, macro packages are troff
+   documents, and their content may be subject to copyright.  That
+   has led to multiple independent implementations of macro packages,
+   which may exhibit gross or subtle differences with some content.
+
+   Some preprocessors or postprocessors might be unavailable at some
+   sites.  Where some implementation is available, there may be
+   differences in implementation that affect the output produced.
+   For example, some versions of the "pic" preprocessor provide the
+   capability to fill a bounded graphical object; others lack that
+   capability.  Of those that support that feature, there are
+   differences in whether a solid fill is represented by a value of
+   0.0 vs. 1.0.  Some implementations support only gray-scale output;
+   others support color.
+
+   Preprocessors or postprocessors may depend on additional programs
+   such as awk, and implementation differences (including bugs) may
+   lead to different results on different systems (or even on the
+   same system with a different environment).
+
+   There is a wide variation in the capabilities of various
+   presentation media and the devices used to prepare content for
+   presentation.  Indeed, that is one reason that there are two basic
+   formatter program types (nroff for output where limited formatting
+   control is available, and troff where a greater range of control
+   is possible).  Clearly, a document designed to use complex or
+   sophisticated formatting might not be representable in simpler
+   media or with devices lacking certain capabilities.  Often it is
+   possible to produce a somewhat inferior approximation; colors
+   might be represented as gray-scale values, accented characters
+   might be produced by overstriking, italics might be represented by
+   underlining, etc.
+
+   Various systems store text with different line ending codings.
+   For the purpose of transferring this media type between systems or
+   between applications using MIME methods, line endings MUST use the
+   canonical CRLF line ending per [N3.RFC2046].
+
+Published specification: [N1.CSTR54]
+
+Applications which use this media type: The following applications in
+   each sub-category are examples.  The lists are not intended to be
+   exhaustive.
+
+   Preprocessors: tbl [I7.CSTR49], grap [I8.CSTR114], pic
+      [I9.CSTR116], chem [I10.CSTR122], eqn [I11.eqn], dformat
+      [I12.CSTR142]
+
+   Formatters: troff, nroff, Eroff, sqtroff, groff, awf, cawf
+
+   Format converters: deroff, troffcvt, unroff, troff2html, mm2html
+
+   Macro packages: man [I13.UNIXman1], me [I14.me], mm
+      [I15.DWBguide], ms [I16.ms], mv [I15.DWBguide], rfc
+      [I2.Lilly05]
+
+Additional information:
+
+   Magic number(s): None; however, the content format is distinctive
+      (see "Published specification").
+
+   File extension(s): Files do not require any specific "extension".
+      Many are in use as a convenience for mechanized processing of
+      files, some associated with specific macro packages or
+      preprocessors; others are ad hoc.  File names are orthogonal to
+      the nature of the content.  In particular, while a file name or
+      a component of a name may be useful in some types of automated
+      processing of files, the name or component might not be capable
+      of indicating subtleties such as proportion of textual (as
+      opposed to image or formatting directive) content.  This media
+      type SHOULD NOT be assigned a relationship with any file
+      "extension" where content may be untrusted unless there is
+      provision for human judgment that may be used to override that
+      relationship for individual files.  Where appropriate, a file
+      name MAY be suggested by a suitable mechanism such as the one
+      specified in [I17.RFC2183] as amended by [N5.RFC2231] and
+      [N6.Errata].
+
+   Macintosh File Type Code(s): unknown
+
+Person & email address to contact for further information:
+   Bruce Lilly
+   blilly&erols.com
+
+Intended usage: COMMON
+
+Author/Change controller: IESG
+
+Consistency: The media has provision for comments; these are
+   sometimes used to convey recommended processing commands, to
+   indicate required resources, etc.  To avoid confusing recipients,
+   senders SHOULD ensure that information specified in optional
+   parameters is consistent with any related information that may be
+   contained within the media content.

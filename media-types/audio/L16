@@ -1,0 +1,101 @@
+(RFC 3555 published July 2003, subtype last updated March 2007 per RFC4856)
+
+Type name: audio
+
+Subtype name: L16
+
+Required parameters:
+	rate: number of samples per second -- For non-RTP transport,
+	the permissible values for rate are 8000, 11025, 16000, 22050,
+	24000, 32000, 44100, and 48000 samples per second.  For RTP
+	transport, other values are permissible but the aforementioned
+	values are RECOMMENDED.  For RTP, the rate parameter indicates
+	the RTP timestamp clock rate, which is equal to the sample
+	rate.
+
+Optional parameters:
+	channels: how many audio streams are interleaved -- defaults
+	to 1; stereo would be 2, etc.  Interleaving takes place
+	between individual two-byte samples.  The channel order is as
+	specified in RFC 3551 unless a channel-order parameter is also
+	present.
+
+	emphasis: analog preemphasis applied to the signal before
+	quantization.  The only emphasis value defined here is
+	emphasis=50-15 to indicate the 50/15 microsecond preemphasis
+	used with Compact Discs.  This parameter MUST be omitted if no
+	analog preemphasis was applied.  Note that this is a stream
+	property parameter, not a receiver configuration parameter.
+	Thus, if parameters are negotiated, it may not be possible for
+	the sender to comply with a receiver request for a particular
+	setting.
+
+	channel-order: specifies the sample interleaving order for
+	multiple-channel audio streams (see RFC 3190 [7], Section 7).
+	Permissible values are DV.LRLsRs, DV.LRCS, DV.LRCWo,
+	DV.LRLsRsC, DV.LRLsRsCS, DV.LmixRmixTWoQ1Q2,
+	DV.LRCWoLsRsLmixRmix, DV.LRCWoLs1Rs1Ls2Rs2, DV.LRCWoLsRsLcRc.
+	For interoperation with DV video systems, only a subset of
+	these channel combinations is specified for use with 20-bit
+	linear encoding in the DV video specification [9]; those are
+	DV.LRLsRs, DV.LRCS, DV.LmixRmixTWoQ1Q2.  This parameter MUST
+	be omitted when the AIFF-C channel order convention (see RFC
+	3551) is in use.
+
+	For RTP, ptime: RECOMMENDED duration of each packet in
+	milliseconds.
+
+	For RTP, maxptime: maximum duration of each packet in
+	milliseconds.
+
+Encoding considerations:
+	Audio data is binary data, and must be encoded for non-binary
+	transport; the Base64 encoding is suitable for Email.  Note
+	that audio data does not compress easily using lossless
+	compression.
+
+Security considerations:
+	Audio/L16 data is believed to offer no security risks.  This
+	media type does not carry active content.  The encoding is not
+	compressed.  See Section 4 of RFC 4856.
+
+Interoperability considerations:
+	This type is compatible with the encoding used in the WAV
+	(Microsoft Windows RIFF) and Apple AIFF union types, and with
+	the public domain "sox" and "rateconv" programs.
+
+Published specification:
+	RFC 2586 for non-RTP transports, RFC 3551 for RTP
+
+Applications that use this media type:
+	The public domain "sox" and "rateconv" programs accept this
+	type.
+
+Additional information:
+	Magic number(s): none
+	File extension(s): WAV L16
+	Macintosh file type code: AIFF
+
+Person to contact for further information:
+	James Salsman <jps-L16&bovik.org>
+
+Intended usage:
+	Common
+
+	It is expected that many audio and speech applications will
+	use this type.  Already the most popular platforms provide
+	this type with the rate=11025 parameter, referred to as "radio
+	quality speech".
+
+Restrictions on usage:
+	In addition to file-based transfer methods, this type is also
+	defined for transfer via RTP (RFC 3550).
+
+Author:
+	James Salsman for non-RTP transports.
+	Stephen Casner for RTP transport.
+
+Change controller:
+	James Salsman for non-RTP transports.
+	For RTP transport, IETF Audio/Video Transport working group
+	delegated from the IESG.

@@ -1,0 +1,654 @@
+
+
+MacMIME - How to send Macintosh files with MIME
+
+
+
+
+
+       MacMIME - How to send Macintosh files with MIME
+                              
+                              
+                              
+                    Sun Mar 14 22:07 1993
+                              
+                              
+                              
+                     Patrik Faeltstroem
+                              
+   Department of Numerical Analysis and Computing Science
+                              
+                Royal Institute of Technology
+                              
+                       paf&nada.kth.se
+                              
+
+
+
+
+1.  Status of this Memo
+
+This draft document will be submitted to the Internet
+Activities Board as a standards document. As this is a
+working document only, it should neither be cited nor quoted
+in any formal document. Distribution of this memo is
+unlimited. Please send comments to
+<ietf-822&dimacs.rutgers.edu>.
+
+
+
+2. Abstract
+
+This memo describes how to specify a message format based on
+RFC-1341 [1], to allow the transportation of Macintosh files.
+The solution proposed is designed to be highly compatible
+with existing mechanisms for distributing Macintosh files,
+and it should be readily implementable in mail readers that
+support RFC-1341.
+
+
+
+3. Introduction
+
+Files on the Macintosh consists of two parts, called forks:
+
+    DATA:
+    
+         The actual data included in the file. This is a
+         series of consecutive bytes of data, often seen as
+         corresponding to an entire file in some other
+         operating systems.
+         
+
+
+    RESOURCE:
+    
+         Contains a collection of arbitrary attribute/value
+         pairs, including program segments, icon bitmaps,
+         and parametric values.
+         
+
+
+Besides these two, there is some additional information which
+the Finder has in its "Desktop Database", and this info can
+sometimes be regarded as a third part of the file.
+
+Because of the lack of possibilities for storing different
+parts of the same file in a filesystem that only handles
+consecutive data in one part, it is common to pack, or
+convert, the Macintosh file into some other format before
+moving the file over the network.
+
+Formats accepted are:
+
+    AppleSingle [2]    A representation of Macintosh files
+                   as one consecutive stream of bytes,
+                   invented and used by Apple (see appendix
+                   A).
+                   
+    AppleDouble [2]    A special version of AppleSingle
+                   where the Data fork of the document is
+                   separated from the other parts included in
+                   AppleSingle (see appendix A).
+                   
+    BinHex        A representation widely used in the
+                   Macintosh community. However, the BinHex
+                   encoding should not be the primary format.
+                   It is defined and accepted to provide
+                   backward compatibility (see point 6 and
+                   appendix B).
+                   
+It might look strange to define three different formats, but
+it isn't. All three formats has it's pros and it's cons.
+
+The AppleDouble format should be the primary format when
+sending a Macintosh document. It makes it possible for a user
+that can't decode the AppleDouble header to read and use the
+Data fork of the document. It also keep the Macintosh
+specific information in the AppleDouble header, so a user who
+can decode the AppleDouble header can get the extra in
+formation, such as customised icons, which is not essential
+to the document itself.
+
+One disadvantage is though that the AppleDouble format is two
+parallel streams of bytes. That means that a user who has to
+create the MIME document by hand, or move and store the file
+temporarily when creating the MIME message, has to handle two
+files. If the receiver is known to have a Macintosh, or the
+data is Macintosh specific (such as an application) it might
+be more convenient to use the AppleSingle format. The
+AppleSingle format is one stream of bytes only, but the
+format is exactly the same as the AppleDouble header, so an
+application that can decode the AppleDouble format should
+also be able to decode the AppleSingle format.
+
+But, neither AppleSingle nor AppleDouble does contain a CRC
+(Cyclic Redundancy Code) which can help to detect
+transmission errors. BinHex4.0 does contain such codes, both
+for the Data and Resource fork. Also, the BinHex4.0 format is
+one of the formats most widely used today on public file
+servers when storing Macintosh files in printable ASCII
+format. With that as a background, a subtype for the
+BinHex4.0 format is defined. It should though only be used in
+some special cases, for backward compatibility, and then only
+as a replacement for the AppleSingle format, i.e. just for
+sending Macintosh specific data, or to other Macintosh users.
+
+Conclusion: The AppleDouble format should be the primary
+format used, even though both AppleSingle and BinHex4.0 is
+accepted. A minimal MacMIME-aware mail reader is able to
+encode and decode the AppleSingle and Apple Double formats.
+The BinHex4.0 format is to be recognised so the file can be
+saved and later decoded with another program.
+
+
+
+4. Syntax
+
+This document describes some additional subtypes of the types
+listed in RFC-1341.
+
+The new subtypes added are:
+
+    application/applefile Part 5.1 and 5.2
+    
+    multipart/appledouble Part 5.2
+    
+For backward compatibility with non-MIME aware mail programs
+a subtype for the very wide-spread encoding of Macintosh
+files, BinHex 4.0:
+
+     application/mac-binhex40    Part 7.1
+    
+
+
+5. Representation
+
+
+
+5.1 AppleSingle
+
+An AppleSingle, version 2 file, is sent as one consecutive
+stream of bytes. The format is described in
+"AppleSingle/AppleDouble Formats for Foreign Files
+Developer's Note" [2]. The one and only part of the file is
+sent in an application/applefile message.
+
+The first four bytes of an AppleSingle header is, in
+hexadecimal: 00, 05, 16, 00.
+
+The AppleSingle file is binary data. Hence, it may be
+necessary to perform a Content-Transfer-Encoding for
+transmission. The safest encoding is Base64, since it permits
+transfer over the most limited media.
+
+An AppleSingle file includes the original Macintosh filename,
+so the filename used when storing the file on a foreign
+filesystem is of no importance. But, to give a hint to the
+receiver what file is sent, a parameter called name can be
+used. The value of this parameter must be in such character
+set so it's accepted according to the rules in RFC-1341 [1].
+
+The AppleSingle file also includes the original Macintosh
+file type, but to give a hint to the receiver what type of
+file is sent, a parameter called type can be used. The value
+of this parameter should be human readable, and in such
+character set so it's accepted according to the rules in RFC-
+1341 [1].
+
+
+
+5.2 AppleSingle example
+
+  Content-Type: application/applefile; name="New Computers
+  1/2 -93"; type="MSWord5.1a"
+  
+      [The AppleSingle file follows (starts with, in
+  hexadecimal: 00051600)]
+
+
+5.3 AppleDouble
+
+An AppleDouble, version 2, file is divided in two parts, a
+header and a data block. Both of these are described in
+"AppleSingle/AppleDouble Formats for Foreign Files
+Developer's Note" [2]. The AppleDouble file itself is sent as
+a multipart/appledouble message, which is only allowed to
+have two parts. The header is sent as application/applefile
+and the data fork as whatever best describes it. For example
+should a data part which is a GIF image be sent as image/gif.
+If there is no content-type registered that is correct, the
+data part should be sent as an application/octet-stream.
+
+AppleDouble is special case of AppleSingle. The Data fork of
+the Macintosh file is extracted from the AppleSingle file and
+is stored separately. Therefore an implementation for
+AppleSingle can also decode AppleDouble files.
+
+The first four bytes of an AppleDouble header is, in
+hexadecimal: 00, 05, 16, 07.
+
+The AppleDouble header is binary data. Hence, it may be
+necessary to perform a Content-Transfer-Encoding for
+transmission. The safest encoding is Base64, since it permits
+transfer over the most limited media. Even the Data fork of
+the file might need transportation encoding for transmission.
+
+An AppleDouble header file includes the original Macintosh
+filename, so the filename used when storing the file on a
+foreign filesystem is of no importance. The only thing that
+might be of some importance is the naming scheme used to keep
+the AppleDouble header file together with the data part. The
+scheme used differs between different foreign file systems
+and the rules is presented in "AppleSingle/AppleDouble
+Formats for Foreign Files Developer's Note" [2]. An example
+is that if the data file is named 'budget', the AppleDouble
+header file should be named '%budget' on a UNIX filesystem.
+To give a hint to the receiver what file is sent, a parameter
+called name can be used. The value of this parameter must be
+in such character set so it's accepted according to the rules
+in RFC-1341 [1].
+
+The AppleDouble header file also includes the original
+Macintosh file type, but to give a hint to the receiver what
+type of file is sent, a parameter called type can be used.
+The value of this parameter should be human readable, and in
+such character set so it's accepted according to the rules in
+RFC-1341 [1]. This parameter is of great importance for the
+data part of the AppleDouble file to help non-Macintosh
+computers to extract the data. This scheme should be used on
+the data part of the file only if there is no IANA registered
+content-type for MIME that matches the Macintosh type. For
+example, the Macintosh type 'GIFf' can be sent as a MIME
+document with content type image/gif.
+
+
+
+5.4 AppleDouble example
+
+
+
+  Content-Type: multipart/appledouble; boundary=mac-part
+  
+  --mac-part
+  Content-Type: application/applefile; name="My-new-car";
+  type="GIF picture"
+  
+      [The AppleDouble header follows (starts with, in
+  hexadecimal: 00051607)]
+  
+  --mac-part
+  Content-Type: image/gif;
+  
+      [The Data fork (which in this case is a GIF image)
+  follows]
+  
+  --mac-part--
+
+
+6. Problems at the transition phase
+
+6.1 About the BinHex encoding
+
+A very widely spread way of sending Macintosh files with
+electronic mail is to encode the Macintosh file with the
+BinHex4.0 encoding  (see appendix B for a brief description
+of the BinHex4.0 format).
+
+To help the transition phase from sending BinHex4.0 files, to
+this MacMIME specification where you send either AppleSingle
+or AppleDouble files encoded in some transport encoding
+(Base64 or Quoted-Printable), we also define an application
+subtype named apple-binhex40.
+
+It includes a CRC (Cyclic Redundancy Code) which can help
+detecting transmission errors. To get a CRC on a message
+which use the AppleSingle or AppleDouble format, you have to
+use it on the message itself. That kind of functionality is
+not discussed in this memo.
+
+It is the most widely spread encoding scheme for a Macintosh
+file, which make it possible for almost all Macintosh users
+to decode a BinHex4.0 encoded file. The file can be saved as
+a text file and decoded on a Macintosh. If a transportation
+encoding is done, the receiver must be MIME-aware to get the
+BinHex4.0 file. If not the receiver can receive the file and
+decode it even if he is not MIME-aware.
+
+The BinHex4.0 format should only be used as a replacement for
+the AppleSingle format, i.e. it should only be used when
+sending files to Macintosh users, or when sending Macintosh
+specific data (a Macintosh application for example).
+
+
+
+6.2 BinHex
+
+The Content-Type application/mac-binhex40 describes that the
+body of the mail is a BinHex4.0 file which follows the
+description in appendix B. Even though the BinHex encoding
+consists of characters which are not the same as those used
+in Base64 (those regarded as safe according to RFC-1341) a
+transportation encoding should not be done.
+
+The one and only part of the file is sent in an
+application/mac-binhex40 message.
+
+A BinHex4.0 file includes the original Macintosh filename, so
+the filename used when storing the file on a foreign
+filesystem is of no importance. But, to give a hint to the
+receiver what file is sent, a parameter called name can be
+used. The value of this parameter must be in such character
+set so it's accepted according to the rules in RFC-1341 [1].
+
+
+
+6.3 BinHex example
+
+  Content-Type: application/mac-binhex40; name="car.hqx"
+  
+      [The BinHex4.0 file which is NOT encoded follows]
+
+
+7. References
+
+
+
+   [1]Borenstein N., and N. Freed, MIME (Multipurpose
+      Internet Mail Extensions):  Mechanisms for Specifying
+      and Describing the Format of Internet Message Bodies,
+      RFC 1341, Bellcore, Innosoft, June 1992.
+      
+   
+   
+   [2]AppleSingle/AppleDouble Formats for Foreign Files
+      Developer's Note, Apple Computer, Inc., 1990
+      
+
+
+8. Security Considerations
+
+Security issues are not discussed in this memo.
+
+
+
+9. Acknowledgements
+
+Thanks to all of the people on the ietf-822 list who have
+come with great input for this document.
+
+Some of them must though be remembered by name, because they
+have almost crushed my mailbox the last weeks with a very
+nice and interesting debate:
+
+    Dave Crocker
+    Steve Dorner
+    Erik E. Fair
+    David Gelhar
+    David Herron
+    Raymond Lau
+    John B. Melby
+    Rens Troost
+    Peter Svanberg
+    
+
+
+10. Author's Address
+
+    Patrik Faeltstroem
+    Department of Numerical Analysis and Computing Science
+    Royal Institute of Technology
+    S-100 44 Stockholm
+    Sweden
+    
+    Email: paf&nada.kth.se
+    
+11. Appendix A: AppleSingle and AppleDouble formats
+
+
+
+11.1 The AppleSingle format
+
+In the AppleSingle format, a file's contents and attributes
+are stored in a single file in the foreign file system. For
+example, both forks of a Macintosh file, the Finder
+information, and an associated comment are arranged in a
+single file with a simple structure.
+
+An AppleSingle file consists of a header followed by one or
+more data entries. The header consists of several fixed
+fields and a list of entry descriptors, each pointing to a
+data entry. Each entry is optional and may or may not appear
+in the file.
+
+  AppleSingle file header:
+  
+     Field             Length
+
+     Magic number      4 bytes
+
+     Version number    4 bytes
+
+     Filler            16 bytes
+
+     Number of entries 2 bytes
+
+  
+  Entry descriptor for each entry:
+  
+     Entry ID          4 bytes
+
+     Offset            4 bytes
+
+     Length            4 bytes
+
+
+
+Byte ordering in the file fields follows MC68000 conventions,
+most significant byte first. The fields in the header file
+follow the conventions described in the following sections.
+
+  Magic number
+  
+This field, modelled after the UNIX magic number feature,
+specifies the file's format. Apple has defined the magic
+number for the AppleSingle format as $00051600 or 0x00051600.
+
+  Version number
+  
+This field denotes the version of AppleSingle format in the
+event the format evolves (more fields may be added to the
+header). The version described in this note is version
+$00020000 or 0x00020000.
+
+  Filler
+  
+This field is all zeros ($00 or 0x00).
+
+  Number of entries
+  
+This field specifies how many different entries are included
+in the file. It is an unsigned 16-bit number. If the number
+of entries is any number other than 0, then that number of
+entry descriptors immediately follows the number of entries
+field.
+
+  Entry descriptors
+  
+The entry descriptor is made up of the following three
+fields:
+
+   Entry ID    an unsigned 32-bit number, defines what entry
+           is. Entry IDs range from 1 to $FFFFFFFF. Entry ID
+           0 is invalid.
+           
+   Offset an unsigned 32-bit number, shows the offset from
+           the beginning of the file to the beginning of the
+           entry's data.
+           
+   Length an unsigned 32-bit number, shows the length of
+           the data in bytes. The length can be 0.
+           
+
+
+     Predefined entry ID's
+  
+Apple has defined a set of entry IDs and their values as
+follows:
+
+    Data Fork        1   Data fork
+
+    Resource Fork    2   Resource fork
+
+    Real Name        3   File's name as created on home file
+system
+
+    Comment          4   Standard Macintosh comment
+
+    Icon, B&W        5   Standard Macintosh black and white
+icon
+
+    Icon, Colour     6   Macintosh colour icon
+
+    File Dates Info  8   File creation date, modification
+date, and so on
+
+    Finder Info      9   Standard Macintosh Finder
+information
+
+    Macintosh File Info  10  Macintosh file information,
+attributes and so on
+
+    ProDOS File Info11   ProDOS file information, attributes
+and so on
+
+    MS-DOS File Info12   MS-DOS file information, attributes
+and so on
+
+    Short Name      13   AFP short name
+
+    AFP File Info   14   AFP file, information, attributes
+and so on
+
+    Directory ID    15   AFP directory ID
+
+
+
+Apple reserves the range of entry IDs from 1 to $7FFFFFFF.
+The rest of the range is available for applications to define
+their own entries. Apple does not arbitrate the use of the
+rest of the range.
+
+
+
+11.2 The AppleDouble format
+
+The AppleDouble format uses two files to store data,
+resources and attributes. The AppleDouble Data file contains
+the data fork and the AppleDouble Header file contains the re
+source fork.
+
+The AppleDouble Data file contains the standard Macintosh
+data fork with no additional header. The AppleDouble Header
+file has exactly the same format as the AppleSingle file,
+except that it does not contain a Data fork entry. The magic
+number in the AppleDouble Header file differs from the magic
+number in the AppleSingle Header file so that an application
+can tell whether it needs to look in another file for the
+data fork. The magic number for the AppleDouble format is
+$00051607 or 0x00051607.
+
+The entries in the AppleDouble Header file can appear in any
+order; however, since the resource fork is the entry that is
+most commonly extended (after the data fork), Apple recom
+mends that the resource fork entry to be placed last in the
+file. The data fork is easily extended because it resides by
+itself in the AppleDouble Data file.
+
+
+
+
+
+12. Appendix B: BinHex format
+
+Here is a description of the Hqx7 (7 bit format as
+implemented in BinHex 4.0) formats for Macintosh Application
+and File transfers.
+
+The main features of the format are:
+
+    1) Error checking even using ASCII download
+
+    2) Compression of repetitive characters
+
+    3) 7 bit encoding for ASCII download
+
+HQX Format Description (This is not intended to be a
+programmer's reference).
+
+The format is processed at three different levels:
+
+  1) 8 bit encoding of the file:
+  
+    Byte: Length of FileName (1->63)
+
+    Bytes:    FileName ("Length" bytes)
+
+    Byte: Version
+
+    Long: Type
+
+    Long: Creator
+
+    Word: Flags (And $F800)
+
+    Long: Length of Data Fork
+
+    Long: Length of Resource Fork
+
+    Word: CRC
+
+    Bytes:    Data Fork ("Data Length" bytes)
+
+    Word: CRC
+
+    Bytes:    Resource Fork ("Rsrc Length" bytes)
+
+    Word: CRC
+
+  
+  
+  2) Compression of repetitive characters.
+  
+ ($90 is the marker, encoding is made for 3->255 characters)
+
+00 11 22 33 44 55 66 77 ->  00 11 22 33 44 55 66 77
+
+11 22 22 22 22 22 22 33 ->  11 22 90 06 33
+
+11 22 90 33 44          ->  11 22 90 00 33 44
+
+  
+  
+  3) 7 bit encoding.
+  
+The whole file is considered as a stream of bits. This stream
+will be divided in blocks of 6 bits and then converted to one
+of 64 characters contained in a table. The characters in this
+table have been chosen for maximum noise protection. The
+format will start with a ":" (first character on a line) and
+end with a ":". There will be a maximum of 64 characters on a
+line. It must be preceded, by this comment, starting in
+column 1 (it does not start in column 1 in this document):
+
+      (This file must be converted with BinHex 4.0)
+
+
+Any text before this comment is to be ignored.
+
+The characters used is:
+
+  !"#$%&'()*+,-
+  012345689@ABCDEFGHIJKLMNPQRSTUVXYZ[`abcdefhijklmpqr
+
+

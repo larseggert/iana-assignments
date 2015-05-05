@@ -1,0 +1,164 @@
+(registered via RFC-ietf-payload-rtp-opus-11)
+
+Type name: audio
+
+
+Subtype name: opus
+
+
+Required parameters:
+
+rate:  the RTP timestamp is incremented with a 48000 Hz clock rate
+   for all modes of Opus and all sampling rates.  For data encoded
+   with sampling rates other than 48000 Hz, the sampling rate has to
+   be adjusted to 48000 Hz.
+
+Optional parameters:
+
+maxplaybackrate:  a hint about the maximum output sampling rate that
+   the receiver is capable of rendering in Hz.  The decoder MUST be
+   capable of decoding any audio bandwidth but due to hardware
+   limitations only signals up to the specified sampling rate can be
+   played back.  Sending signals with higher audio bandwidth results
+   in higher than necessary network usage and encoding complexity, so
+   an encoder SHOULD NOT encode frequencies above the audio bandwidth
+   specified by maxplaybackrate.  This parameter can take any value
+   between 8000 and 48000, although commonly the value will match one
+   of the Opus bandwidths (Table 1).  By default, the receiver is
+   assumed to have no limitations, i.e. 48000.
+
+
+sprop-maxcapturerate:  a hint about the maximum input sampling rate
+   that the sender is likely to produce.  This is not a guarantee
+   that the sender will never send any higher bandwidth (e.g. it
+   could send a pre-recorded prompt that uses a higher bandwidth),
+   but it indicates to the receiver that frequencies above this
+   maximum can safely be discarded.  This parameter is useful to
+   avoid wasting receiver resources by operating the audio processing
+   pipeline (e.g. echo cancellation) at a higher rate than necessary.
+   This parameter can take any value between 8000 and 48000, although
+   commonly the value will match one of the Opus bandwidths
+   (Table 1).  By default, the sender is assumed to have no
+   limitations, i.e. 48000.
+
+
+maxptime:  the maximum duration of media represented by a packet
+   (according to Section 6 of [RFC4566]) that a decoder wants to
+   receive, in milliseconds rounded up to the next full integer
+   value.  Possible values are 3, 5, 10, 20, 40, 60, or an arbitrary
+   multiple of an Opus frame size rounded up to the next full integer
+   value, up to a maximum value of 120, as defined in Section 4.  If
+   no value is specified, the default is 120.
+
+ptime:  the preferred duration of media represented by a packet
+   (according to Section 6 of [RFC4566]) that a decoder wants to
+   receive, in milliseconds rounded up to the next full integer
+   value.  Possible values are 3, 5, 10, 20, 40, 60, or an arbitrary
+   multiple of an Opus frame size rounded up to the next full integer
+   value, up to a maximum value of 120, as defined in Section 4.  If
+   no value is specified, the default is 20.
+
+maxaveragebitrate:  specifies the maximum average receive bitrate of
+   a session in bits per second (b/s).  The actual value of the
+   bitrate can vary, as it is dependent on the characteristics of the
+   media in a packet.  Note that the maximum average bitrate MAY be
+   modified dynamically during a session.  Any positive integer is
+   allowed, but values outside the range 6000 to 510000 SHOULD be
+   ignored.  If no value is specified, the maximum value specified in
+   Section 3.1.1 for the corresponding mode of Opus and corresponding
+   maxplaybackrate is the default.
+
+stereo:  specifies whether the decoder prefers receiving stereo or
+   mono signals.  Possible values are 1 and 0 where 1 specifies that
+   stereo signals are preferred, and 0 specifies that only mono
+   signals are preferred.  Independent of the stereo parameter every
+   receiver MUST be able to receive and decode stereo signals but
+   sending stereo signals to a receiver that signaled a preference
+   for mono signals may result in higher than necessary network
+   utilization and encoding complexity.  If no value is specified,
+   the default is 0 (mono).
+
+
+sprop-stereo:  specifies whether the sender is likely to produce
+   stereo audio.  Possible values are 1 and 0, where 1 specifies that
+   stereo signals are likely to be sent, and 0 specifies that the
+   sender will likely only send mono.  This is not a guarantee that
+   the sender will never send stereo audio (e.g. it could send a pre-
+   recorded prompt that uses stereo), but it indicates to the
+   receiver that the received signal can be safely downmixed to mono.
+   This parameter is useful to avoid wasting receiver resources by
+   operating the audio processing pipeline (e.g. echo cancellation)
+   in stereo when not necessary.  If no value is specified, the
+   default is 0 (mono).
+
+
+cbr:  specifies if the decoder prefers the use of a constant bitrate
+   versus variable bitrate.  Possible values are 1 and 0, where 1
+   specifies constant bitrate and 0 specifies variable bitrate.  If
+   no value is specified, the default is 0 (vbr).  When cbr is 1, the
+   maximum average bitrate can still change, e.g. to adapt to
+   changing network conditions.
+
+
+useinbandfec:  specifies that the decoder has the capability to take
+   advantage of the Opus in-band FEC.  Possible values are 1 and 0.
+
+
+   Providing 0 when FEC cannot be used on the receiving side is
+   RECOMMENDED.  If no value is specified, useinbandfec is assumed to
+   be 0.  This parameter is only a preference and the receiver MUST
+   be able to process packets that include FEC information, even if
+   it means the FEC part is discarded.
+
+usedtx:  specifies if the decoder prefers the use of DTX.  Possible
+   values are 1 and 0.  If no value is specified, the default is 0.
+
+
+Encoding considerations:
+
+
+   The Opus media type is framed and consists of binary data
+   according to Section 4.8 in [RFC6838].
+
+Security considerations:
+
+   See Section 8 of [RFC-ietf-payload-rtp-opus-11].
+
+Interoperability considerations: none
+
+
+Published specification: [RFC-ietf-payload-rtp-opus-11]     
+
+
+Applications that use this media type:
+
+   Any application that requires the transport of speech or audio
+   data can use this media type.  Some examples are, but not limited
+   to, audio and video conferencing, Voice over IP, media streaming.
+
+Fragment identifier considerations: N/A
+
+
+Person & email address to contact for further information:
+
+   SILK Support silksupport&skype.net
+   Jean-Marc Valin jmvalin&jmvalin.ca
+
+Intended usage: COMMON
+
+
+Restrictions on usage:
+
+   For transfer over RTP, the RTP payload format (Section 4 of 
+   [RFC-ietf-payload-rtp-opus-11]) SHALL be used.
+
+Author:
+
+   Julian Spittka jspittka&gmail.com
+
+   Koen Vos koenvos74&gmail.com
+
+   Jean-Marc Valin jmvalin&jmvalin.ca
+
+
+Change controller: IETF Payload Working Group delegated from the IESG

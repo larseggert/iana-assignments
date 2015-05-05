@@ -1,0 +1,67 @@
+(per RFC4102)
+
+MIME media type name: text
+
+MIME subtype name: RED
+
+Required parameters:
+   rate: the RTP clock rate of the payload carried within the RTP
+   packet.  Typically, this rate is 1000, but other rates MAY be
+   specified.  This parameter MUST be set equal to the clock rate of
+   the text payload format carried as the primary encoding.
+
+   pt: a comma-separated ordered list of RTP payload types
+   enumerating the primary, secondary, etc., in accordance with RFC
+   2198.  Because comma is a special character, the list MUST be a
+   quoted-string (enclosed in double quotes).  For static payload
+   types, each list element is simply the type number.  For dynamic
+   payload types, each list element is a mapping of the dynamic
+   payload type number to an embedded MIME content-type specification
+   for the payload format corresponding to the dynamic payload type.
+   The format of the mapping is:
+
+            dynamic-payload-type "=" content-type
+
+   If the content-type string includes a comma, then the content-
+   type string MUST be a quoted-string.  If the content-type string
+   does not include a comma, it MAY still be quoted.  Because it is
+   part of the list, which must itself be a quoted-string, the
+   quotation marks MUST be quoted with backslash quoting as specified
+   in RFC 2045 [4].  If the content-type string itself contains a
+   quoted-string, then the requirement for backslash quoting is
+   recursively applied.
+
+Optional parameters: ptime, maxptime (these attributes are originally
+   defined in RFC 2327 [5] and RFC 3267 [6], respectively)
+
+Restrictions on Usage:
+   This type is defined only for transfer via RTP.
+   It shall not be defined for a storage format.
+
+Encoding considerations:
+   See restrictions on Usage above; this section is included per
+   the requirements in RFC 3555 [7].
+
+Security considerations: Refer to section 5 of RFC 4102.
+
+Interoperability considerations: none
+
+Published specification: RFC 2198
+
+Applications which use this media type:
+   Text streaming and conferencing tools.
+
+Additional information: none
+
+Person & email address to contact for further information:
+   Paul E. Jones
+   E-mail: paulej&packetizer.com
+
+Intended usage: COMMON
+
+Author:
+   Paul E. Jones
+   paulej&packetizer.com
+
+Change Controller:
+   AVT Working Group delegated from the IESG

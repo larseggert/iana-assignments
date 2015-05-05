@@ -1,0 +1,146 @@
+
+
+From: David Parker [davidparker&davidparker.com]
+Sent: Monday, August 23, 1999 9:29 AM
+To: iana&iana.org
+Subject: Request for MIME media type Application/Vendor Tree - vnd.dpgraph
+
+Name : David Parker
+
+E-mail : davidparker&davidparker.com
+
+MIME media type name : Application
+
+MIME subtype name : Vendor Tree - vnd.dpgraph
+
+Required parameters : none
+
+Optional parameters :
+charset.  A DPGraph file is essentially a US-ASCII file containing
+programming language commands that generate and display mathematical
+graphs.  However, user comments can be embedded in the file, and those
+comments can be in any character set that is a superset of US-ASCII.
+Hence, the optional charset parameter is for the convenience of anyone
+reading the comments, and is not used by the program that interprets
+the mathematical graphing commands.
+
+Encoding considerations :
+DPGraph files should be base64-encoded for transmission where
+transport is not 8-bit clean.  Other encodings run the danger of
+introducing or removing CR's and LF's from files as they are
+transferred between users on different operating systems, which may
+cause programs which interpret DPGraph files to miscount the number of
+lines in the files.
+
+Security considerations :
+Security considerations specific to DPGraph files:
+
+1) "File system" threats: none.  The programming language commands in
+DPGraph files contain no constructs that allow the program to
+read/write/create/erase or otherwise modify the user's file system.
+The programming constructs in a DPGraph file are only used to generate
+and display graphs on the user's screen.
+
+2) "Peripheral device" threats: the programming language commands in
+DPGraph files contain no constructs for sending data to any peripheral
+devices (printers and modems, for examples), except for the screen.
+With regard to possible screen threats, see the "Denial of screen" and
+"Spoofing" threats below.
+
+3) "System command" threats: none.  The programming language commands
+in DPGraph files contain no constructs for passing commands to the
+operating system, or for calling any external program.
+
+4) "Persistent state" threats: none.  The programming language
+commands in DPGraph files contain no constructs for changing the
+persistent state of the user's machine.
+
+5) "Viral" threats: none.  DPGraph files contain no binary data except
+in user comments; all of the programming language commands are in
+US-ASCII and are processed by an interpreter.  Any binary characters
+embedded in a DPGraph file should simply be flagged as syntax errors
+if they occur in programming language commands, or should be discarded
+if they occur in user comments.
+
+6) "Denial of memory" threats: like any other program, an interpreter
+for DPGraph files requires system memory in order to execute.  Using
+the program language commands in a DPGraph file, it is possible to
+request graphs that would require a large, approaching infinite,
+amount of memory.  There is no specific defense against this type of
+threat.  Programs that interpret DPGraph files should ensure that
+there is a way for the user to "kill" the interpreter if it seems to
+be taking too much memory.
+
+7) "Denial of cycles" threats: using the programming language commands
+in a DPGraph file, it is possible to request graphs that would require
+a large, approaching infinite, amount of time to generate.  There is
+no specific defense against this type of threat.  Programs that
+interpret DPGraph files should ensure that there is a way for the user
+to "kill" the interpreter if a graph seems to be taking too long to
+display.  They should also ensure that their execution priority is
+such that the cycles consumed don't hamper more critical operating
+system tasks such as page swapping.
+
+8) "Denial of screen" threats: since DPGraph files are meant to
+generate graphs to display on the user's screen, it is conceivable
+that someone might think of a malicious reason to fill someone else's
+screen with graphs.  To help guard against this possibility, an
+interpreter for displaying DPGraph files should be easy for the user
+to exit.  The programming language commands in a DPGraph file have no
+constructs for displaying arbitrary data at any position on the
+screen; DPGraph files can only request the display of graphs inside
+the boundaries of the interpreter's window.
+
+9) "Spoofing" threats: since DPGraph files are meant to generate
+graphs to display on the user's screen, it is conceivable that someone
+might create a graph with the malicious intent of confusing the user
+about what they are seeing on the screen.  To help guard against this
+possibility, interpreters for DPGraph files should make sure to
+display the graph inside a window that clearly identifies the
+interpreter.
+
+Here are just two of the many general security threats involved in
+transmitting files, and running programs to view them, which are not
+specific to DPGraph files:
+
+1) "Bug" threats: A bug in a program that interprets DPGraph files
+could conceivably be exploited as a security threat.  No such bugs are
+known.  The best way to guard against this type of security problem
+would be to fix the bug as quickly as possible, and make the fixed
+copies available to all current users.
+
+2) "File system" threats: someone could transmit a huge DPGraph file
+with the intention of occupying large amounts of somebody else's
+storage.
+
+Interoperability considerations :
+None.  The format of DPGraph files is independent of the user's
+computer or operating system.
+
+Published specification :
+The format of DPGraph files is described in the help information
+supplied with DPGraph 2000, available from www.davidparker.com.
+
+Applications which use this media :
+Two known applications which use DPGraph files are DPGraph 2000,
+available from www.davidparker.com, and MathWare Cyclone, available
+from www.mathware.com.  Both were programmed by David Parker.
+
+Additional information :
+
+1. Magic number(s) :
+2. File extension(s) : .dpg .mwc .dpgraph
+3. Macintosh file type code : 
+4. Object identifiers(s) or OID(s) :
+
+Person to contact for further information :
+
+1. Name : David Parker
+2. E-mail : davidparker&davidparker.com
+
+Intended usage : Common
+
+Author/Change controller :  David Parker, www.davidparker.com,
+davidparker&davidparker.com
+
+

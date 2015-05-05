@@ -1,0 +1,1253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:ietf:params:xml:ns:msc-ivr"
+ elementFormDefault="qualified" blockDefault="#all"
+ xmlns="urn:ietf:params:xml:ns:msc-ivr"
+ xmlns:fw="urn:ietf:params:xml:ns:control:framework-attributes"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+ <xsd:annotation>
+  <xsd:documentation>
+   IETF MediaCtrl IVR 1.0 (20110104)
+
+   This is the schema of the IETF MediaCtrl IVR control
+   package.
+
+   The schema namespace is urn:ietf:params:xml:ns:msc-ivr
+
+  </xsd:documentation>
+ </xsd:annotation>
+
+
+ <!--
+  #############################################################
+
+  SCHEMA IMPORTS
+
+  #############################################################
+ -->
+
+ <xsd:import namespace="http://www.w3.org/XML/1998/namespace"
+  schemaLocation="http://www.w3.org/2001/xml.xsd">
+
+  <xsd:annotation>
+   <xsd:documentation>
+    This import brings in the XML attributes for
+    xml:base, xml:lang, etc
+
+    See http://www.w3.org/2001/xml.xsd for latest version
+   </xsd:documentation>
+  </xsd:annotation>
+ </xsd:import>
+
+ <xsd:import
+  namespace="urn:ietf:params:xml:ns:control:framework-attributes"
+  schemaLocation="framework.xsd">
+  <xsd:annotation>
+   <xsd:documentation>
+    This import brings in the framework attributes for
+    conferenceid and connectionid.
+   </xsd:documentation>
+  </xsd:annotation>
+ </xsd:import>
+
+
+ <!--
+  #####################################################
+
+  Extensible core type
+
+  #####################################################
+ -->
+
+
+ <xsd:complexType name="Tcore">
+  <xsd:annotation>
+   <xsd:documentation>
+    This type is extended by other (non-mixed) component types to
+    allow attributes from other namespaces.
+   </xsd:documentation>
+  </xsd:annotation>
+  <xsd:sequence/>
+  <xsd:anyAttribute namespace="##other" processContents="lax" />
+ </xsd:complexType>
+
+
+ <!--
+  #####################################################
+
+  TOP LEVEL ELEMENT: mscivr
+
+  #####################################################
+ -->
+
+ <xsd:complexType name="mscivrType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:choice>
+      <xsd:element ref="dialogprepare" />
+      <xsd:element ref="dialogstart" />
+      <xsd:element ref="dialogterminate" />
+      <xsd:element ref="response" />
+      <xsd:element ref="event" />
+      <xsd:element ref="audit" />
+      <xsd:element ref="auditresponse" />
+      <xsd:any namespace="##other" minOccurs="0"
+       maxOccurs="unbounded" processContents="lax" />
+     </xsd:choice>
+    </xsd:sequence>
+    <xsd:attribute name="version" type="version.datatype"
+     use="required" />
+    <xsd:attribute name="desclang" type="xsd:language"
+     default="i-default" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="mscivr" type="mscivrType" />
+
+
+ <!--
+  #####################################################
+
+  DIALOG MANAGEMENT TYPES
+
+  #####################################################
+ -->
+
+ <!--  dialogprepare -->
+
+ <xsd:complexType name="dialogprepareType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="dialog" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="params" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="src" type="xsd:anyURI" />
+    <xsd:attribute name="type" type="mime.datatype"/>
+    <xsd:attribute name="maxage" type="xsd:nonNegativeInteger"/>
+    <xsd:attribute name="maxstale" type="xsd:nonNegativeInteger"/>
+    <xsd:attribute name="fetchtimeout"
+     type="timedesignation.datatype" default="30s" />
+    <xsd:attribute name="dialogid"
+     type="dialogid.datatype" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="dialogprepare" type="dialogprepareType" />
+
+ <!--  dialogstart -->
+
+ <xsd:complexType name="dialogstartType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="dialog" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="subscribe" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="params" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="stream" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="src" type="xsd:anyURI" />
+    <xsd:attribute name="type" type="mime.datatype"/>
+    <xsd:attribute name="maxage" type="xsd:nonNegativeInteger"/>
+    <xsd:attribute name="maxstale" type="xsd:nonNegativeInteger"/>
+    <xsd:attribute name="fetchtimeout"
+     type="timedesignation.datatype" default="30s" />
+    <xsd:attribute name="dialogid"
+     type="dialogid.datatype" />
+    <xsd:attribute name="prepareddialogid"
+     type="dialogid.datatype" />
+    <xsd:attributeGroup ref="fw:framework-attributes" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+ <xsd:element name="dialogstart" type="dialogstartType" />
+
+ <!--  dialogterminate -->
+
+ <xsd:complexType name="dialogterminateType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+   <xsd:sequence>
+    <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="dialogid"
+     type="dialogid.datatype" use="required" />
+    <xsd:attribute name="immediate"
+     type="xsd:boolean" default="false" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="dialogterminate" type="dialogterminateType" />
+
+ <!--  response -->
+
+ <xsd:complexType name="responseType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+    <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="status" type="status.datatype"
+     use="required" />
+    <xsd:attribute name="reason" type="xsd:string" />
+    <xsd:attribute name="desclang" type="xsd:language"/>
+    <xsd:attribute name="dialogid"
+     type="dialogid.datatype" use="required" />
+    <xsd:attributeGroup ref="fw:framework-attributes" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="response" type="responseType" />
+
+ <!--  event -->
+
+ <xsd:complexType name="eventType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:choice>
+      <xsd:element ref="dialogexit" minOccurs="0"
+       maxOccurs="1" />
+      <xsd:element ref="dtmfnotify" minOccurs="0"
+       maxOccurs="1" />
+      <xsd:any namespace="##other" minOccurs="0"
+       maxOccurs="unbounded" processContents="lax" />
+     </xsd:choice>
+    </xsd:sequence>
+    <xsd:attribute name="dialogid"
+     type="dialogid.datatype" use="required" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="event" type="eventType" />
+
+ <!--  dialogexit-->
+
+ <xsd:complexType name="dialogexitType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="promptinfo" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="controlinfo" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="collectinfo" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="recordinfo" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="params" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="status"
+     type="xsd:nonNegativeInteger" use="required" />
+    <xsd:attribute name="reason" type="xsd:string" />
+    <xsd:attribute name="desclang" type="xsd:language"/>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="dialogexit" type="dialogexitType" />
+
+ <!--  dtmfnotify-->
+
+ <xsd:complexType name="dtmfnotifyType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+   <xsd:sequence>
+    <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="matchmode"
+     type="matchmode.datatype" default="all" />
+    <xsd:attribute name="dtmf" type="dtmfstring.datatype"
+     use="required" />
+    <xsd:attribute name="timestamp" type="xsd:dateTime"
+     use="required" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="dtmfnotify" type="dtmfnotifyType" />
+
+
+ <!-- promptinfo -->
+
+ <xsd:complexType name="promptinfoType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+ <xsd:sequence>
+    <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="duration"
+     type="xsd:nonNegativeInteger" />
+    <xsd:attribute name="termmode"
+     type="prompt_termmode.datatype" use="required" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="promptinfo" type="promptinfoType" />
+
+
+
+ <!-- controlinfo -->
+
+ <xsd:complexType name="controlinfoType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="controlmatch" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="controlinfo" type="controlinfoType" />
+
+
+ <!-- controlmatch -->
+
+ <xsd:complexType name="controlmatchType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+ <xsd:sequence>
+    <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="dtmf"
+     type="dtmfstring.datatype" />
+    <xsd:attribute name="timestamp" type="xsd:dateTime" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="controlmatch" type="controlmatchType" />
+
+
+ <!--  collectinfo -->
+
+ <xsd:complexType name="collectinfoType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+ <xsd:sequence>
+    <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="dtmf"
+     type="dtmfstring.datatype" />
+    <xsd:attribute name="termmode"
+     type="collect_termmode.datatype" use="required" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+ <xsd:element name="collectinfo" type="collectinfoType" />
+
+
+ <!-- recordinfo -->
+
+ <xsd:complexType name="recordinfoType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+   <xsd:sequence>
+     <xsd:element ref="mediainfo" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="duration"
+     type="xsd:nonNegativeInteger" />
+    <xsd:attribute name="termmode"
+     type="record_termmode.datatype" use="required" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="recordinfo" type="recordinfoType" />
+
+ <!--  mediainfo -->
+
+ <xsd:complexType name="mediainfoType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+ <xsd:sequence>
+    <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="loc" type="xsd:anyURI"
+     use="required" />
+    <xsd:attribute name="type" type="mime.datatype"
+    use="required"/>
+    <xsd:attribute name="size"
+     type="xsd:nonNegativeInteger" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="mediainfo" type="mediainfoType" />
+
+
+ <!--  subscribe -->
+
+
+ <xsd:complexType name="subscribeType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="dtmfsub" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="subscribe" type="subscribeType" />
+
+
+ <!--  dtmfsub -->
+
+ <xsd:complexType name="dtmfsubType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+ <xsd:sequence>
+    <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="matchmode"
+     type="matchmode.datatype" default="all" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="dtmfsub" type="dtmfsubType" />
+
+
+ <!-- params -->
+ <xsd:complexType name="paramsType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="param" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+ <xsd:element name="params" type="paramsType" />
+
+
+ <!--  param -->
+ <!--  doesn't extend tCore since its content model is mixed -->
+ <xsd:complexType name="paramType" mixed="true">
+  <xsd:sequence/>
+  <xsd:attribute name="name" type="xsd:string" use="required" />
+  <xsd:attribute name="type" type="mime.datatype" default="text/plain"/>
+     <xsd:attribute name="encoding" type="xsd:string"/>
+  <xsd:anyAttribute namespace="##other" processContents="lax" />
+ </xsd:complexType>
+
+ <xsd:element name="param" type="paramType" />
+
+ <!--  stream -->
+
+ <xsd:complexType name="streamType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+   <xsd:sequence>
+     <xsd:element ref="region" minOccurs="0"
+      maxOccurs="1" />
+    <xsd:element ref="priority" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="media" type="media.datatype"
+     use="required" />
+    <xsd:attribute name="label" type="label.datatype" />
+    <xsd:attribute name="direction"
+     type="direction.datatype" default="sendrecv" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="stream" type="streamType" />
+
+<!--  region  -->
+<xsd:simpleType name="regionType">
+ <xsd:restriction base="xsd:NMTOKEN"/>
+</xsd:simpleType>
+
+ <xsd:element name="region" type="regionType" />
+
+
+ <!--  priority  -->
+ 
+ <xsd:simpleType name="priorityType">
+  <xsd:restriction base="xsd:positiveInteger" />
+ </xsd:simpleType>
+
+ <xsd:element name="priority" type="priorityType" />
+
+
+<!-- dialog -->
+
+ <xsd:complexType name="dialogType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="prompt" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="control" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="collect" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="record" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="repeatCount"
+     type="xsd:nonNegativeInteger" default="1" />
+    <xsd:attribute name="repeatDur"
+     type="timedesignation.datatype" />
+    <xsd:attribute name="repeatUntilComplete"
+     type="xsd:boolean" default="false"/>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="dialog" type="dialogType" />
+
+
+ <!--  prompt  -->
+
+ <xsd:complexType name="promptType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:choice minOccurs="1" maxOccurs="unbounded">
+     <xsd:element ref="media" />
+     <xsd:element ref="variable" />
+     <xsd:element ref="dtmf" />
+     <xsd:element ref="par" />
+     <xsd:any namespace="##other"
+      processContents="lax" />
+    </xsd:choice>
+    <xsd:attribute ref="xml:base" />
+    <xsd:attribute name="bargein" type="xsd:boolean"
+     default="true" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="prompt" type="promptType" />
+
+
+ <!--  media -->
+
+ <xsd:complexType name="mediaType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+ <xsd:sequence>
+    <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="loc" type="xsd:anyURI"
+     use="required" />
+    <xsd:attribute name="type" type="mime.datatype" />
+    <xsd:attribute name="fetchtimeout"
+     type="timedesignation.datatype" default="30s" />
+    <xsd:attribute name="soundLevel"
+     type="percentage.datatype" default="100%" />
+    <xsd:attribute name="clipBegin"
+     type="timedesignation.datatype" default="0s" />
+     <xsd:attribute name="clipEnd"
+     type="timedesignation.datatype"/>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="media" type="mediaType" />
+
+ <!--  variable -->
+
+ <xsd:complexType name="variableT">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+ <xsd:sequence>
+    <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="value" type="xsd:string"
+     use="required" />
+    <xsd:attribute name="type" type="xsd:string"
+     use="required" />
+    <xsd:attribute name="format" type="xsd:string" />
+    <xsd:attribute name="gender" type="gender.datatype" />
+    <xsd:attribute ref="xml:lang" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="variable" type="variableT" />
+
+ <!-- dtmf -->
+
+ <xsd:complexType name="dtmfType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+ <xsd:sequence>
+    <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="digits"
+     type="dtmfstring.datatype" use="required" />
+    <xsd:attribute name="level" type="xsd:integer"
+     default="-6" />
+    <xsd:attribute name="duration"
+     type="timedesignation.datatype" default="100ms" />
+    <xsd:attribute name="interval"
+     type="timedesignation.datatype" default="100ms" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="dtmf" type="dtmfType" />
+
+
+ <!--  par  -->
+
+ <xsd:complexType name="parType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:choice minOccurs="1" maxOccurs="unbounded">
+     <xsd:element ref="media" />
+     <xsd:element ref="variable" />
+     <xsd:element ref="dtmf" />
+           <xsd:element ref="seq" />
+     <xsd:any namespace="##other"
+      processContents="lax" />
+    </xsd:choice>
+    <xsd:attribute name="endsync" type="endsync.datatype"
+    default="last"/>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="par" type="parType" />
+
+ <!--  seq  -->
+
+ <xsd:complexType name="seqType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:choice minOccurs="1" maxOccurs="unbounded">
+     <xsd:element ref="media" />
+     <xsd:element ref="variable" />
+     <xsd:element ref="dtmf" />
+     <xsd:any namespace="##other"
+      processContents="lax" />
+    </xsd:choice>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="seq" type="seqType" />
+
+ <!-- control -->
+
+ <xsd:complexType name="controlType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+ <xsd:sequence>
+    <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="skipinterval"
+     type="timedesignation.datatype" default="6s" />
+    <xsd:attribute name="ffkey" type="dtmfchar.datatype" />
+    <xsd:attribute name="rwkey" type="dtmfchar.datatype" />
+    <xsd:attribute name="pauseinterval"
+     type="timedesignation.datatype" default="10s" />
+    <xsd:attribute name="pausekey"
+     type="dtmfchar.datatype" />
+    <xsd:attribute name="resumekey"
+     type="dtmfchar.datatype" />
+    <xsd:attribute name="volumeinterval"
+     type="percentage.datatype" default="10%" />
+    <xsd:attribute name="volupkey"
+     type="dtmfchar.datatype" />
+    <xsd:attribute name="voldnkey"
+     type="dtmfchar.datatype" />
+    <xsd:attribute name="speedinterval"
+     type="percentage.datatype" default="10%" />
+    <xsd:attribute name="speedupkey"
+     type="dtmfchar.datatype" />
+    <xsd:attribute name="speeddnkey"
+     type="dtmfchar.datatype" />
+    <xsd:attribute name="gotostartkey"
+     type="dtmfchar.datatype" />
+    <xsd:attribute name="gotoendkey"
+     type="dtmfchar.datatype" />
+    <xsd:attribute name="external"
+     type="dtmfstring.datatype" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="control" type="controlType" />
+
+
+ <!-- collect -->
+
+ <xsd:complexType name="collectType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="grammar" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="cleardigitbuffer"
+     type="xsd:boolean" default="true" />
+    <xsd:attribute name="timeout"
+     type="timedesignation.datatype" default="5s" />
+    <xsd:attribute name="interdigittimeout"
+     type="timedesignation.datatype" default="2s" />
+    <xsd:attribute name="termtimeout"
+     type="timedesignation.datatype" default="0s" />
+    <xsd:attribute name="escapekey"
+     type="dtmfchar.datatype" />
+    <xsd:attribute name="termchar"
+     type="dtmfchar.datatype" default="#" />
+    <xsd:attribute name="maxdigits"
+     type="xsd:positiveInteger" default="5" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="collect" type="collectType" />
+
+ <!--  grammar -->
+ <!--  doesn't extend tCore since its content model is mixed -->
+ <xsd:complexType name="grammarType" mixed="true">
+  <xsd:sequence>
+   <xsd:any namespace="##other" minOccurs="0"
+    maxOccurs="unbounded" processContents="lax" />
+  </xsd:sequence>
+  <xsd:attribute name="src" type="xsd:anyURI" />
+  <xsd:attribute name="type" type="mime.datatype" />
+  <xsd:attribute name="fetchtimeout"
+   type="timedesignation.datatype" default="30s" />
+  <xsd:anyAttribute namespace="##other" processContents="lax" />
+ </xsd:complexType>
+
+ <xsd:element name="grammar" type="grammarType" />
+
+ <!-- record -->
+
+ <xsd:complexType name="recordType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+   <xsd:sequence>
+     <xsd:element ref="media" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="timeout"
+     type="timedesignation.datatype" default="5s" />
+    <xsd:attribute name="beep" type="xsd:boolean"
+     default="false" />
+    <xsd:attribute name="vadinitial"
+     type="xsd:boolean" default="false" />
+    <xsd:attribute name="vadfinal"
+     type="xsd:boolean" default="false" />
+    <xsd:attribute name="dtmfterm"
+     type="xsd:boolean" default="true" />
+    <xsd:attribute name="maxtime"
+     type="timedesignation.datatype" default="15s" />
+    <xsd:attribute name="finalsilence"
+     type="timedesignation.datatype" default="5s" />
+    <xsd:attribute name="append" type="xsd:boolean"
+     default="false" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="record" type="recordType" />
+
+ <!--
+  #####################################################
+
+  AUDIT TYPES
+
+  #####################################################
+ -->
+
+
+ <!-- audit -->
+
+ <xsd:complexType name="auditType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+ <xsd:sequence>
+    <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   <xsd:attribute name="capabilities"
+     type="xsd:boolean" default="true" />
+   <xsd:attribute name="dialogs"
+     type="xsd:boolean" default="true" />
+      <xsd:attribute name="dialogid"
+     type="dialogid.datatype"/>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="audit" type="auditType" />
+
+ <!-- auditresponse -->
+
+ <xsd:complexType name="auditresponseType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="capabilities" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:element ref="dialogs" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="status" type="status.datatype"
+     use="required" />
+    <xsd:attribute name="reason" type="xsd:string" />
+    <xsd:attribute name="desclang" type="xsd:language"/>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="auditresponse" type="auditresponseType" />
+
+ <!-- codec -->
+
+ <xsd:complexType name="codecType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="subtype" minOccurs="1"
+      maxOccurs="1" />
+     <xsd:element ref="params" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+      <xsd:attribute name="name" type="xsd:string"
+     use="required" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="codec" type="codecType" />
+
+ <!-- subtype -->
+
+ <xsd:simpleType name="subtypeType">
+  <xsd:restriction base="xsd:string" />
+ </xsd:simpleType>
+
+ <xsd:element name="subtype" type="subtypeType" />
+
+
+ <!-- codecs -->
+
+ <xsd:complexType name="codecsType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="codec" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="codecs" type="codecsType" />
+
+
+ <!-- capabilities -->
+
+ <xsd:complexType name="capabilitiesType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="dialoglanguages" minOccurs="1"
+      maxOccurs="1" />
+     <xsd:element ref="grammartypes" minOccurs="1"
+      maxOccurs="1" />
+     <xsd:element ref="recordtypes" minOccurs="1"
+      maxOccurs="1" />
+     <xsd:element ref="prompttypes" minOccurs="1"
+      maxOccurs="1" />
+     <xsd:element ref="variables" minOccurs="1"
+      maxOccurs="1" />
+      <xsd:element ref="maxpreparedduration" minOccurs="1"
+      maxOccurs="1" />
+      <xsd:element ref="maxrecordduration" minOccurs="1"
+      maxOccurs="1" />
+     <xsd:element ref="codecs" minOccurs="1"
+      maxOccurs="1" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="capabilities" type="capabilitiesType" />
+
+
+ <!-- mimetype -->
+
+ <xsd:element name="mimetype" type="mime.datatype" />
+
+ <!-- dialoglanguages -->
+
+ <xsd:complexType name="dialoglanguagesType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="mimetype" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="dialoglanguages" type="dialoglanguagesType" />
+
+ <!-- grammartypes -->
+
+ <xsd:complexType name="grammartypesType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="mimetype" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="grammartypes" type="grammartypesType" />
+
+
+ <!-- recordtypes -->
+
+ <xsd:complexType name="recordtypesType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="mimetype" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="recordtypes" type="recordtypesType" />
+
+
+    <!-- prompttypes -->
+
+ <xsd:complexType name="prompttypesType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="mimetype" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="prompttypes" type="prompttypesType" />
+
+<!--  variables -->
+
+ <xsd:complexType name="variablesType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="variabletype" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="variables" type="variablesType" />
+
+
+ <xsd:complexType name="variabletypeType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="format" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="type" type="xsd:string" use="required" />
+    <xsd:attribute name="desc" type="xsd:string"/>
+    <xsd:attribute name="desclang" type="xsd:language"/>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="variabletype" type="variabletypeType" />
+
+<!--  format  -->
+<!--  doesn't extend tCore since its content model is mixed -->
+ <xsd:complexType name="formatType" mixed="true">
+  <xsd:sequence>
+   <xsd:any namespace="##other" minOccurs="0"
+    maxOccurs="unbounded" processContents="lax" />
+  </xsd:sequence>
+  <xsd:attribute name="desc" type="xsd:string" />
+  <xsd:attribute name="desclang" type="xsd:language"/>
+  <xsd:anyAttribute namespace="##other" processContents="lax" />
+ </xsd:complexType>
+
+ <xsd:element name="format" type="formatType" />
+
+<!--  maxpreparedduration -->
+
+ <xsd:element name="maxpreparedduration"
+type="timedesignation.datatype"/>
+
+
+<!--  maxrecordduration -->
+
+ <xsd:element name="maxrecordduration"
+type="timedesignation.datatype"/>
+
+
+ <!-- dialogs -->
+
+ <xsd:complexType name="dialogsType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="dialogaudit" minOccurs="0"
+      maxOccurs="unbounded" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="dialogs" type="dialogsType" />
+
+
+ <!-- dialogaudit -->
+
+ <xsd:complexType name="dialogauditType">
+  <xsd:complexContent>
+   <xsd:extension base="Tcore">
+    <xsd:sequence>
+     <xsd:element ref="codecs" minOccurs="0"
+      maxOccurs="1" />
+     <xsd:any namespace="##other" minOccurs="0"
+      maxOccurs="unbounded" processContents="lax" />
+    </xsd:sequence>
+    <xsd:attribute name="dialogid"
+     type="dialogid.datatype" use="required" />
+    <xsd:attribute name="state" type="state.datatype"
+     use="required" />
+    <xsd:attributeGroup ref="fw:framework-attributes" />
+   </xsd:extension>
+  </xsd:complexContent>
+ </xsd:complexType>
+
+ <xsd:element name="dialogaudit" type="dialogauditType" />
+
+
+ <!--
+  ####################################################
+
+  DATATYPES
+
+  ####################################################
+ -->
+
+
+ <xsd:simpleType name="version.datatype">
+  <xsd:restriction base="xsd:NMTOKEN">
+   <xsd:enumeration value="1.0" />
+  </xsd:restriction>
+ </xsd:simpleType>
+ <xsd:simpleType name="mime.datatype">
+  <xsd:restriction base="xsd:string" />
+ </xsd:simpleType>
+ <xsd:simpleType name="dialogid.datatype">
+  <xsd:restriction base="xsd:string" />
+ </xsd:simpleType>
+ <xsd:simpleType name="gender.datatype">
+  <xsd:restriction base="xsd:NMTOKEN">
+   <xsd:enumeration value="female" />
+   <xsd:enumeration value="male" />
+  </xsd:restriction>
+ </xsd:simpleType>
+ <xsd:simpleType name="state.datatype">
+  <xsd:restriction base="xsd:NMTOKEN">
+   <xsd:enumeration value="preparing" />
+   <xsd:enumeration value="prepared" />
+   <xsd:enumeration value="starting" />
+   <xsd:enumeration value="started" />
+  </xsd:restriction>
+ </xsd:simpleType>
+ <xsd:simpleType name="status.datatype">
+  <xsd:restriction base="xsd:positiveInteger">
+   <xsd:pattern value="[0-9][0-9][0-9]" />
+  </xsd:restriction>
+ </xsd:simpleType>
+ <xsd:simpleType name="media.datatype">
+  <xsd:restriction base="xsd:string" />
+ </xsd:simpleType>
+ <xsd:simpleType name="label.datatype">
+  <xsd:restriction base="xsd:string" />
+ </xsd:simpleType>
+ <xsd:simpleType name="direction.datatype">
+  <xsd:restriction base="xsd:NMTOKEN">
+   <xsd:enumeration value="sendrecv" />
+   <xsd:enumeration value="sendonly" />
+   <xsd:enumeration value="recvonly" />
+   <xsd:enumeration value="inactive" />
+  </xsd:restriction>
+ </xsd:simpleType>
+ <xsd:simpleType name="timedesignation.datatype">
+  <xsd:annotation>
+   <xsd:documentation>
+    Time designation following Time in CSS2
+   </xsd:documentation>
+  </xsd:annotation>
+  <xsd:restriction base="xsd:string">
+   <xsd:pattern value="(\+)?([0-9]*\.)?[0-9]+(ms|s)" />
+  </xsd:restriction>
+ </xsd:simpleType>
+ <xsd:simpleType name="dtmfchar.datatype">
+  <xsd:annotation>
+   <xsd:documentation>
+    DTMF character [0-9#*A-D]
+   </xsd:documentation>
+  </xsd:annotation>
+  <xsd:restriction base="xsd:string">
+   <xsd:pattern value="[0-9#*A-D]" />
+  </xsd:restriction>
+ </xsd:simpleType>
+ <xsd:simpleType name="dtmfstring.datatype">
+  <xsd:annotation>
+   <xsd:documentation>
+    DTMF sequence [0-9#*A-D]
+   </xsd:documentation>
+  </xsd:annotation>
+  <xsd:restriction base="xsd:string">
+   <xsd:pattern value="([0-9#*A-D])+" />
+  </xsd:restriction>
+ </xsd:simpleType>
+ <xsd:simpleType name="percentage.datatype">
+  <xsd:annotation>
+   <xsd:documentation>
+    whole integer followed by '%'
+   </xsd:documentation>
+  </xsd:annotation>
+  <xsd:restriction base="xsd:string">
+   <xsd:pattern value="([0-9])+%" />
+  </xsd:restriction>
+ </xsd:simpleType>
+
+ <xsd:simpleType name="prompt_termmode.datatype">
+  <xsd:restriction base="xsd:NMTOKEN">
+   <xsd:enumeration value="completed" />
+   <xsd:enumeration value="bargein" />
+   <xsd:enumeration value="stopped" />
+  </xsd:restriction>
+ </xsd:simpleType>
+
+ <xsd:simpleType name="collect_termmode.datatype">
+  <xsd:restriction base="xsd:NMTOKEN">
+   <xsd:enumeration value="match" />
+   <xsd:enumeration value="noinput" />
+   <xsd:enumeration value="nomatch" />
+   <xsd:enumeration value="stopped" />
+  </xsd:restriction>
+ </xsd:simpleType>
+
+ <xsd:simpleType name="record_termmode.datatype">
+  <xsd:restriction base="xsd:NMTOKEN">
+   <xsd:enumeration value="noinput" />
+   <xsd:enumeration value="dtmf" />
+   <xsd:enumeration value="maxtime" />
+   <xsd:enumeration value="finalsilence" />
+   <xsd:enumeration value="stopped" />
+  </xsd:restriction>
+ </xsd:simpleType>
+
+ <xsd:simpleType name="matchmode.datatype">
+  <xsd:restriction base="xsd:NMTOKEN">
+   <xsd:enumeration value="all" />
+   <xsd:enumeration value="collect" />
+   <xsd:enumeration value="control" />
+  </xsd:restriction>
+ </xsd:simpleType>
+
+ <xsd:simpleType name="endsync.datatype">
+  <xsd:restriction base="xsd:NMTOKEN">
+   <xsd:enumeration value="first" />
+   <xsd:enumeration value="last" />
+  </xsd:restriction>
+ </xsd:simpleType>
+
+</xsd:schema>

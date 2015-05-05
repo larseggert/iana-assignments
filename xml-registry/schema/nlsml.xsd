@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="urn:ietf:params:xml:ns:mrcpv2"
+  xmlns="urn:ietf:params:xml:ns:mrcpv2"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified" >
+  <xs:annotation>
+    <xs:documentation> Natural Language Semantic Markup Schema
+    </xs:documentation>
+  </xs:annotation>
+  <xs:include schemaLocation="enrollment-schema.rng"/>
+  <xs:include schemaLocation="verification-schema.rng"/>
+  <xs:element name="result">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="interpretation" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="instance" minOccurs="0">
+                <xs:complexType mixed="true">
+                  <xs:sequence minOccurs="0">
+                    <xs:any namespace="##other" processContents="lax"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="input">
+                <xs:complexType mixed="true">
+                  <xs:choice>
+                    <xs:element name="noinput" minOccurs="0"/>
+                    <xs:element name="nomatch" minOccurs="0"/>
+                    <xs:element name="input" minOccurs="0"/>
+                  </xs:choice>
+                  <xs:attribute name="mode"
+                    type="xs:string"
+                    default="speech"/>
+                  <xs:attribute name="confidence"
+                    type="confidenceinfo"
+                    default="1.0"/>
+                  <xs:attribute name="timestamp-start"
+                    type="xs:string"/>
+                  <xs:attribute name="timestamp-end"
+                    type="xs:string"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="confidence" type="confidenceinfo"
+              default="1.0"/>
+            <xs:attribute name="grammar" type="xs:anyURI"
+              use="optional"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="enrollment-result"
+          type="enrollment-contents"/>
+        <xs:element name="verification-result"
+          type="verification-contents"/>
+      </xs:sequence>
+      <xs:attribute name="grammar" type="xs:anyURI"
+        use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:simpleType name="confidenceinfo">
+    <xs:restriction base="xs:float">
+      <xs:minInclusive value="0.0"/>
+      <xs:maxInclusive value="1.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

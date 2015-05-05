@@ -1,0 +1,46 @@
+(RFC 1494 published August 1993, subtype last updated August 1993)
+
+The application/x400-bp content-type
+
+This content-type is defined to carry any X.400(88) body part for
+which there is no registered IANA mapping.
+
+    The content-type field is
+
+      application/x400-bp
+
+    The parameters are:
+
+          bp-type=<INTEGER or OBJECT IDENTIFIER>
+
+The body contains the raw ASN.1 IPM.body octet stream, including the
+initial tag octet.
+
+If the body is a basic body part, the bp-type parameter is set to the
+number of the body part's context-specific tag, that is, the tag of
+the IPMS.Body.BodyPart component.
+
+If the body is an Extended Body Part, the bp-type parameter is set to
+the OBJECT IDENTIFIER from
+
+         IPMS.body.externally-defined.data.direct-reference
+
+No attempt is made to turn the parameters of Extended Body Parts into
+MIME parameters.  (This task is the responsibility of the recipient's
+UA).
+
+For example, a basic VideotexBodyPart will have
+
+   Content-type=application/x400-bp; bp-type=6
+
+whilst a Extended Videotex body part will have
+
+   Content-type=application/x400-bp; bp-type=2.6.1.4.5
+
+application/x400-bp will need a content-transfer-encoding of base64
+or quoted-printable when carried in 7-bit MIME.  Since there is no
+way to know beforehand the content, it is recommended to just inspect
+the first 1 KByte or so of data and choose the one that seems to
+produce the more compact encoding.
+
+If this is not feasible, Base64 is recommended.

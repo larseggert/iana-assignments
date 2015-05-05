@@ -1,0 +1,168 @@
+(per RFC1847)
+
+(1)  MIME type name: multipart
+
+(2)  MIME subtype name: signed
+
+(3)  Required parameters: boundary, protocol, and micalg
+
+(4)  Optional parameters: none
+
+(5)  Security considerations: Must be treated as opaque while in
+     transit
+
+The multipart/signed content type contains exactly two body parts.
+The first body part is the body part over which the digital signature
+was created, including its MIME headers.  The second body part
+contains the control information necessary to verify the digital
+signature.  The first body part may contain any valid MIME content
+type, labeled accordingly.  The second body part is labeled according
+to the value of the protocol parameter.
+
+The attribute token for the protocol parameter is "protocol", i.e.,
+
+ parameter := "protocol" "=" value
+
+The value token is comprised of the type and sub-type tokens of the
+Content-Type: header of the second body part, i.e.,
+
+ value := <"> type "/" subtype <">
+
+where the type and subtype tokens are defined by the MIME [2]
+specification.  The semantics of the protocol parameter are defined
+according to its value.
+
+The attribute token for the micalg parameter is "micalg", i.e.,
+
+ parameter := "micalg" "=" value
+
+The Message Integrity Check (MIC) is the name given to the quantity
+computed over the body part with a message digest or hash function,
+in support of the digital signature service.  Valid value tokens are
+defined by the specification for the value of the protocol parameter.
+The value may be a comma (",") separated list of tokens, indicating
+the use of multiple MIC algorithms.  As a result, the comma (",")
+character is explicitly excluded from the list of characters that may
+be included in a token used as a value of the micalg parameter.  If
+multiple MIC algorithms are specified, the purpose and use of the
+multiple algorithms is defined by the protocol.  If the MIC algorithm
+is also specified in the control information and the value there does
+not agree with the value in this parameter, it must be treated as an
+error.
+
+ NOTE: The presence of the micalg parameter on the
+ multipart/signed content type header is explicitly intended to
+ support one-pass processing.  MIME implementations may locate
+ the second body part by inputting the first body part and
+ computing the specified MIC values until the boundary
+ identifying the second body part is found.
+
+The entire contents of the multipart/signed container must be treated
+as opaque while it is in transit from an originator to a recipient.
+Intermediate message transfer agents must not alter the content of a
+multipart/signed in any way, including, but not limited to, changing
+the content transfer encoding of the body part or any of its
+encapsulated body parts.
+
+The signature in a multipart/signed only applies to the material that
+is actually within the multipart/signed object.  In particular, it
+does not apply to any enclosing message material, nor does it apply
+to entities that are referenced (e.g. via a MIME message/external-
+body) by rather than included in the signed content.
+
+When creating a multipart/signed body part, the following sequence of
+steps describes the processing necessary.  It must be emphasized that
+these steps are descriptive, not prescriptive, and in no way impose
+restrictions or requirements on implementations of this
+specification.
+
+(1)  The content of the body part to be protected is prepared
+     according to a local convention.  The content is then
+     transformed into a MIME body part in canonical MIME format,
+     including an appropriate set of MIME headers.
+
+     In addition, if the multipart/signed object is EVER to be
+     transferred over the standard Internet SMTP infrastructure, the
+     resulting MIME body is constrained to 7 bits -- that is, the use
+     of material requiring either 8bit or binary
+     content-transfer-encoding is NOT allowed.  Such 8bit or binary
+     material MUST be encoded using either the quoted-printable or
+     base64 encodings.
+
+     This requirement exists because it is not generally possible,
+     given the current characteristics of Internet SMTP, for a
+     message originator to guarantee that a message will travel only
+     along paths capable of carrying 8bit or binary material.
+
+     SMTP clients normally have the option of either converting the
+     message to eliminate the use of 8bit or binary encoding or
+     returning a nondelivery notification to the originator.
+     However, conversion is not viable in the case of signed objects
+     since conversion would necessarily invalidate the signature.
+     This leaves a nondelivery notification as the only available
+     option, which is not acceptable.
+
+(2)  The body part (headers and content) to be digitally signed is
+     prepared for signature according to the value of the protocol
+     parameter.  The MIME headers of the signed body part are
+     included in the signature to protect the integrity of the MIME
+     labeling of the data that is signed.
+
+(3)  The prepared body part is made available to the signature creation
+     process according to a local convention.  The signature creation
+     process must make available to a MIME implementation two data
+     streams: the control information necessary to verify the
+     signature, which the MIME implementation will place in the second
+     body part and label according to the value of the protocol
+     parameter, and the digitally signed body part, which the MIME
+     implementation will use as the first body part.
+
+When receiving a multipart/signed body part, the following sequence
+of steps describes the processing necessary to verify the signature
+or signatures.  It must be emphasized that these steps are
+descriptive, not prescriptive, and in no way impose restrictions or
+requirements on implementations of this specification.
+
+(1)  The first body part and the control information in the second body
+     part must be prepared for the signature verification process
+     according to the value of the protocol parameter.
+
+(2)  The prepared body parts must be made available to the signature
+     verification process according to a local convention.  The
+     signature verification process must make available to the MIME
+     implementation the result of the signature verification and the
+     body part that was digitally signed.
+
+         NOTE: The result of the signature verification is likely to
+         include a testament of the success or failure of the
+         verification.  Also, in the usual case, the body part
+         returned after signature verification will be the same as
+         the body part that was received.  We do not insist that
+         this be the case to allow for protocols that may modify the
+         body part during the signature processing.
+
+(3)  The result of the signature verification process is made available
+     to the user and the MIME implementation continues processing with
+     the verified body part, i.e., the body part returned by the
+     signature verification process.
+
+The following example is an illustration of a multipart/signed body
+part.  It is necessarily incomplete since the control information is
+defined by the security protocol, which must be specified in a
+separate document.
+
+ Content-Type: multipart/signed; protocol="TYPE/STYPE";
+         micalg="MICALG"; boundary="Signed Boundary"
+
+ --Signed Boundary
+ Content-Type: text/plain; charset="us-ascii"
+
+ This is some text to be signed although it could be
+ any type of data, labeled accordingly, of course.
+
+ --Signed Boundary
+ Content-Type: TYPE/STYPE
+
+ CONTROL INFORMATION for protocol "TYPE/STYPE" would be here
+
+ --Signed Boundary--

@@ -1,0 +1,134 @@
+MIME Media type: application/nss
+(last updated 28 October 2005)
+
+The IESG has approved a request to register the "application/nss" MIME media type 
+in the standards tree. This media type is a product of ITU-T Study Group 11.
+
+The IESG contact persons are Ted Hardie and Scott Hollenbeck.
+
+Type name: application
+
+Subtype name: nss
+
+Required parameters: none
+
+Optional parameters: charset
+
+Encoding considerations: binary (Note: Data is in US-ASCII range.)
+
+Security considerations: 
+
+NSS has the potential to disclose private customer information and the
+potential for modification of NSS bodies during message transport to
+manipulate call setup, mid-call events, or call release. Modification means
+the addition of an NSS body where none existed, the removal of an NSS body
+where one existed, or the changing of contents of existing NSS bodies in
+messages. 
+NSS can reveal information about telephone subscribers that is requested to
+remain private. Security mechanisms must be provided to meet privacy
+agreements and regulations. 
+
+NSS can be deployed as an interdomain signaling mechanism and may be subject
+to trust relationships and agreements between administrative domains as well
+as legal requirements in various jurisdictions. NSS can affect routing of
+telephone calls and associated billing. Security mechanisms must be provided
+to control fraud, malicious intents, and unintended consequences.
+
+Such mechanisms include the ability to selectively filter or map and forward
+each information element within NSS upon entry or exit of an administrative
+domain. It is expected that nodes performing such functions will be User
+Agents, such as gateway nodes or IP-based Application servers acting on
+behalf of users. Note that RFC 3261 Section 16.6 says: "The proxy MUST NOT
+add to, modify, or remove the message body." That includes NSS bodies. All
+information from unauthenticated entities must be validated and authorized
+before being mapped and forwarded in subsequent signaling messages. Such
+checks are particularly needed when information is mapped to/from SIP
+headers. Note, however, that the intent of NSS is to carry data that would
+be mutually exclusive with the data capable of being carried in SIP headers.
+
+When encapsulated by SIP, the integrity and confidentiality of SIP messages
+containing NSS bodies must be addressed. SIP mandates that Transport Layer
+Security (TLS) must be supported. The Internet Protocol Security (IPSEC)
+mechanisms may be used as an alternative on signaling hops between nodes
+trusted to handle PSTN signaling. 
+TLS and IPSEC are discussed in Section 26 of the Session Initiation Protocol
+RFC 3261. However, trusted nodes would need to specify and agree on the
+security suites to be used with IPSEC.
+See RFC 3324 for discussion on trust domains and related security
+requirements.
+
+When intermediate hops are not trusted, end-to-end integrity and
+confidentiality may be addressed using S/MIME:
+
+RFC 3850, "Secure/Multipurpose Internet Mail Extensions (S/MIME) Version 3.1
+Certificate Handling", July 2004.
+
+RFC 3851, "Secure/Multipurpose Internet Mail Extensions (S/MIME) Version 3.1
+Message Specification", July 2004.
+
+RFC 3852, "Cryptographic Message Syntax (CMS)", July 2004.
+
+RFC 3853, "S/MIME Advanced Encryption Standard (AES) Requirement for the
+Session Initiation Protocol (SIP)", July 2004.
+
+NSS MIME bodies should be secured using S/MIME to mitigate concerns with
+authentication of the sender, integrity protection during transit, and
+confidentiality protection from disclosure to unauthorized third parties.
+NSS endpoints must support S/MIME signatures and should support S/MIME
+encryption. 
+
+For H.323-based encapsulation of NSS bodies, the security mechanisms of
+ITU-T Recommendation H.235, "Security and encryption for H-series
+(H.323 and other H.245-based) multimedia terminals", August 2003, must be
+used to provide integrity and confidentiality.
+
+NSS consists of well defined message types and parameters. Arbitrary content
+or directives within field values is not permitted.
+
+NSS does not employ "active content."
+
+NSS contains fields which instruct whether privacy data such as calling
+party's number is to be presented or restricted.
+
+NSS is used without and is silent about compression. Use of compression in
+conjunction with NSS does not present any security issues.
+
+Interoperability considerations: Compatibility mechanisms are defined in
+Q.1980.1.
+
+Published specification: ITU-T Recommendation Q.1980.1, "The Narrowband
+Signalling Syntax (NSS) - Syntax Definition", December 2004. Link:
+
+http://www.itu.int/rec/recommendation.asp?type=folders&lang=e&parent=T-REC-Q
+.1980.1
+
+Applications which use this media type: Applications in PSTN Gateways and
+call control application servers.
+
+Additional Information:
+
+Magic numbers: None
+
+File Extensions: None
+
+Macintosh File Type Codes: None
+
+Object Identifiers: {itu-t(0) recommendation(0) q(17) 1980 1}
+(0.0.17.1980.1)
+See ITU-T Recommendation H.323 Annex M.4 "Tunneling of Narrowband Signalling
+Syntax (NSS) for H.323", December 2004.
+
+Person to contact for further information:
+
+Name: Michael Hammer
+E-Mail: mhammer&cisco.com
+
+Intended Usage: COMMON
+
+Restrictions on usage: None
+
+Author: ITU-T Study Group 11
+
+Change controller: ITU-T Study Group 11
+
+(file created 28 October 2005)

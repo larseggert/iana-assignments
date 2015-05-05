@@ -1,0 +1,143 @@
+<?xml version='1.0'?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  ns="http://www.iana.org/assignments">
+
+  <include href="../_support/iana-registry.rng"/>
+
+  <define name="value_description_xref">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <zeroOrMore>
+        <element name="record">
+          <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+          <element name="value"><ref name="genericRange"/></element>
+          <element name="description"><ref name="richText"/></element>
+          <ref name="references"/>
+        </element>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="class_code_description_xref">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <zeroOrMore>
+        <element name="record">
+          <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+          <element name="class"><ref name="genericRange"/></element>
+          <element name="code"><ref name="genericRange"/></element>
+          <element name="description"><ref name="richText"/></element>
+          <ref name="references"/>
+        </element>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <start>
+    <element name="registry">
+      <ref name="registryMeta"/>
+
+      <!-- iSCSI authentication methods -->
+      <ref name="value_description_xref"/>
+
+      <!-- iSCSI digests -->
+      <ref name="value_description_xref"/>
+
+      <!-- SRP_GROUP key values -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+            <element name="value">
+              <data type="string">
+                <!-- Pattern from RFC 3720 section 13.5.4 -->
+                <param name="pattern">[A-Z][a-zA-Z0-9.\-+@_]{0,63}</param>
+              </data>
+            </element>
+            <element name="description"><ref name="richText"/></element>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+      </element>
+
+      <!-- iSCSI Opcodes -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+            <element name="value"><ref name="genericRange"/></element>
+            <element name="originator">
+              <choice>
+                <value>Initiator</value>
+                <value>Target</value>
+              </choice>
+            </element>
+            <element name="description"><ref name="richText"/></element>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+      </element>
+
+      <!-- iSCSI Login/Text Keys -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+            <element name="value"><text/></element>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+      </element>
+
+      <!-- iSCSI Asynchronous Events -->
+      <ref name="value_description_xref"/>
+
+      <!-- iSCSI Task Management Function Codes -->
+      <ref name="value_description_xref"/>
+
+      <!-- iSCSI Login Response Status Codes -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+            <element name="class"><ref name="genericRange"/></element>
+            <element name="description"><ref name="richText"/></element>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+
+        <!-- Status-Detail for Status-Class=0x00 -->
+        <ref name="class_code_description_xref"/>
+
+        <!-- Status-Detail for Status-Class=0x01 -->
+        <ref name="class_code_description_xref"/>
+
+        <!-- Status-Detail for Status-Class=0x02 -->
+        <ref name="class_code_description_xref"/>
+
+        <!-- Status-Detail for Status-Class=0x03 -->
+        <ref name="class_code_description_xref"/>
+      </element>
+
+      <!-- iSCSI Reject Reason Codes -->
+      <ref name="value_description_xref"/>
+
+      <!-- iSER Opcodes -->
+      <ref name="value_description_xref"/>
+      
+      <!-- iSCSI Protocol Level -->
+      <ref name="value_description_xref"/>
+      
+      <!-- iSCSI Task Management Function Response Codes -->
+      <ref name="value_description_xref"/>
+
+      <ref name="people"/>
+    </element>
+  </start>
+
+</grammar>

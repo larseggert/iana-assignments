@@ -1,0 +1,115 @@
+(TEMPORARY - registered 2014-11-11, expires 2015-11-11)
+
+Type name: text
+
+ Subtype name: markdown
+
+ Required parameters:
+
+  charset: Per Section 4.2.1 of [RFC6838], charset is REQUIRED. There
+    is no default value. [MDSYNTAX] clearly describes Markdown as a
+    writing format; its syntax rules operate on characters
+    (specifically, on punctuation) rather than code points. Neither
+    [MDSYNTAX] nor many popular implementations at the time of this
+    registration actually require or assume any particular encoding.
+    Many Markdown processors will get along just fine by operating on
+    character codes that lie in printable US-ASCII, blissfully
+    oblivious to coded values outside of that range.
+
+ Optional parameters:
+
+  The following parameters reflect the author's intent regarding the
+  content. A detailed specification can be found in Section 3 of 
+  draft-ietf-appsawg-text-markdown.
+
+  syntax: The Markdown-derivative syntax of the content, with
+    optional version and named extensions. Default value: none
+    (receiver's choice).
+
+  output-type: The Content-Type (Internet media type) of the output,
+    with optional parameters. Default value: "text/html".
+
+ Encoding considerations: Text.
+
+ Security considerations:
+
+  Markdown interpreted as plain text is relatively harmless. A text
+  editor need only display the text. The editor SHOULD take care to
+  handle control characters appropriately, and to limit the effect of
+  the Markdown to the text editing area itself; malicious Unicode-
+  based Markdown could, for example, surreptitiously change the
+  directionality of the text. An editor for normal text would already
+  take these control characters into consideration, however.
+
+  Markdown interpreted as a precursor to other formats, such as HTML,
+  carries all of the security considerations as the target formats.
+  For example, HTML can contain instructions to execute scripts,
+  redirect the user to other webpages, download remote content, and
+  upload personally identifiable information. Markdown also can
+  contain islands of formal markup, such as HTML. These islands of
+  formal markup may be passed as-is, transformed, or ignored (perhaps
+  because the islands are conditional or incompatible) when the
+  Markdown is processed. Since Markdown may have different
+  interpretations depending on the tool and the environment, a better
+  approach is to analyze (and sanitize or block) the output markup,
+  rather than attempting to analyze the Markdown.
+
+  Security provides a significant motivator for the output-type
+  parameter. Most Markdown processors emit byte (octet) streams.
+  Without a well-defined means for a Markdown processor to pass
+  metadata onwards, it is perilous for post-processing to assume that
+  the content is always HTML or XHTML. A processor might emit
+  PostScript (application/postscript) content, for example, in which
+  case an HTML sanitizer would fail to excise dangerous instructions.
+
+Interoperability considerations:
+
+  Markdown syntaxes are designed to be broadly compatible with humans
+  ("humane"), but not necessarily with each other. Therefore, syntax
+  in one Markdown derivative may be ignored or treated differently in
+  another derivative. The overall effect is a general degradation of
+  the output, proportional to the quantity of syntax-specific
+  Markdown used in the text. When it is desirable to reflect the
+  author's intent in the output, stick with the syntax identified in
+  the syntax parameter.
+
+Published specification: draft-ietf-appsawg-text-markdown; [MDSYNTAX].
+
+Applications that use this media type:
+
+  Markdown conversion tools, Markdown WYSIWYG editors, and plain text
+  editors and viewers; markup processor targets indirectly use
+  Markdown (e.g., web browsers for Markdown converted to HTML).
+
+Fragment identifier considerations:
+
+  Markdown content acts as a "bridge" between plain text and formal
+  markup, so this specification permits fragment identifiers [[NB:
+  used to be #i]] #t for the [[NB: used to be input]] source text and
+  #o for the output content. The #l and #ldef fragment identifiers
+  identify link references. A detailed specification can be found in
+  Section 4 of draft-ietf-appsawg-text-markdown.
+
+Additional information:
+
+  Magic number(s): None
+  File extension(s): .md, .markdown
+  Macintosh file type code(s):
+    TEXT. A uniform type identifier (UTI) of
+    "net.daringfireball.markdown", which conforms to "public.plain-
+    text", is RECOMMENDED [MDUTI]. Additionally, implementations
+    SHOULD record syntax and output-type parameters along with the
+    Markdown, such as in extended attributes; however, the exact
+    manner of storage is a local matter.
+
+Person & email address to contact for further information:
+
+  Sean Leonard <dev+ietf&seantek.com>
+
+Restrictions on usage: None.
+
+Author/Change controller: Sean Leonard <dev+ietf&seantek.com>
+
+Intended usage: COMMON
+
+Provisional registration? No

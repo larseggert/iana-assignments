@@ -1,0 +1,53 @@
+(RFC 1848 published October 1995, subtype last updated October 1995)
+
+(1)  MIME type name: application
+
+(2)  MIME subtype name: mosskey-request
+
+(3)  Required parameters: none
+
+(4)  Optional parameters: none
+
+(5)  Encoding considerations: quoted-printable is always sufficient
+
+(6)  Security Considerations: none
+
+The content of this body part corresponds to the following
+production.
+
+   <request>       ::= <version>
+                       ( <subject> / <issuer> / <certification> )
+
+   <version>       ::= "Version:" "5" CRLF
+
+   <subject>       ::= "Subject:" <id> CRLF
+
+   <issuer>        ::= "Issuer:" <id> CRLF
+
+   <certification> ::= "Certification:" <encbin> CRLF
+
+A user would use this content type to specify needed cryptographic
+key information.  The message containing this content type might be
+directed towards an automatic or manual responder, which may be
+mail-based, depending on the local implementation and environment.
+The application/mosskey-request content type is an independent body
+part because it is entirely independent of any other body part.
+
+If the application/mosskey-request content contains a Certification:
+field it requests certification of the self-signed certificate in the
+field value.  If the content contains an Issuer: field it requests
+the Certificate Revocation List (CRL) chain beginning with the CRL of
+the issuer identified in the field value.  If the content contains a
+Subject: field it requests either the public key of the subject or a
+certificate chain beginning with the subject identified in the field
+value, or both if both exist.
+
+The Subject: and Issuer: fields each contain a value of type <id>,
+which is defined in Section 4.
+
+One possible response to receiving an application/mosskey-request
+body part is to construct and return an application/mosskey-data body
+part.  When returning public keys, certificate chains, and
+certificate revocation list chains, if there exists more than one,
+several application/mosskey-data body parts are to be returned in the
+reply message, one for each.

@@ -1,0 +1,58 @@
+<?xml version='1.0'?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  ns="http://www.iana.org/assignments">
+
+  <include href="../_support/iana-registry.rng"/>
+
+  <start>
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+            <optional><attribute name="lastmodified"><ref name="genericDate"/></attribute></optional>
+            <choice>
+              <element name="class">
+                <choice>
+                  <value>Protocol-Based</value>
+                  <value>Application-Based, Common</value>
+                  <value>Application-Based, Subset</value>
+                  <value>Application-Based, Ancillary</value>
+                  <value>Data Type-Based</value>
+                  <value>Other</value>
+                </choice>
+              </element>
+              <element name="name"><text/></element>
+            </choice>
+            <optional><element name="type"><text/></element></optional>
+            <optional><element name="subtype"><text/></element></optional>
+            <oneOrMore>
+              <element name="urischeme">
+                <data type="string">
+                  <param name="pattern">[a-zA-Z][a-zA-Z0-9.+\-]*(|:)(, [a-zA-Z][a-zA-Z0-9.+\-]*(|:))*</param>
+                </data>
+              </element>
+            </oneOrMore>
+            <element name="functionalspec"><ref name="richText"/></element>
+            <element name="security"><ref name="richText"/></element>
+            <element name="usage">
+              <choice>
+                <value>COMMON</value>
+                <value>LIMITED USE</value>
+                <value>OBSOLETE</value>
+              </choice>
+            </element>
+            <element name="registrationdocs"><ref name="references"/></element>
+            <element name="requesters"><ref name="references"/></element>
+            <optional><element name="additionalinfo"><ref name="richText"/></element></optional>
+          </element>
+        </zeroOrMore>
+      </element>
+      <ref name="people"/>
+    </element>
+  </start>
+
+</grammar>

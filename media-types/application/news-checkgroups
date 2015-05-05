@@ -1,0 +1,72 @@
+(RFC 5537 published November 2009, subtype last updated November 2009)
+
+MIME type name:           application
+
+MIME subtype name:        news-checkgroups
+
+Required parameters:      none
+
+Optional parameters:      charset, which MUST be a charset
+                          registered for use with MIME text types.
+                          It has the same syntax as the parameter
+                          defined for text/plain [RFC2046].
+                          Specifies the charset of the body part.
+                          If not given, the charset defaults to
+                          US-ASCII [ASCII].
+
+Encoding considerations:  7bit or 8bit encoding MUST be used to
+                          maintain compatibility.
+
+Security considerations:  This media type provides only a means
+                          for conveying a list of newsgroups and
+                          does not provide any information
+                          indicating whether the sender is
+                          authorized to state which newsgroups
+                          should exist within a hierarchy.  Such
+                          authorization must be accomplished by
+                          other means.
+
+Interoperability considerations:
+                          Disposition should by default be inline.
+
+Applications that use this media type:
+                          Control message issuers, relaying
+                          agents, serving agents.
+
+Published specification:  RFC 5537
+
+Intended usage:           COMMON
+
+Change controller:        IETF
+
+The content of the application/news-checkgroups body part is defined
+as:
+
+   checkgroups-body    = *( valid-group CRLF )
+   valid-group         = newsgroups-line ; see Section 4.2
+
+The same restrictions on charset, <newsgroup-name>, and <newsgroup-
+description> apply for this media type as for application/
+news-groupinfo.
+
+One application/news-checkgroups message may contain information for
+one or more hierarchies and is considered complete for any hierarchy
+for which it contains a <valid-group> unless accompanied by external
+information limiting its scope (such as a <chkscope> parameter to a
+checkgroups control message, as described in Section 5.2.3).  In
+other words, an application/news-checkgroups body part consisting of
+
+   example.moderated         A moderated newsgroup (Moderated)
+   example.test              An unmoderated test group
+
+is a statement that the example.* hierarchy contains two newsgroups,
+example.moderated and example.test, and no others.  This media type
+therefore MUST NOT be used for conveying partial information about a
+hierarchy; if a group from a given hierarchy is present, all groups
+that exist in that hierarchy MUST be listed unless its scope is
+limited by external information, in which case all groups SHOULD be
+listed.
+
+Spaces are used in this example for formatting reasons.  In an actual
+message, the newsgroup name and description MUST be separated by one
+or more tabs (HTAB, ASCII %d09), not spaces.

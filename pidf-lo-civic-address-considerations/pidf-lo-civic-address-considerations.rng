@@ -1,0 +1,36 @@
+<?xml version='1.0'?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  ns="http://www.iana.org/assignments">
+
+  <include href="../_support/iana-registry.rng"/>
+  <start>
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <element name="country">
+              <data type="string">
+                <param name="pattern">[A-Z][A-Z]</param>
+              </data>
+            </element>
+            <element name="serial">
+              <data type="integer"/>
+            </element>
+            <ref name="references"/>
+            <element name="status">
+              <choice>
+                <value>active</value>
+                <value>obsolete</value>
+              </choice>
+            </element>
+          </element>
+        </zeroOrMore>
+      </element>
+      <ref name="people"/>
+    </element>
+  </start>
+</grammar>
+

@@ -1,0 +1,84 @@
+(RFC 5584 published July 2009, subtype last updated July 2009)
+
+Type name:  audio
+
+Subtype name:  ATRAC-ADVANCED-LOSSLESS
+
+Required parameters:
+
+rate:  Represents the sampling frequency in Hz of the original
+audio data.  Permissible value is 44100 only for High-Speed Transfer
+mode.  Any value of 24000, 32000, 44100, 48000, 64000, 88200, 96000,
+176400, and 192000 can be used for Standard mode.
+
+baseLayer:  Indicates the encoded bit-rate in kbps for the base layer
+in High-Speed Transfer mode lossless encodings.
+
+For Standard lossless mode, this value MUST be 0.
+
+The Permissible values for ATRAC3 baselayer are 66, 105, and 132.
+For ATRAC-X baselayer, they are 32, 48, 64, 96, 128, 160, 192, 256,
+320, and 352.
+
+blockLength:  Indicates the block length.  In High-Speed Transfer
+mode, the value of 1024 and 2048 is used for ATRAC3 based and ATRAC-X
+based ATRAC Advanced Lossless streaming, respectively.
+
+Any value of 512, 1024, and 2048 can be used for Standard mode.
+
+channelID:  Indicates the number of channels and channel layout
+according to the table1 in Section 7.4.  Note that this layout is
+different from that proposed in RFC 3551 [3].  However, as channelID
+= 0 defines an ambiguous channel layout, the channel mapping defined
+in Section 4.1 of [3] could be used in this case.  Permissible values
+are 0, 1, 2, 3, 4, 5, 6, 7.
+
+ptime:  See RFC 4566 [2].
+
+maxptime:  See RFC 4566 [2].
+In streaming of ATRAC Advanced Lossless, multiple frames cannot be
+transmitted in a single RTP packet, as the frame size is large.  So
+it SHOULD be regarded as the time of one encoded frame in both of the
+sender and the receiver side.  The frame length of ATRAC Advanced
+Lossless is 512/44100 = 11.6...(ms), 1024/44100 = 23.22...(ms), or
+2048/44100 = 46.44...(ms), but fractional value may not be applicable
+for the SDP definition.  So the value of the parameter MUST be
+12(ms), 24(ms), or 47(ms) considering safe transmission.
+
+Encoding considerations:  This media type is framed and contains
+binary data.
+
+Security considerations:  This media type does not carry active
+content.  See Section 9 of this document.
+
+Interoperability considerations:  none
+
+Published specification:
+ATRAC Advanced Lossless Standard Specification [11]
+
+Applications that use this media type:
+Audio and video streaming and conferencing tools.
+
+Additional information:  none
+
+Magic number(s):  none
+File extension(s):  'aal', 'aa3', and 'omg'
+Macintosh file type code(s):  none
+
+Person and email address to contact for further information:
+
+Mitsuyuki Hatanaka
+Jun Matsumoto
+actech&jp.sony.com
+
+Intended usage:  COMMON
+
+Restrictions on usage:  This media type depends on RTP framing, and
+hence is only defined for transfer via RTP.
+
+Author:
+Mitsuyuki Hatanaka
+Jun Matsumoto
+actech&jp.sony.com
+
+Change controller:  IETF AVT WG delegated from the IESG

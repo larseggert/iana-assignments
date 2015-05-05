@@ -1,0 +1,97 @@
+(RFC 5188 published February 2008, subtype last updated February 2008)
+
+Type name: audio
+
+Subtype name: EVRCWB1
+
+Required parameters: None
+
+Optional parameters:
+
+These parameters apply to RTP transfer only.
+
+mode-set-recv: A subset of EVRC-WB modes.  Possible values are a
+comma-separated list of modes from the set {0,4,7} (see Table
+2.5.1.2-1 in 3GPP2 C.S0014-C).  A decoder can use this attribute to
+inform an encoder of its preference to operate in a specified subset
+of modes.  A value of 0 signals the support for wideband fixed rate
+(full or half rate, depending on the value of the 'fixedrate'
+parameter).  A value of 4 signals narrowband fixed full rate.  A
+value of 7 signals narrowband fixed half rate.  Absence of this
+parameter signals mode 0.
+
+sendmode: A mode of the EVRC-WB codec.  An encoder can use this to
+signal its current mode of operation.  Possible values are 0,4,7 (see
+Table 2.5.1.2-1 in 3GPP2 C.S0014-C). 'sendmode' with value 0 signals
+wideband fixed-rate operation (full or half rate, depending on the
+value of the 'fixedrate' parameter). 'sendmode' with value 4 signals
+narrowband fixed full-rate operation. 'sendmode' with value 7 signals
+narrowband fixed half-rate operation.  The 'fixedrate' parameter MUST
+NOT be present when the 'sendmode' value is 4 or 7.  Absence of this
+parameter signals mode 0.
+
+ptime: See RFC 4566.
+
+maxptime: See RFC 4566.
+
+fixedrate: Indicates the EVRC-WB rate of the session while in single-
+rate operation.  Valid values include 0.5 and 1, where a value of 0.5
+indicates the 1/2 rate while a value of 1 indicates the full rate.
+If this parameter is not present, 1/2 rate is assumed.
+
+silencesupp: See Section 6.1 in RFC 4788.
+
+dtxmax: See Section 6.1 in RFC 4788.
+
+dtxmin: See Section 6.1 in RFC 4788.
+
+hangover: See Section 6.1 in RFC 4788.
+
+Encoding considerations:
+
+This media type is framed binary data (see RFC 4288, Section 4.8) and
+is defined for transfer of EVRC-WB encoded data via RTP using the
+compact bundle packet format specified in RFC 4788.
+
+Security considerations: See Section 18 of RFC 5188.
+
+Interoperability considerations: None
+
+Published specification:
+
+The EVRC-WB vocoder is specified in 3GPP2 C.S0014-C.  The transfer
+method with the compact bundled packet format via RTP is specified in
+RFC 4788 and RFC 5188.
+
+3GPP2 C.S0050-B, 3GPP2 File Formats for Multimedia Services.
+
+3GPP2 specifications are publicly accessible at http://www.3gpp2.org
+
+Applications that use this media type:
+
+It is expected that many VoIP applications (as well as mobile
+applications) will use this type.
+
+Additional information: None
+
+Person & email address to contact for further information:
+
+Harikishan Desineni <hd&qualcomm.com>
+
+Intended usage: COMMON
+
+Restrictions on usage:
+
+This media type depends on RTP framing and hence is only defined for
+transfer via RTP [6]; the RTP payload format specified in Section 4
+of RFC 4788 SHALL be used.  This media type SHALL NOT be used for
+storage or file transfer using the file format defined in Section 8
+of RFC 5188; instead, audio/EVRCWB SHALL be used.
+
+Author:
+
+Harikishan Desineni
+
+Change controller:
+
+IETF Audio/Video Transport working group delegated from the IESG.

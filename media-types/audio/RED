@@ -1,0 +1,63 @@
+(registered in RFC3555)
+
+MIME media type name: audio
+
+MIME subtype name: RED
+
+Required parameters:
+     pt: a comma-separated list of RTP payload types.  Because
+     comma is a special character, the list must be a quoted-string
+     (enclosed in double quotes).  For static payload types, each
+     list element is simply the type number.  For dynamic payload
+     types, each list element is a mapping of the dynamic payload
+     type number to an embedded MIME content-type specification for
+     the payload format corresponding to the dynamic payload type.
+     The format of the mapping is:
+
+        dynamic-payload-type "=" content-type
+
+     If the content-type string includes a comma, then the
+     content-type string MUST be a quoted-string.  If the content-
+     type string does not include a comma, it MAY still be quoted.
+     Since it is part of the list which must itself be a quoted-
+     string, that means the quotation marks MUST be quoted with
+     backslash quoting as specified in RFC 2045.  If the content-
+     type string itself contains a quoted-string, then the
+     requirement for backslash quoting is recursively applied.  To
+     specify the audio/RED payload format in SDP, the pt parameter
+     is mapped to an a=fmtp attribute by eliminating the parameter
+     name (pt) and changing the commas to slashes.  For example,
+     'pt="0,5"' maps to 'a=fmtp:99 0/5'.  A more complicated
+     example, with a dynamic payload type, is:
+
+        pt = "0, 103 = \"audio/G729D;annexb=yes\" "
+
+        m=audio 49170 RTP/AVP 99 0 103
+        a=rtpmap:99 RED/8000
+        a=fmtp:99 0/103
+        a=rtpmap:103 G729D/8000
+        a=fmtp:103 annexb=yes
+
+Optional parameters: ptime, maxptime
+
+Encoding considerations:
+     This type is only defined for transfer via RTP [RFC 3550].
+
+Security considerations: See Section 5 of RFC 3555
+
+Interoperability considerations: none
+
+Published specification: RFC 2198
+
+Applications which use this media type:
+     Audio and video streaming and conferencing tools.
+
+Additional information: none
+
+Person & email address to contact for further information:
+     Stephen Casner <casner&acm.org>
+
+Intended usage: COMMON
+
+Author/Change controller:
+     Stephen Casner

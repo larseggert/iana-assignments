@@ -1,0 +1,44 @@
+<?xml version='1.0'?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  ns="http://www.iana.org/assignments">
+
+  <include href="../_support/iana-registry.rng"/>
+
+  <start>
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional>
+             <attribute name="date"><ref name="genericDate"/></attribute>
+            </optional>
+            <element name="value"><data type="positiveInteger"/></element>
+            <element name="entity_protocol_type"><text/></element>
+            <optional><ref name="references"/></optional>
+          </element>
+        </zeroOrMore>
+      </element>
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional>
+             <attribute name="date"><ref name="genericDate"/></attribute>
+            </optional>
+            <element name="tag"><ref name="genericRange"/></element>
+            <element name="attribute"><text/></element>
+            <optional><element name="length"><text/></element></optional>
+            <optional><element name="reg_key"><text/></element></optional>
+            <optional><element name="query_key"><text/></element></optional>
+            <optional><ref name="references"/></optional>
+          </element>
+        </zeroOrMore>
+      </element>
+      <ref name="people"/>
+    </element>
+  </start>
+
+</grammar>

@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<xs:schema
+    xmlns:dsl="urn:ietf:params:xml:ns:geopriv:lm:dsl"
+    xmlns:bt="urn:ietf:params:xml:ns:geopriv:lm:basetypes"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="urn:ietf:params:xml:ns:geopriv:lm:dsl"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified">
+
+  <xs:annotation>
+    <xs:appinfo
+    source="urn:ietf:params:xml:schema:geopriv:lm:dsl">
+      DSL measurement definitions
+    </xs:appinfo>
+    <xs:documentation source="http://www.rfc-editor.org/rfc/rfc7105.txt">
+      This schema defines a basic set of DSL location measurements.
+    </xs:documentation>
+  </xs:annotation>
+
+ <xs:import namespace="urn:ietf:params:xml:ns:geopriv:lm:basetypes"/>
+
+  <xs:element name="dsl" type="dsl:dslVlanType"/>
+  <xs:complexType name="dslVlanType">
+    <xs:complexContent>
+      <xs:restriction base="xs:anyType">
+    <xs:choice>
+      <xs:element name="l2tp">
+        <xs:complexType>
+          <xs:complexContent>
+        <xs:restriction base="xs:anyType">
+          <xs:sequence>
+            <xs:element name="src" type="bt:ipAddressType"/>
+            <xs:element name="dest" type="bt:ipAddressType"/>
+            <xs:element name="session"
+                type="xs:nonNegativeInteger"/>
+          </xs:sequence>
+        </xs:restriction>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+      <xs:sequence>
+        <xs:element name="an" type="xs:token"/>
+        <xs:group ref="dsl:dslSlotPort"/>
+      </xs:sequence>
+      <xs:sequence>
+        <xs:element name="stag" type="dsl:vlanIDType"/>
+        <xs:choice>
+          <xs:sequence>
+        <xs:element name="ctag" type="dsl:vlanIDType"/>
+        <xs:group ref="dsl:dslSlotPort" minOccurs="0"/>
+          </xs:sequence>
+          <xs:group ref="dsl:dslSlotPort"/>
+        </xs:choice>
+      </xs:sequence>
+      <xs:sequence>
+        <xs:element name="vpi" type="bt:byteType"/>
+        <xs:element name="vci" type="bt:twoByteType"/>
+      </xs:sequence>
+      <xs:any namespace="##other" processContents="lax"
+          minOccurs="0" maxOccurs="unbounded"/>
+    </xs:choice>
+    <xs:anyAttribute namespace="##other" processContents="lax"/>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="vlanIDType">
+    <xs:restriction base="xs:nonNegativeInteger">
+      <xs:maxInclusive value="4095"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:group name="dslSlotPort">
+    <xs:sequence>
+      <xs:element name="slot" type="xs:token"/>
+      <xs:element name="port" type="xs:token"/>
+    </xs:sequence>
+  </xs:group>
+
+</xs:schema>

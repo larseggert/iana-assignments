@@ -1,0 +1,174 @@
+Namespace ID: urn-3
+
+Registration Information:
+
+  Version 2
+  Date: 2009-01-27
+
+Declared registrant of the namespace:
+
+  Name:        Andrea Goethals
+  E-mail:      nrs-ns-adm&hulmail.harvard.edu
+  Affiliation: Harvard University Library
+  Address:     Office for Information Systems
+               90 Mt. Auburn Street
+               Cambridge, MA 02138
+
+  The named registrant is specified in her capacity as the namespace
+  administrator for the Harvard University Library Office for
+  Information Systems (HUL/OIS).  In the future, other individuals may
+  be designated by HUL/OIS for the purposes of administering potential
+  updates to this registration.
+
+Declaration of syntactic structure:
+
+  All URNs defined under the namespace have the following structure,
+  specified in ABNF notation [1]:
+
+    urn           = "urn:" nid ":" nss
+    nid           = "urn-" n
+    n             = number-assigned-by-IANA
+    nss           = authoritypath ":" resourcename
+    authoritypath = authority / (authoritypath "." authority)
+    authority     = 1*authoritychar
+    authoritychar = upper / lower / number /
+                      "(" / ")" / "+" / "," / "-" / "=" / "@" /
+                      ";" / "$" / "_" / "!" / "*" / "'" / ("%" hex hex)
+    resourcename  = 1*resourcechar
+    resourcechar  = authoritychar / "." / ":"
+
+  where <upper>, <lower>, <number>, and <hex> are defined in Section
+  2.2 of [4].
+
+  The %-escaping mechanism, as described in Sections 2.2 and 2.3.1 of
+  [4], is used to incorporate into URNs characters that are not
+  explicitly allowed by the grammar.
+
+  Examples of valid URNs defined under the namespace include:
+
+    urn:urn-<n>:FHCL:10403
+    urn:urn-<n>:HBS.Baker.TC:1923
+    urn:urn-<n>:HUL.Eresource:holliswb
+    urn:urn-<n>:HUL.OIS:Home
+
+  The <authoritypath> component of the URN uniquely identifies the
+  naming authority under which the URN was assigned.  A naming
+  authority is an administrative unit or agent that has been granted
+  the privilege of creating, and the responsibility for maintaining
+  persistently, names in the subset of the full namespace identified
+  by that authority's <authoritypath>.
+
+  Naming authorities exist within a tree-like structure of authority
+  delegation, under which any given naming authority derives its
+  privileges and responsibilities from a pre-existing parent
+  authority.  Naming authorities may independently propose and enforce
+  local policies and administrative procedures relative to names
+  created within their scope.
+
+  The administrator of a naming authority, regardless of its position
+  within the delegation tree, has full oversight and operational
+  control over all aspects of URN administration of all delegated
+  authorities that derive from the common parent.  The root naming
+  authority for the namespace is administered by HUL/OIS.  The root
+  authority exists solely to provide a common root of delegatable
+  naming authority; it alone has no corresponding <authoritypath>.
+
+Relevant ancillary documentation:
+
+  [1] Crocker, D. and P. Overell, "Augmented BNF for Syntax
+      Specifications: ABNF", RFC 2234, November 1997.
+
+  [2] Daniel, R., "A Trivial Convention for Using HTTP in URN
+      Resolution", RFC 2169, June 1997.
+
+  [3] Mealling, M. and R. Daniel, Jr., "URI Resolution Services
+      Necessary for URN Resolution", RFC 2483, January 1999.
+
+  [4] Moats, R. "URN Syntax", RFC 2141, May 1997.
+
+  [5] Shafer, K., S. Weibel, E. Jul, and J. Fausey, "Introduction
+      to Persistent Uniform Resource Locators", Proc. INET '96, The
+      Internet: Transforming Our Society Now, Montreal, June 24-28,
+      1996.
+
+Identifier uniqueness considerations:
+
+  Individual naming authorities are responsible for insuring the
+  uniqueness of the <resourcename> components of the URNs created
+  within their scope.  Naming authorities are also responsible for
+  insuring the uniqueness of the terminal <authority> component of the
+  <authoritypath> for all delegated authorities.
+
+Identifier persistence considerations:
+
+  HUL provides an administrative system that maintains URN
+  registration within the namespace.  The system insures that once a
+  URN is assigned it is never reassigned to a different resource.
+
+Process of identifier assignment:
+
+  The administrative system is decentralized to allow individual
+  naming authorities to create and maintain independently the URNs
+  that fall within the scope of those authorities.
+
+  Administrative units or agents wishing to assign URNs must be
+  granted the appropriate privilege to do so from the administrator of
+  the naming authority in the scope of which the URNs are to be
+  created.  Similarly, units or agents wishing to administer a new
+  delegated naming authority must negotiate directly with the
+  administrator of the potential parent authority, who, if
+  acquiescent, will create the delegated authority.
+
+Process for identifier resolution:
+
+  HUL provides a resolution service for the namespace.  The service
+  accepts THTTP-formatted [2] resolution requests for the URN-to-URL
+  and URN-to-URLs services (specified by either the "N2L" and "N2Ls"
+  mnemonics of [2] or the "I2L" and "I2Ls" mnemonics of [3]).  Server
+  responses are consistent with [3].
+
+  Multiple URLs associated with a single URN are maintained within the
+  resolver database in an ordered list.  A URN-to-URL request against
+  a URN with multiple URLs returns the URL with the highest priority
+  in the list.
+
+  The mechanism used by client user agents to determine the location
+  of the resolution service is outside of the scope of this
+  registration document.
+
+  In the absence of widely available native support for URNs within
+  the current generation of web clients, the resolution service also
+  accepts requests in a PURL-like syntax [5] for URNs that are
+  encapsulated into URLs:
+
+    http://<resolver>/urn-<n>:<authoritypath>:<resourcename>
+
+  In this case, the URN-to-URL resolution service is assumed by the
+  resolver.
+
+Rules for Lexical Equivalence:  The entire URN is case-insensitive.
+
+Conformance with URN syntax:  No special considerations.
+
+Validation mechanism:
+
+  The administrative system performs syntactic validation of all URNs
+  at the point of their registration.
+
+Scope:
+
+  This namespace is used for the identification of network-accessible
+  resources delivered to the Harvard community and the public through
+  the mediation of HUL-supported systems or other delivery mechanisms
+  controlled or directed by Harvard-affiliated entities whose
+  standards and procedures for resource maintenance and access are
+  consistent with those of HUL, or for resources made accessible to
+  the Harvard community under contractual or similar arrangements.
+  These resources are provided by various organizational units of
+  Harvard University, including administrative and academic
+  departments, libraries, and museums, as well as digital content
+  purchased or licensed from external vendors.
+
+(01/28/10)
+
+[]

@@ -1,0 +1,68 @@
+(RFC 1848 published October 1995, subtype last updated October 1995)
+
+(1)  MIME type name: application
+
+(2)  MIME subtype name: mosskey-data
+
+(3)  Required parameters: none
+
+(4)  Optional parameters: none
+
+(5)  Encoding considerations: quoted-printable is always sufficient.
+
+(6)  Security Considerations: none
+
+The content of this body part corresponds to the following
+production.
+
+   <mosskeydata>   ::= <version>
+                       ( <publickeydata> / <certchain> / <crlchain> )
+
+   <version>       ::= "Version:" "5" CRLF
+
+   <publickeydata> ::= "Key:" "PK" "," <publickey> ","
+                       <id-subset> CRLF
+
+   <certchain>     ::= <cert> *( [ <crl> ] <cert> )
+
+   <crlchain>      ::= 1*( <crl> [ <cert> ] )
+
+   <cert>          ::= "Certificate:" <encbin> CRLF
+
+   <crl>           ::= "CRL:" <encbin> CRLF
+
+This content type is used to transfer public keys, certificate
+chains, or Certificate Revocation List (CRL) chains.  The information
+in the body part is entirely independent of any other body part.
+(Note that the converse is not true: the validity of a protected body
+part cannot be determined without the proper public keys,
+certificates, or current CRL information.)  As such, the
+application/mosskey-data content type is an independent body part.
+
+The <publickeydata> production contains exactly one public key.  It
+is used to bind a public key with its corresponding name form and key
+selector.  It is recommended that when responders are returning this
+information that the enclosing body part be digitally signed by the
+responder in order to protect the information.  The <id-subset> token
+is defined in Section 4.2.4.
+
+The <certchain> production contains one certificate chain.  A
+certificate chain starts with the requested certificate and continues
+with the certificates of subsequent issuers.  Each issuer certificate
+included must have issued the preceding certificate.  For each
+issuer, a CRL may be supplied.  A CRL in the chain belongs to the
+immediately following issuer.  Therefore, it potentially contains the
+immediately preceding certificate.
+
+The <crlchain> production contains one certificate revocation list
+chain.  The CRLs in the chain begin with the requested CRL and
+continue with the CRLs of subsequent issuers.  The issuer of each CRL
+is presumed to have issued a certificate for the issuer of the
+preceding CRL.  For each CRL, the issuer's certificate may be
+supplied.  A certificate in the chain must belong to the issuer of
+the immediately preceding CRL.
+
+The relationship between a certificate and an immediately preceding
+CRL is the same in both <certchain> and <crlchain>.  In a <certchain>
+the CRLs are optional.  In a <crlchain> the certificates are
+optional.

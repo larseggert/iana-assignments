@@ -1,0 +1,94 @@
+          DNS RRTYPE PARAMETER ALLOCATION TEMPLATE
+
+      When ready for formal consideration, this template is
+      to be submitted to IANA for processing by emailing the
+      template to dns-rrtype-applications at ietf.org.
+
+      A.    Submission Date:  To be determined.
+
+      B.    Submission Type:
+            [X] New RRTYPE
+
+      C.    Contact Information for submitter:
+               Name:  R. Atkinson
+               Email Address: rja.lists at gmail.com
+               International telephone number: unlisted
+               Other contact handles:
+
+      D.    Motivation for the new RRTYPE application?
+
+         Support for an experimental set of IP extensions
+         that replace the concept of an "IP Address" with
+         distinct "Locator" and "Identifier" values.
+
+      E.    Description of the proposed RR type.
+
+            Please see:
+
+              http://tools.ietf.org/id/draft-irtf-rrg-ilnp-dns-05.txt
+
+            for a full description.
+
+      F.    What existing RRTYPE or RRTYPEs come closest to filling
+            that need and why are they unsatisfactory?
+
+      There is no RRTYPE that fulfils the need due to the
+      new semantics of Locator and Identifier values.
+
+         The AAAA record combines both Locator and Identifier,
+         so has significantly different semantics than having
+         separate L64 and NID record values.  The AAAA record also
+         lacks scalability and flexibility in the context of the
+         experimental protocol extensions that will use the NID
+         and L64 records, as any valid NID record value for a node
+         can be used on the wire with any valid L64 record value
+         for the same node.
+
+         The CNAME record is closest conceptually to an LP
+         record, but a CNAME is a node name referral scheme,
+         while the LP record is indicating that the given node
+         has the same routing prefix as some other domain name,
+         but does not necessarily have any other values that are
+         the same.
+
+     Lastly, the AAAA and CNAME RR Types lack a Preference
+     field to rank responses.  Such Preference information
+     is required for ILNP in order to support the use of multiple
+     instances of NID, L32, L64 and LP records.
+
+      G.    What mnemonic is requested for the new RRTYPE (optional)?
+
+         As described in this draft, "NID", "L32", "L64", and "LP".
+
+      H.    Does the requested RRTYPE make use of any existing IANA
+            Registry or require the creation of a new IANA
+            sub-registry in DNS Parameters?
+
+         Existing registry of DNS Resource Record (RR) data TYPE
+         values should be used.
+
+      I.    Does the proposal require/expect any changes in DNS
+            servers/resolvers that prevent the new type from being
+            processed as an unknown RRTYPE (see [RFC3597]) ?
+
+         No.
+
+      J.    Comments:
+           This document defines "ILNP-aware" DNS servers
+           or DNS resolver as a DNS server (authoritative or recursive)
+           that MAY include other ILNP RRTypes in the Additional
+           section of a DNS response that match a QNAME (if
+           size permits). This is to reduce the number of
+           DNS stub resolver follow-up DNS queries. and only applies
+           when the QTYPE is either NID, L32, L64, or LP.  There is no
+           signalling mechanism for this Additional section
+           processing, and this is believed to be compatible
+           with existing non-ILNP-aware DNS servers and DNS stub
+           resolvers.
+
+           No changes are required for existing deployed
+           DNS servers or DNS resolvers.
+
+		[Expert note: as of approval of this request, the draft
+		available at the URI in section E, above, was the most
+		current.]  

@@ -1,0 +1,144 @@
+
+#  Name of submitters: Mikael Pahmp <Mikael.Pahmp&axis.com>
+#                      Erik Guttman <Erik.Guttman&sun.com>
+#                      Kent Lidstrom <Kent.Lidstrom&axis.com>
+#
+#  Security Considerations:
+#    The attributes included in the template, especially those concerning
+#    access control, are to be used to provide clients with configuration
+#    information regarding server features, not security per se.
+#    Authentication of and access control must be performed by the data
+#    access protocols themselves.
+
+# --------------------------------------------------------------------------
+
+# Introduction
+
+#   It is increasingly common to find networked storage devices which
+#   are available using a range of access protocols.  One common class
+#   of storage devices allow removable storage (such as CD-ROMs, tapes
+#   and optical disks) to be made available to the network simply by
+#   inserting the media to the networked storage device.  
+#
+#   This presents a problem:  How are clients to discover which media
+#   is currently available, or becomes avaiLable over time?  By using
+#   SLP [RFC2608] and advertising the attributes of the removable storage
+#   media, the data on the storage media becomes accessible without
+#   any prior client configuration.
+#
+#   Abstract Service templates are defined in [RFC2609].
+
+
+# Definitions
+
+#   This document defines the Networked Removable Storage Media abstract
+#   service type and two concrete types for the CIFS and NCP file sharing
+#   protocols.
+
+# CIFS
+
+#   The Common Internet File System (CIFS) protocol is based on the
+#   standard Server Message Block (SMB) protocol widely in use by
+#   personal computers and workstations running a wide variety of
+#   operating systems.
+#   
+#   Leach, P. and D. Naik, "A Common Internet File System (CIFS/1.0)
+#      Protocol", draft-leach-cifs-v1-spec-01.txt,
+#      December 1997 (work in progress)
+
+
+# NCP
+
+#   The NetWare Core Protocol (NCP) is one of the core protocols of the
+#   NetWare (TM) operating system. No known public specification of this
+#   protocol exists. Clients with access to a NCP client implementation
+#   may still use the information available in a Networked Removable
+#   Storage Media service: URL of the NCP concrete type to access the
+#   media.
+  
+# UNC
+
+#   Networked Removable Storage Media service: URLs of the CIFS or NCP
+#   concrete type uses a Uniform Naming Convention (UNC) [CIFS] path string
+#   as part of the url-path to describe the network path to the media.
+#   Client implementations of the CIFS and NCP protocols usually accepts
+#   UNC path strings for accessing shared network storage resources.
+
+# --------------------------------------------------------------------------
+
+template-type = nrsm
+
+template-version = 1.0
+
+template-description =
+    This is an abstract service type defining Networked Removable
+    Storage Media.
+
+template-url-syntax =
+    url-path =          ;  Depends on the concrete service type.
+                        ;  See these templates.
+
+media-name = STRING
+; This is the human readable name for this media. The name may be
+; given by the media itself or user defined.
+
+capacity = INTEGER 0
+; This is the memory capacity of the storage media, in units of
+; kilobyte.
+
+writeable = BOOLEAN
+; If this is TRUE, then the media is read/write.  If it is FALSE
+; the media is read-only.  Note that stating that media is read/
+; write does not indicate that *anyone* may write to it.  Access
+; control may be in place preventing unauthorized writing to the
+; media.
+
+media-type = STRING L
+; This is the media type of the removable media.  This can take
+; one of the following values:
+;
+;   CDROM       The removable media is a CD with data content.
+;   DVD         The media is a DVD.
+;   JAZ         The media is a JAZ diskette.
+;   DAT         The media is a DAT tape.
+;   OPTICAL     The media is an optical disk.
+;   TAPE        The media is a tape.
+CDROM,DVD,JAZ,DAT,OPTICAL,TAPE
+
+volume-description = STRING
+; This string describes the contents of the removable storage
+; media.  This string will be supplied to users in user interfaces
+; to provide them with information to determine whether this 
+; particular storage media is of interest.
+
+access-control = BOOLEAN O
+; This indicates that access control is being used to limit the
+; availability of the storage media.  No attempt is made to define
+; *what* access control is in place if the value of this attribute
+; is TRUE.
+
+used-space=INTEGER O
+; The amount of used space of the storage media,
+; in units of kilobytes.
+
+file-system = STRING O
+; The file system present on the networked storage media.  For
+; example "ISO 9660 with Rock Ridge Extensions"
+
+worm = BOOLEAN O
+; If this is TRUE, the media supports Write Once Read Many:  Thus
+; data can be appended but not deleted or altered on the media.
+
+contact-person = STRING O
+; The name of a contact person who is the operator of the removable
+; storage media device.  This is the person to contact to
+; unload or load particular media if the storage device if is in a
+; remote location.  It is suggested that this string include
+; information that would enable other humans to reach the contact
+; person, such as a phone number or an email address.
+
+location = STRING O
+; The physical location of the removable storage media device.
+; This should be a descriptive human readable text.
+
+

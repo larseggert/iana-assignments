@@ -1,0 +1,192 @@
+(RFC 4047 published April 2005, subtype last updated April 2005)
+
+MIME media type name: application
+
+MIME subtype name: fits
+
+Required parameters: none
+
+Optional parameters: none
+
+Encoding considerations: binary
+
+FITS files can be quite large. When transferred via HTTP it may be
+efficient for the transaction to make use of content-coding or
+transfer-coding values such as "gzip", "compress", or "deflate".
+
+Security considerations:
+
+FITS provides a means of transporting arrays and tables of data and
+keyword/value pairs of metadata. The standard FITS keywords are
+either mandatory or reserved. Mandatory keywords provide information
+necessary for correct interpretation of the data; reserved keywords
+merely provide standard bits of metadata. As such, the current
+standard FITS keywords do not pose security risks.
+
+A FITS file author may insert additional keywords with semantics that
+are not described by the standard. Parties exchanging FITS files may
+employ locally defined conventions that use various keywords and
+their values to induce actions on the part of the recipient. There
+are existing local conventions where such keywords are used to
+request the reading of other files and/or URIs. There are other
+local conventions where such keywords are used to modify the state of
+a telescope and/or instrument. The security implications of local
+conventions such as these SHOULD be analyzed by the parties employing
+them.
+
+Interoperability considerations:
+
+FITS files have been successfully transported between wildly
+different computers since 1979. The difficulty most likely to be
+encountered by a FITS application is inability to acquire the
+computational resources required by a very large FITS file.
+
+Published specification:
+
+The specification for this content type is published as a series of
+papers in refereed astronomical journals:
+
+Hanisch, R., et al., "Definition of the Flexible Image Transport
+System (FITS)", Astronomy & Astrophysics, 376, p. 359, 2001.
+
+Greisen, E. and M. Calabretta, "Representations of world coordinates
+in FITS", Astronomy & Astrophysics, 395, p. 1061, 2002.
+
+Calabretta, M. and E. Greisen, "Representations of celestial
+coordinates in FITS", Astronomy & Astrophysics, 395, p. 1077, 2002.
+
+Copies of these specifications can also be found via:
+
+http://fits.gsfc.nasa.gov/
+http://archive.stsci.edu/fits/
+http://www.cv.nrao.edu/fits/
+http://heasarc.gsfc.nasa.gov/docs/heasarc/fits.html
+
+Applications that use this media type:
+
+There are many astronomical image viewing and data reduction
+applications including, but not limited to, the following list:
+
+IRAF http://iraf.noao.edu/
+AIPS http://www.aoc.nrao.edu/aips/
+AIPS++ http://aips2.nrao.edu/
+MIDAS http://www.eso.org/projects/esomidas/
+ds9 http://hea-www.harvard.edu/RD/ds9/
+fv http://heasarc.gsfc.nasa.gov/ftools/fv/
+Aladin http://aladin.u-strasbg.fr/
+Starlink http://star-www.rl.ac.uk/
+Miriad http://bima.astro.umd.edu/miriad/
+STSDAS http://www.stsci.edu/resources/software_hardware/stsdas
+PROS http://hea-www.harvard.edu/PROS/pros.html
+CIAO http://cxc.harvard.edu/ciao/
+XANADU http://heasarc.gsfc.nasa.gov/docs/xanadu/xanadu.html
+HESSI http://hesperia.gsfc.nasa.gov/ssw/hessi/doc/
+FITSview http://www.nrao.edu/software/fitsview/
+XMM-SAS http://xmm.vilspa.esa.es/external/xmm_sw_cal/sas_frame.shtml
+
+At the present time many of these applications are not designed to
+support use as viewers of "application/fits" files in association
+with web browsers.
+
+Additional information:
+
+A FITS file described with the media type "application/fits" SHOULD
+conform to the published standards for FITS files as determined by
+convention and agreement within the international FITS community. No
+other constraints are placed on the content of a file described as
+"application/fits".
+
+A FITS file described with the media type "application/fits" may have
+an arbitrary number of conforming extension header and data units
+(XHDUs) that follow its mandatory primary header and data unit
+(PHDU). The XHDUs may be one of the standard types ("IMAGE",
+"TABLE", and "BINTABLE") or any other type that satisfies the
+"Requirements for Conforming Extensions" (section 4.4.1 of [NOST]).
+The PHDU or any "IMAGE" XHDU may contain zero to 999 dimensions with
+zero or more pixels along each dimension.
+
+The PHDU may use the random groups convention, in which the dimension
+of the first axis is zero and the keywords GROUPS, PCOUNT and GCOUNT
+appear in the header. NAXIS1=0 and GROUPS=T is the signature of
+random groups; see section 7 of the Definition of FITS paper [NOST].
+
+Recommendations for application writers:
+
+An application intended to handle "application/fits" SHOULD be able
+to provide a user with a manifest of all of the HDUs that are present
+in the file and with all of the keyword/value pairs from each of the
+HDUs.
+
+An application intended to handle "application/fits" SHOULD be
+prepared to encounter XHDUs that contain either ASCII or binary
+tables, and to provide a user with access to their elements.
+
+An application which can modify FITS files or retrieve FITS files
+from an external service SHOULD be capable of writing such files to a
+local storage medium.
+
+Complete interpretation of the meaning and intended use of the data
+in each of the HDUs typically requires the use of heuristics that
+attempt to ascertain which local conventions were used by the author
+of the FITS file.
+
+As examples, files with media type "application/fits" might contain
+any of the following contents:
+
+- An empty PHDU (containing zero data elements) followed by a table
+HDU that contains a catalog of celestial objects.
+
+- An empty PHDU followed by a table HDU that encodes a series of
+time-tagged photon events from an exposure using an X-ray detector.
+
+- An empty PHDU followed by a series of IMAGE HDUs containing data
+from an exposure taken by a mosaic of CCD detectors.
+
+- An empty PHDU followed by a series of table HDUs that contain a
+snapshot of the state of a relational database.
+
+- A PHDU containing a single image along with keyword/value pairs of
+metadata.
+
+- A PHDU with NAXIS1=0 and GROUPS=T followed by random groups data
+records of complex fringe visibilities
+
+Magic number(s): "SIMPLE = T"
+
+Jeff Uphoff of the National Radio Astronomy Observatory (NRAO) has
+contributed database entries for the magic number file which is used
+by the Unix "file" command. Magic number files with these entries
+are distributed with a variety of Unix-like operating systems. In
+addition to recognizing a FITS file using the string given above, the
+Uphoff entries also recognize the data type of the pixels in the
+PHDU.
+
+File extension(s): fits
+
+This file extension SHOULD NOT be interpreted as a prescription.
+
+The FITS standard originated in the era when files were stored and
+exchanged via magnetic tape; it does not prescribe any nomenclature
+for files on disk. Various sites within the FITS community have
+long-established practices where files are presumed to be FITS by
+context. File extensions used at such sites commonly indicate
+content of the file instead of the data format.
+
+In the absence of other information it is reasonably safe to presume
+that a file name ending in ".fits" is intended to be a FITS file.
+Nevertheless, there are other commonly used extensions; e.g., ".fit",
+".fts", and many others not suitable for listing in a media type
+registration.
+
+Intended usage: Common
+
+Persons to contact for further information:
+
+"Steve Allen" <sla&ucolick.org>
+"Don Wells" <dwells&nrao.edu>
+
+Author/Change controller:
+
+"Steve Allen" <sla&ucolick.org>
+
+The IAU FITS Working Group may authorize changes to this document.

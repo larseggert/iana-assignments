@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<xs:schema
+  xmlns:conf="urn:ietf:params:xml:ns:geopriv:conf"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="urn:ietf:params:xml:ns:geopriv:conf"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified">
+<xs:annotation>
+  <xs:appinfo
+      source="urn:ietf:params:xml:schema:geopriv:conf">
+    PIDF-LO Confidence
+  </xs:appinfo>
+  <xs:documentation source="RFC-ietf-geopriv-uncertainty-07">
+    This schema defines an element that is used for indicating
+    confidence in PIDF-LO documents.
+  </xs:documentation>
+</xs:annotation>
+
+<xs:element name="confidence" type="conf:confidenceType"/>
+
+<xs:complexType name="confidenceType">
+  <xs:simpleContent>
+    <xs:extension base="conf:confidenceBase">
+      <xs:attribute name="pdf" type="conf:pdfType"
+                    default="unknown"/>
+    </xs:extension>
+  </xs:simpleContent>
+</xs:complexType>
+
+<xs:simpleType name="confidenceBase">
+  <xs:union>
+    <xs:simpleType>
+      <xs:restriction base="xs:decimal">
+        <xs:minExclusive value="0.0"/>
+        <xs:maxExclusive value="100.0"/>
+      </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType>
+      <xs:restriction base="xs:token">
+        <xs:enumeration value="unknown"/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:union>
+</xs:simpleType>
+
+<xs:simpleType name="pdfType">
+  <xs:restriction base="xs:token">
+    <xs:enumeration value="unknown"/>
+    <xs:enumeration value="normal"/>
+    <xs:enumeration value="rectangular"/>
+  </xs:restriction>
+</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,69 @@
+(last updated 2011-05-25)
+
+Name : Franck LEFEVRE
+Email : franck.lefevre&gmail.com
+MIME media type name : Application
+MIME subtype name : Vendor Tree - vnd.mynfc
+Required parameters : None
+Optional parameters :
+None
+
+Encoding considerations : binary
+This media type may require encoding on transports not capable of
+handling binary data.
+
+Security considerations :
+The concerned documents are packages containing different types of files
+like JavaScript sources, images, font files or databases.
+Some of these files may incorporate active or executable content.
+The agent handling a package must inspect the manifest that it contains
+to define whether the document can be accepted or not.
+The integrity and the privacy of a package itself as well as the
+integrity of the documents that it contains must be handled internally
+by the agent in charge of extracting the files from the package.
+
+Interoperability considerations :
+
+Published specification :
+The specification of the content of these documents is available at
+http://mynfctech.appspot.com/FAQ24.html
+
+Applications which use this media :
+Some applications using this media are listed on
+http://daw.mynfc.org/mynfc.org/index.php/downloadable-packages
+
+Additional information :
+
+A document of this type contains an initial 512 byte header containing:
+byte 000 to 000 : a byte containing the version's number ( 0x02)
+byte 001 to 001 : a byte containing the value 0x32
+byte 002 to 511 : reserved for future use
+
+This header is followed by one chunk per file contained in the archive.
+Each chunk contains a header containing:
+bytes 000 to 127: a UTF8 NULL terminated string containing the name of
+the file wrapped in this chunk
+byte 128 to 128: a byte containing the type of the file ( 1= file,
+2=directory)
+bytes 129 to 139: reserved for future use
+bytes 140 to 159: a UTF8 NULL terminated string containing the length of
+the file wrapped in this chunk
+bytes 160 to 287: a UTF8 NULL terminated string containing the name of
+the directory containing this file/directory
+This header is followed by the content of the chunk's file.
+
+1. Magic number(s) : Two first bytes of these files are: 0x32 and 0x20
+2. File extension(s) : .taglet
+3. Macintosh file type code : none
+4. Object Identifiers: none
+
+Person to contact for further information :
+
+1. Name : Franck LEFEVRE
+2. Email : franck.lefevre&gmail.com
+
+Intended usage : Common
+
+Author/Change controller : Franck LEFEVRE
+
+(file created 2011-05-25)

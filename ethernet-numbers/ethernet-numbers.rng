@@ -1,0 +1,69 @@
+<?xml version='1.0'?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  ns="http://www.iana.org/assignments">
+
+  <include href="../_support/iana-registry.rng"/>
+
+  <define name="value_description_xref">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <zeroOrMore>
+        <element name="record">
+          <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+          <optional><attribute name="updated"><ref name="genericDate"/></attribute></optional>
+          <element name="value"><text/></element>
+          <element name="description"><text/></element>
+          <ref name="references"/>
+        </element>
+      </zeroOrMore>
+      <ref name="footnotes"/>
+    </element>
+  </define>
+
+  <start>
+    <element name="registry">
+      <ref name="registryMeta"/>
+
+      <!-- IANA MAC ADDRESS BLOCK -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+
+        <!-- IANA Unicast 48-bit MAC Addresses  -->
+        <ref name="value_description_xref"/>
+
+        <!-- IANA Multicast 48-bit MAC Addresses   -->
+        <ref name="value_description_xref"/>
+
+        <!-- IANA 64-bit MAC Addresses   -->
+        <ref name="value_description_xref"/>
+      </element>
+
+      <!-- The CFxxxx Series -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+      </element>
+
+      <!-- SNAP PROTOCOL IDs -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+            <optional><attribute name="updated"><ref name="genericDate"/></attribute></optional>
+            <element name="decimal"><ref name="genericRange"/></element>
+            <element name="hex"><data type="string">
+                <param name="pattern">[\da-fA-Fx]+(\s*-\s*([\da-fA-Fx]+))?</param>
+            </data></element>
+            <element name="description"><text/></element>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+        <ref name="footnotes"/>
+      </element>
+
+      <ref name="people"/>
+    </element>
+  </start>
+
+</grammar>

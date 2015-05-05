@@ -1,0 +1,125 @@
+<?xml version='1.0'?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  ns="http://www.iana.org/assignments">
+  
+  <include href="../_support/iana-registry.rng"/>
+  
+  <start>
+    <element name="registry">
+      <ref name="registryMeta"/>
+      
+      <!-- Attributes TLV Space -->
+      
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+            <optional><attribute name="updated"><ref name="genericDate"/></attribute></optional>
+            <element name="value"><ref name="genericRange"/></element>
+            <element name="name"><text/></element>
+            <element name="LSP_ATTRIBUTES">
+              <choice>
+                <value>Yes</value>
+                <value>No</value>
+              </choice>
+            </element>
+            <element name="LSP_REQUIRED_ATTRIBUTES">
+              <choice>
+                <value>Yes</value>
+                <value>No</value>
+              </choice>
+            </element>
+            <element name="LSP_Hop_Attributes">
+              <choice>
+                <value>Yes</value>
+                <value>No</value>
+              </choice>
+            </element>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+      </element>
+      
+      <!-- Attribute Flags -->
+      
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+            <optional><attribute name="updated"><ref name="genericDate"/></attribute></optional>
+            <element name="value"><data type="nonNegativeInteger"/></element>
+            <element name="name"><text/></element>
+            <element name="path">
+              <choice>
+                <value>Yes</value>
+                <value>No</value>
+              </choice>
+            </element>
+            <element name="resv">
+              <choice>
+                <value>Yes</value>
+                <value>No</value>
+              </choice>
+            </element>
+            <element name="RRO">
+              <choice>
+                <value>Yes</value>
+                <value>No</value>
+              </choice>
+            </element>
+            <element name="ERO">
+              <choice>
+                <value>Yes</value>
+                <value>No</value>
+              </choice>
+            </element>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+      </element>
+      
+      <!-- Session Attribute Object Flags -->
+      
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+            <optional><attribute name="updated"><ref name="genericDate"/></attribute></optional>
+            <element name="value">
+              <data type="string">
+                <param name="pattern">0x[\da-fA-F]{2}</param>
+              </data>
+            </element>
+            <element name="name"><text/></element>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+      </element>
+      
+      <!-- Record Route Object Sub-object Flags -->
+      
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+            <optional><attribute name="updated"><ref name="genericDate"/></attribute></optional>
+            <element name="value">
+              <data type="string">
+                <param name="pattern">0x[\da-fA-F]{2}</param>
+              </data>
+            </element>
+            <element name="name"><text/></element>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+      </element>
+      <ref name="people"/>
+    </element>
+  </start>
+  
+</grammar>

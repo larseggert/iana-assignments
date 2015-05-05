@@ -1,0 +1,297 @@
+(RFC 3640 published November 2003, subtype last updated November 2003)
+
+MIME media type name: "video" or "audio" or "application"
+
+"video" MUST be used for MPEG-4 Visual streams (ISO/IEC 14496-2) or
+MPEG-4 Systems streams (ISO/IEC 14496-1) that convey information
+needed for an audio/visual presentation.
+
+"audio" MUST be used for MPEG-4 Audio streams (ISO/IEC 14496-3) or
+MPEG-4 Systems streams that convey information needed for an audio
+only presentation.
+
+"application" MUST be used for MPEG-4 Systems streams (ISO/IEC
+14496-1) that serve purposes other than audio/visual presentation,
+e.g., in some cases when MPEG-J (Java) streams are transmitted.
+
+Depending on the required payload configuration, MIME format
+parameters may need to be available to the receiver.  This is done
+using the parameters described in the next section.  There are
+required and optional parameters.
+
+Optional parameters are of two types: general parameters and
+configuration parameters.  The configuration parameters are used to
+configure the fields in the AU Header section and in the auxiliary
+section.  The absence of any configuration parameter is equivalent to
+the associated field set to its default value, which is always zero.
+The absence of all configuration parameters results in a default
+"basic" configuration with an empty AU-header section and an empty
+auxiliary section in each RTP packet.
+
+MIME subtype name: mpeg4-generic
+
+Required parameters:
+
+MIME format parameters are not case dependent; for clarity however,
+both upper and lower case are used in the names of the parameters
+described in this specification.
+
+   streamType:
+   The integer value that indicates the type of MPEG-4 stream that is
+   carried; its coding corresponds to the values of the streamType,
+   as defined in Table 9 (streamType Values) in ISO/IEC 14496-1.
+
+   profile-level-id:
+   A decimal representation of the MPEG-4 Profile Level indication.
+   This parameter MUST be used in the capability exchange or session
+   set-up procedure to indicate the MPEG-4 Profile and Level
+   combination of which the relevant MPEG-4 media codec is capable.
+
+   For MPEG-4 Audio streams, this parameter is the decimal value from
+      Table 5 (audioProfileLevelIndication Values) in ISO/IEC 14496-
+      1, indicating which MPEG-4 Audio tool subsets are required to
+      decode the audio stream.
+
+   For MPEG-4 Visual streams, this parameter is the decimal value
+      from Table G-1 (FLC table for profile and level indication) of
+      ISO/IEC 14496-2 [1], indicating which MPEG-4 Visual tool
+      subsets are required to decode the visual stream.
+
+   For BIFS streams, this parameter is the decimal value obtained
+      from (SPLI + 256*GPLI), where:
+      SPLI is the decimal value from Table 4 in ISO/IEC 14496-1 with
+               the applied sceneProfileLevelIndication;
+      GPLI is the decimal value from Table 7 in ISO/IEC 14496-1 with
+         the applied graphicsProfileLevelIndication.
+
+   For MPEG-J streams, this parameter is the decimal value from table
+      13 (MPEGJProfileLevelIndication) in ISO/IEC 14496-1, indicating
+      the profile and level of the MPEG-J stream.
+
+   For OD streams, this parameter is the decimal value from table 3
+      (ODProfileLevelIndication) in ISO/IEC 14496-1, indicating the
+      profile and level of the OD stream.
+
+   For IPMP streams, this parameter has either the decimal value 0,
+      indicating an unspecified profile and level, or a value larger
+      than zero, indicating an MPEG-4 IPMP profile and level as
+      defined in a future MPEG-4 specification.
+
+   For Clock Reference streams and Object Content Info streams, this
+      parameter has the decimal value zero, indicating that profile
+      and level information is conveyed through the OD framework.
+
+   config:
+   A hexadecimal representation of an octet string that expresses the
+   media payload configuration.  Configuration data is mapped onto
+   the hexadecimal octet string in an MSB-first basis.  The first bit
+   of the configuration data SHALL be located at the MSB of the first
+   octet.  In the last octet, if necessary to achieve octet-
+   alignment, up to 7 zero-valued padding bits shall follow the
+   configuration data.
+
+   For MPEG-4 Audio streams, config is the audio object type specific
+      decoder configuration data AudioSpecificConfig(), as defined in
+      ISO/IEC 14496-3.  For Structured Audio, the
+      AudioSpecificConfig() may be conveyed by other means, not
+      defined by this specification.  If the AudioSpecificConfig() is
+      conveyed by other means for Structured Audio, then the config
+      MUST be a quoted empty hexadecimal octet string, as follows:
+      config="".
+
+      Note that a future mode of using this RTP payload format for
+      Structured Audio may define such other means.
+
+   For MPEG-4 Visual streams, config is the MPEG-4 Visual
+      configuration information as defined in subclause 6.2.1, Start
+      codes of ISO/IEC 14496-2.  The configuration information
+      indicated by this parameter SHALL be the same as the
+      configuration information in the corresponding MPEG-4 Visual
+      stream, except for first-half-vbv-occupancy and latter-half-
+      vbv-occupancy, if it exists, which may vary in the repeated
+      configuration information inside an MPEG-4 Visual stream (See
+      6.2.1 Start codes of ISO/IEC 14496-2).
+
+   For BIFS streams, this is the BIFSConfig() information as defined
+      in ISO/IEC 14496-1.  Version 1 of BIFSConfig is defined in
+      section 9.3.5.2, and version 2 is defined in section 9.3.5.3.
+      The MIME format parameter objectType signals the version of
+      BIFSConfig.
+
+   For IPMP streams, this is either a quoted empty hexadecimal octet
+      string, indicating the absence of any decoder configuration
+      information (config=""), or the IPMPConfiguration() as will be
+      defined in a future MPEG-4 IPMP specification.
+
+   For Object Content Info (OCI) streams, this is the
+      OCIDecoderConfiguration() information of the OCI stream, as
+      defined in section 8.4.2.4 in ISO/IEC 14496-1.
+
+   For OD streams, Clock Reference streams and MPEG-J streams, this
+      is a quoted empty hexadecimal octet string (config=""), as no
+      information on the decoder configuration is required.
+
+   mode:
+   The mode in which this specification is used.  The following modes
+   can be signaled:
+
+   mode=generic,
+   mode=CELP-cbr,
+   mode=CELP-vbr,
+   mode=AAC-lbr and
+   mode=AAC-hbr.
+
+   Other modes are expected to be defined in future RFCs.  See also
+   section 3.3.7 and 4.2 of RFC 3640.
+
+Optional general parameters:
+
+   objectType:
+   The decimal value from Table 8 in ISO/IEC 14496-1, indicating the
+   value of the objectTypeIndication of the transported stream.  For
+   BIFS streams, this parameter MUST be present to signal the version
+   of BIFSConfiguration().  Note that objectTypeIndication may signal
+   a non-MPEG-4 stream and that the RTP payload format defined in
+   this document may not be suitable for carrying a stream that is
+   not defined by MPEG-4.  The objectType parameter SHOULD NOT be set
+   to a value that signals a stream that cannot be carried by this
+   payload format.
+
+   constantSize:
+   The constant size in octets of each Access Unit for this stream.
+   The constantSize and the sizeLength parameters MUST NOT be
+   simultaneously present.
+
+   constantDuration:
+   The constant duration of each Access Unit for this stream,
+   measured with the same units as the RTP time stamp.
+
+   maxDisplacement:
+   The decimal representation of the maximum displacement in time of
+   an interleaved AU, as defined in section 3.2.3.3, expressed in
+   units of the RTP time stamp clock.
+
+   This parameter MUST be present when interleaving is applied.
+
+   de-interleaveBufferSize:
+   The decimal representation in number of octets of the size of the
+   de-interleave buffer, described in section 3.2.3.3.  When
+   interleaving, this parameter MUST be present if the calculation of
+   the de-interleave buffer size given in 3.2.3.3 and based on
+   maxDisplacement and rate(max) under-estimates the size of the
+   de-interleave buffer.  If this calculation does not under-estimate
+   the size of the de-interleave buffer, then the
+   de-interleaveBufferSize parameter SHOULD NOT be present.
+
+Optional configuration parameters:
+
+   sizeLength:
+   The number of bits on which the AU-size field is encoded in the
+   AU-header.  The sizeLength and the constantSize parameters MUST
+   NOT be simultaneously present.
+
+   indexLength:
+   The number of bits on which the AU-Index is encoded in the first
+   AU-header.  The default value of zero indicates the absence of the
+   AU-Index field in each first AU-header.
+
+   indexDeltaLength:
+   The number of bits on which the AU-Index-delta field is encoded in
+   any non-first AU-header.  The default value of zero indicates the
+   absence of the AU-Index-delta field in each non-first AU-header.
+
+   CTSDeltaLength:
+   The number of bits on which the CTS-delta field is encoded in the
+   AU-header.
+
+   DTSDeltaLength:
+   The number of bits on which the DTS-delta field is encoded in the
+   AU-header.
+
+   randomAccessIndication:
+   A decimal value of zero or one, indicating whether the RAP-flag is
+   present in the AU-header.  The decimal value of one indicates
+   presence of the RAP-flag, the default value zero indicates its
+   absence.
+
+   streamStateIndication:
+   The number of bits on which the Stream-state field is encoded in
+   the AU-header.  This parameter MAY be present when transporting
+   MPEG-4 system streams, and SHALL NOT be present for MPEG-4 audio
+   and MPEG-4 video streams.
+
+   auxiliaryDataSizeLength:
+   The number of bits that is used to encode the auxiliary-data-size
+   field.
+
+Applications MAY use more parameters, in addition to those defined
+above.  Each additional parameter MUST be registered with IANA to
+ensure that there is not a clash of names.  Each additional parameter
+MUST be accompanied by a specification in the form of an RFC, MPEG
+standard, or other permanent and readily available reference (the
+"Specification Required" policy defined in RFC 2434 [6]).  Receivers
+MUST tolerate the presence of such additional parameters, but these
+parameters SHALL NOT impact the decoding of receivers that comply
+with this specification.
+
+Encoding considerations:
+This MIME subtype is defined for RTP transport only.  System
+bitstreams MUST be generated according to MPEG-4 Systems
+specifications (ISO/IEC 14496-1).  Video bitstreams MUST be generated
+according to MPEG-4 Visual specifications (ISO/IEC 14496-2).  Audio
+bitstreams MUST be generated according to MPEG-4 Audio specifications
+(ISO/IEC 14496-3).  The RTP packets MUST be packetized according to
+the RTP payload format defined in RFC 3640.
+
+Security considerations:
+As defined in section 5 of RFC 3640.
+
+Interoperability considerations:
+MPEG-4 provides a large and rich set of tools for the coding of
+visual objects.  For effective implementation of the standard,
+subsets of the MPEG-4 tool sets have been provided for use in
+specific applications.  These subsets, called 'Profiles', limit the
+size of the tool set a decoder is required to implement.  In order to
+restrict computational complexity, one or more 'Levels' are set for
+each Profile.  A Profile@Level combination allows:
+
+    .  a codec builder to implement only the subset of the standard
+       he needs, while maintaining interworking with other MPEG-4
+       devices that implement the same combination, and
+
+    .  checking whether MPEG-4 devices comply with the standard
+       ('conformance testing').
+
+A stream SHALL be compliant with the MPEG-4 Profile@Level specified
+by the parameter "profile-level-id".  Interoperability between a
+sender and a receiver is achieved by specifying the parameter
+"profile-level-id" in MIME content.  In the capability
+exchange/announcement procedure, this parameter may mutually be set
+to the same value.
+
+Published specification:
+The specifications for MPEG-4 streams are presented in ISO/IEC
+14496-1, 14496-2, and 14496-3.  The RTP payload format is described
+in RFC 3640.
+
+Applications which use this media type:
+Multimedia streaming and conferencing tools.
+
+Additional information: none
+
+Magic number(s): none
+
+File extension(s):
+None.  A file format with the extension .mp4 has been defined for
+MPEG-4 content but is not directly correlated with this MIME type for
+which the sole purpose is RTP transport.
+
+Macintosh File Type Code(s): none
+
+Person & email address to contact for further information:
+Authors of RFC 3640, IETF Audio/Video Transport working group.
+
+Intended usage: COMMON
+
+Author/Change controller:
+Authors of RFC 3640, IETF Audio/Video Transport working group.

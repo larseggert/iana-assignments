@@ -1,0 +1,63 @@
+
+---------------------------------------
+MIME type name: text
+MIME subtype name: tab-separated-values
+Required Parameters: Character Set, Encoding Type
+Optional Paramters: None
+
+Security Considerations: none
+
+
+Published Specification:
+
+Doesn't really need any, but here goes:
+
+Definition of tab-separated-values (tsv)
+----------------------------------------
+
+tsv is a popular method of data interchange among databases and
+spreadsheets and word processors with Mail-merge functions. It is the
+lowest common denominator in many cases between two different
+applications.
+
+A tsv file encodes a number of records that may contain multiple
+fields.  Each record is represented as a single line.  Each field
+value is represented as text.  Fields in a record are separated from
+each other by a tab character.
+
+Note that fields that contain tabs are not allowable in this encoding.
+
+The first line of this encoding is special, it contains the name of
+each field, separated by tabs.
+
+Each record must have the same number of fields.
+
+Here is a quick BNF
+
+
+field    ::= [character]+           # multiple characters
+name     ::= [character]+            
+nameline ::= name [TAB name]+ EOL
+
+record   ::= field [TAB field]+ EOL   # at least one field, or more
+
+tsv      ::= nameline record+
+
+Given that the number of tabs per line must be constant.
+
+
+
+Example
+=======
+
+Name<TAB>Age<TAB>Address
+Paul<TAB>23<TAB>1115 W Franklin
+Bessy the Cow<TAB>5<TAB>Big Farm Way
+Zeke<TAB>45<TAB>W Main St
+
+
+Contact-Info:
+
+U of MN Internet Gopher Team <gopher&boombox.micro.umn.edu>
+
+

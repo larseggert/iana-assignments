@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<xs:schema
+    xmlns:lldp="urn:ietf:params:xml:ns:geopriv:lm:lldp"
+    xmlns:bt="urn:ietf:params:xml:ns:geopriv:lm:basetypes"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="urn:ietf:params:xml:ns:geopriv:lm:lldp"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified">
+
+  <xs:annotation>
+    <xs:appinfo
+    source="urn:ietf:params:xml:schema:geopriv:lm:lldp">
+    </xs:appinfo>
+    <xs:documentation source="http://www.rfc-editor.org/rfc/rfc7105.txt">
+      This schema defines a set of LLDP location measurements.
+    </xs:documentation>
+  </xs:annotation>
+
+ <xs:import namespace="urn:ietf:params:xml:ns:geopriv:lm:basetypes"/>
+
+  <xs:element name="lldp" type="lldp:lldpMeasurementType"/>
+  <xs:complexType name="lldpMeasurementType">
+    <xs:complexContent>
+      <xs:restriction base="xs:anyType">
+    <xs:sequence>
+      <xs:element name="chassis" type="lldp:lldpDataType"/>
+      <xs:element name="port" type="lldp:lldpDataType"/>
+      <xs:any namespace="##other" processContents="lax"
+          minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:anyAttribute namespace="##any" processContents="lax"/>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="lldpDataType">
+    <xs:simpleContent>
+      <xs:extension base="lldp:lldpOctetStringType">
+    <xs:attribute name="type" type="bt:byteType"
+              use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="lldpOctetStringType">
+    <xs:restriction base="xs:hexBinary">
+      <xs:minLength value="1"/>
+      <xs:maxLength value="255"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

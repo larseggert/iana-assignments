@@ -1,0 +1,46 @@
+(RFC 1848 published October 1995, subtype last updated October 1995)
+
+(1)  MIME type name: application
+
+(2)  MIME subtype name: moss-keys
+
+(3)  Required parameters: none
+
+(4)  Optional parameters: none
+
+(5)  Encoding considerations: quoted-printable is always sufficient
+
+(6)  Security considerations: none
+
+The "application/moss-keys" content type is used on the first body
+part of an enclosing multipart/encrypted.  Its content is comprised
+of the data encryption key used to encrypt the data in the second
+body part and other control information required to decrypt the data,
+as defined by Section 2.2.1.  The label "application/moss-keys" must
+be used as the value of the protocol parameter of the enclosing
+multipart/encrypted; the protocol parameter must be present.
+
+An application/moss-keys body part is constructed as follows:
+
+   Content-Type: application/moss-keys
+
+   <mosskeys>
+
+where the <mosskeys> token is defined as follows.
+
+   <mosskeys>      ::= <version> <dekinfo> 1*<recipasymflds>
+
+   <version>       ::= "Version:" "5" CRLF
+
+   <dekinfo>       ::= "DEK-Info" ":" <dekalgid>
+                       [ "," <dekparameters> ] CRLF
+
+   <recipasymflds> ::= <recipid> <asymkeyinfo>
+
+   <recipid>       ::= "Recipient-ID:" <id> CRLF
+
+   <asymkeyinfo>   ::= "Key-Info" ":" <ikalgid> "," <asymencdek> CRLF
+
+The token <id> is defined in Section 4.  The token <version> is
+defined in Section 2.1.2.1.  All other tokens are defined in Section
+2.2.1.3.

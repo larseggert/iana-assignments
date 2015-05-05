@@ -1,0 +1,80 @@
+<?xml version='1.0'?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  ns="http://www.iana.org/assignments">
+
+  <include href="../_support/iana-registry.rng"/>
+
+  <define name="method">
+    <element name="method">
+      <data type="string">
+        <param name="pattern">[a-zA-Z0-9_]+</param>
+      </data>
+    </element>
+  </define>
+
+  <start>
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional>
+              <attribute name="date"><ref name="genericDate"/></attribute>
+            </optional>
+            <ref name="method"/>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+      </element>
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional>
+              <attribute name="date"><ref name="genericDate"/></attribute>
+            </optional>
+            <element name="name"><text/></element>
+            <oneOrMore><ref name="method"/></oneOrMore>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+      </element>
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional>
+              <attribute name="date"><ref name="genericDate"/></attribute>
+            </optional>
+            <element name="name">
+              <data type="string">
+                <param name="pattern">[a-zA-Z0-9_]+</param>
+              </data>
+            </element>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+      </element>
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional>
+              <attribute name="date"><ref name="genericDate"/></attribute>
+            </optional>
+            <element name="name">
+              <data type="string">
+                <param name="pattern">[&#x21;-&#x2c;&#x2e;-&#x7e;][&#x21;-&#x7e;]*</param>
+              </data>
+            </element>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+      </element>
+      <ref name="people"/>
+    </element>
+  </start>
+
+</grammar>

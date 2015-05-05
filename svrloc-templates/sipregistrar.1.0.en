@@ -1,0 +1,428 @@
+
+# Name of submitters: James Kempf <james.kempf&sun.com>
+#                     Jonathan Rosenberg <jdrosen&dynamicsoft.com>
+# 
+# Language of service template: en
+# 
+# Security Considerations:
+#    SIP clients can use Service Location Protocol to find SIP registrar
+#    servers having particular security characteristics. If secure access to
+#    such information is required, SLP security should be used.
+
+# Abstract
+
+# The Session Initiation Protocol (SIP) allows a user to communicate
+# with a local SIP proxy and registrar, primarily for registration
+# services and the execution of certain features. Currently, SIP
+# allows for discovery of these servers through multicast or
+# through static configuration. In many cases, it may be more
+# useful for a SIP client to discover local SIP servers based
+# on features supported by those servers. In this document, an alternate
+# technique is specified based on Service Location Protocol (SLP).
+# The document contains a short description of how to use SLP for service
+# discovery, and a SIP service type template. The service type template
+# defines the attributes and service URL for a SIP server advertisement,
+# suitable for SIP clients to discover.
+
+# Introduction
+
+# The Session Initiation Protocol (SIP) [1] allows a user to communicate
+# with a local SIP proxy and registrar. The server provides registration
+# services and the execution of certain features. SIP allows for the
+# discovery of servers through multicast and static configuration. The
+# multicast mechanism allows a SIP client, or UAC, to send a REGISTER
+# message to a well-known SIP multicast address. A registrar that is wil-
+# ling to serve the user can then answer the request. Similarly, a UAC
+# can send an INVITE message via multicast in order to determine its
+# local outbound proxy.
+# 
+# This approach is limiting, however, if many SIP servers are distributed
+# throughout the domain. Different servers may have differing capabili-
+# ties. Some technique is required whereby a UAC can find a server that
+# supports the particular characteristics it needs.
+# 
+# In this document, we describe how to use Service Location Protocol
+# (SLP)[2] for configuring a UAC with a SIP proxy or registrar server.
+# SLP is a new protocol for dynamically discovering contact information
+# for a service. SLP is specifically designed for co-operatively managed
+# networks, and not for the Internet, so the techniques described in
+# RFC 2543 would still apply if the SIP client is required to directly
+# connect with a server on the Internet.
+# 
+# Since SLP supports querying for services based on attributes, using
+# SLP allows a SIP client to find a locally available SIP  server
+# meeting its requirements with regard to transport protocol and
+# other characteristics. Querying by characteristic reduces the
+# amount of network traffic involved in discovering a server, and the
+# amount of computation the client is required to perform before
+# starting the SIP session. The sip.1.0.en template contains a service
+# type template [3] describing the attributes advertised by a SIP
+# server and the format of the service URL returned as a result of an
+# SLP query.
+
+# Notation Conventions
+
+# The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+# "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in
+# this document are to be interpreted as described in RFC 2119 [5].
+
+# Terminology
+
+# We reproduce here some SLP terminology from RFC 2608 for readers
+# unfamilar with SLP.
+# 
+#         User Agent (SLP UA)- A process working on the user's behalf to
+#         establish contact with some service. The SLP UA retrieves service
+#         information from the Service Agents, using multicast, or
+# 
+#         Directory Agents, using unicast.
+# 
+#         Service Agent(SA)- A process working on behalf of one or more
+#         services to advertise the services and their capabilites. The
+#         SA listens for multicast SLP UA requests, and registers its
+#         advertisements with DAs if any DAs are available.
+# 
+#         Directory Agent(DA)- A process which collects service
+#         advertisements.  A DA acts as a cache to consolidate service
+#         advertisements so a SLP UA can use unicast instead of multicast to
+#         obtain service advertisements.
+# 
+#         Scope - A set of services, typically making up a logical
+#         administrative group.
+# 
+#         Service Advertisement - A URL, attributes, and a lifetime
+#         (indicating how long the advertisement is valid), providing
+#         service access information and capabilities description for a
+#         particular service.
+# 
+# Using SLP for SIP Server Discovery
+# 
+# SLP provides the framework in which a SIP client finds an appropri-
+# ate local  registrar or proxy/redirect server. Here is a description of
+# how an SIP client finds its  server using SLP:
+# 
+#         1. The SIP  server implements an SLP SA while the UAC
+#         implements an SLP UA.
+# 
+#         2. The SIP SA constructs a service advertisment consisting of a
+#         service URL, attributes and a lifetime. The URL has an
+#         appropriate service type, either "service:sip:proxy" if the
+#         server is a proxy/redirect server or "service:sip:registrar"
+#         if the server is a registrar server, and attributes defined
+#         according to the sip.1.0.en template.
+# 
+#         3. When the SIP client requires contact information for a SIP
+#         server, the SLP UA either contacts the DA using unicast or the SA
+#         using multicast. The SLP UA includes a query based on the attributes
+#         to indicate the characteristics of the server it requires.
+# 
+#         4. Once the SLP UA has the contact information for the SIP server,
+#         the UAC can either send a registration (if the UAC is seeking a
+#         registrar server) or an INVITE (if the UAC is seeking a local
+#         outbound proxy/redirect server). The service URL returned from
+#         the SLP query includes the IP address or host name, and,
+#         optionally, the port number of the SIP  server. If the port
+#         number is not included, the SIP client uses the IANA-assigned
+# 
+#         SIP port, 5060.
+# 
+# This procedure is exactly the same for any client/server pair imple-
+# menting SLP and is not specific to SIP.
+# 
+# SLP provides a number of advantages over SIP-specific multicast
+# and static configuration. The major advantage of SLP is that
+# clients can specify the attributes describing the desired server.
+# The UAC can find a server that supports exactly the features
+# it needs without requiring every server to support all SIP features.
+# With SLP, an enterprise can support a heterogeneous mix of
+# servers and UACs can find those that best suit their needs.
+# Additionally, SLP contains a number of scaling mechanisms (DAs,
+# scopes), that facilitate deployment in large enterprise networks, as
+# well as in smaller networks.
+ 
+# Scalability
+
+# SLP contains a mechanism, called scopes, for grouping service
+# advertisements. For example, a network administrator could arrange
+# for all users in the Marketing Department to share access to a col-
+# lection of service advertisements by putting their SLP UAs, SAs, and
+# DAs into the same scope. Unless another deparment is in the same
+# scope, their SLP UAs, SAs and DAs would not have access to service
+# advertisements. Scopes don't control access to the services
+# themselves, however, just to the advertisements. Scope configuration
+# is not required, because SLP specifies a default scope that is used
+# if no other scope is available. Scopes are one important scalability
+# mechanism included in the SLP design.
+# 
+# The other scaling mechanism is DAs. In small/home office networks, SLP
+# UAs use multicast to contact SLP SAs. In larger, enterprise networks,
+# the network can be configured with DAs to cache advertisements
+# and reduce the amount of multicast traffic on the network. Again, DAs
+# are not a required part of SLP but can be configured if necessary.
+# 
+# Scope and DA information can be preconfigured for SLP agents by
+# including them in the DHCP option record for SLP [4]. This allows the
+# SLP agents to be configured without any local information. DHCP con-
+# figuration is not necessary, however. SLP UAs can determine their scope
+# and DA information dynamically, and DAs and SAs use the default
+# scope if no other scope is configured.
+
+# Finding the Right Proxy for an Incoming Call
+
+# Without SLP, SIP servers are typically organized into a hierarchy
+# according to the hierarchy of DNS domain names. For example, Acme, Inc.
+# has one top level domain and three second level domains, corresponding
+# to the Sales, Marketing, and Engineering departments. The domain names
+# are:
+# 
+#         acme.com - Top level domain
+#         sales.acme.com - Sales department
+#         mkt.acme.com - Marketing department
+#         eng.acme.com - Engineering department
+# 
+# In a statically configured SIP system, each domain has one or
+# several proxy servers per domain. The names of these servers are
+# available from DNS, either through resolving a name directly or through
+# using the DNS SRV record. If multiple proxies are configured to support
+# a single domain (using DNS load balancing techniques), all of those
+# servers contain the registration for a user. This is accomplished
+# through some back end replication protocol, or through SIP multicast
+# registrations.
+# 
+# A call coming through the proxy server for the top level domain is
+# resolved by determining in which domain the called party is
+# located. The request is proxied to any proxy server in the called
+# party's domain. In our previous example, if a call comes in for Joe
+# User in the Engineering department, the Acme top level proxy can
+# easily determine which which proxy to use by looking up the user in
+# some corporate directory, as in the following figure:
+# 
+#                         |
+#                         | joe.user&acme.com
+#                         |
+#                         |
+#                         v
+#                 +----------------+        +------------------+
+#                 |                |        |                  |
+#                 | acme.com proxy | <----> | Backend Database |
+#                 |                |        |                  |
+#                 +----------------+        +------------------+
+#                              ^
+#                              |
+#                              v
+#   +--------------+   +--------------+   +----------------+
+#   |              |   |              |   |                |
+#   | mkt.acme.com |   | eng.acme.com |   | sales.acme.com |
+#   |  registrar   |   |  registrar   |   |   registrar    |
+#   |              |   |              |   |                |
+#   +--------------+   |     joe.user |   +----------------+
+#                      +--------------+
+# 
+# If SLP is in use, a SIP system can be configured so that different
+# registrar servers in the same domain support different capabilities.
+# Thus, from the example, the Engineering domain might contain one
+# registrar server that supports CPL [6] processing and another that
+# supports CGI processing.
+# 
+# A UAC can use SLP to discover a SIP registrar server supporting
+# a particular set of capabilities that it needs. For example, suppose
+# that Joe User wants to upload a CPL program to his SIP registrar.
+# Joe can specify that his UAC use SLP to find a registrar that supports
+# CPL [7] and register with it. As a consequence, the registration will
+# not be available to other registrars/proxies.
+# 
+# From the previous figure, the proxy server for acme.com can't simply
+# use a static back end database to determine the next hop proxy,
+# because a dynamically chosen one has a registration for the user:
+# 
+# 
+#                         |
+#                         | joe.user&acme.com
+#                         |
+#                         |
+#                         v
+#                 +----------------+
+#                 |                |
+#                 | acme.com proxy |
+#                 |                |
+#                 +----------------+
+# 
+#                 ?????
+# 
+#   +------------------+   +------------------+
+#   |                  |   |                  |
+#   | cgi.eng.acme.com |   | cpl.eng.acme.com |
+#   |     registrar    |   |     registrar    |
+#   |                  |   |                  |
+#   +------------------+   |         joe.user |
+#                          +------------------+
+# 
+# 
+# 
+# There are two ways this problem can be handled:
+# 
+#         1. The top level proxy server can use SIP "forking"
+#         to try more than one next hop proxy server at once.
+#         Whichever proxy has a registration for the user will
+#         redirect or proxy there, and all others will return a 404
+#         Not Found. This approach has the drawback of requiring the
+#         top level proxy to have a list of all possible proxies the user
+#         may have registered at. It could discover these using SLP (see
+#         "SIP Servers as SLP UAs" on non-SIP-UAs as SLP UAs), or be 
+#         configured with them.
+# 
+#         2. The top level proxy server multicasts the invitation
+#         to the SIP multicast address. The registrar with the
+#         registration will proxy the call to the user. All others
+#         will not respond. This approach has the advantage of requiring
+#         less configuration.
+# 
+ 
+# SIP Servers as SLP UAs
+ 
+# Although SLP is primarily of interest by UACs for finding servers
+# having particular characteristics, it may also be used by SIP
+# servers for finding other SIP servers. As an example, in the previous
+# section, the top level acme.com SIP proxy server could use SLP to
+# locate the registrar servers in the eng domain. Although this does
+# not help in finding which registrar server has the registration,
+# it does allow the network of SIP servers to autoconfigure, in the
+# event a server goes down or a new one is added, without requiring
+# DNS updates or changing static configurations.
+# 
+# In general, a SIP server locating other SIP servers does
+# not include particular attributes in its query, other than the
+# "transport" attribute that is required in every query. And,
+# since SLP is only of use on cooperatively managed networks,
+# a SIP proxy server in one top level domain can't use SLP over
+# the Internet to locate the proxy in another. But a server MAY
+# include a query if it requires that the contacted servers
+# support particular characteristics. An example here is IP-level
+# security.
+
+# The SIP Service Type Template
+
+# SIP defines two different kinds of servers: registrars and proxy/
+# redirect servers. The features of both are different enough that
+# separate service type templates are required. We define an abstract
+# service  type [3], with a concrete service type for the two
+# different kinds of servers (see sip.1.0.en).
+
+# An Example SLP Query
+
+# From the example in the template sip.1.0.en, suppose Joe User's UAC 
+# is looking for a registrar server that supports CPL. The following 
+# SLP query can be used by the UAC to find a registrar server that 
+# supports CPL:
+# 
+#         (&(transport=udp)(app-services=cpl))
+# 
+# The transport type is required in all queries (indicated by the 'X'
+# flag in the template). In this case, the UAC requires UDP.
+
+# Security Considerations
+
+# Service type templates provide information that is used to inter-
+# pret information obtained by clients through SLP.  If the SIP tem-
+# plate is modified or if a false template is distributed, SIP servers
+# may not correctly register themselves, and SIP clients may not be
+# able to interpret service information.
+# 
+# SLP provides an authentication mechanism for SLP UAs to assure that ser-
+# vice advertisments only come from trusted SAs [2]. If trust is an
+# issue, particularly with respect to the information  sought by the
+# client about security mechanisms, then SLP authentication should be
+# enabled in the network.
+
+# Summary
+
+# This document describes how to use SLP to discover a SIP server. SLP
+# allows the SIP client to specify characteristics of the SIP server
+# that it requires, such as transport protocol type, SIP services sup-
+# plied, application services supplied, etc. A service type template
+# is defined that contains the attributes advertised by SIP servers.
+
+# References
+
+# [1] M. Handley, H. Schulzrinne, E. Schooler, and J. Rosenberg."SIP:
+# Session Initiation Protocol".RFC 2543, March, 1999.
+# 
+# [2] E. Guttman, C. Perkins, J. Veizades, and M. Day. "Service Loca-
+# tion Protocol". RFC 2608, July, 1999.
+# 
+# [3] E. Guttman, C. Perkins and J. Kempf. "Service Templates and ser-
+# vice: Schemes", RFC 2609, July, 1999.
+# 
+# [4] C. Perkins and E. Guttman. "DHCP Options for Service Location
+# Protocol". RFC 2610, July, 1999.
+# 
+# [5] S. Bradner. "Key words for use in RFCs to indicate requirement
+# levels", BCP 14,  RFC 2119, March 1997.
+# 
+# [6] J. Lennox and H. Schulzrinne. "Call Processing Language Framework
+# and Requirements". draft-ietf-iptel-cpl-framework-01.txt. A work
+# in progress.
+
+#  Author's Addresses
+
+# James Kempf                                     Jonathan Rosenberg
+# Sun Microsystems                                dynamicsoft
+# 901 San Antonio Rd.                             200 Executive Drive
+# UMPK15-214                                      Suite 120
+# Palo Alto, CA, 94040                            West Orange, NJ, 07052
+# USA                                             USA
+# +1 650 786 5890                                 +1 732 741 7244
+# +1 650 786 6445(fax)                            +1 732 741 4778(fax)
+# james.kempf&sun.com                             jdrosen&dynamicsoft.com
+
+# Full Copyright Statement
+
+# Copyright (C) The Internet Society (1997).  All Rights Reserved.
+# 
+# This document and translations of it may be copied and furnished to
+# others, and derivative works that comment on or otherwise explain it
+# or assist in its implementation may be prepared, copied, published
+# and distributed, in whole or in part, without restriction of any
+# kind, provided that the above copyright notice and this paragraph
+# are included on all such copies and derivative works.  However, this
+# document itself may not be modified in any way, such as by removing
+# the copyright notice or references to the Internet Society or other
+# Internet organizations, except as needed for the purpose of devel-
+# oping Internet standards in which case the procedures for copy-
+# rights defined in the Internet Standards process must be followed,
+# or as required to translate it into languages other than English.
+# 
+# The limited permissions granted above are perpetual and will not be
+# revoked by the Internet Society or its successors or assigns.
+# 
+# This document and the information contained herein is provided on an
+# "AS IS" basis and THE INTERNET SOCIETY AND THE INTERNET ENGINEERING
+# TASK FORCE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+# BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+# HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+# MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE."
+
+# SIP Registrar Concrete Service Type
+
+template-type = sip:registrar
+
+template-version = 1.0
+
+template-description=
+The service:sip:registrar type provides advertisements for clients
+seeking Session Initiation Protocol (SIP) registrar servers.
+
+template-url-syntax = ;inherited from abstract type.
+
+app-services = STRING M L O
+#Application services supported by the server. Allowed values are:
+#
+# cpl - The server supports Call Processing Language (CPL) upload.
+# cgi - The server supports CGI upload.
+#
+cpl,cgi
+
+non-sip-urls = BOOLEAN O
+#True if the server supports nonSIP URLs in Contacts.
+
+

@@ -1,0 +1,179 @@
+(registered by RFC 3555, updated by RFC4629)
+
+Type name: video
+
+Subtype name: H263-1998
+
+Required parameters: None
+
+Optional parameters:
+
+   SQCIF: Specifies the MPI (Minimum Picture Interval) for SQCIF
+   resolution.  Permissible values are integer values from 1 to 32,
+   which correspond to a maximum frame rate of 30/(1.001 * the
+   specified value) frames per second.
+
+   QCIF: Specifies the MPI (Minimum Picture Interval) for QCIF
+   resolution.  Permissible values are integer values from 1 to 32,
+   which correspond to a maximum frame rate of 30/(1.001 * the
+   specified value) frames per second.
+
+   CIF: Specifies the MPI (Minimum Picture Interval) for CIF
+   resolution.  Permissible values are integer values from 1 to 32,
+   which correspond to a maximum frame rate of 30/(1.001 * the
+   specified value) frames per second.
+
+   CIF4: Specifies the MPI (Minimum Picture Interval) for 4CIF
+   resolution.  Permissible values are integer values from 1 to 32,
+   which correspond to a maximum frame rate of 30/(1.001 * the
+   specified value) frames per second.
+
+   CIF16: Specifies the MPI (Minimum Picture Interval) for 16CIF
+   resolution.  Permissible values are integer values from 1 to 32,
+   which correspond to a maximum frame rate of 30/(1.001 * the
+   specified value) frames per second.
+
+   CUSTOM: Specifies the MPI (Minimum Picture Interval) for a
+   custom-defined resolution.  The custom parameter receives three
+   comma-separated values, Xmax, Ymax, and MPI.  The Xmax and Ymax
+   parameters describe the number of pixels in the X and Y axis and
+   must be evenly divisible by 4.  The permissible values for MPI are
+   integer values from 1 to 32, which correspond to a maximum frame
+   rate of 30/(1.001 *the specified value).
+
+   A system that declares support of a specific MPI for one of the
+   resolutions SHALL also implicitly support a lower resolution with
+   the same MPI.
+
+   A list of optional annexes specifies which annexes of H.263 are
+   supported.  The optional annexes are defined as part of H263-1998,
+   H263-2000.  H.263 annex X [H263] defines profiles that group
+   annexes for specific applications.  A system that supports a
+   specific annex SHALL specify its support using the optional
+   parameters.  If no annex is specified, then the stream is Baseline
+   H.263.
+
+   The allowed optional parameters for the annexes are "F", "I", "J",
+   "T", "K", "N", and "P".
+
+   "F", "I", "J", and "T" if supported, SHALL have the value "1".  If
+   not supported, they should not be listed or SHALL have the value
+   "0".
+
+   "K" can receive one of four values 1 - 4:
+
+   1: Slices In Order, Non-Rectangular
+
+   2: Slices In Order, Rectangular
+
+   3: Slices Not Ordered, Non-Rectangular
+
+   4: Slices Not Ordered, Rectangular
+
+   "N": Reference Picture Selection mode -  Four numeric choices
+   (1 - 4) are available, representing the following modes:
+
+   1: NEITHER:  No back-channel data is returned from the decoder to
+      the encoder.
+
+   2: ACK:  The decoder returns only acknowledgment messages.
+
+   3: NACK:  The decoder returns only non-acknowledgment messages.
+
+   4: ACK+NACK:  The decoder returns both acknowledgment and non-
+      acknowledgment messages.
+
+   No special provision is made herein for carrying back channel
+   information.  The Extended RTP Profile for RTCP-based Feedback
+   [RFC4585] MAY be used as a back channel mechanism.
+
+   "P": Reference Picture Resampling, in which the following submodes
+   are represented as a number from 1 to 4:
+
+   1: dynamicPictureResizingByFour
+
+   2: dynamicPictureResizingBySixteenthPel
+
+   3: dynamicWarpingHalfPel
+
+   4: dynamicWarpingSixteenthPel
+
+   Example: P=1,3
+
+   PAR: Arbitrary Pixel Aspect Ratio.  Defines the width:height ratio
+   by two colon-separated integers between 0 and 255.  Default ratio
+   is 12:11, if not otherwise specified.
+
+   CPCF: Arbitrary (Custom) Picture Clock Frequency: CPCF is a
+   comma-separated list of eight parameters specifying a custom
+   picture clock frequency and the MPI (minimum picture interval) for
+   the supported picture sizes when using that picture clock
+   frequency.  The first two parameters are cd, which is an integer
+   from 1 to 127, and cf, which is either 1000 or 1001.  The custom
+   picture clock frequency is given by the formula 1800000/(cd*cf)
+   provided in the RTP Timestamp semantics in Section 3.1 above (as
+   specified in H.263 section 5.1.7).  Following the values of cd and
+   cf, the remaining six parameters are SQCIFMPI, QCIFMPI, CIFMPI,
+   CIF4MPI, CIF16MPI, and CUSTOMMPI, which each specify an integer
+   MPI (minimum picture interval) for the standard picture sizes
+   SQCIF, QCIF, CIF, 4CIF, 16CIF, and CUSTOM, respectively, as
+   described above.  The MPI value indicates a maximum frame rate of
+   1800000/(cd*cf*MPI) frames per second for MPI parameters having a
+   value in the range from 1 to 2048, inclusive.  An MPI value of 0
+   specifies that the associated picture size is not supported for
+   the custom picture clock frequency.  If the CUSTOMMPI parameter is
+   not equal to 0, the CUSTOM parameter SHALL also be present (so
+   that the Xmax and Ymax dimensions of the custom picture size are
+   defined).
+
+   BPP: BitsPerPictureMaxKb.  Maximum number of bits in units of 1024
+   bits allowed to represent a single picture.  If this parameter is
+   not present, then the default value, based on the maximum
+   supported resolution, is used.  BPP is integer value between 0 and
+   65536.
+
+   HRD: Hypothetical Reference Decoder.  See annex B of H.263
+   specification [H263].  This parameter, if supported, SHALL have
+   the value "1".  If not supported, it should not be listed or SHALL
+   have the value "0".
+
+Encoding considerations:
+
+   This media type is framed and binary; see Section 4.8 in [RFC4288]
+
+Security considerations: See Section 11 of RFC 4629
+
+Interoperability considerations:
+
+   These are receiver options; current implementations will not send
+   any optional parameters in their SDP.  They will ignore the
+   optional parameters and will encode the H.263 stream without any
+   of the annexes.  Most decoders support at least QCIF and CIF fixed
+   resolutions, and they are expected to be available almost in every
+   H.263-based video application.
+
+Published specification: RFC 4629
+
+Applications that use this media type:
+
+   Audio and video streaming and conferencing tools.
+
+   Additional information: None
+
+   Person and email address to contact for further information:
+
+Roni Even: roni.even&polycom.co.il
+
+   Intended usage: COMMON
+
+   Restrictions on usage:
+
+   This media type depends on RTP framing and thus is only defined
+   for transfer via RTP [RFC3550].  Transport within other framing
+   protocols is not defined at this time.
+
+Author: Roni Even
+
+Change controller:
+
+   IETF Audio/Video Transport working group, delegated from the IESG.

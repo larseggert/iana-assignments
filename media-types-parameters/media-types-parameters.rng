@@ -1,0 +1,62 @@
+<?xml version='1.0'?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  ns="http://www.iana.org/assignments">
+
+  <include href="../_support/iana-registry.rng"/>
+
+  <start>
+    <element name="registry">
+      <ref name="registryMeta"/>
+
+      <!-- MIME to X.400 Table -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional>
+              <attribute name="date"><ref name="genericDate"/></attribute>
+            </optional>
+            <element name="from"><text/></element>
+            <element name="to"><ref name="text_with_references"/></element>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+        <ref name="footnotes"/>
+      </element>
+
+      <!-- X.400 to MIME Table -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional>
+              <attribute name="date"><ref name="genericDate"/></attribute>
+            </optional>
+            <element name="from"><text/></element>
+            <element name="to"><text/></element>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+        <ref name="footnotes"/>
+      </element>
+
+      <!-- X.400 Extended Body Part to MIME Table -->
+      <element name="registry">
+        <ref name="registryMeta"/>
+        <zeroOrMore>
+          <element name="record">
+            <optional>
+              <attribute name="date"><ref name="genericDate"/></attribute>
+            </optional>
+            <element name="from"><text/></element>
+            <element name="to"><text/></element>
+            <ref name="references"/>
+          </element>
+        </zeroOrMore>
+        <ref name="footnotes"/>
+      </element>
+      <ref name="people"/>
+    </element>
+  </start>
+</grammar>

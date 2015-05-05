@@ -1,0 +1,171 @@
+                                                                ManageSieve Registries
+
+   Created
+           2009-01-29
+
+   Last Updated
+           2011-07-14
+
+   Available Formats
+           [IMG]
+           XML [IMG]
+           HTML [IMG]
+           Plain text
+
+   Registries included below
+
+     * ManageSieve Capabilities
+     * ManageSieve Response Codes
+
+ManageSieve Capabilities
+
+   Registration Procedure(s)
+
+ Standards Track or IESG-Approved Experimental RFC
+
+   Reference
+           [RFC5804]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Capability name                        Description                              Relevant       Person and email address to contact Author/Change
+                                                                                 publications           for further information        controller
+   IMPLEMENTATION  Its value contains name of server implementation and its  [RFC5804], Section   Alexey Melnikov                     IESG
+                   version.                                                  1.8.                 (alexey.melnikov@isode.com)
+        SASL       Its value contains a space separated list of SASL         [RFC5804], Section   Alexey Melnikov                     IESG
+                   mechanisms supported by server.                           1.8 and Section 2.1. (alexey.melnikov@isode.com)
+        SIEVE      Its value contains a space separated list of supported    [RFC5804], Section   Alexey Melnikov                     IESG
+                   SIEVE extensions                                          1.8. Also [RFC5228]. (alexey.melnikov@isode.com)
+      STARTTLS     This capability is returned if server supports TLS        [RFC5804], Section   Alexey Melnikov                     IESG
+                   (STARTTLS command).                                       1.8 and Section 2.2. (alexey.melnikov@isode.com)
+       NOTIFY      This capability is returned if server supports 'enotify'  [RFC5804], Section   Alexey Melnikov                     IESG
+                   [draft-ietf-sieve-notify] Sieve extension.                1.8.                 (alexey.melnikov@isode.com)
+                   This capability returns the limit on the number of Sieve
+    MAXREDIRECTS   "redirect" actions a script can perform during a single   [RFC5804], Section   Alexey Melnikov                     IESG
+                   evaluation. The value is a non-negative number            1.8.                 (alexey.melnikov@isode.com)
+                   represented as a ManageSieve string.
+      LANGUAGE     The language (<Language-Tag> from [RFC4646]) currently    [RFC5804], Section   Alexey Melnikov                     IESG
+                   used for human readable error messages.                   1.8.                 (alexey.melnikov@isode.com)
+                   Its value contains UTF-8 encoded name of the currently    [RFC5804], Section   Alexey Melnikov
+        OWNER      logged in user ("authorization identity" according to     1.8.                 (alexey.melnikov@isode.com)         IESG
+                   [RFC4422]).
+                   This capability is returned if the server is compliant    [RFC5804], Section   Alexey Melnikov
+       VERSION     with [RFC5804], i.e. that it supports RENAMESCRIPT,       2.11.                (alexey.melnikov@isode.com)         IESG
+                   CHECKSCRIPT and NOOP commands.
+      EXTLISTS     This capability is returned if the server supports the    [RFC6134], Section   Sieve mailing list (sieve@ietf.org) IESG
+                   "extlists" [RFC6134] Sieve extension.                     2.8.
+
+ManageSieve Response Codes
+
+   Registration Procedure(s)
+
+ Standards Track or IESG-Approved Experimental RFC
+
+   Reference
+           [RFC5804]
+
+   Available Formats
+           [IMG]
+           CSV
+
+                      Arguments (use
+                      ABNF to specify                                                   Published       Person and email address to   Author/Change
+     Response code    syntax, or the                      Purpose                    specification(s) contact for further information  controller
+                     word NONE if none
+                     can be specified)
+                                       This response code is returned in the NO
+                                       response from an AUTHENTICATE command. It                      Alexey Melnikov
+     AUTH-TOO-WEAK   NONE              indicates that site security policy forbids   [RFC5804]        (alexey.melnikov@isode.com)     IESG
+                                       the use of the requested mechanism for the
+                                       specified authentication identity.
+                                       This response code is returned in the NO
+                                       response from an AUTHENTICATE command. It
+    ENCRYPT-NEEDED   NONE              indicates that site security policy requires  [RFC5804]        Alexey Melnikov                 IESG
+                                       the use of a strong encryption mechanism for                   (alexey.melnikov@isode.com)
+                                       the specified authentication identity and
+                                       mechanism.
+                                       If this response code is returned in the
+                                       NO/BYE response, it means that the command
+                                       would have placed the user above the
+         QUOTA       NONE              site-defined quota constraints. If this       [RFC5804]        Alexey Melnikov                 IESG
+                                       response code is returned in the OK response,                  (alexey.melnikov@isode.com)
+                                       it can mean that the user is near its quota
+                                       or that the user exceeded its quota, but the
+                                       server supports soft quotas.
+                                       If this response code is returned in the
+                                       NO/BYE response, it means that the command
+                                       would have placed the user above the
+                                       site-defined limit on the number of Sieve
+   QUOTA/MAXSCRIPTS  NONE              scripts. If this response code is returned in [RFC5804]        Alexey Melnikov                 IESG
+                                       the OK response, it can mean that the user is                  (alexey.melnikov@isode.com)
+                                       near its quota or that the user exceeded its
+                                       quota, but the server supports soft quotas.
+                                       This response code is a more specific version
+                                       of the QUOTA response code.
+                                       If this response code is returned in the
+                                       NO/BYE response, it means that the command
+                                       would have placed the user above the
+                                       site-defined maximum script size. If this
+     QUOTA/MAXSIZE   NONE              response code is returned in the OK response, [RFC5804]        Alexey Melnikov                 IESG
+                                       it can mean that the user is near its quota                    (alexey.melnikov@isode.com)
+                                       or that the user exceeded its quota, but the
+                                       server supports soft quotas. This response
+                                       code is a more specific version of the QUOTA
+                                       response code.
+                                       This response code may be returned with a BYE
+                                       result from any command, and includes a
+                                       mandatory parameter that indicates what
+                                       server to access to manage this user's sieve
+       REFERRAL      <sieveurl>        scripts. The server will be specified by a    [RFC5804]        Alexey Melnikov                 IESG
+                                       Sieve URL (see Section 3). The scriptname                      (alexey.melnikov@isode.com)
+                                       portion of the URL MUST NOT be specified. The
+                                       client should authenticate to the specified
+                                       server and use it for all further commands in
+                                       the current session.
+                                       This response code can occur in the OK
+                                       response to a successful AUTHENTICATE command                  Alexey Melnikov
+         SASL        <string>          and includes the optional final server        [RFC5804]        (alexey.melnikov@isode.com)     IESG
+                                       response data from the server as specified by
+                                       [RFC4422].
+                                       This response code occurs in a NO response of
+                                       an AUTHENTICATE command. It indicates that
+                                       the user name is valid, but the entry in the
+                                       authentication database needs to be updated
+                                       in order to permit authentication with the                     Alexey Melnikov
+   TRANSITION-NEEDED NONE              specified mechanism. This is typically done   [RFC5804]        (alexey.melnikov@isode.com)     IESG
+                                       by establishing a secure channel using TLS,
+                                       followed by authenticating once using the
+                                       PLAIN [RFC4616] authentication mechanism. The
+                                       selected mechanism SHOULD then work for
+                                       authentications in subsequent sessions.
+                                       A command failed due to a temporary server
+                                       failure. The client MAY continue using local                   Alexey Melnikov
+       TRYLATER      NONE              information and try the command later. This   [RFC5804]        (alexey.melnikov@isode.com)     IESG
+                                       response code only make sense when returned
+                                       in a NO/ BYE response.
+                                       A command failed because it is not allowed on
+                                       the active script. For example DELETESCRIPT                    Alexey Melnikov
+        ACTIVE       NONE              on the active script. This response code only [RFC5804]        (alexey.melnikov@isode.com)     IESG
+                                       makes sense when returned in a NO/BYE
+                                       response.
+                                       A command failed because the referenced
+      NONEXISTENT    NONE              script name doesn't exist. This response code [RFC5804]        Alexey Melnikov                 IESG
+                                       only makes sense when returned in a NO/BYE                     (alexey.melnikov@isode.com)
+                                       response.
+                                       A command failed because the referenced
+     ALREADYEXISTS   NONE              script name already exists. This response     [RFC5804]        Alexey Melnikov                 IESG
+                                       code only makes sense when returned in a                       (alexey.melnikov@isode.com)
+                                       NO/BYE response.
+                                       This response code MAY be returned by the
+                                       server in the OK response (but it might be
+                                       returned with the NO/BYE response as well)                     Alexey Melnikov
+       WARNINGS      NONE              and signals the client that even though the   [RFC5804]        (alexey.melnikov@isode.com)     IESG
+                                       script is syntactically valid, it might
+                                       contain errors not intended by the script
+                                       writer.
+                                       This response code name is followed by a
+          TAG        string            string specified in the command that caused   [RFC5804]        Alexey Melnikov                 IESG
+                                       this response. It is typically used for                        (alexey.melnikov@isode.com)
+                                       client state synchronization.
