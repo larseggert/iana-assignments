@@ -9,6 +9,7 @@
   <xsl:template name="iana:record_header">
     <tr>
       <th>EPP Repository ID</th>
+      <th>Change Controller</th>
       <th>Reference/Contact</th>
       <th>Registration Date</th>
     </tr>
@@ -17,6 +18,7 @@
   <xsl:template match="iana:record">
     <tr>
       <td><xsl:value-of select="iana:id"/></td>
+      <td><xsl:apply-templates select="iana:change"/></td>
       <td><xsl:apply-templates select="iana:xref"/></td>
       <td><xsl:value-of select="@date"/></td>
     </tr>
