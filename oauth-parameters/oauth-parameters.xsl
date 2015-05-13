@@ -56,6 +56,19 @@
           <th>Change Controller</th>
           <th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'client-metadata'">
+        <tr>
+          <th>Client Metadata Name</th>
+          <th>Client Metadata Description</th>
+          <th>Change Controller</th>
+          <th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'token-endpoint-auth-method'">
+        <tr>
+          <th>Token Endpoint Authorization Method Name</th>
+          <th>Change Controller</th>
+          <th>Reference</th></tr>
+      </xsl:when>
       
     </xsl:choose>
   </xsl:template>
@@ -115,6 +128,21 @@
         <tr>
           <td><xsl:value-of select="iana:urn"/></td>
           <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'client-metadata'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'token-endpoint-auth-method'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
