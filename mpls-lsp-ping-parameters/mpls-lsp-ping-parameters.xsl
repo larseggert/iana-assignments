@@ -46,8 +46,9 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'ds-flags'">
-        <tr><th>Bit number</th><th>Name</th><th>Reference</th></tr>
+      <xsl:when test="@id = 'ds-flags'
+        or @id = 'proxy-flags'">
+        <tr><th>Bit Number</th><th>Name</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Meaning</th><th>Reference</th></tr>
