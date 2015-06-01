@@ -10,7 +10,7 @@
       <xsl:when test="@id = 'email-auth-methods'">
         <tr>
           <th>Method</th>
-          <th>Defined</th>
+          <th>Definition</th>
           <th>ptype</th>
           <th>Property</th>
           <th>Value</th>
