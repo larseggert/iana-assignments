@@ -20,10 +20,9 @@
       </xsl:when>
       <xsl:when test="@id = 'email-auth-result-names'">
         <tr>
-          <th>Code</th>
-          <th>Defined</th>
           <th>Auth Method(s)</th>
-          <th>Meaning</th>
+          <th>Code</th>
+          <th>Specification</th>
           <th>Status</th>
         </tr>
       </xsl:when>
@@ -41,55 +40,32 @@
     <xsl:choose>
       <xsl:when test="../@id = 'email-auth-methods'">
         <tr>
-          <td>
-            <xsl:value-of select="iana:method"/>
-          </td>
-          <td>
-            <xsl:apply-templates select="iana:xref"/>
-          </td>
+          <td><xsl:value-of select="iana:method"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
           <td>
             <xsl:for-each select="iana:ptype">
               <xsl:if test="position() != 1">, </xsl:if>
               <xsl:value-of select="."/>
             </xsl:for-each>
           </td>
-          <td>
-            <xsl:value-of select="iana:name"/>
-          </td>
-          <td>
-            <xsl:apply-templates select="iana:value"/>
-          </td>
-          <td>
-            <xsl:value-of select="iana:status"/>
-          </td>            
-          <td>
-            <xsl:value-of select="iana:version"/>
-          </td>
+          <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:value"/></td>
+          <td><xsl:value-of select="iana:status"/></td>            
+          <td><xsl:value-of select="iana:version"/></td>
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'email-auth-result-names'">
         <tr>
-          <td>
-            <xsl:value-of select="iana:code"/>
-          </td>
-          <td>
-            <xsl:apply-templates select="iana:xref"/>
-          </td>
-          <td>
-            <xsl:value-of select="iana:name"/>
-          </td>
-          <td>
-            <xsl:apply-templates select="iana:meaning"/>
-          </td>
-          <td>
-            <xsl:value-of select="iana:status"/>
-          </td>
+          <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:value-of select="iana:code"/></td>
+          <td><xsl:apply-templates select="iana:meaning"/></td>
+          <td><xsl:value-of select="iana:status"/></td>
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'property-types'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:definition"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
         </tr>
       </xsl:when>
