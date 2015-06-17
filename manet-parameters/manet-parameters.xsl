@@ -16,14 +16,14 @@
       </xsl:when>
       <xsl:when test="@id = 'packet-tlv-types'">
         <tr><th>Type</th><th>Description</th><th>Reference</th></tr>
-      </xsl:when>
-      
+      </xsl:when>      
       <xsl:when test="@id = 'message-tlv-types'">
         <tr><th>Type</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'interval-time-message-type-extension'">
         <tr>
           <th>Type Extension</th>
+          <th>Name</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
@@ -31,6 +31,7 @@
       <xsl:when test="@id = 'validity-time-message-type-extension'">
         <tr>
           <th>Type Extension</th>
+          <th>Name</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
@@ -38,6 +39,7 @@
       <xsl:when test="@id = 'mpr-willing-message-type-extension'">
         <tr>
           <th>Type Extension</th>
+          <th>Name</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
@@ -45,21 +47,31 @@
       <xsl:when test="@id = 'cont-seq-num-message-type-extension'">
         <tr>
           <th>Type Extension</th>
+          <th>Name</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
       
       <xsl:when test="@id = 'message-tlv-hello'">
-        <tr><th>Type</th><th>Description</th><th>Reference</th></tr>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
       </xsl:when>
       
       <xsl:when test="@id = 'address-block-tlv-types'">
-        <tr><th>Type</th><th>Description</th><th>Reference</th></tr>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
       </xsl:when>
       <xsl:when test="@id = 'interval-time-address-block-tlv-type-extension'">
         <tr>
           <th>Type Extension</th>
+          <th>Name</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
@@ -67,6 +79,7 @@
       <xsl:when test="@id = 'validity-time-address-block-tlv-type-extension'">
         <tr>
           <th>Type Extension</th>
+          <th>Name</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
@@ -74,6 +87,7 @@
       <xsl:when test="@id = 'local-if-address-block-tlv-type-extension'">
         <tr>
           <th>Type Extension</th>
+          <th>Name</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
@@ -81,6 +95,7 @@
       <xsl:when test="@id = 'link-status-address-block-tlv-type-extension'">
         <tr>
           <th>Type Extension</th>
+          <th>Name</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
@@ -88,6 +103,7 @@
       <xsl:when test="@id = 'other-neighb-address-block-tlv-type-extension'">
         <tr>
           <th>Type Extension</th>
+          <th>Name</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
@@ -102,6 +118,7 @@
       <xsl:when test="@id = 'mpr-address-block-tlv-type-extension'">
         <tr>
           <th>Type Extension</th>
+          <th>Name</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
@@ -109,6 +126,7 @@
       <xsl:when test="@id = 'nbr-addr-type-address-block-tlv-type-extension'">
         <tr>
           <th>Type Extension</th>
+          <th>Name</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
@@ -116,6 +134,7 @@
       <xsl:when test="@id = 'gateway-address-block-tlv-type-extension'">
         <tr>
           <th>Type Extension</th>
+          <th>Name</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
@@ -211,6 +230,7 @@
       <xsl:when test="../@id = 'interval-time-message-type-extension'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
@@ -218,6 +238,7 @@
       <xsl:when test="../@id = 'validity-time-message-type-extension'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
@@ -225,6 +246,7 @@
       <xsl:when test="../@id = 'mpr-willing-message-type-extension'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
@@ -232,6 +254,7 @@
       <xsl:when test="../@id = 'cont-seq-num-message-type-extension'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
@@ -254,6 +277,7 @@
       <xsl:when test="../@id = 'interval-time-address-block-tlv-type-extension'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
@@ -261,6 +285,7 @@
       <xsl:when test="../@id = 'validity-time-address-block-tlv-type-extension'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
@@ -268,6 +293,7 @@
       <xsl:when test="../@id = 'local-if-address-block-tlv-type-extension'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
@@ -275,6 +301,7 @@
       <xsl:when test="../@id = 'link-status-address-block-tlv-type-extension'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
@@ -282,6 +309,7 @@
       <xsl:when test="../@id = 'other-neighb-address-block-tlv-type-extension'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
@@ -296,6 +324,7 @@
       <xsl:when test="../@id = 'mpr-address-block-tlv-type-extension'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
@@ -303,6 +332,7 @@
       <xsl:when test="../@id = 'nbr-addr-type-address-block-tlv-type-extension'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
@@ -310,6 +340,7 @@
       <xsl:when test="../@id = 'gateway-address-block-tlv-type-extension'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
