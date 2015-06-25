@@ -62,7 +62,20 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
-      
+      <xsl:when test="@id = 'extension-subtype-154'">
+        <tr>
+          <th>Subtype Value</th>
+          <th>Name</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <th>Value</th>
+          <th>Name</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
