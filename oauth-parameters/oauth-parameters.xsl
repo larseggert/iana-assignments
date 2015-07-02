@@ -65,7 +65,7 @@
       </xsl:when>
       <xsl:when test="@id = 'token-endpoint-auth-method'">
         <tr>
-          <th>Token Endpoint Authorization Method Name</th>
+          <th>Token Endpoint Authentication Method Name</th>
           <th>Change Controller</th>
           <th>Reference</th></tr>
       </xsl:when>
