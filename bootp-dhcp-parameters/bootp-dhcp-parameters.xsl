@@ -42,6 +42,9 @@
       <xsl:when test="@id = 'relay-agent-sub-options'">
         <tr><th>Code</th><th>Sub-Option Description</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'authentication-protocol-id'">
+        <tr><th>Value</th><th>Protocol</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:when test="@id = 'authentication-algorithm-id'">
         <tr><th>Value</th><th>Algorithm</th><th>Reference</th></tr>
       </xsl:when>
