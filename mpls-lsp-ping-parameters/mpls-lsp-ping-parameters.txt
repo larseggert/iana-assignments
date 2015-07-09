@@ -4,7 +4,7 @@
            2006-01-12
 
    Last Updated
-           2015-05-21
+           2015-07-08
 
    Available Formats
            [IMG]
@@ -52,11 +52,11 @@ Message Types
     0-191  Standards Action
    192-251 Specification Required  Experimental RFC needed
 
-    Value              Meaning                         Reference
+    Value              Meaning             Reference
       1    MPLS Echo Request               [RFC4379]
       2    MPLS Echo Reply                 [RFC4379]
-      3    MPLS Proxy Ping Request         [RFC-ietf-mpls-proxy-lsp-ping-05]
-      4    MPLS Proxy Ping Reply           [RFC-ietf-mpls-proxy-lsp-ping-05]
+      3    MPLS Proxy Ping Request         [RFC7555]
+      4    MPLS Proxy Ping Reply           [RFC7555]
     5-251  Unassigned
    252-255 Reserved for Vendor Private Use [RFC4379]
 
@@ -95,7 +95,7 @@ Return Codes
     0-191  Standards Action
    192-251 Specification Required  Experimental RFC needed
 
-    Value                                    Meaning                                                Reference
+    Value                                    Meaning                                    Reference
       0    No return code                                                               [RFC4379]
       1    Malformed echo request received                                              [RFC4379]
       2    One or more of the TLVs was not understood                                   [RFC4379]
@@ -112,10 +112,10 @@ Return Codes
      13    Premature termination of ping due to label stack shrinking to a single label [RFC4379]
      14    See DDM TLV for meaning of Return Code and Return SubCode                    [RFC6424]
      15    Label switched with FEC change                                               [RFC6424]
-     16    Proxy Ping not authorized                                                    [RFC-ietf-mpls-proxy-lsp-ping-05]
-     17    Proxy Ping parameters need to be modified                                    [RFC-ietf-mpls-proxy-lsp-ping-05]
-     18    MPLS Echo Request could not be sent                                          [RFC-ietf-mpls-proxy-lsp-ping-05]
-     19    Replying router has FEC mapping for topmost FEC                              [RFC-ietf-mpls-proxy-lsp-ping-05]
+     16    Proxy Ping not authorized                                                    [RFC7555]
+     17    Proxy Ping parameters need to be modified                                    [RFC7555]
+     18    MPLS Echo Request could not be sent                                          [RFC7555]
+     19    Replying router has FEC mapping for topmost FEC                              [RFC7555]
    20-251  Unassigned
    252-255 Reserved for Vendor Private Use                                              [RFC4379]
 
@@ -134,62 +134,62 @@ TLVs
    32768-49161 Standards Action        This range is for optional TLVs that can be silently dropped if not recognized.
    49162-64511 Specification Required  Experimental RFC needed
 
-   Type       TLV Name                Reference                                                        Sub-TLV Registry
-     1       Target FEC   [RFC4379]                         [http://www.iana.org/assignments/mpls-lsp-ping-parameters/mpls-lsp-ping-parameters.xml#sub-tlv-1-16-21]
-                Stack
-             Downstream
-     2         Mapping    [RFC4379][RFC6424]                No Sub-TLVs
-            (DEPRECATED)
-     3           Pad      [RFC4379]                         No Sub-TLVs
-     4      Not Assigned  [RFC4379]
-               Vendor
-     5       Enterprise   [RFC4379]                         No Sub-TLVs
-               Number
-     6      Not Assigned  [RFC4379]
-     7      Interface and [RFC4379]                         No Sub-TLVs
-             Label Stack
-     8      Not Assigned  [RFC4379]
-     9      Errored TLVs  [RFC4379]                         [http://www.iana.org/assignments/mpls-lsp-ping-parameters/mpls-lsp-ping-parameters.xml#sub-tlv-9]
-    10        Reply TOS   [RFC4379]                         No Sub-TLVs
-                Byte
-                P2MP
-    11        Responder   [RFC6425]                         [http://www.iana.org/assignments/mpls-lsp-ping-parameters/mpls-lsp-ping-parameters.xml#sub-tlv-11]
-             Identifier
-    12       Echo Jitter  [RFC6425]                         No Sub-TLVs
-    13        Source ID   [RFC6426]                         No Sub-TLVs
-    14       Destination  [RFC6426]                         No Sub-TLVs
-                 ID
-    15           BFD      [RFC5884]                         No Sub-TLVs
-            Discriminator
-            Reverse-path
-    16       Target FEC   [RFC6426]                         [http://www.iana.org/assignments/mpls-lsp-ping-parameters/mpls-lsp-ping-parameters.xml#sub-tlv-1-16-21]
-                Stack
-   17-19     Unassigned
-             Downstream
-    20        Detailed    [RFC6424]                         [http://www.iana.org/assignments/mpls-lsp-ping-parameters/mpls-lsp-ping-parameters.xml#sub-tlv-20]
-               Mapping
-    21       Reply Path   [RFC7110]                         [http://www.iana.org/assignments/mpls-lsp-ping-parameters/mpls-lsp-ping-parameters.xml#sub-tlv-1-16-21]
-    22        Reply TC    [RFC7110]                         No Sub-TLVs
-    23       Proxy Echo   [RFC-ietf-mpls-proxy-lsp-ping-05] [http://www.iana.org/assignments/mpls-lsp-ping-parameters/mpls-lsp-ping-parameters.xml#sub-tlv-23]
-             Parameters
-    24        Reply-to    [RFC-ietf-mpls-proxy-lsp-ping-05] No Sub-TLVs
-               Address
-              Upstream
-    25        Neighbor    [RFC-ietf-mpls-proxy-lsp-ping-05] No Sub-TLVs
-               Address
-             Downstream
-    26        Neighbor    [RFC-ietf-mpls-proxy-lsp-ping-05] No Sub-TLVs
-               Address
- 27-31743    Unassigned
-            Reserved for
-31744-32767   Vendor or   [RFC4379]
-             Private Use
-   32768     Unassigned
-   32769    Time To Live  [RFC7394]                         No Sub-TLVs
-32770-64511  Unassigned
-            Reserved for
-64512-65535   Vendor or   [RFC4379]
-             Private Use
+     Type       TLV Name        Reference                                                 Sub-TLV Registry
+       1       Target FEC   [RFC4379]          [http://www.iana.org/assignments/mpls-lsp-ping-parameters/mpls-lsp-ping-parameters.xml#sub-tlv-1-16-21]
+                  Stack
+               Downstream
+       2         Mapping    [RFC4379][RFC6424] No Sub-TLVs
+              (DEPRECATED)
+       3           Pad      [RFC4379]          No Sub-TLVs
+       4      Not Assigned  [RFC4379]
+                 Vendor
+       5       Enterprise   [RFC4379]          No Sub-TLVs
+                 Number
+       6      Not Assigned  [RFC4379]
+       7      Interface and [RFC4379]          No Sub-TLVs
+               Label Stack
+       8      Not Assigned  [RFC4379]
+       9      Errored TLVs  [RFC4379]          [http://www.iana.org/assignments/mpls-lsp-ping-parameters/mpls-lsp-ping-parameters.xml#sub-tlv-9]
+      10        Reply TOS   [RFC4379]          No Sub-TLVs
+                  Byte
+                  P2MP
+      11        Responder   [RFC6425]          [http://www.iana.org/assignments/mpls-lsp-ping-parameters/mpls-lsp-ping-parameters.xml#sub-tlv-11]
+               Identifier
+      12       Echo Jitter  [RFC6425]          No Sub-TLVs
+      13        Source ID   [RFC6426]          No Sub-TLVs
+      14       Destination  [RFC6426]          No Sub-TLVs
+                   ID
+      15           BFD      [RFC5884]          No Sub-TLVs
+              Discriminator
+              Reverse-path
+      16       Target FEC   [RFC6426]          [http://www.iana.org/assignments/mpls-lsp-ping-parameters/mpls-lsp-ping-parameters.xml#sub-tlv-1-16-21]
+                  Stack
+     17-19     Unassigned
+               Downstream
+      20        Detailed    [RFC6424]          [http://www.iana.org/assignments/mpls-lsp-ping-parameters/mpls-lsp-ping-parameters.xml#sub-tlv-20]
+                 Mapping
+      21       Reply Path   [RFC7110]          [http://www.iana.org/assignments/mpls-lsp-ping-parameters/mpls-lsp-ping-parameters.xml#sub-tlv-1-16-21]
+      22        Reply TC    [RFC7110]          No Sub-TLVs
+      23       Proxy Echo   [RFC7555]          [http://www.iana.org/assignments/mpls-lsp-ping-parameters/mpls-lsp-ping-parameters.xml#sub-tlv-23]
+               Parameters
+      24        Reply-to    [RFC7555]          No Sub-TLVs
+                 Address
+                Upstream
+      25        Neighbor    [RFC7555]          No Sub-TLVs
+                 Address
+               Downstream
+      26        Neighbor    [RFC7555]          No Sub-TLVs
+                 Address
+   27-31743    Unassigned
+              Reserved for
+  31744-32767   Vendor or   [RFC4379]
+               Private Use
+     32768     Unassigned
+     32769    Time To Live  [RFC7394]          No Sub-TLVs
+  32770-64511  Unassigned
+              Reserved for
+  64512-65535   Vendor or   [RFC4379]
+               Private Use
 
   Sub-TLVs for TLV Types 1, 16, and 21
 
@@ -312,7 +312,7 @@ TLVs
   Sub-TLVs for TLV Type 23
 
    Reference
-           [RFC4379][RFC-ietf-mpls-proxy-lsp-ping-05]
+           [RFC4379][RFC7555]
 
    Available Formats
            [IMG]
@@ -324,9 +324,9 @@ TLVs
    32768-49161 Standards Action        This range is for optional TLVs that can be silently dropped if not recognized.
    49162-64511 Specification Required  Experimental RFC needed
 
-    Sub-Type              Sub-TLV Name                        Reference             Comment
-        0      Reserved                           [RFC-ietf-mpls-proxy-lsp-ping-05]
-        1      Next Hop                           [RFC-ietf-mpls-proxy-lsp-ping-05]
+    Sub-Type              Sub-TLV Name            Reference Comment
+        0      Reserved                           [RFC7555]
+        1      Next Hop                           [RFC7555]
      2-64511   Unassigned
    64512-65535 Reserved for Vendor or Private Use [RFC4379]
 
@@ -408,7 +408,7 @@ Downstream Mapping Address Type Registry
  Standards Action
 
    Reference
-           [RFC4379][RFC6426][RFC-ietf-mpls-proxy-lsp-ping-05]
+           [RFC4379][RFC6426][RFC7555]
 
    Note
 
@@ -421,15 +421,15 @@ Downstream Mapping Address Type Registry
            [IMG]
            CSV
 
-   Type #  Address Type   K Octets             Reference
+   Type #  Address Type   K Octets Reference
      0    Unassigned
      1    IPv4 Numbered   16       [RFC4379]
      2    IPv4 Unnumbered 16       [RFC4379]
      3    IPv6 Numbered   40       [RFC4379]
      4    IPv6 Unnumbered 28       [RFC4379]
      5    Non IP          12       [RFC6426]
-     6    Reserved                 [RFC-ietf-mpls-proxy-lsp-ping-05]
-     7    Reserved                 [RFC-ietf-mpls-proxy-lsp-ping-05]
+     6    Reserved                 [RFC7555]
+     7    Reserved                 [RFC7555]
    8-255  Unassigned
 
 Next Hop Address Type Registry
@@ -439,12 +439,12 @@ Next Hop Address Type Registry
  Standards Action
 
    Reference
-           [RFC-ietf-mpls-proxy-lsp-ping-05]
+           [RFC7555]
 
    Note
 
  When a code point is assigned that is not also assigned in the
- Downstream Address Mapping Registry, the code point there must be
+ Downstream Mapping Address Type Registry, the code point there must be
  marked "Reserved".
 
 
@@ -452,15 +452,15 @@ Next Hop Address Type Registry
            [IMG]
            CSV
 
-   Type  Type of Next Hop  Address Length IF Length             Reference
+   Type  Type of Next Hop  Address Length IF Length     Reference
      0   Unassigned
      1   IPv4 Numbered     4              4         [RFC4379]
      2   IPv4 Unnumbered   4              4         [RFC4379]
      3   IPv6 Numbered     16             16        [RFC4379]
      4   IPv6 Unnumbered   16             4         [RFC4379]
-     5   Reserved                                   [RFC-ietf-mpls-proxy-lsp-ping-05]
-     6   IPv4 Protocol Adj 4              0         [RFC-ietf-mpls-proxy-lsp-ping-05]
-     7   IPv6 Protocol Adj 16             0         [RFC-ietf-mpls-proxy-lsp-ping-05]
+     5   Reserved                                   [RFC6426][RFC7555]
+     6   IPv4 Protocol Adj 4              0         [RFC7555]
+     7   IPv6 Protocol Adj 16             0         [RFC7555]
    8-255 Unassigned
 
 Reply Path Return Codes
@@ -581,17 +581,17 @@ Proxy Flags
  Standards Action
 
    Reference
-           [RFC-ietf-mpls-proxy-lsp-ping-05]
+           [RFC7555]
 
    Available Formats
            [IMG]
            CSV
 
-   Bit Number                  Name                               Reference
-       0      Request for FEC Neighbor Address info   [RFC-ietf-mpls-proxy-lsp-ping-05]
-       1      Request for Downstream Mapping          [RFC-ietf-mpls-proxy-lsp-ping-05]
-       2      Request for Downstream Detailed Mapping [RFC-ietf-mpls-proxy-lsp-ping-05]
-       3      Explicit DSCP Request                   [RFC-ietf-mpls-proxy-lsp-ping-05]
+   Bit Number                  Name                   Reference
+       0      Request for FEC Neighbor Address info   [RFC7555]
+       1      Request for Downstream Mapping          [RFC7555]
+       2      Request for Downstream Detailed Mapping [RFC7555]
+       3      Explicit DSCP Request                   [RFC7555]
       4-15    Unassigned
 
                                                                        Footnote
