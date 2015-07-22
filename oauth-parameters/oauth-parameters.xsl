@@ -69,6 +69,12 @@
           <th>Change Controller</th>
           <th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'pkce-code-challenge-method'">
+        <tr>
+          <th>Code Challenge Method Parameter Name</th>
+          <th>Change Controller</th>
+          <th>Reference</th></tr>
+      </xsl:when>
       
     </xsl:choose>
   </xsl:template>
@@ -141,6 +147,13 @@
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'token-endpoint-auth-method'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'pkce-code-challenge-method'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
