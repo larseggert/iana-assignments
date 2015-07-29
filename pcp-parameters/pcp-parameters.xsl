@@ -52,12 +52,12 @@
       <xsl:when test="../@id = 'options'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
-          <td><xsl:value-of select="iana:name"/></td>
-          <td><xsl:value-of select="iana:purpose"/></td>
-          <td><xsl:value-of select="iana:valid-for"/></td>
-          <td><xsl:value-of select="iana:length"/></td>
-          <td><xsl:value-of select="iana:may-appear-in"/></td>
-          <td><xsl:value-of select="iana:maximum"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:purpose"/></td>
+          <td><xsl:apply-templates select="iana:valid-for"/></td>
+          <td><xsl:apply-templates select="iana:length"/></td>
+          <td><xsl:apply-templates select="iana:may-appear-in"/></td>
+          <td><xsl:apply-templates select="iana:maximum"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>

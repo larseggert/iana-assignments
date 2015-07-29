@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="pcp-parameters">
   <title>Port Control Protocol (PCP) Parameters</title>
   <created>2012-11-21</created>
-  <updated>2014-11-12</updated>
+  <updated>2015-07-28</updated>
   
   <registry id="opcodes">
     <title>PCP Opcodes</title>
@@ -33,8 +33,13 @@
       <description>PEER</description>
       <xref type="rfc" data="rfc6887"/>
     </record>
+    <record date="2015-07-28">
+      <value>3</value>
+      <description>AUTHENTICATION</description>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>
     <record>
-      <value>3-63</value>
+      <value>4-63</value>
       <description>Unassigned</description>
     </record>
     <record>
@@ -187,8 +192,81 @@
         for processing information.  This is a long lifetime error.</description>
       <xref type="rfc" data="rfc6887"/>
     </record>
+    <record date="2015-07-28">
+      <value>14</value>
+      <name>INITIATION</name>
+      <description>The client indication to the server for
+      authentication.</description>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>
+    <record date="2015-07-28">
+      <value>15</value>
+      <name>AUTHENTICATION_REQUIRED</name>
+      <description>The error response is signaled to the
+      client that EAP authentication is required.</description>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>
+    <record date="2015-07-28">
+      <value>16</value>
+      <name>AUTHENTICATION_FAILED</name>
+      <description>This error response is signaled to the
+      client if EAP authentication had failed.</description>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>
+    <record date="2015-07-28">
+      <value>17</value>
+      <name>AUTHENTICATION_SUCCEEDED</name>
+      <description>This success response is signaled to
+      the client if EAP authentication had succeeded.</description>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>
+    <record date="2015-07-28">
+      <value>18</value>
+      <name>AUTHORIZATION_FAILED</name>
+      <description>This error response is signaled to the
+      client if the EAP authentication had succeeded but authorization
+      failed.</description>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>
+    <record date="2015-07-28">
+      <value>19</value>
+      <name>SESSION_TERMINATED</name>
+      <description>This PCP result code indicates to the
+      partner that the PA session must be terminated.</description>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>
+    <record date="2015-07-28">
+      <value>20</value>
+      <name>UNKNOWN_SESSION_ID</name>
+      <description>The error response is signaled from the
+      PCP server that there is no known PA session associated with the
+      Session ID signaled in the PA request or common PCP request from
+      the PCP client.</description>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>
+    <record date="2015-07-28">
+      <value>21</value>
+      <name>DOWNGRADE_ATTACK_DETECTED</name>
+      <description>This error response is signaled to
+      the client if the server detects downgrade attack.</description>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>
+    <record date="2015-07-28">
+      <value>22</value>
+      <name>AUTHENTICATION_REQUEST</name>
+      <description>The server indication to the client
+      that EAP request is signaled in the PA message.</description>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>
+    <record date="2015-07-28">
+      <value>23</value>
+      <name>AUTHENTICATION_REPLY</name>
+      <description>The client indication to the server that
+      EAP response is signaled in the PA message.</description>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>
     <record>
-      <value>14-191</value>
+      <value>24-191</value>
       <name>Unassigned</name>
       <description/>
     </record>
@@ -266,8 +344,98 @@
       <maximum>As many as fit within maximum PCP message size.</maximum>
       <xref type="rfc" data="rfc6887"/>
     </record>
+    <record date="2015-07-28">
+      <value>4</value>
+      <name>NONCE</name>
+      <purpose>See Section 5.3 of <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>.</purpose>
+      <valid-for>AUTHENTICATION</valid-for>
+      <length>4 octets</length>
+      <may-appear-in>Request and response.</may-appear-in>
+      <maximum>1</maximum>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>
+    <record date="2015-07-28">
+      <value>5</value>
+      <name>AUTHENTICATION_TAG</name>
+      <purpose>See Section 5.4 of <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>.</purpose>
+      <valid-for>MAP, PEER, ANNOUNCE</valid-for>
+      <length>variable</length>
+      <may-appear-in>Request and response.</may-appear-in>
+      <maximum>1</maximum>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>
+    <record date="2015-07-28">
+      <value>6</value>
+      <name>PA_AUTHENTICATION_TAG</name>
+      <purpose>See Section 5.5 of <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>.</purpose>
+      <valid-for>AUTHENTICATION</valid-for>
+      <length>variable</length>
+      <may-appear-in>Request and response.</may-appear-in>
+      <maximum>1</maximum>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>
+    <record date="2015-07-28">
+      <value>7</value>
+      <name>EAP_PAYLOAD</name>
+      <purpose>See Section 5.6 of <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>.</purpose>
+      <valid-for>AUTHENTICATION</valid-for>
+      <length>variable</length>
+      <may-appear-in>Request and response.</may-appear-in>
+      <maximum>1</maximum>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>
+    <record date="2015-07-28">
+      <value>8</value>
+      <name>PRF</name>
+      <purpose>See Section 5.7 of <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>.</purpose>
+      <valid-for>AUTHENTICATION</valid-for>
+      <length>4 octets</length>
+      <may-appear-in>Request and response.</may-appear-in>
+      <maximum>As many as fit within maximum PCP message size.</maximum>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>
+    <record date="2015-07-28">
+      <value>9</value>
+      <name>MAC_ALGORITHM</name>
+      <purpose>See Section 5.8 of <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>.</purpose>
+      <valid-for>AUTHENTICATION</valid-for>
+      <length>4 octets</length>
+      <may-appear-in>Request and response.</may-appear-in>
+      <maximum>As many as fit within maximum PCP message size.</maximum>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>
+    <record date="2015-07-28">
+      <value>10</value>
+      <name>SESSION_LIFETIME</name>
+      <purpose>See Section 5.9 of <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>.</purpose>
+      <valid-for>AUTHENTICATION</valid-for>
+      <length>4 octets</length>
+      <may-appear-in>Response.</may-appear-in>
+      <maximum>1</maximum>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>
+    <record date="2015-07-28">
+      <value>11</value>
+      <name>RECEIVED_PAK</name>
+      <purpose>See Section 5.10 of <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>.</purpose>
+      <valid-for>AUTHENTICATION</valid-for>
+      <length>4 octets</length>
+      <may-appear-in>Request and response.</may-appear-in>
+      <maximum>1</maximum>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>
+    <record date="2015-07-28">
+      <value>12</value>
+      <name>ID_INDICATOR</name>
+      <purpose>See Section 5.11 of <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>.</purpose>
+      <valid-for>AUTHENTICATION</valid-for>
+      <length>variable</length>
+      <may-appear-in>Response.</may-appear-in>
+      <maximum>1</maximum>
+      <xref type="draft" data="RFC-ietf-pcp-authentication-14"/>
+    </record>    
     <record>
-      <value>4-95</value>
+      <value>13-95</value>
       <name>Unassigned</name>
       <purpose/>
       <valid-for/>
