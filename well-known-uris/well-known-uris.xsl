@@ -25,7 +25,7 @@
     <xsl:choose>
       <xsl:when test="../@id = 'well-known-uris-1'">
         <tr>
-          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:apply-templates select="iana:related"/></td>
