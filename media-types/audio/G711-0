@@ -1,0 +1,97 @@
+(registered via RFC-ietf-payload-g7110-06)
+
+Type name: audio
+
+Subtype name: G711-0
+
+Required parameters:
+
+   clock rate: The RTP timestamp clock rate, which is equal to the
+   sampling rate.  The typical rate used with G.711 encoding is 8000,
+   but other rates may be specified.  The default rate is 8000.
+
+   complaw: This format specific parameter, specified on the "a=fmtp:
+   line", indicates the companding law (A-law or mu-law) employed.
+   This format specific parameter, as per RFC 4566, is
+   given unchanged to the media tool using this format.  The case-
+   insensitive values are "complaw=al" or "complaw=mu" are used for
+   A-law and mu-law, respectively.
+
+Optional parameters:
+
+   channels: See RFC 4566 for definition.  Specifies how
+   many audio streams are represented in the G.711.0 payload and MUST
+   be present if the number of channels is greater than one.  This
+   parameter defaults to 1 if not present (as per RFC 4566) and is
+   typically a non-zero small-valued positive integer.  It is
+   expected that implementations that specify multiple channels will
+   also define a mechanism to map the channels appropriately within
+   their system design, otherwise the channel order specified in RFC
+   3551 Section 4.1 will be assumed (e.g., left, right,
+   center, ... ).  Similar to the usual interpretation in RFC 3551, 
+   the number of channels SHALL be a non-zero positive integer.
+
+   maxptime: See RFC 4566 for definition.
+
+   ptime: See RFC 4566 for definition.  The inclusion of
+   "ptime" is RECOMMENDED and SHOULD be in the SDP unless there is an
+   application specific reason not to include it (e.g., an
+   application that has a variable ptime on a packet-by-packet
+   basis).  For constant ptime applications, it is considered good
+   form to include "ptime" in the SDP for session diagnostic
+   purposes.  For the constant ptime multiple channel case described
+   in Section 4.2.2, the inclusion of "ptime" can provide a desirable
+   payload check.
+
+Encoding considerations:
+
+   This media type is framed binary data (see Section 4.8 in RFC 6838) 
+   compressed as per ITU-T Rec. G.711.0.
+
+Security considerations:
+
+   See Section 10 of RFC-ietf-payload-g7110-06.
+
+Interoperability considerations: none
+
+Published specification:
+
+   ITU-T Rec. G.711.0 and RFC-ietf-payload-g7110-06.
+
+Applications that use this media type:
+
+   Although initially conceived for VoIP, the use of G.711.0, like
+   G.711 before it, may find use within audio and video streaming
+   and/or conferencing applications for the audio portion of those
+   applications.
+
+Additional information:
+
+The following applies to stored-file transfer methods:
+
+      Magic numbers: #!G7110A\n or #!G7110M\n (for A-law or MU-law
+      encodings respectively, see Section 6).
+
+      File Extensions: None
+
+      Macintosh file type code: None
+
+      Object identifier or OIL: None
+
+Person & email address to contact for further information:
+
+   Michael A.  Ramalho <mramalho&cisco.com> or <mar42&cornell.edu>
+
+Intended usage: COMMON
+
+Restrictions on usage:
+
+   This media type depends on RTP framing, and hence is only defined
+   for transfer via RTP [RFC3550].  Transport within other framing
+   protocols is not defined at this time.
+
+Author: Michael A.  Ramalho
+
+Change controller:
+
+   IETF Payload working group delegated from the IESG.
