@@ -1,0 +1,65 @@
+(registered 2015-08-05, last updated 2015-08-05)
+
+URI Scheme name: DNTP
+
+Description: Direct Network Transfer Protocol
+
+Status: Provisional
+
+Contact registering party and author:
+Hans-Dieter A. Hiep <info&aexiz.com>
+Telephone answering machine: +3130 7440989
+
+Change controller:
+Hans-Dieter A. Hiep (see Contact) or Micha F. J. Klamer.
+
+URI Scheme syntax:
+The ABNF [RFC5234] rule for parsing a DNTP-URI is as follows:
+
+dntp-uri = "dntp://" host ":" port [ "/" key ]
+key = *pct-encoded
+
+where <host> is defined in Section 3.2.2., <port> is defined in
+Section 3.2.3. and <pct-encoded> is defined in Section 2.1. of
+Uniform Resource Identifier: Generic Syntax [RFC3986].
+
+Scheme semantics:
+Open a TCP connection to the specified host and port and write the
+decoded octets of <key> to the stream, if any. The host may drop the
+connection for whatever reason if the key is wrong, with or without
+sending the reason in any format. There is no further required format
+for this URI scheme and application-specific data may be sent and
+received in an application-specific format and/or encoding after the
+initial set-up. Typically, the URI is distributed via a secure mechanism
+and keys of up to 4096 encoded octets are to be expected.
+If the URI is invoked by an application, the default operation is to
+read from the stream without writing any more octets other than the
+key.
+
+Encoding considerations:
+None.
+
+Applications/protocols that use this scheme name:
+Unknown.
+
+Interoperability considerations:
+Unknown but unlikely portable due to its application-specific nature.
+
+Security considerations:
+Since the URI syntax description [RFC3986] has no a priori limitation
+on the length of a URI, the DNTP-URI can possibly be used to forge
+requests of other TCP protocols, e.g.
+
+
+dntp://example.com:80/%47%45%54%20%2f%69%6e%64%65%78%2e%68%74%6d%6c%20%48%54%54%50%2f%31%2e%31%0d%0a%48%6f%73%74%3a%20%65%78%61%6d%70%6c%65%2e%63%6f%6d%0d%0a
+
+will make an HTTP GET request to example.com . Use with care
+and do not trust a DNTP-URI from an untrusted source.
+
+References:
+[RFC3986] Berners-Lee, T., Fielding, R., and L. Masinter,
+"Uniform Resource Identifier (URI): Generic Syntax", STD 66,
+RFC 3986, January 2005.
+[RFC5234] Crocker, D., Ed., and P. Overell, "Augmented BNF for
+Syntax Specifications: ABNF", STD 68, RFC 5234, January
+2008.
