@@ -1,0 +1,357 @@
+﻿(registered 2015-08-07, last updated 2015-08-07)
+
+Clayster Laboratorios Chile S.A                              Peter Waher
+Blanco 1623, of. 1402                           peter.waher&clayster.com
+Valparaíso                                                  2015-July-20
+Chile
+
+          Provisional URI Scheme IANA Registration Application
+                                iotdisco
+
+Abstract
+
+   This document contains the formal application for registering a
+   provisioninal Uniform Resource Identifier (URI) Scheme named
+   iotdisco, a URI scheme to be used to identify, not locate, things on
+   the internet using conceptual meta-data about the thing.
+
+Keywords
+
+   Internet of Things, Security, Installation, Configuration, Discovery.
+
+Copyright Notice
+
+   Copyright (c) 2015 Clayster and the persons identified as the
+   document authors. All rights reserved. Upon registration of URI
+   scheme, copyright can be transferred to corresponding Internet
+   body, if required.
+
+Introduction
+
+   When creating things to be mass-manufactured and sold off-the-shelf
+   for use with the Internet of Things, and taking their entire life-
+   cycle into account, a problem arises where a thing’s physical
+   identity, which is known at the time of production, needs to be
+   matched with its communication or network identity, created during
+   installation, and the match given to its owner, and only its owner,
+   to avoid malicious third parties to claim the thing for their own.
+   Only the physical (or conceptual) identity of the thing is known
+   during the time of manufacture, not the network identity or the
+   identity of the owner.
+
+   In the article "Securing the Life Cycle of Things in the Internet of
+   Things using Thing Registries" [1], an architecture is described
+   where a thing is preprogrammed with meta-data about itself, uniquely
+   identifying it. Once the thing has been physically installed and 
+   connected to a network, a network identity is created by the thing. 
+   The thing then searches for a Thing Registry, to which it later 
+   registers itself, its meta-data and newly created network identity. 
+   Later, the meta-data is transferred to the owner of the thing. The 
+   owner, perhaps using a smart-phone, finds the same Thing Registry 
+   and claims the thing by providing the same meta-data earlier 
+   registered by the thing. This claiming process provides the thing 
+   with the network identity of its owner, and the owner with the 
+   network identity of its thing. The thing cannot be claimed again, 
+   unless it has been disowned again.
+
+   The article also presents a physical implementation of this 
+   architecture, where devices are installed in an IP network, and 
+   later use the XMPP protocol [2] [3] [4] to find a Thing Registry 
+   and perform the registration. The meta-data is transferred to the 
+   owner using a QR-code which encodes the corresponding key-value 
+   pairs, which has previously been serialized into a string. XEP-0347 
+   [5] and XEP-0348 [6] provide more detailed information about the 
+   network identity creation process, how the Thing Registry is found 
+   and how the thing registers itself and how it is claimed in this 
+   example. QR codes can be presented to owners either from a sticker 
+   on the device or its box, or on its screen if it has one.
+
+Justification for this registration application
+
+   During the work in ISO/IEC/IEEE working group 21451-1-4, where this 
+   architecture is an integral part, and other groups, a more formal 
+   definition, structure and encoding of the conceptual identity of a 
+   thing, or its meta-data, is required. Since there is a desire to use
+   Automatic identification and data capture (AIDC) technologies, such 
+   as RFID and 2-dimensional optical symbologies, for instance QR-codes,
+   for transferring this information, and since such technologies are
+   capable of containing URIs, the proposed manner to formalizing this
+   string, is to register a new URI scheme for the conceptual identity
+   of a thing. QR-codes are used in this document only as an example.
+   URIs using this URI scheme can then be recognized, by smartphones
+   for instance – while residing in the same network environment as the
+   corresponding thing – can use the same methods of finding the thing
+   registry and claiming the thing for its own, and at the same time
+   obtain the network identity of the thing.
+
+   The URI scheme proposed in this application differs slightly from
+   what has been described in [1] and [5] to better match requirements
+   in BCP 35 [7] and RFC 3986 [8]. Once accepted as a provisional URI
+   scheme, [1] and [5] will be updated.
+
+URI Scheme Registration
+
+   Following is the formal application for the registration of the
+   provisional URI scheme iotdisco.
+
+URI scheme name
+
+   iotdisco
+
+Status
+
+   provisional
+
+URI scheme syntax
+
+   Using the format defined in RFC 3986 [8], and some of its base
+   classes, a formal definition of the iotdisco URI scheme syntax is as
+   follows:
+
+         iotdisco-uri = "iotdisco:" tags
+         tags         = tag *( ";" tag )
+         tag          = stringtag / numericaltag
+         stringtag    = key "=" strvalue
+         numericaltag = "#" key "=" numvalue
+         key          = 1*( unreserved / pct-encoded )
+         strvalue     = *( unreserved / pct-encoded )
+         numvalue     = [ "+" / "-" ] 1*DIGIT [ "." *DIGIT ]
+
+   Example:
+
+         iotdisco:SN=394872348732948723;MAN=www.ktc.se;
+            MODEL=IMC;#V=1.2;KEY=4857402340298342
+
+   A line-break has been inserted for readability. The corresponding
+   URI as a QR-code would look as follows:
+
+██████████████    ██          ██████  ██              ████  ██████████████
+██          ██  ████  ████          ██    ████        ████  ██          ██
+██  ██████  ██    ██████    ██  ██  ██  ████        ██████  ██  ██████  ██
+██  ██████  ██  ████  ██        ██████  ██      ██  ██      ██  ██████  ██
+██  ██████  ██      ██  ████████      ██    ██    ██  ████  ██  ██████  ██
+██          ██  ██  ██    ████████      ██████  ██████████  ██          ██
+██████████████  ██  ██  ██  ██  ██  ██  ██  ██  ██  ██  ██  ██████████████
+                        ████  ██        ██████                            
+██████████  ██████████  ██  ████  ████████████  ████    ████  ██  ██  ██  
+  ██  ██  ██                  ████    ██          ████    ██      ██  ██  
+    ██  ██████    ██  ████        ██    ████        ██████  ██  ██  ██████
+    ██          ██    ██    ██  ██        ██████    ██    ██          ████
+  ████  ██████  ██  ████          ████████████████████████  ██████████    
+  ██████        ██      ████████        ██          ██    ██      ██      
+      ██    ██████        ██████        ██████    ██████  ████████  ██████
+      ████    ██  ████  ████        ██  ██████      ██      ████        ██
+██    ████████████  ██  ██  ██████████    ████████████████  ██████████████
+    ██████    ████████                  ████        ██    ██        ██    
+    ██████  ██  ████  ████    ██    ██  ██        ████████          ██████
+  ██████  ██  ██████  ██    ██████  ████  ████████  ██  ██  ██  ████    ██
+██    ██████████  ██  ██      ██████████      ██  ████████  ██████  ██████
+██  ██████      ██      ██████          ██  ██████  ██    ██      ██████  
+    ██  ██  ████████      ████████████  ██        ██████  ████    ████████
+  ██  ██████  ██    ██  ████        ████  ████      ████  ██  ██      ██  
+████  ██  ████    ██    ██  ██████████████      ████    ██  ██████    ██  
+██████  ██        ████                ██  ██  ██  ██      ██      ██      
+██  ██  ██  ████  ██  ████    ██  ████            ██████    ████    ██████
+██  ████  ██  ██    ████    ████      ██  ████████    ██████    ██    ████
+██  ██████  ██████    ██        ██████  ██████    ██████████████████      
+                ██████  ██████        ██  ██████  ██    ██      ██  ██    
+██████████████  ██  ██    ████████          ██  ████    ██  ██  ██████████
+██          ██    ██    ████  ██    ████████  ██    ██████      ████  ██  
+██  ██████  ██  ██      ██  ██  ████████      ████████████████████  ██  ██
+██  ██████  ██  ██████                ██    ██████  ██      ██████  ██████
+██  ██████  ██  ██    ████    ██    ██  ██████      ████████          ████
+██          ██  ████  ██    ██      ██    ████████      ██  ████████    ██
+██████████████  ████  ██      ████████  ██      ████████            ██████
+
+       Fig. 1. QR-code containing URI based on the iotdisco scheme.
+
+
+   The meta-data encoded in the QR-code and URI is shown in the
+   following table. Descriptions of the tags used are given in Table 2.
+
+                Table 1. Meta-data encoded in example.
+
+              +---------+---------+--------------------+
+              | Tag Key | Type    | Value              |
+              +---------+---------+--------------------+
+              | SN      | String  | 394872348732948723 |
+              | MAN     | String  | www.ktc.se         |
+              | MODEL   | String  | IMC                |
+              | V       | Numeric | 1.2                |
+              | KEY     | String  | 4857402340298342   |
+              +---------+---------+--------------------+
+
+URI scheme semantics
+
+   An iotdisco URI defines a set of one or more meta-data tags. Each tag
+   has a key name and either a string value or a numerical value. The
+   reason for specifying numerical values separately is because they
+   imply a numerical order to the value set.
+
+   The set of tags is unordered. This means that in order to compare two
+   iotdisco URIs for equality, the tags must be ordered first, using the
+   same ordering.
+
+   Tag keys are also case insensitive. Values, however, are case
+   sensitive.
+
+Encoding considerations
+
+   Since tag keys and string values can be human readable, it is
+   important to encode characters outside of the unreserved character
+   set correctly. The way to do this, is to first normalize such
+   characters using Unicode Normalization Form C [9], then encode them
+   using UTF-8 [10], and then percent-encoding them according to §2.1
+   and §2.5 in RFC 3986 [8].
+
+Applications/protocols that use this URI scheme name
+
+   This URI scheme does not specify underlying transport protocol, and
+   is not limited to a particular protocol. A variant of this scheme is
+   used together with the XMPP protocol [2] [3] [4] and XEP-0347 [5],
+   which will be updated as soon as this provisional URI scheme has been
+   approved.
+
+Interoperability considerations
+
+   It is not the intent of this document to limit the amount or types of
+   tags thing manufacturers might want to encode using this URI scheme,
+   or their semantic meanings. But, to provide some guidance and foster
+   interoperability, on the side of thing registries, especially if
+   public, XEP-0347 [5] proposed a set of predefined tags manufacturers
+   can use (in §5.2). This table is duplicated here:
+
+                      Table 2. Predefined tag keys.
+
+    | Tag Key  | Type    | Description                               |
+    |----------+---------+-------------------------------------------+
+    | ALT      | Numeric | Altitude (meters)                         |
+    | APT      | String  | Apartment associated with the Thing       |
+    | AREA     | String  | Area associated with the Thing            |
+    | BLD      | String  | Building associated with the Thing        |
+    | CITY     | String  | City associated with the Thing            |
+    | CLASS    | String  | Class of Thing                            |
+    | COUNTRY  | String  | Country associated with the Thing         |
+    | KEY      | String  | Key, shared between thing and owner.      |
+    | LAT      | Numeric | Latitude (degrees)                        |
+    | LON      | Numeric | Longitude (degrees)                       |
+    | MAN      | String  | Domain name owned by the Manufacturer     |
+    | MLOC     | String  | Meter Location ID                         |
+    | MNR      | String  | Meter Number                              |
+    | MODEL    | String  | Name of Model                             |
+    | NAME     | String  | Name associated with the Thing            |
+    | PURL     | String  | URL to product information for the Thing. |
+    | REGION   | String  | Region associated with the Thing          |
+    | ROOM     | String  | Room associated with the Thing            |
+    | SN       | String  | Serial Number                             |
+    | STREET   | String  | Street Name                               |
+    | STREETNR | String  | Street Number                             |
+    | V        | Numeric | Version Number                            |
+
+Security considerations
+
+   Collecting and storing meta-data about things may both be very
+   valuable, as a tool to organize, discover and interconnect things in
+   the network, but also dangerous if not considering various security
+   aspects. Many of these security considerations must be dealt with on
+   a protocol-by-protocol level, as is done in XEP-0347 [5], section 6.
+   There, an architecture consisting of both public and private things
+   is defined, and how to manage meta-data in searches, including meta-
+   data that is constantly being updated by things. It also specifies
+   that only claimed things, whose owners have approved of their meta-
+   data being published, should have their meta-data being searchable.
+
+   While the meta-data being encoded using this URI scheme is used by
+   the owner of a thing to claim it, the meta-data must pass a Thing
+   Registry in order to match conceptual identity with network identity.
+   In doing so, the Thing Registry is free to store the meta-data. Care
+   should therefore be made in publishing meta-data of a sensitive
+   nature.
+
+   There is also a special tag named KEY. This provides a means to
+   include private random information into the meta-data that can be
+   used to make sure the meta-data is unique. Thing Registries must be
+   aware of the meaning of this key, and not publish it or make it
+   searchable. While a thing can only be claimed by one owner at a time,
+   Thing Registries should erase the KEY tag from its internal records
+   once a thing has been claimed. This avoids the possibility of others
+   to learn the value of the KEY tag, and claim the corresponding thing
+   using searchable meta-data or extracting the information by other
+   means, once the thing has become disowned. The thing in turn must
+   report a new KEY tag if being disowned, to make sure it can be re-
+   claimed.
+
+Contact
+
+   For any questions, comments or suggestions, please contact Peter
+   Waher by sending an e-mail to peter.waher&clayster.com, or normal
+   mail at:
+
+   Clayster Laboratorios Chile S.A
+   Blanco 1623, of. 1402
+   Valparaíso
+   Chile.
+
+Author/Change controller
+
+   Peter Waher is the author of this document, and is authorized to
+   change it in case changes have to be made for approval of
+   application.
+
+Acknowledgements
+
+   Thanks to William Miller (chairman ISO/IEC/IEEE P21451-1-4, president
+   MaCT USA), Heidi Tse (sr. network engineer, Juniper Networks), Hugo
+   Nordell (product manager, Clayster), Kang Lee (chairman IEEE TC-9
+   and cosponsor of P21451-1-4, NIST), Dan Kimball (chairman, JTC 1/
+   SC 31 and cosponsor of P21451-1-4), Allyson Ugarte (technical
+   observer), John N. Engel (technical observer, Boeing) and Rosario
+   Morello (professor, Università Mediterranea di Reggio Calabria) for
+   all valuable feedback.
+
+References
+
+   [1] P. Waher, "Securing the Life Cycle of Things in the Internet of
+       Things using Thing Registries," 04 06 2014. [Online].
+       Available: https://www.thingk.me/Provisioning/Papers/Securing%20
+       the%20Life%20Cycle%20of%20Things%20in%20the%20IoT%20using%20Thing
+       %20Registries.pdf. [Accessed 03 07 2015].
+
+   [2] P. Saint-André, "RFC 6120: Extensible Messaging and Presence
+       Protocol (XMPP): Core," [Online].
+       Available: http://xmpp.org/rfcs/rfc6120.html.
+
+   [3] P. Saint-André, "RFC 6121: Extensible Messaging and Presence
+       Protocol (XMPP): Instant Messaging and Presence," [Online]. 
+       Available: http://xmpp.org/rfcs/rfc6121.html.
+
+   [4] P. Saint-André, "RFC 6122: Extensible Messaging and Presence
+       Protocol (XMPP): Address Format," [Online].
+       Available: http://xmpp.org/rfcs/rfc6122.html.
+
+   [5] P. Waher and R. Klauck, "XEP-0347: Internet of Things -
+       Discovery," 10 04 2014. [Online]. 
+       Available: http://xmpp.org/extensions/xep-0347.html.
+       [Accessed 05 05 2014].
+
+   [6] P. Waher, "XEP-0348: Signing Forms," 28 05 2014. [Online].
+       Available: http://xmpp.org/extensions/xep-0348.html.
+
+   [7] T. Hansen, T. Hardie and L. Masinter, "Guidelines and 
+       Registration Procedures for New URI Schemes," 02 2006. [Online].
+       Available: https://tools.ietf.org/html/bcp35.
+       [Accessed 03 07 2015].
+
+   [8] T. Berners-Lee, R. Fielding and L. Masinter, "Uniform Resource
+       Identifier (URI): Generic Syntax," 01 2005. [Online].
+       Available: https://tools.ietf.org/html/rfc3986.
+       [Accessed 03 07 2015].
+
+   [9] M. Davis and K. Whistler, "Unicode® Standard Annex #15, Unicode
+       Normalization Forms," 01 06 2015. [Online].
+       Available: http://www.unicode.org/reports/tr15/.
+       [Accessed 03 07 2015].
+
+  [10] F. Yergeau, "UTF-8, a transformation format of ISO 10646,"
+       11 2003. [Online]. Available: https://tools.ietf.org/html/std63.
+       [Accessed 03 07 2015].
