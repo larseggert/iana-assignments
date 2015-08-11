@@ -46,6 +46,9 @@
       <xsl:when test="@id = 'services'">
         <tr><th>Namespace</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'access-control-policy'">
+        <tr><th>Access Policy</th><th>Reference</th></tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -62,16 +65,14 @@
       <td><xsl:value-of select="iana:description"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
           </tr>
-    </xsl:when>      
-      
+    </xsl:when>            
       <xsl:when test="../@id = 'app-id'">
         <tr>
         <td><xsl:value-of select="iana:value"/></td>
         <td><xsl:value-of select="iana:description"/></td>
         <td><xsl:apply-templates select="iana:spec"/></td>
           </tr>
-      </xsl:when>      
-      
+      </xsl:when>          
       <xsl:when test="../@id = 'data-kind-id'">
         <tr>
         <td><xsl:value-of select="iana:value"/></td>
@@ -137,7 +138,13 @@
         <tr>
         <td><xsl:value-of select="iana:value"/></td>
         <td><xsl:apply-templates select="iana:spec"/></td>
-          </tr>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'access-control-policy'">
+        <tr>
+        <td><xsl:value-of select="iana:value"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
       </xsl:when>  
    
     </xsl:choose>
