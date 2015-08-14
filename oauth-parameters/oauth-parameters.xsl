@@ -75,6 +75,14 @@
           <th>Change Controller</th>
           <th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'token-introspection-response'">
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Change Controller</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       
     </xsl:choose>
   </xsl:template>
@@ -91,10 +99,7 @@
           <td><xsl:apply-templates select="iana:controller"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
-      </xsl:when>
-      
-
-      
+      </xsl:when>  
       <xsl:when test="../@id = 'endpoint'">
         <tr>
           <td><xsl:value-of select="iana:name"/></td>
@@ -156,6 +161,14 @@
       <xsl:when test="../@id = 'pkce-code-challenge-method'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'token-introspection-response'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
