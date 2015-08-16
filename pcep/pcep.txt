@@ -4,7 +4,7 @@
            2008-12-19
 
    Last Updated
-           2015-03-04
+           2015-08-14
 
    Available Formats
            [IMG]
@@ -283,19 +283,20 @@ METRIC Object T Field
            [IMG]
            CSV
 
-   Value            Description           Reference
-     0    Reserved                        [RFC5440]
-     1    IGP metric                      [RFC5440]
-     2    TE metric                       [RFC5440]
-     3    Hop Counts                      [RFC5440]
-     4    Aggregate bandwidth consumption [RFC5541]
-     5    Load of the most loaded link    [RFC5541]
-     6    Cumulative IGP cost             [RFC5541]
-     7    Cumulative TE cost              [RFC5541]
-     8    P2MP IGP metric                 [RFC6006]
-     9    P2MP TE metric                  [RFC6006]
-     10   P2MP hop count metric           [RFC6006]
-   11-255 Unassigned
+   Value                                    Description                                              Reference
+     0    Reserved                                                                        [RFC5440]
+     1    IGP metric                                                                      [RFC5440]
+     2    TE metric                                                                       [RFC5440]
+     3    Hop Counts                                                                      [RFC5440]
+     4    Aggregate bandwidth consumption                                                 [RFC5541]
+     5    Load of the most loaded link                                                    [RFC5541]
+     6    Cumulative IGP cost                                                             [RFC5541]
+     7    Cumulative TE cost                                                              [RFC5541]
+     8    P2MP IGP metric                                                                 [RFC6006]
+     9    P2MP TE metric                                                                  [RFC6006]
+     10   P2MP hop count metric                                                           [RFC6006]
+     11   Segment-ID (SID) Depth. (TEMPORARY - registered 2015-08-14, expires 2016-08-14) [draft-ietf-pce-segment-routing]
+   12-255 Unassigned
 
 METRIC Object Flag Field
 
@@ -444,82 +445,127 @@ PCEP-ERROR Object Error Types and Values
            [IMG]
            CSV
 
-   Error-Type                    Meaning                                                     Error-value                                  Reference
-       0      Reserved                                      0-255: Reserved                                                               [RFC5440]
-       1      PCEP session establishment failure            0: Unassigned                                                                 [RFC5440]
-                                                            1: reception of an invalid Open message or a non Open message.                [RFC5440]
-                                                            2: no Open message received before the expiration of the OpenWait timer       [RFC5440]
-                                                            3: unacceptable and non negotiable session characteristics                    [RFC5440]
-                                                            4: unacceptable but negotiable session characteristics                        [RFC5440]
-                                                            5: reception of a second Open message with still unacceptable session         [RFC5440]
+   Error-Type                    Meaning                                         Error-value                                  Reference
+       0      Reserved                                      0-255: Reserved                                        [RFC5440]
+       1      PCEP session establishment failure            0: Unassigned                                          [RFC5440]
+                                                            1: reception of an invalid Open message or a non Open  [RFC5440]
+                                                            message.
+                                                            2: no Open message received before the expiration of   [RFC5440]
+                                                            the OpenWait timer
+                                                            3: unacceptable and non negotiable session             [RFC5440]
                                                             characteristics
-                                                            6: reception of a PCErr message proposing unacceptable session                [RFC5440]
-                                                            characteristics
-                                                            7: No Keepalive or PCErr message received before the expiration of the        [RFC5440]
-                                                            KeepWait timer
-                                                            8: PCEP version not supported                                                 [RFC5440]
+                                                            4: unacceptable but negotiable session characteristics [RFC5440]
+                                                            5: reception of a second Open message with still       [RFC5440]
+                                                            unacceptable session characteristics
+                                                            6: reception of a PCErr message proposing unacceptable [RFC5440]
+                                                            session characteristics
+                                                            7: No Keepalive or PCErr message received before the   [RFC5440]
+                                                            expiration of the KeepWait timer
+                                                            8: PCEP version not supported                          [RFC5440]
                                                             9-255: Unassigned
-       2      Capability not supported                      0-255: Unassigned                                                             [RFC5440]
-       3      Unknown Object                                0: Unassigned                                                                 [RFC5440]
-                                                            1: Unrecognized object class                                                  [RFC5440]
-                                                            2: Unrecognized object Type                                                   [RFC5440]
+       2      Capability not supported                      0-255: Unassigned                                      [RFC5440]
+       3      Unknown Object                                0: Unassigned                                          [RFC5440]
+                                                            1: Unrecognized object class                           [RFC5440]
+                                                            2: Unrecognized object Type                            [RFC5440]
                                                             3-255: Unassigned
-       4      Not supported object                          0: Unassigned                                                                 [RFC5440]
-                                                            1: Not supported object class                                                 [RFC5440]
-                                                            2: Not supported object Type                                                  [RFC5440]
+       4      Not supported object                          0: Unassigned                                          [RFC5440]
+                                                            1: Not supported object class                          [RFC5440]
+                                                            2: Not supported object Type                           [RFC5440]
                                                             3: Unassigned
-                                                            4: Unsupported parameter                                                      [RFC5441]
+                                                            4: Unsupported parameter                               [RFC5441]
                                                             5-255: Unassigned
-       5      Policy violation                              0: Unassigned                                                                 [RFC5440]
-                                                            1: C bit of the METRIC object set (request rejected)                          [RFC5440]
-                                                            2: O bit of the RP object cleared (request rejected)                          [RFC5440]
-                                                            3: objective function not allowed (request rejected)                          [RFC5541]
-                                                            4: OF bit of the RP object set (request rejected)                             [RFC5541]
-                                                            5: Global concurrent optimization not allowed                                 [RFC5557]
-                                                            6: Monitoring message supported but rejected due to policy violation          [RFC5886]
-                                                            7: P2MP Path computation is not allowed                                       [RFC6006]
+       5      Policy violation                              0: Unassigned                                          [RFC5440]
+                                                            1: C bit of the METRIC object set (request rejected)   [RFC5440]
+                                                            2: O bit of the RP object cleared (request rejected)   [RFC5440]
+                                                            3: objective function not allowed (request rejected)   [RFC5541]
+                                                            4: OF bit of the RP object set (request rejected)      [RFC5541]
+                                                            5: Global concurrent optimization not allowed          [RFC5557]
+                                                            6: Monitoring message supported but rejected due to    [RFC5886]
+                                                            policy violation
+                                                            7: P2MP Path computation is not allowed                [RFC6006]
                                                             8-255: Unassigned
-       6      Mandatory Object missing                      0: Unassigned                                                                 [RFC5440]
-                                                            1: RP object missing                                                          [RFC5440]
-                                                            2: RRO missing for a reoptimization request (R bit of the RP object set)      [RFC5440]
-                                                            3: END-POINTS object missing                                                  [RFC5440]
-                                                            4: MONITORING object missing                                                  [RFC5886]
+       6      Mandatory Object missing                      0: Unassigned                                          [RFC5440]
+                                                            1: RP object missing                                   [RFC5440]
+                                                            2: RRO missing for a reoptimization request (R bit of  [RFC5440]
+                                                            the RP object set)
+                                                            3: END-POINTS object missing                           [RFC5440]
+                                                            4: MONITORING object missing                           [RFC5886]
                                                             5-255: Unassigned
-       7      Synchronized path computation request missing 0-255: Unassigned                                                             [RFC5440]
-       8      Unknown request reference                     0-255: Unassigned                                                             [RFC5440]
-       9      Attempt to establish a second PCEP session    0-255: Unassigned                                                             [RFC5440]
-       10     Reception of an invalid object                0: Unassigned                                                                 [RFC5440]
-                                                            1: reception of an object with P flag not set although the P-flag must be set [RFC5440]
-                                                            according to this specification.
-                                                            2-255: Unassigned
-       11     Unrecognized EXRS subobject                   0-255: Unassigned                                                             [RFC5521]
-       12     Diffserv-aware TE error                       0: Unassigned                                                                 [RFC5455]
-                                                            1: Unsupported class-type                                                     [RFC5455]
-                                                            2: Invalid class-type                                                         [RFC5455]
-                                                            3: Class-Type and setup priority do not form a configured TE-class            [RFC5455]
+       7      Synchronized path computation request missing 0-255: Unassigned                                      [RFC5440]
+       8      Unknown request reference                     0-255: Unassigned                                      [RFC5440]
+       9      Attempt to establish a second PCEP session    0-255: Unassigned                                      [RFC5440]
+       10     Reception of an invalid object                0: Unassigned                                          [RFC5440]
+                                                            1: reception of an object with P flag not set although
+                                                            the P-flag must be set according to this               [RFC5440]
+                                                            specification.
+                                                            2: Bad label value (TEMPORARY - registered 2015-08-14, [draft-ietf-pce-segment-routing]
+                                                            expires 2016-08-14)
+                                                            3: Unsupported number of Segment ERO subobjects
+                                                            (TEMPORARY - registered 2015-08-14, expires            [draft-ietf-pce-segment-routing]
+                                                            2016-08-14)
+                                                            4: Bad label format (TEMPORARY - registered            [draft-ietf-pce-segment-routing]
+                                                            2015-08-14, expires 2016-08-14)
+                                                            5: Non-identical ERO subobjects (TEMPORARY -           [draft-ietf-pce-segment-routing]
+                                                            registered 2015-08-14, expires 2016-08-14)
+                                                            6: Both SID and NAI are absent in ERO subobject
+                                                            (TEMPORARY - registered 2015-08-14, expires            [draft-ietf-pce-segment-routing]
+                                                            2016-08-14)
+                                                            7: Both SID and NAI are absent in RRO subobject
+                                                            (TEMPORARY - registered 2015-08-14, expires            [draft-ietf-pce-segment-routing]
+                                                            2016-08-14)
+                                                            8: Unassigned
+                                                            9: Default MSD is specified for the PCEP session
+                                                            (TEMPORARY - registered 2015-08-14, expires            [draft-ietf-pce-segment-routing]
+                                                            2016-08-14)
+                                                            10: Non-identical RRO subjects (TEMPORARY - registered [draft-ietf-pce-segment-routing]
+                                                            2015-08-14, expires 2016-08-14)
+                                                            11: Malformed object (TEMPORARY - registered           [draft-ietf-pce-segment-routing]
+                                                            2015-08-14, expires 2016-08-14)
+                                                            12-255: Unassigned
+       11     Unrecognized EXRS subobject                   0-255: Unassigned                                      [RFC5521]
+       12     Diffserv-aware TE error                       0: Unassigned                                          [RFC5455]
+                                                            1: Unsupported class-type                              [RFC5455]
+                                                            2: Invalid class-type                                  [RFC5455]
+                                                            3: Class-Type and setup priority do not form a         [RFC5455]
+                                                            configured TE-class
                                                             4-255: Unassigned
-       13     BRPC procedure completion failure             0: Unassigned                                                                 [RFC5441]
-                                                            1: BRPC procedure not supported by one or more PCEs along the domain path     [RFC5441]
+       13     BRPC procedure completion failure             0: Unassigned                                          [RFC5441]
+                                                            1: BRPC procedure not supported by one or more PCEs    [RFC5441]
+                                                            along the domain path
                                                             2-255: Unassigned
        14     Unassigned                                    0-255: Unassigned
-       15     Global Concurrent Optimization Error          0: Unassigned                                                                 [RFC5557]
-                                                            1: Insufficient memory                                                        [RFC5557]
-                                                            2: Global concurrent optimization not supported                               [RFC5557]
+       15     Global Concurrent Optimization Error          0: Unassigned                                          [RFC5557]
+                                                            1: Insufficient memory                                 [RFC5557]
+                                                            2: Global concurrent optimization not supported        [RFC5557]
                                                             3-255: Unassigned
-       16     P2MP Capability Error                         0: Unassigned                                                                 [RFC6006]
-                                                            1: The PCE cannot satisfy the request due to insufficient memory              [RFC6006]
-                                                            2: The PCE is not capable of P2MP computation                                 [RFC6006]
+       16     P2MP Capability Error                         0: Unassigned                                          [RFC6006]
+                                                            1: The PCE cannot satisfy the request due to           [RFC6006]
+                                                            insufficient memory
+                                                            2: The PCE is not capable of P2MP computation          [RFC6006]
                                                             3-255: Unassigned
-       17     P2MP END-POINTS Error                         0: Unassigned                                                                 [RFC6006]
-                                                            1: The PCE cannot satisfy the request due to no END-POINTS with leaf type 2   [RFC6006]
-                                                            2: The PCE cannot satisfy the request due to no END-POINTS with leaf type 3   [RFC6006]
-                                                            3: The PCE cannot satisfy the request due to no END-POINTS with leaf type 4   [RFC6006]
-                                                            4: The PCE cannot satisfy the request due to inconsistent END-POINTS          [RFC6006]
+       17     P2MP END-POINTS Error                         0: Unassigned                                          [RFC6006]
+                                                            1: The PCE cannot satisfy the request due to no        [RFC6006]
+                                                            END-POINTS with leaf type 2
+                                                            2: The PCE cannot satisfy the request due to no        [RFC6006]
+                                                            END-POINTS with leaf type 3
+                                                            3: The PCE cannot satisfy the request due to no        [RFC6006]
+                                                            END-POINTS with leaf type 4
+                                                            4: The PCE cannot satisfy the request due to           [RFC6006]
+                                                            inconsistent END-POINTS
                                                             5-255: Unassigned
-       18     P2MP Fragmentation Error                      0: Unassigned                                                                 [RFC6006]
-                                                            1: Fragmented request failure                                                 [RFC6006]
+       18     P2MP Fragmentation Error                      0: Unassigned                                          [RFC6006]
+                                                            1: Fragmented request failure                          [RFC6006]
                                                             2-255: Unassigned
-     19-255   Unassigned                                    0-255: Unassigned
+     19-20    Unassigned                                    0-255: Unassigned
+              Invalid traffic engineering path setup type
+       21     (TEMPORARY - registered 2015-08-14, expires   0: Unassigned                                          [draft-ietf-pce-lsp-setup-type]
+              2016-08-14)
+                                                            1: Unsupported path setup type (TEMPORARY - registered [draft-ietf-pce-lsp-setup-type]
+                                                            2015-08-14, expires 2016-08-14)
+                                                            2: Mismatched path setup type (TEMPORARY - registered  [draft-ietf-pce-lsp-setup-type]
+                                                            2015-08-14, expires 2016-08-14)
+                                                            3-255: Unassigned
+     22-255   Unassigned                                    0-255: Unassigned
 
 PCEP-ERROR Object Flag Field
 
@@ -710,16 +756,20 @@ PCEP TLV Type Indicators
            [IMG]
            CSV
 
-    Value       Description       Reference
-      0    Reserved               [RFC5440]
-      1    NO-PATH-VECTOR TLV     [RFC5440]
-      2    OVERLOAD-DURATION TLV  [RFC5440]
-      3    REQ-MISSING TLV        [RFC5440]
-      4    OF-List                [RFC5541]
-      5    Order TLV              [RFC5557]
-      6    P2MP capable           [RFC6006]
-      7    VENDOR-INFORMATION-TLV [RFC7470]
-   8-65535 Unassigned
+    Value                                  Description                                           Reference
+      0     Reserved                                                                  [RFC5440]
+      1     NO-PATH-VECTOR TLV                                                        [RFC5440]
+      2     OVERLOAD-DURATION TLV                                                     [RFC5440]
+      3     REQ-MISSING TLV                                                           [RFC5440]
+      4     OF-List                                                                   [RFC5541]
+      5     Order TLV                                                                 [RFC5557]
+      6     P2MP capable                                                              [RFC6006]
+      7     VENDOR-INFORMATION-TLV                                                    [RFC7470]
+     8-25   Unassigned
+      26    SR-PCE-CAPABILITY (TEMPORARY - registered 2015-08-14, expires 2016-08-14) [draft-ietf-pce-segment-routing]
+      27    Unassigned
+      28    PATH-SETUP-TYPE (TEMPORARY - registered 2015-08-14, expires 2016-08-14)   [draft-ietf-pce-lsp-setup-type]
+   29-65535 Unassigned
 
 NO-PATH-VECTOR TLV Flag Field
 
