@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <schema xmlns:sppfb="urn:ietf:params:xml:ns:sppf:base:1"
+   xmlns="http://www.w3.org/2001/XMLSchema"
+   targetNamespace="urn:ietf:params:xml:ns:sppf:base:1"
+   elementFormDefault="qualified" xml:lang="EN">
+    <annotation>
+     <documentation>
+      ---- Generic Object key types to be defined by specific
+           Substrate/Architecture.  The types defined here can
+           be extended by the specific architecture to
+           define the Object Identifiers ----
+     </documentation>
+    </annotation>
+    <complexType name="ObjKeyType"
+     abstract="true">
+     <annotation>
+      <documentation>
+       ---- Generic type that represents the
+            key for various objects in SPPF. ----
+      </documentation>
+     </annotation>
+    </complexType>
+
+    <complexType name="SedGrpOfferKeyType" abstract="true">
+     <complexContent>
+      <extension base="sppfb:ObjKeyType">
+       <annotation>
+        <documentation>
+        ---- Generic type that represents
+             the key for a SED group offer. ----
+        </documentation>
+       </annotation>
+      </extension>
+     </complexContent>
+    </complexType>
+
+    <complexType name="PubIdKeyType" abstract="true">
+     <complexContent>
+      <extension base="sppfb:ObjKeyType">
+       <annotation>
+        <documentation>
+         ----Generic type that
+         represents the key
+         for a Pub Id. ----
+        </documentation>
+       </annotation>
+      </extension>
+     </complexContent>
+    </complexType>
+
+    <annotation>
+     <documentation>
+       ---- Object Type Definitions ----
+     </documentation>
+    </annotation>
+
+    <complexType name="SedGrpType">
+     <complexContent>
+      <extension base="sppfb:BasicObjType">
+       <sequence>
+        <element name="sedGrpName" type="sppfb:ObjNameType"/>
+        <element name="sedRecRef" type="sppfb:SedRecRefType"
+                 minOccurs="0" maxOccurs="unbounded"/>
+        <element name="dgName" type="sppfb:ObjNameType"
+                 minOccurs="0" maxOccurs="unbounded"/>
+        <element name="peeringOrg" type="sppfb:OrgIdType"
+                 minOccurs="0" maxOccurs="unbounded"/>
+        <element name="sourceIdent" type="sppfb:SourceIdentType"
+                 minOccurs="0" maxOccurs="unbounded"/>
+        <element name="isInSvc" type="boolean"/>
+        <element name="priority" type="unsignedShort"/>
+        <element name="ext" type="sppfb:ExtAnyType" minOccurs="0"/>
+       </sequence>
+      </extension>
+     </complexContent>
+    </complexType>
+    <complexType name="DestGrpType">
+     <complexContent>
+      <extension base="sppfb:BasicObjType">
+       <sequence>
+        <element name="dgName"
+        type="sppfb:ObjNameType"/>
+       </sequence>
+      </extension>
+     </complexContent>
+    </complexType>
+    <complexType name="PubIdType" abstract="true">
+     <complexContent>
+      <extension base="sppfb:BasicObjType">
+       <sequence>
+        <element name="dgName" type="sppfb:ObjNameType"
+                 minOccurs="0" maxOccurs="unbounded"/>
+       </sequence>
+      </extension>
+     </complexContent>
+    </complexType>
+    <complexType name="TNType">
+     <complexContent>
+      <extension base="sppfb:PubIdType">
+       <sequence>
+        <element name="tn" type="sppfb:NumberValType"/>
+        <element name="corInfo" type="sppfb:CORInfoType" minOccurs="0"/>
+        <element name="sedRecRef" type="sppfb:SedRecRefType"
+                 minOccurs="0" maxOccurs="unbounded"/>
+       </sequence>
+      </extension>
+     </complexContent>
+    </complexType>
+    <complexType name="TNRType">
+     <complexContent>
+      <extension base="sppfb:PubIdType">
+       <sequence>
+        <element name="range" type="sppfb:NumberRangeType"/>
+        <element name="corInfo" type="sppfb:CORInfoType" minOccurs="0"/>
+       </sequence>
+      </extension>
+     </complexContent>
+    </complexType>
+    <complexType name="TNPType">
+     <complexContent>
+      <extension base="sppfb:PubIdType">
+       <sequence>
+        <element name="tnPrefix" type="sppfb:NumberValType"/>
+        <element name="corInfo" type="sppfb:CORInfoType" minOccurs="0"/>
+       </sequence>
+      </extension>
+     </complexContent>
+    </complexType>
+    <complexType name="RNType">
+     <complexContent>
+      <extension base="sppfb:PubIdType">
+       <sequence>
+        <element name="rn" type="sppfb:NumberValType"/>
+        <element name="corInfo" type="sppfb:CORInfoType" minOccurs="0"/>
+       </sequence>
+      </extension>
+     </complexContent>
+    </complexType>
+     <complexType name="URIPubIdType">
+     <complexContent>
+      <extension base="sppfb:PubIdType">
+       <sequence>
+        <element name="uri" type="anyURI"/>
+        <element name="ext" type="sppfb:ExtAnyType" minOccurs="0"/>
+       </sequence>
+      </extension>
+     </complexContent>
+    </complexType>
+    <complexType name="SedRecType" abstract="true">
+     <complexContent>
+      <extension base="sppfb:BasicObjType">
+       <sequence>
+        <element name="sedName" type="sppfb:ObjNameType"/>
+        <element name="sedFunction" type="sppfb:SedFunctionType"
+                 minOccurs="0"/>
+        <element name="isInSvc" type="boolean"/>
+        <element name="ttl" type="positiveInteger" minOccurs="0"/>
+       </sequence>
+      </extension>
+     </complexContent>
+    </complexType>
+    <complexType name="NAPTRType">
+     <complexContent>
+      <extension base="sppfb:SedRecType">
+       <sequence>
+        <element name="order" type="unsignedShort"/>
+        <element name="flags" type="sppfb:FlagsType" minOccurs="0"/>
+        <element name="svcs" type="sppfb:SvcType"/>
+        <element name="regx" type="sppfb:RegexParamType" minOccurs="0"/>
+        <element name="repl" type="sppfb:ReplType" minOccurs="0"/>
+        <element name="ext" type="sppfb:ExtAnyType" minOccurs="0"/>
+       </sequence>
+      </extension>
+     </complexContent>
+    </complexType>
+    <complexType name="NSType">
+     <complexContent>
+      <extension base="sppfb:SedRecType">
+       <sequence>
+        <element name="hostName" type="token"/>
+        <element name="ipAddr" type="sppfb:IPAddrType"
+                 minOccurs="0" maxOccurs="unbounded"/>
+        <element name="ext" type="sppfb:ExtAnyType" minOccurs="0"/>
+       </sequence>
+      </extension>
+     </complexContent>
+    </complexType>
+    <complexType name="URIType">
+     <complexContent>
+      <extension base="sppfb:SedRecType">
+       <sequence>
+        <element name="ere" type="token" default="^(.*)$"/>
+        <element name="uri" type="anyURI"/>
+        <element name="ext" type="sppfb:ExtAnyType" minOccurs="0"/>
+       </sequence>
+      </extension>
+     </complexContent>
+    </complexType>
+    <complexType name="SedGrpOfferType">
+     <complexContent>
+      <extension base="sppfb:BasicObjType">
+       <sequence>
+        <element name="sedGrpOfferKey" type="sppfb:SedGrpOfferKeyType"/>
+        <element name="status" type="sppfb:SedGrpOfferStatusType"/>
+        <element name="offerDateTime" type="dateTime"/>
+        <element name="acceptDateTime" type="dateTime" minOccurs="0"/>
+        <element name="ext" type="sppfb:ExtAnyType" minOccurs="0"/>
+       </sequence>
+      </extension>
+     </complexContent>
+    </complexType>
+    <complexType name="EgrRteType">
+     <complexContent>
+      <extension base="sppfb:BasicObjType">
+       <sequence>
+        <element name="egrRteName" type="sppfb:ObjNameType"/>
+        <element name="pref" type="unsignedShort"/>
+        <element name="regxRewriteRule" type="sppfb:RegexParamType"/>
+        <element name="ingrSedGrp" type="sppfb:ObjKeyType"
+                 minOccurs="0" maxOccurs="unbounded"/>
+        <element name="svcs" type="sppfb:SvcType" minOccurs="0"/>
+        <element name="ext" type="sppfb:ExtAnyType" minOccurs="0"/>
+       </sequence>
+      </extension>
+     </complexContent>
+    </complexType>
+    <annotation>
+     <documentation>
+      ---- Abstract Object and Element Type Definitions ----
+     </documentation>
+    </annotation>
+    <complexType name="BasicObjType" abstract="true">
+     <sequence>
+      <element name="rant" type="sppfb:OrgIdType"/>
+      <element name="rar" type="sppfb:OrgIdType"/>
+      <element name="cDate" type="dateTime" minOccurs="0"/>
+      <element name="mDate" type="dateTime" minOccurs="0"/>
+      <element name="ext" type="sppfb:ExtAnyType" minOccurs="0"/>
+     </sequence>
+    </complexType>
+    <complexType name="RegexParamType">
+     <sequence>
+      <element name="ere" type="sppfb:RegexType" default="^(.*)$"/>
+      <element name="repl" type="sppfb:ReplType"/>
+     </sequence>
+    </complexType>
+    <complexType name="IPAddrType">
+     <sequence>
+      <element name="addr" type="sppfb:AddrStringType"/>
+      <element name="ext" type="sppfb:ExtAnyType" minOccurs="0"/>
+     </sequence>
+     <attribute name="type" type="sppfb:IPType" default="v4"/>
+    </complexType>
+    <complexType name="SedRecRefType">
+     <sequence>
+      <element name="sedKey" type="sppfb:ObjKeyType"/>
+      <element name="priority" type="unsignedShort"/>
+      <element name="ext" type="sppfb:ExtAnyType" minOccurs="0"/>
+     </sequence>
+    </complexType>
+    <complexType name="SourceIdentType">
+     <sequence>
+      <element name="sourceIdentRegex" type="sppfb:RegexType"/>
+      <element name="sourceIdentScheme"
+               type="sppfb:SourceIdentSchemeType"/>
+      <element name="ext" type="sppfb:ExtAnyType" minOccurs="0"/>
+     </sequence>
+    </complexType>
+    <complexType name="CORInfoType">
+     <sequence>
+      <element name="corClaim" type="boolean" default="true"/>
+      <element name="cor" type="boolean" default="false" minOccurs="0"/>
+      <element name="corDate" type="dateTime" minOccurs="0"/>
+     </sequence>
+    </complexType>
+    <complexType name="SvcMenuType">
+     <sequence>
+      <element name="serverStatus" type="sppfb:ServerStatusType"/>
+      <element name="majMinVersion" type="token" maxOccurs="unbounded"/>
+      <element name="objURI" type="anyURI" maxOccurs="unbounded"/>
+      <element name="extURI" type="anyURI"
+               minOccurs="0" maxOccurs="unbounded"/>
+     </sequence>
+    </complexType>
+    <complexType name="ExtAnyType">
+     <sequence>
+      <any namespace="##other" maxOccurs="unbounded"/>
+     </sequence>
+    </complexType>
+    <simpleType name="FlagsType">
+     <restriction base="token">
+      <length value="1"/>
+      <pattern value="[A-Z]|[a-z]|[0-9]"/>
+     </restriction>
+    </simpleType>
+    <simpleType name="SvcType">
+     <restriction base="token">
+      <minLength value="1"/>
+     </restriction>
+    </simpleType>
+    <simpleType name="RegexType">
+     <restriction base="token">
+      <minLength value="1"/>
+     </restriction>
+    </simpleType>
+    <simpleType name="ReplType">
+     <restriction base="token">
+      <minLength value="1"/>
+      <maxLength value="255"/>
+     </restriction>
+    </simpleType>
+    <simpleType name="OrgIdType">
+     <restriction base="token"/>
+    </simpleType>
+    <simpleType name="ObjNameType">
+     <restriction base="token">
+      <minLength value="3"/>
+      <maxLength value="80"/>
+     </restriction>
+    </simpleType>
+    <simpleType name="TransIdType">
+     <restriction base="token">
+      <minLength value="3"/>
+      <maxLength value="120"/>
+     </restriction>
+    </simpleType>
+    <simpleType name="MinorVerType">
+     <restriction base="unsignedLong"/>
+    </simpleType>
+    <simpleType name="AddrStringType">
+     <restriction base="token">
+      <minLength value="3"/>
+      <maxLength value="45"/>
+     </restriction>
+    </simpleType>
+    <simpleType name="IPType">
+     <restriction base="token">
+      <enumeration value="v4"/>
+      <enumeration value="v6"/>
+     </restriction>
+    </simpleType>
+    <simpleType name="SourceIdentSchemeType">
+     <restriction base="token">
+      <enumeration value="uri"/>
+      <enumeration value="ip"/>
+      <enumeration value="rootDomain"/>
+     </restriction>
+    </simpleType>
+    <simpleType name="ServerStatusType">
+     <restriction base="token">
+      <enumeration value="inService"/>
+      <enumeration value="outOfService"/>
+     </restriction>
+    </simpleType>
+    <simpleType name="SedGrpOfferStatusType">
+     <restriction base="token">
+      <enumeration value="offered"/>
+      <enumeration value="accepted"/>
+     </restriction>
+    </simpleType>
+    <simpleType name="NumberValType">
+     <restriction base="token">
+      <maxLength value="20"/>
+      <pattern value="\+?\d\d*"/>
+     </restriction>
+    </simpleType>
+    <simpleType name="NumberTypeEnum">
+     <restriction base="token">
+      <enumeration value="TN"/>
+      <enumeration value="TNPrefix"/>
+      <enumeration value="RN"/>
+     </restriction>
+    </simpleType>
+    <simpleType name="SedFunctionType">
+     <restriction base="token">
+      <enumeration value="routing"/>
+      <enumeration value="lookup"/>
+     </restriction>
+    </simpleType>
+    <complexType name="NumberType">
+     <sequence>
+      <element name="value" type="sppfb:NumberValType"/>
+      <element name="type" type="sppfb:NumberTypeEnum"/>
+     </sequence>
+    </complexType>
+    <complexType name="NumberRangeType">
+     <sequence>
+      <element name="startRange" type="sppfb:NumberValType"/>
+      <element name="endRange" type="sppfb:NumberValType"/>
+     </sequence>
+    </complexType>
+   </schema>

@@ -28,7 +28,9 @@
         or @id = 'non-trans-ipv4'
         or @id = 'trans-opaque'
         or @id = 'non-trans-opaque'
-        or @id = 'bgp-extended-communities-10'">
+        or @id = 'bgp-extended-communities-10'
+        or @id = 'generic-transitive-experimental-part2'
+        or @id = 'generic-transitive-experimental-part3'">
         <th>Sub-Type Value</th>
         <th>Name</th>
         <th>Reference</th>
@@ -68,7 +70,9 @@
           or ../@id = 'non-trans-ipv4'
           or ../@id = 'trans-opaque'
           or ../@id = 'non-trans-opaque'
-          or ../@id = 'bgp-extended-communities-10'">
+          or ../@id = 'bgp-extended-communities-10'
+          or ../@id = 'generic-transitive-experimental-part2'
+          or ../@id = 'generic-transitive-experimental-part3'">
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>

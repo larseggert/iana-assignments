@@ -4,7 +4,7 @@
            2008-05-29
 
    Last Updated
-           2015-07-02
+           2015-08-24
 
    Available Formats
            [IMG]
@@ -123,456 +123,430 @@ Enumerated Status Codes
            [IMG]
            CSV
 
-                                 Associated                                                                                               Change
-    Code      Sample Text       basic status                Description                            Reference               Submitter    Controller
-                                    code
-                                              Other undefined status is the only
-   X.0.0  Other undefined      Any            undefined error code. It should be used  [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          Status                              for all errors for which only the class
-                                              of the error is known.
-   X.1.0  Other address status Not given      Something about the address specified in [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              the message caused this DSN.
-                                              The mailbox specified in the address
-                                              does not exist. For Internet mail names,
-   X.1.1  Bad destination      451, 550       this means the address portion to the    [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          mailbox address                     left of the "@" sign is invalid. This
-                                              code is only useful for permanent
-                                              failures.
-                                              The destination system specified in the
-                                              address does not exist or is incapable
-          Bad destination                     of accepting mail. For Internet mail
-   X.1.2  system address       Not given      names, this means the address portion to [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              the right of the "@" is invalid for
-                                              mail. This code is only useful for
-                                              permanent failures.
-          Bad destination                     The destination address was
-   X.1.3  mailbox address      501            syntactically invalid. This can apply to [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          syntax                              any field in the address. This code is
-                                              only useful for permanent failures.
-                                              The mailbox address as specified matches
-                                              one or more recipients on the
-   X.1.4  Destination mailbox  Not given      destination system. This may result if a [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          address ambiguous                   heuristic address mapping algorithm is
-                                              used to map the specified address to a
-                                              local mailbox name.
-          Destination address                 This mailbox address as specified was
-   X.1.5  valid                250            valid. This status code should be used   [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              for positive delivery reports.
-          Destination mailbox                 The mailbox address provided was at one
-   X.1.6  has moved, No        Not given      time valid, but mail is no longer being  [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          forwarding address                  accepted for that address. This code is
-                                              only useful for permanent failures.
-          Bad sender's mailbox                The sender's address was syntactically
-   X.1.7  address syntax       Not given      invalid. This can apply to any field in  [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              the address.
-                                              The sender's system specified in the
-                                              address does not exist or is incapable
-   X.1.8  Bad sender's system  451, 501       of accepting return mail. For domain     [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          address                             names, this means the address portion to
-                                              the right of the "@" is invalid for
-                                              mail.
-                                              The mailbox address specified was valid,
-          Message relayed to                  but the message has been relayed to a
-   X.1.9  non-compliant mailer Not given      system that does not speak this          [RFC3886] (Standards Track)       E. Allman     IESG
-                                              protocol; no further information can be
-                                              provided.
-          Recipient address                   This status code is returned when the    [RFC7505] (Standards Track);      J. Levine, M.
-   X.1.10 has null MX          556            associated address is marked as invalid  [RFC7504] (Standards Track)       Delany, J.    IESG
-                                              using a null MX.                                                           Klensin
-          Other or undefined                  The mailbox exists, but something about
-   X.2.0  mailbox status       Not given      the destination mailbox has caused the   [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              sending of this DSN.
-                                              The mailbox exists, but is not accepting
-          Mailbox disabled,                   messages. This may be a permanent error
-   X.2.1  not accepting        Not given      if the mailbox will never be re-enabled  [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          messages                            or a transient error if the mailbox is
-                                              only temporarily disabled.
-                                              The mailbox is full because the user has
-                                              exceeded a per-mailbox administrative
-                                              quota or physical capacity. The general
-   X.2.2  Mailbox full         552            semantics implies that the recipient can [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              delete messages to make more space
-                                              available. This code should be used as a
-                                              persistent transient failure.
-                                              A per-mailbox administrative message
-          Message length                      length limit has been exceeded. This
-   X.2.3  exceeds              552            status code should be used when the      [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          administrative limit                per-mailbox message length limit is less
-                                              than the general system limit. This code
-                                              should be used as a permanent failure.
-                                              The mailbox is a mailing list address
-          Mailing list                        and the mailing list was unable to be
-   X.2.4  expansion problem    450, 452       expanded. This code may represent a      [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              permanent failure or a persistent
-                                              transient failure.
-                                              The destination system exists and
-   X.3.0  Other or undefined   221, 250, 421, normally accepts mail, but something     [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          mail system status   451, 550, 554  about the system has caused the
-                                              generation of this DSN.
-                                              Mail system storage has been exceeded.
-                                              The general semantics imply that the
-   X.3.1  Mail system full     452            individual recipient may not be able to  [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              delete material to make room for
-                                              additional messages. This is useful only
-                                              as a persistent transient error.
-                                              The host on which the mailbox is
-                                              resident is not accepting messages.
-          System not accepting                Examples of such conditions include an   [RFC3463] (Standards Track);      G. Vaudreuil,
-   X.3.2  network messages     453, 521       imminent shutdown, excessive load, or    [RFC7504] (Standards Track)       J. Klensin    IESG
-                                              system maintenance. This is useful for
-                                              both permanent and persistent transient
-                                              errors.
-                                              Selected features specified for the
-                                              message are not supported by the
-   X.3.3  System not capable   Not given      destination system. This can occur in    [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          of selected features                gateways when features from one domain
-                                              cannot be mapped onto the supported
-                                              feature in another.
-                                              The message is larger than per-message
-   X.3.4  Message too big for  552, 554       size limit. This limit may either be for [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          system                              physical or administrative reasons. This
-                                              is useful only as a permanent error.
-          System incorrectly                  The system is not configured in a manner
-   X.3.5  configured           Not given      that will permit it to accept this       [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              message.
-                                              The message was accepted for
-                                              relay/delivery, but the requested
-          Requested priority                  priority (possibly the implied default)
-   X.3.6  was changed          250 or 251     was not honoured. The human readable     [RFC6710] (Standards Track)       A. Melnikov   IESG
-                                              text after the status code contains the
-                                              new priority, followed by SP (space) and
-                                              explanatory human readable text.
-                                              Something went wrong with the
-          Other or undefined                  networking, but it is not clear what the
-   X.4.0  network or routing   Not given      problem is, or the problem cannot be     [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          status                              well expressed with any of the other
-                                              provided detail codes.
-                                              The outbound connection attempt was not
-                                              answered, because either the remote
-   X.4.1  No answer from host  451            system was busy, or was unable to take a [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              call. This is useful only as a
-                                              persistent transient error.
-                                              The outbound connection was established,
-                                              but was unable to complete the message
-   X.4.2  Bad connection       421            transaction, either because of time-out, [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              or inadequate connection quality. This
-                                              is useful only as a persistent transient
-                                              error.
-                                              The network system was unable to forward
-                                              the message, because a directory server
-          Directory server                    was unavailable. This is useful only as
-   X.4.3  failure              451, 550       a persistent transient error. The        [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              inability to connect to an Internet DNS
-                                              server is one example of the directory
-                                              server failure error.
-                                              The mail system was unable to determine
-                                              the next hop for the message because the
-                                              necessary routing information was
-                                              unavailable from the directory server.
-   X.4.4  Unable to route      Not given      This is useful for both permanent and    [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              persistent transient errors. A DNS
-                                              lookup returning only an SOA (Start of
-                                              Administration) record for a domain name
-                                              is one example of the unable to route
-                                              error.
-                                              The mail system was unable to deliver
-   X.4.5  Mail system          451            the message because the mail system was  [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          congestion                          congested. This is useful only as a
-                                              persistent transient error.
-                                              A routing loop caused the message to be
-          Routing loop                        forwarded too many times, either because
-   X.4.6  detected             Not given      of incorrect routing tables or a user-   [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              forwarding loop. This is useful only as
-                                              a persistent transient error.
-                                              The message was considered too old by
-                                              the rejecting system, either because it
-                                              remained on that host too long or
-          Delivery time                       because the time-to-live value specified
-   X.4.7  expired              Not given      by the sender of the message was         [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              exceeded. If possible, the code for the
-                                              actual problem found when delivery was
-                                              attempted should be returned rather than
-                                              this code.
-                               220, 250, 251, Something was wrong with the protocol
-          Other or undefined   252, 253, 451, necessary to deliver the message to the
-   X.5.0  protocol status      452, 454, 458, next hop and the problem cannot be well  [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                               459, 501, 502, expressed with any of the other provided
-                               503, 554       detail codes.
-                               430, 500, 501, A mail transaction protocol command was
-   X.5.1  Invalid command      503, 530, 550, issued which was either out of sequence  [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                               554, 555       or unsupported. This is useful only as a
-                                              permanent error.
-                                              A mail transaction protocol command was
-                               500, 501, 502, issued which could not be interpreted,
-   X.5.2  Syntax error         550, 555       either because the syntax was wrong or   [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              the command is unrecognized. This is
-                                              useful only as a permanent error.
-                                              More recipients were specified for the
-                                              message than could have been delivered
-                                              by the protocol. This error should
-                                              normally result in the segmentation of
-   X.5.3  Too many recipients  451            the message into two, the remainder of   [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              the recipients to be delivered on a
-                                              subsequent delivery attempt. It is
-                                              included in this list in the event that
-                                              such segmentation is not possible.
-                                              A valid mail transaction protocol
-                               451, 501, 502, command was issued with invalid
-   X.5.4  Invalid command      503, 504, 550, arguments, either because the arguments  [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          arguments            555            were out of range or represented
-                                              unrecognized features. This is useful
-                                              only as a permanent error.
-          Wrong protocol                      A protocol version mis-match existed
-   X.5.5  version              Not given      which could not be automatically         [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              resolved by the communicating parties.
-                                              This enhanced status code SHOULD be
-                                              returned when the server fails the AUTH
-          Authentication                      command due to the client sending a                                        R.
-   X.5.6  Exchange line is too 500            [BASE64] response which is longer than   [RFC4954] (Standards Track)       Siemborski,   IESG
-          long                                the maximum buffer size available for                                      A. Melnikov
-                                              the currently selected SASL mechanism.
-                                              This is useful for both permanent and
-                                              persistent transient errors.
-                                              Something about the content of a message
-          Other or undefined                  caused it to be considered undeliverable
-   X.6.0  media error          Not given      and the problem cannot be well expressed [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              with any of the other provided detail
-                                              codes.
-                                              The media of the message is not
-                                              supported by either the delivery
-   X.6.1  Media not supported  Not given      protocol or the next system in the       [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              forwarding path. This is useful only as
-                                              a permanent error.
-                                              The content of the message must be
-                                              converted before it can be delivered and
-   X.6.2  Conversion required  Not given      such conversion is not permitted. Such   [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          and prohibited                      prohibitions may be the expression of
-                                              the sender in the message itself or the
-                                              policy of the sending host.
-                                              The message content must be converted in
-                                              order to be forwarded but such
-                                              conversion is not possible or is not
-   X.6.3  Conversion required  554            practical by a host in the forwarding    [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          but not supported                   path. This condition may result when an
-                                              ESMTP gateway supports 8bit transport
-                                              but is not able to downgrade the message
-                                              to 7 bit as required for the next hop.
-                                              This is a warning sent to the sender
-                                              when message delivery was successfully
-          Conversion with loss                but when the delivery required a
-   X.6.4  performed            250            conversion in which some data was lost.  [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              This may also be a permanent error if
-                                              the sender has indicated that conversion
-                                              with loss is prohibited for the message.
-                                              A conversion was required but was
-   X.6.5  Conversion Failed    Not given      unsuccessful. This may be useful as a    [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              permanent or persistent temporary
-                                              notification.
-                                              The message content could not be fetched
-   X.6.6  Message content not  554            from a remote system. This may be useful [RFC4468] (Standards Track)       C. Newman     IESG
-          available                           as a permanent or persistent temporary
-                                              notification.
-          Non-ASCII addresses                 This indicates the reception of a MAIL
-   X.6.7  not permitted for    553, 550       or RCPT command that non-ASCII addresses [RFC6531] (Standards track)       Jiankang YAO  ima@ietf.org
-          that                                are not permitted
-          sender/recipient
-          UTF-8 string reply                  This indicates that a reply containing a
-   X.6.8  is required, but not 252, 553, 550  UTF-8 string is required to show the     [RFC6531] (Standards track)       Jiankang YAO  ima@ietf.org
-          permitted by the                    mailbox name, but that form of response
-          SMTP client                         is not permitted by the SMTP client.
+    Code        Sample Text       Associated basic                  Description                     Reference       Submitter     Change Controller
+                                    status code
+                                                   Other undefined status is the only undefined  [RFC3463]
+   X.0.0  Other undefined Status  Any              error code. It should be used for all errors  (Standards      G. Vaudreuil     IESG
+                                                   for which only the class of the error is      Track)
+                                                   known.
+                                                   Something about the address specified in the  [RFC3463]
+   X.1.0  Other address status    Not given        message caused this DSN.                      (Standards      G. Vaudreuil     IESG
+                                                                                                 Track)
+                                                   The mailbox specified in the address does not
+          Bad destination mailbox                  exist. For Internet mail names, this means    [RFC3463]
+   X.1.1  address                 451, 550         the address portion to the left of the "@"    (Standards      G. Vaudreuil     IESG
+                                                   sign is invalid. This code is only useful for Track)
+                                                   permanent failures.
+                                                   The destination system specified in the
+                                                   address does not exist or is incapable of     [RFC3463]
+   X.1.2  Bad destination system  Not given        accepting mail. For Internet mail names, this (Standards      G. Vaudreuil     IESG
+          address                                  means the address portion to the right of the Track)
+                                                   "@" is invalid for mail. This code is only
+                                                   useful for permanent failures.
+                                                   The destination address was syntactically     [RFC3463]
+   X.1.3  Bad destination mailbox 501              invalid. This can apply to any field in the   (Standards      G. Vaudreuil     IESG
+          address syntax                           address. This code is only useful for         Track)
+                                                   permanent failures.
+                                                   The mailbox address as specified matches one
+          Destination mailbox                      or more recipients on the destination system. [RFC3463]
+   X.1.4  address ambiguous       Not given        This may result if a heuristic address        (Standards      G. Vaudreuil     IESG
+                                                   mapping algorithm is used to map the          Track)
+                                                   specified address to a local mailbox name.
+          Destination address                      This mailbox address as specified was valid.  [RFC3463]
+   X.1.5  valid                   250              This status code should be used for positive  (Standards      G. Vaudreuil     IESG
+                                                   delivery reports.                             Track)
+          Destination mailbox has                  The mailbox address provided was at one time  [RFC3463]
+   X.1.6  moved, No forwarding    Not given        valid, but mail is no longer being accepted   (Standards      G. Vaudreuil     IESG
+          address                                  for that address. This code is only useful    Track)
+                                                   for permanent failures.
+          Bad sender's mailbox                     The sender's address was syntactically        [RFC3463]
+   X.1.7  address syntax          Not given        invalid. This can apply to any field in the   (Standards      G. Vaudreuil     IESG
+                                                   address.                                      Track)
+                                                   The sender's system specified in the address
+          Bad sender's system                      does not exist or is incapable of accepting   [RFC3463]
+   X.1.8  address                 451, 501         return mail. For domain names, this means the (Standards      G. Vaudreuil     IESG
+                                                   address portion to the right of the "@" is    Track)
+                                                   invalid for mail.
+                                                   The mailbox address specified was valid, but  [RFC3886]
+   X.1.9  Message relayed to      Not given        the message has been relayed to a system that (Standards      E. Allman        IESG
+          non-compliant mailer                     does not speak this protocol; no further      Track)
+                                                   information can be provided.
+                                                                                                 [RFC7505]
+                                                   This status code is returned when the         (Standards      J. Levine, M.
+   X.1.10 Recipient address has   556              associated address is marked as invalid using Track);         Delany, J.       IESG
+          null MX                                  a null MX.                                    [RFC7504]       Klensin
+                                                                                                 (Standards
+                                                                                                 Track)
+          Other or undefined                       The mailbox exists, but something about the   [RFC3463]
+   X.2.0  mailbox status          Not given        destination mailbox has caused the sending of (Standards      G. Vaudreuil     IESG
+                                                   this DSN.                                     Track)
+                                                   The mailbox exists, but is not accepting
+          Mailbox disabled, not                    messages. This may be a permanent error if    [RFC3463]
+   X.2.1  accepting messages      Not given        the mailbox will never be re-enabled or a     (Standards      G. Vaudreuil     IESG
+                                                   transient error if the mailbox is only        Track)
+                                                   temporarily disabled.
+                                                   The mailbox is full because the user has
+                                                   exceeded a per-mailbox administrative quota
+                                                   or physical capacity. The general semantics   [RFC3463]
+   X.2.2  Mailbox full            552              implies that the recipient can delete         (Standards      G. Vaudreuil     IESG
+                                                   messages to make more space available. This   Track)
+                                                   code should be used as a persistent transient
+                                                   failure.
+                                                   A per-mailbox administrative message length
+                                                   limit has been exceeded. This status code     [RFC3463]
+   X.2.3  Message length exceeds  552              should be used when the per-mailbox message   (Standards      G. Vaudreuil     IESG
+          administrative limit                     length limit is less than the general system  Track)
+                                                   limit. This code should be used as a
+                                                   permanent failure.
+                                                   The mailbox is a mailing list address and the [RFC3463]
+   X.2.4  Mailing list expansion  450, 452         mailing list was unable to be expanded. This  (Standards      G. Vaudreuil     IESG
+          problem                                  code may represent a permanent failure or a   Track)
+                                                   persistent transient failure.
+          Other or undefined mail 221, 250, 421,   The destination system exists and normally    [RFC3463]
+   X.3.0  system status           451, 550, 554    accepts mail, but something about the system  (Standards      G. Vaudreuil     IESG
+                                                   has caused the generation of this DSN.        Track)
+                                                   Mail system storage has been exceeded. The
+                                                   general semantics imply that the individual   [RFC3463]
+   X.3.1  Mail system full        452              recipient may not be able to delete material  (Standards      G. Vaudreuil     IESG
+                                                   to make room for additional messages. This is Track)
+                                                   useful only as a persistent transient error.
+                                                   The host on which the mailbox is resident is  [RFC3463]
+                                                   not accepting messages. Examples of such      (Standards
+   X.3.2  System not accepting    453, 521         conditions include an imminent shutdown,      Track);         G. Vaudreuil, J. IESG
+          network messages                         excessive load, or system maintenance. This   [RFC7504]       Klensin
+                                                   is useful for both permanent and persistent   (Standards
+                                                   transient errors.                             Track)
+                                                   Selected features specified for the message
+          System not capable of                    are not supported by the destination system.  [RFC3463]
+   X.3.3  selected features       Not given        This can occur in gateways when features from (Standards      G. Vaudreuil     IESG
+                                                   one domain cannot be mapped onto the          Track)
+                                                   supported feature in another.
+                                                   The message is larger than per-message size   [RFC3463]
+   X.3.4  Message too big for     552, 554         limit. This limit may either be for physical  (Standards      G. Vaudreuil     IESG
+          system                                   or administrative reasons. This is useful     Track)
+                                                   only as a permanent error.
+          System incorrectly                       The system is not configured in a manner that [RFC3463]
+   X.3.5  configured              Not given        will permit it to accept this message.        (Standards      G. Vaudreuil     IESG
+                                                                                                 Track)
+                                                   The message was accepted for relay/delivery,
+                                                   but the requested priority (possibly the      [RFC6710]
+   X.3.6  Requested priority was  250 or 251       implied default) was not honoured. The human  (Standards      A. Melnikov      IESG
+          changed                                  readable text after the status code contains  Track)
+                                                   the new priority, followed by SP (space) and
+                                                   explanatory human readable text.
+          Other or undefined                       Something went wrong with the networking, but [RFC3463]
+   X.4.0  network or routing      Not given        it is not clear what the problem is, or the   (Standards      G. Vaudreuil     IESG
+          status                                   problem cannot be well expressed with any of  Track)
+                                                   the other provided detail codes.
+                                                   The outbound connection attempt was not
+                                                   answered, because either the remote system    [RFC3463]
+   X.4.1  No answer from host     451              was busy, or was unable to take a call. This  (Standards      G. Vaudreuil     IESG
+                                                   is useful only as a persistent transient      Track)
+                                                   error.
+                                                   The outbound connection was established, but
+                                                   was unable to complete the message            [RFC3463]
+   X.4.2  Bad connection          421              transaction, either because of time-out, or   (Standards      G. Vaudreuil     IESG
+                                                   inadequate connection quality. This is useful Track)
+                                                   only as a persistent transient error.
+                                                   The network system was unable to forward the
+                                                   message, because a directory server was
+          Directory server                         unavailable. This is useful only as a         [RFC3463]
+   X.4.3  failure                 451, 550         persistent transient error. The inability to  (Standards      G. Vaudreuil     IESG
+                                                   connect to an Internet DNS server is one      Track)
+                                                   example of the directory server failure
+                                                   error.
+                                                   The mail system was unable to determine the
+                                                   next hop for the message because the
+                                                   necessary routing information was unavailable
+                                                   from the directory server. This is useful for [RFC3463]
+   X.4.4  Unable to route         Not given        both permanent and persistent transient       (Standards      G. Vaudreuil     IESG
+                                                   errors. A DNS lookup returning only an SOA    Track)
+                                                   (Start of Administration) record for a domain
+                                                   name is one example of the unable to route
+                                                   error.
+                                                   The mail system was unable to deliver the     [RFC3463]
+   X.4.5  Mail system congestion  451              message because the mail system was           (Standards      G. Vaudreuil     IESG
+                                                   congested. This is useful only as a           Track)
+                                                   persistent transient error.
+                                                   A routing loop caused the message to be
+                                                   forwarded too many times, either because of   [RFC3463]
+   X.4.6  Routing loop detected   Not given        incorrect routing tables or a user-           (Standards      G. Vaudreuil     IESG
+                                                   forwarding loop. This is useful only as a     Track)
+                                                   persistent transient error.
+                                                   The message was considered too old by the
+                                                   rejecting system, either because it remained
+                                                   on that host too long or because the          [RFC3463]
+   X.4.7  Delivery time expired   Not given        time-to-live value specified by the sender of (Standards      G. Vaudreuil     IESG
+                                                   the message was exceeded. If possible, the    Track)
+                                                   code for the actual problem found when
+                                                   delivery was attempted should be returned
+                                                   rather than this code.
+                                  220, 250, 251,   Something was wrong with the protocol
+          Other or undefined      252, 253, 451,   necessary to deliver the message to the next  [RFC3463]
+   X.5.0  protocol status         452, 454, 458,   hop and the problem cannot be well expressed  (Standards      G. Vaudreuil     IESG
+                                  459, 501, 502,   with any of the other provided detail codes.  Track)
+                                  503, 554
+                                  430, 500, 501,   A mail transaction protocol command was       [RFC3463]
+   X.5.1  Invalid command         503, 530, 550,   issued which was either out of sequence or    (Standards      G. Vaudreuil     IESG
+                                  554, 555         unsupported. This is useful only as a         Track)
+                                                   permanent error.
+                                                   A mail transaction protocol command was
+                                  500, 501, 502,   issued which could not be interpreted, either [RFC3463]
+   X.5.2  Syntax error            550, 555         because the syntax was wrong or the command   (Standards      G. Vaudreuil     IESG
+                                                   is unrecognized. This is useful only as a     Track)
+                                                   permanent error.
+                                                   More recipients were specified for the
+                                                   message than could have been delivered by the
+                                                   protocol. This error should normally result   [RFC3463]
+   X.5.3  Too many recipients     451              in the segmentation of the message into two,  (Standards      G. Vaudreuil     IESG
+                                                   the remainder of the recipients to be         Track)
+                                                   delivered on a subsequent delivery attempt.
+                                                   It is included in this list in the event that
+                                                   such segmentation is not possible.
+                                                   A valid mail transaction protocol command was
+          Invalid command         451, 501, 502,   issued with invalid arguments, either because [RFC3463]
+   X.5.4  arguments               503, 504, 550,   the arguments were out of range or            (Standards      G. Vaudreuil     IESG
+                                  555              represented unrecognized features. This is    Track)
+                                                   useful only as a permanent error.
+                                                   A protocol version mis-match existed which    [RFC3463]
+   X.5.5  Wrong protocol version  Not given        could not be automatically resolved by the    (Standards      G. Vaudreuil     IESG
+                                                   communicating parties.                        Track)
+                                                   This enhanced status code SHOULD be returned
+                                                   when the server fails the AUTH command due to
+          Authentication Exchange                  the client sending a [BASE64] response which  [RFC4954]       R. Siemborski,
+   X.5.6  line is too long        500              is longer than the maximum buffer size        (Standards      A. Melnikov      IESG
+                                                   available for the currently selected SASL     Track)
+                                                   mechanism. This is useful for both permanent
+                                                   and persistent transient errors.
+                                                   Something about the content of a message      [RFC3463]
+   X.6.0  Other or undefined      Not given        caused it to be considered undeliverable and  (Standards      G. Vaudreuil     IESG
+          media error                              the problem cannot be well expressed with any Track)
+                                                   of the other provided detail codes.
+                                                   The media of the message is not supported by  [RFC3463]
+   X.6.1  Media not supported     Not given        either the delivery protocol or the next      (Standards      G. Vaudreuil     IESG
+                                                   system in the forwarding path. This is useful Track)
+                                                   only as a permanent error.
+                                                   The content of the message must be converted
+                                                   before it can be delivered and such           [RFC3463]
+   X.6.2  Conversion required and Not given        conversion is not permitted. Such             (Standards      G. Vaudreuil     IESG
+          prohibited                               prohibitions may be the expression of the     Track)
+                                                   sender in the message itself or the policy of
+                                                   the sending host.
+                                                   The message content must be converted in
+                                                   order to be forwarded but such conversion is
+                                                   not possible or is not practical by a host in [RFC3463]
+   X.6.3  Conversion required but 554              the forwarding path. This condition may       (Standards      G. Vaudreuil     IESG
+          not supported                            result when an ESMTP gateway supports 8bit    Track)
+                                                   transport but is not able to downgrade the
+                                                   message to 7 bit as required for the next
+                                                   hop.
+                                                   This is a warning sent to the sender when
+                                                   message delivery was successfully but when
+          Conversion with loss                     the delivery required a conversion in which   [RFC3463]
+   X.6.4  performed               250              some data was lost. This may also be a        (Standards      G. Vaudreuil     IESG
+                                                   permanent error if the sender has indicated   Track)
+                                                   that conversion with loss is prohibited for
+                                                   the message.
+                                                   A conversion was required but was             [RFC3463]
+   X.6.5  Conversion Failed       Not given        unsuccessful. This may be useful as a         (Standards      G. Vaudreuil     IESG
+                                                   permanent or persistent temporary             Track)
+                                                   notification.
+                                                   The message content could not be fetched from [RFC4468]
+   X.6.6  Message content not     554              a remote system. This may be useful as a      (Standards      C. Newman        IESG
+          available                                permanent or persistent temporary             Track)
+                                                   notification.
+          Non-ASCII addresses not                  This indicates the reception of a MAIL or     [RFC6531]
+   X.6.7  permitted for that      553, 550         RCPT command that non-ASCII addresses are not (Standards      Jiankang YAO     ima@ietf.org
+          sender/recipient                         permitted                                     track)
+          UTF-8 string reply is                    This indicates that a reply containing a      [RFC6531]
+   X.6.8  required, but not       252, 553, 550    UTF-8 string is required to show the mailbox  (Standards      Jiankang YAO     ima@ietf.org
+          permitted by the SMTP                    name, but that form of response is not        track)
+          client                                   permitted by the SMTP client.
           UTF-8 header message
-          cannot be
-   X.6.9  transferred to one   550            This indicates that transaction failed   [RFC6531] (Standards track)       Jiankang YAO  ima@ietf.org
-          or more recipients,                 after the final "." of the DATA command.
-          so the message must
-          be rejected
-   X.6.10                                     This is a duplicate of X.6.8 and is thus [RFC6531] (Standards track)
-                                              deprecated.
-                                              Something related to security caused the
-                               220, 235, 450, message to be returned, and the problem
-          Other or undefined   454, 500, 501, cannot be well expressed with any of the
-   X.7.0  security status      503, 504, 530, other provided detail codes. This status [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                               535, 550       code may also be used when the condition
-                                              cannot be further described because of
-                                              security policies in force.
-                                              The sender is not authorized to send to
-                                              the destination. This can be the result
-          Delivery not         451, 454, 502, of per-host or per-recipient filtering.
-   X.7.1  authorized, message  503, 533, 550, This memo does not discuss the merits of [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          refused              551            any such filtering, but provides a
-                                              mechanism to report such. This is useful
-                                              only as a permanent error.
-                                              The sender is not authorized to send a
-   X.7.2  Mailing list         550            message to the intended mailing list.    [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          expansion prohibited                This is useful only as a permanent
-                                              error.
-                                              A conversion from one secure messaging
-          Security conversion                 protocol to another was required for
-   X.7.3  required but not     Not given      delivery and such conversion was not     [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          possible                            possible. This is useful only as a
-                                              permanent error.
-                                              A message contained security features
-          Security features                   such as secure authentication that could
-   X.7.4  not supported        504            not be supported on the delivery         [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-                                              protocol. This is useful only as a
-                                              permanent error.
-                                              A transport system otherwise authorized
-                                              to validate or decrypt a message in
-   X.7.5  Cryptographic        Not given      transport was unable to do so because    [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          failure                             necessary information such as key was
-                                              not available or such information was
-                                              invalid.
-          Cryptographic                       A transport system otherwise authorized
-   X.7.6  algorithm not        Not given      to validate or decrypt a message was     [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          supported                           unable to do so because the necessary
-                                              algorithm was not supported.
-                                              A transport system otherwise authorized
-                                              to validate a message was unable to do
-   X.7.7  Message integrity    Not given      so because the message was corrupted or  [RFC3463] (Standards Track)       G. Vaudreuil  IESG
-          failure                             altered. This may be useful as a
-                                              permanent, transient persistent, or
-                                              successful delivery code.
-                                              This response to the AUTH command
-                                              indicates that the authentication failed
-          Authentication                      due to invalid or insufficient                                             R.
-   X.7.8  credentials invalid  535, 554       authentication credentials. In this      [RFC4954] (Standards Track)       Siemborski,   IESG
-                                              case, the client SHOULD ask the user to                                    A. Melnikov
-                                              supply new credentials (such as by
-                                              presenting a password dialog box).
-                                              This response to the AUTH command
-          Authentication                      indicates that the selected                                                R.
-   X.7.9  mechanism is too     534            authentication mechanism is weaker than  [RFC4954] (Standards Track)       Siemborski,   IESG
-          weak                                server policy permits for that user. The                                   A. Melnikov
-                                              client SHOULD retry with a new
-                                              authentication mechanism.
-                                              This indicates that external strong
-                                              privacy layer is needed in order to use
-                                              the requested authentication mechanism.
-                                              This is primarily intended for use with                                    T. Hansen, J.
-   X.7.10 Encryption Needed    523            clear text authentication mechanisms. A  [RFC5248] (Best current practice) Klensin       IESG
-                                              client which receives this may activate
-                                              a security layer such as TLS prior to
-                                              authenticating, or attempt to use a
-                                              stronger mechanism.
-                                              This response to the AUTH command
-                                              indicates that the selected
-                                              authentication mechanism may only be
-          Encryption required                 used when the underlying SMTP connection
-          for requested                       is encrypted. Note that this response                                      R.
-   X.7.11 authentication       524, 538       code is documented here for historical   [RFC4954] (Standards Track)       Siemborski,   IESG
-          mechanism                           purposes only. Modern implementations                                      A. Melnikov
-                                              SHOULD NOT advertise mechanisms that are
-                                              not permitted due to lack of encryption,
-                                              unless an encryption layer of sufficient
-                                              strength is currently being employed.
-                                              This response to the AUTH command
-                                              indicates that the user needs to
-                                              transition to the selected
-          A password                          authentication mechanism. This is                                          R.
-   X.7.12 transition is needed 422, 432       typically done by authenticating once    [RFC4954] (Standards Track)       Siemborski,   IESG
-                                              using the [PLAIN] authentication                                           A. Melnikov
-                                              mechanism. The selected mechanism SHOULD
-                                              then work for authentications in
-                                              subsequent sessions.
-                                              Sometimes a system administrator will
-                                              have to disable a user's account (e.g.,
-                                              due to lack of payment, abuse, evidence
-                                              of a break-in attempt, etc). This error
-                                              code occurs after a successful
-                                              authentication to a disabled account.
-   X.7.13 User Account         525            This informs the client that the failure [RFC5248] (Best current practice) T. Hansen, J. IESG
-          Disabled                            is permanent until the user contacts                                       Klensin
-                                              their system administrator to get the
-                                              account re-enabled. It differs from a
-                                              generic authentication failure where the
-                                              client's best option is to present the
-                                              passphrase entry dialog in case the user
-                                              simply mistyped their passphrase.
-                                              The submission server requires a
-                                              configured trust relationship with a
-   X.7.14 Trust relationship   535, 554       third-party server in order to access    [RFC5248] (Best current practice) T. Hansen, J. IESG
-          required                            the message content. This value replaces                                   Klensin
-                                              the prior use of X.7.8 for this error
-                                              condition. thereby updating [RFC4468].
-                                              The specified priority level is below
-                                              the lowest priority acceptable for the
-                               450, 550       receiving SMTP server. This condition
-   X.7.15 Priority Level is    (other 4XX or  might be temporary, for example the      [RFC6710] (Standards Track)       A. Melnikov   IESG
-          too low              5XX codes are  server is operating in a mode where only
-                               allowed)       higher priority messages are accepted
-                                              for transfer and delivery, while lower
-                                              priority messages are rejected.
-                                              The message is too big for the specified
-          Message is too big   552 (other 4XX priority. This condition might be
-   X.7.16 for the specified    or 5XX codes   temporary, for example the server is     [RFC6710] (Standards Track)       A. Melnikov   IESG
-          priority             are allowed)   operating in a mode where only higher
-                                              priority messages below certain size are
-                                              accepted for transfer and delivery.
-                                              This status code is returned when a
-                                              message is received with a
-                                              Require-Recipient-Valid-Since field or
-   X.7.17 Mailbox owner has    5XX            RRVS extension and the receiving system  [RFC7293] (Standards Track)       M. Kucherawy  IESG
-          changed                             is able to determine that the intended
-                                              recipient mailbox has not been under
-                                              continuous ownership since the specified
-                                              date-time.
-                                              This status code is returned when a
-                                              message is received with a
-          Domain owner has                    Require-Recipient-Valid-Since field or
-   X.7.18 changed              5XX            RRVS extension and the receiving system  [RFC7293] (Standards Track)       M. Kucherawy  IESG
-                                              wishes to disclose that the owner of the
-                                              domain name of the recipient has changed
-                                              since the specified date-time.
-                                              This status code is returned when a
-                                              message is received with a
-                                              Require-Recipient-Valid-Since field or
-          RRVS test cannot be                 RRVS extension and the receiving system
-   X.7.19 completed            5XX            cannot complete the requested evaluation [RFC7293] (Standards Track)       M. Kucherawy  IESG
-                                              because the required timestamp was not
-                                              recorded. The message originator needs
-                                              to decide whether to reissue the message
-                                              without RRVS protection.
-                                              This status code is returned when a
-   X.7.20 No passing DKIM      550            message did not contain any passing DKIM [RFC7372] (Standards Track);      M. Kucherawy  IESG
-          signature found                     signatures. (This violates the advice of [RFC6376] (Standards Track)
-                                              Section 6.1 of [RFC6376].)
-                                              This status code is returned when a
-          No acceptable DKIM                  message contains one or more passing     [RFC7372] (Standards Track);
-   X.7.21 signature found      550            DKIM signatures, but none are            [RFC6376] (Standards Track)       M. Kucherawy  IESG
-                                              acceptable. (This violates the advice of
-                                              Section 6.1 of [RFC6376].)
-                                              This status code is returned when a
-                                              message contains one or more passing
-          No valid                            DKIM signatures, but none are acceptable
-   X.7.22 author-matched DKIM  550            because none have an identifier(s) that  [RFC7372] (Standards Track);      M. Kucherawy  IESG
-          signature found                     matches the author address(es) found in  [RFC6376] (Standards Track)
-                                              the From header field. This is a special
-                                              case of X.7.21. (This violates the
-                                              advice of Section 6.1 of [RFC6376].)
-                                              This status code is returned when a
-                                              message completed an SPF check that
-   X.7.23 SPF validation       550            produced a "fail" result, contrary to    [RFC7372] (Standards Track);      M. Kucherawy  IESG
-          failed                              local policy requirements. Used in place [RFC7208] (Standards Track)
-                                              of 5.7.1 as described in Section 8.4 of
-                                              [RFC7208].
-                                              This status code is returned when
-                                              evaluation of SPF relative to an
-   X.7.24 SPF validation error 451/550        arriving message resulted in an error.   [RFC7372] (Standards Track);      M. Kucherawy  IESG
-                                              Used in place of 4.4.3 or 5.5.2 as       [RFC7208] (Standards Track)
-                                              described in Sections 8.6 and 8.7 of
-                                              [RFC7208].
-                                              This status code is returned when an     [RFC7372] (Standards Track);
-   X.7.25 Reverse DNS          550            SMTP client's IP address failed a        [RFC-ietf-appsawg-rfc7001bis-11]  M. Kucherawy  IESG
-          validation failed                   reverse DNS validation check, contrary   (Standards Track)
-                                              to local policy requirements.
-                                              This status code is returned when a
-          Multiple                            message failed more than one message
-   X.7.26 authentication       550            authentication check, contrary to local  [RFC7372] (Standards Track)       M. Kucherawy  IESG
-          checks failed                       policy requirements. The particular
-                                              mechanisms that failed are not
-                                              specified.
-                                              This status code is returned when the
-          Sender address has                  associated sender address has a null MX,                                   J. Levine, M.
-   X.7.27 null MX              550            and the SMTP receiver is configured to   [RFC7505] (Standards Track)       Delany        IESG
-                                              reject mail from such sender (e.g.,
-                                              because it could not return a DSN).
+          cannot be transferred                                                                  [RFC6531]
+   X.6.9  to one or more          550              This indicates that transaction failed after  (Standards      Jiankang YAO     ima@ietf.org
+          recipients, so the                       the final "." of the DATA command.            track)
+          message must be
+          rejected
+                                                   This is a duplicate of X.6.8 and is thus      [RFC6531]
+   X.6.10                                          deprecated.                                   (Standards
+                                                                                                 track)
+                                                   Something related to security caused the
+                                  220, 235, 450,   message to be returned, and the problem
+          Other or undefined      454, 500, 501,   cannot be well expressed with any of the      [RFC3463]
+   X.7.0  security status         503, 504, 530,   other provided detail codes. This status code (Standards      G. Vaudreuil     IESG
+                                  535, 550         may also be used when the condition cannot be Track)
+                                                   further described because of security
+                                                   policies in force.
+                                                   The sender is not authorized to send to the
+                                                   destination. This can be the result of
+          Delivery not            451, 454, 502,   per-host or per-recipient filtering. This     [RFC3463]
+   X.7.1  authorized, message     503, 533, 550,   memo does not discuss the merits of any such  (Standards      G. Vaudreuil     IESG
+          refused                 551              filtering, but provides a mechanism to report Track)
+                                                   such. This is useful only as a permanent
+                                                   error.
+          Mailing list expansion                   The sender is not authorized to send a        [RFC3463]
+   X.7.2  prohibited              550              message to the intended mailing list. This is (Standards      G. Vaudreuil     IESG
+                                                   useful only as a permanent error.             Track)
+          Security conversion                      A conversion from one secure messaging        [RFC3463]
+   X.7.3  required but not        Not given        protocol to another was required for delivery (Standards      G. Vaudreuil     IESG
+          possible                                 and such conversion was not possible. This is Track)
+                                                   useful only as a permanent error.
+                                                   A message contained security features such as [RFC3463]
+   X.7.4  Security features not   504              secure authentication that could not be       (Standards      G. Vaudreuil     IESG
+          supported                                supported on the delivery protocol. This is   Track)
+                                                   useful only as a permanent error.
+                                                   A transport system otherwise authorized to
+                                                   validate or decrypt a message in transport    [RFC3463]
+   X.7.5  Cryptographic failure   Not given        was unable to do so because necessary         (Standards      G. Vaudreuil     IESG
+                                                   information such as key was not available or  Track)
+                                                   such information was invalid.
+                                                   A transport system otherwise authorized to    [RFC3463]
+   X.7.6  Cryptographic algorithm Not given        validate or decrypt a message was unable to   (Standards      G. Vaudreuil     IESG
+          not supported                            do so because the necessary algorithm was not Track)
+                                                   supported.
+                                                   A transport system otherwise authorized to
+          Message integrity                        validate a message was unable to do so        [RFC3463]
+   X.7.7  failure                 Not given        because the message was corrupted or altered. (Standards      G. Vaudreuil     IESG
+                                                   This may be useful as a permanent, transient  Track)
+                                                   persistent, or successful delivery code.
+                                                   This response to the AUTH command indicates
+                                                   that the authentication failed due to invalid [RFC4954]
+   X.7.8  Authentication          535, 554         or insufficient authentication credentials.   (Standards      R. Siemborski,   IESG
+          credentials invalid                      In this case, the client SHOULD ask the user  Track)          A. Melnikov
+                                                   to supply new credentials (such as by
+                                                   presenting a password dialog box).
+                                                   This response to the AUTH command indicates
+          Authentication                           that the selected authentication mechanism is [RFC4954]       R. Siemborski,
+   X.7.9  mechanism is too weak   534              weaker than server policy permits for that    (Standards      A. Melnikov      IESG
+                                                   user. The client SHOULD retry with a new      Track)
+                                                   authentication mechanism.
+                                                   This indicates that external strong privacy
+                                                   layer is needed in order to use the requested
+                                                   authentication mechanism. This is primarily   [RFC5248] (Best
+   X.7.10 Encryption Needed       523              intended for use with clear text              current         T. Hansen, J.    IESG
+                                                   authentication mechanisms. A client which     practice)       Klensin
+                                                   receives this may activate a security layer
+                                                   such as TLS prior to authenticating, or
+                                                   attempt to use a stronger mechanism.
+                                                   This response to the AUTH command indicates
+                                                   that the selected authentication mechanism
+                                                   may only be used when the underlying SMTP
+          Encryption required for                  connection is encrypted. Note that this
+          requested                                response code is documented here for          [RFC4954]       R. Siemborski,
+   X.7.11 authentication          524, 538         historical purposes only. Modern              (Standards      A. Melnikov      IESG
+          mechanism                                implementations SHOULD NOT advertise          Track)
+                                                   mechanisms that are not permitted due to lack
+                                                   of encryption, unless an encryption layer of
+                                                   sufficient strength is currently being
+                                                   employed.
+                                                   This response to the AUTH command indicates
+                                                   that the user needs to transition to the
+          A password transition                    selected authentication mechanism. This is    [RFC4954]       R. Siemborski,
+   X.7.12 is needed               422, 432         typically done by authenticating once using   (Standards      A. Melnikov      IESG
+                                                   the [PLAIN] authentication mechanism. The     Track)
+                                                   selected mechanism SHOULD then work for
+                                                   authentications in subsequent sessions.
+                                                   Sometimes a system administrator will have to
+                                                   disable a user's account (e.g., due to lack
+                                                   of payment, abuse, evidence of a break-in
+                                                   attempt, etc). This error code occurs after a
+                                                   successful authentication to a disabled
+                                                   account. This informs the client that the     [RFC5248] (Best T. Hansen, J.
+   X.7.13 User Account Disabled   525              failure is permanent until the user contacts  current         Klensin          IESG
+                                                   their system administrator to get the account practice)
+                                                   re-enabled. It differs from a generic
+                                                   authentication failure where the client's
+                                                   best option is to present the passphrase
+                                                   entry dialog in case the user simply mistyped
+                                                   their passphrase.
+                                                   The submission server requires a configured
+                                                   trust relationship with a third-party server  [RFC5248] (Best
+   X.7.14 Trust relationship      535, 554         in order to access the message content. This  current         T. Hansen, J.    IESG
+          required                                 value replaces the prior use of X.7.8 for     practice)       Klensin
+                                                   this error condition. thereby updating
+                                                   [RFC4468].
+                                                   The specified priority level is below the
+                                                   lowest priority acceptable for the receiving
+                                  450, 550 (other  SMTP server. This condition might be          [RFC6710]
+   X.7.15 Priority Level is too   4XX or 5XX codes temporary, for example the server is          (Standards      A. Melnikov      IESG
+          low                     are allowed)     operating in a mode where only higher         Track)
+                                                   priority messages are accepted for transfer
+                                                   and delivery, while lower priority messages
+                                                   are rejected.
+                                                   The message is too big for the specified
+                                  552 (other 4XX   priority. This condition might be temporary,  [RFC6710]
+   X.7.16 Message is too big for  or 5XX codes are for example the server is operating in a mode (Standards      A. Melnikov      IESG
+          the specified priority  allowed)         where only higher priority messages below     Track)
+                                                   certain size are accepted for transfer and
+                                                   delivery.
+                                                   This status code is returned when a message
+                                                   is received with a
+          Mailbox owner has                        Require-Recipient-Valid-Since field or RRVS   [RFC7293]
+   X.7.17 changed                 5XX              extension and the receiving system is able to (Standards      M. Kucherawy     IESG
+                                                   determine that the intended recipient mailbox Track)
+                                                   has not been under continuous ownership since
+                                                   the specified date-time.
+                                                   This status code is returned when a message
+                                                   is received with a
+          Domain owner has                         Require-Recipient-Valid-Since field or RRVS   [RFC7293]
+   X.7.18 changed                 5XX              extension and the receiving system wishes to  (Standards      M. Kucherawy     IESG
+                                                   disclose that the owner of the domain name of Track)
+                                                   the recipient has changed since the specified
+                                                   date-time.
+                                                   This status code is returned when a message
+                                                   is received with a
+                                                   Require-Recipient-Valid-Since field or RRVS   [RFC7293]
+   X.7.19 RRVS test cannot be     5XX              extension and the receiving system cannot     (Standards      M. Kucherawy     IESG
+          completed                                complete the requested evaluation because the Track)
+                                                   required timestamp was not recorded. The
+                                                   message originator needs to decide whether to
+                                                   reissue the message without RRVS protection.
+                                                                                                 [RFC7372]
+                                                   This status code is returned when a message   (Standards
+   X.7.20 No passing DKIM         550              did not contain any passing DKIM signatures.  Track);         M. Kucherawy     IESG
+          signature found                          (This violates the advice of Section 6.1 of   [RFC6376]
+                                                   [RFC6376].)                                   (Standards
+                                                                                                 Track)
+                                                                                                 [RFC7372]
+                                                   This status code is returned when a message   (Standards
+   X.7.21 No acceptable DKIM      550              contains one or more passing DKIM signatures, Track);         M. Kucherawy     IESG
+          signature found                          but none are acceptable. (This violates the   [RFC6376]
+                                                   advice of Section 6.1 of [RFC6376].)          (Standards
+                                                                                                 Track)
+                                                   This status code is returned when a message
+                                                   contains one or more passing DKIM signatures, [RFC7372]
+                                                   but none are acceptable because none have an  (Standards
+   X.7.22 No valid author-matched 550              identifier(s) that matches the author         Track);         M. Kucherawy     IESG
+          DKIM signature found                     address(es) found in the From header field.   [RFC6376]
+                                                   This is a special case of X.7.21. (This       (Standards
+                                                   violates the advice of Section 6.1 of         Track)
+                                                   [RFC6376].)
+                                                   This status code is returned when a message   [RFC7372]
+                                                   completed an SPF check that produced a "fail" (Standards
+   X.7.23 SPF validation failed   550              result, contrary to local policy              Track);         M. Kucherawy     IESG
+                                                   requirements. Used in place of 5.7.1 as       [RFC7208]
+                                                   described in Section 8.4 of [RFC7208].        (Standards
+                                                                                                 Track)
+                                                   This status code is returned when evaluation  [RFC7372]
+                                                   of SPF relative to an arriving message        (Standards
+   X.7.24 SPF validation error    451/550          resulted in an error. Used in place of 4.4.3  Track);         M. Kucherawy     IESG
+                                                   or 5.5.2 as described in Sections 8.6 and 8.7 [RFC7208]
+                                                   of [RFC7208].                                 (Standards
+                                                                                                 Track)
+                                                                                                 [RFC7372]
+                                                   This status code is returned when an SMTP     (Standards
+   X.7.25 Reverse DNS validation  550              client's IP address failed a reverse DNS      Track);         M. Kucherawy     IESG
+          failed                                   validation check, contrary to local policy    [RFC7601]
+                                                   requirements.                                 (Standards
+                                                                                                 Track)
+                                                   This status code is returned when a message
+          Multiple authentication                  failed more than one message authentication   [RFC7372]
+   X.7.26 checks failed           550              check, contrary to local policy requirements. (Standards      M. Kucherawy     IESG
+                                                   The particular mechanisms that failed are not Track)
+                                                   specified.
+                                                   This status code is returned when the
+          Sender address has null                  associated sender address has a null MX, and  [RFC7505]       J. Levine, M.
+   X.7.27 MX                      550              the SMTP receiver is configured to reject     (Standards      Delany           IESG
+                                                   mail from such sender (e.g., because it could Track)
+                                                   not return a DSN).
