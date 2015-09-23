@@ -20,9 +20,15 @@
       <xsl:when test="@id = 'subtlv5'">
         <tr><th>Value</th><th>Sub-TLV</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'subtlv6'">
+        <tr><th>Value</th><th>Length</th><th>Sub-TLV</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:when test="@id = 'otn-tdm-scsi'">
         <tr><th>Value</th><th>Sub-TLV</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:otherwise>
+        <tr><th>Value</th><th>Sub-TLV</th><th>Reference</th></tr>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
@@ -35,16 +41,21 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'subtlv1'
-                   or ../@id = 'subtlv2'
-                   or ../@id = 'subtlv5'
-                   or ../@id = 'otn-tdm-scsi'">
+      <xsl:when test="../@id = 'subtlv6'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:length"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:otherwise>
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
-      </xsl:when>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
