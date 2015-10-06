@@ -4,7 +4,7 @@
            2012-11-21
 
    Last Updated
-           2015-09-30
+           2015-10-05
 
    Available Formats
            [IMG]
@@ -35,11 +35,11 @@ PCP Opcodes
    0-31, 127 Standards Action
      32-63   Specification Required
 
-   Value        Description                   Reference
+   Value        Description        Reference
    0      ANNOUNCE                 [RFC6887]
    1      MAP                      [RFC6887]
    2      PEER                     [RFC6887]
-   3      AUTHENTICATION           [RFC-ietf-pcp-authentication-14]
+   3      AUTHENTICATION           [RFC7652]
    4-63   Unassigned
    64-95  Reserved                 [RFC6887]
    96-126 Reserved for Private Use [RFC6887]
@@ -62,69 +62,54 @@ PCP Result Codes
    0-127, 255 Standards Action
     128-191   Specification Required
 
-    Value            Name                                             Description                                             Reference
-   0       SUCCESS                   Success.                                                                      [RFC6887]
-                                     The version number at the start of the PCP Request header is not recognized
-   1       UNSUPP_VERSION            by this PCP server. This is a long lifetime error. [RFC6887] describes PCP    [RFC6887]
-                                     version 2.
-                                     The requested operation is disabled for this PCP client, or the PCP client
-   2       NOT_AUTHORIZED            requested an operation that cannot be fulfilled by the PCP server's security  [RFC6887]
-                                     policy. This is a long lifetime error.
-   3       MALFORMED_REQUEST         The request could not be successfully parsed. This is a long lifetime error.  [RFC6887]
-   4       UNSUPP_OPCODE             Unsupported Opcode. This is a long lifetime error.                            [RFC6887]
-   5       UNSUPP_OPTION             Unsupported Option. This error only occurs if the Option is in the            [RFC6887]
-                                     mandatory-to-process range. This is a long lifetime error.
-   6       MALFORMED_OPTION          Malformed Option (e.g., appears too many times, invalid length). This is a    [RFC6887]
-                                     long lifetime error.
-                                     The PCP server or the device it controls are experiencing a network failure
-   7       NETWORK_FAILURE           of some sort (e.g., has not obtained an External IP address). This is a short [RFC6887]
+    Value            Name                                                        Description                                              Reference
+   0       SUCCESS                   Success.                                                                                             [RFC6887]
+   1       UNSUPP_VERSION            The version number at the start of the PCP Request header is not recognized by this PCP server. This [RFC6887]
+                                     is a long lifetime error. [RFC6887] describes PCP version 2.
+   2       NOT_AUTHORIZED            The requested operation is disabled for this PCP client, or the PCP client requested an operation    [RFC6887]
+                                     that cannot be fulfilled by the PCP server's security policy. This is a long lifetime error.
+   3       MALFORMED_REQUEST         The request could not be successfully parsed. This is a long lifetime error.                         [RFC6887]
+   4       UNSUPP_OPCODE             Unsupported Opcode. This is a long lifetime error.                                                   [RFC6887]
+   5       UNSUPP_OPTION             Unsupported Option. This error only occurs if the Option is in the mandatory-to-process range. This  [RFC6887]
+                                     is a long lifetime error.
+   6       MALFORMED_OPTION          Malformed Option (e.g., appears too many times, invalid length). This is a long lifetime error.      [RFC6887]
+   7       NETWORK_FAILURE           The PCP server or the device it controls are experiencing a network failure of some sort (e.g., has  [RFC6887]
+                                     not obtained an External IP address). This is a short lifetime error.
+                                     Request is well-formed and valid, but the server has insufficient resources to complete the
+                                     requested operation at this time. For example, the NAT device cannot create more mappings at this
+   8       NO_RESOURCES              time, is short of CPU cycles or memory, or is unable to handle the request due to some other         [RFC6887]
+                                     temporary condition. The same request may succeed in the future. This is a system-wide error,
+                                     different from USER_EX_QUOTA. This can be used as a catch- all error, should no other error message
+                                     be suitable. This is a short lifetime error.
+   9       UNSUPP_PROTOCOL           Unsupported transport protocol, e.g. SCTP in a NAT that handles only UDP and TCP. This is a long     [RFC6887]
                                      lifetime error.
-                                     Request is well-formed and valid, but the server has insufficient resources
-                                     to complete the requested operation at this time. For example, the NAT device
-                                     cannot create more mappings at this time, is short of CPU cycles or memory,
-   8       NO_RESOURCES              or is unable to handle the request due to some other temporary condition. The [RFC6887]
-                                     same request may succeed in the future. This is a system-wide error,
-                                     different from USER_EX_QUOTA. This can be used as a catch- all error, should
-                                     no other error message be suitable. This is a short lifetime error.
-   9       UNSUPP_PROTOCOL           Unsupported transport protocol, e.g. SCTP in a NAT that handles only UDP and  [RFC6887]
-                                     TCP. This is a long lifetime error.
-   10      USER_EX_QUOTA             This attempt to create a new mapping would exceed this subscriber's port      [RFC6887]
-                                     quota. This is a short lifetime error.
-                                     The suggested external port and/or external address cannot be provided. This
-                                     error MUST only be returned for: * MAP requests that included the
-   11      CANNOT_PROVIDE_EXTERNAL   PREFER_FAILURE Option (normal MAP requests will return an available external  [RFC6887]
-                                     port); * MAP requests for the SCTP protocol (PREFER_FAILURE is implied); *
-                                     PEER requests. See Section 13.2 of [RFC6887] for processing details. The
-                                     error lifetime depends on the reason for the failure.
-                                     The source IP address of the request packet does not match the contents of
-   12      ADDRESS_MISMATCH          the PCP Client's IP Address field, due to an unexpected NAT on the path       [RFC6887]
-                                     between the PCP client and the PCP-controlled NAT or firewall. This is a long
+   10      USER_EX_QUOTA             This attempt to create a new mapping would exceed this subscriber's port quota. This is a short      [RFC6887]
                                      lifetime error.
-                                     The PCP server was not able to create the filters in this request. This
-   13      EXCESSIVE_REMOTE_PEERS    result code MUST only be returned if the MAP request contained the FILTER     [RFC6887]
-                                     Option. See Section 13.3 for processing information. This is a long lifetime
-                                     error.
-   14      INITIATION                The client includes this PCP result code in its request to the server for     [RFC-ietf-pcp-authentication-14]
-                                     authentication.
-   15      AUTHENTICATION_REQUIRED   This error response is sent to the client if EAP authentication is required.  [RFC-ietf-pcp-authentication-14]
-   16      AUTHENTICATION_FAILED     This error response is sent to the client if EAP authentication failed.       [RFC-ietf-pcp-authentication-14]
-   17      AUTHENTICATION_SUCCEEDED  This success response is sent to the client if EAP authentication succeeded.  [RFC-ietf-pcp-authentication-14]
-   18      AUTHORIZATION_FAILED      This error response is sent to the client if EAP authentication succeeded but [RFC-ietf-pcp-authentication-14]
-                                     authorization failed.
-   19      SESSION_TERMINATED        This PCP result code indicates to the partner that the PA session must be     [RFC-ietf-pcp-authentication-14]
-                                     terminated.
-                                     This error response is sent from the PCP server if there is no known PA
-   20      UNKNOWN_SESSION_ID        session associated with the Session ID sent in the PA request or common PCP   [RFC-ietf-pcp-authentication-14]
-                                     request from the PCP client.
-   21      DOWNGRADE_ATTACK_DETECTED This PCP result code indicates to the client that the server detected a       [RFC-ietf-pcp-authentication-14]
-                                     downgrade attack.
-   22      AUTHENTICATION_REQUEST    The server indicates to the client that the PA message contains an EAP        [RFC-ietf-pcp-authentication-14]
-                                     request.
-   23      AUTHENTICATION_REPLY      The client indicates to the server that the PA message contains an EAP        [RFC-ietf-pcp-authentication-14]
-                                     response.
+                                     The suggested external port and/or external address cannot be provided. This error MUST only be
+                                     returned for: * MAP requests that included the PREFER_FAILURE Option (normal MAP requests will
+   11      CANNOT_PROVIDE_EXTERNAL   return an available external port); * MAP requests for the SCTP protocol (PREFER_FAILURE is          [RFC6887]
+                                     implied); * PEER requests. See Section 13.2 of [RFC6887] for processing details. The error lifetime
+                                     depends on the reason for the failure.
+                                     The source IP address of the request packet does not match the contents of the PCP Client's IP
+   12      ADDRESS_MISMATCH          Address field, due to an unexpected NAT on the path between the PCP client and the PCP-controlled    [RFC6887]
+                                     NAT or firewall. This is a long lifetime error.
+                                     The PCP server was not able to create the filters in this request. This result code MUST only be
+   13      EXCESSIVE_REMOTE_PEERS    returned if the MAP request contained the FILTER Option. See Section 13.3 for processing             [RFC6887]
+                                     information. This is a long lifetime error.
+   14      INITIATION                The client includes this PCP result code in its request to the server for authentication.            [RFC7652]
+   15      AUTHENTICATION_REQUIRED   This error response is sent to the client if EAP authentication is required.                         [RFC7652]
+   16      AUTHENTICATION_FAILED     This error response is sent to the client if EAP authentication failed.                              [RFC7652]
+   17      AUTHENTICATION_SUCCEEDED  This success response is sent to the client if EAP authentication succeeded.                         [RFC7652]
+   18      AUTHORIZATION_FAILED      This error response is sent to the client if EAP authentication succeeded but authorization failed.  [RFC7652]
+   19      SESSION_TERMINATED        This PCP result code indicates to the partner that the PA session must be terminated.                [RFC7652]
+   20      UNKNOWN_SESSION_ID        This error response is sent from the PCP server if there is no known PA session associated with the  [RFC7652]
+                                     Session ID sent in the PA request or common PCP request from the PCP client.
+   21      DOWNGRADE_ATTACK_DETECTED This PCP result code indicates to the client that the server detected a downgrade attack.            [RFC7652]
+   22      AUTHENTICATION_REQUEST    The server indicates to the client that the PA message contains an EAP request.                      [RFC7652]
+   23      AUTHENTICATION_REPLY      The client indicates to the server that the PA message contains an EAP response.                     [RFC7652]
    24-191  Unassigned
-   192-254 Reserved for Private Use                                                                                [RFC6887]
-   255     Reserved                                                                                                [RFC6887]
+   192-254 Reserved for Private Use                                                                                                       [RFC6887]
+   255     Reserved                                                                                                                       [RFC6887]
 
 PCP Options
 
@@ -147,87 +132,61 @@ PCP Options
    0-63, 127-191, 255 Standards Action
      64-95, 192-223   Specification Required
 
-    Value          Name                       Purpose                Valid for     Length   May Appear   Maximum              Reference
-                                                                      Opcodes                   in     Occurrences
-   0       Reserved                                                                                                [RFC6887]
-                                                                                            Request.
-                                                                                            May appear
-                                                                                            in
-                                 Indicates the MAP or PEER request                          response
-   1       THIRD_PARTY           is for a host other than the host MAP, PEER      16 octets only if it 1           [RFC6887]
-                                 sending the PCP Option.                                    appeared
-                                                                                            in the
-                                                                                            associated
-                                                                                            request.
-                                                                                            Request.
-                                                                                            May appear
-                                 Indicates that the PCP server                              in
-                                 should not create an alternative                           response
-   2       PREFER_FAILURE        mapping if the suggested external MAP            0         only if it 1           [RFC6887]
-                                 port and address cannot be                                 appeared
-                                 mapped.                                                    in the
-                                                                                            associated
-                                                                                            request.
-                                                                                            Request.
-                                                                                            May appear
-                                                                                            in         As many as
-                                 Specifies a filter for incoming                            response   fit within
-   3       FILTER                packets.                          MAP            20 octets only if it maximum PCP [RFC6887]
-                                                                                            appeared   message
-                                                                                            in the     size.
-                                                                                            associated
-                                                                                            request.
-                                 See Section 5.3 of                                         Request
-   4       NONCE                 [RFC-ietf-pcp-authentication-14]. AUTHENTICATION 4 octets  and        1           [RFC-ietf-pcp-authentication-14]
-                                                                                            response.
-                                 See Section 5.4 of                MAP, PEER,               Request
-   5       AUTHENTICATION_TAG    [RFC-ietf-pcp-authentication-14]. ANNOUNCE       variable  and        1           [RFC-ietf-pcp-authentication-14]
-                                                                                            response.
-                                 See Section 5.5 of                                         Request
-   6       PA_AUTHENTICATION_TAG [RFC-ietf-pcp-authentication-14]. AUTHENTICATION variable  and        1           [RFC-ietf-pcp-authentication-14]
-                                                                                            response.
-                                 See Section 5.6 of                                         Request
-   7       EAP_PAYLOAD           [RFC-ietf-pcp-authentication-14]. AUTHENTICATION variable  and        1           [RFC-ietf-pcp-authentication-14]
-                                                                                            response.
-                                                                                                       As many as
-                                 See Section 5.7 of                                         Request    fit within
-   8       PRF                   [RFC-ietf-pcp-authentication-14]. AUTHENTICATION 4 octets  and        maximum PCP [RFC-ietf-pcp-authentication-14]
-                                                                                            response.  message
-                                                                                                       size.
-                                                                                                       As many as
-                                 See Section 5.8 of                                         Request    fit within
-   9       MAC_ALGORITHM         [RFC-ietf-pcp-authentication-14]. AUTHENTICATION 4 octets  and        maximum PCP [RFC-ietf-pcp-authentication-14]
-                                                                                            response.  message
-                                                                                                       size.
-   10      SESSION_LIFETIME      See Section 5.9 of                AUTHENTICATION 4 octets  Response.  1           [RFC-ietf-pcp-authentication-14]
-                                 [RFC-ietf-pcp-authentication-14].
-                                 See Section 5.10 of                                        Request
-   11      RECEIVED_PAK          [RFC-ietf-pcp-authentication-14]. AUTHENTICATION 4 octets  and        1           [RFC-ietf-pcp-authentication-14]
-                                                                                            response.
-   12      ID_INDICATOR          See Section 5.11 of               AUTHENTICATION variable  Response.  1           [RFC-ietf-pcp-authentication-14]
-                                 [RFC-ietf-pcp-authentication-14].
+    Value            Name                      Purpose             Valid for Opcodes     Length      May Appear in    Maximum Occurrences Reference
+   0       Reserved                                                                                                                       [RFC6887]
+                                                                                                   Request. May
+                                    Indicates the MAP or PEER                                      appear in response
+   1       THIRD_PARTY              request is for a host other   MAP, PEER           16 octets    only if it         1                   [RFC6887]
+                                    than the host sending the PCP                                  appeared in the
+                                    Option.                                                        associated
+                                                                                                   request.
+                                    Indicates that the PCP server                                  Request. May
+                                    should not create an                                           appear in response
+   2       PREFER_FAILURE           alternative mapping if the    MAP                 0            only if it         1                   [RFC6887]
+                                    suggested external port and                                    appeared in the
+                                    address cannot be mapped.                                      associated
+                                                                                                   request.
+                                                                                                   Request. May
+                                                                                                   appear in response As many as fit
+   3       FILTER                   Specifies a filter for        MAP                 20 octets    only if it         within maximum PCP  [RFC6887]
+                                    incoming packets.                                              appeared in the    message size.
+                                                                                                   associated
+                                                                                                   request.
+   4       NONCE                    See Section 5.3 of [RFC7652]. AUTHENTICATION      4 octets     Request and        1                   [RFC7652]
+                                                                                                   response.
+   5       AUTHENTICATION_TAG       See Section 5.4 of [RFC7652]. MAP, PEER, ANNOUNCE variable     Request and        1                   [RFC7652]
+                                                                                                   response.
+   6       PA_AUTHENTICATION_TAG    See Section 5.5 of [RFC7652]. AUTHENTICATION      variable     Request and        1                   [RFC7652]
+                                                                                                   response.
+   7       EAP_PAYLOAD              See Section 5.6 of [RFC7652]. AUTHENTICATION      variable     Request and        1                   [RFC7652]
+                                                                                                   response.
+                                                                                                   Request and        As many as fit
+   8       PRF                      See Section 5.7 of [RFC7652]. AUTHENTICATION      4 octets     response.          within maximum PCP  [RFC7652]
+                                                                                                                      message size.
+                                                                                                   Request and        As many as fit
+   9       MAC_ALGORITHM            See Section 5.8 of [RFC7652]. AUTHENTICATION      4 octets     response.          within maximum PCP  [RFC7652]
+                                                                                                                      message size.
+   10      SESSION_LIFETIME         See Section 5.9 of [RFC7652]. AUTHENTICATION      4 octets     Response.          1                   [RFC7652]
+   11      RECEIVED_PAK             See Section 5.10 of           AUTHENTICATION      4 octets     Request and        1                   [RFC7652]
+                                    [RFC7652].                                                     response.
+   12      ID_INDICATOR             See Section 5.11 of           AUTHENTICATION      variable     Response.          1                   [RFC7652]
+                                    [RFC7652].
    13-95   Unassigned
-   96-126  Reserved for Private                                                                                    [RFC6887]
-           Use
-   127     Reserved                                                                                                [RFC6887]
-                                                                                            Request.
-                                                                                            May appear
-                                                                                  variable, in
-                                 Used to associate a text                         maximum   response
-   128     DESCRIPTION           description with a mapping.       MAP, PEER      1016      only if it 1           [RFC7220]
-                                                                                  octets.   appeared
-                                                                                            in the
-                                                                                            associated
-                                                                                            request.
-                                                                                                       1 for a
-                                 Learn the prefix used by the                                          request. As
-                                 NAT64 to build IPv4-converted                                         many as fit
-   129     PREFIX64              IPv6 addresses. This is used by a MAP, ANNOUNCE  variable  request,   within the  [RFC7225]
-                                 host for local address synthesis                           response   maximum PCP
-                                 (e.g., when an IPv4 address is                                        message
-                                 present in referrals).                                                size for a
-                                                                                                       response.
+   96-126  Reserved for Private Use                                                                                                       [RFC6887]
+   127     Reserved                                                                                                                       [RFC6887]
+                                                                                                   Request. May
+                                                                                      variable,    appear in response
+   128     DESCRIPTION              Used to associate a text      MAP, PEER           maximum 1016 only if it         1                   [RFC7220]
+                                    description with a mapping.                       octets.      appeared in the
+                                                                                                   associated
+                                                                                                   request.
+                                    Learn the prefix used by the
+                                    NAT64 to build IPv4-converted                                                     1 for a request. As
+                                    IPv6 addresses. This is used                                                      many as fit within
+   129     PREFIX64                 by a host for local address   MAP, ANNOUNCE       variable     request, response  the maximum PCP     [RFC7225]
+                                    synthesis (e.g., when an IPv4                                                     message size for a
+                                    address is present in                                                             response.
+                                    referrals).
    130-223 Unassigned
-   224-254 Reserved for Private                                                                                    [RFC6887]
-           Use
-   255     Reserved                                                                                                [RFC6887]
+   224-254 Reserved for Private Use                                                                                                       [RFC6887]
+   255     Reserved                                                                                                                       [RFC6887]
