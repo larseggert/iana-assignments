@@ -12,7 +12,7 @@
     <tr><th>Value</th><th>Description</th><th>Semantics Definition</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'twamp-modes'">
-        <tr><th>Value</th><th>Description</th><th>Semantics Definition</th><th>Reference</th></tr>
+        <tr><th>Bit Position</th><th>Description</th><th>Semantics Definition</th><th>Reference</th></tr>
       </xsl:when>
       </xsl:choose>
   </xsl:template>
