@@ -4,7 +4,7 @@
            2008-12-23
 
    Last Updated
-           2015-09-11
+           2015-10-15
 
    Available Formats
            [IMG]
@@ -237,11 +237,19 @@ Type 7 Message TLV Type Extensions
            [IMG]
            CSV
 
-   Type Extension    Name                                                     Description                                                 Reference
-         0        MPR_WILLING Bits 0-3 specify the originating router's willingness to act as a flooding MPR; bits 4-7 specify the        [RFC7181]
-                              originating router's willingness to act as a routing MPR.
-       1-223                  Unassigned
-      224-255                 Reserved for Experimental Use                                                                               [RFC7181]
+   Type Extension    Name                            Description                                                 Reference
+                              First (most significant) half octet of Value field
+                              specifies the originating router's willingness to act as a
+                              flooding MPR; subsequent half octets specify the
+         0        MPR_WILLING originating router's willingness to act as a routing MPR,  [RFC7181][RFC7631][RFC-ietf-manet-olsrv2-multitopology-07]
+                              either for the link metric types reported in an MPR_TYPES
+                              TLV (in the same order), or (if no MPR_TYPES TLV is
+                              present) for the single administratively agreed link
+                              metric type
+         1        MPR_TYPES   The link metric types supported on this OLSRv2 interface   [RFC-ietf-manet-olsrv2-multitopology-07]
+                              of this router (one octet each).
+       2-223                  Unassigned
+      224-255                 Reserved for Experimental Use                              [RFC7181]
 
 Type 8 Message TLV Type Extensions
 
@@ -456,9 +464,9 @@ LINK_METRIC Address Block TLV Type Extensions
            [IMG]
            CSV
 
-   Type Extension                      Description                       Reference
-         0        Link metric meaning assigned by administrative action. [RFC7181]
-       1-223      Unassigned
+   Type Extension                      Description                                           Reference
+        0-7       Link metric meaning assigned by administrative action. [RFC7181][RFC-ietf-manet-olsrv2-multitopology-07]
+       8-223      Unassigned
       224-255     Reserved for Experimental Use                          [RFC7181]
 
 Type 8 Address Block TLV Type Extensions
@@ -523,11 +531,14 @@ Type 10 Address Block TLV Type Extensions
            [IMG]
            CSV
 
-   Type Extension  Name                                                     Description                                                   Reference
-         0        GATEWAY Specifies that a given network address is reached via a gateway on the originating router, with value equal to  [RFC7181]
-                          the number of hops.
+   Type Extension  Name                                 Description                                                   Reference
+                          Specifies that a given network address is reached via a gateway on the
+                          originating router. The number of hops is indicated by the Value field,
+         0        GATEWAY one octet per link metric type reported in an MPR_TYPES Message TLV (in [RFC7181][RFC-ietf-manet-olsrv2-multitopology-07]
+                          the same order) or (if no MPR_TYPES Message TLV is present) using a
+                          single octet
        1-223              Unassigned
-      224-255             Reserved for Experimental Use                                                                                   [RFC7631]
+      224-255             Reserved for Experimental Use                                           [RFC7631]
 
 HELLO Message-Type-specific Address Block TLV Types
 
@@ -937,10 +948,17 @@ MPR TLV BIT Values
            [IMG]
            CSV
 
-   Bit Value    Name                                  Description                                Reference
-    7  0x01  Flooding   The neighbor with that network address has been selected as flooding MPR [RFC7188]
-    6  0x02  Routing    The neighbor with that network address has been selected as routing MPR  [RFC7188]
-   0-5       Unassigned                                                                          [RFC7188]
+         Bit            Value          Name                       Description                                         Reference
+   First octet bit First octet 0x01 Flooding   If set then the neighbor with that network address [RFC7188][RFC-ietf-manet-olsrv2-multitopology-07]
+          7                                    has been selected as flooding MPR
+                                               If set then the neighbor with that network address
+                                               has been selected as routing MPR, either for the
+   First octet bit                             link metric types reported in an MPR_TYPES TLV (in
+          6        First octet 0x02 Routing    the same order), or (if no MPR_TYPES TLV is        [RFC7188][RFC-ietf-manet-olsrv2-multitopology-07]
+                                               present) then (first octet bit 6, value 0x02) for
+                                               the single administratively agreed link metric
+                                               type
+         0-5                        Unassigned                                                    [RFC7188]
 
 NBR_ADDR_TYPE Address Block TLV Bit Values
 
