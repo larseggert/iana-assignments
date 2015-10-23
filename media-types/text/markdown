@@ -1,36 +1,47 @@
-(TEMPORARY - registered 2014-11-11, extension registered 2015-09-17, 
-expires 2016-11-11)
+(registered 2014-11-11, updated 2015-10-22; see RFC-ietf-appsawg-text-markdown-12)
 
-Type name: text
+ Type name: text
 
  Subtype name: markdown
 
  Required parameters:
 
   charset: Per Section 4.2.1 of [RFC6838], charset is REQUIRED. There
-    is no default value. [MDSYNTAX] clearly describes Markdown as a
-    writing format; its syntax rules operate on characters
-    (specifically, on punctuation) rather than code points. Neither
-    [MDSYNTAX] nor many popular implementations at the time of this
-    registration actually require or assume any particular encoding.
-    Many Markdown processors will get along just fine by operating on
-    character codes that lie in printable US-ASCII, blissfully
-    oblivious to coded values outside of that range.
+    is no default value because neither [MDSYNTAX] nor many popular
+    implementations at the time of this registration do either.
+    [MDSYNTAX] clearly describes Markdown as a "writing format"; its
+    syntax rules operate on characters (specifically, on punctuation)
+    rather than code points. Many Markdown processors will get along
+    just fine by operating on characters in the US-ASCII repertoire
+    (specifically punctuation), blissfully oblivious to other
+    characters or codes.
 
  Optional parameters:
 
-  The following parameters reflect the author's intent regarding the
-  content. A detailed specification can be found in Section 3 of 
-  draft-ietf-appsawg-text-markdown.
+  variant: An optional identifier of the specific Markdown variant
+    that the author intended. The value serves as a "hint" to the
+    recipient, meaning that the recipient MAY interpret the Markdown
+    as that variant, but is under no obligation to do so. When
+    omitted, there is no hint; the interpretation is entirely up to
+    the receiver and context. This identifier is plain US-ASCII and
+    case-insensitive. To promote interoperability, identifiers can be
+    registered in the registry defined in Section 6. If a receiver
+    does not recognize the variant identifier, the receiver MAY
+    present the identifier to a user to inform him or her of it.
 
-  syntax: The Markdown-derivative syntax of the content, with
-    optional version and named extensions. Default value: none
-    (receiver's choice).
+  Other parameters MAY be included with the media type. The variant
+  SHOULD define the semantics of such other parameters. Additionally,
+  the variant MAY be registered under another media type; this
+  text/markdown registration does not preclude other registrations.
 
-  output-type: The Content-Type (Internet media type) of the output,
-    with optional parameters. Default value: "text/html".
+ Encoding considerations:
 
- Encoding considerations: Text.
+  Markdown content is plain text content; any octet sequence is valid
+  as long as it conforms to the character codes of the charset
+  parameter. See [RFC2046]. Markup characters in [MDSYNTAX] are
+  limited to printable US-ASCII; however, other variants can define
+  markup characters outside this range (including control characters
+  such as NUL and characters encoded in multiple octets).
 
  Security considerations:
 
@@ -55,26 +66,21 @@ Type name: text
   approach is to analyze (and sanitize or block) the output markup,
   rather than attempting to analyze the Markdown.
 
-  Security provides a significant motivator for the output-type
-  parameter. Most Markdown processors emit byte (octet) streams.
-  Without a well-defined means for a Markdown processor to pass
-  metadata onwards, it is perilous for post-processing to assume that
-  the content is always HTML or XHTML. A processor might emit
-  PostScript (application/postscript) content, for example, in which
-  case an HTML sanitizer would fail to excise dangerous instructions.
-
 Interoperability considerations:
 
-  Markdown syntaxes are designed to be broadly compatible with humans
-  ("humane"), but not necessarily with each other. Therefore, syntax
-  in one Markdown derivative may be ignored or treated differently in
-  another derivative. The overall effect is a general degradation of
-  the output, proportional to the quantity of syntax-specific
-  Markdown used in the text. When it is desirable to reflect the
-  author's intent in the output, stick with the syntax identified in
-  the syntax parameter.
+  Markdown variations (some might say "innovations") are designed to
+  be broadly compatible with humans ("humane"), but not necessarily
+  with each other. Therefore, syntax in one Markdown derivative may
+  be ignored or treated differently in another derivative. The
+  overall effect is a general degradation of the output that
+  increases with the quantity of variant-specific Markdown used in
+  the text. When it is desirable to reflect the author's intent in
+  the output, stick with the variant identified in the variant
+  parameter, i.e., receivers SHOULD only accept Markdown variants
+  that they explicitly know about, and senders SHOULD avoid use of
+  variants that intended recipients are not known to understand.
 
-Published specification: draft-ietf-appsawg-text-markdown; [MDSYNTAX].
+Published specification: RFC-ietf-appsawg-text-markdown-12; [MDSYNTAX].
 
 Applications that use this media type:
 
@@ -84,12 +90,7 @@ Applications that use this media type:
 
 Fragment identifier considerations:
 
-  Markdown content acts as a "bridge" between plain text and formal
-  markup, so this specification permits fragment identifiers [[NB:
-  used to be #i]] #t for the [[NB: used to be input]] source text and
-  #o for the output content. The #l and #ldef fragment identifiers
-  identify link references. A detailed specification can be found in
-  Section 4 of draft-ietf-appsawg-text-markdown.
+  See Section 3.
 
 Additional information:
 
@@ -98,10 +99,8 @@ Additional information:
   Macintosh file type code(s):
     TEXT. A uniform type identifier (UTI) of
     "net.daringfireball.markdown", which conforms to "public.plain-
-    text", is RECOMMENDED [MDUTI]. Additionally, implementations
-    SHOULD record syntax and output-type parameters along with the
-    Markdown, such as in extended attributes; however, the exact
-    manner of storage is a local matter.
+    text", is RECOMMENDED [MDUTI]. See [MDMTGUID] for other
+    considerations.
 
 Person & email address to contact for further information:
 
@@ -114,3 +113,12 @@ Author/Change controller: Sean Leonard <dev+ietf&seantek.com>
 Intended usage: COMMON
 
 Provisional registration? No
+
+Implementations SHOULD record the value of the variant parameter (and
+other parameters if defined by the variant) along with the Markdown
+content when the content leaves the domain of Internet media type-
+capable formats. Strategies for doing so are discussed in [MDMTGUID].
+
+The Content-Disposition header (particularly the preview-type
+parameter) can be used with Markdown content. See Section 4 of 
+RFC-ietf-appsawg-text-markdown-12.

@@ -30,7 +30,7 @@
       <td>
         <xsl:choose>
           <xsl:when test="iana:termination">
-            <xsl:value-of select="iana:termination"/>
+            <xsl:apply-templates select="iana:termination"/>
           </xsl:when>
           <xsl:otherwise>N/A</xsl:otherwise>
         </xsl:choose>
