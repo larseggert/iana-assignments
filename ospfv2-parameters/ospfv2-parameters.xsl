@@ -7,10 +7,13 @@
     <xsl:choose> 
       
       <xsl:when test="@id = 'ospfv2-parameters-9'">
-        <tr><th>Type Value</th><th>Capabilities</th><th>Reference</th></tr>
+        <tr><th>Value</th><th>TLV Name</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'ospfv2-parameters-10'">
-        <tr><th>Bit</th><th>Capabilities</th><th>Reference</th></tr>
+        <tr><th>Bit Number</th><th>Capability Name</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'router-functional-capability'">
+        <tr><th>Bit Number</th><th>Capability Name</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'ospfv2-parameters-14'">
         <tr><th>Bit</th><th>Capability Description</th><th>Reference</th></tr>

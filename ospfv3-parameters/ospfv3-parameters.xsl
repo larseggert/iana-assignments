@@ -6,7 +6,7 @@
   <xsl:template name="iana:record_header">
     <xsl:choose> 
       <xsl:when test="@id = 'ospfv3-parameters-3'">
-        <tr><th>LSA Function Code</th><th>LS Type Description</th><th>Reference</th></tr>
+        <tr><th>Value</th><th>LSA Function Code Name</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
