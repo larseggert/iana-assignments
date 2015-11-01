@@ -16,7 +16,7 @@
 
   <xsl:template match="iana:record">
     <tr>
-      <td><xsl:value-of select="iana:name"/></td>
+      <td><xsl:apply-templates select="iana:name"/></td>
       <td><xsl:apply-templates select="iana:namespace"/></td>
       <td><xsl:apply-templates select="iana:prefix"/></td>
       <td><xsl:apply-templates select="iana:module"/></td>
