@@ -7,7 +7,7 @@
   <xsl:import href="../_support/iana-registry.xsl" />
   <xsl:template name="iana:record_header">
     <xsl:choose> 
-      <xsl:when test="@id = 'rsvp-te-parameters-1'">
+      <xsl:when test="@id = 'sasl-mechanisms-1'">
        <tr>
         <th>Mechanism</th>
         <th>Usage</th>
@@ -20,7 +20,7 @@
         <th>Mechanism</th>
         <th>Usage</th>
         <th>Reference</th>
-        <th>Minimum Iteration-Count</th>
+        <th>Minimum iteration-count</th>
         <th>Associated OID</th>
         <th>Owner</th>
        </tr>

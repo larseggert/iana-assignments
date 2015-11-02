@@ -6,21 +6,21 @@
   <xsl:template name="iana:record_header">
     <xsl:choose> 
       
-      <xsl:when test="@id = 'ospfv2-parameters-14'">
-        <tr><th>Bit</th><th>Capability Description</th><th>Reference</th></tr>
+      <xsl:when test="@id = 'ri-tlv'">
+        <tr><th>Value</th><th>TLV Name</th><th>Reference</th></tr>
       </xsl:when>
-      <xsl:when test="@id = 'instance-ids'">
-        <tr><th>Value</th><th>Designation</th><th>Reference</th></tr>
+      <xsl:when test="@id = 'router-informational-capability'">
+        <tr><th>Bit Number</th><th>Capability Name</th><th>Reference</th></tr>
       </xsl:when>
-      <xsl:otherwise>
-        <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
-      </xsl:otherwise>
+      <xsl:when test="@id = 'router-functional-capability'">
+        <tr><th>Bit Number</th><th>Capability Name</th><th>Reference</th></tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
   <xsl:template match="iana:record">
     <xsl:choose>
-      <xsl:when test="../@id = 'ospfv2-parameters-1'">
+      <xsl:when test="../@id = 'ri-tlv'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
