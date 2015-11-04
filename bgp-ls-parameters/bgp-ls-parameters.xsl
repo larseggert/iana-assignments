@@ -30,7 +30,7 @@
         </tr>
       </xsl:when>
       
-      <xsl:when test="@id = 'node-anchor-link-descriptor-link-attribute'">
+      <xsl:when test="@id = 'node-descriptor-link-descriptor-prefix-descriptor-attribute-tlv'">
         <tr>
           <th>TLV Code Point</th>
           <th>Description</th>
@@ -54,7 +54,7 @@
   <xsl:template match="iana:record">
     <xsl:choose>
       
-      <xsl:when test="../@id = 'node-anchor-link-descriptor-link-attribute'">
+      <xsl:when test="../@id = 'node-descriptor-link-descriptor-prefix-descriptor-attribute-tlv'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
