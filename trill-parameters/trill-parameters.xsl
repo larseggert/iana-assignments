@@ -41,6 +41,9 @@
       <xsl:when test="@id = 'isis-tlv-251-app-id-1'">
         <tr><th>Type</th><th>Name</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'extended-rbridge-capabilities'">
+        <tr><th>Bit</th><th>Mnemonic</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:when test="@id = 'trill-oam-return-codes'">
         <tr><th>Return Code</th><th>Assignment</th><th>Reference</th></tr>
       </xsl:when>
@@ -119,6 +122,14 @@
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'extended-rbridge-capabilities'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:mnemonic"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
