@@ -443,7 +443,14 @@
       <xsl:attribute name="href">
         <xsl:value-of select="."/>
       </xsl:attribute>
-      <xsl:value-of select="."/>
+      <xsl:choose>
+        <xsl:when test="@name">
+          <xsl:value-of select="@name"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="."/>
+        </xsl:otherwise>
+      </xsl:choose>
     </a>
   </xsl:template>
 
