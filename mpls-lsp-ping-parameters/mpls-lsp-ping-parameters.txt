@@ -4,7 +4,7 @@
            2006-01-12
 
    Last Updated
-           2015-10-16
+           2015-12-06
 
    Available Formats
            [IMG]
@@ -24,6 +24,7 @@
           * Sub-TLVs for TLV Type 11
           * Sub-TLVs for TLV Type 20
           * Sub-TLVs for TLV Type 23
+          * Sub-TLVs for TLV Type 27
 
      * Measurement Timestamp Type
      * Loss/Delay Measurement Control Code: Query Codes
@@ -38,6 +39,7 @@
      * Pad Types
      * Interface and Label Stack Address Types
      * Proxy Flags
+     * MPLS OAM Function Flags
 
 Message Types
 
@@ -96,7 +98,7 @@ Return Codes
     0-191  Standards Action
    192-251 Specification Required  Experimental RFC needed
 
-    Value                                    Meaning                                                   Reference
+    Value                                    Meaning                                                     Reference
       0    No return code                                                               [RFC4379]
       1    Malformed echo request received                                              [RFC4379]
       2    One or more of the TLVs was not understood                                   [RFC4379]
@@ -118,7 +120,20 @@ Return Codes
      18    MPLS Echo Request could not be sent                                          [RFC7555]
      19    Replying router has FEC mapping for topmost FEC                              [RFC7555]
      20    One or more TLVs not returned due to MTU size                                [RFC-ietf-mpls-lsp-ping-relay-reply-11]
-   21-251  Unassigned
+     21    OAM Problem/Unsupported BFD Version                                          [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+     22    OAM Problem/Unsupported BFD Encapsulation format                             [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+     23    OAM Problem/Unsupported BFD Authentication Type                              [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+     24    OAM Problem/Mismatch of BFD Authentication Key ID                            [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+     25    OAM Problem/Unsupported Timestamp Format                                     [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+     26    OAM Problem/Unsupported Delay Mode                                           [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+     27    OAM Problem/Unsupported Loss Mode                                            [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+     28    OAM Problem/Delay variation unsupported                                      [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+     29    OAM Problem/Dyadic mode unsupported                                          [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+     30    OAM Problem/Loopback mode unsupported                                        [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+     31    OAM Problem/Combined mode unsupported                                        [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+     32    OAM Problem/Fault management signaling unsupported                           [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+     33    OAM Problem/Unable to create fault management association                    [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+   34-251  Unassigned
    252-255 Reserved for Vendor Private Use                                              [RFC4379]
 
 TLVs
@@ -182,7 +197,9 @@ TLVs
              Downstream
     26        Neighbor    [RFC7555]                                     No Sub-TLVs
                Address
- 27-31743    Unassigned
+    27        MPLS OAM    [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]  [http://www.iana.org/assignments/mpls-lsp-ping-parameters/mpls-lsp-ping-parameters.xml#sub-tlv-27]
+              Functions
+ 28-31743    Unassigned
             Reserved for
 31744-32767   Vendor or   [RFC4379]
              Private Use
@@ -333,7 +350,44 @@ TLVs
     Sub-Type              Sub-TLV Name            Reference Comment
         0      Reserved                           [RFC7555]
         1      Next Hop                           [RFC7555]
-     2-64511   Unassigned
+     2-31743   Unassigned
+   31744-32767 Reserved for Vendor or Private Use [RFC4379]
+   32768-64511 Unassigned
+   64512-65535 Reserved for Vendor or Private Use [RFC4379]
+
+  Sub-TLVs for TLV Type 27
+
+   Reference
+           [RFC4379][RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+
+   Available Formats
+           [IMG]
+           CSV
+
+      Range    Registration Procedures          Note
+     0-16383   Standards Action
+   16384-31743 Specification Required  Experimental RFC needed
+   32768-49161 Standards Action
+   49162-64511 Specification Required  Experimental RFC needed
+
+    Sub-Type              Sub-TLV Name                             Reference                   Comment
+      0-99     Unassigned
+       100     BFD Configuration                  [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+       101     BFD Local Discriminator            [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+       102     BFD Negotiation Timer Parameters   [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+       103     BFD Authentication                 [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+       104     Traffic Class                      [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+     105-199   Unassigned
+       200     Performance Measurement            [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+       201     PM Loss Measurement                [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+       202     PM Delay Measurement               [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+     203-299   Unassigned
+       300     Fault Management Signal            [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+     301-399   Unassigned
+       400     Source MEP-ID                      [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+    401-31743  Unassigned
+   31744-32767 Reserved for Vendor or Private Use [RFC4379]
+   32768-64511 Unassigned
    64512-65535 Reserved for Vendor or Private Use [RFC4379]
 
 Measurement Timestamp Type
@@ -599,6 +653,29 @@ Proxy Flags
        2      Request for Downstream Detailed Mapping [RFC7555]
        3      Explicit DSCP Request                   [RFC7555]
       4-15    Unassigned
+
+MPLS OAM Function Flags
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Bit Position MPLS OAM Function Flag               Description                                 Reference
+        0       C                      Continuity Check (CC)                    [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+        1       V                      Connectivity Verification (CV)           [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+        2       F                      Fault Management Signal (FMS)            [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+        3       L                      Performance Measurement/Loss (PM/Loss)   [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+        4       D                      Performance Measurement/Delay (PM/Delay) [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+        5       T                      Throughput Measurement                   [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
+       6-30                            Unassigned (Must be zero)
+        31                             Reserved                                 [RFC-ietf-mpls-lsp-ping-mpls-tp-oam-conf-16]
 
                                                                        Footnote
 

@@ -9,7 +9,11 @@
       <xsl:when test="@id = 'message-types' 
         or @id = 'reply-modes' 
         or @id = 'return-codes'">
-        <tr><th>Value</th><th>Meaning</th><th>Reference</th></tr>
+        <tr>
+          <th>Value</th>
+          <th>Meaning</th>
+          <th>Reference</th>
+        </tr>
       </xsl:when>
       <xsl:when test="@id = 'tlvs'">
         <tr><th>Type</th><th>TLV Name</th><th>Reference</th><th>Sub-TLV Registry</th></tr>
@@ -18,8 +22,13 @@
         or @id = 'sub-tlv-9' 
         or @id = 'sub-tlv-11' 
         or @id = 'sub-tlv-20'
+        or @id = 'sub-tlv-27'
         or @id = 'sub-tlv-23'">
-        <tr><th>Sub-Type</th><th>Sub-TLV Name</th><th>Reference</th><th>Comment</th></tr>
+        <tr>
+          <th>Sub-Type</th>
+          <th>Sub-TLV Name</th>
+          <th>Reference</th>
+          <th>Comment</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'measurement-timestamp'">
       </xsl:when>
@@ -30,16 +39,23 @@
       <xsl:when test="@id = 'loss-delay-measurement-tlv'">
       </xsl:when>
       <xsl:when test="@id = 'global-flags'">
-        <tr><th>Bit number</th><th>Name</th><th>Reference</th></tr>
+        <tr>
+          <th>Bit number</th>
+          <th>Name</th>
+          <th>Reference</th>
+        </tr>
       </xsl:when>
       <xsl:when test="@id = 'downstream-mapping'">
-        <tr><th>Type #</th>
+        <tr>
+          <th>Type #</th>
           <th>Address Type</th>
           <th>K Octets</th>
-          <th>Reference</th></tr>
+          <th>Reference</th>
+        </tr>
       </xsl:when>
       <xsl:when test="@id = 'next-hop-address-type'">
-        <tr><th>Type</th>
+        <tr>
+          <th>Type</th>
           <th>Type of Next Hop</th>
           <th>Address Length</th>
           <th>IF Length</th>
@@ -48,10 +64,24 @@
       </xsl:when>
       <xsl:when test="@id = 'ds-flags'
         or @id = 'proxy-flags'">
-        <tr><th>Bit Number</th><th>Name</th><th>Reference</th></tr>
+        <tr>
+          <th>Bit Number</th>
+          <th>Name</th>
+          <th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'oam-function-flags'">
+        <tr>
+          <th>Bit Position</th>
+          <th>MPLS OAM Function Flag</th>
+          <th>Description</th>
+          <th>Reference</th></tr>
       </xsl:when>
       <xsl:otherwise>
-        <tr><th>Value</th><th>Meaning</th><th>Reference</th></tr>
+        <tr>
+          <th>Value</th>
+          <th>Meaning</th>
+          <th>Reference</th>
+        </tr>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -70,6 +100,7 @@
         or ../@id = 'sub-tlv-9' 
         or ../@id = 'sub-tlv-11' 
         or ../@id = 'sub-tlv-20'
+        or ../@id = 'sub-tlv-27'
         or ../@id = 'sub-tlv-23'">
         <tr>
           <td align="center"><xsl:value-of select="iana:type"/></td>
@@ -94,6 +125,14 @@
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:value-of select="iana:addr"/></td>
           <td><xsl:value-of select="iana:if"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'oam-function-flags'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:flag"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
