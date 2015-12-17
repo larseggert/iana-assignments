@@ -4,7 +4,7 @@
            2009-04-15
 
    Last Updated
-           2009-08-26
+           2015-12-16
 
    Available Formats
            [IMG]
@@ -89,19 +89,39 @@ RPC Authentication Status Numbers
            [IMG]
            CSV
 
-     Identifier String    Flavor Name Value                        Description                         Reference
-   AUTH_OK                            0     success/failed at remote end                               [RFC5531]
-   AUTH_BADCRED                       1     bad credential (seal broken)                               [RFC5531]
-   AUTH_REJECTEDCRED                  2     client must begin new session                              [RFC5531]
-   AUTH_BADVERF                       3     bad verifier (seal broken)                                 [RFC5531]
-   AUTH_REJECTEDVERF                  4     verifier expired or replayed                               [RFC5531]
-   AUTH_TOOWEAK                       5     rejected for security reasons/failed locally               [RFC5531]
-   AUTH_INVALIDRESP                   6     bogus response verifier                                    [RFC5531]
-   AUTH_FAILED                        7     reason unknown/AUTH_KERB errors; deprecated. See [RFC2695] [RFC5531]
-   AUTH_KERB_GENERIC                  8     kerberos generic error                                     [RFC5531]
-   AUTH_TIMEEXPIRE                    9     time of credential expired                                 [RFC5531]
-   AUTH_TKT_FILE                      10    problem with ticket file                                   [RFC5531]
-   AUTH_DECODE                        11    can't decode authenticator                                 [RFC5531]
-   AUTH_NET_ADDR                      12    wrong net address in ticket/RPCSEC_GSS GSS related errors  [RFC5531]
-   RPCSEC_GSS_CREDPROBLEM             13    no credentials for user                                    [RFC5531]
-   RPCSEC_GSS_CTXPROBLEM              14    problem with context                                       [RFC5531]
+        Identifier String       Flavor Name Value                            Description                                       Reference
+   AUTH_OK                                  0     success/failed at remote end                                      [RFC5531]
+   AUTH_BADCRED                             1     bad credential (seal broken)                                      [RFC5531]
+   AUTH_REJECTEDCRED                        2     client must begin new session                                     [RFC5531]
+   AUTH_BADVERF                             3     bad verifier (seal broken)                                        [RFC5531]
+   AUTH_REJECTEDVERF                        4     verifier expired or replayed                                      [RFC5531]
+   AUTH_TOOWEAK                             5     rejected for security reasons/failed locally                      [RFC5531]
+   AUTH_INVALIDRESP                         6     bogus response verifier                                           [RFC5531]
+   AUTH_FAILED                              7     reason unknown/AUTH_KERB errors; deprecated. See [RFC2695]        [RFC5531]
+   AUTH_KERB_GENERIC                        8     kerberos generic error                                            [RFC5531]
+   AUTH_TIMEEXPIRE                          9     time of credential expired                                        [RFC5531]
+   AUTH_TKT_FILE                            10    problem with ticket file                                          [RFC5531]
+   AUTH_DECODE                              11    can't decode authenticator                                        [RFC5531]
+   AUTH_NET_ADDR                            12    wrong net address in ticket/RPCSEC_GSS GSS related errors         [RFC5531]
+   RPCSEC_GSS_CREDPROBLEM                   13    no credentials for user                                           [RFC5531]
+   RPCSEC_GSS_CTXPROBLEM                    14    problem with context                                              [RFC5531]
+                                                  With a multi-pricipal authorization request, the server must also
+                                                  have a context corresponding to the inner context handle. When
+                                                  the server does not have a context handle corresponding to the
+   RPCSEC_GSS_INNER_CREDPROBLEM             15    inner context handle of a multi-pricipal authorization request,   [draft-ietf-nfsv4-rpcsec-gssv3]
+                                                  the server sends a reply status of MSG_DENIED with the
+                                                  reject_stat of AUTH_ERROR and with an auth_stat value of
+                                                  RPCSEC_GSS_INNER_CREDPROBLEM.
+                                                  Servers that do not support labeling or that do not support the
+   RPCSEC_GSS_LABEL_PROBLEM                 16    requested LFS reject the label assertion with a reply status of   [draft-ietf-nfsv4-rpcsec-gssv3]
+                                                  MSG_DENIED, a reject_status of AUTH_ERROR, and an auth_stat of
+                                                  RPCSEC_GSS_LABEL_PROBLEM.
+                                                  If a server receives a structured privilege assertion that it
+                                                  fails to verify according to the requirements of the RPC
+   RPCSEC_GSS_PRIVILEGE_PROBLEM             17    application defined behavior, the assertion is rejected with a    [draft-ietf-nfsv4-rpcsec-gssv3]
+                                                  reply status of MSG_DENIED, a reject_status of AUTH_ERROR, and an
+                                                  auth_stat of RPCSEC_GSS_PRIVILEGE_PROBLEM.
+                                                  If a server receives a structured privilege assertion that it
+   RPCSEC_GSS_UNKNOWN_MESSAGE               18    does not recognize the assertion is rejected with a reply status  [draft-ietf-nfsv4-rpcsec-gssv3]
+                                                  of MSG_DENIED, a reject_status of AUTH_ERROR, and an auth_stat of
+                                                  RPCSEC_GSS_UNKNOWN_MESSAGE.
