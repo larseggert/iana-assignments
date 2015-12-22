@@ -1,0 +1,111 @@
+(registered 2015-12-21, last updated 2015-12-21)
+
+Name : Kyunghun Jung
+
+Email : kyunghun.jung&samsung.com
+
+MIME media type name : Audio
+
+MIME subtype name : Standards Tree - EVS
+
+Required parameters : None
+
+Optional parameters :
+These parameters apply to RTP transfer only.
+ptime: defined in section 6 of RFC 4566
+
+maxptime: defined in section 6 of RFC 4566
+
+evs-mode-switch: Permissible values are 0 and 1. If evs-mode-switch is 0 or not present, EVS primary mode is used at the start or update of the session for the send and the receive directions. If evs-mode-switch is 1, EVS AMR-WB IO mode is used at the start or update of the session for the send and the receive directions.
+
+hf-only: Permissible values are 0 and 1. If hf-only is 0 or not present, both Compact and Header-Full formats can be used in the session for the send and the receive directions. If hf-only is 1, only Header-Full format without zero padding for size collision avoidance is used.
+
+dtx: Permissible values are 0 and 1. If dtx is 0, DTX is disabled in the session for the send and the receive directions. If dtx is 1 or not present, DTX is enabled. If dtx is included, dtx-recv is redundant but if dtx-recv is included, it shall be identical to dtx.
+
+dtx-recv: Permissible values are 0 and 1. If dtx-recv=0 is included for a payload type in the received SDP offer or the received SDP answer, and the payload type is accepted, the receiver shall disable DTX for the send direction. If dtx-recv=1 is included for a payload type in the received SDP offer or the received SDP answer, and this payload type is accepted, or if dtx-recv is not present for an accepted payload type, DTX is enabled.
+
+max-red: defined in RFC 4867
+
+channels: The number of audio channels. See RFC 3551. If channels is not present, its default value is 1. If both ch-send and ch-recv are included in the SDP with different numbers of channels for sending and receiving directions, channels is set to the larger of the two parameters.
+
+cmr: Permissible values are -1, 0, and 1. If cmr is -1 and the session is in the EVS primary mode, CMR on the RTP payload header is disabled in the session. If cmr is -1 and the session is in the EVS AMR-WB IO mode, CMR in the CMR byte is restricted to the values of EVS AMR-WB IO bit-rates and NO_REQ as specified in Table A.3 of 3GPP TS 26.445. If cmr is 0 or not present, the values of CMR specified in Table A.3 of 3GPP TS 26.445 are enabled. If cmr is 1, CMR shall be present in each packet. CMR shall be compliant with the negotiated bit-rate and bandwidth media type attributes for EVS primary and EVS AMR-WB IO modes.
+
+br: Specifies the range of source codec bit-rate for EVS Primary mode (see Table 1 of 3GPP TS 26.441) in the session, in kilobits per second, for the send and the receive directions. The parameter can either have: a single bit-rate (br1); or a hyphen-separated pair of two bit-rates (br1-br2). If a single value is included, this bit-rate, br1, is used. If a hyphen-separated pair of two bit-rates is included, br1 and br2 are used as the minimum bit-rate and the maximum bit-rate respectively. br1 shall be smaller than br2. br1 and br2 have a value from the set: 5.9, 7.2, 8, 9.6, 13.2, 16.4, 24.4, 32, 48, 64, 96, and 128. 5.9 represents the average bit-rate of source controlled variable bit rate (SC-VBR) coding, and 7.2, ..., 128 represent the bit-rates of constant bit-rate source coding. Only bit-rates supporting at least one of the allowed audio bandwidth(s) shall be used in the session (see clause A.3.3.1 of 3GPP TS 26.445). If br is not present, all bit-rates consistent with the negotiated bandwidth(s) are allowed in the session unless br-send or br-recv is present. If br is included, br-send or br-recv is redundant but if either br-send or br-recv, or both are included, they shall be identical to br. If br-send and br-recv are not identical, br shall not be used.
+
+br-send: Specifies the range of source codec bit-rate for EVS Primary mode (see Table 1 of 3GPP TS 26.441) in the session, in kilobits per second, for the send direction. The parameter can either have: a single bit-rate (br1); or a hyphen-separated pair of two bit-rates (br1-br2). If a single value is included, this bit-rate, br1, is used. If a hyphen-separated pair of two bit-rates is included, br1 and br2 are used as the minimum bit-rate and the maximum bit-rate respectively. br1 shall be smaller than br2. br1 and br2 have a value from the set: 5.9, 7.2, 8, 9.6, 13.2, 16.4, 24.4, 32, 48, 64, 96, and 128. 5.9 represents the average bit-rate of source controlled variable bit-rate (SC-VBR) coding, and 7.2, ..., 128 represent the bit-rates of constant bit-rate source coding. Only bit-rates supporting at least one of the allowed audio bandwidth(s) shall be used in the session (see clause A.3.3.1 of 3GPP TS 26.445). If br-send is not present, all bit-rates consistent with the negotiated bandwidth(s) are allowed in the session unless br is present.
+
+br-recv: Specifies the range of source codec bit-rate for EVS Primary mode (see Table 1 of 3GPP TS 26.441) in the session, in kilobits per second, for the receive direction. The parameter can either have: a single bit-rate (br1); or a hyphen-separated pair of two bit-rates (br1-br2). If a single value is included, this bit-rate, br1, is used. If a hyphen-separated pair of two bit-rates is included, br1 and br2 are used as the minimum bit-rate and the maximum bit-rate respectively. br1 shall be smaller than br2. br1 and br2 have a value from the set: 5.9, 7.2, 8, 9.6, 13.2, 16.4, 24.4, 32, 48, 64, 96, and 128. 5.9 represents the average bit-rate of source controlled variable bit-rate (SC-VBR) coding, and 7.2, ..., 128 represent the bit-rates of constant bit-rate source coding. Only bit-rates supporting at least one of the allowed audio bandwidth(s) shall be used in the session (see clause A.3.3.1 of 3GPP TS 26.445). If br-recv is not present, all bit-rates consistent with the negotiated bandwidth(s) are allowed in the session unless br is present.
+
+bw: Specifies the audio bandwidth for EVS Primary mode (see Table 1 of 3GPP TS 26.441) to be used in the session for the send and the receive directions. bw has a value from the set: nb, wb, swb, fb, nb-wb, nb-swb, and nb-fb. nb, wb, swb, and fb represent narrowband, wideband, super-wideband, and fullband respectively, and nb-wb, nb-swb, and nb-fb represent all bandwidths from narrowband to wideband, super-wideband, and fullband respectively. If bw is not present, all bandwidths consistent with the negotiated bit-rate(s) are allowed in the session unless bw-send or bw-recv is present. If bw is included, bw-send or bw-recv is redundant but if either bw-send or bw-recv, or both are included, they shall be identical to bw. If bw-send and bw-recv are not identical, bw shall not be used.
+
+bw-send: Specifies the bandwidth (see Table 1 of 3GPP TS 26.441) to be used in the session for the send direction. bw-send has a value from the set: nb, wb, swb, fb, nb-wb, nb-swb, and nb-fb. nb, wb, swb, and fb represent narrowband, wideband, super-wideband, and fullband respectively, and nb-wb, nb-swb, and nb-fb represent all bandwidths from narrowband to wideband, super-wideband, and fullband respectively. If bw-send is not present, all bandwidths consistent with the negotiated bit-rate(s) are allowed in the session unless bw is present.
+
+bw-recv: Specifies the bandwidth (see Table 1 of 3GPP TS 26.441) to be used in the session for the receive direction. bw-recv has a value from the set: nb, wb, swb, fb, nb-wb, nb-swb, and nb-fb. nb, wb, swb, and fb represent narrowband, wideband, super-wideband, and fullband respectively, and nb-wb, nb-swb, and nb-fb represent all bandwidths from narrowband to wideband, super-wideband, and fullband respectively. If bw-recv is not present, all bandwidths consistent with the negotiated bit-rate(s) are allowed in the session unless bw is present.
+
+ch-send: Specifies the number of audio channels to be used in the session for the send direction. ch-send has an integer value from 1 to the maximum number of audio channels (see also clause A.3.2 of 3GPP TS 26.445). If ch-send is not present, ch-send=1, mono, is supported.
+
+ch-recv: Specifies the number of audio channels to be used in the session for the receive direction. ch-recv has an integer value from 1 to the maximum number of audio channels (see also clause A.3.2 of 3GPP TS 26.445). If ch-recv is not present, ch-recv=1, mono, is supported.
+
+ch-aw-recv: Specifies how channel-aware mode is configured or used for the receive direction. Permissible values are -1, 0, 2, 3, 5, and 7. If ch-aw-recv is -1, channel-aware mode is disabled in the session for the receive direction. If ch-aw-recv is 0 or not present, partial redundancy (channel-aware mode) is not used at the start of the session for the receive direction. If ch-aw-recv is positive (2, 3, 5, or 7), partial redundancy (channel-aware mode) is used at the start of the session for the receive direction using the value as the offset (See NOTE below). Partial redundancy is supported only when the bit-rate is 13.2 kbps and the bandwidth is wb or swb.
+
+mode-set: Restricts the active codec mode set to a subset of all modes when the EVS codec operates in AMR-WB IO, for example, to be able to support transport channels such as GSM or UMTS networks. Possible value is a comma-separated list of modes from the set: 0, ..., 8 (see Table 1a of 3GPP TS 26.201). If mode-set is specified, it must be abided, and frames encoded with AMR-WB IO outside of the subset must not be sent in any RTP payload or used in codec mode request signal. If not present, all codec modes of AMR-WB IO are allowed for the payload type.
+
+NOTE: If a positive (2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, the receiver of the parameter shall send partial redundancy (channel-aware mode) at the start of the session using the value as the offset. If ch-aw-recv=0 is declared or not present for a payload type and the payload type is accepted, the receiver of the parameter shall not send partial redundancy (channel-aware mode) at the start of the session. If ch-aw-recv=-1 is declared for a payload type and the payload type is accepted, the receiver of the parameter shall not send partial redundancy (channel-aware mode) in the session. If ch-aw-recv is not present or a non-negative (0, 2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, partial redundancy (channel-aware mode) can be activated or deactivated during the session based on the expected or estimated channel condition through adaptation signaling, such as CMR (see clause A.2 of 3GPP TS 26.445) or RTCP based signaling (see clause 10.2 of 3GPP TS 26.114). If ch-aw-recv is not present or a non-negative (0, 2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, the partial redundancy offset value can also be adjusted during the session based on the expected or estimated channel condition through adaptation signaling.
+
+mode-change-period: defined in section 8.1 of RFC 4867
+
+mode-change-capability: defined in section 8.1 of RFC 4867
+
+mode-change-neighbor: defined in section 8.1 of RFC 4867
+
+Encoding considerations : This media type is framed and binary; see Section 4.8 in RFC 6838
+
+
+Security considerations : 
+RTP packets using the payload format defined in this specification are subject to the general security considerations discussed in RFC 3550 and in any used profile, like AVP [RFC 3551] or SAVP [RFC 3711]. As this format transports encoded speech, the main security issues include confidentiality, authentication, and integrity of the speech itself. The payload format itself does not have any built-in security mechanisms.
+
+External mechanisms, such as SRTP [RFC 3711], may be used for the security functionality. The appropriate mechanisms to provide security to RTP and the payloads following this memo may vary, depending on the application, the transport, and the signaling protocol employed. Security mechanisms that may be used are IPsec [RFC 4301] and TLS [RFC 4346] (RTP over TCP), but other alternatives may also exist.
+
+This payload format, which does not include any executable content, does not exhibit any significant non-uniformity in the receiver side computational complexity for packet processing, and thus is unlikely to pose a denial-of-service threat due to the receipt of pathological data.
+
+Interoperability considerations : 
+Since the completion of the EVS speech codec in November 2014, extensive tests have been taken in the industry to identify interoperability issues, if any. So far, none has been reported in the chipset, radio and networking equipment areas as commercial launches of EVS proceeded globally.
+
+Published specification : 
+3GPP TS 26.445 V12.4.0, "Codec for Enhanced Voice Services (EVS); Detailed Algorithm Description"
+3GPP TS 26.441 V12.1.0, "Codec for Enhanced Voice Services (EVS); General overview"
+3GPP TS 26.114 V13.1.0, "IP Multimedia Subsystem (IMS); Multimedia telephony; Media handling and interaction"
+3GPP TS 26.201 V12.0.0, "Speech codec speech processing functions; Adaptive Multi-Rate - Wideband (AMR-WB) speech codec; Frame structure"
+
+Applications which use this media : 
+Primary application will be the Voice over LTE (VoLTE) services on the smartphones and mobile devices running on the fourth and beyond -generation mobile communications networks. This media type is also expected to be employed in VoIP services in the Internet and fixed networks. With the capability of supporting higher-quality audio up to 128 kbps, other applications, such as audio streaming, augmented reality, or virtual reality, are also anticipated for single and multi-channel services.
+
+Fragment identifier considerations :
+N/A
+
+Restrictions on usage :
+There are no restrictions on usage of this media type.
+
+Provisional registration? (standards tree only) :
+N/A
+
+
+Additional information :
+
+1. Deprecated alias names for this type : N/A
+2. Magic number(s) : None (file-type box must occur first and include 3GPP brand)
+3. File extension(s) : '3gp' and '3gpp' are declared at http://www.nist.gov/nics/
+4. Macintosh file type code : '3gpp'
+5. Object Identifiers: N/A
+
+
+
+Person to contact for further information :
+
+1. Name : Kyunghun Jung
+2. Email : kyunghun.jung&samsung.com
+
+Intended usage : Common
+Session negotiation for voice and audio communications services over mobile or wired IP networks
+
+Author/Change controller : 3GPP Specifications Manager
