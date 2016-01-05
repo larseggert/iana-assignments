@@ -4,7 +4,7 @@
            2008-12-23
 
    Last Updated
-           2015-10-19
+           2016-01-04
 
    Available Formats
            [IMG]
@@ -237,19 +237,15 @@ Type 7 Message TLV Type Extensions
            [IMG]
            CSV
 
-   Type Extension    Name                            Description                                                 Reference
-                              First (most significant) half octet of Value field
-                              specifies the originating router's willingness to act as a
-                              flooding MPR; subsequent half octets specify the
-         0        MPR_WILLING originating router's willingness to act as a routing MPR,  [RFC7181][RFC7631][RFC-ietf-manet-olsrv2-multitopology-07]
-                              either for the link metric types reported in an MPR_TYPES
-                              TLV (in the same order), or (if no MPR_TYPES TLV is
-                              present) for the single administratively agreed link
-                              metric type
-         1        MPR_TYPES   The link metric types supported on this OLSRv2 interface   [RFC-ietf-manet-olsrv2-multitopology-07]
-                              of this router (one octet each)
+   Type Extension    Name                                            Description                                                 Reference
+                              First (most significant) half octet of Value field specifies the originating router's
+                              willingness to act as a flooding MPR; subsequent half octets specify the originating
+         0        MPR_WILLING router's willingness to act as a routing MPR, either for the link metric types reported   [RFC7181][RFC7631][RFC7722]
+                              in an MPR_TYPES TLV (in the same order), or (if no MPR_TYPES TLV is present) for the
+                              single administratively agreed link metric type
+         1        MPR_TYPES   The link metric types supported on this OLSRv2 interface of this router (one octet each)  [RFC7722]
        2-223                  Unassigned
-      224-255                 Reserved for Experimental Use                              [RFC7181]
+      224-255                 Reserved for Experimental Use                                                             [RFC7181]
 
 Type 8 Message TLV Type Extensions
 
@@ -464,8 +460,8 @@ LINK_METRIC Address Block TLV Type Extensions
            [IMG]
            CSV
 
-   Type Extension                      Description                                           Reference
-        0-7       Link metric meaning assigned by administrative action. [RFC7181][RFC-ietf-manet-olsrv2-multitopology-07]
+   Type Extension                      Description                           Reference
+        0-7       Link metric meaning assigned by administrative action. [RFC7181][RFC7722]
        8-223      Unassigned
       224-255     Reserved for Experimental Use                          [RFC7181]
 
@@ -531,14 +527,12 @@ Type 10 Address Block TLV Type Extensions
            [IMG]
            CSV
 
-   Type Extension  Name                                 Description                                                   Reference
-                          Specifies that a given network address is reached via a gateway on the
-                          originating router. The number of hops is indicated by the Value field,
-         0        GATEWAY one octet per link metric type reported in an MPR_TYPES Message TLV (in [RFC7181][RFC-ietf-manet-olsrv2-multitopology-07]
-                          the same order) or (if no MPR_TYPES Message TLV is present) using a
-                          single octet
+   Type Extension  Name                                                Description                                                   Reference
+                          Specifies that a given network address is reached via a gateway on the originating router. The number
+         0        GATEWAY of hops is indicated by the Value field, one octet per link metric type reported in an MPR_TYPES       [RFC7181][RFC7722]
+                          Message TLV (in the same order) or (if no MPR_TYPES Message TLV is present) using a single octet
        1-223              Unassigned
-      224-255             Reserved for Experimental Use                                           [RFC7631]
+      224-255             Reserved for Experimental Use                                                                          [RFC7631]
 
 HELLO Message-Type-specific Address Block TLV Types
 
@@ -948,16 +942,14 @@ MPR TLV BIT Values
            [IMG]
            CSV
 
-          Bit             Value         Name                      Description                                         Reference
-   First octet bit 7 First octet 0x01 Flooding If set then the neighbor with that network address [RFC7188][RFC-ietf-manet-olsrv2-multitopology-07]
-                                               has been selected as flooding MPR
-                                               If set then the neighbor with that network address
-                                               has been selected as routing MPR, either for the
-   From first octet  From first octet          link metric types reported in an MPR_TYPES TLV (in
-         bit 6             0x02       Routing  the same order), or (if no MPR_TYPES TLV is        [RFC7188][RFC-ietf-manet-olsrv2-multitopology-07]
-                                               present) then (first octet bit 6, value 0x02) for
-                                               the single administratively agreed link metric
-                                               type
+            Bit                   Value           Name                                 Description                                   Reference
+     First octet bit 7      First octet 0x01    Flooding If set, then the neighbor with that network address has been selected   [RFC7188][RFC7722]
+                                                         as flooding MPR
+                                                         If set, then the neighbor with that network address has been selected
+                                                         as routing MPR, either for the link metric types reported in an
+   From first octet bit 6 From first octet 0x02 Routing  MPR_TYPES TLV (in the same order), or (if no MPR_TYPES TLV is present)  [RFC7188][RFC7722]
+                                                         then (first octet bit 6, value 0x02) for the single administratively
+                                                         agreed link metric type
 
 NBR_ADDR_TYPE Address Block TLV Bit Values
 
