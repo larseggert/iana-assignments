@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<xs:schema
+     targetNamespace=
+        "urn:ietf:params:xml:ns:EmergencyCallData:DeviceInfo"
+     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:dev="urn:ietf:params:xml:ns:EmergencyCallData:DeviceInfo"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     elementFormDefault="qualified"
+     attributeFormDefault="unqualified">
+
+     <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+                schemaLocation="http://www.w3.org/2001/xml.xsd"/>
+
+    <xs:element name="EmergencyCallData.DeviceInfo"
+        type="dev:DeviceInfoType"/>
+
+    <xs:complexType name="DeviceInfoType">
+            <xs:sequence>
+               <xs:element name="DataProviderReference"
+                    type="xs:token" minOccurs="1" maxOccurs="1"/>
+
+                <xs:element name="DeviceClassification"
+                    type="xs:string" minOccurs="0" maxOccurs="1"/>
+
+                <xs:element name="DeviceMfgr"
+                    type="xs:string" minOccurs="0" maxOccurs="1"/>
+
+                <xs:element name="DeviceModelNr"
+                    type="xs:string" minOccurs="0" maxOccurs="1"/>
+
+                <xs:element name="UniqueDeviceID" minOccurs="0"
+                            maxOccurs="unbounded">
+                  <xs:complexType>
+                    <xs:simpleContent>
+                      <xs:extension base="xs:string">
+                        <xs:attribute name="TypeOfDeviceID"
+                                      type="xs:string"
+                                      use="required"/>
+                      </xs:extension>
+                    </xs:simpleContent>
+                  </xs:complexType>
+                </xs:element>
+
+                <xs:element name="DeviceSpecificData"
+                    type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+
+                <xs:element name="DeviceSpecificType"
+                    type="xs:string" minOccurs="0" maxOccurs="1"/>
+
+                <xs:any namespace="##other" processContents="lax"
+                    minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+
+</xs:schema>

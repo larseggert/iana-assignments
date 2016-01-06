@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<xs:schema
+     targetNamespace=
+        "urn:ietf:params:xml:ns:EmergencyCallData:Comment"
+     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+     xmlns:com="urn:ietf:params:xml:ns:EmergencyCallData:Comment"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     elementFormDefault="qualified"
+     attributeFormDefault="unqualified">
+
+     <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+                schemaLocation="http://www.w3.org/2001/xml.xsd"/>
+
+    <xs:element name="EmergencyCallData.Comment"
+        type="com:CommentType"/>
+
+    <xs:complexType name="CommentType">
+            <xs:sequence>
+                <xs:element name="DataProviderReference"
+                  type="xs:token" minOccurs="1" maxOccurs="1"/>
+
+                <xs:element name="Comment"
+                    type="com:CommentSubType" minOccurs="0"
+                    maxOccurs="unbounded"/>
+
+                <xs:any namespace="##other" processContents="lax"
+                    minOccurs="0" maxOccurs="unbounded"/>
+           </xs:sequence>
+        </xs:complexType>
+
+    <xs:complexType name="CommentSubType">
+     <xs:simpleContent>
+      <xs:extension base="xs:string">
+       <xs:attribute ref="xml:lang"/>
+      </xs:extension>
+     </xs:simpleContent>
+    </xs:complexType>
+
+</xs:schema>
