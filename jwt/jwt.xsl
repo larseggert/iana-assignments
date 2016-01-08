@@ -14,6 +14,12 @@
           <th>Change Controller</th>
           <th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'confirmation-methods'">
+        <tr><th>Confirmation Method Value</th>
+          <th>Confirmation Method Description</th>
+          <th>Change Controller</th>
+          <th>Reference</th></tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
