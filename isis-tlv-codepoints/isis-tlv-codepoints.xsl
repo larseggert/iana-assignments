@@ -52,6 +52,14 @@
       </tr>
      </xsl:when>
       
+     <xsl:when test="@id = 'prefix-attribute-flags'">
+      <tr>
+        <th>Bit #</th>
+        <th>Name</th>
+        <th>Reference</th>
+      </tr>
+     </xsl:when> 
+      
      <xsl:when test="@id = 'isis-tlv-codepoints-19of22'">
       <tr>
         <th>Value</th>
