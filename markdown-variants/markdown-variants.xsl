@@ -12,12 +12,8 @@
         <tr>
           <th>Identifier</th>
           <th>Name</th>
-          <th>Description</th>
-          <th>Additional Parameters</th>
-          <th>Fragment Identifiers</th>
-          <th>References</th>
-          <th>Contact Information</th>
           <th>Expiration Date</th>
+          <th>References</th>
         </tr>
       </xsl:when>
     </xsl:choose>
@@ -29,12 +25,8 @@
         <tr>
           <td><xsl:apply-templates select="iana:identifier"/></td>
           <td><xsl:apply-templates select="iana:name"/></td>
-          <td><xsl:apply-templates select="iana:description"/></td>
-          <td><xsl:apply-templates select="iana:additional"/></td>
-          <td><xsl:apply-templates select="iana:fragment"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
-          <td><xsl:apply-templates select="iana:contact"/></td>
           <td><xsl:apply-templates select="iana:expiration"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
     </xsl:choose>
