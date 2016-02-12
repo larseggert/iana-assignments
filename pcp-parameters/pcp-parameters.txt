@@ -4,7 +4,7 @@
            2012-11-21
 
    Last Updated
-           2016-02-05
+           2016-02-11
 
    Available Formats
            [IMG]
@@ -132,76 +132,66 @@ PCP Options
    0-63, 127-191, 255 Standards Action
      64-95, 192-223   Specification Required
 
-    Value            Name                   Purpose          Valid for Opcodes  Length   May Appear in      Maximum              Reference
-                                                                                                          Occurrences
-   0       Reserved                                                                                                     [RFC6887]
-                                                                                         Request. May
-                                    Indicates the MAP or                                 appear in
-                                    PEER request is for a                                response only
-   1       THIRD_PARTY              host other than the host MAP, PEER         16 octets if it appeared 1               [RFC6887]
-                                    sending the PCP Option.                              in the
-                                                                                         associated
-                                                                                         request.
-                                    Indicates that the PCP                               Request. May
-                                    server should not create                             appear in
-                                    an alternative mapping                               response only
-   2       PREFER_FAILURE           if the suggested         MAP               0         if it appeared 1               [RFC6887]
-                                    external port and                                    in the
-                                    address cannot be                                    associated
-                                    mapped.                                              request.
-                                                                                         Request. May
-                                                                                         appear in      As many as fit
-                                    Specifies a filter for                               response only  within maximum
-   3       FILTER                   incoming packets.        MAP               20 octets if it appeared PCP message     [RFC6887]
-                                                                                         in the         size.
-                                                                                         associated
-                                                                                         request.
-   4       NONCE                    See Section 5.3 of       AUTHENTICATION    4 octets  Request and    1               [RFC7652]
-                                    [RFC7652].                                           response.
-   5       AUTHENTICATION_TAG       See Section 5.4 of       MAP, PEER,        variable  Request and    1               [RFC7652]
-                                    [RFC7652].               ANNOUNCE                    response.
-   6       PA_AUTHENTICATION_TAG    See Section 5.5 of       AUTHENTICATION    variable  Request and    1               [RFC7652]
-                                    [RFC7652].                                           response.
-   7       EAP_PAYLOAD              See Section 5.6 of       AUTHENTICATION    variable  Request and    1               [RFC7652]
-                                    [RFC7652].                                           response.
-                                                                                                        As many as fit
-   8       PRF                      See Section 5.7 of       AUTHENTICATION    4 octets  Request and    within maximum  [RFC7652]
-                                    [RFC7652].                                           response.      PCP message
-                                                                                                        size.
-                                                                                                        As many as fit
-   9       MAC_ALGORITHM            See Section 5.8 of       AUTHENTICATION    4 octets  Request and    within maximum  [RFC7652]
-                                    [RFC7652].                                           response.      PCP message
-                                                                                                        size.
-   10      SESSION_LIFETIME         See Section 5.9 of       AUTHENTICATION    4 octets  Response.      1               [RFC7652]
-                                    [RFC7652].
-   11      RECEIVED_PAK             See Section 5.10 of      AUTHENTICATION    4 octets  Request and    1               [RFC7652]
-                                    [RFC7652].                                           response.
-   12      ID_INDICATOR             See Section 5.11 of      AUTHENTICATION    variable  Response.      1               [RFC7652]
+    Value            Name                      Purpose             Valid for Opcodes     Length      May Appear in    Maximum Occurrences Reference
+   0       Reserved                                                                                                                       [RFC6887]
+                                                                                                   Request. May
+                                    Indicates the MAP or PEER                                      appear in response
+   1       THIRD_PARTY              request is for a host other   MAP, PEER           16 octets    only if it         1                   [RFC6887]
+                                    than the host sending the PCP                                  appeared in the
+                                    Option.                                                        associated
+                                                                                                   request.
+                                    Indicates that the PCP server                                  Request. May
+                                    should not create an                                           appear in response
+   2       PREFER_FAILURE           alternative mapping if the    MAP                 0            only if it         1                   [RFC6887]
+                                    suggested external port and                                    appeared in the
+                                    address cannot be mapped.                                      associated
+                                                                                                   request.
+                                                                                                   Request. May
+                                                                                                   appear in response As many as fit
+   3       FILTER                   Specifies a filter for        MAP                 20 octets    only if it         within maximum PCP  [RFC6887]
+                                    incoming packets.                                              appeared in the    message size.
+                                                                                                   associated
+                                                                                                   request.
+   4       NONCE                    See Section 5.3 of [RFC7652]. AUTHENTICATION      4 octets     Request and        1                   [RFC7652]
+                                                                                                   response.
+   5       AUTHENTICATION_TAG       See Section 5.4 of [RFC7652]. MAP, PEER, ANNOUNCE variable     Request and        1                   [RFC7652]
+                                                                                                   response.
+   6       PA_AUTHENTICATION_TAG    See Section 5.5 of [RFC7652]. AUTHENTICATION      variable     Request and        1                   [RFC7652]
+                                                                                                   response.
+   7       EAP_PAYLOAD              See Section 5.6 of [RFC7652]. AUTHENTICATION      variable     Request and        1                   [RFC7652]
+                                                                                                   response.
+                                                                                                   Request and        As many as fit
+   8       PRF                      See Section 5.7 of [RFC7652]. AUTHENTICATION      4 octets     response.          within maximum PCP  [RFC7652]
+                                                                                                                      message size.
+                                                                                                   Request and        As many as fit
+   9       MAC_ALGORITHM            See Section 5.8 of [RFC7652]. AUTHENTICATION      4 octets     response.          within maximum PCP  [RFC7652]
+                                                                                                                      message size.
+   10      SESSION_LIFETIME         See Section 5.9 of [RFC7652]. AUTHENTICATION      4 octets     Response.          1                   [RFC7652]
+   11      RECEIVED_PAK             See Section 5.10 of           AUTHENTICATION      4 octets     Request and        1                   [RFC7652]
+                                    [RFC7652].                                                     response.
+   12      ID_INDICATOR             See Section 5.11 of           AUTHENTICATION      variable     Response.          1                   [RFC7652]
                                     [RFC7652].
    13-95   Unassigned
-   96-126  Reserved for Private Use                                                                                     [RFC6887]
-   127     Reserved                                                                                                     [RFC6887]
-                                                                                         Request. May
-                                                                               variable, appear in
-                                    Used to associate a text                   maximum   response only
-   128     DESCRIPTION              description with a       MAP, PEER         1016      if it appeared 1               [RFC7220]
-                                    mapping.                                   octets.   in the
-                                                                                         associated
-                                                                                         request.
-                                    Learn the prefix used by                                            1 for a
-                                    the NAT64 to build                                                  request. As
-                                    IPv4-converted IPv6                                                 many as fit
-   129     PREFIX64                 addresses. This is used  MAP, ANNOUNCE     variable  request,       within the      [RFC7225]
-                                    by a host for local                                  response       maximum PCP
-                                    address synthesis (e.g.,                                            message size
-                                    when an IPv4 address is                                             for a response.
-                                    present in referrals).
-   130     PORT_SET                 To map sets of ports.    MAP               5 bytes   Request and    1               [RFC7753]
-                                                                                         response.
+   96-126  Reserved for Private Use                                                                                                       [RFC6887]
+   127     Reserved                                                                                                                       [RFC6887]
+                                                                                                   Request. May
+                                                                                      variable,    appear in response
+   128     DESCRIPTION              Used to associate a text      MAP, PEER           maximum 1016 only if it         1                   [RFC7220]
+                                    description with a mapping.                       octets.      appeared in the
+                                                                                                   associated
+                                                                                                   request.
+                                    Learn the prefix used by the
+                                    NAT64 to build IPv4-converted                                                     1 for a request. As
+                                    IPv6 addresses. This is used                                                      many as fit within
+   129     PREFIX64                 by a host for local address   MAP, ANNOUNCE       variable     request, response  the maximum PCP     [RFC7225]
+                                    synthesis (e.g., when an IPv4                                                     message size for a
+                                    address is present in                                                             response.
+                                    referrals).
+   130     PORT_SET                 To map sets of ports.         MAP                 5 bytes      Request and        1                   [RFC7753]
+                                                                                                   response.
    131-191 Unassigned
-                                    Indicate if an entry                                 Request and
-   192     CHECKPOINT_REQUIRED      needs to be              MAP, PEER         0         response.      1               [RFC-vinapamula-flow-ha-14]
-                                    check-pointed.
+   192     CHECKPOINT_REQUIRED      Indicate if an entry needs to MAP, PEER           0            Request and        1                   [RFC7767]
+                                    be check-pointed.                                              response.
    193-223 Unassigned
-   224-254 Reserved for Private Use                                                                                     [RFC6887]
-   255     Reserved                                                                                                     [RFC6887]
+   224-254 Reserved for Private Use                                                                                                       [RFC6887]
+   255     Reserved                                                                                                                       [RFC6887]
