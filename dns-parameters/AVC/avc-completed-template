@@ -1,0 +1,79 @@
+A. Submission Date: 2016-02-14
+
+B.1 Submission Type:  [X] New RRTYPE  [ ] Modification to RRTYPE
+B.2 Kind of RR:  [X] Data RR  [ ] Meta-RR
+
+C. Contact Information for submitter (will be publicly posted):
+   Name: Wolfgang Riedel       Email Address: wolfgang&cisco.com
+   International telephone number: +49-811-559-5450
+   Other contact handles: 
+
+D. Motivation for the new RRTYPE application.
+
+   Cisco has developed a new use case for DNS called "DNS Authoritative Source" 
+   in short DNS-AS. This use case uses the DNS to store and provide 
+   metadata about applications.
+   This data is primarily intended to be used for metadata driven 
+   Application Visibility and Control in short AVC.
+   
+   On network elements it can be used as a key to link application to policy 
+   in support of those applications as also for visualization afterwards.
+   For example, a network element might use the information
+   obtained through the AVC RRTYPE to set QoS or access policies for
+   traffic to or from a specific application. 
+   We are applying for a new RRTYPE that can hold the application metadata been 
+   used by the DNS-AS use case for for AVC.
+
+E. Description of the proposed RR type.
+
+   General AVC Resource Record syntax:
+   "<option>:<val>{|<option>:<val>}*" 
+   
+   The RDATA has exactly the same content as a TXT record.
+   The option field is derived from RFC6759 Metadata Components long name.
+   We try to keep the RR short to not exceed the 255 characters as also make it
+   easy parseable. Therefore we shorten the RFC6759 names inside the RR like 
+   "Application Name" to "app-name" or "Application ID" to "app-id"
+   In case a single record might exceed 255 characters we need to allow for that, too.
+   Typically an application would concatenate the individual sub-strings directly
+   *without* adding any separator.
+
+   An example for such an AVC RDATA record with app metadata would be:
+   "app-name:WOLFGANG|app-class:OAM|business=yes" 
+
+   See here for more info:
+   http://www.dns-as.org/what-is/metadata/
+   http://www.dns-as.org/support/dns-as-rr/
+
+F. What existing RRTYPE or RRTYPEs come closest to filling that need
+   and why are they unsatisfactory?
+
+   Like SPF we are currently using the TXT RR for DNS-AS. The TXT RRTYPE 
+   can support arbitrary TLVs encoded as a text. In general this kind 
+   of (ab)use of TXT RR is discouraged as discussed in RFC5507 therefore
+   we apply for a dedicated resource record.
+
+G. What mnemonic is requested for the new RRTYPE (optional)?
+   mnemonic=AVC
+
+H. Does the requested RRTYPE make use of any existing IANA registry
+   or require the creation of a new IANA subregistry in DNS
+   Parameters?  If so, please indicate which registry is to be used
+   or created.  If a new subregistry is needed, specify the
+   allocation policy for it and its initial contents.  Also include
+   what the modification procedures will be.
+
+   The mnemonic syntax as also the potential <option>:<val> fields are
+   inline with RFC6759 and the usage is described in detail here:
+   http://www.dns-as.org/what-is/metadata/
+   http://www.dns-as.org/support/avc-rdata/
+
+I. Does the proposal require/expect any changes in DNS
+   servers/resolvers that prevent the new type from being processed
+   as an unknown RRTYPE (see [RFC3597])?
+
+   No.
+
+J. Comments:
+
+   None.
