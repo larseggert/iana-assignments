@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<xs:schema
+    targetNamespace=
+    "urn:ietf:params:xml:ns:EmergencyCallData"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:ad="urn:ietf:params:xml:ns:EmergencyCallData"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace"
+    xmlns:pi="urn:ietf:params:xml:ns:EmergencyCallData:ProviderInfo"
+    xmlns:svc="urn:ietf:params:xml:ns:EmergencyCallData:ServiceInfo"
+    xmlns:dev="urn:ietf:params:xml:ns:EmergencyCallData:DeviceInfo"
+    xmlns:sub=
+        "urn:ietf:params:xml:ns:EmergencyCallData:SubscriberInfo"
+    xmlns:com="urn:ietf:params:xml:ns:EmergencyCallData:Comment"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified">
+
+   <xs:import
+    namespace="urn:ietf:params:xml:ns:EmergencyCallData:ProviderInfo"
+    schemaLocation="ProviderInfo.xsd"/>
+   <xs:import
+    namespace="urn:ietf:params:xml:ns:EmergencyCallData:ServiceInfo"
+    schemaLocation="ServiceInfo.xsd"/>
+   <xs:import
+    namespace="urn:ietf:params:xml:ns:EmergencyCallData:DeviceInfo"
+    schemaLocation="DeviceInfo.xsd"/>
+   <xs:import namespace="urn:ietf:params:xml:ns:EmergencyCallData:SubscriberInfo"
+    schemaLocation="SubscriberInfo.xsd"/>
+   <xs:import
+    namespace="urn:ietf:params:xml:ns:EmergencyCallData:Comment"
+    schemaLocation="Comment.xsd"/>
+
+    <xs:element name="EmergencyCallDataReference"
+                type="ad:ByRefType"/>
+
+    <xs:element name="EmergencyCallDataValue"
+                type="ad:EmergencyCallDataValueType"/>
+
+    <!-- Additional Data By Reference -->
+
+    <xs:complexType name="ByRefType">
+        <xs:complexContent>
+            <xs:restriction base="xs:anyType">
+                <xs:sequence>
+                    <xs:any namespace="##other" minOccurs="0"
+                        maxOccurs="unbounded" processContents="lax"/>
+                </xs:sequence>
+                <xs:attribute name="purpose" type="xs:token"
+                    use="required"/>
+                <xs:attribute name="ref" type="xs:anyURI"
+                    use="required"/>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!-- Additional Data By Value -->
+
+    <xs:complexType name="EmergencyCallDataValueType">
+            <xs:sequence>
+                <xs:element name="EmergencyCallData.ProviderInfo"
+                    type="pi:ProviderInfoType"
+                    minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="EmergencyCallData.ServiceInfo"
+                    type="svc:ServiceInfoType"
+                    minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="EmergencyCallData.DeviceInfo"
+                    type="dev:DeviceInfoType"
+                    minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="EmergencyCallData.SubscriberInfo"
+                    type="sub:SubscriberInfoType"
+                    minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="EmergencyCallData.Comment"
+                    type="com:CommentType"
+                    minOccurs="0" maxOccurs="unbounded"/>
+
+                <xs:any namespace="##other" processContents="lax"
+                    minOccurs="0" maxOccurs="unbounded"/>
+
+            </xs:sequence>
+        </xs:complexType>
+
+</xs:schema>
