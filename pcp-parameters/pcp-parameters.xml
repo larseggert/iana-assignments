@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="pcp-parameters">
   <title>Port Control Protocol (PCP) Parameters</title>
   <created>2012-11-21</created>
-  <updated>2016-02-11</updated>
+  <updated>2016-03-10</updated>
   
   <registry id="opcodes">
     <title>PCP Opcodes</title>
@@ -264,8 +264,31 @@
         the PA message contains an EAP response.</description>
       <xref type="rfc" data="rfc7652"/>
     </record>
+    <record date="2016-03-10">
+      <value>24</value>
+      <name>THIRD_PARTY_ID_UNKNOWN</name>
+      <description>The provided identifier in a
+      THIRD_PARTY_ID option is unknown/unavailable to the PCP server.
+      This is a long lifetime error.</description>
+      <xref type="draft" data="RFC-ietf-pcp-third-party-id-option-08"/>
+    </record>
+    <record date="2016-03-10">
+      <value>25</value>
+      <name>THIRD_PARTY_MISSING_OPTION</name>
+      <description>This error occurs if both
+      THIRD_PARTY and THIRD_PARTY_ID options are expected in a request
+      but one option is missing.  This is a long lifetime error.</description>
+      <xref type="draft" data="RFC-ietf-pcp-third-party-id-option-08"/>
+    </record>
+    <record date="2016-03-10">
+      <value>26</value>
+      <name>UNSUPP_THIRD_PARTY_ID_LENGTH</name>
+      <description>The received option length is
+      not supported.  This is a long lifetime error.</description>
+      <xref type="draft" data="RFC-ietf-pcp-third-party-id-option-08"/>
+    </record>
     <record>
-      <value>24-191</value>
+      <value>27-191</value>
       <name>Unassigned</name>
       <description/>
     </record>
@@ -432,9 +455,23 @@
       <may-appear-in>Response.</may-appear-in>
       <maximum>1</maximum>
       <xref type="rfc" data="rfc7652"/>
+    </record>
+    <record date="2016-03-10">
+      <value>13</value>
+      <name>THIRD_PARTY_ID</name>
+      <purpose>Together with the THIRD_PARTY option, the
+      THIRD_PARTY_ID option identifies a third party
+      for which a request for an external IP address
+      and port is made.</purpose>
+      <valid-for>MAP, PEER</valid-for>
+      <length>Variable, maximum 1016 octets.</length>
+      <may-appear-in>Request. May appear in response only if it
+      appeared in the associated request.</may-appear-in>
+      <maximum>1</maximum>
+      <xref type="draft" data="RFC-ietf-pcp-third-party-id-option-08"/>
     </record>    
     <record>
-      <value>13-95</value>
+      <value>14-95</value>
       <name>Unassigned</name>
       <purpose/>
       <valid-for/>
