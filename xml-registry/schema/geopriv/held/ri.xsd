@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<xs:schema
+  targetNamespace="urn:ietf:params:xml:ns:geopriv:held:ri"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:ri="urn:ietf:params:xml:ns:geopriv:held:ri"
+  xmlns:xml="http://www.w3.org/XML/1998/namespace"
+  elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+  <xs:element name="requestRoutingInformation">
+     <xs:complexType name="empty">
+        <xs:attribute name="service" type="xs:anyUri"
+            use="optional" default="urn:service:sos"/>
+     </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="service">
+     <xs:complexContent>
+       <xs:restriction base="xs:anyType">
+          <xs:sequence>
+             <xs:element name="dest" type="xs:anyURI"
+                  maxOccurs="unbounded"/>
+             <xs:any namespace="##other" processContents="lax"
+                    minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+          <xs:attribute name="defaultRoute" type="xs:boolean"
+                        use="optional" default="false"/>
+          <xs:attribute name="serviceUri" type="xs:anyURI"
+                        use="required"/>
+          <xs:anyAttribute namespace="##any" processContents="lax"/>
+       </xs:restriction>
+     </xs:complexContent>
+  </xs:complexType>
+
+  <xs:element name="routingInformation" type="ri:riType"/>
+
+  <xs:complexType name="riType">
+    <xs:complexContent>
+      <xs:restriction base="xs:anyType">
+        <xs:sequence>
+          <xs:element name="service" type="ri:service"/>
+          <xs:any namespace="##other" processContents="lax"
+                  minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:anyAttribute namespace="##any" processContents="lax"/>
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+
+</xs:schema>
