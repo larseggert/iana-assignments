@@ -4,7 +4,7 @@
            2013-03-26
 
    Last Updated
-           2015-09-28
+           2016-04-04
 
    Available Formats
            [IMG]
@@ -28,6 +28,8 @@
      * RELOAD Extensions Registry
      * RELOAD Services Registry
      * CoAP Usage for RELOAD Access Control Policy
+     * RELOAD Diagnostics Flag
+     * RELOAD Diagnostic Kind ID
 
 RELOAD Overlay Algorithm Types
 
@@ -162,7 +164,7 @@ RELOAD Message Codes
            [IMG]
            CSV
 
-    Code Value   Message Code Name  Reference
+    Code Value   Message Code Name             Reference
    0x0           invalidMessageCode [RFC6940]
    0x1           probe_req          [RFC6940]
    0x2           probe_ans          [RFC6940]
@@ -197,8 +199,10 @@ RELOAD Message Codes
    0x23          exp_a_req          [RFC6940]
    0x24          exp_a_ans          [RFC6940]
    0x25          exp_b_req          [RFC6940]
-   0x25          exp_b_ans          [RFC6940]
-   0x27-0x7fff   Unassigned
+   0x26          exp_b_ans          [RFC6940]
+   0x27          path_track_req     [RFC-ietf-p2psip-diagnostics-22]
+   0x28          path_track_ans     [RFC-ietf-p2psip-diagnostics-22]
+   0x29-0x7fff   Unassigned
    0x8000-0xfffe Reserved           [RFC6940]
    0xffff        error              [RFC6940]
 
@@ -215,30 +219,36 @@ RELOAD Error Codes
            [IMG]
            CSV
 
-    Code Value             Error Code Name           Reference
-   0x0           invalidErrorCode                    [RFC6940]
+    Code Value              Error Code Name                        Reference
+   0x0           invalidErrorCode                       [RFC6940]
    0x1           Unassigned
-   0x2           Error_Forbidden                     [RFC6940]
-   0x3           Error_Not_Found                     [RFC6940]
-   0x4           Error_Request_Timeout               [RFC6940]
-   0x5           Error_Generation_Counter_Too_Low    [RFC6940]
-   0x6           Error_Incompatible_with_Overlay     [RFC6940]
-   0x7           Error_Unsupported_Forwarding_Option [RFC6940]
-   0x8           Error_Data_Too_Large                [RFC6940]
-   0x9           Error_Data_Too_Old                  [RFC6940]
-   0xa           Error_TTL_Exceeded                  [RFC6940]
-   0xb           Error_Message_Too_Large             [RFC6940]
-   0xc           Error_Unknown_Kind                  [RFC6940]
-   0xd           Error_Unknown_Extension             [RFC6940]
-   0xe           Error_Response_Too_Large            [RFC6940]
-   0xf           Error_Config_Too_Old                [RFC6940]
-   0x10          Error_Config_Too_New                [RFC6940]
-   0x11          Error_In_Progress                   [RFC6940]
-   0x12          Error_Exp_A                         [RFC6940]
-   0x13          Error_Exp_B                         [RFC6940]
-   0x14          Error_Invalid_Message               [RFC6940]
-   0x15-07fff    Unassigned
-   0x8000-0xffff Reserved                            [RFC6940]
+   0x2           Error_Forbidden                        [RFC6940]
+   0x3           Error_Not_Found                        [RFC6940]
+   0x4           Error_Request_Timeout                  [RFC6940]
+   0x5           Error_Generation_Counter_Too_Low       [RFC6940]
+   0x6           Error_Incompatible_with_Overlay        [RFC6940]
+   0x7           Error_Unsupported_Forwarding_Option    [RFC6940]
+   0x8           Error_Data_Too_Large                   [RFC6940]
+   0x9           Error_Data_Too_Old                     [RFC6940]
+   0xa           Error_TTL_Exceeded                     [RFC6940]
+   0xb           Error_Message_Too_Large                [RFC6940]
+   0xc           Error_Unknown_Kind                     [RFC6940]
+   0xd           Error_Unknown_Extension                [RFC6940]
+   0xe           Error_Response_Too_Large               [RFC6940]
+   0xf           Error_Config_Too_Old                   [RFC6940]
+   0x10          Error_Config_Too_New                   [RFC6940]
+   0x11          Error_In_Progress                      [RFC6940]
+   0x12          Error_Exp_A                            [RFC6940]
+   0x13          Error_Exp_B                            [RFC6940]
+   0x14          Error_Invalid_Message                  [RFC6940]
+   0x15          Error_Underlay_Destination_Unreachable [RFC-ietf-p2psip-diagnostics-22]
+   0x16          Error_Underlay_Time_Exceeded           [RFC-ietf-p2psip-diagnostics-22]
+   0x17          Error_Message_Expired                  [RFC-ietf-p2psip-diagnostics-22]
+   0x18          Error_Upstream_Misrouting              [RFC-ietf-p2psip-diagnostics-22]
+   0x19          Error_Loop_Detected                    [RFC-ietf-p2psip-diagnostics-22]
+   0x1a          Error_TTL_Hops_Exceeded                [RFC-ietf-p2psip-diagnostics-22]
+   0x1b-07fff    Unassigned
+   0x8000-0xffff Reserved                               [RFC6940]
 
 RELOAD Overlay Link Registry
 
@@ -344,10 +354,10 @@ RELOAD Extensions Registry
            [IMG]
            CSV
 
-      Code          Extension Name        Reference
+      Code          Extension Name                   Reference
    0x0        invalidMessageExtensionType [RFC6940]
    0x1        exp-ext                     [RFC6940]
-   0x2        Unassigned
+   0x2        Diagnostic_Ping             [RFC-ietf-p2psip-diagnostics-22]
    0x3        self_tuning_data            [RFC7363]
    0x4-0xfffe Unassigned
    0xffff     Reserved                    [RFC6940]
@@ -393,3 +403,86 @@ CoAP Usage for RELOAD Access Control Policy
    Access Policy  Reference
    URI-NODE-MATCH [RFC7650]
    URI-MATCH      [RFC7650]
+
+RELOAD Diagnostics Flag
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC-ietf-p2psip-diagnostics-22]
+
+   Note
+
+ Assignments must be accompanied by the registration of corresponding
+ values in the RELOAD Diagnostic Kind ID registry.
+
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Diagnostic Information Diagnostic Flag in dMFlags            Reference
+   0x 0000 0000 0000 0000 Reserved All 0s value      [RFC-ietf-p2psip-diagnostics-22]
+   0x 0000 0000 0000 0001 Reserved First Bit         [RFC-ietf-p2psip-diagnostics-22]
+   0x 0000 0000 0000 0002 STATUS_INFO                [RFC-ietf-p2psip-diagnostics-22]
+   0x 0000 0000 0000 0004 ROUTING_TABLE_SIZE         [RFC-ietf-p2psip-diagnostics-22]
+   0x 0000 0000 0000 0008 PROCESS_POWER              [RFC-ietf-p2psip-diagnostics-22]
+   0x 0000 0000 0000 0010 UPSTREAM_BANDWIDTH         [RFC-ietf-p2psip-diagnostics-22]
+   0x 0000 0000 0000 0020 DOWNSTREAM_ BANDWIDTH      [RFC-ietf-p2psip-diagnostics-22]
+   0x 0000 0000 0000 0040 SOFTWARE_VERSION           [RFC-ietf-p2psip-diagnostics-22]
+   0x 0000 0000 0000 0080 MACHINE_UPTIME             [RFC-ietf-p2psip-diagnostics-22]
+   0x 0000 0000 0000 0100 APP_UPTIME                 [RFC-ietf-p2psip-diagnostics-22]
+   0x 0000 0000 0000 0200 MEMORY_FOOTPRINT           [RFC-ietf-p2psip-diagnostics-22]
+   0x 0000 0000 0000 0400 DATASIZE_STORED            [RFC-ietf-p2psip-diagnostics-22]
+   0x 0000 0000 0000 0800 INSTANCES_STORED           [RFC-ietf-p2psip-diagnostics-22]
+   0x 0000 0000 0000 1000 MESSAGES_SENT_RCVD         [RFC-ietf-p2psip-diagnostics-22]
+   0x 0000 0000 0000 2000 EWMA_BYTES_SENT            [RFC-ietf-p2psip-diagnostics-22]
+   0x 0000 0000 0000 4000 EWMA_BYTES_RCVD            [RFC-ietf-p2psip-diagnostics-22]
+   0x 0000 0000 0000 8000 UNDERLAY_HOP               [RFC-ietf-p2psip-diagnostics-22]
+   0x 0000 0000 0001 0000 BATTERY_STATUS             [RFC-ietf-p2psip-diagnostics-22]
+   0x 8000 0000 0000 0000 Reserved Last Bit          [RFC-ietf-p2psip-diagnostics-22]
+   0x ffff ffff ffff ffff Reserved All 1s value      [RFC-ietf-p2psip-diagnostics-22]
+
+RELOAD Diagnostic Kind ID
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC-ietf-p2psip-diagnostics-22]
+
+   Note
+
+ Note: Assignments in the 0x0001 to 0x003E range must be accompanied by
+ the registration of corresponding values in the RELOAD Diagnostics Flag
+ registry.
+
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Diagnostic Kind           Code                       Reference
+   0x0000          Reserved                  [RFC-ietf-p2psip-diagnostics-22]
+   0x0001          STATUS_INFO               [RFC-ietf-p2psip-diagnostics-22]
+   0x0002          ROUTING_TABLE_SIZE        [RFC-ietf-p2psip-diagnostics-22]
+   0x0003          PROCESS_POWER             [RFC-ietf-p2psip-diagnostics-22]
+   0x0004          UPSTREAM_BANDWIDTH        [RFC-ietf-p2psip-diagnostics-22]
+   0x0005          DOWNSTREAM_ BANDWIDTH     [RFC-ietf-p2psip-diagnostics-22]
+   0x0006          SOFTWARE_VERSION          [RFC-ietf-p2psip-diagnostics-22]
+   0x0007          MACHINE_UPTIME            [RFC-ietf-p2psip-diagnostics-22]
+   0x0008          APP_UPTIME                [RFC-ietf-p2psip-diagnostics-22]
+   0x0009          MEMORY_FOOTPRINT          [RFC-ietf-p2psip-diagnostics-22]
+   0x000a          DATASIZE_STORED           [RFC-ietf-p2psip-diagnostics-22]
+   0x000b          INSTANCES_STORED          [RFC-ietf-p2psip-diagnostics-22]
+   0x000c          MESSAGES_SENT_RCVD        [RFC-ietf-p2psip-diagnostics-22]
+   0x000d          EWMA_BYTES_SENT           [RFC-ietf-p2psip-diagnostics-22]
+   0x000e          EWMA_BYTES_RCVD           [RFC-ietf-p2psip-diagnostics-22]
+   0x000f          UNDERLAY_HOP              [RFC-ietf-p2psip-diagnostics-22]
+   0x0010          BATTERY_STATUS            [RFC-ietf-p2psip-diagnostics-22]
+   0x0011-3e       Reserved for future flags [RFC-ietf-p2psip-diagnostics-22]
+   0xf000-0xfffe   local use (Reserved)      [RFC-ietf-p2psip-diagnostics-22]
+   0xffff          Reserved                  [RFC-ietf-p2psip-diagnostics-22]
