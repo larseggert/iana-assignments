@@ -1,4 +1,4 @@
-(registered 2015-12-21, last updated 2015-12-21)
+(registered 2015-12-21, last updated 2016-04-06)
 
 Name : Kyunghun Jung
 
@@ -50,11 +50,13 @@ ch-aw-recv: Specifies how channel-aware mode is configured or used for the recei
 
 mode-set: Restricts the active codec mode set to a subset of all modes when the EVS codec operates in AMR-WB IO, for example, to be able to support transport channels such as GSM or UMTS networks. Possible value is a comma-separated list of modes from the set: 0, ..., 8 (see Table 1a of 3GPP TS 26.201). If mode-set is specified, it must be abided, and frames encoded with AMR-WB IO outside of the subset must not be sent in any RTP payload or used in codec mode request signal. If not present, all codec modes of AMR-WB IO are allowed for the payload type.
 
-NOTE: If a positive (2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, the receiver of the parameter shall send partial redundancy (channel-aware mode) at the start of the session using the value as the offset. If ch-aw-recv=0 is declared or not present for a payload type and the payload type is accepted, the receiver of the parameter shall not send partial redundancy (channel-aware mode) at the start of the session. If ch-aw-recv=-1 is declared for a payload type and the payload type is accepted, the receiver of the parameter shall not send partial redundancy (channel-aware mode) in the session. If ch-aw-recv is not present or a non-negative (0, 2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, partial redundancy (channel-aware mode) can be activated or deactivated during the session based on the expected or estimated channel condition through adaptation signaling, such as CMR (see clause A.2 of 3GPP TS 26.445) or RTCP based signaling (see clause 10.2 of 3GPP TS 26.114). If ch-aw-recv is not present or a non-negative (0, 2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, the partial redundancy offset value can also be adjusted during the session based on the expected or estimated channel condition through adaptation signaling.
+NOTE 1: If a positive (2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, the receiver of the parameter shall send partial redundancy (channel-aware mode) at the start of the session using the value as the offset. If ch-aw-recv=0 is declared or not present for a payload type and the payload type is accepted, the receiver of the parameter shall not send partial redundancy (channel-aware mode) at the start of the session. If ch-aw-recv=-1 is declared for a payload type and the payload type is accepted, the receiver of the parameter shall not send partial redundancy (channel-aware mode) in the session. If ch-aw-recv is not present or a non-negative (0, 2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, partial redundancy (channel-aware mode) can be activated or deactivated during the session based on the expected or estimated channel condition through adaptation signaling, such as CMR (see clause A.2 of 3GPP TS 26.445) or RTCP based signaling (see clause 10.2 of 3GPP TS 26.114). If ch-aw-recv is not present or a non-negative (0, 2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, the partial redundancy offset value can also be adjusted during the session based on the expected or estimated channel condition through adaptation signaling.
+
+NOTE 2: The frame erasure rate indicator for the channel-aware mode has two permissible values (LO, HI) and this indicator has to be initialized to HI, as specified in clause 5.8.4.
 
 mode-change-period: defined in section 8.1 of RFC 4867
 
-mode-change-capability: defined in section 8.1 of RFC 4867
+mode-change-capability: defined in section 8.1 of RFC 4867, except that the default and the only allowed value of mode-change-capability is 2 for EVS AMR-WB IO. As the default and the only allowed value of mode-change-capibility is 2 in EVS AMR-WB IO, it is not required to include this parameter in the SDP.
 
 mode-change-neighbor: defined in section 8.1 of RFC 4867
 
