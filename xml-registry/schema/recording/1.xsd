@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <xs:schema targetNamespace="urn:ietf:params:xml:ns:recording:1"
+      xmlns:xs="http://www.w3.org/2001/XMLSchema"
+      xmlns:tns="urn:ietf:params:xml:ns:recording:1"
+      elementFormDefault="qualified"
+      attributeFormDefault="unqualified">
+    <!-- This import brings in the XML language attribute xml:lang-->
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+                 schemaLocation="https://www.w3.org/2001/xml.xsd"/>
+    <xs:element name="recording" type="tns:recording"/>
+    <xs:complexType name="recording">
+        <xs:sequence>
+            <xs:element name="datamode" type="tns:dataMode"
+                  minOccurs="0"/>
+            <xs:element name="group" type="tns:group"
+                  minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="session" type="tns:session"
+                  minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="participant" type="tns:participant"
+                  minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="stream" type="tns:stream"
+                 minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="sessionrecordingassoc"
+                 type="tns:sessionrecordingassoc"
+                 minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="participantsessionassoc"
+                 type="tns:participantsessionassoc"
+                 minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="participantstreamassoc"
+                 type="tns:participantstreamassoc"
+                 minOccurs="0" maxOccurs="unbounded"/>
+            <xs:any namespace='##other'
+                     minOccurs='0'
+                     maxOccurs='unbounded'
+                     processContents='lax'/>
+         </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="group">
+        <xs:sequence>
+           <xs:element name="associate-time" type="xs:dateTime"
+              minOccurs="0"/>
+           <xs:element name="disassociate-time" type="xs:dateTime"
+              minOccurs="0"/>
+          <xs:any namespace='##other'
+                     minOccurs='0'
+                     maxOccurs='unbounded'
+                     processContents='lax'/>
+        </xs:sequence>
+        <xs:attribute name="group_id" type="xs:base64Binary"
+              use="required"/>
+    </xs:complexType>
+    <xs:complexType name="session">
+        <xs:sequence>
+           <xs:element name="sipSessionID" type="xs:string" minOccurs="0"
+                   maxOccurs="unbounded"/>
+           <xs:element name="reason" type="tns:reason" minOccurs="0"
+                   maxOccurs="unbounded"/>
+           <xs:element name="group-ref" type="xs:base64Binary"
+                  minOccurs="0" maxOccurs="1"/>
+           <xs:element name="start-time" type="xs:dateTime"
+                  minOccurs="0" maxOccurs="1"/>
+           <xs:element name="stop-time" type="xs:dateTime"
+                  minOccurs="0" maxOccurs="1"/>
+              <xs:any namespace='##other'
+                     minOccurs='0'
+                     maxOccurs='unbounded'
+                     processContents='lax'/>
+        </xs:sequence>
+        <xs:attribute name="session_id" type="xs:base64Binary"
+              use="required"/>
+    </xs:complexType>
+    <xs:complexType name="sessionrecordingassoc">
+        <xs:sequence>
+           <xs:element name="associate-time" type="xs:dateTime"
+                  minOccurs="0"/>
+           <xs:element name="disassociate-time" type="xs:dateTime"
+                  minOccurs="0"/>
+           <xs:any namespace='##other'
+                     minOccurs='0'
+                     maxOccurs='unbounded'
+                     processContents='lax'/>
+        </xs:sequence>
+        <xs:attribute name="session_id" type="xs:base64Binary"
+              use="required"/>
+    </xs:complexType>
+    <xs:complexType name="participant">
+        <xs:sequence>
+             <xs:element name="nameID" type="tns:nameID"
+                     maxOccurs='unbounded'/>
+        <xs:any namespace='##other'
+                     minOccurs='0'
+                     maxOccurs='unbounded'
+                     processContents='lax'/>
+        </xs:sequence>
+        <xs:attribute name="participant_id" type="xs:base64Binary"
+              use="required"/>
+    </xs:complexType>
+    <xs:complexType name="participantsessionassoc">
+        <xs:sequence>
+        <xs:element name="associate-time" type="xs:dateTime"
+                  minOccurs="0"/>
+        <xs:element name="disassociate-time" type="xs:dateTime"
+                  minOccurs="0"/>
+        <xs:element name="param" minOccurs="0" maxOccurs="unbounded">
+            <xs:complexType>
+                <xs:attribute name="pname" type="xs:string" use="required"/>
+                <xs:attribute name="pval" type="xs:string" use="required"/>
+            </xs:complexType>
+        </xs:element>
+        <xs:any namespace='##other'
+                minOccurs='0'
+                maxOccurs='unbounded'
+                processContents='lax'/>
+        </xs:sequence>
+        <xs:attribute name="participant_id" type="xs:base64Binary"
+              use="required"/>
+        <xs:attribute name="session_id" type="xs:base64Binary"
+              use="required"/>
+    </xs:complexType>
+    <xs:complexType name="participantstreamassoc">
+        <xs:sequence>
+            <xs:element name="send" type="xs:base64Binary"
+               minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="recv" type="xs:base64Binary"
+               minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="associate-time" type="xs:dateTime"
+                  minOccurs="0"/>
+            <xs:element name="disassociate-time" type="xs:dateTime"
+                  minOccurs="0"/>
+               <xs:any namespace='##other'
+                     minOccurs='0'
+                     maxOccurs='unbounded'
+                     processContents='lax'/>
+        </xs:sequence>
+        <xs:attribute name="participant_id" type="xs:base64Binary"
+              use="required"/>
+    </xs:complexType>
+    <xs:complexType name="stream">
+        <xs:sequence>
+           <xs:element name="label" type="xs:string"
+               minOccurs="0" maxOccurs="1"/>
+            <xs:any namespace='##other'
+                     minOccurs='0'
+                     maxOccurs='unbounded'
+                     processContents='lax'/>
+        </xs:sequence>
+        <xs:attribute name="stream_id" type="xs:base64Binary"
+              use="required"/>
+        <xs:attribute name="session_id" type="xs:base64Binary"/>
+    </xs:complexType>
+    <xs:simpleType name="dataMode">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="complete"/>
+                <xs:enumeration value="partial"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="nameID">
+      <xs:sequence>
+        <xs:element name="name" type ="tns:name" minOccurs="0"
+    </xs:sequence>
+      <xs:attribute name="aor" type="xs:anyURI" use="required"/>
+    </xs:complexType>
+   <xs:complexType name="name">
+    <xs:simpleContent>
+        <xs:extension base="xs:string">
+           <xs:attribute ref="xml:lang" use="optional"/>
+        </xs:extension>
+    </xs:simpleContent>
+   </xs:complexType>
+   <xs:complexType name="reason">
+      <xs:simpleContent>
+       <xs:extension base="xs:string">
+          <xs:attribute type="xs:short" name="cause" use="required"/>
+          <xs:attribute type="xs:string" name="protocol" default="SIP"/>
+       </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   <xs:element name="requestsnapshot" type="tns:requestsnapshot"/>
+    <xs:complexType name="requestsnapshot">
+       <xs:sequence>
+          <xs:element name="requestreason" type="tns:name"  minOccurs="0"/>
+          <xs:any namespace='##other'
+            minOccurs='0'
+            maxOccurs='unbounded'
+            processContents='lax'/>
+       </xs:sequence>
+     </xs:complexType>
+</xs:schema>
