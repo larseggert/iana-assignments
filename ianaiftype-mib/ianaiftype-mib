@@ -5,7 +5,7 @@
        TEXTUAL-CONVENTION          FROM SNMPv2-TC;
 
    ianaifType MODULE-IDENTITY
-       LAST-UPDATED "201409240000Z" -- September 24, 2014
+       LAST-UPDATED "201604290000Z" -- April 29, 2016
        ORGANIZATION "IANA"
        CONTACT-INFO "        Internet Assigned Numbers Authority
 
@@ -20,14 +20,17 @@
                      Convention, and thus the enumerated values of
                      the ifType object defined in MIB-II's ifTable."
 
+       REVISION     "201604290000Z"  -- April 29, 2016
+       DESCRIPTION  "Registration of new tunnelTypes 16 and 17."
+
        REVISION     "201409240000Z"  -- September 24, 2014
-	   DESCRIPTION  "Registration of new IANAifType 280."
+       DESCRIPTION  "Registration of new IANAifType 280."
 
        REVISION     "201409190000Z"  -- September 19, 2014
-	   DESCRIPTION  "Registration of new IANAifType 279."
+       DESCRIPTION  "Registration of new IANAifType 279."
        
        REVISION     "201407030000Z"  -- July 3, 2014
-	   DESCRIPTION  "Registration of new IANAifTypes 277-278."
+       DESCRIPTION  "Registration of new IANAifTypes 277-278."
 
        REVISION     "201405220000Z" -- May 22, 2014
        DESCRIPTION  "Updated contact info."
@@ -637,26 +640,37 @@ IANAtunnelType ::= TEXTUAL-CONVENTION
             The remaining protocol-specific values indicate that a
             header of the protocol of that name is inserted
             between the outer header and the payload header.
+			
+            The IP Tunnel MIB [RFC4087] is designed for managing 
+            tunnels of any type over IPv4 and IPv6 networks, 
+            therefore it has already supports IP in IP tunnels.  
+            But in a DS-Lite scenario, the tunnel type is
+            point-to-multipoint IP in IP tunnels.  The direct(2) 
+            defined in IP Tunnel MIB only supports point-to-point 
+            tunnel.  So it needs to define a new tunnel type for
+            DS-Lite.
 
             The assignment policy for IANAtunnelType values is
             identical to the policy for assigning IANAifType
             values."
     SYNTAX     INTEGER {
-                   other(1),        -- none of the following
-                   direct(2),       -- no intermediate header
-                   gre(3),          -- GRE encapsulation
-                   minimal(4),      -- Minimal encapsulation
-                   l2tp(5),         -- L2TP encapsulation
-                   pptp(6),         -- PPTP encapsulation
-                   l2f(7),          -- L2F encapsulation
-                   udp(8),          -- UDP encapsulation
-                   atmp(9),         -- ATMP encapsulation
-                   msdp(10),        -- MSDP encapsulation
-                   sixToFour(11),   -- 6to4 encapsulation
-                   sixOverFour(12), -- 6over4 encapsulation
-                   isatap(13),      -- ISATAP encapsulation
-                   teredo(14),      -- Teredo encapsulation
-                   ipHttps(15)      -- IPHTTPS
+                   other(1),         -- none of the following
+                   direct(2),        -- no intermediate header
+                   gre(3),           -- GRE encapsulation
+                   minimal(4),       -- Minimal encapsulation
+                   l2tp(5),          -- L2TP encapsulation
+                   pptp(6),          -- PPTP encapsulation
+                   l2f(7),           -- L2F encapsulation
+                   udp(8),           -- UDP encapsulation
+                   atmp(9),          -- ATMP encapsulation
+                   msdp(10),         -- MSDP encapsulation
+                   sixToFour(11),    -- 6to4 encapsulation
+                   sixOverFour(12),  -- 6over4 encapsulation
+                   isatap(13),       -- ISATAP encapsulation
+                   teredo(14),       -- Teredo encapsulation
+                   ipHttps(15),      -- IPHTTPS
+                   softwireMesh(16), -- softwire Mesh tunnel
+                   dsLite(17)        -- dslite tunnel
                }
 
    END
