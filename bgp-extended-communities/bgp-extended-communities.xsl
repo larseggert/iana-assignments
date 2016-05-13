@@ -19,6 +19,12 @@
         <th>Reference</th>
         <th>Date</th>
       </xsl:when>
+      <xsl:when test="@id = 'additional-pmsi-tunnel-attribute-flags'">
+        <th>Bit Flag</th>
+        <th>Name</th>
+        <th>Reference</th>
+        <th>Date</th>
+      </xsl:when>
       <xsl:when test="@id = 'evpn'
         or @id = 'trans-two-octet-as'
         or @id = 'non-trans-two-octet-as'

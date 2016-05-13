@@ -34,6 +34,10 @@
         <tr><th>Value</th><th>Meaning</th><th>Reference</th></tr>
       </xsl:when>
       
+      <xsl:when test="@id = 'pmsi-attribute-flags'">
+        <tr><th>Bit Position (left to right)</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
+      
       <xsl:when test="@id = 'mcast-vpn-route-types'">
         <tr><th>Value</th><th>Meaning</th><th>Reference</th></tr>
       </xsl:when>
