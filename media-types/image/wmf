@@ -1,0 +1,119 @@
+(registered by RFC-seantek-windows-image-03)
+
+Type name: image
+
+Subtype name: wmf
+
+Required parameters: None.
+
+Optional parameters:
+
+DEFAULT_CHARSET: The character set intended when the CharacterSet
+ Enumeration (see the WMF specification) specifies DEFAULT_CHARSET.
+ The value of this parameter is a charset name defined in accordance
+ to the procedures laid out in RFC 2978. When this parameter is not
+ specified, DEFAULT_CHARSET has the following meaning in the WMF
+ specification: "a character set based on the current system locale;
+ for example, when the system locale is United States English, the
+ default character set is ANSI_CHARSET" (which is Windows-1252,
+ more-or-less). I.e., when not specified, the default character set
+ is system-dependent. As this optional parameter is novel, EMF
+ instead of WMF (or if necessary under the circumstances, embedded
+ EMF within WMF) is a more sensible choice when text is present.
+
+Encoding considerations: Binary.
+
+Security considerations:
+
+ The Windows Metafile format's security history is punctuated in
+ 2005-2006 with the disclosure of the Metafile Image Code Execution
+ vulnerability, codenamed MICE. MICE won the 2007 Pwnie Award for
+ "Mass 0wnage" and "Breaking the Internet". The official Microsoft
+ security bulletin describes that the flaw occurs because Windows
+ Metafiles can set the SETABORTPROC value of the MetafileEscapes
+ enumeration (accessible via the META_ESCAPE record), allowing for
+ arbitrary code execution, i.e., "active content".
+
+ Windows Metafiles can contain Enhanced Metafiles using the
+ META_ESCAPE_ENHANCED_METAFILE record; thus, the security
+ considerations of EMF apply to WMF.
+
+ Windows Metafiles are historically very buggy. As the original
+ intent was to replicate Windows GDI calls, flaws in GDI, or in a
+ display or printer driver implementing the back-end to GDI, could
+ be exploitable. WMF implementations not backed by Windows GDI have
+ different risks: namely, while a malicious WMF author may not
+ consider the non-Windows GDI implementation as a primary target,
+ WMF has many "corner case" records for which an implementation's
+ processing may not have received the same level of scrutiny as the
+ Windows implementation. "Fuzzing" the implementation is
+ appropriate.
+
+Interoperability considerations:
+
+ Windows Metafile is the original 16-bit metafile format; it was
+ released in 1990 at what some computer historians might consider
+ the "zenith" of the desktop publishing revolution. Accordingly,
+ there is a large body of free and commercially available clip art
+ that is still in use, either independently or embedded in
+ productivity documents (word processing documents, desktop
+ publishing documents, slideshows and presentations, and
+ spreadsheets and workbooks). For example, references to WMF content
+ appear (non-normatively) in Office Open XML. To say that support
+ for this format is necessary for interoperability would not be an
+ understatement.
+
+ Accommodations for comments or arbitrary data storage in Windows
+ Metafiles are virtually non-existent. However, Windows Metafiles
+ can contain Enhanced Metafiles using the
+ META_ESCAPE_ENHANCED_METAFILE record, so an implementation that
+ handles Windows Metafiles is also expected to handle enhanced
+ metafile content. Windows Metafiles can store and output text
+ strings (see META_TEXTOUT and META_EXTTEXTOUT records), but the
+ encodings of the strings may be ambiguous. Unicode encodings are
+ not possible without the DEFAULT_CHARSET parameter defined in this
+ registration.
+
+ The previously unregistered type "image/x-wmf" is also in wide use.
+ Accordingly, it is registered as a deprecated alias. See Appendix A
+ and Section 4.2.9 of [RFC6838].
+
+Published specification:
+
+ WMF: Microsoft Corporation, "Windows Metafile Format", [MS-WMF],
+ v20140502 (Rev 11.1), May 2014,
+ <http://msdn.microsoft.com/library/cc250370>.
+
+ MICE: Microsoft Corporation, "Vulnerability in Graphics Rendering
+ Engine Could Allow Remote Code Execution (912919)", MS06-001, V1.0,
+ January 2006, <https://technet.microsoft.com/library/security/ms06-
+ 001>..
+
+Applications that use this media type:
+
+ Office productivity applications; clip art applications; desktop
+ publishing applications; some Web browsers (e.g., Internet
+ Explorer).
+
+Fragment identifier considerations: None.
+
+Additional information:
+
+ Deprecated alias names for this type: image/x-wmf
+ Magic number(s): D7 CD C6 9A (little-endian DWORD 0x9AC6CDD7)
+ File extension(s): .wmf
+ Macintosh file type code(s):
+   None. A uniform type identifier (UTI) of "com.microsoft.wmf" is
+   recommended.
+
+Person & email address to contact for further information:
+
+ Sean Leonard <dev+ietf&seantek.com>
+
+Restrictions on usage: None.
+
+Author/Change controller: Sean Leonard <dev+ietf&seantek.com>
+
+Intended usage: COMMON
+
+Provisional registration? No
