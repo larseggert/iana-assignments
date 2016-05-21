@@ -8,16 +8,12 @@
       <xsl:when test="@id = 'tls-extensiontype-values-1'">
         <tr><th>Value</th><th>Extension name</th><th>Reference</th></tr>
       </xsl:when>
-      
-      <xsl:when test="@id = 'tls-extensiontype-values-3'">
-        <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
-      </xsl:when>
-      <xsl:when test="@id = 'certificate-status'">
-        <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
-      </xsl:when>
       <xsl:when test="@id = 'alpn-protocol-ids'">
         <tr><th>Protocol</th><th>Identification Sequence</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:otherwise>
+        <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
@@ -25,30 +21,15 @@
     <xsl:choose>
       <xsl:when test="../@id = 'tls-extensiontype-values-1'">
         <tr>
-          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:name"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
-        </tr>
-      </xsl:when>
-      
-      <xsl:when test="../@id = 'tls-extensiontype-values-3'">
-        <tr>
-          <td align="center"><xsl:value-of select="iana:value"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
-        </tr>
-      </xsl:when>
-      <xsl:when test="../@id = 'certificate-status'">
-        <tr>
-          <td align="center"><xsl:value-of select="iana:value"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
       <xsl:otherwise>
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:otherwise>
