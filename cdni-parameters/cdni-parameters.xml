@@ -4,14 +4,146 @@
 <registry xmlns="http://www.iana.org/assignments" id="cdni-parameters">
   <title>Content Delivery Network Interconnection (CDNI) Parameters</title>
   <created>2015-10-22</created>
-  <updated>2016-01-07</updated>
+  <updated>2016-05-27</updated>
 
   <registry id="payload-types">
     <title>CDNI Payload Types</title>
     <xref type="rfc" data="rfc7736"/>
     <registration_rule>Specification Required</registration_rule>
     <expert>Kevin Ma, Ben Niven-Jenkins</expert>
-    
+    <record date="2016-05-27">
+      <value>ci-trigger-command</value>
+      <xref type="draft" data="RFC-ietf-cdni-control-triggers-15"/>
+    </record>
+    <record date="2016-05-27">
+      <value>ci-trigger-status</value>
+      <xref type="draft" data="RFC-ietf-cdni-control-triggers-15"/>
+    </record>
+    <record date="2016-05-27">
+      <value>ci-trigger-collection</value>
+      <xref type="draft" data="RFC-ietf-cdni-control-triggers-15"/>
+    </record>
+    <record date="2016-05-27">
+      <value>FCI.DeliveryProtocol</value>
+      <xref type="draft" data="RFC-ietf-cdni-footprint-capabilities-semantics-20"/>
+    </record>
+    <record date="2016-05-27">
+      <value>FCI.AcquisitionProtocol</value>
+      <xref type="draft" data="RFC-ietf-cdni-footprint-capabilities-semantics-20"/>
+    </record>
+    <record date="2016-05-27">
+      <value>FCI.RedirectionMode</value>
+      <xref type="draft" data="RFC-ietf-cdni-footprint-capabilities-semantics-20"/>
+    </record>
+    <record date="2016-05-27">
+      <value>FCI.Logging</value>
+      <xref type="draft" data="RFC-ietf-cdni-footprint-capabilities-semantics-20"/>
+    </record>
+    <record date="2016-05-27">
+      <value>FCI.Metadata</value>
+      <xref type="draft" data="RFC-ietf-cdni-footprint-capabilities-semantics-20"/>
+    </record>   
+  </registry>
+
+  <registry id="trigger-types">
+    <title>CDNI CI/T Trigger Types</title>
+    <xref type="draft" data="RFC-ietf-cdni-control-triggers-15"/>
+    <registration_rule>RFC Required</registration_rule>
+    <record date="2016-05-27">
+      <value>preposition</value>
+      <description>A request for the dCDN to acquire metadata or content.</description>
+      <xref type="draft" data="RFC-ietf-cdni-control-triggers-15"/>
+    </record>
+    <record date="2016-05-27">
+      <value>invalidate</value>
+      <description>A request for the dCDN to invalidate metadata or 
+        content. After servicing this request the dCDN will not use the 
+        specified data without first re-validating it using, for example, 
+        an "If-None-Match" HTTP request. The dCDN need not erase the 
+        associated data.</description>
+      <xref type="draft" data="RFC-ietf-cdni-control-triggers-15"/>
+    </record>
+    <record date="2016-05-27">
+      <value>purge</value>
+      <description>A request for the dCDN to erase metadata or 
+        content. After servicing the request, the specified data 
+        MUST NOT be held on the dCDN (the dCDN should re-acquire the 
+        metadata or content from uCDN if it needs it).</description>
+      <xref type="draft" data="RFC-ietf-cdni-control-triggers-15"/>
+    </record>  
+  </registry>
+  
+  <registry id="error-codes">
+    <title>CDNI CI/T Error Codes</title>
+    <xref type="draft" data="RFC-ietf-cdni-control-triggers-15"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Unassigned</expert>
+    <record date="2016-05-27">
+      <value>emeta</value>
+      <description>The dCDN was unable to acquire metadata required to fulfil the request.</description>
+      <xref type="draft" data="RFC-ietf-cdni-control-triggers-15"/>
+    </record>
+    <record date="2016-05-27">
+      <value>econtent</value>
+      <description>The dCDN was unable to acquire content (CT/T preposition commands only).</description>
+      <xref type="draft" data="RFC-ietf-cdni-control-triggers-15"/>
+    </record>
+    <record date="2016-05-27">
+      <value>eperm</value>
+      <description>The uCDN does not have permission to issue the CI/T Command (for example, 
+        the data is owned by another CDN).</description>
+      <xref type="draft" data="RFC-ietf-cdni-control-triggers-15"/>
+    </record>
+    <record date="2016-05-27">
+      <value>ereject</value>
+      <description>The dCDN is not willing to fulfil the CI/T Command (for example, a 
+        preposition request for content at a time when the dCDN would not accept Request 
+        Routing requests from the uCDN).</description>
+      <xref type="draft" data="RFC-ietf-cdni-control-triggers-15"/>
+    </record>
+    <record date="2016-05-27">
+      <value>ecdn</value>
+      <description>An internal error in the dCDN or one of its downstream CDNs.</description>
+      <xref type="draft" data="RFC-ietf-cdni-control-triggers-15"/>
+    </record>
+    <record date="2016-05-27">
+      <value>ecancelled</value>
+      <description>The uCDN cancelled the request.</description>
+      <xref type="draft" data="RFC-ietf-cdni-control-triggers-15"/>
+    </record>
+    <record date="2016-05-27">
+      <value>eunsupported</value>
+      <description>The Trigger Specification contained a "type" that is not 
+        supported by the dCDN. No action was taken by the dCDN other than to 
+        create a Trigger Status Resource in state "failed".</description>
+      <xref type="draft" data="RFC-ietf-cdni-control-triggers-15"/>
+    </record>
+  </registry>
+  
+  <registry id="capabilities-redirection-modes">
+    <title>CDNI Capabilities Redirection Modes</title>
+    <xref type="draft" data="RFC-ietf-cdni-footprint-capabilities-semantics-20"/>
+    <registration_rule>IETF Review</registration_rule>
+    <record date="2016-05-27">
+      <value>DNS-I</value>
+      <description>Iterative DNS-based Redirection</description>
+      <xref type="draft" data="RFC-ietf-cdni-footprint-capabilities-semantics-20"/>
+    </record>
+    <record date="2016-05-27">
+      <value>DNS-R</value>
+      <description>Recursive DNS-based Redirection</description>
+      <xref type="draft" data="RFC-ietf-cdni-footprint-capabilities-semantics-20"/>
+    </record>
+    <record date="2016-05-27">
+      <value>HTTP-I</value>
+      <description>Iterative HTTP-based Redirection</description>
+      <xref type="draft" data="RFC-ietf-cdni-footprint-capabilities-semantics-20"/>
+    </record>
+    <record date="2016-05-27">
+      <value>HTTP-R</value>
+      <description>Recursive HTTP-based Redirection</description>
+      <xref type="draft" data="RFC-ietf-cdni-footprint-capabilities-semantics-20"/>
+    </record>
   </registry>
 
   <people/>

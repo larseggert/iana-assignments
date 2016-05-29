@@ -4,7 +4,7 @@
            2015-10-22
 
    Last Updated
-           2016-01-07
+           2016-05-27
 
    Available Formats
            [IMG]
@@ -12,9 +12,12 @@
            HTML [IMG]
            Plain text
 
-   Registry included below
+   Registries included below
 
      * CDNI Payload Types
+     * CDNI CI/T Trigger Types
+     * CDNI CI/T Error Codes
+     * CDNI Capabilities Redirection Modes
 
 CDNI Payload Types
 
@@ -29,5 +32,86 @@ CDNI Payload Types
    Reference
            [RFC7736]
 
-     Payload Type     Reference
-   No registrations at this time.
+   Available Formats
+           [IMG]
+           CSV
+
+        Payload Type                            Reference
+   ci-trigger-command      [RFC-ietf-cdni-control-triggers-15]
+   ci-trigger-status       [RFC-ietf-cdni-control-triggers-15]
+   ci-trigger-collection   [RFC-ietf-cdni-control-triggers-15]
+   FCI.DeliveryProtocol    [RFC-ietf-cdni-footprint-capabilities-semantics-20]
+   FCI.AcquisitionProtocol [RFC-ietf-cdni-footprint-capabilities-semantics-20]
+   FCI.RedirectionMode     [RFC-ietf-cdni-footprint-capabilities-semantics-20]
+   FCI.Logging             [RFC-ietf-cdni-footprint-capabilities-semantics-20]
+   FCI.Metadata            [RFC-ietf-cdni-footprint-capabilities-semantics-20]
+
+CDNI CI/T Trigger Types
+
+   Registration Procedure(s)
+
+ RFC Required
+
+   Reference
+           [RFC-ietf-cdni-control-triggers-15]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   JSON String                                           Description                                                         Reference
+   preposition A request for the dCDN to acquire metadata or content.                                           [RFC-ietf-cdni-control-triggers-15]
+               A request for the dCDN to invalidate metadata or content. After servicing this request the dCDN
+   invalidate  will not use the specified data without first re-validating it using, for example, an            [RFC-ietf-cdni-control-triggers-15]
+               "If-None-Match" HTTP request. The dCDN need not erase the associated data.
+               A request for the dCDN to erase metadata or content. After servicing the request, the specified
+   purge       data MUST NOT be held on the dCDN (the dCDN should re-acquire the metadata or content from uCDN  [RFC-ietf-cdni-control-triggers-15]
+               if it needs it).
+
+CDNI CI/T Error Codes
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-cdni-control-triggers-15]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Error Code                                            Description                                                        Reference
+   emeta        The dCDN was unable to acquire metadata required to fulfil the request.                         [RFC-ietf-cdni-control-triggers-15]
+   econtent     The dCDN was unable to acquire content (CT/T preposition commands only).                        [RFC-ietf-cdni-control-triggers-15]
+   eperm        The uCDN does not have permission to issue the CI/T Command (for example, the data is owned by  [RFC-ietf-cdni-control-triggers-15]
+                another CDN).
+   ereject      The dCDN is not willing to fulfil the CI/T Command (for example, a preposition request for      [RFC-ietf-cdni-control-triggers-15]
+                content at a time when the dCDN would not accept Request Routing requests from the uCDN).
+   ecdn         An internal error in the dCDN or one of its downstream CDNs.                                    [RFC-ietf-cdni-control-triggers-15]
+   ecancelled   The uCDN cancelled the request.                                                                 [RFC-ietf-cdni-control-triggers-15]
+   eunsupported The Trigger Specification contained a "type" that is not supported by the dCDN. No action was   [RFC-ietf-cdni-control-triggers-15]
+                taken by the dCDN other than to create a Trigger Status Resource in state "failed".
+
+CDNI Capabilities Redirection Modes
+
+   Registration Procedure(s)
+
+ IETF Review
+
+   Reference
+           [RFC-ietf-cdni-footprint-capabilities-semantics-20]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Redirection Mode           Description                                 Reference
+   DNS-I            Iterative DNS-based Redirection  [RFC-ietf-cdni-footprint-capabilities-semantics-20]
+   DNS-R            Recursive DNS-based Redirection  [RFC-ietf-cdni-footprint-capabilities-semantics-20]
+   HTTP-I           Iterative HTTP-based Redirection [RFC-ietf-cdni-footprint-capabilities-semantics-20]
+   HTTP-R           Recursive HTTP-based Redirection [RFC-ietf-cdni-footprint-capabilities-semantics-20]
