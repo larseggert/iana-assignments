@@ -29,7 +29,7 @@
     <xsl:choose>
       <xsl:when test="../@id = 'structured-syntax-suffix'">
         <tr>
-          <td align="center"><xsl:value-of select="iana:name"/></td>
+          <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:value-of select="iana:suffix"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:apply-templates select="iana:encoding"/></td>
