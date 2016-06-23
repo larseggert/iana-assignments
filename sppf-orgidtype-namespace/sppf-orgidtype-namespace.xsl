@@ -7,7 +7,11 @@
   <xsl:import href="../_support/iana-registry.xsl" />
 
   <xsl:template name="iana:record_header">
-    <tr><th>OrgIdType namespace string</th><th>Namespace</th><th>Reference</th></tr>
+    <tr>
+      <th>OrgIdType Namespace String</th>
+      <th>Namespace</th>
+      <th>Reference</th>
+    </tr>
   </xsl:template>
 
   <xsl:template match="iana:record">
