@@ -49,6 +49,12 @@
        <th>Contact</th>
        <th>Reference</th>
       </xsl:when>
+     <xsl:when test="@id = 'sdes-compact-header-extensions'">
+       <th>Extension URI</th>
+       <th>Description</th>
+       <th>Contact</th>
+       <th>Reference</th>
+      </xsl:when>
       <xsl:when test="@id = 'rtp-parameters-13'">
        <th>Type</th>
        <th>Description</th>
@@ -104,6 +110,12 @@
        <td><xsl:apply-templates select="iana:xref"/></td>
       </xsl:when>
       <xsl:when test="../@id = 'rtp-parameters-10'">
+       <td><xsl:value-of select="iana:name"/></td>
+       <td><xsl:value-of select="iana:description"/></td>
+       <td><xsl:apply-templates select="iana:contact"/></td>
+       <td><xsl:apply-templates select="iana:xref"/></td>
+      </xsl:when>
+     <xsl:when test="../@id = 'sdes-compact-header-extensions'">
        <td><xsl:value-of select="iana:name"/></td>
        <td><xsl:value-of select="iana:description"/></td>
        <td><xsl:apply-templates select="iana:contact"/></td>
