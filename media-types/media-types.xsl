@@ -26,7 +26,7 @@
   <xsl:template match="iana:record">
     <tr>
       <td>
-        <xsl:value-of select="iana:name"/>
+        <xsl:apply-templates select="iana:name"/>
         <xsl:apply-templates select="iana:deprecated"/>
         <xsl:apply-templates select="iana:obsolete"/>
       </td>
