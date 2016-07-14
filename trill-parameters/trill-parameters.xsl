@@ -44,6 +44,9 @@
       <xsl:when test="@id = 'nickflags-bits'">
         <tr><th>Bit</th><th>Mnemonic</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'ia-appsub-tlv-sub-sub-tlvs'">
+        <tr><th>Type</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:when test="@id = 'extended-rbridge-capabilities'">
         <tr><th>Bit</th><th>Mnemonic</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
