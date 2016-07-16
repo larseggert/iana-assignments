@@ -12,103 +12,104 @@ Encoding considerations: Binary.
 
 Security considerations:
 
- Enhanced Metafiles are not afflicted with the Metafile Image Code
- Execution vulnerability, codenamed MICE. There has been no public
- disclosure of vulnerabilities specific to EMF or EMF+ to date.
- Neither EMF nor EMF+ are designed to contain "active content".
- Nonetheless:
+  Enhanced Metafiles are not afflicted with the Metafile Image Code
+  Execution vulnerability, abbreviated as MICE [MICE].  There has
+  been no public disclosure of vulnerabilities specific to EMF or
+  EMF+ to date.  Neither EMF nor EMF+ are designed to contain
+  "active content".  Nonetheless, Enhanced Metafiles can contain
+  Encapsulated PostScript (EPS) data; thus, the security
+  considerations of PostScript processing may also apply to EMF.
 
- Enhanced Metafiles can contain Encapsulated PostScript (EPS) data;
- thus the security considerations of PostScript processing may also
- apply to EMF.
-
- As the original intent was to replicate Windows GDI calls, flaws in
- GDI, or in a display or printer driver implementing the back-end to
- GDI, could be exploitable with maliciously crafted EMF content. EMF
- implementations not backed by Windows GDI have different risks:
- namely, while a malicious EMF author may not consider the non-
- Windows GDI implementation as a primary target, EMF has many
- "corner case" records for which an implementation's processing may
- not have received the same level of scrutiny as the Windows
- implementation. "Fuzzing" the implementation is appropriate. It is
- also possible that EMF+ data is "safe" while EMF data contains an
- exploit (or vice-versa); the EMF+-aware implementation (such as an
- application designed for GDI+ on Windows XP or above) would skip
- the "unsafe" data while another implementation would fall prey to
- the exploit.
+  As the original intent was to replicate Windows GDI calls, flaws
+  in GDI, or in a display or printer driver implementing the backend
+  to GDI, could be exploitable with maliciously crafted EMF content.
+  EMF implementations not backed by Windows GDI have different
+  risks: namely, while a malicious EMF author may not consider the
+  non-Windows GDI implementation as a primary target, EMF has many
+  "corner case" records for which an implementation's processing may
+  not have received the same level of scrutiny as the Windows
+  implementation.  "Fuzzing" the implementation is appropriate.  It
+  is also possible that EMF+ data is "safe" while EMF data contains
+  an exploit (or vice versa); the EMF+-aware implementation (such as
+  an application designed for GDI+ on Windows XP or above) would
+  skip the "unsafe" data while another implementation would fall
+  prey to the exploit.
 
 Interoperability considerations:
 
- Enhanced Metafile is the 32-bit metafile format; it was released in
- 1992 along with Windows NT 3.1. There is a large body of free and
- commercially available clip art that is still in use, either
- independently or embedded in productivity documents (word
- processing documents, desktop publishing documents, slideshows and
- presentations, and spreadsheets and workbooks). To say that support
- for this format is necessary for interoperability would not be an
- understatement.
+  Enhanced Metafile is the 32-bit metafile format; it was released
+  in 1992 along with Windows NT 3.1.  There is a large body of free
+  and commercially available clip art that is still in use, either
+  independently or embedded in productivity documents (word
+  processing documents, desktop publishing documents, slideshows,
+  presentations, spreadsheets, and workbooks).  To say that support
+  for this format is necessary for interoperability would not be an
+  understatement.
 
- Enhanced Metafiles have extensive accommodations for comments and
- arbitrary data storage. Enhanced Metafiles can store and output
- text strings. Mercifully, the encodings of these strings are well-
- defined. Record examples include EMR_EXTTEXTOUTA (US-ASCII),
- EMR_EXTTEXTOUTW (UTF16-LE), EMR_POLYTEXTOUTA (US-ASCII),
- EMR_POLYTEXTOUTW (UTF16-LE), and EMR_SMALLTEXTOUT (UTF16-LE or the
- low-order 8 bits of UTF16-LE--effectively ISO-8859-1--depending on
- ETO_SMALL_CHARS).
+  Enhanced Metafiles have extensive accommodations for comments and
+  arbitrary data storage.  Enhanced Metafiles can store and output
+  text strings.  Mercifully, the encodings of these strings are
+  well-defined.  Record examples include EMR_EXTTEXTOUTA (US-ASCII),
+  EMR_EXTTEXTOUTW (UTF16-LE), EMR_POLYTEXTOUTA (US-ASCII),
+  EMR_POLYTEXTOUTW (UTF16-LE), and EMR_SMALLTEXTOUT (UTF16-LE or the
+  low-order 8 bits of UTF16-LE -- effectively ISO-8859-1 --
+  depending on ETO_SMALL_CHARS).
 
- Enhanced Metafiles can contain Encapsulated PostScript (EPS) data
- in the EpsData object. The FormatSignature EPS_SIGNATURE
- (0x46535045, in little-endian) is used instead of ENHMETA_SIGNAUTRE
- (0x464D4520, in little-endian) in such a case.
+  Enhanced Metafiles can contain Encapsulated PostScript (EPS) data
+  in the EpsData object.  The FormatSignature EPS_SIGNATURE
+  (0x46535045, in little-endian) is used instead of
+  ENHMETA_SIGNAUTRE (0x464D4520, in little-endian) in such a case.
 
- Windows XP introduced the GDI+ API, along with EMF+. EMF+ is
- actually an embedded format in which GDI+ commands are stored as
- EMF comment records (EMR_COMMENT_EMFPLUS record type). Content
- containing EMF+ data can be identified as "EMF+ Only" (only EMF+;
- the EMF records are not sufficient to reconstitute the drawing) or
- "EMF+ Dual" (both EMF records alone or EMF+ records alone, when
- played back, are sufficient to reconstitute the drawing). Support
- for EMF+ records may not be as extensive as support for the
- original EMF records.
+  Windows XP introduced the GDI+ API, along with EMF+.  EMF+ is
+  actually an embedded format in which GDI+ commands are stored as
+  EMF comment records (EMR_COMMENT_EMFPLUS record type).  Content
+  containing EMF+ data can be identified as "EMF+ Only" (only EMF+;
+  the EMF records are not sufficient to reconstitute the drawing) or
+  "EMF+ Dual" (both EMF records alone or EMF+ records alone, when
+  played back, are sufficient to reconstitute the drawing).  Support
+  for EMF+ records may not be as extensive as support for the
+  original EMF records.
 
- The previously unregistered type "image/x-emf" is also in wide use.
- Accordingly, it is registered as a deprecated alias.
+  The previously unregistered type image/x-emf is also in wide use.
+  Accordingly, it is registered as a deprecated alias.
 
 Published specification:
 
- EMF: Microsoft Corporation, "Enhanced Metafile Format", [MS-EMF],
- v20140502 (Rev 10.0), May 2014,
- <http://msdn.microsoft.com/library/cc230514>.
+  EMF: Microsoft Corporation, "[MS-EMF]: Enhanced Metafile Format",
+  v20140502 (Rev 10.0), May 2014,
+  <http://msdn.microsoft.com/library/cc230514>.
 
- EMF+: Microsoft Corporation, "Enhanced Metafile Format Plus
- Extensions", [MS-EMFPLUS], v20140502 (Rev 13.0), May 2014,
-     <http://msdn.microsoft.com/library/cc230724>.
+  EMF+: Microsoft Corporation, "[MS-EMFPLUS]: Enhanced Metafile
+  Format Plus Extensions", v20140502 (Rev 13.0), May 2014,
+  <http://msdn.microsoft.com/library/cc230724>.
 
 Applications that use this media type:
 
- Office productivity applications; clip art applications; desktop
- publishing applications; some Web browsers (e.g., Internet
- Explorer).
+  Office productivity applications; clip art applications; desktop
+  publishing applications; some web browsers (e.g., Internet
+  Explorer).
 
 Fragment identifier considerations: None.
 
 Additional information:
 
- Deprecated alias names for this type: image/x-emf
- Magic number(s): 01 00 00 00 (little-endian DWORD 0x00000001),
-                  corresponding to the EMR_HEADER Type field.
-                  The next field (EMR_HEADER Size) should be
-                  at least 88 (little-endian DWORD 0x00000050).
- File extension(s): .emf
-                    (for both EMF and EMF+ content)
- Macintosh file type code(s):
-   None. A uniform type identifier (UTI) of "com.microsoft.emf" is
-   recommended.
+  Deprecated alias names for this type: image/x-emf
+
+  Magic number(s):
+     01 00 00 00 (little-endian DWORD 0x00000001), corresponding to
+     the EMR_HEADER Type field.
+     The next field (EMR_HEADER Size) should be at least 88 (little-
+     endian DWORD 0x00000050).
+
+  File extension(s): .emf (for both EMF and EMF+ content)
+
+  Macintosh file type code(s):
+     None.  A uniform type identifier (UTI) of "com.microsoft.emf"
+     is RECOMMENDED.
 
 Person & email address to contact for further information:
 
- Sean Leonard <dev+ietf&seantek.com>
+  Sean Leonard <dev+ietf&seantek.com>
 
 Restrictions on usage: None.
 
