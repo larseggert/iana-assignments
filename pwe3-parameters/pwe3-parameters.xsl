@@ -42,8 +42,7 @@
         <th>Description</th>
         <th>Reference</th>
       </tr>
-     </xsl:when>
-     
+     </xsl:when>    
      <xsl:when test="@id = 'pwe3-parameters-11'">
      </xsl:when>
      <xsl:when test="@id = 'pwe3-parameters-12'">
@@ -112,6 +111,13 @@
             <th>Reference</th>
           </tr>
       </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <th>Value</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
   
@@ -234,6 +240,13 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 </xsl:stylesheet>
