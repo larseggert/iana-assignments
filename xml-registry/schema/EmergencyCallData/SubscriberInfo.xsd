@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<xs:schema
-    targetNamespace=
-        "urn:ietf:params:xml:ns:EmergencyCallData:SubscriberInfo"
+    <xs:schema
+        targetNamespace=
+            "urn:ietf:params:xml:ns:EmergencyCallData:SubscriberInfo"
     xmlns:xs="http://www.w3.org/2001/XMLSchema"
     xmlns:sub=
         "urn:ietf:params:xml:ns:EmergencyCallData:SubscriberInfo"
@@ -14,35 +14,30 @@
         schemaLocation="http://www.w3.org/2001/xml.xsd"/>
 
     <xs:import namespace="urn:ietf:params:xml:ns:vcard-4.0"
-        schemaLocation="vcard.xsd"/>
+          schemaLocation="vcard.xsd"/>
 
     <xs:element name="EmergencyCallData.SubscriberInfo"
         type="sub:SubscriberInfoType"/>
 
+    <xs:complexType name="SubscriberInfoType">
+        <xs:sequence>
+            <xs:element name="DataProviderReference" type="xs:token"
+               minOccurs="1" maxOccurs="1"/>
+            <xs:element name="SubscriberData">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element ref="xc:vcard"
+                        maxOccurs="unbounded"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 
-        <xs:complexType name="SubscriberInfoType">
-          <xs:complexContent>
-           <xs:restriction base="xs:anyType">
-            <xs:sequence>
-                <xs:element name="DataProviderReference"
-                  type="xs:token" minOccurs="1" maxOccurs="1"/>
+            <xs:any namespace="##other" processContents="lax"
+              minOccurs="0" maxOccurs="unbounded"/>
 
-                <xs:element name="SubscriberData">
-                   <xs:complexType>
-                     <xs:sequence>
-                        <xs:element maxOccurs="unbounded"
-                                    ref="xc:vcard"/>
-                     </xs:sequence>
-                   </xs:complexType>
-                 </xs:element>
+        </xs:sequence>
+        <xs:attribute name="privacyRequested"
+           type="xs:boolean" use="required"/>
 
-             <xs:any namespace="##other" processContents="lax"
-                   minOccurs="0" maxOccurs="unbounded"/>
-            </xs:sequence>
-            <xs:attribute name="privacyRequested" type="xs:boolean"
-                use="required"/>
-           </xs:restriction>
-          </xs:complexContent>
-        </xs:complexType>
-
+    </xs:complexType>
 </xs:schema>
