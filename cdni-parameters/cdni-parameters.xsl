@@ -61,6 +61,14 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'ri-error-response'">
+        <tr>
+          <th>Code</th>
+          <th>Reason</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -81,6 +89,14 @@
       <xsl:when test="../@id = 'logging-field-names'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'ri-error-response'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:reason"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>

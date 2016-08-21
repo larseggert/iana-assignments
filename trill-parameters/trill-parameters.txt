@@ -4,7 +4,7 @@
            2010-03-26
 
    Last Updated
-           2016-07-13
+           2016-08-19
 
    Available Formats
            [IMG]
@@ -18,8 +18,13 @@
      * TRILL Multicast Addresses
      * TRILL Extended Header Flags
      * RBridge Channel Protocols
+     * Extended RBridge Channel Payload Types
+     * Extended RBridge Channel Security Types
      * RBridge Channel Header Flags
      * RBridge Channel Error Codes
+
+          * RBridge Channel SubError Codes
+
      * TRILL-VER Sub-TLV Capability Flags
      * PORT-TRILL-VER Sub-TLV Capability Flags
      * TRILL Neighbor TLV NEIGHBOR RECORD Flags
@@ -28,7 +33,7 @@
      * TRILL APPsub-TLV Types under IS-IS TLV 251 Application Identifier 1
 
           * NickFlags Bits
-          * Interface Addresses APPsub-TLV Sub-Sub-TLVs
+          * Interface Addresses APPsub-TLV Sub-sub-TLVs
           * Extended RBridge Capabilities
 
      * TRILL OAM Return Codes
@@ -120,14 +125,57 @@ RBridge Channel Protocols
    0x100-0xFF7 RFC Required            allocation of a single value
    0x100-0xFF7 IESG Approval           allocation of multiple values
 
-    Protocol         Description        Reference
-      0x000    Reserved                 [RFC7178]
-      0x001    RBridge Channel Error    [RFC7178]
-      0x002    BFD Control              [RFC7175]
-      0x003    BFD Echo                 [RFC7175]
-   0x004-0xFF7 Unassigned
-   0xFF8-0xFFE Reserved for Private Use [RFC7178]
-      0xFFF    Reserved                 [RFC7178]
+    Protocol          Description                    Reference
+      0x000    Reserved                  [RFC7178]
+      0x001    RBridge Channel Error     [RFC7178]
+      0x002    BFD Control               [RFC7175]
+      0x003    BFD Echo                  [RFC7175]
+      0x004    RBridge Channel Extension [RFC-ietf-trill-channel-tunnel-11]
+   0x005-0xFF7 Unassigned
+   0xFF8-0xFFE Reserved for Private Use  [RFC7178]
+      0xFFF    Reserved                  [RFC7178]
+
+Extended RBridge Channel Payload Types
+
+   Registration Procedure(s)
+
+ IETF Review
+
+   Reference
+           [RFC-ietf-trill-channel-tunnel-11]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   PType    Description                        Reference
+     0   Reserved           [RFC-ietf-trill-channel-tunnel-11]
+     1   Null               [RFC-ietf-trill-channel-tunnel-11, Section 3.1]
+     2   Ethertyped Payload [RFC-ietf-trill-channel-tunnel-11, Section 3.2]
+     3   Ethernet Frame     [RFC-ietf-trill-channel-tunnel-11, Section 3.3]
+   4-14  Unassigned
+    15   Reserved           [RFC-ietf-trill-channel-tunnel-11]
+
+Extended RBridge Channel Security Types
+
+   Registration Procedure(s)
+
+ IETF Review
+
+   Reference
+           [RFC-ietf-trill-channel-tunnel-11]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   SType          Description                              Reference
+     0   None                           [RFC-ietf-trill-channel-tunnel-11, Section 4.2]
+     1   [RFC5310]-Based Authentication [RFC-ietf-trill-channel-tunnel-11, Section 4.3]
+     2   DTLS Pairwise Security         [RFC-ietf-trill-channel-tunnel-11, Section 4.4]
+     3   Composite Security             [RFC-ietf-trill-channel-tunnel-11, Section 4.5]
+   4-14  Unassigned
+    15   Reserved                       [RFC-ietf-trill-channel-tunnel-11]
 
 RBridge Channel Header Flags
 
@@ -163,19 +211,50 @@ RBridge Channel Error Codes
  code expansion feature when it appears likely that all other
  available error codes are being allocated.
 
+
    Available Formats
            [IMG]
            CSV
 
-   Value           RBridge Channel Error Code Meaning            Reference
+   Value           RBridge Channel Error Code Meaning                        Reference
      0   No error                                                [RFC7178]
      1   Frame too short (truncated Ethertype or Channel Header) [RFC7178]
      2   Unrecognized Ethertype                                  [RFC7178]
      3   Unimplemented value of CHV                              [RFC7178]
      4   Wrong value of NA flag                                  [RFC7178]
      5   Channel Protocol is reserved or unimplemented           [RFC7178]
-   6-14  Unassigned
+     6   Unknown or unsupported field value                      [RFC-ietf-trill-channel-tunnel-11]
+     7   Authentication failure                                  [RFC-ietf-trill-channel-tunnel-11]
+     8   Error in nested RBridge Channel message                 [RFC-ietf-trill-channel-tunnel-11]
+   9-14  Unassigned
     15   Reserved (see Note)                                     [RFC7178]
+
+  RBridge Channel SubError Codes
+
+   Registration Procedure(s)
+
+ IETF Review
+
+   Reference
+           [RFC-ietf-trill-channel-tunnel-11]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Err  SubERR                      Meaning                                   Reference
+    0          No Error, suberrors not allowed                    [RFC-ietf-trill-channel-tunnel-11]
+   1-5         (no suberrors assigned)                            [RFC-ietf-trill-channel-tunnel-11]
+    6     0    Reserved                                           [RFC-ietf-trill-channel-tunnel-11]
+    6     1    Non-zero RESV4 nibble                              [RFC-ietf-trill-channel-tunnel-11]
+    6     2    Unsupported SType                                  [RFC-ietf-trill-channel-tunnel-11]
+    6     3    Unsupported PType                                  [RFC-ietf-trill-channel-tunnel-11]
+    6     4    Unknown Key ID                                     [RFC-ietf-trill-channel-tunnel-11]
+    6     5    Unsupported Ethertype with PType = 2               [RFC-ietf-trill-channel-tunnel-11]
+    6     6    Unsupported authentication algorithm for SType = 1 [RFC-ietf-trill-channel-tunnel-11]
+    6     7    Non-zero SubERR with zero ERR field                [RFC-ietf-trill-channel-tunnel-11]
+   7-14        (no suberrors assigned)                            [RFC-ietf-trill-channel-tunnel-11]
+    15         Reserved                                           [RFC-ietf-trill-channel-tunnel-11]
 
 TRILL-VER Sub-TLV Capability Flags
 
@@ -320,6 +399,7 @@ TRILL APPsub-TLV Types under IS-IS TLV 251 Application Identifier 1
 
  Also see [Application Identifiers for TLV 251]
 
+
    Available Formats
            [IMG]
            CSV
@@ -368,7 +448,7 @@ TRILL APPsub-TLV Types under IS-IS TLV 251 Application Identifier 1
     1   SE       Inter-Subnet Egress [RFC-ietf-trill-irb-14]
    2-15          Unassigned
 
-  Interface Addresses APPsub-TLV Sub-Sub-TLVs
+  Interface Addresses APPsub-TLV Sub-sub-TLVs
 
    Registration Procedure(s)
 
@@ -380,6 +460,11 @@ TRILL APPsub-TLV Types under IS-IS TLV 251 Application Identifier 1
 
    Reference
            [RFC-ietf-trill-ia-appsubtlv-09]
+
+   Note
+
+ Types greater than 255 are not usable in some contexts.
+
 
    Available Formats
            [IMG]
