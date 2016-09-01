@@ -53,6 +53,12 @@
       <xsl:when test="@id = 'schedule-force-send-values'">
         <tr><th>Schedule Force Send</th><th>Status</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'display-types'">
+        <tr><th>Display Type</th><th>Status</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'display-types'">
+        <tr><th>Feature Type</th><th>Status</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Name</th><th>Status</th><th>Reference</th></tr>
       </xsl:otherwise>
