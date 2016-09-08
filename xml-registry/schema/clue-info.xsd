@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema
+   targetNamespace="urn:ietf:params:xml:ns:clue-info"
+   xmlns:tns="urn:ietf:params:xml:ns:clue-info"
+   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   xmlns="urn:ietf:params:xml:ns:clue-info"
+   xmlns:xcard="urn:ietf:params:xml:ns:vcard-4.0"
+   elementFormDefault="qualified"
+   attributeFormDefault="unqualified"
+   version="1.0">
+
+<!-- Import xcard XML schema -->
+<xs:import namespace="urn:ietf:params:xml:ns:vcard-4.0"
+schemaLocation=
+  "http://www.iana.org/assignments/xml-registry/schema/vcard-4.0.xsd"/>
+
+
+<!-- ELEMENT DEFINITIONS -->
+<xs:element name="mediaCaptures" type="mediaCapturesType"/>
+<xs:element name="encodingGroups" type="encodingGroupsType"/>
+<xs:element name="captureScenes" type="captureScenesType"/>
+<xs:element name="simultaneousSets" type="simultaneousSetsType"/>
+<xs:element name="globalViews" type="globalViewsType"/>
+
+<xs:element name="people" type="peopleType"/>
+
+<xs:element name="captureEncodings" type="captureEncodingsType"/>
+
+
+<!-- MEDIA CAPTURES TYPE -->
+<!-- envelope of media captures -->
+<xs:complexType name="mediaCapturesType">
+ <xs:sequence>
+   <xs:element name="mediaCapture" type="mediaCaptureType"
+   maxOccurs="unbounded"/>
+ </xs:sequence>
+</xs:complexType>
+
+
+<!-- DESCRIPTION element -->
+<xs:element name="description">
+ <xs:complexType>
+  <xs:simpleContent>
+   <xs:extension base="xs:string">
+     <xs:attribute name="lang" type="xs:language"/>
+   </xs:extension>
+  </xs:simpleContent>
+ </xs:complexType>
+</xs:element>
+
+<!-- MEDIA CAPTURE TYPE -->
+<xs:complexType name="mediaCaptureType" abstract="true">
+  <xs:sequence>
+    <!-- mandatory fields -->
+    <xs:element name="captureSceneIDREF" type="xs:IDREF"/>
+    <xs:choice>
+      <xs:sequence>
+        <xs:element name="spatialInformation"
+                    type="tns:spatialInformationType"/>
+      </xs:sequence>
+      <xs:element name="nonSpatiallyDefinable" type="xs:boolean"
+      fixed="true"/>
+    </xs:choice>
+    <!-- for handling multi-content captures: -->
+    <xs:choice>
+      <xs:sequence>
+        <xs:element name="synchronizationID" type="xs:ID"
+         minOccurs="0"/>
+        <xs:element name="content" type="contentType" minOccurs="0"/>
+        <xs:element name="policy" type="policyType" minOccurs="0"/>
+        <xs:element name="maxCaptures" type="maxCapturesType"
+         minOccurs="0"/>
+        <xs:element name="allowSubsetChoice" type="xs:boolean"
+         minOccurs="0"/>
+      </xs:sequence>
+      <xs:element name="individual" type="xs:boolean" fixed="true"/>
+    </xs:choice>
+    <!-- optional fields -->
+    <xs:element name="encGroupIDREF" type="xs:IDREF" minOccurs="0"/>
+    <xs:element ref="description" minOccurs="0" maxOccurs="unbounded"/>
+    <xs:element name="priority" type="xs:unsignedInt" minOccurs="0"/>
+    <xs:element name="lang" type="xs:language" minOccurs="0"
+     maxOccurs="unbounded"/>
+        <xs:element name="mobility" type="mobilityType" minOccurs="0" />
+    <xs:element ref="presentation" minOccurs="0" />
+    <xs:element ref="embeddedText" minOccurs="0" />
+    <xs:element ref="view" minOccurs="0" />
+    <xs:element name="capturedPeople" type="capturedPeopleType"
+     minOccurs="0"/>
+    <xs:element name="relatedTo" type="xs:IDREF" minOccurs="0"/>
+  </xs:sequence>
+  <xs:attribute name="captureID" type="xs:ID" use="required"/>
+  <xs:attribute name="mediaType" type="xs:string" use="required"/>
+
+</xs:complexType>
+
+<!-- POLICY TYPE -->
+<xs:simpleType name="policyType">
+ <xs:restriction base="xs:string">
+      <xs:pattern value="([a-zA-Z0-9])+[:]([0-9])+"/>
+    </xs:restriction>
+</xs:simpleType>
+
+<!-- CONTENT TYPE -->
+<xs:complexType name="contentType">
+ <xs:sequence>
+   <xs:element name="mediaCaptureIDREF" type="xs:IDREF"
+   minOccurs="0" maxOccurs="unbounded"/>
+   <xs:element name="sceneViewIDREF" type="xs:IDREF"
+   minOccurs="0" maxOccurs="unbounded"/>
+   <xs:any namespace="##other" processContents="lax" minOccurs="0"
+   maxOccurs="unbounded"/>
+ </xs:sequence>
+ <xs:anyAttribute namespace="##other" processContents="lax"/>
+</xs:complexType>
+
+<!-- MAX CAPTURES TYPE -->
+<xs:simpleType name="positiveShort">
+        <xs:restriction base="xs:unsignedShort">
+                <xs:minInclusive value="1">
+                </xs:minInclusive>
+        </xs:restriction>
+</xs:simpleType>
+
+<xs:complexType name="maxCapturesType">
+        <xs:simpleContent>
+                <xs:extension base="positiveShort">
+                        <xs:attribute name="exactNumber"
+                                type="xs:boolean"/>
+                </xs:extension>
+        </xs:simpleContent>
+</xs:complexType>
+
+<!-- CAPTURED PEOPLE TYPE -->
+<xs:complexType name="capturedPeopleType">
+ <xs:sequence>
+  <xs:element name="personIDREF" type="xs:IDREF" maxOccurs="unbounded"/>
+ </xs:sequence>
+</xs:complexType>
+
+<!-- PEOPLE TYPE -->
+<xs:complexType name="peopleType">
+ <xs:sequence>
+  <xs:element name="person" type="personType" maxOccurs="unbounded"/>
+ </xs:sequence>
+</xs:complexType>
+
+<!-- PERSON TYPE -->
+<xs:complexType name="personType">
+  <xs:sequence>
+     <xs:element name="personInfo" type="xcard:vcardType" maxOccurs="1"
+                         minOccurs="0"/>
+     <xs:element ref="personType" minOccurs="0" maxOccurs="unbounded" />
+     <xs:any namespace="##other" processContents="lax" minOccurs="0"
+                 maxOccurs="unbounded"/>
+  </xs:sequence>
+  <xs:attribute name="personID" type="xs:ID" use="required"/>
+  <xs:anyAttribute namespace="##other" processContents="lax"/>
+</xs:complexType>
+
+<!-- PERSON TYPE ELEMENT -->
+<xs:element name="personType" type="xs:string">
+ <xs:annotation>
+  <xs:documentation>
+   Acceptable values (enumerations) for this type are managed
+   by IANA in the "CLUE Schema &lt;personType&gt; registry",
+   accessible at http://www.iana.org/assignments/clue.
+  </xs:documentation>
+ </xs:annotation>
+</xs:element>
+
+<!-- VIEW ELEMENT -->
+<xs:element name="view" type="xs:string">
+ <xs:annotation>
+  <xs:documentation>
+   Acceptable values (enumerations) for this type are managed
+   by IANA in the "CLUE Schema &lt;view&gt; registry",
+   accessible at http://www.iana.org/assignments/clue.
+  </xs:documentation>
+ </xs:annotation>
+</xs:element>
+
+<!-- PRESENTATION ELEMENT -->
+<xs:element name="presentation" type="xs:string">
+ <xs:annotation>
+  <xs:documentation>
+   Acceptable values (enumerations) for this type are managed
+   by IANA in the "CLUE Schema &lt;presentation&gt; registry",
+   accessible at http://www.iana.org/assignments/clue.
+  </xs:documentation>
+ </xs:annotation>
+</xs:element>
+
+<!-- SPATIAL INFORMATION TYPE -->
+<xs:complexType name="spatialInformationType">
+ <xs:sequence>
+  <xs:element name="captureOrigin" type="captureOriginType"
+   minOccurs="0"/>
+  <xs:element name="captureArea" type="captureAreaType" minOccurs="0"/>
+  <xs:any namespace="##other" processContents="lax" minOccurs="0"
+  maxOccurs="unbounded"/>
+ </xs:sequence>
+ <xs:anyAttribute namespace="##other" processContents="lax"/>
+</xs:complexType>
+
+
+<!-- POINT TYPE -->
+<xs:complexType name="pointType">
+ <xs:sequence>
+  <xs:element name="x" type="xs:decimal"/>
+  <xs:element name="y" type="xs:decimal"/>
+  <xs:element name="z" type="xs:decimal"/>
+ </xs:sequence>
+</xs:complexType>
+
+<!-- CAPTURE ORIGIN TYPE -->
+
+<xs:complexType name="captureOriginType">
+  <xs:sequence>
+        <xs:element name="capturePoint" type="pointType"></xs:element>
+        <xs:element name="lineOfCapturePoint" type="pointType"
+         minOccurs="0">
+        </xs:element>
+  </xs:sequence>
+  <xs:anyAttribute namespace="##any" processContents="lax"/>
+</xs:complexType>
+
+
+<!-- CAPTURE AREA TYPE -->
+<xs:complexType name="captureAreaType">
+ <xs:sequence>
+  <xs:element name="bottomLeft" type="pointType"/>
+  <xs:element name="bottomRight" type="pointType"/>
+  <xs:element name="topLeft" type="pointType"/>
+  <xs:element name="topRight" type="pointType"/>
+ </xs:sequence>
+</xs:complexType>
+
+
+<!-- MOBILITY TYPE -->
+<xs:simpleType name="mobilityType">
+ <xs:restriction base="xs:string">
+  <xs:enumeration value="static" />
+  <xs:enumeration value="dynamic" />
+  <xs:enumeration value="highly-dynamic" />
+ </xs:restriction>
+</xs:simpleType>
+
+<!-- TEXT CAPTURE TYPE -->
+<xs:complexType name="textCaptureType">
+ <xs:complexContent>
+  <xs:extension base="tns:mediaCaptureType">
+  <xs:sequence>
+  <xs:any namespace="##other" processContents="lax" minOccurs="0"
+    maxOccurs="unbounded"/>
+  </xs:sequence>
+  <xs:anyAttribute namespace="##other" processContents="lax"/>
+  </xs:extension>
+ </xs:complexContent>
+</xs:complexType>
+
+
+<!-- OTHER CAPTURE TYPE -->
+<xs:complexType name="otherCaptureType">
+ <xs:complexContent>
+  <xs:extension base="tns:mediaCaptureType">
+  <xs:sequence>
+  <xs:any namespace="##other" processContents="lax" minOccurs="0"
+    maxOccurs="unbounded"/>
+  </xs:sequence>
+  <xs:anyAttribute namespace="##other" processContents="lax"/>
+  </xs:extension>
+ </xs:complexContent>
+</xs:complexType>
+
+<!-- AUDIO CAPTURE TYPE -->
+<xs:complexType name="audioCaptureType">
+ <xs:complexContent>
+  <xs:extension base="tns:mediaCaptureType">
+   <xs:sequence>
+        <xs:element ref="sensitivityPattern" minOccurs="0" />
+    <xs:any namespace="##other" processContents="lax" minOccurs="0"
+    maxOccurs="unbounded"/>
+   </xs:sequence>
+   <xs:anyAttribute namespace="##other" processContents="lax"/>
+  </xs:extension>
+ </xs:complexContent>
+</xs:complexType>
+
+
+<!-- SENSITIVITY PATTERN ELEMENT -->
+<xs:element name="sensitivityPattern" type="xs:string">
+ <xs:annotation>
+  <xs:documentation>
+   Acceptable values (enumerations) for this type are managed by IANA
+   in the "CLUE Schema &lt;sensitivityPattern&gt; registry", accessible
+   at http://www.iana.org/assignments/clue.
+  </xs:documentation>
+ </xs:annotation>
+</xs:element>
+
+
+<!-- VIDEO CAPTURE TYPE -->
+<xs:complexType name="videoCaptureType">
+ <xs:complexContent>
+  <xs:extension base="tns:mediaCaptureType">
+   <xs:sequence>
+    <xs:any namespace="##other" processContents="lax" minOccurs="0"
+    maxOccurs="unbounded"/>
+   </xs:sequence>
+   <xs:anyAttribute namespace="##other" processContents="lax"/>
+  </xs:extension>
+ </xs:complexContent>
+</xs:complexType>
+
+<!-- EMBEDDED TEXT ELEMENT -->
+<xs:element name="embeddedText">
+ <xs:complexType>
+  <xs:simpleContent>
+   <xs:extension base="xs:boolean">
+    <xs:attribute name="lang" type="xs:language"/>
+   </xs:extension>
+  </xs:simpleContent>
+ </xs:complexType>
+</xs:element>
+
+<!-- CAPTURE SCENES TYPE -->
+<!-- envelope of capture scenes -->
+<xs:complexType name="captureScenesType">
+ <xs:sequence>
+  <xs:element name="captureScene" type="captureSceneType"
+  maxOccurs="unbounded"/>
+ </xs:sequence>
+</xs:complexType>
+
+<!-- CAPTURE SCENE TYPE -->
+<xs:complexType name="captureSceneType">
+ <xs:sequence>
+  <xs:element ref="description" minOccurs="0" maxOccurs="unbounded"/>
+  <xs:element name="sceneInformation" type="xcard:vcardType"
+   minOccurs="0"/>
+  <xs:element name="sceneViews" type="sceneViewsType" minOccurs="0"/>
+  <xs:any namespace="##other" processContents="lax" minOccurs="0"
+  maxOccurs="unbounded"/>
+ </xs:sequence>
+ <xs:attribute name="sceneID" type="xs:ID" use="required"/>
+ <xs:attribute name="scale" type="scaleType" use="required"/>
+ <xs:anyAttribute namespace="##other" processContents="lax"/>
+</xs:complexType>
+
+<!-- SCALE TYPE -->
+<xs:simpleType name="scaleType">
+ <xs:restriction base="xs:string">
+  <xs:enumeration value="mm"/>
+  <xs:enumeration value="unknown"/>
+  <xs:enumeration value="noscale"/>
+ </xs:restriction>
+</xs:simpleType>
+
+<!-- SCENE VIEWS TYPE -->
+<!-- envelope of scene views of a capture scene -->
+<xs:complexType name="sceneViewsType">
+ <xs:sequence>
+  <xs:element name="sceneView" type="sceneViewType"
+  maxOccurs="unbounded"/>
+ </xs:sequence>
+</xs:complexType>
+
+<!-- SCENE VIEW TYPE -->
+<xs:complexType name="sceneViewType">
+ <xs:sequence>
+  <xs:element ref="description" minOccurs="0" maxOccurs="unbounded"/>
+  <xs:element name="mediaCaptureIDs" type="captureIDListType"/>
+ </xs:sequence>
+ <xs:attribute name="sceneViewID" type="xs:ID" use="required"/>
+</xs:complexType>
+
+
+<!-- CAPTURE ID LIST TYPE -->
+<xs:complexType name="captureIDListType">
+ <xs:sequence>
+  <xs:element name="mediaCaptureIDREF" type="xs:IDREF"
+  maxOccurs="unbounded"/>
+ </xs:sequence>
+</xs:complexType>
+
+<!-- ENCODING GROUPS TYPE -->
+<xs:complexType name="encodingGroupsType">
+ <xs:sequence>
+  <xs:element name="encodingGroup" type="tns:encodingGroupType"
+  maxOccurs="unbounded"/>
+ </xs:sequence>
+</xs:complexType>
+
+<!-- ENCODING GROUP TYPE -->
+<xs:complexType name="encodingGroupType">
+ <xs:sequence>
+  <xs:element name="maxGroupBandwidth" type="xs:unsignedLong"/>
+  <xs:element name="encodingIDList" type="encodingIDListType"/>
+  <xs:any namespace="##other" processContents="lax" minOccurs="0"
+  maxOccurs="unbounded"/>
+ </xs:sequence>
+ <xs:attribute name="encodingGroupID" type="xs:ID" use="required"/>
+ <xs:anyAttribute namespace="##any" processContents="lax"/>
+</xs:complexType>
+
+<!-- ENCODING ID LIST TYPE -->
+<xs:complexType name="encodingIDListType">
+ <xs:sequence>
+  <xs:element name="encodingID" type="xs:string" maxOccurs="unbounded"/>
+ </xs:sequence>
+</xs:complexType>
+
+<!-- SIMULTANEOUS SETS TYPE -->
+<xs:complexType name="simultaneousSetsType">
+ <xs:sequence>
+  <xs:element name="simultaneousSet" type="simultaneousSetType"
+  maxOccurs="unbounded"/>
+ </xs:sequence>
+</xs:complexType>
+
+<!-- SIMULTANEOUS SET TYPE -->
+<xs:complexType name="simultaneousSetType">
+ <xs:sequence>
+   <xs:element name="mediaCaptureIDREF" type="xs:IDREF"
+   minOccurs="0" maxOccurs="unbounded"/>
+   <xs:element name="sceneViewIDREF" type="xs:IDREF"
+   minOccurs="0" maxOccurs="unbounded"/>
+   <xs:element name="captureSceneIDREF" type="xs:IDREF"
+   minOccurs="0" maxOccurs="unbounded"/>
+   <xs:any namespace="##other" processContents="lax" minOccurs="0"
+   maxOccurs="unbounded"/>
+ </xs:sequence>
+ <xs:attribute name="setID" type="xs:ID" use="required"/>
+ <xs:attribute name="mediaType" type="xs:string"/>
+ <xs:anyAttribute namespace="##any" processContents="lax"/>
+</xs:complexType>
+
+<!-- GLOBAL VIEWS TYPE -->
+<xs:complexType name="globalViewsType">
+ <xs:sequence>
+  <xs:element name="globalView" type="globalViewType"
+  maxOccurs="unbounded"/>
+ </xs:sequence>
+</xs:complexType>
+
+<!-- GLOBAL VIEW TYPE -->
+<xs:complexType name="globalViewType">
+ <xs:sequence>
+   <xs:element name="sceneViewIDREF" type="xs:IDREF"
+    maxOccurs="unbounded"/>
+   <xs:any namespace="##other" processContents="lax" minOccurs="0"
+   maxOccurs="unbounded"/>
+ </xs:sequence>
+ <xs:attribute name="globalViewID" type="xs:ID"/>
+ <xs:anyAttribute namespace="##any" processContents="lax"/>
+</xs:complexType>
+
+<!-- CAPTURE ENCODINGS TYPE -->
+<xs:complexType name="captureEncodingsType">
+ <xs:sequence>
+  <xs:element name="captureEncoding" type="captureEncodingType"
+  maxOccurs="unbounded"/>
+ </xs:sequence>
+</xs:complexType>
+
+<!-- CAPTURE ENCODING TYPE -->
+<xs:complexType name="captureEncodingType">
+ <xs:sequence>
+  <xs:element name="captureID" type="xs:string"/>
+  <xs:element name="encodingID" type="xs:string"/>
+  <xs:element name="configuredContent" type="contentType"
+   minOccurs="0"/>
+  <xs:any namespace="##other" processContents="lax" minOccurs="0"
+   maxOccurs="unbounded"/>
+ </xs:sequence>
+ <xs:attribute name="ID" type="xs:ID" use="required"/>
+ <xs:anyAttribute namespace="##any" processContents="lax"/>
+</xs:complexType>
+
+<!-- CLUE INFO ELEMENT -->
+<xs:element name="clueInfo" type="clueInfoType"/>
+
+<!-- CLUE INFO TYPE -->
+<xs:complexType name="clueInfoType">
+  <xs:sequence>
+   <xs:element ref="mediaCaptures"/>
+   <xs:element ref="encodingGroups"/>
+   <xs:element ref="captureScenes"/>
+   <xs:element ref="simultaneousSets" minOccurs="0"/>
+   <xs:element ref="globalViews" minOccurs="0"/>
+   <xs:element ref="people" minOccurs="0"/>
+   <xs:any namespace="##other" processContents="lax" minOccurs="0"
+   maxOccurs="unbounded"/>
+  </xs:sequence>
+  <xs:attribute name="clueInfoID" type="xs:ID" use="required"/>
+  <xs:anyAttribute namespace="##other" processContents="lax"/>
+</xs:complexType>
+</xs:schema>
