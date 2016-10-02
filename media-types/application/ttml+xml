@@ -1,103 +1,87 @@
-(registered 2014-02-04, last updated 2014-02-04)
+(registered 2014-02-04, last updated 2016-09-30)
 
-Name : Philippe Le Hegaret
+Name: Philippe Le Hegaret
+Email: plh&w3.org
 
-Email : plh&w3.org
+Media type name: application
+Media subtype name: ttml+xml
 
-MIME media type name : Application
+Required parameters: None
 
-MIME subtype name : Standards Tree - ttml+xml
-
-Required parameters : none
-
-Optional parameters :
+Optional parameters:
 charset
-If specified, the charset parameter must match the XML encoding declaration. 
-See Encoding Considerations below. It is thus constrained to either UTF-8 or 
-UTF-16. When charset is not specified, the default value is the actual encoding. 
+If specified, the charset parameter must match the XML encoding declaration, or if absent, the actual encoding. See also Encoding Considerations below.
 
 profile
-The document profile of a TTMLDocument Instance may be specified using an 
-optional profile parameter, which, if specified, the value of which must adhere 
-to the syntax and semantics of ttp:profile parameter defined by Section 6.2.8 
-ttp:profile [1] of the published specification.
-http://www.w3.org/TR/ttaf1-dfxp/#parameter-attribute-profile
+The document profile of a TTMLDocument Instance may be specified using an optional profile parameter, which, if specified, the value of which must adhere to the syntax and semantics of ttp:profile parameter defined by TTML 1.0 Second Edition, Section 6.2.8 ttp:profile of the published specification.
+
+codecs
+The optional codecs parameter provides a short form version of the profile paramater with multiple-profile combinatorial capability. If a short (4-character) form of a profile is registered in the TTML Profile Registry, it is recommended that this codecs parameter be used and not the profile parameter. The nominal value of this parameter is a single 4 character code from the registry.
+Additionally, applications using the entries in the registry are encouraged to adopt the following combination syntax:
+Employ two combination operators, '+' (AND) and '|' (OR), which may be used to specify, respectively, that multiple processor profiles apply (simultaneously) or that any processor profile of a list of profiles may apply individually. If both operators are used in a codecs value, then the '+' operator has precedence.
+The example: "A+B|C+D|E" states that a TTML processor that implements any one of A+B or C+D or E processor profiles satisfies, at first order, the requirements to fetch and begin decode/processing of a TTML document, where X+Y means that both X and Y processor profiles must be supported, and X|Y means that either X or Y processor profile must be supported.
+For more information about processor profile combination, see TTML2 Profile Combination.
+
 
 Encoding considerations: binary
-
-Encoding considerations for this type are the same as for application/xml, 
-except constrained to either UTF-8 or UTF-16. See [XML Media Types] 
-(http://www.rfc-editor.org/rfc/rfc3023.txt), Section 3.2 or its successor(s) if 
-appropriate for additional guidance.
-
-Security considerations :
-As with other XML types and as noted in [XML Media Types] 
-(http://www.rfc-editor.org/rfc/rfc3023.txt), Section 10, repeated expansion of 
-maliciously constructed XML entities can be used to consume large amounts of 
-memory, which may cause XML processors in constrained environments to fail.
-
-In addition, because of the extensibility features for TTML and of XML in 
-general, it is possible that "application/ttml+xml" may describe content that 
-has security implications beyond those described here. However, TTML does not 
-provide for any sort of active or executable content, and if the processor 
-follows only the normative semantics of the published specification, this 
-content will be outside TTML namespaces and may be ignored. Only in the case 
-where the processor recognizes and processes the additional content, or where 
-further processing of that content is dispatched to other processors, would 
-security issues potentially arise. And in that case, they would fall outside 
-the domain of this registration document.
-
-Although not prohibited, there are no expectations that XML signatures or 
-encryption would normally be employed.
+Same for application/xml, except constrained to either UTF-8 or UTF-16. See IETF RFC 7303, XML Media Types, Section 3.2.
 
 
-Interoperability considerations :
+Security considerations:
+As with other XML types and as noted in IETF RFC 7303, XML Media Types, Section 10, repeated expansion of maliciously constructed XML entities can be used to consume large amounts of memory, which may cause XML processors in constrained environments to fail.
+
+In addition, because of the extensibility features for TTML and of XML in general, it is possible that "application/ttml+xml" may describe content that has security implications beyond those described here. However, TTML does not provide for any sort of active or executable content, and if the processor follows only the normative semantics of the published specification, this content will be outside TTML namespaces and may be ignored. Only in the case where the processor recognizes and processes the additional content, or where further processing of that content is dispatched to other processors, would security issues potentially arise. And in that case, they would fall outside the domain of this registration document.
+
+Although not prohibited, there are no expectations that XML signatures or encryption would normally be employed.
 
 
-Published specification :
-This media type registration is extracted from Appendix C Media Type 
-Registration of the Timed Text Markup Language (TTML) 1.0 specification:
-http://www.w3.org/TR/ttaf1-dfxp/
-Timed Text Markup Language (TTML) 1.0.
+Interoperability considerations:
+The published specification describes processing semantics that dictate behavior that must be followed when dealing with, among other things, unrecognized elements and attributes, both in TTML namespaces and in other namespaces.
+
+Because TTML is extensible, conformant "application/ttml+xml" processors may expect (and enforce) that content received is well-formed XML, but it cannot be guaranteed that the content is valid to a particular DTD or Schema or that the processor will recognize all of the elements and attributes in the document.
 
 
-Applications which use this media :
-TTML is used in the television industry for the purpose of authoring, 
-transcoding and exchanging timed text information and for delivering captions, 
-subtitles, and other metadata for television material repurposed for the Web 
-or, more generally, the Internet.
-
-There is partial and full support of TTML in components used by several Web 
-browsers plugins, and in a number of caption authoring tools.
+Published specification:
+This media type registration is extracted from the TTML Profile Registry.
+https://www.w3.org/TR/ttml-profile-registry/
 
 
-Additional information :
+Applications which use this media:
+TTML is used in the television industry for the purpose of authoring, transcoding and exchanging timed text information and for delivering captions, subtitles, and other metadata for television material repurposed for the Web or, more generally, the Internet.
 
-1. Magic number(s) : none
-2. File extension(s) : .ttml
-3. Macintosh file type code : "TTML"
-4. Object Identifiers: none
-
-Encoding Considerations:
-Same for application/xml, except constrained to either UTF-8 or UTF-16. See 
-[XML Media Types] (http://www.rfc-editor.org/rfc/rfc3023.txt), Section 3.2.
-
-Fragment identifiers:
-
-For documents labeled as application/ttml+xml, the fragment identifier notation 
-is intended to be used with xml:id attributes, as described in section 7.2.1 of 
-the Timed Text Markup Language 1 (TTML1) specification [1].
-
-[1] http://www.w3.org/TR/ttaf1-dfxp/
+There is partial and full support of TTML in components used by several Web browsers plugins, and in a number of caption authoring tools.
 
 
-Person to contact for further information :
-
-1. Name : Timed Text Working Group
-2. Email : public-tt&w3.org
-
-Intended usage : Common
+Fragment identifier considerations:
+For documents labeled as application/ttml+xml, the fragment identifier notation is intended to be used with xml:id attributes, as described in section 7.2.1 of the Timed Text Markup Language 1 (TTML1) specification.
+https://www.w3.org/TR/ttml1/
 
 
-Author/Change controller : The published specification is a work product of the 
-World Wide Web Consortium's Timed Text (TT) Working Group.
+Restrictions on usage:
+None
+
+Provisional registration? (standards tree only):
+None
+
+Additional information:
+
+1. Deprecated alias names for this type: None
+2. Magic number(s): None
+3. File extension(s): .ttml
+4. Macintosh file type code: "TTML"
+5. Object Identifiers: None
+
+General Comments:
+None
+
+Person to contact for further information:
+
+1. Name: Timed Text Working Group
+2. Email: public-tt&w3.org
+
+Intended usage: Common
+None
+
+Author/Change controller: The published specification is a work product of the World Wide Web Consortium's Timed Text (TT) Working Group.
+
+The W3C has change control over this specification.

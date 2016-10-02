@@ -145,6 +145,13 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'bu-object-type-field'">
+        <tr>
+          <th>Type</th>
+          <th>Name</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <th>Value</th>
