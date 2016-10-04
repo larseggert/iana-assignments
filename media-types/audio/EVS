@@ -1,4 +1,4 @@
-(registered 2015-12-21, last updated 2016-04-06)
+(registered 2015-12-21, last updated 2016-10-03)
 
 Name : Kyunghun Jung
 
@@ -22,7 +22,11 @@ hf-only: Permissible values are 0 and 1. If hf-only is 0 or not present, both Co
 
 dtx: Permissible values are 0 and 1. If dtx is 0, DTX is disabled in the session for the send and the receive directions. If dtx is 1 or not present, DTX is enabled. If dtx is included, dtx-recv is redundant but if dtx-recv is included, it shall be identical to dtx.
 
+NOTE 1: If dtx is not present, DTX can still be disabled by the inclusion of dtx-recv=0 for the direction indicated by dtx-recv. See also clause A.3.3.1 and clause A.3.3.3 of 3GPP TS 26.445.
+
 dtx-recv: Permissible values are 0 and 1. If dtx-recv=0 is included for a payload type in the received SDP offer or the received SDP answer, and the payload type is accepted, the receiver shall disable DTX for the send direction. If dtx-recv=1 is included for a payload type in the received SDP offer or the received SDP answer, and this payload type is accepted, or if dtx-recv is not present for an accepted payload type, DTX is enabled.
+
+NOTE 2: dtx-recv only applies for the media direction towards the SDP sender. If dtx-recv is not present, dtx determines if DTX is enabled or disabled. See also clause A.3.3.1 and clause A.3.3.3 of 3GPP TS 26.445.
 
 max-red: defined in RFC 4867
 
@@ -50,13 +54,13 @@ ch-aw-recv: Specifies how channel-aware mode is configured or used for the recei
 
 mode-set: Restricts the active codec mode set to a subset of all modes when the EVS codec operates in AMR-WB IO, for example, to be able to support transport channels such as GSM or UMTS networks. Possible value is a comma-separated list of modes from the set: 0, ..., 8 (see Table 1a of 3GPP TS 26.201). If mode-set is specified, it must be abided, and frames encoded with AMR-WB IO outside of the subset must not be sent in any RTP payload or used in codec mode request signal. If not present, all codec modes of AMR-WB IO are allowed for the payload type.
 
-NOTE 1: If a positive (2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, the receiver of the parameter shall send partial redundancy (channel-aware mode) at the start of the session using the value as the offset. If ch-aw-recv=0 is declared or not present for a payload type and the payload type is accepted, the receiver of the parameter shall not send partial redundancy (channel-aware mode) at the start of the session. If ch-aw-recv=-1 is declared for a payload type and the payload type is accepted, the receiver of the parameter shall not send partial redundancy (channel-aware mode) in the session. If ch-aw-recv is not present or a non-negative (0, 2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, partial redundancy (channel-aware mode) can be activated or deactivated during the session based on the expected or estimated channel condition through adaptation signaling, such as CMR (see clause A.2 of 3GPP TS 26.445) or RTCP based signaling (see clause 10.2 of 3GPP TS 26.114). If ch-aw-recv is not present or a non-negative (0, 2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, the partial redundancy offset value can also be adjusted during the session based on the expected or estimated channel condition through adaptation signaling.
+NOTE 3: If a positive (2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, the receiver of the parameter shall send partial redundancy (channel-aware mode) at the start of the session using the value as the offset. If ch-aw-recv=0 is declared or not present for a payload type and the payload type is accepted, the receiver of the parameter shall not send partial redundancy (channel-aware mode) at the start of the session. If ch-aw-recv=-1 is declared for a payload type and the payload type is accepted, the receiver of the parameter shall not send partial redundancy (channel-aware mode) in the session. If ch-aw-recv is not present or a non-negative (0, 2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, partial redundancy (channel-aware mode) can be activated or deactivated during the session based on the expected or estimated channel condition through adaptation signaling, such as CMR (see clause A.2 of 3GPP TS 26.445) or RTCP based signaling (see clause 10.2 of 3GPP TS 26.114). If ch-aw-recv is not present or a non-negative (0, 2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, the partial redundancy offset value can also be adjusted during the session based on the expected or estimated channel condition through adaptation signaling.
 
-NOTE 2: The frame erasure rate indicator for the channel-aware mode has two permissible values (LO, HI) and this indicator has to be initialized to HI, as specified in clause 5.8.4.
+NOTE 4: The frame erasure rate indicator for the channel-aware mode has two permissible values (LO, HI) and this indicator has to be initialized to HI, as specified in clause 5.8.4 of 3GPP TS 26.445.
 
 mode-change-period: defined in section 8.1 of RFC 4867
 
-mode-change-capability: defined in section 8.1 of RFC 4867, except that the default and the only allowed value of mode-change-capability is 2 for EVS AMR-WB IO. As the default and the only allowed value of mode-change-capibility is 2 in EVS AMR-WB IO, it is not required to include this parameter in the SDP.
+mode-change-capability: defined in section 8.1 of RFC 4867, except that the default and the only allowed value of mode-change-capability is 2 for EVS AMR-WB IO. As the default and the only allowed value of mode-change-capability is 2 in EVS AMR-WB IO, it is not required to include this parameter in the SDP.
 
 mode-change-neighbor: defined in section 8.1 of RFC 4867
 
@@ -74,10 +78,10 @@ Interoperability considerations :
 Since the completion of the EVS speech codec in November 2014, extensive tests have been taken in the industry to identify interoperability issues, if any. So far, none has been reported in the chipset, radio and networking equipment areas as commercial launches of EVS proceeded globally.
 
 Published specification : 
-3GPP TS 26.445 V12.4.0, "Codec for Enhanced Voice Services (EVS); Detailed Algorithm Description"
-3GPP TS 26.441 V12.1.0, "Codec for Enhanced Voice Services (EVS); General overview"
-3GPP TS 26.114 V13.1.0, "IP Multimedia Subsystem (IMS); Multimedia telephony; Media handling and interaction"
-3GPP TS 26.201 V12.0.0, "Speech codec speech processing functions; Adaptive Multi-Rate - Wideband (AMR-WB) speech codec; Frame structure"
+3GPP TS 26.445 V13.3.0, "Codec for Enhanced Voice Services (EVS); Detailed Algorithm Description"
+3GPP TS 26.441 V13.0.0, "Codec for Enhanced Voice Services (EVS); General overview"
+3GPP TS 26.114 V14.1.0, "IP Multimedia Subsystem (IMS); Multimedia telephony; Media handling and interaction"
+3GPP TS 26.201 V13.0.0, "Speech codec speech processing functions; Adaptive Multi-Rate - Wideband (AMR-WB) speech codec; Frame structure"
 
 Applications which use this media : 
 Primary application will be the Voice over LTE (VoLTE) services on the smartphones and mobile devices running on the fourth and beyond -generation mobile communications networks. This media type is also expected to be employed in VoIP services in the Internet and fixed networks. With the capability of supporting higher-quality audio up to 128 kbps, other applications, such as audio streaming, augmented reality, or virtual reality, are also anticipated for single and multi-channel services.
@@ -99,7 +103,6 @@ Additional information :
 3. File extension(s) : '3gp' and '3gpp' are declared at http://www.nist.gov/nics/
 4. Macintosh file type code : '3gpp'
 5. Object Identifiers: N/A
-
 
 
 Person to contact for further information :
