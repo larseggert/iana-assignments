@@ -47,6 +47,9 @@
       <xsl:when test="@id = 'ntp-time-source'">
         <tr><th>Value</th><th>Name</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'option-codes-s46-priority-option'">
+        <tr><th>Option Code</th><th>S46 Mechanism</th><th>Reference</th></tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
