@@ -8,10 +8,29 @@
   <xsl:template name="iana:record_header">
   <xsl:choose> 
       <xsl:when test="@id = 'flavor'">
-        <tr><th>Identifier String</th><th>Flavor Name</th><th>Value</th><th>Description</th><th>Reference</th></tr>
+        <tr>
+          <th>Identifier String</th>
+          <th>Flavor Name</th>
+          <th>Value</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
       </xsl:when>
       <xsl:when test="@id = 'status'">
-        <tr><th>Identifier String</th><th>Flavor Name</th><th>Value</th><th>Description</th><th>Reference</th></tr>
+        <tr>
+          <th>Identifier String</th>
+          <th>Flavor Name</th>
+          <th>Value</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+    </xsl:when>
+    <xsl:when test="@id = 'rpcsec_gss-structured-privilege-names'">
+      <tr>
+        <th>Name</th>
+        <th>Reference</th>
+        <th>Contact</th>
+      </tr>
     </xsl:when>
 
     </xsl:choose>
@@ -35,6 +54,13 @@
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'rpcsec_gss-structured-privilege-names'">
+        <tr>
+          <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:contact"/></td>
         </tr>
       </xsl:when>
 

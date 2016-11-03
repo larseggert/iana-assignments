@@ -15,6 +15,9 @@
       <xsl:when test="@id = 'lisp-key-id-numbers'">
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'lisp-crypto-cipher-suite'">
+        <tr><th>Value</th><th>Suite</th><th>Definition</th></tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Name</th><th>Reference</th></tr>
       </xsl:otherwise>
@@ -46,7 +49,13 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      
+      <xsl:when test="../@id = 'lisp-crypto-cipher-suite'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:action"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <td><xsl:value-of select="iana:name"/></td>
