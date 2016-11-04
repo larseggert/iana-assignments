@@ -4,7 +4,7 @@
            2007-05-02
 
    Last Updated
-           2016-10-28
+           2016-11-03
 
    Available Formats
            [IMG]
@@ -29,27 +29,52 @@ Dispatch Type Field
  Gabriel Montenegro, James Woodyatt, Pascal Thubert (secondary expert)
 
    Reference
-           [RFC4944]
+           [RFC4944][RFC-ietf-6lo-paging-dispatch-05]
 
    Available Formats
            [IMG]
            CSV
 
-           Bit Pattern                        Header Type                 Reference
-            00 xxxxxx          NALP - Not a LoWPAN frame                  [RFC4944]
-            01 000000          Reserved as a replacement value for ESC    [RFC6282]
-            01 000001          IPv6 - uncompressed IPv6 Addresses         [RFC4944]
-            01 000010          LOWPAN_HC1 - LOWPAN_HC1 compressed IPv6    [RFC4944]
-            01 000011          LOWPAN_DFF                                 [RFC6971]
-   01 000100 through 01 001111 reserved for future use
-            01 010000          LOWPAN_BC0 - LOWPAN_BC0 broadcast          [RFC4944]
-   01 010001 through 01 011111 reserved for future use
-            01 1xxxxx          LOWPAN_IPHC                                [RFC6282]
-            10 xxxxxx          MESH - Mesh header                         [RFC4944]
-            11 000xxx          FRAG1 -- Fragmentation Header (first)      [RFC4944]
-   11 001000 through 11 011111 reserved for future use
-            11 100xxx          FRAGN -- Fragmentation Header (subsequent) [RFC4944]
-   11 101000 through 11 111111 reserved for future use
+           Bit Pattern         Page                Header Type                                 Reference
+   00 xxxxxx                   0    NALP - Not a LoWPAN frame                  [RFC4944][RFC-ietf-6lo-paging-dispatch-05]
+   00 xxxxxx                   1-14 Unassigned
+   00 xxxxxx                   15   Reserved                                   [RFC-ietf-6lo-paging-dispatch-05]
+   01 000000                   0    Reserved as a replacement value for ESC    [RFC6282]
+   01 000000                   1-14 Unassigned
+   01 000000                   15   Reserved                                   [RFC-ietf-6lo-paging-dispatch-05]
+   01 000001                   0    IPv6 - uncompressed IPv6 Addresses         [RFC4944][RFC-ietf-6lo-paging-dispatch-05]
+   01 000001                   1-14 Unassigned
+   01 000001                   15   Reserved                                   [RFC-ietf-6lo-paging-dispatch-05]
+   01 000010                   0    LOWPAN_HC1 - LOWPAN_HC1 compressed IPv6    [RFC4944][RFC-ietf-6lo-paging-dispatch-05]
+   01 000010                   1-14 Unassigned
+   01 000010                   15   Reserved                                   [RFC-ietf-6lo-paging-dispatch-05]
+   01 000011                   0    LOWPAN_DFF                                 [RFC6971][RFC-ietf-6lo-paging-dispatch-05]
+   01 000011                   1-14 Unassigned
+   01 000011                   15   Reserved                                   [RFC-ietf-6lo-paging-dispatch-05]
+   01 000100 through 01 001111 0-14 Unassigned
+   01 000100 through 01 001111 15   Reserved                                   [RFC-ietf-6lo-paging-dispatch-05]
+   01 010000                   0    LOWPAN_BC0 - LOWPAN_BC0 broadcast          [RFC4944][RFC-ietf-6lo-paging-dispatch-05]
+   01 010000                   1-14 Unassigned
+   01 010000                   15   Reserved                                   [RFC-ietf-6lo-paging-dispatch-05]
+   01 010001 through 01 011111 0-14 Unassigned
+   01 010001 through 01 011111 15   Reserved                                   [RFC-ietf-6lo-paging-dispatch-05]
+   01 1xxxxx                   0-1  LOWPAN_IPHC                                [RFC6282][RFC-ietf-6lo-paging-dispatch-05]
+   01 1xxxxx                   2-14 Unassigned
+   01 1xxxxx                   15   Reserved                                   [RFC-ietf-6lo-paging-dispatch-05]
+   10 xxxxxx                   0    MESH - Mesh header                         [RFC4944][RFC-ietf-6lo-paging-dispatch-05]
+   10 xxxxxx                   1-14 Unassigned
+   10 xxxxxx                   15   Reserved                                   [RFC-ietf-6lo-paging-dispatch-05]
+   11 000xxx                   0    FRAG1 -- Fragmentation Header (first)      [RFC4944][RFC-ietf-6lo-paging-dispatch-05]
+   11 000xxx                   1-14 Unassigned
+   11 000xxx                   15   Reserved                                   [RFC-ietf-6lo-paging-dispatch-05]
+   11 001000 through 11 011111 0-14 Unassigned
+   11 001000 through 11 011111 15   Reserved                                   [RFC-ietf-6lo-paging-dispatch-05]
+   11 100xxx                   0    FRAGN -- Fragmentation Header (subsequent) [RFC4944][RFC-ietf-6lo-paging-dispatch-05]
+   11 100xxx                   1-14 Unassigned
+   11 100xxx                   15   Reserved                                   [RFC-ietf-6lo-paging-dispatch-05]
+   11 101000 through 11 101111 0-14 Unassigned
+   11 101000 through 11 101111 15   Reserved                                   [RFC-ietf-6lo-paging-dispatch-05]
+   11 11xxxx                   0-15 Page switch                                [RFC-ietf-6lo-paging-dispatch-05]
 
 Short Address Fields
 
@@ -74,8 +99,8 @@ Short Address Fields
    1010000000000000 to 1011111111111111 reserved for future assignment
    1100000000000000 to 1101111111111111 reserved for future assignment
    1110000000000000 to 1111111111111100 reserved for future assignment
-             1111111111111110           defined in IEEE 802.15.4 ("unassigned" short address)
-             1111111111111111           defined in IEEE 802.15.4 (broadcast address)
+   1111111111111110                     defined in IEEE 802.15.4 ("unassigned" short address)
+   1111111111111111                     defined in IEEE 802.15.4 (broadcast address)
 
 LOWPAN_NHC Header Type
 
@@ -92,19 +117,19 @@ LOWPAN_NHC Header Type
 
           Value                      Description              Reference
    00000000 to 10101111 Unassigned
-         10110EEN       Extension header GHC                  [RFC7400]
+   10110EEN             Extension header GHC                  [RFC7400]
    10111000 to 11001111 Unassigned
-         11010CPP       UDP GHC                               [RFC7400]
+   11010CPP             UDP GHC                               [RFC7400]
    11011000 to 11011110 Unassigned
-         11011111       ICMPv6 GHC                            [RFC7400]
-         1110000N       IPv6 Hop-by-Hop Options Header        [RFC6282]
-         1110001N       IPv6 Routing Header                   [RFC6282]
-         1110010N       IPv6 Fragment Header                  [RFC6282]
-         1110011N       IPv6 Destinations Options Header      [RFC6282]
-         1110100N       IPv6 Mobility Header                  [RFC6282]
-         1110101N       Reserved for future extension headers [RFC6282]
-         1110110N       Reserved for future extension headers [RFC6282]
-         1110111N       IPv6 Header                           [RFC6282]
-         11110CPP       UDP Header                            [RFC6282]
+   11011111             ICMPv6 GHC                            [RFC7400]
+   1110000N             IPv6 Hop-by-Hop Options Header        [RFC6282]
+   1110001N             IPv6 Routing Header                   [RFC6282]
+   1110010N             IPv6 Fragment Header                  [RFC6282]
+   1110011N             IPv6 Destinations Options Header      [RFC6282]
+   1110100N             IPv6 Mobility Header                  [RFC6282]
+   1110101N             Reserved for future extension headers [RFC6282]
+   1110110N             Reserved for future extension headers [RFC6282]
+   1110111N             IPv6 Header                           [RFC6282]
+   11110CPP             UDP Header                            [RFC6282]
    11111000 to 11111110 Unassigned
-         11111111       Unassigned, reserved for extensions   [RFC6282]
+   11111111             Unassigned, reserved for extensions   [RFC6282]

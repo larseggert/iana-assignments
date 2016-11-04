@@ -9,7 +9,7 @@
   <xsl:template name="iana:record_header">
     <xsl:choose> 
       <xsl:when test="@id = '_6lowpan-parameters-1'">
-        <tr><th>Bit Pattern</th><th>Header Type</th><th>Reference</th></tr>
+        <tr><th>Bit Pattern</th><th>Page</th><th>Header Type</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = '_6lowpan-parameters-2'">
         <tr><th>Address Range</th><th>Description</th><th>Reference</th></tr>
@@ -24,21 +24,22 @@
     <xsl:choose>
       <xsl:when test="../@id = '_6lowpan-parameters-1'">
         <tr>
-          <td align="center" style="font-family:monospace"><xsl:value-of select="iana:value"/></td>
+          <td style="font-family:monospace"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:page"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
       <xsl:when test="../@id = '_6lowpan-parameters-2'">
         <tr>
-          <td align="center" style="font-family:monospace"><xsl:value-of select="iana:value"/></td>
+          <td style="font-family:monospace"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'lowpan_nhc'">
         <tr>
-          <td align="center" style="font-family:monospace"><xsl:value-of select="iana:value"/></td>
+          <td style="font-family:monospace"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
