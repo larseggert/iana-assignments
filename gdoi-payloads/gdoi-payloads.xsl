@@ -139,6 +139,29 @@
         <th>Reference</th>
       </tr>
      </xsl:when>
+      <xsl:when test="@id = 'iec62351-9-confidentiality-values'">
+        <tr>
+          <th>Value</th>
+          <th>Name</th>
+          <th>Authenticated Encryption</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'gdoi-sa-tek-attributes'">
+        <tr>
+          <th>Value</th>
+          <th>Attribute</th>
+          <th>Type</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <th>Value</th>
+          <th>Name</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
   <xsl:template match="iana:record">
@@ -156,6 +179,22 @@
        <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
      </xsl:when>
+      <xsl:when test="../@id = 'iec62351-9-confidentiality-values'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:value-of select="iana:encryption"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'gdoi-sa-tek-attributes'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:value-of select="iana:type"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
        <tr>
         <td align="center"><xsl:value-of select="iana:value"/></td>
