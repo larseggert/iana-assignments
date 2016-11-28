@@ -14,7 +14,7 @@
         <tr>
           <th>Value</th>
           <th>Description</th>
-          <th>Datatype</th>
+          <th>Data Type</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
