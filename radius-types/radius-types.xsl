@@ -55,6 +55,14 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'radius-ip-port-configuration-reporting-tlvs'">
+        <tr>
+          <th>Value</th>
+          <th>Description</th>
+          <th>Data Type</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <th>Value</th>
@@ -114,6 +122,14 @@
         <tr>
           <td><xsl:value-of select="iana:decimal"/></td>
           <td><xsl:value-of select="iana:message"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'radius-ip-port-configuration-reporting-tlvs'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>         
+          <td><xsl:value-of select="iana:datatype"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
