@@ -8,18 +8,14 @@
       <xsl:when test="@id = 'lisp-act-value'">
         <tr><th>Value</th><th>Action</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
-      
-      <xsl:when test="@id = 'lisp-address-type-codes-registry'">
-        <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
-      </xsl:when>
-      <xsl:when test="@id = 'lisp-key-id-numbers'">
-        <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
-      </xsl:when>
       <xsl:when test="@id = 'lisp-crypto-cipher-suite'">
         <tr><th>Value</th><th>Suite</th><th>Definition</th></tr>
+      </xsl:when>      
+      <xsl:when test="@id = 'lisp-lcaf-type'">
+        <tr><th>Value</th><th>LISP LCAF Type Name</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:otherwise>
-        <tr><th>Name</th><th>Reference</th></tr>
+        <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
       </xsl:otherwise>
     </xsl:choose>          
   </xsl:template>
@@ -58,7 +54,8 @@
       </xsl:when>
       <xsl:otherwise>
         <tr>
-          <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:otherwise>
