@@ -4,7 +4,7 @@
            2015-10-22
 
    Last Updated
-           2016-12-09
+           2016-12-15
 
    Available Formats
            [IMG]
@@ -44,9 +44,9 @@ CDNI Payload Types
            CSV
 
          Payload Type                            Reference
-   ci-trigger-command       [RFC-ietf-cdni-control-triggers-15]
-   ci-trigger-status        [RFC-ietf-cdni-control-triggers-15]
-   ci-trigger-collection    [RFC-ietf-cdni-control-triggers-15]
+   ci-trigger-command       [RFC8007]
+   ci-trigger-status        [RFC8007]
+   ci-trigger-collection    [RFC8007]
    FCI.DeliveryProtocol     [RFC-ietf-cdni-footprint-capabilities-semantics-20]
    FCI.AcquisitionProtocol  [RFC-ietf-cdni-footprint-capabilities-semantics-20]
    FCI.RedirectionMode      [RFC-ietf-cdni-footprint-capabilities-semantics-20]
@@ -55,26 +55,26 @@ CDNI Payload Types
    logging-file             [RFC7937]
    redirection-request      [RFC7975]
    redirection-response     [RFC7975]
-   MI.HostIndex             [RFC-ietf-cdni-metadata-21]
-   MI.HostMatch             [RFC-ietf-cdni-metadata-21]
-   MI.HostMetadata          [RFC-ietf-cdni-metadata-21]
-   MI.PathMatch             [RFC-ietf-cdni-metadata-21]
-   MI.PatternMatch          [RFC-ietf-cdni-metadata-21]
-   MI.PathMetadata          [RFC-ietf-cdni-metadata-21]
-   MI.SourceMetadata        [RFC-ietf-cdni-metadata-21]
-   MI.Source                [RFC-ietf-cdni-metadata-21]
-   MI.LocationACL           [RFC-ietf-cdni-metadata-21]
-   MI.LocationRule          [RFC-ietf-cdni-metadata-21]
-   MI.Footprint             [RFC-ietf-cdni-metadata-21]
-   MI.TimeWindowACL         [RFC-ietf-cdni-metadata-21]
-   MI.TimeWindowRule        [RFC-ietf-cdni-metadata-21]
-   MI.TimeWindow            [RFC-ietf-cdni-metadata-21]
-   MI.ProtocolACL           [RFC-ietf-cdni-metadata-21]
-   MI.ProtocolRule          [RFC-ietf-cdni-metadata-21]
-   MI.DeliveryAuthorization [RFC-ietf-cdni-metadata-21]
-   MI.Cache                 [RFC-ietf-cdni-metadata-21]
-   MI.Auth                  [RFC-ietf-cdni-metadata-21]
-   MI.Grouping              [RFC-ietf-cdni-metadata-21]
+   MI.HostIndex             [RFC8006]
+   MI.HostMatch             [RFC8006]
+   MI.HostMetadata          [RFC8006]
+   MI.PathMatch             [RFC8006]
+   MI.PatternMatch          [RFC8006]
+   MI.PathMetadata          [RFC8006]
+   MI.SourceMetadata        [RFC8006]
+   MI.Source                [RFC8006]
+   MI.LocationACL           [RFC8006]
+   MI.LocationRule          [RFC8006]
+   MI.Footprint             [RFC8006]
+   MI.TimeWindowACL         [RFC8006]
+   MI.TimeWindowRule        [RFC8006]
+   MI.TimeWindow            [RFC8006]
+   MI.ProtocolACL           [RFC8006]
+   MI.ProtocolRule          [RFC8006]
+   MI.DeliveryAuthorization [RFC8006]
+   MI.Cache                 [RFC8006]
+   MI.Auth                  [RFC8006]
+   MI.Grouping              [RFC8006]
 
 CDNI CI/T Trigger Types
 
@@ -83,20 +83,19 @@ CDNI CI/T Trigger Types
  RFC Required
 
    Reference
-           [RFC-ietf-cdni-control-triggers-15]
+           [RFC8007]
 
    Available Formats
            [IMG]
            CSV
 
-   JSON String                                           Description                                                         Reference
-   preposition A request for the dCDN to acquire metadata or content.                                           [RFC-ietf-cdni-control-triggers-15]
-               A request for the dCDN to invalidate metadata or content. After servicing this request the dCDN
-   invalidate  will not use the specified data without first re-validating it using, for example, an            [RFC-ietf-cdni-control-triggers-15]
-               "If-None-Match" HTTP request. The dCDN need not erase the associated data.
-               A request for the dCDN to erase metadata or content. After servicing the request, the specified
-   purge       data MUST NOT be held on the dCDN (the dCDN should re-acquire the metadata or content from uCDN  [RFC-ietf-cdni-control-triggers-15]
-               if it needs it).
+   JSON String                                                        Description                                                         Reference
+   preposition A request for the dCDN to acquire metadata or content.                                                                     [RFC8007]
+               A request for the dCDN to invalidate metadata or content. After servicing this request the dCDN will not use the specified
+   invalidate  data without first re-validating it using, for example, an "If-None-Match" HTTP request. The dCDN need not erase the       [RFC8007]
+               associated data.
+   purge       A request for the dCDN to erase metadata or content. After servicing the request, the specified data MUST NOT be held on   [RFC8007]
+               the dCDN (the dCDN should re-acquire the metadata or content from uCDN if it needs it).
 
 CDNI CI/T Error Codes
 
@@ -109,23 +108,22 @@ CDNI CI/T Error Codes
  Unassigned
 
    Reference
-           [RFC-ietf-cdni-control-triggers-15]
+           [RFC8007]
 
    Available Formats
            [IMG]
            CSV
 
-    Error Code                                            Description                                                        Reference
-   emeta        The dCDN was unable to acquire metadata required to fulfil the request.                         [RFC-ietf-cdni-control-triggers-15]
-   econtent     The dCDN was unable to acquire content (CT/T preposition commands only).                        [RFC-ietf-cdni-control-triggers-15]
-   eperm        The uCDN does not have permission to issue the CI/T Command (for example, the data is owned by  [RFC-ietf-cdni-control-triggers-15]
-                another CDN).
-   ereject      The dCDN is not willing to fulfil the CI/T Command (for example, a preposition request for      [RFC-ietf-cdni-control-triggers-15]
-                content at a time when the dCDN would not accept Request Routing requests from the uCDN).
-   ecdn         An internal error in the dCDN or one of its downstream CDNs.                                    [RFC-ietf-cdni-control-triggers-15]
-   ecancelled   The uCDN cancelled the request.                                                                 [RFC-ietf-cdni-control-triggers-15]
-   eunsupported The Trigger Specification contained a "type" that is not supported by the dCDN. No action was   [RFC-ietf-cdni-control-triggers-15]
-                taken by the dCDN other than to create a Trigger Status Resource in state "failed".
+    Error Code                                                         Description                                                        Reference
+   emeta        The dCDN was unable to acquire metadata required to fulfil the request.                                                   [RFC8007]
+   econtent     The dCDN was unable to acquire content (CT/T preposition commands only).                                                  [RFC8007]
+   eperm        The uCDN does not have permission to issue the CI/T Command (for example, the data is owned by another CDN).              [RFC8007]
+   ereject      The dCDN is not willing to fulfil the CI/T Command (for example, a preposition request for content at a time when the     [RFC8007]
+                dCDN would not accept Request Routing requests from the uCDN).
+   ecdn         An internal error in the dCDN or one of its downstream CDNs.                                                              [RFC8007]
+   ecancelled   The uCDN cancelled the request.                                                                                           [RFC8007]
+   eunsupported The Trigger Specification contained a "type" that is not supported by the dCDN. No action was taken by the dCDN other     [RFC8007]
+                than to create a Trigger Status Resource in state "failed".
 
 CDNI Capabilities Redirection Modes
 
@@ -352,17 +350,17 @@ CDNI Metadata Footprint Types
  Unassigned
 
    Reference
-           [RFC-ietf-cdni-metadata-21]
+           [RFC8006]
 
    Available Formats
            [IMG]
            CSV
 
-   Footprint Type          Description                    Reference
-   ipv4cidr       IPv4 CIDR address block        [RFC-ietf-cdni-metadata-21]
-   ipv6cidr       IPv6 CIDR address block        [RFC-ietf-cdni-metadata-21]
-   asn            Autonomous System Number (ASN) [RFC-ietf-cdni-metadata-21]
-   countrycode    ISO 3166-1 alpha-2 code        [RFC-ietf-cdni-metadata-21]
+   Footprint Type          Description           Reference
+   ipv4cidr       IPv4 CIDR address block        [RFC8006]
+   ipv6cidr       IPv6 CIDR address block        [RFC8006]
+   asn            Autonomous System Number (ASN) [RFC8006]
+   countrycode    ISO 3166-1 alpha-2 code        [RFC8006]
 
 CDNI Metadata Protocol Types
 
@@ -375,12 +373,12 @@ CDNI Metadata Protocol Types
  Unassigned
 
    Reference
-           [RFC-ietf-cdni-metadata-21]
+           [RFC8006]
 
    Available Formats
            [IMG]
            CSV
 
-   Protocol Type               Description                   Type Specification      Protocol Specification
-   http/1.1      Hypertext Transfer Protocol -- HTTP/1.1 [RFC-ietf-cdni-metadata-21] [RFC7230]
-   https/1.1     HTTP/1.1 over TLS                       [RFC-ietf-cdni-metadata-21] [RFC7230][RFC2818]
+   Protocol Type               Description               Type Specification Protocol Specification
+   http/1.1      Hypertext Transfer Protocol -- HTTP/1.1 [RFC8006]          [RFC7230]
+   https/1.1     HTTP/1.1 over TLS                       [RFC8006]          [RFC7230][RFC2818]
