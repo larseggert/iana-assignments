@@ -1,0 +1,308 @@
+                                                      CBOR Object Signing and Encryption (COSE)
+
+   Created
+           2017-01-11
+
+   Last Updated
+           2017-01-11
+
+   Available Formats
+           [IMG]
+           XML [IMG]
+           HTML [IMG]
+           Plain text
+
+   Registries included below
+
+     * COSE Header Parameters
+     * COSE Header Algorithm Parameters
+     * COSE Algorithms Registry
+     * COSE Key Common Parameters
+     * COSE Key Type Parameters
+     * COSE Key Type Registry
+     * COSE Elliptic Curve Parameters
+
+COSE Header Parameters
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-cose-msg-24]
+
+   Available Formats
+           [IMG]
+           CSV
+
+                                     Range                                                     Registration Procedures
+                        Integer values less than -65536                      Reserved for Private Use
+                   Integer values in the range -1 to -65536                  delegated to the "COSE Header Algorithm Parameters" registry
+           Integer values between 1 and 255 and strings of length 1          Standards Action With Expert Review
+           Integer values from 256 to 65535 and strings of length 2          Specification Required
+   Integer values of greater than 65535 and strings of length greater than 2 Expert Review
+
+             Name              Label            Value              Value Registry                    Description                   Reference
+   Reserved for Private Use less than                                                                                        [RFC-ietf-cose-msg-24]
+                            -65536
+   Unassigned               -65535 to -1
+   Reserved                 0                                                                                                [RFC-ietf-cose-msg-24]
+   alg                      1            int / tstr          COSE Algorithms registry    Cryptographic algorithm to use      [RFC-ietf-cose-msg-24]
+   crit                     2            [+ label]           COSE Header Labels registry Critical headers to be understood   [RFC-ietf-cose-msg-24]
+   content type             3            tstr / uint         COAP Content-Formats or     Content type of the payload         [RFC-ietf-cose-msg-24]
+                                                             Media Types registry
+   kid                      4            bstr                                            Key identifier                      [RFC-ietf-cose-msg-24]
+   IV                       5            bstr                                            Full Initialization Vector          [RFC-ietf-cose-msg-24]
+   Partial IV               6            bstr                                            Partial Initialization Vector       [RFC-ietf-cose-msg-24]
+   counter signature        7            COSE_Signature / [+                             CBOR encoded signature structure    [RFC-ietf-cose-msg-24]
+                                         COSE_Signature ]
+   Unassigned               8
+   CounterSignature0        9            bstr                                            Counter signature with implied      [RFC-ietf-cose-msg-24]
+                                                                                         signer and headers
+
+COSE Header Algorithm Parameters
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-cose-msg-24]
+
+   Available Formats
+           [IMG]
+           CSV
+
+        Name                              Algorithm                             Label        Value         Description             Reference
+   Unassigned                                                               -65536 through
+                                                                            -27
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
+                   direct+HKDF-AES-128, direct+HKDF-AES-256,
+   PartyV other    ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, ECDH-SS+HKDF-256,    -26            bstr       Party V other provided [RFC-ietf-cose-msg-24]
+                   ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW,                                  information
+                   ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW,
+                   ECDH-SS+A256KW
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
+                   direct+HKDF-AES-128, direct+HKDF-AES-256,
+   PartyV nonce    ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, ECDH-SS+HKDF-256,    -25            bstr / int Party V provided nonce [RFC-ietf-cose-msg-24]
+                   ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW,
+                   ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW,
+                   ECDH-SS+A256KW
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
+                   direct+HKDF-AES-128, direct+HKDF-AES-256,
+   PartyV identity ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, ECDH-SS+HKDF-256,    -24            bstr       Party V identity       [RFC-ietf-cose-msg-24]
+                   ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW,                                  Information
+                   ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW,
+                   ECDH-SS+A256KW
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
+                   direct+HKDF-AES-128, direct+HKDF-AES-256,
+   PartyU other    ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, ECDH-SS+HKDF-256,    -23            bstr       Party U other provided [RFC-ietf-cose-msg-24]
+                   ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW,                                  information
+                   ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW,
+                   ECDH-SS+A256KW
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
+                   direct+HKDF-AES-128, direct+HKDF-AES-256,
+   PartyU nonce    ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, ECDH-SS+HKDF-256,    -22            bstr / int Party U provided nonce [RFC-ietf-cose-msg-24]
+                   ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW,
+                   ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW,
+                   ECDH-SS+A256KW
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
+                   direct+HKDF-AES-128, direct+HKDF-AES-256,
+   PartyU identity ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, ECDH-SS+HKDF-256,    -21            bstr       Party U identity       [RFC-ietf-cose-msg-24]
+                   ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW,                                  Information
+                   ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW,
+                   ECDH-SS+A256KW
+                   direct+HKDF-SHA-256, direct +HKDF-SHA-512,
+                   direct+HKDF-AES-128, direct+HKDF-AES-256,
+   salt            ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, ECDH-SS+HKDF-256,    -20            bstr       Random salt            [RFC-ietf-cose-msg-24]
+                   ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW,
+                   ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW,
+                   ECDH-SS+A256KW
+   Unassigned                                                               -19 through -4
+                   ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-SS+A128KW,                                Static Public key
+   static key id   ECDH-SS+A192KW, ECDH-SS+A256KW                           -3             bstr       identifier for the     [RFC-ietf-cose-msg-24]
+                                                                                                      sender
+   static key      ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-SS+A128KW,      -2             COSE_Key   Static Public key for  [RFC-ietf-cose-msg-24]
+                   ECDH-SS+A192KW, ECDH-SS+A256KW                                                     the sender
+   ephemeral key   ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, ECDH-ES+A128KW,      -1             COSE_Key   Ephemeral Public key   [RFC-ietf-cose-msg-24]
+                   ECDH-ES+A192KW, ECDH-ES+A256KW                                                     for the sender
+
+COSE Algorithms Registry
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-cose-msg-24]
+
+   Available Formats
+           [IMG]
+           CSV
+
+                                     Range                                         Registration Procedures
+                        Integer values less than -65536                      Reserved for Private Use
+          Integer values between -256 and 255 and strings of length 1        Standards Action With Expert Review
+          Integer values from -65536 to 65535 and strings of length 2        Specification Required
+   Integer values of greater than 65535 and strings of length greater than 2 Expert Review
+
+          Name         Value                      Description                            Reference        Recommended
+   ES512               -36   ECDSA w/ SHA-512                                      [RFC-ietf-cose-msg-24] Yes
+   ES384               -35   ECDSA w/ SHA-384                                      [RFC-ietf-cose-msg-24] Yes
+   ECDH-SS + A256KW    -34   ECDH SS w/ Concat KDF and AES Key wrap w/ 256 bit key [RFC-ietf-cose-msg-24] Yes
+   ECDH-SS + A192KW    -33   ECDH SS w/ Concat KDF and AES Key wrap w/ 192 bit key [RFC-ietf-cose-msg-24] Yes
+   ECDH-SS + A128KW    -32   ECDH SS w/ Concat KDF and AES Key wrap w/ 128 bit key [RFC-ietf-cose-msg-24] Yes
+   ECDH-ES + A256KW    -31   ECDH ES w/ Concat KDF and AES Key wrap w/ 256 bit key [RFC-ietf-cose-msg-24] Yes
+   ECDH-ES + A192KW    -30   ECDH ES w/ Concat KDF and AES Key wrap w/ 192 bit key [RFC-ietf-cose-msg-24] Yes
+   ECDH-ES + A128KW    -29   ECDH ES w/ Concat KDF and AES Key wrap w/ 128 bit key [RFC-ietf-cose-msg-24] Yes
+   ECDH-SS + HKDF-512  -28   ECDH SS w/ HKDF - generate key directly               [RFC-ietf-cose-msg-24] Yes
+   ECDH-SS + HKDF-256  -27   ECDH SS w/ HKDF - generate key directly               [RFC-ietf-cose-msg-24] Yes
+   ECDH-ES + HKDF-512  -26   ECDH ES w/ HKDF - generate key directly               [RFC-ietf-cose-msg-24] Yes
+   ECDH-ES + HKDF-256  -25   ECDH ES w/ HKDF - generate key directly               [RFC-ietf-cose-msg-24] Yes
+   direct+HKDF-AES-256 -13   Shared secret w/ AES-MAC 256-bit key                  [RFC-ietf-cose-msg-24] Yes
+   direct+HKDF-AES-128 -12   Shared secret w/ AES-MAC 128-bit key                  [RFC-ietf-cose-msg-24] Yes
+   direct+HKDF-SHA-512 -11   Shared secret w/ HKDF and SHA-512                     [RFC-ietf-cose-msg-24] Yes
+   direct+HKDF-SHA-256 -10   Shared secret w/ HKDF and SHA-256                     [RFC-ietf-cose-msg-24] Yes
+   EdDSA               -8    EdDSA                                                 [RFC-ietf-cose-msg-24] Yes
+   ES256               -7    ECDSA w/ SHA-256                                      [RFC-ietf-cose-msg-24] Yes
+   direct              -6    Direct use of CEK                                     [RFC-ietf-cose-msg-24] Yes
+   A256KW              -5    AES Key Wrap w/ 256-bit key                           [RFC-ietf-cose-msg-24] Yes
+   A192KW              -4    AES Key Wrap w/ 192-bit key                           [RFC-ietf-cose-msg-24] Yes
+   A128KW              -3    AES Key Wrap w/ 128-bit key                           [RFC-ietf-cose-msg-24] Yes
+   Reserved            0                                                           [RFC-ietf-cose-msg-24]
+   A128GCM             1     AES-GCM mode w/ 128-bit key, 128-bit tag              [RFC-ietf-cose-msg-24] Yes
+   A192GCM             2     AES-GCM mode w/ 192-bit key, 128-bit tag              [RFC-ietf-cose-msg-24] Yes
+   A256GCM             3     AES-GCM mode w/ 256-bit key, 128-bit tag              [RFC-ietf-cose-msg-24] Yes
+   HMAC 256/64         4     HMAC w/ SHA-256 truncated to 64 bits                  [RFC-ietf-cose-msg-24] Yes
+   HMAC 256/256        5     HMAC w/ SHA-256                                       [RFC-ietf-cose-msg-24] Yes
+   HMAC 384/384        6     HMAC w/ SHA-384                                       [RFC-ietf-cose-msg-24] Yes
+   HMAC 512/512        7     HMAC w/ SHA-512                                       [RFC-ietf-cose-msg-24] Yes
+   AES-CCM-16-64-128   10    AES-CCM mode 128-bit key, 64-bit tag, 13-byte nonce   [RFC-ietf-cose-msg-24] Yes
+   AES-CCM-16-64-256   11    AES-CCM mode 256-bit key, 64-bit tag, 13-byte nonce   [RFC-ietf-cose-msg-24] Yes
+   AES-CCM-64-64-128   12    AES-CCM mode 128-bit key, 64-bit tag, 7-byte nonce    [RFC-ietf-cose-msg-24] Yes
+   AES-CCM-64-64-256   13    AES-CCM mode 256-bit key, 64-bit tag, 7-byte nonce    [RFC-ietf-cose-msg-24] Yes
+   AES-MAC 128/64      14    AES-MAC 128 bit key, 64-bit tag                       [RFC-ietf-cose-msg-24] Yes
+   AES-MAC 256/64      15    AES-MAC 256 bit key, 64-bit tag                       [RFC-ietf-cose-msg-24] Yes
+   ChaCha20/Poly1305   24    ChaCha20/Poly1305 w/ 256-bit key, 128-bit tag         [RFC-ietf-cose-msg-24] Yes
+   AES-MAC 128/128     25    AES-MAC 128 bit key, 128-bit tag                      [RFC-ietf-cose-msg-24] Yes
+   AES-MAC 256/128     26    AES-MAC 256 bit key, 128-bit tag                      [RFC-ietf-cose-msg-24] Yes
+   AES-CCM-16-128-128  30    AES-CCM mode 128-bit key, 128-bit tag, 13-byte nonce  [RFC-ietf-cose-msg-24] Yes
+   AES-CCM-16-128-256  31    AES-CCM mode 256-bit key, 128-bit tag, 13-byte nonce  [RFC-ietf-cose-msg-24] Yes
+   AES-CCM-64-128-128  32    AES-CCM mode 128-bit key, 128-bit tag, 7-byte nonce   [RFC-ietf-cose-msg-24] Yes
+   AES-CCM-64-128-256  33    AES-CCM mode 256-bit key, 128-bit tag, 7-byte nonce   [RFC-ietf-cose-msg-24] Yes
+
+COSE Key Common Parameters
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-cose-msg-24]
+
+   Available Formats
+           [IMG]
+           CSV
+
+                             Range                                                           Registration Procedures
+                Integer values less than -65536               Reserved for Private Use
+            Integer values in the range -1 to -65536          used for key parameters specific to a single algorithm delegated to the "COSE Key
+                                                              Type Parameter Labels" registry
+    Integer values between 0 and 255 and strings of length 1  Standards Action With Expert Review
+    Integer values from 256 to 65535 and strings of length 2  Specification Required
+   Integer values of greater than 65535 and strings of length Expert Review
+                         greater than 2
+
+             Name                Label         CBOR Type             Registry                       Description                    Reference
+   Reserved for Private Use less than -65536                                                                                 [RFC-ietf-cose-msg-24]
+   Unassigned               -65535 to 0
+   kty                      1                tstr / int     COSE Key Common Parameters Identification of the key type        [RFC-ietf-cose-msg-24]
+   kid                      2                bstr                                      Key identification value - match to   [RFC-ietf-cose-msg-24]
+                                                                                       kid in message
+   alg                      3                tstr / int     COSE Algorithm Values      Key usage restriction to this         [RFC-ietf-cose-msg-24]
+                                                                                       algorithm
+   key_ops                  4                [+ (tstr/int)]                            Restrict set of permissible           [RFC-ietf-cose-msg-24]
+                                                                                       operations
+   Base IV                  5                bstr                                      Base IV to be xor-ed with Partial IVs [RFC-ietf-cose-msg-24]
+
+COSE Key Type Parameters
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-cose-msg-24]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Key Type Name Label  CBOR Type                                Description                                      Reference
+   1        d    -4    bstr        Private key                                                              [RFC-ietf-cose-msg-24]
+   1        x    -2    bstr        X Coordinate                                                             [RFC-ietf-cose-msg-24]
+   1        crv  -1    int / tstr  EC Curve identifier - Taken from the COSE Key Common Parameters registry [RFC-ietf-cose-msg-24]
+   2        d    -4    bstr        Private key                                                              [RFC-ietf-cose-msg-24]
+   2        y    -3    bstr / bool Y Coordinate                                                             [RFC-ietf-cose-msg-24]
+   2        x    -2    bstr        X Coordinate                                                             [RFC-ietf-cose-msg-24]
+   2        crv  -1    int / tstr  EC Curve identifier - Taken from the COSE Curves registry                [RFC-ietf-cose-msg-24]
+   4        k    -1    bstr        Key Value                                                                [RFC-ietf-cose-msg-24]
+
+COSE Key Type Registry
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-cose-msg-24]
+
+   Available Formats
+           [IMG]
+           CSV
+
+      Name    Value                Description                       Reference
+   Reserved   0     This value is reserved                     [RFC-ietf-cose-msg-24]
+   OKP        1     Octet Key Pair                             [RFC-ietf-cose-msg-24]
+   EC2        2     Elliptic Curve Keys w/ X,Y Coordinate pair [RFC-ietf-cose-msg-24]
+   Unassigned 3
+   Symmetric  4     Symmetric Keys                             [RFC-ietf-cose-msg-24]
+
+COSE Elliptic Curve Parameters
+
+   Reference
+           [RFC-ietf-cose-msg-24]
+
+   Available Formats
+           [IMG]
+           CSV
+
+                Range                    Registration Procedures
+   Integer values less than -65536 Reserved for Private Use
+    Integer values -65536 to -257  Specification Required
+     Integer values -256 to 255    Standards Action With Expert Review
+     Integer values 256 to 65535   Specification Required
+      Integer values over 65535    Expert Review
+
+             Name                        Value              Key Type            Description                   Reference        Recommended
+   Reserved for Private Use Integer values less than -65536                                             [RFC-ietf-cose-msg-24] Yes
+   Unassigned               -65536 to 0
+   P-256                    1                               EC2      NIST P-256 also known as secp256r1 [RFC-ietf-cose-msg-24] Yes
+   P-384                    2                               EC2      NIST P-384 also known as secp384r1 [RFC-ietf-cose-msg-24] Yes
+   P-521                    3                               EC2      NIST P-521 also known as secp521r1 [RFC-ietf-cose-msg-24] Yes
+   X25519                   4                               OKP      X25519 for use w/ ECDH only        [RFC-ietf-cose-msg-24] Yes
+   X448                     5                               OKP      X448 for use w/ ECDH only          [RFC-ietf-cose-msg-24] Yes
+   Ed25519                  6                               OKP      Ed25519 for use w/ EdDSA only      [RFC-ietf-cose-msg-24] Yes
+   Ed448                    7                               OKP      Ed448 for use w/ EdDSA only        [RFC-ietf-cose-msg-24] Yes
