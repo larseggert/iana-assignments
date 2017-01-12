@@ -1,0 +1,865 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl" href="cose.xsl"?>
+<?oxygen RNGSchema="cose.rng" type="xml"?>
+<registry xmlns="http://www.iana.org/assignments" id="cose">
+  <title>CBOR Object Signing and Encryption (COSE)</title>
+  <created>2017-01-11</created>
+  <updated>2017-01-11</updated>
+  
+  
+  <registry id="header-parameters">
+    <title>COSE Header Parameters</title>
+    <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    <range>
+      <value>Integer values less than -65536</value>
+      <registration_rule>Reserved for Private Use</registration_rule>
+    </range>
+    <range>
+      <value>Integer values in the range -1 to -65536</value>
+      <registration_rule>delegated to the "COSE Header Algorithm Parameters" registry</registration_rule>
+    </range>
+    <range>
+      <value>Integer values between 1 and 255 and strings of length 1</value>
+      <registration_rule>Standards Action With Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Integer values from 256 to 65535 and strings of length 2</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>Integer values of greater than 65535 and strings of length greater than 2</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2017-01-11">
+      <name>Reserved for Private Use</name>
+      <label>less than -65536</label>
+      <value/>
+      <reg/>
+      <description/>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <label>-65535 to -1</label>
+      <value/>
+      <reg/>
+      <description/>
+    </record>
+    <record date="2017-01-11">
+      <name>Reserved</name>
+      <label>0</label>
+      <value/>
+      <reg/>
+      <description/>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>alg</name>
+      <label>1</label>
+      <value>int / tstr</value>
+      <reg>COSE Algorithms registry</reg>
+      <description>Cryptographic algorithm to use</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>crit</name>
+      <label>2</label>
+      <value>[+ label]</value>
+      <reg>COSE Header Labels registry</reg>
+      <description>Critical headers to be understood</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>content type</name>
+      <label>3</label>
+      <value>tstr / uint</value>
+      <reg>COAP Content-Formats or Media Types registry</reg>
+      <description>Content type of the payload</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>kid</name>
+      <label>4</label>
+      <value>bstr</value>
+      <reg/>
+      <description>Key identifier</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>IV</name>
+      <label>5</label>
+      <value>bstr</value>
+      <reg/>
+      <description>Full Initialization Vector</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>Partial IV</name>
+      <label>6</label>
+      <value>bstr</value>
+      <reg/>
+      <description>Partial Initialization Vector</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>counter signature</name>
+      <label>7</label>
+      <value>COSE_Signature / [+ COSE_Signature ]</value>
+      <reg/>
+      <description>CBOR encoded signature structure</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <label>8</label>
+      <value/>
+      <reg/>
+      <description/>
+    </record>
+    <record date="2017-01-11">
+      <name>CounterSignature0</name>
+      <label>9</label>
+      <value>bstr</value>
+      <reg/>
+      <description>Counter signature with implied signer and headers</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+  </registry>
+  
+  <registry id="header-algorithm-parameters">
+    <title>COSE Header Algorithm Parameters</title>
+    <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    <registration_rule>Expert Review</registration_rule>
+    <expert>Unassigned</expert>
+    <record>
+      <name>Unassigned</name>
+      <algorithm/>
+      <label>-65536 through -27</label>
+      <value/>
+      <description/>
+    </record>
+    <record date="2017-01-11">
+      <name>PartyV other</name>
+      <algorithm>direct+HKDF-SHA-256, direct+HKDF-SHA-512, direct+HKDF-AES-128, 
+        direct+HKDF-AES-256, ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, 
+        ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW, 
+        ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW, ECDH-SS+A256KW</algorithm>
+      <label>-26</label>
+      <value>bstr</value>
+      <description>Party V other provided information</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>PartyV nonce</name>
+      <algorithm>direct+HKDF-SHA-256, direct+HKDF-SHA-512, direct+HKDF-AES-128, 
+        direct+HKDF-AES-256, ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, 
+        ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW, 
+        ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW, ECDH-SS+A256KW</algorithm>
+      <label>-25</label>
+      <value>bstr / int</value>
+      <description>Party V provided nonce</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>PartyV identity</name>
+      <algorithm>direct+HKDF-SHA-256, direct+HKDF-SHA-512, direct+HKDF-AES-128, 
+        direct+HKDF-AES-256, ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, 
+        ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW, 
+        ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW, ECDH-SS+A256KW</algorithm>
+      <label>-24</label>
+      <value>bstr</value>
+      <description>Party V identity Information</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>PartyU other</name>
+      <algorithm>direct+HKDF-SHA-256, direct+HKDF-SHA-512, direct+HKDF-AES-128, 
+        direct+HKDF-AES-256, ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, 
+        ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW, 
+        ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW, ECDH-SS+A256KW</algorithm>
+      <label>-23</label>
+      <value>bstr</value>
+      <description>Party U other provided information</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>PartyU nonce</name>
+      <algorithm>direct+HKDF-SHA-256, direct+HKDF-SHA-512, direct+HKDF-AES-128, 
+        direct+HKDF-AES-256, ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, 
+        ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW, 
+        ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW, ECDH-SS+A256KW</algorithm>
+      <label>-22</label>
+      <value>bstr / int</value>
+      <description>Party U provided nonce</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>PartyU identity</name>
+      <algorithm>direct+HKDF-SHA-256, direct+HKDF-SHA-512, direct+HKDF-AES-128, 
+        direct+HKDF-AES-256, ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, 
+        ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW, 
+        ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW, ECDH-SS+A256KW</algorithm>
+      <label>-21</label>
+      <value>bstr</value>
+      <description>Party U identity Information</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>salt</name>
+      <algorithm>direct+HKDF-SHA-256, direct +HKDF-SHA-512, 
+        direct+HKDF-AES-128, direct+HKDF-AES-256, ECDH-ES+HKDF-256, 
+        ECDH-ES+HKDF-512, ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, 
+        ECDH-ES+A128KW, ECDH-ES+A192KW, ECDH-ES+A256KW, 
+        ECDH-SS+A128KW, ECDH-SS+A192KW, ECDH-SS+A256KW</algorithm>
+      <label>-20</label>
+      <value>bstr</value>
+      <description>Random salt</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <algorithm/>
+      <label>-19 through -4</label>
+      <value/>
+      <description/>
+    </record>
+    <record date="2017-01-11">
+      <name>static key id</name>
+      <algorithm>ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-SS+A128KW, 
+        ECDH-SS+A192KW, ECDH-SS+A256KW</algorithm>
+      <label>-3</label>
+      <value>bstr</value>
+      <description>Static Public key identifier for the sender</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>static key</name>
+      <algorithm>ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-SS+A128KW, 
+        ECDH-SS+A192KW, ECDH-SS+A256KW</algorithm>
+      <label>-2</label>
+      <value>COSE_Key</value>
+      <description>Static Public key for the sender</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>ephemeral key</name>
+      <algorithm>ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, ECDH-ES+A128KW, 
+        ECDH-ES+A192KW, ECDH-ES+A256KW</algorithm>
+      <label>-1</label>
+      <value>COSE_Key</value>
+      <description>Ephemeral Public key for the sender</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+  </registry>
+  
+  <registry id="algorithms">
+    <title>COSE Algorithms Registry</title>
+    <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    <range>
+      <value>Integer values less than -65536</value>
+      <registration_rule>Reserved for Private Use</registration_rule>
+    </range>
+    <range>
+      <value>Integer values between -256 and 255 and strings of length 1</value>
+      <registration_rule>Standards Action With Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Integer values from -65536 to 65535 and strings of length 2</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>Integer values of greater than 65535 and strings of length greater than 2</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2017-01-11">
+      <name>ES512</name>
+      <value>-36</value>
+      <description>ECDSA w/ SHA-512</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>ES384</name>
+      <value>-35</value>
+      <description>ECDSA w/ SHA-384</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>ECDH-SS + A256KW</name>
+      <value>-34</value>
+      <description>ECDH SS w/ Concat KDF and AES Key wrap w/ 256 bit key</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>ECDH-SS + A192KW</name>
+      <value>-33</value>
+      <description>ECDH SS w/ Concat KDF and AES Key wrap w/ 192 bit key</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>ECDH-SS + A128KW</name>
+      <value>-32</value>
+      <description>ECDH SS w/ Concat KDF and AES Key wrap w/ 128 bit key</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>ECDH-ES + A256KW</name>
+      <value>-31</value>
+      <description>ECDH ES w/ Concat KDF and AES Key wrap w/ 256 bit key</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>ECDH-ES + A192KW</name>
+      <value>-30</value>
+      <description>ECDH ES w/ Concat KDF and AES Key wrap w/ 192 bit key</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>ECDH-ES + A128KW</name>
+      <value>-29</value>
+      <description>ECDH ES w/ Concat KDF and AES Key wrap w/ 128 bit key</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>ECDH-SS + HKDF-512</name>
+      <value>-28</value>
+      <description>ECDH SS w/ HKDF - generate key directly</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>ECDH-SS + HKDF-256</name>
+      <value>-27</value>
+      <description>ECDH SS w/ HKDF - generate key directly</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>ECDH-ES + HKDF-512</name>
+      <value>-26</value>
+      <description>ECDH ES w/ HKDF - generate key directly</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>ECDH-ES + HKDF-256</name>
+      <value>-25</value>
+      <description>ECDH ES w/ HKDF - generate key directly</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>direct+HKDF-AES-256</name>
+      <value>-13</value>
+      <description>Shared secret w/ AES-MAC 256-bit key</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>direct+HKDF-AES-128</name>
+      <value>-12</value>
+      <description>Shared secret w/ AES-MAC 128-bit key</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>direct+HKDF-SHA-512</name>
+      <value>-11</value>
+      <description>Shared secret w/ HKDF and SHA-512</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>direct+HKDF-SHA-256</name>
+      <value>-10</value>
+      <description>Shared secret w/ HKDF and SHA-256</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>EdDSA</name>
+      <value>-8</value>
+      <description>EdDSA</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>ES256</name>
+      <value>-7</value>
+      <description>ECDSA w/ SHA-256</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>direct</name>
+      <value>-6</value>
+      <description>Direct use of CEK</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>A256KW</name>
+      <value>-5</value>
+      <description>AES Key Wrap w/ 256-bit key</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>A192KW</name>
+      <value>-4</value>
+      <description>AES Key Wrap w/ 192-bit key</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>A128KW</name>
+      <value>-3</value>
+      <description>AES Key Wrap w/ 128-bit key</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>Reserved</name>
+      <value>0</value>
+      <description/>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended/>
+    </record>
+    <record date="2017-01-11">
+      <name>A128GCM</name>
+      <value>1</value>
+      <description>AES-GCM mode w/ 128-bit key, 128-bit tag</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>A192GCM</name>
+      <value>2</value>
+      <description>AES-GCM mode w/ 192-bit key, 128-bit tag</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>A256GCM</name>
+      <value>3</value>
+      <description>AES-GCM mode w/ 256-bit key, 128-bit tag</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>HMAC 256/64</name>
+      <value>4</value>
+      <description>HMAC w/ SHA-256 truncated to 64 bits</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>HMAC 256/256</name>
+      <value>5</value>
+      <description>HMAC w/ SHA-256</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>HMAC 384/384</name>
+      <value>6</value>
+      <description>HMAC w/ SHA-384</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>HMAC 512/512</name>
+      <value>7</value>
+      <description>HMAC w/ SHA-512</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>AES-CCM-16-64-128</name>
+      <value>10</value>
+      <description>AES-CCM mode 128-bit key, 64-bit tag, 13-byte nonce</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>AES-CCM-16-64-256</name>
+      <value>11</value>
+      <description>AES-CCM mode 256-bit key, 64-bit tag, 13-byte nonce</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>AES-CCM-64-64-128</name>
+      <value>12</value>
+      <description>AES-CCM mode 128-bit key, 64-bit tag, 7-byte nonce</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>AES-CCM-64-64-256</name>
+      <value>13</value>
+      <description>AES-CCM mode 256-bit key, 64-bit tag, 7-byte nonce</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>AES-MAC 128/64</name>
+      <value>14</value>
+      <description>AES-MAC 128 bit key, 64-bit tag</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>AES-MAC 256/64</name>
+      <value>15</value>
+      <description>AES-MAC 256 bit key, 64-bit tag</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>ChaCha20/Poly1305</name>
+      <value>24</value>
+      <description>ChaCha20/Poly1305 w/ 256-bit key, 128-bit tag</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>AES-MAC 128/128</name>
+      <value>25</value>
+      <description>AES-MAC 128 bit key, 128-bit tag</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>AES-MAC 256/128</name>
+      <value>26</value>
+      <description>AES-MAC 256 bit key, 128-bit tag</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>AES-CCM-16-128-128</name>
+      <value>30</value>
+      <description>AES-CCM mode 128-bit key, 128-bit tag, 13-byte nonce</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>AES-CCM-16-128-256</name>
+      <value>31</value>
+      <description>AES-CCM mode 256-bit key, 128-bit tag, 13-byte nonce</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>AES-CCM-64-128-128</name>
+      <value>32</value>
+      <description>AES-CCM mode 128-bit key, 128-bit tag, 7-byte nonce</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>AES-CCM-64-128-256</name>
+      <value>33</value>
+      <description>AES-CCM mode 256-bit key, 128-bit tag, 7-byte nonce</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+  </registry>
+
+  <registry id="key-common-parameters">
+    <title>COSE Key Common Parameters</title>
+    <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    <range>
+      <value>Integer values less than -65536</value>
+      <registration_rule>Reserved for Private Use</registration_rule>
+    </range>
+    <range>
+      <value>Integer values in the range -1 to -65536</value>
+      <registration_rule>used for key parameters specific to a single algorithm
+delegated to the "COSE Key Type Parameter Labels" registry</registration_rule>
+    </range>
+    <range>
+      <value>Integer values between 0 and 255 and strings of length 1</value>
+      <registration_rule>Standards Action With Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Integer values from 256 to 65535 and strings of length 2</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>Integer values of greater than 65535 and strings of length greater than 2</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2017-01-11">
+      <name>Reserved for Private Use</name>
+      <label>less than -65536</label>
+      <cbor-type/>
+      <reg/>
+      <description/>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <label>-65535 to 0</label>
+      <cbor-type/>
+      <reg/>
+      <description/>
+    </record>
+    <record date="2017-01-11">
+      <name>kty</name>
+      <label>1</label>
+      <cbor-type>tstr / int</cbor-type>
+      <reg>COSE Key Common Parameters</reg>
+      <description>Identification of the key type</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>kid</name>
+      <label>2</label>
+      <cbor-type>bstr</cbor-type>
+      <reg/>
+      <description>Key identification value - match to kid in message</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>alg</name>
+      <label>3</label>
+      <cbor-type>tstr / int</cbor-type>
+      <reg>COSE Algorithm Values</reg>
+      <description>Key usage restriction to this algorithm</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>key_ops</name>
+      <label>4</label>
+      <cbor-type>[+ (tstr/int)]</cbor-type>
+      <reg/>
+      <description>Restrict set of permissible operations</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>Base IV</name>
+      <label>5</label>
+      <cbor-type>bstr</cbor-type>
+      <reg/>
+      <description>Base IV to be xor-ed with Partial IVs</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+</registry>
+
+  <registry id="key-type-parameters">
+    <title>COSE Key Type Parameters</title>
+    <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    <registration_rule>Expert Review</registration_rule>
+    <expert>Unassigned</expert>
+    <record date="2017-01-11">
+      <keytype>1</keytype>
+      <name>d</name>
+      <label>-4</label>
+      <cbor-type>bstr</cbor-type>
+      <description>Private key</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <keytype>1</keytype>
+      <name>x</name>
+      <label>-2</label>
+      <cbor-type>bstr</cbor-type>
+      <description>X Coordinate</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <keytype>1</keytype>
+      <name>crv</name>
+      <label>-1</label>
+      <cbor-type>int / tstr</cbor-type>
+      <description>EC Curve identifier - Taken from the COSE Key Common Parameters registry</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <keytype>2</keytype>
+      <name>d</name>
+      <label>-4</label>
+      <cbor-type>bstr</cbor-type>
+      <description>Private key</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <keytype>2</keytype>
+      <name>y</name>
+      <label>-3</label>
+      <cbor-type>bstr / bool</cbor-type>
+      <description>Y Coordinate</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <keytype>2</keytype>
+      <name>x</name>
+      <label>-2</label>
+      <cbor-type>bstr</cbor-type>
+      <description>X Coordinate</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <keytype>2</keytype>
+      <name>crv</name>
+      <label>-1</label>
+      <cbor-type>int / tstr</cbor-type>
+      <description>EC Curve identifier - Taken from the COSE Curves registry</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <keytype>4</keytype>
+      <name>k</name>
+      <label>-1</label>
+      <cbor-type>bstr</cbor-type>
+      <description>Key Value</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+  </registry>
+
+  <registry id="key-type">
+    <title>COSE Key Type Registry</title>
+    <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    <registration_rule>Expert Review</registration_rule>
+    <expert>Unassigned</expert>
+    <record date="2017-01-11">
+      <name>Reserved</name>
+      <value>0</value>
+      <description>This value is reserved</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>OKP</name>
+      <value>1</value>
+      <description>Octet Key Pair</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record date="2017-01-11">
+      <name>EC2</name>
+      <value>2</value>
+      <description>Elliptic Curve Keys w/ X,Y Coordinate pair</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>3</value>
+      <description/>
+    </record>
+    <record date="2017-01-11">
+      <name>Symmetric</name>
+      <value>4</value>
+      <description>Symmetric Keys</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    </record>
+  </registry>
+
+  <registry id="elliptic-curve-parameters">
+    <title>COSE Elliptic Curve Parameters</title>
+    <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+    <range>
+      <value>Integer values less than -65536</value>
+      <registration_rule>Reserved for Private Use</registration_rule>
+    </range>
+    <range>
+      <value>Integer values -65536 to -257</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>Integer values -256 to 255</value>
+      <registration_rule>Standards Action With Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Integer values 256 to 65535</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>Integer values over 65535</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <record date="2017-01-11">
+      <name>Reserved for Private Use</name>
+      <value>Integer values less than -65536</value>
+      <keytype/>
+      <description/>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>-65536 to 0</value>
+      <keytype/>
+      <description/>
+      <recommended/>
+    </record>
+    <record date="2017-01-11">
+      <name>P-256</name>
+      <value>1</value>
+      <keytype>EC2</keytype>
+      <description>NIST P-256 also known as secp256r1</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>P-384</name>
+      <value>2</value>
+      <keytype>EC2</keytype>
+      <description>NIST P-384 also known as secp384r1</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>P-521</name>
+      <value>3</value>
+      <keytype>EC2</keytype>
+      <description>NIST P-521 also known as secp521r1</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>X25519</name>
+      <value>4</value>
+      <keytype>OKP</keytype>
+      <description>X25519 for use w/ ECDH only</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>X448</name>
+      <value>5</value>
+      <keytype>OKP</keytype>
+      <description>X448 for use w/ ECDH only</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>Ed25519</name>
+      <value>6</value>
+      <keytype>OKP</keytype>
+      <description>Ed25519 for use w/ EdDSA only</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+    <record date="2017-01-11">
+      <name>Ed448</name>
+      <value>7</value>
+      <keytype>OKP</keytype>
+      <description>Ed448 for use w/ EdDSA only</description>
+      <xref type="draft" data="RFC-ietf-cose-msg-24"/>
+      <recommended>Yes</recommended>
+    </record>
+  </registry>
+
+  <people/>
+</registry>
