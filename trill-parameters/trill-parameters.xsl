@@ -24,7 +24,7 @@
         <tr><th>SType</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'rbridge-channel-header-flags'">
-        <tr><th>Flag Bit</th><th>Menemonic</th><th>Allocation</th><th>Reference</th></tr>
+        <tr><th>Flag Bit</th><th>Mnemonic</th><th>Allocation</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'rbridge-channel-error-codes'">
         <tr><th>Value</th><th>RBridge Channel Error Code Meaning</th><th>Reference</th></tr>
@@ -42,10 +42,10 @@
         <tr><th>Bit</th><th>Short Name</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'interested-vlans-flags'">
-        <tr><th>Bit</th><th>Menemonic</th><th>Description</th><th>Reference</th></tr>
+        <tr><th>Bit</th><th>Mnemonic</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'interested-labels-flags'">
-        <tr><th>Bit</th><th>Menemonic</th><th>Description</th><th>Reference</th></tr>
+        <tr><th>Bit</th><th>Mnemonic</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'isis-tlv-251-app-id-1'">
         <tr><th>Type</th><th>Name</th><th>Reference</th></tr>
