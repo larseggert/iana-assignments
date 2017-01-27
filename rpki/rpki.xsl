@@ -20,6 +20,12 @@
       <xsl:when test="@id = 'rpki-rtr-error'">
         <tr><th>Error Code</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'bgpsec-capability'">
+        <tr><th>Bits</th><th>Field</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'bgpsec-path-flags'">
+        <tr><th>Flag</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
       </xsl:choose>
   </xsl:template>
 
@@ -47,13 +53,13 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'rpki-rtr-error'">
+      <xsl:otherwise>
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
-      </xsl:when>
+      </xsl:otherwise>
       </xsl:choose>
   </xsl:template>
 
