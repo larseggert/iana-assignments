@@ -17,6 +17,7 @@
       <xsl:otherwise>
         <tr>
           <th>Token</th>
+          <th>Description</th>
           <th>Reference</th>
         </tr>
       </xsl:otherwise>      
