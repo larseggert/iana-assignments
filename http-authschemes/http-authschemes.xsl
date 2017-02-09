@@ -7,19 +7,41 @@
   <xsl:import href="../_support/iana-registry.xsl" />
 
   <xsl:template name="iana:record_header">
-    <tr>
-      <th>Authentication Scheme Name</th>
-      <th>Reference</th>
-      <th>Notes</th>
-    </tr>
+    <xsl:choose>
+      <xsl:when test="@id = 'authschemes'">
+        <tr>
+          <th>Authentication Scheme Name</th>
+          <th>Reference</th>
+          <th>Notes</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'mutual-authentication-algorithms'">
+        <tr>
+          <th>Token</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="iana:record">
-    <tr>
-      <td><xsl:value-of select="iana:value"/></td>
-      <td><xsl:apply-templates select="iana:xref"/></td>
-      <td><xsl:apply-templates select="iana:notes"/></td>
-    </tr>
+    <xsl:choose>
+      <xsl:when test="../@id = 'authschemes'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:notes"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
 </xsl:stylesheet>
