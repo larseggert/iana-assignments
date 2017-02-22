@@ -20,6 +20,7 @@
           <th>Token</th>
           <th>Description</th>
           <th>Reference</th>
+          <th>Change Controller</th>
         </tr>
       </xsl:when>
     </xsl:choose>
@@ -39,6 +40,7 @@
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
         </tr>
       </xsl:otherwise>
     </xsl:choose>
