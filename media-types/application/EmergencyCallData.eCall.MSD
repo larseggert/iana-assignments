@@ -22,7 +22,7 @@ and Section 10 of [RFC7852] contain more discussion.
 
 Interoperability considerations: None
 
-Published specification: Annex A of EN 15722 [msd]
+Published specification: Annex A of EN 15722
 
 Applications which use this media type: Pan-European eCall
 compliant systems
