@@ -10,6 +10,7 @@
         <th>Name</th>
         <th>Description</th>
         <th>Reference</th>
+        <th>Change Controller</th>
       </tr>
     </xsl:when>
     <xsl:when test="@id = 'emergency-call-action-failure-reason'">
@@ -17,13 +18,23 @@
         <th>ID</th>
         <th>Description</th>
         <th>Reference</th>
+        <th>Change Controller</th>
       </tr>
+    </xsl:when>
+    <xsl:when test="@id = 'emergency-call-static-message'">
+        <tr>
+          <th>ID</th>
+          <th>Message</th>
+          <th>Reference</th>
+          <th>Change Controller</th>
+        </tr>
     </xsl:when>
     <xsl:otherwise>
       <tr>
-        <th>Value</th>
+        <th>Name</th>
         <th>Description</th>
         <th>Reference</th>
+        <th>Change Controller</th>
       </tr>
     </xsl:otherwise>
     </xsl:choose>
@@ -36,6 +47,7 @@
        <td><xsl:value-of select="iana:value"/></td>
        <td><xsl:apply-templates select="iana:description"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
+       <td><xsl:apply-templates select="iana:controller"/></td>
      </tr>
     </xsl:when>
     <xsl:otherwise>
@@ -43,6 +55,7 @@
        <td><xsl:value-of select="iana:value"/></td>
        <td><xsl:apply-templates select="iana:description"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
+       <td><xsl:apply-templates select="iana:controller"/></td>
      </tr>
     </xsl:otherwise>
     </xsl:choose>
