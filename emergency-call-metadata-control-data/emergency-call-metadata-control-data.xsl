@@ -26,7 +26,6 @@
           <th>ID</th>
           <th>Message</th>
           <th>Reference</th>
-          <th>Change Controller</th>
         </tr>
     </xsl:when>
     <xsl:otherwise>
@@ -42,12 +41,11 @@
 
   <xsl:template match="iana:record">
     <xsl:choose>
-      <xsl:when test="../@id = 'emergency-call-action'">
+      <xsl:when test="../@id = 'emergency-call-static-message'">
      <tr>
        <td><xsl:value-of select="iana:value"/></td>
        <td><xsl:apply-templates select="iana:description"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
-       <td><xsl:apply-templates select="iana:controller"/></td>
      </tr>
     </xsl:when>
     <xsl:otherwise>
