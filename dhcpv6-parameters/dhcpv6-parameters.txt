@@ -4,7 +4,7 @@
            2003-11-03
 
    Last Updated
-           2017-02-16
+           2017-03-03
 
    Note
 
@@ -45,7 +45,7 @@ Message Types
            [IMG]
            CSV
 
-   Value      Description     Reference
+   Value      Description                     Reference
      0    Reserved
      1    SOLICIT             [RFC3315]
      2    ADVERTISE           [RFC3315]
@@ -70,7 +70,19 @@ Message Types
      21   DHCPV4-RESPONSE     [RFC7341]
      22   ACTIVELEASEQUERY    [RFC7653]
      23   STARTTLS            [RFC7653]
-   24-255 Unassigned
+     24   BNDUPD              [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+     25   BNDREPLY            [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+     26   POOLREQ             [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+     27   POOLRESP            [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+     28   UPDREQ              [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+     29   UPDREQALL           [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+     30   UPDDONE             [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+     31   CONNECT             [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+     32   CONNECTREPLY        [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+     33   DISCONNECT          [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+     34   STATE               [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+     35   CONTACT             [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+   36-255 Unassigned
 
 Option Codes
 
@@ -204,7 +216,28 @@ Option Codes
       111    OPTION_S46_PRIORITY                                                       [RFC8026]
       112    OPTION_MUD_URL_V6 (TEMPORARY - registered 2016-12-06, expires 2017-12-06) [draft-ietf-opsawg-mud]
       113    OPTION_V6_PREFIX64                                                        [RFC-ietf-softwire-multicast-prefix-option-15]
-    114-142  Unassigned
+      114    OPTION_F_BINDING_STATUS                                                   [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+      115    OPTION_F_CONNECT_FLAGS                                                    [RFC-ietf-dhc-dhcpv6-failover-protocol-065]
+      116    OPTION_F_DNS_REMOVAL_INFO                                                 [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+      117    OPTION_F_DNS_HOST_NAME                                                    [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+      118    OPTION_F_DNS_ZONE_NAME                                                    [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+      119    OPTION_F_DNS_FLAGS                                                        [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+      120    OPTION_F_EXPIRATION_TIME                                                  [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+      121    OPTION_F_MAX_UNACKED_BNDUPD                                               [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+      122    OPTION_F_MCLT                                                             [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+      123    OPTION_F_PARTNER_LIFETIME                                                 [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+      124    OPTION_F_PARTNER_LIFETIME_SENT                                            [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+      125    OPTION_F_PARTNER_DOWN_TIME                                                [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+      126    OPTION_F_PARTNER_RAW_CLT_TIME                                             [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+      127    OPTION_F_PROTOCOL_VERSION                                                 [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+      128    OPTION_F_KEEPALIVE_TIME                                                   [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+      129    OPTION_F_RECONFIGURE_DATA                                                 [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+      130    OPTION_F_RELATIONSHIP_NAME                                                [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+      131    OPTION_F_SERVER_FLAGS                                                     [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+      132    OPTION_F_SERVER_STATE                                                     [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+      133    OPTION_F_START_TIME_OF_STATE                                              [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+      134    OPTION_F_STATE_EXPIRATION_TIME                                            [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+    135-142  Unassigned
       143    OPTION-IPv6_ADDRESS-ANDSF                                                 [RFC6153]
    144-65535 Unassigned
 
@@ -221,24 +254,31 @@ Status Codes
            [IMG]
            CSV
 
-    Code          Name         Reference
-     0    Success              [RFC3315]
-     1    UnspecFail           [RFC3315]
-     2    NoAddrsAvail         [RFC3315]
-     3    NoBinding            [RFC3315]
-     4    NotOnLink            [RFC3315]
-     5    UseMulticast         [RFC3315]
-     6    NoPrefixAvail        [RFC3633]
-     7    UnknownQueryType     [RFC5007]
-     8    MalformedQuery       [RFC5007]
-     9    NotConfigured        [RFC5007]
-     10   NotAllowed           [RFC5007]
-     11   QueryTerminated      [RFC5460]
-     12   DataMissing          [RFC7653]
-     13   CatchUpComplete      [RFC7653]
-     14   NotSupported         [RFC7653]
-     15   TLSConnectionRefused [RFC7653]
-   16-255 Unassigned
+    Code             Name                            Reference
+     0    Success                    [RFC3315]
+     1    UnspecFail                 [RFC3315]
+     2    NoAddrsAvail               [RFC3315]
+     3    NoBinding                  [RFC3315]
+     4    NotOnLink                  [RFC3315]
+     5    UseMulticast               [RFC3315]
+     6    NoPrefixAvail              [RFC3633]
+     7    UnknownQueryType           [RFC5007]
+     8    MalformedQuery             [RFC5007]
+     9    NotConfigured              [RFC5007]
+     10   NotAllowed                 [RFC5007]
+     11   QueryTerminated            [RFC5460]
+     12   DataMissing                [RFC7653]
+     13   CatchUpComplete            [RFC7653]
+     14   NotSupported               [RFC7653]
+     15   TLSConnectionRefused       [RFC7653]
+     16   AddressInUse               [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+     17   ConfigurationConflict      [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+     18   MissingBindingInformation  [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+     19   OutdatedBindingInformation [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+     20   ServerShuttingDown         [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+     21   DNSUpdateNotSupported      [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+     22   ExcessiveTimeSkew          [RFC-ietf-dhc-dhcpv6-failover-protocol-06]
+   23-255 Unassigned
 
 DUIDs
 
