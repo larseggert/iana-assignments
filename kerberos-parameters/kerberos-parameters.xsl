@@ -30,6 +30,9 @@
       <xsl:when test="@id = 'realm-names'">
         <tr><th>Well-Known Kerberos Realm Name</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'transport-type'">
+        <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
