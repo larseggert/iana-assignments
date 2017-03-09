@@ -2,10 +2,10 @@
 <?xml-stylesheet type="text/xsl" href="mpls-lsp-ping-parameters.xsl"?>
 <?oxygen RNGSchema="mpls-lsp-ping-parameters.rng" type="xml"?>
 <registry xmlns="http://www.iana.org/assignments" id="mpls-lsp-ping-parameters">
-  <title>Multi-Protocol Label Switching (MPLS) Label Switched Paths (LSPs) Ping Parameters</title>
+  <title>Multiprotocol Label Switching (MPLS) Label Switched Paths (LSPs) Ping Parameters</title>
   <category>Multiprotocol Label Switching Architecture (MPLS)</category>
   <created>2006-01-12</created>
-  <updated>2016-12-23</updated>
+  <updated>2017-03-08</updated>
   
   <registry id="message-types">
     <title>Message Types</title>
@@ -86,7 +86,7 @@
     </record>
     <record>
       <value>4</value>
-      <description>Reply via application level control channel</description>
+      <description>Reply via application-level control channel</description>
       <xref type="draft" data="RFC-ietf-mpls-rfc4379bis-09"/>
     </record>
     <record>
@@ -120,7 +120,7 @@
     </range>
     <record>
       <value>0</value>
-      <description>No return code</description>
+      <description>No Return Code</description>
       <xref type="draft" data="RFC-ietf-mpls-rfc4379bis-09"/>
     </record>
     <record>
@@ -191,7 +191,7 @@ shrinking to a single label</description>
     </record>
     <record>
       <value>14</value>
-      <description>See DDM TLV for meaning of Return Code and Return SubCode</description>
+      <description>See DDM TLV for meaning of Return Code and Return Subcode</description>
       <xref type="draft" data="RFC-ietf-mpls-rfc4379bis-09"/>
     </record>
     <record>
@@ -303,9 +303,20 @@ shrinking to a single label</description>
       <description>Reserved for Vendor Private Use</description>
       <xref type="draft" data="RFC-ietf-mpls-rfc4379bis-09"/>
     </record>
-    <footnote anchor="1">The Return Subcode contains the point in the label stack where pro-
+    <footnote anchor="1">The Return Subcode (RSC) contains the point in the label stack where pro-
 cessing was terminated. If the RSC is 0, no labels were processed.
-Otherwise the packet would have been label switched at depth RSC.</footnote>
+Otherwise, the packet was label switched at depth RSC.</footnote>
+    <footnote anchor="2">The Return Code is per "Downstream Detailed Mapping TLV" (Section 3.4). 
+This Return Code MUST be used only in the message header and MUST be set 
+only in the MPLS echo reply message. If the Return Code is set in the 
+MPLS echo request message, then it MUST be ignored. When this Return 
+Code is set, each Downstream Detailed Mapping TLV MUST have an 
+appropriate Return Code and Return Subcode. This Return Code 
+MUST be used when there are multiple downstreams for a given 
+node (such as Point-to-Multipoint (P2MP)or ECMP),and the 
+node needs to return a Return Code/Return Subcode for 
+each downstream. This Return Code MAY be used even 
+when there is only one downstream for a given node.</footnote>
   </registry>
   
   <registry id="tlvs">
@@ -558,13 +569,13 @@ Otherwise the packet would have been label switched at depth RSC.</footnote>
     </record>    
     <record>
       <type>3</type>
-      <name>RSVP IPv4 prefix</name>
+      <name>RSVP IPv4 LSP</name>
       <xref type="draft" data="RFC-ietf-mpls-rfc4379bis-09"/>
       <comment/>
     </record>    
     <record>
       <type>4</type>
-      <name>RSVP IPv6 prefix</name>
+      <name>RSVP IPv6 LSP</name>
       <xref type="draft" data="RFC-ietf-mpls-rfc4379bis-09"/>
       <comment/>
     </record>    
