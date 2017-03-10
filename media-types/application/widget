@@ -1,0 +1,75 @@
+Type name:
+application
+
+subtype name:
+widget
+
+Required parameters:
+None.
+
+Optional parameters:
+None.
+
+Encoding considerations:
+Widget packages are binary data and thus are encoded for MIME transmission. As a widget package is binary, it requires encoding on transports not capable of handling binary. The same guidelines that apply to application/octet-stream apply to widget packages (see [RFC2045]).
+
+Security considerations:
+In addition to the security considerations specified for Zip files in the [Zip-MIME] registration, there are a number of security considerations that need to be taken into account when dealing with widget packages and configuration documents.
+
+As the configuration document format is [XML] and will commonly be encoded using [Unicode], the security considerations described in [RFC3023] and [UTR36] apply. In addition, implementers need to impose their own implementation-specific limits on the values of otherwise unconstrained attribute types, e.g. to prevent denial of service attacks, to guard against running out of memory, or to work around platform-specific limitations.
+
+The configuration document allows authors, through the feature element, to request permission to enable third-party runtime components and APIs. As these features are outside the scope of this specification, significant caution needs to be taken when granting a widget the capability to use a feature. Features themselves define their own security considerations.
+
+Widget packages will generally contain ECMAscript, HTML, CSS files, and other media, which are executed in a sand boxed environment. As such, implementers need to be aware of the security implications for the types they support. Specifically, implementers need to consider the security implications outlined in the [CSS-MIME] specification, the [ECMAScript-MIME] specification, and the [HTML-MIME] specification.
+
+As widget packages can contain content that is able to simultaneously interact with the local device and a remote host, implementers need to consider the privacy implications resulting from exposing private information to a remote host. Mitigation and in-depth defensive measures are an implementation responsibility and not prescribed by this specification. However, in designing these measures, implementers are advised to enable user awareness of information sharing, and to provide easy access to interfaces that enable revocation of permissions.
+
+As this specification relies on the standardized heuristics for determining the content type of files defined in the [SNIFF] specification, implementers need to consider the security considerations discussed in the [SNIFF] specification.
+
+As this specification allows for the declaration of IRIs within certain elements of a configuration documents, implementers need to consider the security considerations discussed in the [IRI] specification. Implementations intending to display IRIs and IDNA addresses found in the configuration document are strongly encouraged to follow the security advice given in [UTR36]. This could include, for example, behaving as if the dir attribute had no effect on any IRI attributes,, path attributes, and the author element's email attribute.
+
+In addition, user agents need to be careful about trusting path components found in the widget package. Such path components might be interpreted by operating systems as pointing at security critical files outside the widget environment proper, and naive unpacking of widget packages into the file system might lead to undesirable and security relevant effects, such as overwriting of system files.
+
+Interoperability considerations:
+Some issues can arise with regards to character encodings of file names, the length of zip relative paths, and the use of certain strings as file names.
+
+This specification does not put a restriction on the byte length of a Zip relative path, so a user agent SHOULD to be able to deal with Zip relative paths that have lengths longer than 250 bytes. As some operating systems have restrictions on how long a path length can be, authors need to keep the lengths of relative paths at less than 250 bytes. Unicode code points may require more than one byte to encode a character, which can result in a path whose length is less than 250 characters but whose size is greater than 250 bytes.
+
+Authors need to be aware that, at the time of publication, there are interoperability issues with regards to using characters outside the safe-chars range for file or folder names in a Zip archive when using Zipping tools bundled with operating systems. The interoperability issues have arisen from non-conforming implementations of the [ZIP] specification across operating systems: very few, if any, correctly support encoding file names in Unicode.
+
+In the case where the Zip relative path is encoded using [UTF-8], the language encoding flag (EFS) needs to be set.
+
+If an author chooses to use the utf8-chars, they need to thoroughly test their widgets on various platforms prior to distribution; otherwise it is suggested that authors restrict file and folder names to the safe-chars (characters in the US-ASCII range). In addition, having excessively long path names (e.g. over 120 characters) can also result in interoperability issues on some operating systems.
+
+Authors need to avoid using Zip forbidden characters when naming the files used by a widget. These characters are reserved to maintain interoperability across various file systems and with [URI]s.
+
+Authors need to avoid using the following words as either a folder or a file-name in a Zip relative path as they are reserved by some operating systems (case-insensitive): CON, PRN, AUX, NUL, COM1, COM2, COM3, COM4, COM5, COM6, COM7, COM8, COM9, LPT1, LPT2, LPT3, LPT4, LPT5, LPT6, LPT7, LPT8, LPT9, CLOCKS$. For example, the following names are ok: "CON-tact.txt", "printer.lpt1", "DCOM1.pdf". However, "com3.txt" "Lpt1", "CoM9.gif" would not be.
+
+In addition, authors need to avoid having a "." U+002E FULL STOP as the last character of a file or folder name as some operating systems will remove the character when the file is extracted from the Zip archive onto the device. Furthermore, avoid having the space character (SP) at the start or end of a file name; and take caution when using the "+" U+002B PLUS SIGN, as it might cause issues on some operating systems.
+
+Published specification:
+http://www.w3.org/TR/widgets/
+
+Applications that use this media type:
+User agents that claim conformance to this specification.
+
+Magic number(s):
+50 4B 03 04
+
+File extension(s):
+wgt
+
+Macintosh file type code(s):
+None.
+
+Person & email address to contact for further information:
+Steven Pemberton, member-webapps&w3.org
+
+Intended usage:
+Common.
+
+Restrictions on usage:
+None.
+
+Author:
+The W3C's Web Applications Working Group

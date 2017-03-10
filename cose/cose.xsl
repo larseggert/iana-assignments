@@ -12,7 +12,7 @@
         <tr>
           <th>Name</th>
           <th>Label</th>
-          <th>Value</th>
+          <th>Value Type</th>
           <th>Value Registry</th>
           <th>Description</th>
           <th>Reference</th>
@@ -23,7 +23,7 @@
           <th>Name</th>
           <th>Algorithm</th>
           <th>Label</th>
-          <th>Value</th>
+          <th>Type</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
