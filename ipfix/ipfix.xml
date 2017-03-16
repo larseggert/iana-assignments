@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="ipfix">
 <title>IP Flow Information Export (IPFIX) Entities</title>
 <created>2007-05-10</created>
-<updated>2017-02-21</updated>
+<updated>2017-03-15</updated>
 
 <note><xref type="rfc" data="rfc7012"/> has obsoleted <xref type="rfc" data="rfc5102"/>. However, references to <xref type="rfc" data="rfc5102"/>
 remain as part of the historical record.</note>
@@ -5375,7 +5375,7 @@ See <xref type="rfc" data="rfc3022"/> for the definition of NAT.
 <date>2014-08-13</date>
 </record>
   
-<record>
+<record updated="2017-03-15">
 <name>natEvent</name>
 <dataType>unsigned8</dataType>
 <dataTypeSemantics>identifier</dataTypeSemantics>
@@ -5383,32 +5383,26 @@ See <xref type="rfc" data="rfc3022"/> for the definition of NAT.
 <status>current</status>
 <description>
 <paragraph>
-Indicates a NAT event. The allowed values are: 
-</paragraph>
-<paragraph>
-1 - Create event.
-</paragraph>
-<paragraph>
-2 - Delete event.
-</paragraph>
-<paragraph>
-3 - Pool exhausted. 
-</paragraph>
-<paragraph>
-A Create event is generated when a NAT translation is created, 
-whether dynamically or statically.  A Delete event is generated 
-when a NAT translation is deleted. 
+This Information Element identifies a NAT
+event.  This IE identifies the type of a NAT event.  Examples of NAT
+events include but not limited to, creation or deletion of a NAT
+translation entry, a threshold reached or exceeded etc.  Values for
+this Information Element are listed in the NAT Event Type registry. 
+See <xref type="uri" data="http://www.iana.org/assignments/ipfix/ipfix.xml#ipfix-nat-event-type"/>
 </paragraph>
 </description>
 <range>1-2</range>
 <references>
-<paragraph>         
-See <xref type="rfc" data="rfc3022"/> for the definition of NAT.
+<paragraph>
+See <xref type="rfc" data="rfc3022"/> for the definition of NAT.  See 
+<xref type="rfc" data="rfc3234"/> for the definition of middleboxes.  
+See <xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/> 
+for the definitions of values 4-16.
 </paragraph>
 </references>
-<xref type="person" data="ipfix-iana_at_cisco.com"/>
-<revision>1</revision>
-<date>2014-08-13</date>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+<revision>2</revision>
+<date>2017-03-15</date>
 </record>
   
 <record>
@@ -11188,10 +11182,148 @@ of this field is limited to 10 characters, UTF-8 encoded.
 <revision>0</revision>
 <date>2016-11-15</date>
 </record>
+  
+  <record date="2017-03-15">
+    <name>natInstanceID</name>
+    <dataType>unsigned32</dataType>
+    <dataTypeSemantics>identifier</dataTypeSemantics>
+    <elementId>463</elementId>
+    <status>current</status>
+    <description>
+      <paragraph>
+        This Information Element uniquely identifies an Instance
+        of the NAT that runs on a NAT middlebox function after the packet
+        passed the Observation Point. natInstanceID is defined in 
+        <xref type="rfc" data="rfc7659"/>
+      </paragraph>
+    </description>
+    <references>
+      <paragraph>
+        See <xref type="rfc" data="rfc791"/> for the definition of the IPv4 
+        source address field.  See <xref type="rfc" data="rfc3022"/> 
+        for the definition of NAT.  See <xref type="rfc" data="rfc3234"/> 
+        for the definition of middleboxes.
+      </paragraph>
+    </references>
+    <xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+    <revision>0</revision>
+    <date>2017-03-15</date>
+  </record>
+  
+  <record date="2017-03-15">
+    <name>internalAddressRealm</name>
+    <dataType>octetArray</dataType>
+    <dataTypeSemantics>identifier</dataTypeSemantics>
+    <elementId>464</elementId>
+    <status>current</status>
+    <description>
+      <paragraph>
+        This Information Element represents the internal address
+        realm where the packet is originated from or destined to.  By
+        definition, a NAT mapping can be created from two address realms, one
+        from internal and one from external.  Realms are implementation
+        dependent and can represent a VRF ID or a VLAN ID or some unique
+        identifier.  Realms are optional and when left unspecified would mean
+        that the external and internal realms are the same.
+      </paragraph>
+    </description>
+    <references>
+      <paragraph>
+        See <xref type="rfc" data="rfc791"/> for the definition of the IPv4 
+        source address field.  See <xref type="rfc" data="rfc3022"/> 
+        for the definition of NAT.  See <xref type="rfc" data="rfc3234"/> 
+        for the definition of middleboxes.
+      </paragraph>
+    </references>
+    <xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+    <revision>0</revision>
+    <date>2017-03-15</date>
+  </record>
+  
+  <record date="2017-03-15">
+    <name>externalAddressRealm</name>
+    <dataType>octetArray</dataType>
+    <dataTypeSemantics>identifier</dataTypeSemantics>
+    <elementId>465</elementId>
+    <status>current</status>
+    <description>
+      <paragraph>
+        This Information Element represents the external address
+        realm where the packet is originated from or destined to.  The
+        detailed definition is in the internal address realm as specified
+        above.
+      </paragraph>
+    </description>
+    <references>
+      <paragraph>
+        See <xref type="rfc" data="rfc791"/> for the definition of the IPv4 
+        source address field.  See <xref type="rfc" data="rfc3022"/> 
+        for the definition of NAT.  See <xref type="rfc" data="rfc3234"/> 
+        for the definition of middleboxes.
+      </paragraph>
+    </references>
+    <xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+    <revision>0</revision>
+    <date>2017-03-15</date>
+  </record>
+  
+  <record date="2017-03-15">
+    <name>natQuotaExceededEvent</name>
+    <dataType>unsigned32</dataType>
+    <dataTypeSemantics>identifier</dataTypeSemantics>
+    <elementId>466</elementId>
+    <status>current</status>
+    <description>
+      <paragraph>
+        This Information Element identifies the type of a NAT
+        quota exceeded event.  Values for this Information Element are listed
+        in the NAT Quota Exceeded Event Type registry. 
+        See <xref type="uri" data="http://www.iana.org/assignments/ipfix/ipfix.xml#ipfix-nat-quota-exceeded-event"/>. 
+      </paragraph>
+    </description>
+    <references>
+      <paragraph>
+        See <xref type="rfc" data="rfc791"/> for the definition of the IPv4 
+        source address field.  See <xref type="rfc" data="rfc3022"/> 
+        for the definition of NAT.  See <xref type="rfc" data="rfc3234"/> 
+        for the definition of middleboxes.
+      </paragraph>
+    </references>
+    <xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+    <revision>0</revision>
+    <date>2017-03-15</date>
+  </record>
+  
+  <record date="2017-03-15">
+    <name>natThresholdEvent</name>
+    <dataType>unsigned32</dataType>
+    <dataTypeSemantics>identifier</dataTypeSemantics>
+    <elementId>467</elementId>
+    <status>current</status>
+    <description>
+      <paragraph>
+        This Information Element identifies a type of a NAT
+        threshold event.  Values for this Information Element are listed in
+        the NAT Threshhold Event Type registry.  
+        See <xref type="uri" data="http://www.iana.org/assignments/ipfix/ipfix.xml#ipfix-nat-threshold-event"/>. 
+      </paragraph>
+    </description>
+    <references>
+      <paragraph>
+        See <xref type="rfc" data="rfc791"/> for the definition of the IPv4 
+        source address field.  See <xref type="rfc" data="rfc3022"/> 
+        for the definition of NAT.  See <xref type="rfc" data="rfc3234"/> 
+        for the definition of middleboxes.
+      </paragraph>
+    </references>
+    <xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+    <revision>0</revision>
+    <date>2017-03-15</date>
+  </record>
 
 <record>
 <name>Unassigned</name>
-<elementId>463-32767</elementId>
+<elementId>468-32767</elementId>
 </record>
   
 <footnote anchor="1">International Organization for Standardization,
@@ -11476,6 +11608,125 @@ enterprise.
 
 </registry>
 
+
+
+<registry id="ipfix-nat-event-type">
+<title>NAT Event Type (Value 230)</title>
+<registration_rule>Expert Review</registration_rule>
+<expert>Unassigned</expert>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+
+<record>
+<value>1</value>
+<description>NAT Translation create (Historic)</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record>
+<value>2</value>
+<description>NAT Translation Delete (Historic)</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record>
+<value>3</value>
+<description>NAT Addresses exhausted</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record>
+<value>4</value>
+<description>NAT44 Session create</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record>
+<value>5</value>
+<description>NAT44 Session delete</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record>
+<value>6</value>
+<description>NAT64 Session create</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record>
+<value>7</value>
+<description>NAT64 Session delete</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record>
+<value>8</value>
+<description>NAT44 BIB create</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record>
+<value>9</value>
+<description>NAT44 BIB delete</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record>
+<value>10</value>
+<description>NAT64 BIB create</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record>
+<value>11</value>
+<description>NAT64 BIB delete</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record>
+<value>12</value>
+<description>NAT ports exhausted</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record>
+<value>13</value>
+<description>Quota exceeded</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record>
+<value>14</value>
+<description>Address binding create</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record>
+<value>15</value>
+<description>Address binding delete</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record>
+<value>16</value>
+<description>Port block allocation</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record>
+<value>17</value>
+<description>Port block de-allocation</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record>
+<value>18</value>
+<description>Threshold reached</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+</registry>
+
+  
  
 <registry id="ipfix-flowselectoralgorithm">
 <title>flowSelectorAlgorithm (Value 390)</title>
@@ -11556,6 +11807,87 @@ hashSelectedRangeMax, hashOutputRangeMin, hashOutputRangeMax</parameters>
 </record>
 
 </registry>
+ 
+ 
+ 
+<registry id="ipfix-nat-quota-exceeded-event">
+<title>NAT Quota Exceeded Event Type (Value 466)</title>
+<registration_rule>Expert Review</registration_rule>
+<expert>Unassigned</expert>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+
+<record date="2017-03-15">
+<value>1</value>
+<description>Maximum Session entries</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record date="2017-03-15">
+<value>2</value>
+<description>Maximum BIB entries</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record date="2017-03-15">
+<value>3</value>
+<description>Maximum entries per user</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record date="2017-03-15">
+<value>4</value>
+<description>Maximum active hosts or subscribers</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record date="2017-03-15">
+<value>5</value>
+<description>Maximum fragments pending reassembly</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+</registry>
+
+
+
+<registry id="ipfix-nat-threshold-event">
+<title>NAT Threshold Event Type (Value 467)</title>
+<registration_rule>Expert Review</registration_rule>
+<expert>Unassigned</expert>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+
+<record date="2017-03-15">
+<value>1</value>
+<description>Address pool high threshold event</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record date="2017-03-15">
+<value>2</value>
+<description>Address pool low threshold event</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record date="2017-03-15">
+<value>3</value>
+<description>Address and port mapping high threshold event</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record date="2017-03-15">
+<value>4</value>
+<description>Address and port mapping per user high threshold event</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+<record date="2017-03-15">
+<value>5</value>
+<description>Global Address mapping high threshold event</description>
+<xref type="draft" data="RFC-ietf-behave-ipfix-nat-logging-13"/>
+</record>
+
+</registry>
+ 
  
  
 </registry>
