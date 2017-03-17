@@ -30,8 +30,17 @@
       <xsl:when test="@id = 'classification-engine-ids'">
         <tr><th>Value</th><th>Description</th><th>Default Length</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'ipfix-nat-event-type'">
+        <tr><th>Value</th><th>Event Name</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:when test="@id = 'ipfix-flowselectoralgorithm'">
         <tr><th>ID</th><th>Technique</th><th>Parameters</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'ipfix-nat-quota-exceeded-event'">
+        <tr><th>Value</th><th>Quota Exceeded Event Name</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'ipfix-nat-threshold-event'">
+        <tr><th>Value</th><th>Threshold Exceeded Event Name</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'ipfix-version-numbers'">
         <tr><th>Value</th><th>Version</th><th>Reference</th></tr>
@@ -51,6 +60,9 @@
       <xsl:when test="@id = 'ipfix-structured-data-types-semantics'">
         <tr><th>Value</th><th>Name</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:otherwise>
+        <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
@@ -136,6 +148,14 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
+      
+      <xsl:otherwise>
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
