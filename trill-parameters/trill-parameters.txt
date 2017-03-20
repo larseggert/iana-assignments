@@ -4,7 +4,7 @@
            2010-03-26
 
    Last Updated
-           2017-01-13
+           2017-03-17
 
    Available Formats
            [IMG]
@@ -32,6 +32,7 @@
      * Interested Labels Flag Bits
      * TRILL APPsub-TLV Types under IS-IS TLV 251 Application Identifier 1
 
+          * ESADI-Parameter APPsub-TLV Flag Bits
           * NickFlags Bits
           * Interface Addresses APPsub-TLV Sub-sub-TLVs
           * Extended RBridge Capabilities
@@ -40,6 +41,12 @@
 
           * Sub-codes for TRILL OAM Return Code 0
           * Sub-codes for TRILL OAM Return Code 1
+
+     * TRILL Pull Directory Query Types (QTYPEs)
+     * TRILL Pull Directory Errors
+
+          * Sub-codes for TRILL Pull Directory Errors 1 and 3
+          * Sub-codes for TRILL Pull Directory Errors 128 and 131
 
 TRILL Nicknames
 
@@ -77,14 +84,15 @@ TRILL Multicast Addresses
            [IMG]
            CSV
 
-                  Address                              Description                   Reference
+                  Address                              Description                                  Reference
              01-80-C2-00-00-40            All-RBridges                           [RFC6325]
              01-80-C2-00-00-41            All-IS-IS-RBridges                     [RFC6325]
              01-80-C2-00-00-42            All-ESADI-RBridges/All-Egress-RBridges [RFC6325][RFC7178]
    01-80-C2-00-00-43 to 01-80-C2-00-00-44 Unassigned
              01-80-C2-00-00-45            TRILL-End-Stations                     [RFC7178]
              01-80-C2-00-00-46            All-Edge-RBridges                      [RFC7178]
-   01-80-C2-00-00-47 to 01-80-C2-00-00-4F Unassigned
+             01-80-C2-00-00-47            TRILL-ES-IS                            [RFC-ietf-trill-directory-assist-mechanisms-12]
+   01-80-C2-00-00-48 to 01-80-C2-00-00-4F Unassigned
 
 TRILL Extended Header Flags
 
@@ -125,13 +133,14 @@ RBridge Channel Protocols
    0x100-0xFF7 RFC Required            allocation of a single value
    0x100-0xFF7 IESG Approval           allocation of multiple values
 
-    Protocol          Description        Reference
+    Protocol          Description                           Reference
       0x000    Reserved                  [RFC7178]
       0x001    RBridge Channel Error     [RFC7178]
       0x002    BFD Control               [RFC7175]
       0x003    BFD Echo                  [RFC7175]
       0x004    RBridge Channel Extension [RFC7978]
-   0x005-0xFF7 Unassigned
+      0x005    Pull Directory Services   [RFC-ietf-trill-directory-assist-mechanisms-12]
+   0x006-0xFF7 Unassigned
    0xFF8-0xFFE Reserved for Private Use  [RFC7178]
       0xFFF    Reserved                  [RFC7178]
 
@@ -341,14 +350,16 @@ Interested VLANs Flag Bits
            [IMG]
            CSV
 
-    Bit  Mnemonic          Description           Reference
+    Bit  Mnemonic          Description                              Reference
      0   M4       IPv4 Multicast Router Attached [RFC7176]
      1   M6       IPv6 Multicast Router Attached [RFC7176]
      2            Unassigned
      3   ES       ESADI Participation            [RFC7357]
    4-15           (used for a VLAN ID)           [RFC7176]
     16   AA       VLANs for Active-Active        [RFC7782]
-   17-19          Unassigned
+    17            Unassigned
+    18   PUL      Pull Directory                 [RFC-ietf-trill-directory-assist-mechanisms-12]
+    19   NOD      No Data                        [RFC-ietf-trill-directory-assist-mechanisms-12]
    20-31          (used for a VLAN ID)           [RFC7176]
 
 Interested Labels Flag Bits
@@ -371,13 +382,15 @@ Interested Labels Flag Bits
            [IMG]
            CSV
 
-   Bit Mnemonic          Description           Reference
+   Bit Mnemonic          Description                              Reference
     0  M4       IPv4 Multicast Router Attached [RFC7176]
     1  M6       IPv6 Multicast Router Attached [RFC7176]
     2  BM       Bit Map                        [RFC7176]
     3  ES       ESADI Participation            [RFC7357]
     4  AA       FGLs for Active-Active         [RFC7782]
-   5-7          Unassigned
+    5           Unassigned
+    6  PUL      Pull Directory                 [RFC-ietf-trill-directory-assist-mechanisms-12]
+    7  NOD      No Data                        [RFC-ietf-trill-directory-assist-mechanisms-12]
 
 TRILL APPsub-TLV Types under IS-IS TLV 251 Application Identifier 1
 
@@ -405,9 +418,9 @@ TRILL APPsub-TLV Types under IS-IS TLV 251 Application Identifier 1
            [IMG]
            CSV
 
-     Type               Name            Reference
+     Type               Name                                   Reference
        0     Reserved                   [RFC7357]
-       1     ESADI-PARAM                [RFC7357]
+       1     ESADI-PARAM                [RFC7357][RFC-ietf-trill-directory-assist-mechanisms-12]
        2     PN-LAALP-Membership        [RFC7781]
        3     PN-RBv                     [RFC7781]
        4     PN-MAC-RI-LAALP-INFO-START [RFC7781]
@@ -430,6 +443,24 @@ TRILL APPsub-TLV Types under IS-IS TLV 251 Application Identifier 1
       255    Reserved                   [RFC7357]
    256-65534 Unassigned
      65535   Reserved                   [RFC7357]
+
+  ESADI-Parameter APPsub-TLV Flag Bits
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC7357][RFC-ietf-trill-directory-assist-mechanisms-12]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Bit Mnemonic         Description                             Reference
+    0  UN       Supports Unicast ESADI       [RFC7357]
+   1-2 PDSS     Push Directory Server Status [RFC-ietf-trill-directory-assist-mechanisms-12]
+   3-7          Unassigned
 
   NickFlags Bits
 
@@ -557,3 +588,108 @@ TRILL OAM Return Codes
       1     Fragment limit exceeded [RFC7455]
       2     Intermediate RBridge    [RFC7455]
     3-255   Unassigned
+
+TRILL Pull Directory Query Types (QTYPEs)
+
+   Registration Procedure(s)
+
+ IETF Review
+
+   Reference
+           [RFC-ietf-trill-directory-assist-mechanisms-12]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   QTYPE           Description                              Reference
+     0   Reserved                        [RFC-ietf-trill-directory-assist-mechanisms-12]
+     1   Address query                   [RFC-ietf-trill-directory-assist-mechanisms-12]
+     2   Frame query                     [RFC-ietf-trill-directory-assist-mechanisms-12]
+    3-4  Unassigned
+     5   Unknown unicast MAC query frame [RFC-ietf-trill-directory-assist-mechanisms-12]
+   6-14  Unassigned
+    15   Reserved                        [RFC-ietf-trill-directory-assist-mechanisms-12]
+
+TRILL Pull Directory Errors
+
+   Registration Procedure(s)
+
+ IETF Review
+
+   Reference
+           [RFC-ietf-trill-directory-assist-mechanisms-12]
+
+   Available Formats
+           [IMG]
+           CSV
+
+     Err    Level                      Meaning                                        Reference
+      0            No Error                                        [RFC-ietf-trill-directory-assist-mechanisms-12]
+      1    Message Unknown or reserved Query Message field value   [RFC-ietf-trill-directory-assist-mechanisms-12]
+      2    Message Request Message/data too short                  [RFC-ietf-trill-directory-assist-mechanisms-12]
+      3    Message Unknown or reserved Update Message field value  [RFC-ietf-trill-directory-assist-mechanisms-12]
+      4    Message Update Message/data too short                   [RFC-ietf-trill-directory-assist-mechanisms-12]
+    5-126  Message Unassigned
+     127           Reserved                                        [RFC-ietf-trill-directory-assist-mechanisms-12]
+     128   Record  Unknown or reserved QUERY Record field value    [RFC-ietf-trill-directory-assist-mechanisms-12]
+     129   Record  QUERY Record truncated                          [RFC-ietf-trill-directory-assist-mechanisms-12]
+     130   Record  Address not found                               [RFC-ietf-trill-directory-assist-mechanisms-12]
+     131   Record  Unknown or reserved RESPONSE Record field value [RFC-ietf-trill-directory-assist-mechanisms-12]
+     132   Record  RESPONSE Record truncated                       [RFC-ietf-trill-directory-assist-mechanisms-12]
+   133-254 Record  Unassigned
+     255           Reserved                                        [RFC-ietf-trill-directory-assist-mechanisms-12]
+
+  Sub-codes for TRILL Pull Directory Errors 1 and 3
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-trill-directory-assist-mechanisms-12]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   SubErr                                     Field with Error                                                         Reference
+     0    Unspecified                                                                               [RFC-ietf-trill-directory-assist-mechanisms-12]
+     1    Version not understood (see Section 3.1.1 of                                              [RFC-ietf-trill-directory-assist-mechanisms-12]
+          [RFC-ietf-trill-directory-assist-mechanisms-12])
+     2    Unknown Type field value                                                                  [RFC-ietf-trill-directory-assist-mechanisms-12]
+     3    Specified Data Label not being served                                                     [RFC-ietf-trill-directory-assist-mechanisms-12]
+   4-254  Unassigned
+    255   Reserved                                                                                  [RFC-ietf-trill-directory-assist-mechanisms-12]
+
+  Sub-codes for TRILL Pull Directory Errors 128 and 131
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-trill-directory-assist-mechanisms-12]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   SubErr                  Field with Error                                      Reference
+     0    Unspecified                                         [RFC-ietf-trill-directory-assist-mechanisms-12]
+     1    Unknown AFN field value                             [RFC-ietf-trill-directory-assist-mechanisms-12]
+     2    Unknown or Reserved QTYPE field value               [RFC-ietf-trill-directory-assist-mechanisms-12]
+     3    Invalid or inconsistent SIZE field value            [RFC-ietf-trill-directory-assist-mechanisms-12]
+     4    Invalid frame for QTYPE 2 (other than SEND)         [RFC-ietf-trill-directory-assist-mechanisms-12]
+     5    SEND frame sent as QTYPE 2                          [RFC-ietf-trill-directory-assist-mechanisms-12]
+     6    Invalid frame for QTYPE 5 (such as multicast MacDA) [RFC-ietf-trill-directory-assist-mechanisms-12]
+   7-254  Unassigned
+    255   Reserved                                            [RFC-ietf-trill-directory-assist-mechanisms-12]

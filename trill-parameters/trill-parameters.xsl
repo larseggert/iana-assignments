@@ -50,6 +50,9 @@
       <xsl:when test="@id = 'isis-tlv-251-app-id-1'">
         <tr><th>Type</th><th>Name</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'esadi-parameter-appsub-tlv-flag-bits'">
+        <tr><th>Bit</th><th>Mnemonic</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:when test="@id = 'nickflags-bits'">
         <tr><th>Bit</th><th>Mnemonic</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
@@ -67,6 +70,18 @@
       </xsl:when>
       <xsl:when test="@id = 'trill-oam-return-sub-code-1'">
         <tr><th>Sub Code</th><th>Assignment</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'trill-pull-directory-qtypes'">
+        <tr><th>QTYPE</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'trill-pull-directory-errors'">
+        <tr><th>Err</th><th>Level</th><th>Meaning</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'trill-pull-directory-errors-sub-code-1-3'">
+        <tr><th>SubErr</th><th>Field with Error</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'trill-pull-directory-errors-sub-code-128-131'">
+        <tr><th>SubErr</th><th>Field with Error</th><th>Reference</th></tr>
       </xsl:when>
     </xsl:choose>
   </xsl:template>
@@ -149,6 +164,14 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
+      <xsl:when test="../@id = 'esadi-parameter-appsub-tlv-flag-bits'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:mnemonic"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
       <xsl:when test="../@id = 'nickflags-bits'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
@@ -161,6 +184,14 @@
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:mnemonic"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'trill-pull-directory-errors'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:level"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
