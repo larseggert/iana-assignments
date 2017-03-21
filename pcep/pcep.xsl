@@ -112,8 +112,7 @@
           <th>Description</th>
           <th>Reference</th>
         </tr>
-      </xsl:when>
-      
+      </xsl:when>      
       <xsl:when test="@id = 'of'">
         <tr><th>Code Point</th><th>Name</th><th>Reference</th></tr>
       </xsl:when>
@@ -149,6 +148,14 @@
         <tr>
           <th>Type</th>
           <th>Name</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'inter-layer-object-path-property-bits'">
+        <tr>
+          <th>Bit</th>
+          <th>Flag</th>
+          <th>Multi-Layer Path Property</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
@@ -199,11 +206,18 @@
             </xsl:otherwise>
           </xsl:choose>
         </tr>
-      </xsl:when>
-      
+      </xsl:when>    
       <xsl:when test="../@id = 'of'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'inter-layer-object-path-property-bits'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:flag"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
