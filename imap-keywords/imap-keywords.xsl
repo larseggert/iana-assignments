@@ -18,7 +18,7 @@
     <xsl:choose>
       <xsl:when test="../@id = 'imap-keywords-1'">
         <tr>
-          <td align="center"><xsl:apply-templates select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:value"/></td>
           <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:value-of select="iana:usage"/></td>
           <td><xsl:value-of select="iana:comments"/></td>
