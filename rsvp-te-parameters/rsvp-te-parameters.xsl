@@ -78,21 +78,21 @@
       </xsl:when>
       <xsl:when test="../@id = 'rsvp-te-parameters-3'">
         <tr>
-          <td align="center" style="font-family:monospace"><xsl:value-of select="iana:value"/></td>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'rsvp-te-parameters-4'">
         <tr>
-          <td align="center" style="font-family:monospace"><xsl:value-of select="iana:value"/></td>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
       <xsl:otherwise>
         <tr>
-          <td align="center" style="font-family:monospace"><xsl:value-of select="iana:value"/></td>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>

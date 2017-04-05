@@ -1,0 +1,74 @@
+(registered 2017-03-31)
+
+IMAP keyword name:
+$Phishing
+
+Purpose (description):
+Phishing emails are a particularly pernicious problem and unfortunately
+many users are tricked by them into revealing private passwords and
+other personal information. Many delivery agents may be able to detect
+emails as likely phishing emails either at delivery time or shortly
+afterwards, but flagging them as $Junk and moving them to the users
+\Junk special-use folder may not be enough. If they look legitimate
+enough, users may think they were incorrectly identified as junk and
+still click on the links in them believing that they are legitimate and
+that the marking as junk was a false positive error.
+
+The $Phishing keyword can be used by a delivery agent to mark a message
+as highly likely to be a phishing email. An email that’s determined to
+be a phishing email by the delivery agent should also be considered a
+junk email and have the appropriate junk filtering applied, including
+setting the $Junk flag and placing in the \Junk special-use mailbox if
+available.
+
+If both the $Phishing flag and the $Junk flag are set, the user agent
+should display an additional warning message to the user. User agents
+should not use the term "phishing" in their warning message as most
+users do not understand this term. Phrasing of the form "this message
+may be trying to steal your personal information" is recommended.
+Additionally the user agent may display a warning when clicking on any
+hyperlinks within the message.
+
+The requirement for both $Phishing and $Junk to be set before a user
+agent displays a warning is for better backwards compatibility with
+existing clients that understand the $Junk flag but not the $Phishing
+flag. This so that when an unextended client removes the $Junk flag, an
+extended client will also show the correct state.
+
+Private or Shared on a server:
+SHARED (see Note 1)
+
+Is it an advisory keyword or may it cause an automatic action:
+This keyword is advisory.
+
+When/by whom the keyword is set/cleared:
+$Phishing will mostly be set by a delivery agent. A mail
+client may set the flag if it supports a “Report phishing” type
+action. If a user marks a message as not junk, the $Phishing
+flag should also be removed.
+
+Related keywords:
+$Junk and $NotJunk
+
+Related IMAP capabilities:
+RFC6154 IMAP LIST Extension for Special-Use Mailboxes
+
+Security considerations:
+False positive detection of a phishing email by a delivery agent
+is always possible so user agents should never fully stop users
+being able to view a message or click through on links in the
+message.
+
+Published specification (recommended):
+
+Person & email address to contact for further information:
+Rob Mueller <robm&fastmail.com>
+
+Intended usage: COMMON
+
+Owner/Change controller: IESG
+
+1). Unlike junk where people may have different ideas of
+what email might be considered junk or not junk, and as
+it’s expected that mostly delivery agents will set this
+flag, this should be a shared flag.

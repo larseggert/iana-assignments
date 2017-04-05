@@ -4,7 +4,7 @@
            2006-01-23
 
    Last Updated
-           2017-03-21
+           2017-03-31
 
    Available Formats
            [IMG]
@@ -20,6 +20,7 @@
      * Record Route Object Sub-object Flags
      * Sub-TLV Types for WSON Processing Hop Attribute TLV
      * Values for Wavelength Assignment Method field in WavelengthSelection Sub-TLV
+     * RTM_SET Object Sub-Object Types
 
 Attributes TLV Space
 
@@ -34,13 +35,14 @@ Attributes TLV Space
            [IMG]
            CSV
 
-   Type               Name               Allowed on LSP_ATTRIBUTES Allowed on LSP_REQUIRED_ATTRIBUTES     Allowed on LSP Hop         Reference
-                                                                                                              Attributes
-    1   Attribute Flags                             Yes                           Yes                            Yes             [RFC5420][RFC7570]
-    2   Service ID TLV                              Yes                            No                             No             [RFC6060][RFC7570]
-    3   OAM Configuration TLV                       Yes                           Yes                             No             [RFC7260][RFC7570]
-    4   WSON Processing Hop Attribute               No                             No                            Yes             [RFC7689]
-        TLV
+   Type           Name                  Allowed on        Allowed on LSP_REQUIRED_ATTRIBUTES  Allowed on LSP Hop              Reference
+                                      LSP_ATTRIBUTES                                              Attributes
+    1   Attribute Flags                    Yes                           Yes                         Yes          [RFC5420][RFC7570]
+    2   Service ID TLV                     Yes                            No                          No          [RFC6060][RFC7570]
+    3   OAM Configuration TLV              Yes                           Yes                          No          [RFC7260][RFC7570]
+    4   WSON Processing Hop                 No                            No                         Yes          [RFC7689]
+        Attribute TLV
+    5   RTM_SET sub-object                 Yes                            No                          No          [RFC-ietf-mpls-residence-time-15]
 
 Attribute Flags
 
@@ -71,6 +73,7 @@ Attribute Flags
      12   SRLG Collection Flag               Yes                   No          Yes No  [RFC8001][RFC7570]
      13   Loopback                           Yes                   No          Yes Yes [RFC7571]
      14   P2MP-TE Tree Re-evaluation         Yes                   No          No  No  [RFC-ietf-teas-p2mp-loose-path-reopt-09]
+     15   RTM_SET                            Yes                  Yes          No  No  [RFC-ietf-mpls-residence-time-15]
 
 Session Attribute Object Flags
 
@@ -162,3 +165,25 @@ Values for Wavelength Assignment Method field in WavelengthSelection Sub-TLV
      2   Random                     [RFC7689]
      3   Least-Loaded (multi-fiber) [RFC7689]
    4-127 Unassigned
+
+RTM_SET Object Sub-Object Types
+
+   Reference
+           [RFC-ietf-mpls-residence-time-15]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+    0-127  IETF Review
+   128-191 First Come First Served
+
+    Value          Meaning                      Reference
+      0    Reserved                 [RFC-ietf-mpls-residence-time-15]
+      1    IPv4 address             [RFC-ietf-mpls-residence-time-15]
+      2    IPv6 address             [RFC-ietf-mpls-residence-time-15]
+      3    Unnumbered interface     [RFC-ietf-mpls-residence-time-15]
+    4-191  Unassigned
+   192-254 Reserved for Private Use [RFC-ietf-mpls-residence-time-15]
+     255   Reserved                 [RFC-ietf-mpls-residence-time-15]
