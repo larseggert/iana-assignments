@@ -15,7 +15,7 @@
         <tr><th>Value</th><th>LISP LCAF Type Name</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'lisp-packet-types'">
-        <tr><th>Message</th><th>Code</th><th>Reference</th></tr>
+        <tr><th>Code</th><th>Message</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'lisp-shared-extension-message-type-sub-types'">
         <tr>
