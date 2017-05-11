@@ -13,7 +13,7 @@
             Procedure</th><th>Note</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'dscp-registry-2'">
-        <tr><th>Name</th><th>Space</th><th>Reference</th></tr>
+        <tr><th>Name</th><th>Space (Binary)</th><th>Space (Decimal)</th><th>Reference</th></tr>
       </xsl:when>
     </xsl:choose>
   </xsl:template>
@@ -22,8 +22,8 @@
     <xsl:choose>
       <xsl:when test="../@id = 'dscp-registry-1'">
         <tr>
-          <td align="center"><xsl:value-of select="iana:pool"/></td>
-          <td align="center" style="font-family:monospace"><xsl:value-of select="iana:space"/></td>
+          <td><xsl:value-of select="iana:pool"/></td>
+          <td style="font-family:monospace"><xsl:value-of select="iana:space"/></td>
           <td><xsl:value-of select="iana:registration_rule"/></td>
           <td><xsl:value-of select="iana:note"/></td>
         </tr>
@@ -31,7 +31,8 @@
       <xsl:when test="../@id = 'dscp-registry-2'">
         <tr>
           <td><xsl:value-of select="iana:name"/></td>
-          <td align="center" style="font-family:monospace"><xsl:value-of select="iana:space"/></td>
+          <td style="font-family:monospace"><xsl:value-of select="iana:space"/></td>
+          <td><xsl:value-of select="iana:decimal_space"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
