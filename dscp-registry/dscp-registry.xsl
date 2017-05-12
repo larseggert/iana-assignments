@@ -13,7 +13,7 @@
             Procedure</th><th>Note</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'dscp-registry-2'">
-        <tr><th>Name</th><th>Space (Binary)</th><th>Space (Decimal)</th><th>Reference</th></tr>
+        <tr><th>Name</th><th>Value (Binary)</th><th>Value (Decimal)</th><th>Reference</th></tr>
       </xsl:when>
     </xsl:choose>
   </xsl:template>
