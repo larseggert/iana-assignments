@@ -4,7 +4,7 @@
            2007-05-10
 
    Last Updated
-           2017-05-05
+           2017-05-15
 
    Note
 
@@ -1066,10 +1066,10 @@ ElementID                 Name                       Data Type        Data Type 
 
                                                                                              Public: 2
                                                                                              This Information Element identifies a NAT event. This IE identifies the type of a                          See [RFC3022] for the definition of NAT. See
-                                                                                             NAT event. Examples of NAT events include but not limited to, creation or deletion                         [RFC3234] for the definition of middleboxes. See
-   230    natEvent                              unsigned8            identifier   current    of a NAT translation entry, a threshold reached or exceeded etc. Values for this                           [RFC-ietf-behave-ipfix-nat-logging-13] for the        [RFC-ietf-behave-ipfix-nat-logging-13] 2        2017-03-15
-                                                                                             Information Element are listed in the NAT Event Type registry. See                                         definitions of values 4-16.
-                                                                                             [http://www.iana.org/assignments/ipfix/ipfix.xml#ipfix-nat-event-type]
+                                                                                             NAT event. Examples of NAT events include, but are not limited to, NAT translation                         [RFC3234] for the definition of middleboxes. See
+   230    natEvent                              unsigned8            identifier   current    create, NAT translation delete, Threshold Reached, or Threshold Exceeded, etc.                             [RFC-ietf-behave-ipfix-nat-logging-13] for the        [RFC-ietf-behave-ipfix-nat-logging-13] 2        2017-03-15
+                                                                                             Values for this Information Element are listed in the NAT Event Type registry, see                         definitions of values 4-16.
+                                                                                             [http://www.iana.org/assignments/ipfix/ipfix.xml#ipfix-nat-event-type].
                                                                                              The total number of layer 4 payload bytes in a flow from the initiator. The
    231    initiatorOctets                       unsigned64           deltaCounter current    initiator is the device which triggered the session creation, and remains the same  octets                 See #298, initiatorPackets.                           [ipfix-iana_at_cisco.com]              1        2014-08-13
                                                                                              for the life of the session.
@@ -2502,24 +2502,30 @@ ElementID                 Name                       Data Type        Data Type 
                                                                                              defined in [RFC7240] section 3.1. The length of this field is limited to 10
                                                                                              characters, UTF-8 encoded.
                                                                                              This Information Element uniquely identifies an Instance of the NAT that runs on a                         See [RFC791] for the definition of the IPv4 source
-   463    natInstanceID                         unsigned32           identifier   current    NAT middlebox function after the packet passed the Observation Point. natInstanceID                        address field. See [RFC3022] for the definition of    [RFC-ietf-behave-ipfix-nat-logging-13] 0        2017-03-15
+   463    natInstanceID                         unsigned32           identifier   current    NAT middlebox function after the packet passes the Observation Point. natInstanceID                        address field. See [RFC3022] for the definition of    [RFC-ietf-behave-ipfix-nat-logging-13] 0        2017-03-15
                                                                                              is defined in [RFC7659]                                                                                    NAT. See [RFC3234] for the definition of middleboxes.
                                                                                              This Information Element represents the internal address realm where the packet is
                                                                                              originated from or destined to. By definition, a NAT mapping can be created from                           See [RFC791] for the definition of the IPv4 source
    464    internalAddressRealm                  octetArray           identifier   current    two address realms, one from internal and one from external. Realms are                                    address field. See [RFC3022] for the definition of    [RFC-ietf-behave-ipfix-nat-logging-13] 0        2017-03-15
-                                                                                             implementation dependent and can represent a VRF ID or a VLAN ID or some unique                            NAT. See [RFC3234] for the definition of middleboxes.
-                                                                                             identifier. Realms are optional and when left unspecified would mean that the
-                                                                                             external and internal realms are the same.
+                                                                                             implementation dependent and can represent a Virtual Routing and Forwarding (VRF)                          NAT. See [RFC3234] for the definition of middleboxes.
+                                                                                             ID, a VLAN ID, or some unique identifier. Realms are optional, and when left
+                                                                                             unspecified, would mean that the external and internal realms are the same.
                                                                                              This Information Element represents the external address realm where the packet is                         See [RFC791] for the definition of the IPv4 source
    465    externalAddressRealm                  octetArray           identifier   current    originated from or destined to. The detailed definition is in the internal address                         address field. See [RFC3022] for the definition of    [RFC-ietf-behave-ipfix-nat-logging-13] 0        2017-03-15
                                                                                              realm as specified above.                                                                                  NAT. See [RFC3234] for the definition of middleboxes.
-                                                                                             This Information Element identifies the type of a NAT quota exceeded event. Values                         See [RFC791] for the definition of the IPv4 source
-   466    natQuotaExceededEvent                 unsigned32           identifier   current    for this Information Element are listed in the NAT Quota Exceeded Event Type                               address field. See [RFC3022] for the definition of    [RFC-ietf-behave-ipfix-nat-logging-13] 0        2017-03-15
-                                                                                             registry. See                                                                                              NAT. See [RFC3234] for the definition of middleboxes.
-                                                                                             [http://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-nat-quota-exceeded-event].
-                                                                                             This Information Element identifies a type of a NAT threshold event. Values for                            See [RFC791] for the definition of the IPv4 source
-   467    natThresholdEvent                     unsigned32           identifier   current    this Information Element are listed in the NAT Threshhold Event Type registry. See                         address field. See [RFC3022] for the definition of    [RFC-ietf-behave-ipfix-nat-logging-13] 0        2017-03-15
-                                                                                             [http://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-nat-threshold-event].                             NAT. See [RFC3234] for the definition of middleboxes.
+                                                                                             This Information Element identifies the type of a NAT Quota Exceeded event. Values
+                                                                                             for this Information Element are listed in the NAT Quota Exceeded Event Type
+                                                                                             registry, see                                                                                              See [RFC791] for the definition of the IPv4 source
+   466    natQuotaExceededEvent                 unsigned32           identifier   current    [http://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-nat-quota-exceeded-event].                        address field. See [RFC3022] for the definition of    [RFC-ietf-behave-ipfix-nat-logging-13] 0        2017-03-15
+                                                                                             New assignments of values will be administered by IANA and are subject to Expert                           NAT. See [RFC3234] for the definition of middleboxes.
+                                                                                             Review [RFC5226]. Experts need to check definitions of new values for completeness,
+                                                                                             accuracy, and redundancy.
+                                                                                             This Information Element identifies a type of a NAT Threshold event. Values for
+                                                                                             this Information Element are listed in the NAT Threshold Event Type registry, see                          See [RFC791] for the definition of the IPv4 source
+   467    natThresholdEvent                     unsigned32           identifier   current    [http://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-nat-threshold-event]. New                         address field. See [RFC3022] for the definition of    [RFC-ietf-behave-ipfix-nat-logging-13] 0        2017-03-15
+                                                                                             assignments of values will be administered by IANA and are subject to Expert Review                        NAT. See [RFC3234] for the definition of middleboxes.
+                                                                                             [RFC5226]. Experts need to check definitions of new values for completeness,
+                                                                                             accuracy, and redundancy.
    468    httpUserAgent                         string               default      current    The HTTP User-Agent header field as defined in section 5.5.3 of [RFC7231]. Encoded                         [RFC7231]                                             [Andrew_Feren]                         0        2017-04-19
                                                                                              in UTF-8.
    469    httpContentType                       string               default      current    The HTTP Content-Type header field as defined in section 3.1.1.5 of [RFC7231].                             [RFC7231]                                             [Andrew_Feren]                         0        2017-04-19
@@ -2635,24 +2641,24 @@ ElementID                 Name                       Data Type        Data Type 
 
    Value            Event Name                           Reference
      0   Reserved                          [RFC-ietf-behave-ipfix-nat-logging-13]
-     1   NAT Translation create (Historic) [RFC-ietf-behave-ipfix-nat-logging-13]
-     2   NAT Translation Delete (Historic) [RFC-ietf-behave-ipfix-nat-logging-13]
+     1   NAT translation create (Historic) [RFC-ietf-behave-ipfix-nat-logging-13]
+     2   NAT translation delete (Historic) [RFC-ietf-behave-ipfix-nat-logging-13]
      3   NAT Addresses exhausted           [RFC-ietf-behave-ipfix-nat-logging-13]
-     4   NAT44 Session create              [RFC-ietf-behave-ipfix-nat-logging-13]
-     5   NAT44 Session delete              [RFC-ietf-behave-ipfix-nat-logging-13]
-     6   NAT64 Session create              [RFC-ietf-behave-ipfix-nat-logging-13]
-     7   NAT64 Session delete              [RFC-ietf-behave-ipfix-nat-logging-13]
+     4   NAT44 session create              [RFC-ietf-behave-ipfix-nat-logging-13]
+     5   NAT44 session delete              [RFC-ietf-behave-ipfix-nat-logging-13]
+     6   NAT64 session create              [RFC-ietf-behave-ipfix-nat-logging-13]
+     7   NAT64 session delete              [RFC-ietf-behave-ipfix-nat-logging-13]
      8   NAT44 BIB create                  [RFC-ietf-behave-ipfix-nat-logging-13]
      9   NAT44 BIB delete                  [RFC-ietf-behave-ipfix-nat-logging-13]
     10   NAT64 BIB create                  [RFC-ietf-behave-ipfix-nat-logging-13]
     11   NAT64 BIB delete                  [RFC-ietf-behave-ipfix-nat-logging-13]
     12   NAT ports exhausted               [RFC-ietf-behave-ipfix-nat-logging-13]
-    13   Quota exceeded                    [RFC-ietf-behave-ipfix-nat-logging-13]
+    13   Quota Exceeded                    [RFC-ietf-behave-ipfix-nat-logging-13]
     14   Address binding create            [RFC-ietf-behave-ipfix-nat-logging-13]
     15   Address binding delete            [RFC-ietf-behave-ipfix-nat-logging-13]
     16   Port block allocation             [RFC-ietf-behave-ipfix-nat-logging-13]
     17   Port block de-allocation          [RFC-ietf-behave-ipfix-nat-logging-13]
-    18   Threshold reached                 [RFC-ietf-behave-ipfix-nat-logging-13]
+    18   Threshold Reached                 [RFC-ietf-behave-ipfix-nat-logging-13]
 
   flowSelectorAlgorithm (Value 390)
 
@@ -2706,7 +2712,7 @@ ElementID                 Name                       Data Type        Data Type 
 
    Value      Quota Exceeded Event Name                     Reference
      0   Reserved                             [RFC-ietf-behave-ipfix-nat-logging-13]
-     1   Maximum Session entries              [RFC-ietf-behave-ipfix-nat-logging-13]
+     1   Maximum session entries              [RFC-ietf-behave-ipfix-nat-logging-13]
      2   Maximum BIB entries                  [RFC-ietf-behave-ipfix-nat-logging-13]
      3   Maximum entries per user             [RFC-ietf-behave-ipfix-nat-logging-13]
      4   Maximum active hosts or subscribers  [RFC-ietf-behave-ipfix-nat-logging-13]
