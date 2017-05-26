@@ -4,7 +4,7 @@
            2003-05-06
 
    Last Updated
-           2017-05-12
+           2017-05-26
 
    Note
 
@@ -23,7 +23,7 @@
 
      * TLV Codepoints Registry
      * IS-IS Authentication Type Codes for TLV 10
-     * Sub-TLVs for TLVs 22, 23, 141, 222, and 223
+     * Sub-TLVs for TLVs 22, 23, 25, 141, 222, and 223
      * link-attribute bit values for sub-TLV 19 of TLV 22
      * Sub-TLVs for TLVs 135, 235, 236, and 237
      * Bit Values for Prefix Attribute Flags Sub-TLV
@@ -112,7 +112,8 @@ TLV Codepoints Registry
    22        Extended IS reachability              n   y   n   n     [RFC5305]
    23        IS Neighbor Attribute                 n   y   n   n     [RFC5311]
    24        IS Alias ID                           n   y   n   n     [RFC5311]
-   25-41     Unassigned
+   25        L2 Bundle Member Attributes           n   y   n   n     [RFC-ietf-isis-l2bundles-07]
+   26-41     Unassigned
    42        DECnet Phase IV                       y   n   n   n     DEC (ancient)
    43-65     Unassigned
    66        Lucent Proprietary                    n   y   n   n
@@ -207,7 +208,7 @@ IS-IS Authentication Type Codes for TLV 10
    255    Routing Domain private authentication method Protocol for use in Conjunction with the Protocol for Providing the Connectionless-mode
                                                        Network Service (ISO 8473)", International Standard 10589: 2002, Second Edition, 2002.]
 
-Sub-TLVs for TLVs 22, 23, 141, 222, and 223
+Sub-TLVs for TLVs 22, 23, 25, 141, 222, and 223
 
    Registration Procedure(s)
 
@@ -218,7 +219,7 @@ Sub-TLVs for TLVs 22, 23, 141, 222, and 223
  Chris Hopps, Hannes Gredler, Les Ginsberg
 
    Reference
-           [RFC5305][RFC5316][RFC7370]
+           [RFC5305][RFC5316][RFC7370][RFC-ietf-isis-l2bundles-07]
 
    Note
 
@@ -230,48 +231,50 @@ Sub-TLVs for TLVs 22, 23, 141, 222, and 223
            [IMG]
            CSV
 
-    Type                                  Description                                22 23 141 222 223                  Reference
+    Type                               Description                              22 23  25  141 222 223                  Reference
    0-2     Unassigned
-   3       Administrative group (color)                                              y  y  y   y   y   [RFC5305]
-   4       Link Local/Remote Identifiers                                             y  y  y   y   y   [RFC5307]
-   5       Unassigned                                                                y  y  y   y   y
-   6       IPv4 interface address                                                    y  y  y   y   y   [RFC5305]
+   3       Administrative group (color)                                         y  y  y(s) y   y   y   [RFC5305]
+   4       Link Local/Remote Identifiers                                        y  y  y(s) y   y   y   [RFC5307]
+   5       Unassigned                                                           y  y       y   y   y
+   6       IPv4 interface address                                               y  y  y(s) y   y   y   [RFC5305]
    7       Unassigned
-   8       IPv4 neighbor address                                                     y  y  y   y   y   [RFC5305]
-   9       Maximum link bandwidth                                                    y  y  y   y   y   [RFC5305]
-   10      Maximum reservable link bandwidth                                         y  y  y   y   y   [RFC5305]
-   11      Unreserved bandwidth                                                      y  y  y   y   y   [RFC5305]
-   12      IPv6 Interface Address                                                    y  y  y   y   y   [RFC6119]
-   13      IPv6 Neighbor Address                                                     y  y  y   y   y   [RFC6119]
-   14      Extended Administrative Group                                             y  y  y   y   y   [RFC7308]
-   15      Link MSD (TEMPORARY - registered 2017-04-10, expires 2018-04-10)          y  y  y   y   y   [draft-ietf-isis-segment-routing-msd]
+   8       IPv4 neighbor address                                                y  y  y(s) y   y   y   [RFC5305]
+   9       Maximum link bandwidth                                               y  y  y(s) y   y   y   [RFC5305]
+   10      Maximum reservable link bandwidth                                    y  y  y(s) y   y   y   [RFC5305]
+   11      Unreserved bandwidth                                                 y  y  y(s) y   y   y   [RFC5305]
+   12      IPv6 Interface Address                                               y  y  y(s) y   y   y   [RFC6119]
+   13      IPv6 Neighbor Address                                                y  y  y(s) y   y   y   [RFC6119]
+   14      Extended Administrative Group                                        y  y  y(s) y   y   y   [RFC7308]
+   15      Link MSD (TEMPORARY - registered 2017-04-10, expires 2018-04-10)     y  y  y    y   y   y   [draft-ietf-isis-segment-routing-msd]
    16-17   Unassigned
-   18      TE Default metric                                                         y  y  y   y   y   [RFC5305]
-   19      Link-attributes                                                           y  y  y   y   y   [RFC5029]
-   20      Link Protection Type                                                      y  y  y   y   y   [RFC5307]
-   21      Interface Switching Capability Descriptor                                 y  y  y   y   y   [RFC5307]
-   22      Bandwidth Constraints                                                     y  y  y   y   y   [RFC4124]
-   23      Unconstrained TE LSP Count (sub-)TLV                                      y  y  y   y   y   [RFC5330]
-   24      remote AS number                                                          n  n  y   n   n   [RFC5316]
-   25      IPv4 remote ASBR Identifier                                               n  n  y   n   n   [RFC5316]
-   26      IPv6 remote ASBR Identifier                                               n  n  y   n   n   [RFC5316]
-   27      Interface Adjustment Capability Descriptor (IACD)                         y  y  y   y   y   [RFC6001]
-   28      MTU                                                                       y  y  n   y   y   [RFC7176]
-   29      SPB-Metric                                                                y  y  n   y   y   [RFC6329]
-   30      SPB-A-OALG                                                                y  y  n   y   y   [RFC6329]
-   31      Adjacency Segment Identifier (TEMPORARY - registered 2016-06-29,          y  y  y   y   y   [draft-ietf-isis-segment-routing-extensions]
+   18      TE Default metric                                                    y  y  y(s) y   y   y   [RFC5305]
+   19      Link-attributes                                                      y  y  y(s) y   y   y   [RFC5029]
+   20      Link Protection Type                                                 y  y  y(s) y   y   y   [RFC5307]
+   21      Interface Switching Capability Descriptor                            y  y  y(s) y   y   y   [RFC5307]
+   22      Bandwidth Constraints                                                y  y  y(s) y   y   y   [RFC4124]
+   23      Unconstrained TE LSP Count (sub-)TLV                                 y  y  y(s) y   y   y   [RFC5330]
+   24      remote AS number                                                     n  n  n    y   n   n   [RFC5316]
+   25      IPv4 remote ASBR Identifier                                          n  n  n    y   n   n   [RFC5316]
+   26      IPv6 remote ASBR Identifier                                          n  n  n    y   n   n   [RFC5316]
+   27      Interface Adjustment Capability Descriptor (IACD)                    y  y  y(s) y   y   y   [RFC6001]
+   28      MTU                                                                  y  y  n    n   y   y   [RFC7176]
+   29      SPB-Metric                                                           y  y  y(s) n   y   y   [RFC6329]
+   30      SPB-A-OALG                                                           y  y  y(s) n   y   y   [RFC6329]
+   31      Adjacency Segment Identifier (TEMPORARY - registered 2016-06-29,     y  y  n    y   y   y   [draft-ietf-isis-segment-routing-extensions]
            extension registered 2017-05-12, expires 2018-06-29)
-   32      LAN Adjacency Segment Identifier (TEMPORARY - registered 2016-06-29,      y  y  y   y   y   [draft-ietf-isis-segment-routing-extensions]
+   32      LAN Adjacency Segment Identifier (TEMPORARY - registered 2016-06-29, y  y  n    y   y   y   [draft-ietf-isis-segment-routing-extensions]
            extension registered 2017-05-12, expires 2018-06-29)
-   33      Unidirectional Link Delay                                                 y  y  y   y   y   [RFC7810]
-   34      Min/Max Unidirectional Link Delay                                         y  y  y   y   y   [RFC7810]
-   35      Unidirectional Delay Variation                                            y  y  y   y   y   [RFC7810]
-   36      Unidirectional Link Loss                                                  y  y  y   y   y   [RFC7810]
-   37      Unidirectional Residual Bandwidth                                         y  y  y   y   y   [RFC7810]
-   38      Unidirectional Available Bandwidth                                        y  y  y   y   y   [RFC7810]
-   39      Unidirectional Utilized Bandwidth                                         y  y  y   y   y   [RFC7810]
-   40      RTM Capability                                                            y  y  n   y   y   [RFC-ietf-mpls-residence-time-15]
-   41-249  Unassigned
+   33      Unidirectional Link Delay                                            y  y  y    y   y   y   [RFC7810]
+   34      Min/Max Unidirectional Link Delay                                    y  y  y    y   y   y   [RFC7810]
+   35      Unidirectional Delay Variation                                       y  y  y    y   y   y   [RFC7810]
+   36      Unidirectional Link Loss                                             y  y  y    y   y   y   [RFC7810]
+   37      Unidirectional Residual Bandwidth                                    y  y  y    y   y   y   [RFC7810]
+   38      Unidirectional Available Bandwidth                                   y  y  y    y   y   y   [RFC7810]
+   39      Unidirectional Utilized Bandwidth                                    y  y  y    y   y   y   [RFC7810]
+   40      RTM Capability                                                       y  y  n    n   y   y   [RFC-ietf-mpls-residence-time-15]
+   41      L2 Bundle Member Adj-SID                                             n  n  y    n   n   n   [RFC-ietf-isis-l2bundles-07]
+   42      L2 Bundle Member LAN Adj-SID                                         n  n  y    n   n   n   [RFC-ietf-isis-l2bundles-07]
+   43-249  Unassigned
    250-254 Reserved for Cisco-specific extensions
    255     Reserved for future expansion
 
