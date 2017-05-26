@@ -27,7 +27,7 @@
       </tr>
      </xsl:when>
       
-     <xsl:when test="@id = 'isis-tlv-codepoints-22-23-141-222-223'">
+     <xsl:when test="@id = 'isis-tlv-codepoints-22-23-25-141-222-223'">
       <tr>
         <th>Type</th>
         <th>Description</th>
@@ -132,7 +132,7 @@
        <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
      </xsl:when>
-     <xsl:when test="../@id = 'isis-tlv-codepoints-22-23-141-222-223'">
+     <xsl:when test="../@id = 'isis-tlv-codepoints-22-23-25-141-222-223'">
       <tr>
        <td><xsl:value-of select="iana:value"/></td>
        <td><xsl:value-of select="iana:description"/></td>
