@@ -18,7 +18,7 @@
     <xsl:choose>
       <xsl:when test="../@id = 'method-tokens-1'">
         <tr>
-          <td align="center"><xsl:value-of select="iana:token"/></td>
+          <td><xsl:value-of select="iana:token"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:value-of select="@date"/></td>
