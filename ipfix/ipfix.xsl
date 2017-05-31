@@ -12,7 +12,7 @@
         <tr>
           <th>ElementID</th>
           <th>Name</th>
-          <th>Data Type</th>
+          <th>Abstract Data Type</th>
           <th>Data Type Semantics</th>
           <th>Status</th>
           <th>Description</th>
