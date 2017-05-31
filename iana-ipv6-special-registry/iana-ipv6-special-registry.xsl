@@ -16,7 +16,7 @@
       <th>Source</th>
       <th>Destination</th>
       <th>Forwardable</th>
-      <th>Global</th>
+      <th>Globally Reachable</th>
       <th>Reserved-by-Protocol</th>
     </tr>
   </xsl:template>
