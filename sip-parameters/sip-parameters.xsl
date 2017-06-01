@@ -13,7 +13,7 @@
        <th>Reference</th>
       </xsl:when>
       <xsl:when test="@id = 'sip-parameters-3'">
-        <th>Protocol value</th>
+        <th>Protocol Value</th>
         <th>Protocol Cause</th>
         <th>Reference</th>
       </xsl:when>
@@ -155,8 +155,8 @@
     <xsl:choose>
       
       <xsl:when test="../@id = 'sip-parameters-2'">
-       <td><xsl:value-of select="iana:value"/></td>
-       <td><xsl:value-of select="iana:compact"/></td>
+       <td><xsl:apply-templates select="iana:value"/></td>
+       <td><xsl:apply-templates select="iana:compact"/></td>
        <td><xsl:apply-templates select="iana:spec"/></td>
       </xsl:when>
      
