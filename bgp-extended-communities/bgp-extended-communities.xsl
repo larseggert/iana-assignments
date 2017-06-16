@@ -36,7 +36,8 @@
         or @id = 'non-trans-opaque'
         or @id = 'bgp-extended-communities-10'
         or @id = 'generic-transitive-experimental-part2'
-        or @id = 'generic-transitive-experimental-part3'">
+        or @id = 'generic-transitive-experimental-part3'
+        or @id = 'evpn-layer-2-attributes-control-flags'">
         <th>Sub-Type Value</th>
         <th>Name</th>
         <th>Reference</th>
@@ -86,7 +87,7 @@
         </xsl:when>
         <xsl:otherwise>
           <td align="center"><xsl:value-of select="iana:value"/></td>
-          <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:value-of select="@date"/></td>
         </xsl:otherwise>
