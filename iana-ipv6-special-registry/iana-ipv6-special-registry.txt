@@ -4,7 +4,7 @@
            2006-01-10
 
    Last Updated
-           2017-05-31
+           2017-06-28
 
    Available Formats
            [IMG]
@@ -23,7 +23,7 @@ IANA IPv6 Special-Purpose Address Registry
  IETF Review
 
    Reference
-           [RFC4773][RFC6890]
+           [RFC4773][RFC6890][RFC8190]
 
    Note
 
@@ -62,10 +62,10 @@ IANA IPv6 Special-Purpose Address Registry
        allocated special-purpose address block between external
        interfaces.
 
-    o  Global - A boolean value indicating whether an IP datagram whose
-       destination address is drawn from the allocated special-purpose
-       address block is forwardable beyond a specified administrative
-       domain.
+    o  Globally Reachable - A boolean value indicating whether an IP
+       datagram whose destination address is drawn from the allocated
+       special-purpose address block is forwardable beyond a specified
+       administrative domain.
 
     o  Reserved-by-Protocol - A boolean value indicating whether the
        special-purpose address block is reserved by IP, itself.  This
@@ -75,53 +75,42 @@ IANA IPv6 Special-Purpose Address Registry
        addresses contained by the address block.
 
  If the value of "Destination" is FALSE, the values of "Forwardable" and
- "Global" must also be false.
-
+ "Globally Reachable" must also be false.
 
 
    Available Formats
            [IMG]
            CSV
 
-     Address Block         Name                 RFC            Allocation Termination Source Destination Forwardable Globally  Reserved-by-Protocol
-                                                                  Date       Date                                    Reachable
-   ::1/128           Loopback Address [RFC4291]                2006-02    N/A         False  False       False       False     True
-   ::/128            Unspecified      [RFC4291]                2006-02    N/A         True   False       False       False     True
-                     Address
-   ::ffff:0:0/96     IPv4-mapped      [RFC4291]                2006-02    N/A         False  False       False       False     True
-                     Address
-   64:ff9b::/96      IPv4-IPv6        [RFC6052]                2010-10    N/A         True   True        True        True      False
-                     Translat.
-   100::/64          Discard-Only     [RFC6666]                2012-06    N/A         True   True        True        False     False
-                     Address Block
-   2001::/23         IETF Protocol    [RFC2928]                2000-09    N/A         False  False [1]   False [1]   False [1] False
-                     Assignments                                                      [1]
-   2001::/32         TEREDO           [RFC4380]                2006-01    N/A         True   True        True        N/A [2]   False
-                                      [RFC-bchv-rfc6890bis-07]
-   2001:1::1/128     Port Control     [RFC7723]                2015-10    N/A         True   True        True        True      False
-                     Protocol Anycast
-                     Traversal Using
-   2001:1::2/128     Relays around    [RFC8155]                2017-02    N/A         True   True        True        True      False
+     Address Block               Name                 RFC    Allocation Termination  Source  Destination Forwardable Globally  Reserved-by-Protocol
+                                                                Date       Date                                      Reachable
+   ::1/128           Loopback Address              [RFC4291] 2006-02    N/A         False    False       False       False     True
+   ::/128            Unspecified Address           [RFC4291] 2006-02    N/A         True     False       False       False     True
+   ::ffff:0:0/96     IPv4-mapped Address           [RFC4291] 2006-02    N/A         False    False       False       False     True
+   64:ff9b::/96      IPv4-IPv6 Translat.           [RFC6052] 2010-10    N/A         True     True        True        True      False
+   100::/64          Discard-Only Address Block    [RFC6666] 2012-06    N/A         True     True        True        False     False
+   2001::/23         IETF Protocol Assignments     [RFC2928] 2000-09    N/A         False    False [1]   False [1]   False [1] False
+                                                                                    [1]
+   2001::/32         TEREDO                        [RFC4380] 2006-01    N/A         True     True        True        N/A [2]   False
+                                                   [RFC8190]
+   2001:1::1/128     Port Control Protocol Anycast [RFC7723] 2015-10    N/A         True     True        True        True      False
+   2001:1::2/128     Traversal Using Relays around [RFC8155] 2017-02    N/A         True     True        True        True      False
                      NAT Anycast
-   2001:2::/48       Benchmarking     [RFC5180]                2008-04    N/A         True   True        True        False     False
-   2001:3::/32       AMT              [RFC7450]                2014-12    N/A         True   True        True        True      False
-   2001:4:112::/48   AS112-v6         [RFC7535]                2014-12    N/A         True   True        True        True      False
-                     EID Space for                                                    True
-   2001:5::/32       LISP (Managed by [RFC7954]                2016-09    2019-09 [3] [4]    True        True        True      True [5]
-                     RIPE NCC)
-                     Deprecated
-   2001:10::/28      (previously      [RFC4843]                2007-03    2014-03
+   2001:2::/48       Benchmarking                  [RFC5180] 2008-04    N/A         True     True        True        False     False
+   2001:3::/32       AMT                           [RFC7450] 2014-12    N/A         True     True        True        True      False
+   2001:4:112::/48   AS112-v6                      [RFC7535] 2014-12    N/A         True     True        True        True      False
+   2001:5::/32       EID Space for LISP (Managed   [RFC7954] 2016-09    2019-09 [3] True [4] True        True        True      True [5]
+                     by RIPE NCC)
+   2001:10::/28      Deprecated (previously        [RFC4843] 2007-03    2014-03
                      ORCHID)
-   2001:20::/28      ORCHIDv2         [RFC7343]                2014-07    N/A         True   True        True        True      False
-   2001:db8::/32     Documentation    [RFC3849]                2004-07    N/A         False  False       False       False     False
-   2002::/16 [6]     6to4             [RFC3056]                2001-02    N/A         True   True        True        N/A [6]   False
-                     Direct
-   2620:4f:8000::/48 Delegation AS112 [RFC7534]                2011-05    N/A         True   True        True        True      False
+   2001:20::/28      ORCHIDv2                      [RFC7343] 2014-07    N/A         True     True        True        True      False
+   2001:db8::/32     Documentation                 [RFC3849] 2004-07    N/A         False    False       False       False     False
+   2002::/16 [6]     6to4                          [RFC3056] 2001-02    N/A         True     True        True        N/A [6]   False
+   2620:4f:8000::/48 Direct Delegation AS112       [RFC7534] 2011-05    N/A         True     True        True        True      False
                      Service
-   fc00::/7          Unique-Local     [RFC4193]                2005-10    N/A         True   True        True        False [7] False
-                                      [RFC-bchv-rfc6890bis-07]
-   fe80::/10         Linked-Scoped    [RFC4291]                2006-02    N/A         True   True        False       False     True
-                     Unicast
+   fc00::/7          Unique-Local                  [RFC4193] 2005-10    N/A         True     True        True        False [7] False
+                                                   [RFC8190]
+   fe80::/10         Link-Local Unicast            [RFC4291] 2006-02    N/A         True     True        False       False     True
 
                                                                       Footnotes
 
