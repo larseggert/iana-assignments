@@ -39,6 +39,11 @@
        <th>Description</th>
        <th>Reference</th>
       </xsl:when>
+     <xsl:otherwise>
+      <th>Value</th>
+      <th>Description</th>
+      <th>Reference</th>
+     </xsl:otherwise>
     </xsl:choose>
     </tr>
   </xsl:template>
@@ -79,6 +84,11 @@
        <td><xsl:value-of select="iana:description"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
       </xsl:when>
+     <xsl:otherwise>
+      <td><xsl:value-of select="iana:value"/></td>
+      <td><xsl:value-of select="iana:description"/></td>
+      <td><xsl:apply-templates select="iana:xref"/></td>
+     </xsl:otherwise>
     </xsl:choose>
      </tr>
   </xsl:template>
