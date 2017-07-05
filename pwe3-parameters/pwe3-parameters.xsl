@@ -111,6 +111,36 @@
             <th>Reference</th>
           </tr>
       </xsl:when>
+      <xsl:when test="@id = 'pw-status-refresh-reduction-control-messages'">
+        <tr>
+          <th>Type</th>
+          <th>Message Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'pw-status-refresh-reduction-configuration-message-sub-tlvs'">
+        <tr>
+          <th>sub-TLV Type</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'pw-status-refresh-reduction-notification-codes'">
+        <tr>
+          <th>Code</th>
+          <th>Error?</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'pw-status-refresh-reduction-message-flags'">
+        <tr>
+          <th>Bit Position</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <th>Value</th>
@@ -236,6 +266,22 @@
       <xsl:when test="../@id = 'icc-rg'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'pw-status-refresh-reduction-notification-codes'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:error"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'pw-status-refresh-reduction-notification-codes'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
