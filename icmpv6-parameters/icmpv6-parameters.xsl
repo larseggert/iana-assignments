@@ -86,7 +86,7 @@
      <xsl:otherwise>
       <tr>
        <td align="center"><xsl:value-of select="iana:value"/></td>
-       <xsl:if test="../iana:record/iana:name"><td align="center"><xsl:value-of select="iana:name"/></td></xsl:if>
+       <xsl:if test="../iana:record/iana:name"><td><xsl:value-of select="iana:name"/></td></xsl:if>
        <xsl:if test="../iana:record/iana:xref"><td><xsl:apply-templates select="iana:xref"/></td></xsl:if>
       </tr>
      </xsl:otherwise>
