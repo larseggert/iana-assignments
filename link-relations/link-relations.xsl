@@ -16,15 +16,6 @@
       <th>Notes</th>
     </tr>
       </xsl:when>
-      <xsl:when test="@id = 'link-relations-2'">
-        <tr>
-          <th>Application Name</th>
-          <th>Description</th>
-          <th>Default Value</th>
-          <th>Reference</th>
-          <th>Notes</th>
-        </tr>
-      </xsl:when>
     </xsl:choose>  
   </xsl:template>
 
@@ -37,15 +28,6 @@
       <td><xsl:apply-templates select="iana:spec"/></td>      
       <td><xsl:value-of select="iana:note"/></td>    
     </tr>
-      </xsl:when>
-      <xsl:when test="../@id = 'link-relations-2'">
-        <tr>
-          <td align="center"><xsl:value-of select="iana:value"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
-          <td><xsl:value-of select="iana:default"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
-          <td><xsl:value-of select="iana:note"/></td> 
-        </tr>
       </xsl:when>
     </xsl:choose>      
   </xsl:template>
