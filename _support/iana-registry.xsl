@@ -486,13 +486,13 @@
         </a>
       </xsl:when>
       <xsl:when test="@type = 'rfc-errata'">
-        <a href="http://www.rfc-editor.org/errata_search.php?eid={@data}">RFC Errata 
+        <a href="http://www.rfc-editor.org/errata_search.php?eid={@data}"><span>RFC Errata </span>
           <xsl:choose>
             <xsl:when test="normalize-space()">
-              <xsl:value-of select="."/>
+<xsl:value-of select="."/>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:value-of select="translate(@data,$alpha,$ALPHA)"/>
+<xsl:value-of select="translate(@data,$alpha,$ALPHA)"/>
             </xsl:otherwise>
           </xsl:choose>
         </a>
