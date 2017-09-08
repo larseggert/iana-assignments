@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="sctp-parameters">
   <title>Stream Control Transmission Protocol (SCTP) Parameters</title>
   <created>2000-10</created>
-  <updated>2017-06-09</updated>
+  <updated>2017-09-07</updated>
 
   
   <registry id="sctp-parameters-1">
@@ -12,6 +12,10 @@
     <xref type="rfc" data="rfc4960"/>
     <xref type="rfc" data="rfc6096"/>
     <registration_rule>IETF Review</registration_rule>
+    <note>A Chunk Flags sub-registry will be created for each new Chunk Type. 
+The registration procedure for those sub-registries is RFC Required <xref type="rfc" data="rfc8126"/>. 
+For more information, see Section 3.2 of <xref type="rfc" data="rfc6096"/>.
+    </note>
     <record>
       <value>0</value>
       <name>Payload Data (DATA)</name>
@@ -101,7 +105,12 @@
       <name>Reserved for IETF-defined Chunk Extensions</name>
     </record>
     <record>
-      <value>64-126</value>
+      <value>64</value>
+      <name>Payload Data supporting Interleaving (I-DATA)</name>
+      <xref type="draft" data="RFC-ietf-tsvwg-sctp-ndata-13"/>
+    </record>
+    <record>
+      <value>65-126</value>
       <name>Unassigned</name>
     </record>
     <record>
@@ -150,7 +159,12 @@
       <xref type="rfc" data="rfc5061"/>
     </record>
     <record>
-      <value>194-254</value>
+      <value>194</value>
+      <name>I-FORWARD-TSN</name>
+      <xref type="draft" data="RFC-ietf-tsvwg-sctp-ndata-13"/>
+    </record>
+    <record>
+      <value>195-254</value>
       <name>Unassigned</name>
     </record>
     <record>
@@ -887,6 +901,45 @@
         <name>Unassigned</name>
       </record>
     </registry>
+    <registry id="i-data-chunk-flags">
+      <title>I-DATA Chunk Flags</title>
+      <record>
+        <value>0x01</value>
+        <name>E bit</name>
+        <xref type="draft" data="RFC-ietf-tsvwg-sctp-ndata-13"/>
+      </record>
+      <record>
+        <value>0x02</value>
+        <name>B bit</name>
+        <xref type="draft" data="RFC-ietf-tsvwg-sctp-ndata-13"/>
+      </record>
+      <record>
+        <value>0x04</value>
+        <name>U bit</name>
+        <xref type="draft" data="RFC-ietf-tsvwg-sctp-ndata-13"/>
+      </record>
+      <record>
+        <value>0x08</value>
+        <name>I bit</name>
+        <xref type="draft" data="RFC-ietf-tsvwg-sctp-ndata-13"/>
+      </record>
+      <record>
+        <value>0x10</value>
+        <name>Unassigned</name>
+      </record>
+      <record>
+        <value>0x20</value>
+        <name>Unassigned</name>
+      </record>
+      <record>
+        <value>0x40</value>
+        <name>Unassigned</name>
+      </record>
+      <record>
+        <value>0x80</value>
+        <name>Unassigned</name>
+      </record>
+    </registry>
     <registry id="sctp-parameters-20">
       <title>ASCONF-ACK Chunk Flags</title>
       <record>
@@ -1061,6 +1114,9 @@
         <value>0x80</value>
         <name>Unassigned</name>
       </record>
+    </registry>
+    <registry id="i-forward-tsn-chunk-flags">
+      <title>I-FORWARD-TSN Chunk Flags</title>
     </registry>
   </registry>
   

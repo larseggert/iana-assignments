@@ -35,11 +35,13 @@
 	              @id = 'sctp-parameters-17' or
 	              @id = 'sctp-parameters-18' or
 	              @id = 'sctp-parameters-19' or
+	              @id = 'i-data-chunk-flags' or
 	              @id = 'sctp-parameters-20' or
 	              @id = 're-config-chunk-flags' or
 	              @id = 'sctp-parameters-21' or
 	              @id = 'sctp-parameters-22' or
-	              @id = 'sctp-parameters-23'">
+	              @id = 'sctp-parameters-23' or
+	              @id = 'i-forward-tsn-chunk-flags'">
        <th>Chunk Flag Value</th>
        <th>Chunk Flag Name</th>
        <th>Reference</th>
@@ -90,11 +92,13 @@
 	              ../@id = 'sctp-parameters-17' or
 	              ../@id = 'sctp-parameters-18' or
 	              ../@id = 'sctp-parameters-19' or
+	              ../@id = 'i-data-chunk-flags' or
 	              ../@id = 'sctp-parameters-20' or
 	              ../@id = 're-config-chunk-flags' or
 	              ../@id = 'sctp-parameters-21' or
 	              ../@id = 'sctp-parameters-22' or
 	              ../@id = 'sctp-parameters-23' or
+	              ../@id = 'i-forward-tsn-chunk-flags'or
 	              ../@id = 'sctp-parameters-24' or
 	              ../@id = 'sctp-parameters-26'">
        <td><xsl:value-of select="iana:value"/></td>

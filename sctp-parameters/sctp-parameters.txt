@@ -4,7 +4,7 @@
            2000-10
 
    Last Updated
-           2017-06-09
+           2017-09-07
 
    Available Formats
            [IMG]
@@ -14,36 +14,38 @@
 
    Registries included below
 
-     * Chunk Types
-     * Chunk Parameter Types
-     * Chunk Flags
+     * Chunk Types
+     * Chunk Parameter Types
+     * Chunk Flags
 
-          * DATA Chunk Flags
-          * INIT Chunk Flags
-          * INIT ACK Chunk Flags
-          * SACK Chunk Flags
-          * HEARTBEAT Chunk Flags
-          * HEARTBEAT ACK Chunk Flags
-          * ABORT Chunk Flags
-          * SHUTDOWN Chunk Flags
-          * SHUTDOWN ACK Chunk Flags
-          * ERROR Chunk Flags
-          * COOKIE ECHO Chunk Flags
-          * COOKIE ACK Chunk Flags
-          * ECNE Chunk Flags
-          * CWR Chunk Flags
-          * SHUTDOWN COMPLETE Chunk Flags
-          * AUTH Chunk Flags
-          * ASCONF-ACK Chunk Flags
-          * RE-CONFIG Chunk Flags
-          * PAD Chunk Flags
-          * FORWARD TSN Chunk Flags
-          * ASCONF Chunk Flags
+          * DATA Chunk Flags
+          * INIT Chunk Flags
+          * INIT ACK Chunk Flags
+          * SACK Chunk Flags
+          * HEARTBEAT Chunk Flags
+          * HEARTBEAT ACK Chunk Flags
+          * ABORT Chunk Flags
+          * SHUTDOWN Chunk Flags
+          * SHUTDOWN ACK Chunk Flags
+          * ERROR Chunk Flags
+          * COOKIE ECHO Chunk Flags
+          * COOKIE ACK Chunk Flags
+          * ECNE Chunk Flags
+          * CWR Chunk Flags
+          * SHUTDOWN COMPLETE Chunk Flags
+          * AUTH Chunk Flags
+          * I-DATA Chunk Flags
+          * ASCONF-ACK Chunk Flags
+          * RE-CONFIG Chunk Flags
+          * PAD Chunk Flags
+          * FORWARD TSN Chunk Flags
+          * ASCONF Chunk Flags
+          * I-FORWARD-TSN Chunk Flags
 
-     * Error Cause Codes
-     * SCTP Payload Protocol Identifiers
-     * Hashed Message Authentication Code (HMAC) Identifiers
-     * Adaptation Code Points
+     * Error Cause Codes
+     * SCTP Payload Protocol Identifiers
+     * Hashed Message Authentication Code (HMAC) Identifiers
+     * Adaptation Code Points
 
 Chunk Types
 
@@ -54,11 +56,18 @@ Chunk Types
    Reference
            [RFC4960][RFC6096]
 
+   Note
+
+ A Chunk Flags sub-registry will be created for each new Chunk Type.
+ The registration procedure for those sub-registries is RFC Required [RFC8126].
+ For more information, see Section 3.2 of [RFC6096].
+
+
    Available Formats
            [IMG]
            CSV
 
-   ID Value                        Chunk Type                         Reference
+   ID Value                        Chunk Type                                   Reference
    0        Payload Data (DATA)                                       [RFC4960]
    1        Initiation (INIT)                                         [RFC4960]
    2        Initiation Acknowledgement (INIT ACK)                     [RFC4960]
@@ -77,7 +86,8 @@ Chunk Types
    15       Authentication Chunk (AUTH)                               [RFC4895]
    16-62    Unassigned
    63       Reserved for IETF-defined Chunk Extensions
-   64-126   Unassigned
+   64       Payload Data supporting Interleaving (I-DATA)             [RFC-ietf-tsvwg-sctp-ndata-13]
+   65-126   Unassigned
    127      Reserved for IETF-defined Chunk Extensions
    128      Address Configuration Acknowledgment (ASCONF-ACK)         [RFC5061]
    129      Unassigned
@@ -88,7 +98,8 @@ Chunk Types
    191      Reserved for IETF-defined Chunk Extensions
    192      Forward TSN                                               [RFC3758]
    193      Address Configuration Change Chunk (ASCONF)               [RFC5061]
-   194-254  Unassigned
+   194      I-FORWARD-TSN                                             [RFC-ietf-tsvwg-sctp-ndata-13]
+   195-254  Unassigned
    255      Reserved for IETF-defined Chunk Extensions                [RFC4960]
 
 Chunk Parameter Types
@@ -402,6 +413,22 @@ Chunk Flags
    0x40             Unassigned
    0x80             Unassigned
 
+  I-DATA Chunk Flags
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Chunk Flag Value Chunk Flag Name           Reference
+   0x01             E bit           [RFC-ietf-tsvwg-sctp-ndata-13]
+   0x02             B bit           [RFC-ietf-tsvwg-sctp-ndata-13]
+   0x04             U bit           [RFC-ietf-tsvwg-sctp-ndata-13]
+   0x08             I bit           [RFC-ietf-tsvwg-sctp-ndata-13]
+   0x10             Unassigned
+   0x20             Unassigned
+   0x40             Unassigned
+   0x80             Unassigned
+
   ASCONF-ACK Chunk Flags
 
    Available Formats
@@ -481,6 +508,11 @@ Chunk Flags
    0x20             Unassigned
    0x40             Unassigned
    0x80             Unassigned
+
+  I-FORWARD-TSN Chunk Flags
+
+   Chunk Flag Value Chunk Flag Name Reference
+   No registrations at this time.
 
 Error Cause Codes
 
