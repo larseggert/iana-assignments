@@ -29,7 +29,7 @@
       </xsl:when>
       <xsl:when test="../@id = 'message-types'">
         <tr>
-          <td align="center"><xsl:value-of select="iana:code"/></td>
+          <td><xsl:value-of select="iana:code"/></td>
           <td><xsl:value-of select="iana:meaning"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
