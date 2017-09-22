@@ -85,6 +85,13 @@
         <th>Reference</th>
       </tr>
      </xsl:when>
+      <xsl:when test="@id = 'gdoi-payloads-kek-ack-requested'">
+        <tr>
+          <th>Value</th>
+          <th>Type</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when> 
      <xsl:when test="@id = 'gdoi-payloads-14'">
       <tr>
         <th>Value</th>
@@ -155,10 +162,17 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:otherwise>
+      <xsl:when test="@id = 'id-types'">
         <tr>
           <th>Value</th>
           <th>Name</th>
+          <th>Reference</th>
+        </tr>
+        </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <th>Value</th>
+          <th>Phase</th>
           <th>Reference</th>
         </tr>
       </xsl:otherwise>
