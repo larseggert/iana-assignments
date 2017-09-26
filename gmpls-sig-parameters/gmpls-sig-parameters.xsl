@@ -43,6 +43,14 @@
       <xsl:when test="@id = 'otn-signal-type'">
         <tr><th>Value</th><th>Signal Type</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'generalized-scsi-tlv-type'">
+        <tr>
+          <th>Value</th>
+          <th>SCSI-TLV</th>
+          <th>Switching Type</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Name</th><th>Reference</th></tr>
       </xsl:otherwise>
@@ -88,6 +96,12 @@
         <td align="center"><xsl:value-of select="iana:value"/></td>
         <td><xsl:value-of select="iana:hex"/></td>
         <td><xsl:value-of select="iana:type"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
+      </xsl:when>
+      <xsl:when test="../@id = 'generalized-scsi-tlv-type'">
+        <td align="center"><xsl:value-of select="iana:value"/></td>
+        <td><xsl:value-of select="iana:description"/></td>
+        <td><xsl:value-of select="iana:switching"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
       </xsl:when>
       <xsl:otherwise>
