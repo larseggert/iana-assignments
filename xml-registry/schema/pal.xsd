@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:pal="urn:ietf:params:xml:ns:pal"
+ targetNamespace="urn:ietf:params:xml:ns:pal"
+ elementFormDefault="qualified" attributeFormDefault="unqualified"
+ version="1.0">
+ <xsd:annotation>
+  <xsd:documentation>
+   This schema defines the types and elements needed
+   to retrieve client packages from the server or for the
+   client to post packages to the server.
+  </xsd:documentation>
+ </xsd:annotation>
+ 
+ <!-- ===== Element Declarations ===== -->
+ 
+ <xsd:element name="pal" type="pal:PAL" />
+ 
+ <!-- ===== Complex Data Element Type Definitions ===== -->
+ 
+ <xsd:complexType name="PAL">
+  <xsd:annotation>
+   <xsd:documentation>
+    This type defines the Package Availability List (PAL).
+   </xsd:documentation>
+  </xsd:annotation>
+  <xsd:sequence>
+   <xsd:element name="message" type="pal:PALEntry"
+    minOccurs="0" maxOccurs="unbounded">
+    <xsd:annotation>
+     <xsd:documentation>
+      Contains information about the package and a link that
+      the client uses to download or post the package.
+     </xsd:documentation>
+    </xsd:annotation>
+   </xsd:element>
+  </xsd:sequence>
+ </xsd:complexType>
+ 
+ <xsd:complexType name="PALEntry">
+  <xsd:annotation>
+   <xsd:documentation>
+    This type defines a product in the PAL.
+   </xsd:documentation>
+  </xsd:annotation>
+  <xsd:sequence>
+   <xsd:element name="type" type="pal:PackageType" />
+   <xsd:element name="date" type="pal:GeneralizedTimeType"
+    minOccurs="0" />
+   <xsd:element name="size" type="xsd:nonNegativeInteger">
+    <xsd:annotation>
+     <xsd:documentation>
+      Indicates the package's size.
+     </xsd:documentation>
+    </xsd:annotation>
+    <xsd:element name="info" type="pal:PackageInfoType" />
+ </xsd:sequence>
+ </xsd:complexType>
+ 
+ <xsd:complexType name="PackageInfoType">
+  <xsd:annotation>
+   <xsd:documentation>
+    This type allows a choice of X.500 Distinguished Name,
+    Subject Key Identifier, Issuer and Serial Number tuple,
+    or URI.
+   </xsd:documentation>
+  </xsd:annotation>
+  <xsd:choice>
+   <xsd:element name="dn"   type="pal:DistinguishedName" />
+   <xsd:element name="ski"  type="pal:SubjectKeyIdentifier" />
+   <xsd:element name="iasn" type="pal:IssuerAndSerialNumber" />
+   <xsd:element name="uri"  type="pal:ThisURI" />
+  </xsd:choice>
+ </xsd:complexType>
+ 
+ <xsd:complexType name="IssuerAndSerialNumber">
+  <xsd:annotation>
+   <xsd:documentation>
+    This type holds the issuer Distinguished Name and
+    serial number of a referenced certificate.
+   </xsd:documentation>
+  </xsd:annotation>
+  <xsd:sequence>
+   <xsd:element name="issuer" type="pal:DistinguishedName" />
+   <xsd:element name="serial" type="xsd:positiveInteger" />
+  </xsd:sequence>
+ </xsd:complexType>
+ 
+ <!-- =====Simple Data Element Type Definitions ===== -->
+ 
+ <xsd:simpleType name="PackageType">
+  <xsd:annotation>
+   <xsd:documentation>
+    Identifies each package that a client may retrieve from
+    the server with a 4-digit string.
+   </xsd:documentation>
+  </xsd:annotation>
+  <xsd:restriction base="xsd:string">
+   <xsd:pattern value="d{4}" />
+  </xsd:restriction>
+ </xsd:simpleType>
+ 
+ <xsd:simpleType name="GeneralizedTimeType">
+  <xsd:annotation>
+   <xsd:documentation>
+    Indicates the date and time (YYYY-MM-DDTHH:MM:SSZ) the
+    client last acknowledged successful receipt of the
+    package or is absent if a) there is no indication
+    the package has been downloaded or b) the PAL entry
+    corresponds to a pointer to the next PAL.
+   </xsd:documentation>
+  </xsd:annotation>
+  <xsd:restriction base="xsd:dateTime">
+   <xsd:pattern value=".*:d{2}Z" />
+   <xsd:minInclusive value="2013-05-23T00:00:00Z" />
+  </xsd:restriction>
+ </xsd:simpleType>
+ 
+ <xsd:simpleType name="DistinguishedName">
+  <xsd:annotation>
+   <xsd:documentation>
+    This type holds an X.500 Distinguished Name.
+   </xsd:documentation>
+  </xsd:annotation>
+  <xsd:restriction base="xsd:string">
+   <xsd:maxLength value="1024" />
+  </xsd:restriction>
+ </xsd:simpleType>
+ 
+ <xsd:simpleType name="SubjectKeyIdentifier">
+  <xsd:annotation>
+   <xsd:documentation>
+    This type holds a hex string representing the value of a
+    certificate's SubjectKeyIdentifier.
+   </xsd:documentation>
+  </xsd:annotation>
+  <xsd:restriction base="xsd:hexBinary">
+   <xsd:maxLength value="1024" />
+  </xsd:restriction>
+ </xsd:simpleType>
+ 
+ <xsd:simpleType name="ThisURI">
+  <xsd:annotation>
+   <xsd:documentation>
+    This type holds a URI, but is length limited.
+   </xsd:documentation>
+  </xsd:annotation>
+  <xsd:restriction base="xsd:anyURI" />
+  <xsd:maxLength value="1024" />
+ </xsd:simpleType>
+ 
+</xsd:schema>
