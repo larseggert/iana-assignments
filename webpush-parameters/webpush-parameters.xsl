@@ -9,10 +9,19 @@
   <xsl:template name="iana:record_header">
     <xsl:choose> 
       <xsl:when test="@id = 'identifiers'">
-        <tr><th>URN</th>
+        <tr>
+          <th>URN</th>
           <th>Description</th>
           <th>Contact</th>
           <th>Index Value</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'vapid-authentication-scheme-parameters'">
+        <tr>
+          <th>Parameter Name</th>
+          <th>Purpose</th>
+          <th>Header Fields</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
@@ -27,6 +36,14 @@
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:contact"/></td>
           <td><xsl:apply-templates select="iana:index"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'vapid-authentication-scheme-parameters'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:header"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
