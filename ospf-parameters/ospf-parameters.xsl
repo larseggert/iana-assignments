@@ -15,6 +15,9 @@
       <xsl:when test="@id = 'router-functional-capability'">
         <tr><th>Bit Number</th><th>Capability Name</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'tunnel-parameter-tlv'">
+        <tr><th>Value</th><th>TLV Name</th><th>Reference</th></tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
