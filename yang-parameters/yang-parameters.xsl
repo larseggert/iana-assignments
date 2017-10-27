@@ -7,16 +7,20 @@
   <xsl:import href="../_support/iana-registry.xsl" />
 
   <xsl:template name="iana:record_header">
-    <tr><th>Name</th>
+    <tr>
+      <th>Name</th>
+      <th>File</th>
       <th>Namespace (Modules Only)</th>
       <th>Prefix (Modules Only)</th>
       <th>Module (Submodules Only)</th>
-      <th>Reference</th></tr>
+      <th>Reference</th>
+    </tr>
   </xsl:template>
 
   <xsl:template match="iana:record">
     <tr>
       <td><xsl:apply-templates select="iana:name"/></td>
+      <td><xsl:apply-templates select="iana:file"/></td>
       <td><xsl:apply-templates select="iana:namespace"/></td>
       <td><xsl:apply-templates select="iana:prefix"/></td>
       <td><xsl:apply-templates select="iana:module"/></td>
