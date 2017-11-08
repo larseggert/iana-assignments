@@ -10,10 +10,12 @@
     <tr>
       <th>Name</th>
       <th>File</th>
+      <th>Maintained by IANA?</th>
       <th>Namespace (Modules Only)</th>
       <th>Prefix (Modules Only)</th>
       <th>Module (Submodules Only)</th>
       <th>Reference</th>
+      <th>Notes</th>
     </tr>
   </xsl:template>
 
@@ -21,10 +23,12 @@
     <tr>
       <td><xsl:apply-templates select="iana:name"/></td>
       <td><xsl:apply-templates select="iana:file"/></td>
+      <td align="center"><xsl:apply-templates select="iana:iana"/></td>
       <td><xsl:apply-templates select="iana:namespace"/></td>
       <td><xsl:apply-templates select="iana:prefix"/></td>
       <td><xsl:apply-templates select="iana:module"/></td>
       <td><xsl:apply-templates select="iana:xref"/></td>
+      <td><xsl:apply-templates select="iana:notes"/></td>
     </tr>
   </xsl:template>
 
