@@ -33,14 +33,14 @@
         <tr>
           <th>Value</th>
           <th>Meaning</th>
-          <th>Reference</th>>
+          <th>Reference</th>
         </tr>
       </xsl:when>
       <xsl:when test="@id = 'next-protocol'">
         <tr>
           <th>Next Protocol</th>
           <th>Description</th>
-          <th>Reference</th>>
+          <th>Reference</th>
         </tr>
       </xsl:when>
       <xsl:otherwise>
