@@ -158,6 +158,14 @@
         <th>Reference</th>
       </tr>
      </xsl:when>
+      
+      <xsl:when test="@id = 'extension-names'">
+        <tr>
+          <th>Extension Name</th>
+          <th>Reference</th>
+          <th>Note</th>
+        </tr>
+      </xsl:when> 
     </xsl:choose>
   </xsl:template>
   <xsl:template match="iana:record">
