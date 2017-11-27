@@ -21,7 +21,7 @@
         <tr>
           <th>Parameter Name</th>
           <th>Purpose</th>
-          <th>Header Fields</th>
+          <th>Header Field(s)</th>
           <th>Reference</th>
         </tr>
       </xsl:when>

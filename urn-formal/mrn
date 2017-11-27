@@ -1,0 +1,272 @@
+Namespace ID:
+
+   "mrn" Requested of IANA
+
+Version:
+
+   1
+
+Date:
+
+   2017-08-24
+
+Registrant:
+  
+   Name: Kasper Nielsen 
+   E-mail: kasperni&gmail.com
+ 
+   On behalf of
+
+   International Association of Marine Aids to Navigation and
+   Lighthouse Authorities (IALA)
+
+   10 rue des Gaudines
+   78100
+   St Germain en Laye
+   France
+   Email: contact&iala-aism.org
+
+   The International Association of Marine Aids to Navigation and
+   Lighthouse Authorities (IALA) is a non-profit, international
+   technical association in the field of marine aids to navigation.
+   Founded in 1957, IALA gathers together authorities, manufacturers,
+   consultants, and scientific and training institutes from all over the
+   world, offering them the opportunity to exchange and compare their
+   experiences and achievements.
+
+   The requesting entity is an international recognized standards development 
+   organization. And is applying for the namespace registration as such.
+
+Purpose:
+
+   Many standardized identification schemes exist for vessels, buoys,
+   mariners and other maritime resources already, but there is no single
+   system that allows people to specify such an identifier in a uniform
+   and unambiguous way.  We believe that it makes sense to introduce a
+   naming scheme that can uniquely identify any maritime resource on a
+   global scale.
+ 
+   A "maritime resource" can be anything that has an identity, including
+   organizations, employees, people, physical objects, virtual objects
+   (such as electronic documents), buoys, ships, mariners, nautical
+   charts and electronic services (e.g., "today's weather report for the
+   Oresund Strait").  Of course, not all resources are "retrievable" in
+   an electronic sense; human beings, corporations, and buoys would be
+   obvious examples.  However, all of these can still be considered
+   resources.
+
+   Having a uniform naming scheme will pave the way for new maritime
+   digital information services, facilitating innovation, integration,
+   trade, safety, and security in the maritime sector.  
+
+Syntax:
+
+   The basic syntax for a MRN is defined using the Augmented Backus-Naur
+   Form (ABNF) as specified in [RFC5234]:
+
+      <MRN>   ::= "urn" ":" "mrn" ":" <OID> ":" <OSS>
+                  [ rq-components ]
+                  [ "#" f-component ]
+                  
+      <OID>   ::= (alphanum) 0*20(alphanum / "-") (alphanum) ; Organization ID
+
+      <OSS>   ::= <OSNID> ":" <OSNS> ; Organization-specific string
+                
+      <OSNID> ::= (alphanum) 0*32(alphanum / "-") (alphanum) 
+                  ; Organization-specific namespace ID
+
+      <OSNS>  ::= pchar *(pchar / "/") ; Organization-specific namespace string
+      
+   Rules not defined here:
+       
+      alphanum and pchar as defined in [RFC3986].
+       
+      rq-components and f-component as defined in [RFC8141].
+       
+   The namespace, “mrn”, OID, and OSNID tokens are conventionally written in lower case. 
+
+   Q-component, F-component and R-component are not generally defined by this 
+   specification. Organization specific namespace strings might choose to make
+   use of them where applicable.
+
+   If adopting existing non-URN based identifier systems that includes 
+   characters not allowed by the URN syntax as specified in [RFC8141].
+   The representation of these characters should be handled by percent-encoding 
+   the character as specified in Section 2.1 of the URI specification [RFC3986].
+
+Rules for Lexical Equivalence:
+
+   In addition to the URN equivalance rules defined in Section 2.1 of the URN
+   specification [RFC8141]. Case normalization must be applied to both the OID 
+   and OSNID part before determining lexical equivalence.
+
+   Rules for equality comparisons of the OSNS part must be clearly documented 
+   by the governing organization, and be consistent with sections 3.1 and 6.4.2 of 
+   [RFC8141].
+
+Examples:
+
+   All the examples provided in this section are hypothetical.
+   Real world naming schemes will most likely look different.
+
+   Using the MRN identifier scheme, a vessel with an IMO number of
+   9743368 could be identified as follows:
+
+   >  urn:mrn:imo:imo-number:9743368
+
+   The governing organization that assigns IMO numbers is the
+   International Maritime Organization (IMO).  IMO may delegate the
+   actual assignment of numbers to another organization, but it is still
+   the organization that determines that an IMO number is unique.
+   Within the context of maritime resource names, the organization ID
+   (OID) refers to the organization that governs the syntax and rules of
+   a particular resource type.  In the example above, the organization
+   ID is "imo".
+
+   Each organization further divides the organization-specific string
+   (OSS), which is the part following "imo", into two parts.
+
+   The first part is an organization-specific namespace ID (OSNID),
+   which is a unique identifier within the governing organization for a
+   particular type of resource.  In this example, we have used "imo-
+   number," but this could just as well have been "imonumber" or even 
+   simply "number".
+
+   The second part is the organization-specific namespace string (OSNS).
+   This is the only part that differs for resources of the same type; in
+   this case it is "9743368".  The organization-specific namespace
+   string is, as the name implies, specific to a particular combination
+   of OID and OSNID.  In this case, the organization-specific namespace
+   string is always a 7-digit IMO number.
+
+   Another way to identify the same vessel might be to use its MMSI
+   number.  Here the identifier could look like this:
+
+   > urn:mrn:itu:mmsi:538070999
+
+   In this case ITU is the governing body because MMSI numbers are based
+   on ITU recommendation M.585. It is possible that national
+   bodies might do the actual assignment of MMSI numbers, but ITU is the
+   governing body for the standardization of MMSI numbers.
+
+   These two examples show how multiple identities can identify the same
+   entity; in this case, the same vessel can be identified by either an
+   IMO number or MMSI number.  This is similar to how an individual
+   might be identified either by a driver license number or a social
+   security ID.  Note that some parameters that are frequently used for
+   identification, such as human names, do not generally qualify as
+   identifiers because they are not guaranteed to be unique.  A single
+   identifier must refer to one and only one entity.
+
+   URNs range from very coarse-grained to very fine-grained.
+   For example, a container ship might be identified by one of the two
+   previous URNs.  The containers aboard the ship might be identified
+   with an URN adapting the ISO 6346 identifier scheme for container
+   ids.
+
+   > urn:mrn:bic:container-id:csqu3054383
+
+   Finally, individual items in a single container might be identified
+   by another URN scheme.  It might even be possible to integrate with
+   URNs defined outside of the urn:mrn namespace.  For example, all
+   items in a container might be identified by an electronic product
+   code ([RFC5134]).  In other words, the use of URNs as identifiers is
+   not limited to those defined within this document.  In the future,
+   other non-maritime sectors might even adopt similar naming schemes
+   based on URNs to facilitate easier integration across sector
+   boundaries.
+
+   As mentioned earlier, an identifier does not need to be a physical
+   object; it can be a virtual item such as an electronic document.  For
+   example, IMO might decide that all of their documents should use a
+   "publications" prefix.  The publication "IMO SOLAS Consolidated
+   Spanish Edition, 2014 IF110S" might be referred to as:
+    
+   > urn:mrn:imo:publications:if110s
+    
+   On the other hand, an organization such as IALA might decide that
+   their publications should follow another format where the category of
+   the publication is included in the identifier.  For example, a
+   recommendation could be:
+   
+   > urn:mrn:iala:publications:recommendation:e-nav-140 
+
+   The identifier of a guideline might be written as:
+
+   > urn:mrn:iala:publications:guideline:synchronisation-of-lights-1069
+
+   As can be seen from the previous example, the organization-specific
+   namespace string can be split into multiple hierarchies.  The
+   governing organization can decide how it wants to structure its
+   identifiers.
+
+   Another example of identifiers with multiple hierarchies could be
+   seen in an identifier scheme for lights and buoys.  Here IALA could
+   choose to let the OSNS consist of <CountryCode>:<National Identifier>. 
+   For example:
+   
+   > urn:mrn:iala:aton:us:1234x5
+
+   There are no requirements that organizations be permanent entities.
+   For example, the European STM Validation Project could choose to use
+   "stm" as its organization ID.  A voyage ID in this project might look
+   like this:
+   
+   > urn:mrn:stm:voyage:id:xcus231230 
+   
+   Within the project, the group may use "xcus231230" to refer to a
+   voyage plan.  However, the full URN can be used when working with
+   external systems or other projects, in case another type of
+   identifier is also used for a particular voyage.
+
+   As can be seen from all of these examples, the scheme is highly
+   adaptable.  Each organization can choose its own layout for a
+   specific type of identifier.  It is easy to fit existing identifiers
+   into the naming scheme, and it provides good context information
+   about the type of the identifier, unlike something simple such as a
+   random UUID.
+  
+   It is important to note that even though IALA is the maintainer of the MRN
+   URN namespace it cannot define MRNs outside of the "urn:mrn:iala" namespace.
+   All of the above examples that are not in the "urn:mrn:iala" namespace,
+   requires that the relevant organization explicitly requests an Organization
+   ID with IALA.
+
+Assignment:
+  
+   Assignment of Organization IDs is done by filling out and sending in the 
+   registration template, as detailed on http://www.mrnregistry.org. IALA will
+   ensure the uniqueness of Organization IDs by ensuring that an ID can only be
+   assigned once. Records of all successful registrations will be maintained in 
+   a public version control repository as detailed on the website. 
+   
+   The assignment procedures for MRN strings under a particular 
+   Organization-specific namespace ID are the responsibility of the maintaining 
+   organization. The considerations provided by http://www.mrnregistry.org as 
+   well as Section 6.4.3 of the URN specification [RFC8141] must be taken into 
+   account when defining the actual assignment procedure.
+   
+Security and Privacy:
+
+   Around 90% of world trade is carried by the international shipping industry 
+   and security incidents can result in major disruption to world trade or life
+   threatening situations for crew or passengers. Since individual organizations 
+   manage their own organizational namespace, security and privacy must be 
+   evaluated on a case by case basis.
+
+Interoperability:
+   
+   Interoperability with existing standards for identifying maritime resources 
+   is one of the main drivers for this proposal. Since individual organizations 
+   manage their own organizational namespace, interoperability must be evaluated on a 
+   case by case basis.
+
+Resolution:
+
+   No general available resolution mechanisms are anticipated at the moment.
+   However, organizations might choose to make use of specific resolution 
+   mechanisms on a case by case basis.
+
+Documentation:
+
+   For further documentation see http://www.mrnregistry.org
