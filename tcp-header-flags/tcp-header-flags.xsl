@@ -15,7 +15,7 @@
   <xsl:template match="iana:record">
        <tr>
         <td><xsl:value-of select="iana:bit"/></td>
-        <td><xsl:value-of select="iana:name"/></td>
+        <td><xsl:apply-templates select="iana:name"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
        </tr>
   </xsl:template>
