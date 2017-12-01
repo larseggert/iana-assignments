@@ -29,7 +29,7 @@
         <tr>
         <td><xsl:value-of select="iana:name"/></td>
         <td><xsl:value-of select="iana:type"/></td>
-          <td><xsl:value-of select="iana:description"/></td>          
+          <td><xsl:apply-templates select="iana:description"/></td>          
           <td><xsl:apply-templates select="iana:xref"/></td>       
         </tr>
       </xsl:when>
