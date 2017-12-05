@@ -1,4 +1,4 @@
-(registered 2015-12-21, last updated 2016-10-03)
+(registered 2015-12-21, last updated 2017-12-04)
 
 Name : Kyunghun Jung
 
@@ -20,13 +20,15 @@ evs-mode-switch: Permissible values are 0 and 1. If evs-mode-switch is 0 or not 
 
 hf-only: Permissible values are 0 and 1. If hf-only is 0 or not present, both Compact and Header-Full formats can be used in the session for the send and the receive directions. If hf-only is 1, only Header-Full format without zero padding for size collision avoidance is used.
 
+NOTE 1: The hf-only parameter applies to both directions in the session, including when hf-only is 1.
+
 dtx: Permissible values are 0 and 1. If dtx is 0, DTX is disabled in the session for the send and the receive directions. If dtx is 1 or not present, DTX is enabled. If dtx is included, dtx-recv is redundant but if dtx-recv is included, it shall be identical to dtx.
 
-NOTE 1: If dtx is not present, DTX can still be disabled by the inclusion of dtx-recv=0 for the direction indicated by dtx-recv. See also clause A.3.3.1 and clause A.3.3.3 of 3GPP TS 26.445.
+NOTE 2: If dtx is not present, DTX can still be disabled by the inclusion of dtx-recv=0 for the direction indicated by dtx-recv. See also clause A.3.3.1 and clause A.3.3.3 of 3GPP TS 26.445.
 
 dtx-recv: Permissible values are 0 and 1. If dtx-recv=0 is included for a payload type in the received SDP offer or the received SDP answer, and the payload type is accepted, the receiver shall disable DTX for the send direction. If dtx-recv=1 is included for a payload type in the received SDP offer or the received SDP answer, and this payload type is accepted, or if dtx-recv is not present for an accepted payload type, DTX is enabled.
 
-NOTE 2: dtx-recv only applies for the media direction towards the SDP sender. If dtx-recv is not present, dtx determines if DTX is enabled or disabled. See also clause A.3.3.1 and clause A.3.3.3 of 3GPP TS 26.445.
+NOTE 3: dtx-recv only applies for the media direction towards the SDP sender. If dtx-recv is not present, dtx determines if DTX is enabled or disabled. See also clause A.3.3.1 and clause A.3.3.3 of 3GPP TS 26.445.
 
 max-red: defined in RFC 4867
 
@@ -54,9 +56,9 @@ ch-aw-recv: Specifies how channel-aware mode is configured or used for the recei
 
 mode-set: Restricts the active codec mode set to a subset of all modes when the EVS codec operates in AMR-WB IO, for example, to be able to support transport channels such as GSM or UMTS networks. Possible value is a comma-separated list of modes from the set: 0, ..., 8 (see Table 1a of 3GPP TS 26.201). If mode-set is specified, it must be abided, and frames encoded with AMR-WB IO outside of the subset must not be sent in any RTP payload or used in codec mode request signal. If not present, all codec modes of AMR-WB IO are allowed for the payload type.
 
-NOTE 3: If a positive (2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, the receiver of the parameter shall send partial redundancy (channel-aware mode) at the start of the session using the value as the offset. If ch-aw-recv=0 is declared or not present for a payload type and the payload type is accepted, the receiver of the parameter shall not send partial redundancy (channel-aware mode) at the start of the session. If ch-aw-recv=-1 is declared for a payload type and the payload type is accepted, the receiver of the parameter shall not send partial redundancy (channel-aware mode) in the session. If ch-aw-recv is not present or a non-negative (0, 2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, partial redundancy (channel-aware mode) can be activated or deactivated during the session based on the expected or estimated channel condition through adaptation signaling, such as CMR (see clause A.2 of 3GPP TS 26.445) or RTCP based signaling (see clause 10.2 of 3GPP TS 26.114). If ch-aw-recv is not present or a non-negative (0, 2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, the partial redundancy offset value can also be adjusted during the session based on the expected or estimated channel condition through adaptation signaling.
+NOTE 4: If a positive (2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, the receiver of the parameter shall send partial redundancy (channel-aware mode) at the start of the session using the value as the offset. If ch-aw-recv=0 is declared or not present for a payload type and the payload type is accepted, the receiver of the parameter shall not send partial redundancy (channel-aware mode) at the start of the session. If ch-aw-recv=-1 is declared for a payload type and the payload type is accepted, the receiver of the parameter shall not send partial redundancy (channel-aware mode) in the session. If ch-aw-recv is not present or a non-negative (0, 2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, partial redundancy (channel-aware mode) can be activated or deactivated during the session based on the expected or estimated channel condition through adaptation signaling, such as CMR (see clause A.2 of 3GPP TS 26.445) or RTCP based signaling (see clause 10.2 of 3GPP TS 26.114). If ch-aw-recv is not present or a non-negative (0, 2, 3, 5, or 7) value of ch-aw-recv is declared for a payload type and the payload type is accepted, the partial redundancy offset value can also be adjusted during the session based on the expected or estimated channel condition through adaptation signaling.
 
-NOTE 4: The frame erasure rate indicator for the channel-aware mode has two permissible values (LO, HI) and this indicator has to be initialized to HI, as specified in clause 5.8.4 of 3GPP TS 26.445.
+NOTE 5: The frame erasure rate indicator for the channel-aware mode has two permissible values (LO, HI) and this indicator has to be initialized to HI, as specified in clause 5.8.4 of 3GPP TS 26.445.
 
 mode-change-period: defined in section 8.1 of RFC 4867
 
