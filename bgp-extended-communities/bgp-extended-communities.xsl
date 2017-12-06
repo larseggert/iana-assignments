@@ -4,7 +4,8 @@
   <xsl:template name="iana:record_header">
     <tr>
     <xsl:choose>
-     <xsl:when test="@id = 'traffic-action-fields'">
+     <xsl:when test="@id = 'traffic-action-fields'
+       or @id = 'e-tree-flags'">
        <th>Bit</th>
        <th>Name</th>
        <th>Reference</th>
