@@ -33,6 +33,14 @@
       <xsl:when test="@id = 'content-formats'">
         <tr><th>Media Type</th><th>Encoding</th><th>ID</th><th>Reference</th></tr>
       </xsl:when>
+      
+      <xsl:when test="@id = 'signaling-codes'">
+        <tr><th>Code</th><th>Name</th><th>Reference</th></tr>
+      </xsl:when>
+      
+      <xsl:when test="@id = 'signaling-option-numbers'">
+        <tr><th>Applies to</th><th>Number</th><th>Name</th><th>Reference</th></tr>
+      </xsl:when>
            
     </xsl:choose>
   </xsl:template>
@@ -98,6 +106,23 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
+      
+      <xsl:when test="../@id = 'signaling-option-numbers'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:number"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      
+      <xsl:otherwise>
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:otherwise>
 
     </xsl:choose>
   </xsl:template>
