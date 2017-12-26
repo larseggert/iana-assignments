@@ -4,7 +4,7 @@
            2008-12-19
 
    Last Updated
-           2017-12-08
+           2017-12-25
 
    Available Formats
            [IMG]
@@ -62,7 +62,7 @@ PCEP Messages
            [IMG]
            CSV
 
-   Value                   Description                                Reference
+   Value                   Description                   Reference
      0    Reserved                                       [RFC5440]
      1    Open                                           [RFC5440]
      2    Keepalive                                      [RFC5440]
@@ -75,7 +75,7 @@ PCEP Messages
      9    Path Computation Monitoring Reply (PCMonRep)   [RFC5886]
      10   Report                                         [RFC8231]
      11   Update                                         [RFC8231]
-     12   LSP Initiate Request                           [RFC-ietf-pce-pce-initiated-lsp-11]
+     12   LSP Initiate Request                           [RFC8281]
      13   StartTLS                                       [RFC8253]
    14-255 Unassigned
 
@@ -206,17 +206,17 @@ PCEP Objects
            35         BU                                  0: Reserved                                            [RFC8233][RFC Errata 4956]
                                                           1: BU                                                  [RFC8233]
                                                           2-15: Unassigned
-           36         INTER-LAYER                         0: Reserved                                            [RFC-ietf-pce-inter-layer-ext-12]
-                                                          1: Inter-layer                                         [RFC-ietf-pce-inter-layer-ext-12]
+           36         INTER-LAYER                         0: Reserved                                            [RFC8282]
+                                                          1: Inter-layer                                         [RFC8282]
                                                           2-15: Unassigned
-           37         SWITCH-LAYER                        0: Reserved                                            [RFC-ietf-pce-inter-layer-ext-12]
-                                                          1: Switch-layer                                        [RFC-ietf-pce-inter-layer-ext-12]
+           37         SWITCH-LAYER                        0: Reserved                                            [RFC8282]
+                                                          1: Switch-layer                                        [RFC8282]
                                                           2-15: Unassigned
-           38         REQ-ADAP-CAP                        0: Reserved                                            [RFC-ietf-pce-inter-layer-ext-12]
-                                                          1: Req-Adap-Cap                                        [RFC-ietf-pce-inter-layer-ext-12]
+           38         REQ-ADAP-CAP                        0: Reserved                                            [RFC8282]
+                                                          1: Req-Adap-Cap                                        [RFC8282]
                                                           2-15: Unassigned
-           39         SERVER-INDICATION                   0: Reserved                                            [RFC-ietf-pce-inter-layer-ext-12]
-                                                          1: Server-indication                                   [RFC-ietf-pce-inter-layer-ext-12]
+           39         SERVER-INDICATION                   0: Reserved                                            [RFC8282]
+                                                          1: Server-indication                                   [RFC8282]
                                                           2-15: Unassigned
            40         ASSOCIATION (TEMPORARY - registered 0: Reserved (TEMPORARY - registered 2017-10-17,        [draft-ietf-pce-association-group]
                       2017-10-17, expires 2018-10-17)     expires 2018-10-17)
@@ -354,27 +354,27 @@ METRIC Object T Field
            CSV
 
    Value                                                Description                                                           Reference
-     0    Reserved                                                                                                [RFC5440]
-     1    IGP metric                                                                                              [RFC5440]
-     2    TE metric                                                                                               [RFC5440]
-     3    Hop Counts                                                                                              [RFC5440]
-     4    Aggregate bandwidth consumption                                                                         [RFC5541]
-     5    Load of the most loaded link                                                                            [RFC5541]
-     6    Cumulative IGP cost                                                                                     [RFC5541]
-     7    Cumulative TE cost                                                                                      [RFC5541]
-     8    P2MP IGP metric                                                                                         [RFC8306]
-     9    P2MP TE metric                                                                                          [RFC8306]
-     10   P2MP hop count metric                                                                                   [RFC8306]
-     11   Segment-ID (SID) Depth. (TEMPORARY - registered 2015-08-14, extension registered 2017-08-04, expires    [draft-ietf-pce-segment-routing]
+     0    Reserved                                                                                                 [RFC5440]
+     1    IGP metric                                                                                               [RFC5440]
+     2    TE metric                                                                                                [RFC5440]
+     3    Hop Counts                                                                                               [RFC5440]
+     4    Aggregate bandwidth consumption                                                                          [RFC5541]
+     5    Load of the most loaded link                                                                             [RFC5541]
+     6    Cumulative IGP cost                                                                                      [RFC5541]
+     7    Cumulative TE cost                                                                                       [RFC5541]
+     8    P2MP IGP metric                                                                                          [RFC8306]
+     9    P2MP TE metric                                                                                           [RFC8306]
+     10   P2MP hop count metric                                                                                    [RFC8306]
+     11   Segment-ID (SID) Depth. (TEMPORARY - registered 2015-08-14, extension registered 2017-08-04, expires     [draft-ietf-pce-segment-routing]
           2018-08-14)
-     12   Path Delay metric                                                                                       [RFC8233]
-     13   Path Delay Variation metric                                                                             [RFC8233]
-     14   Path Loss metric                                                                                        [RFC8233]
-     15   P2MP Path Delay metric                                                                                  [RFC8233]
-     16   P2MP Path Delay variation metric                                                                        [RFC8233]
-     17   P2MP Path Loss metric                                                                                   [RFC8233]
-     18   Number of adaptations on a path                                                                         [RFC-ietf-pce-inter-layer-ext-12]
-     19   Number of layers on a path                                                                              [RFC-ietf-pce-inter-layer-ext-12]
+     12   Path Delay metric                                                                                        [RFC8233]
+     13   Path Delay Variation metric                                                                              [RFC8233]
+     14   Path Loss metric                                                                                         [RFC8233]
+     15   P2MP Path Delay metric                                                                                   [RFC8233]
+     16   P2MP Path Delay variation metric                                                                         [RFC8233]
+     17   P2MP Path Loss metric                                                                                    [RFC8233]
+     18   Number of adaptations on a path                                                                          [RFC8282]
+     19   Number of layers on a path                                                                               [RFC8282]
    20-255 Unassigned
 
 METRIC Object Flag Field
@@ -533,213 +533,211 @@ PCEP-ERROR Object Error Types and Values
            CSV
 
    Error-Type                   Meaning                                        Error-value                                   Reference
-       0      Reserved                                    0-255: Reserved                                       [RFC5440]
-       1      PCEP session establishment failure          0: Unassigned                                         [RFC5440]
-                                                          1: reception of an invalid Open message or a non Open [RFC5440]
+       0      Reserved                                    0-255: Reserved                                        [RFC5440]
+       1      PCEP session establishment failure          0: Unassigned                                          [RFC5440]
+                                                          1: reception of an invalid Open message or a non Open  [RFC5440]
                                                           message.
-                                                          2: no Open message received before the expiration of  [RFC5440]
+                                                          2: no Open message received before the expiration of   [RFC5440]
                                                           the OpenWait timer
-                                                          3: unacceptable and non negotiable session            [RFC5440]
+                                                          3: unacceptable and non negotiable session             [RFC5440]
                                                           characteristics
-                                                          4: unacceptable but negotiable session                [RFC5440]
-                                                          characteristics
-                                                          5: reception of a second Open message with still      [RFC5440]
+                                                          4: unacceptable but negotiable session characteristics [RFC5440]
+                                                          5: reception of a second Open message with still       [RFC5440]
                                                           unacceptable session characteristics
-                                                          6: reception of a PCErr message proposing             [RFC5440]
-                                                          unacceptable session characteristics
-                                                          7: No Keepalive or PCErr message received before the  [RFC5440]
+                                                          6: reception of a PCErr message proposing unacceptable [RFC5440]
+                                                          session characteristics
+                                                          7: No Keepalive or PCErr message received before the   [RFC5440]
                                                           expiration of the KeepWait timer
-                                                          8: PCEP version not supported                         [RFC5440]
+                                                          8: PCEP version not supported                          [RFC5440]
                                                           9-255: Unassigned
-       2      Capability not supported                    0-255: Unassigned                                     [RFC5440]
-       3      Unknown Object                              0: Unassigned                                         [RFC5440]
-                                                          1: Unrecognized object class                          [RFC5440]
-                                                          2: Unrecognized object Type                           [RFC5440]
+       2      Capability not supported                    0-255: Unassigned                                      [RFC5440]
+       3      Unknown Object                              0: Unassigned                                          [RFC5440]
+                                                          1: Unrecognized object class                           [RFC5440]
+                                                          2: Unrecognized object Type                            [RFC5440]
                                                           3-255: Unassigned
-       4      Not supported object                        0: Unassigned                                         [RFC5440]
-                                                          1: Not supported object class                         [RFC5440]
-                                                          2: Not supported object Type                          [RFC5440]
+       4      Not supported object                        0: Unassigned                                          [RFC5440]
+                                                          1: Not supported object class                          [RFC5440]
+                                                          2: Not supported object Type                           [RFC5440]
                                                           3: Unassigned
-                                                          4: Unsupported parameter                              [RFC5441]
-                                                          5: Unsupported network performance constraint         [RFC8233]
+                                                          4: Unsupported parameter                               [RFC5441]
+                                                          5: Unsupported network performance constraint          [RFC8233]
                                                           6-255: Unassigned
-       5      Policy violation                            0: Unassigned                                         [RFC5440]
-                                                          1: C bit of the METRIC object set (request rejected)  [RFC5440]
-                                                          2: O bit of the RP object cleared (request rejected)  [RFC5440]
-                                                          3: objective function not allowed (request rejected)  [RFC5541]
-                                                          4: OF bit of the RP object set (request rejected)     [RFC5541]
-                                                          5: Global concurrent optimization not allowed         [RFC5557]
-                                                          6: Monitoring message supported but rejected due to   [RFC5886]
+       5      Policy violation                            0: Unassigned                                          [RFC5440]
+                                                          1: C bit of the METRIC object set (request rejected)   [RFC5440]
+                                                          2: O bit of the RP object cleared (request rejected)   [RFC5440]
+                                                          3: objective function not allowed (request rejected)   [RFC5541]
+                                                          4: OF bit of the RP object set (request rejected)      [RFC5541]
+                                                          5: Global concurrent optimization not allowed          [RFC5557]
+                                                          6: Monitoring message supported but rejected due to    [RFC5886]
                                                           policy violation
-                                                          7: P2MP Path computation is not allowed               [RFC8306]
-                                                          8: Not allowed network performance constraint         [RFC8233]
+                                                          7: P2MP Path computation is not allowed                [RFC8306]
+                                                          8: Not allowed network performance constraint          [RFC8233]
                                                           9-255: Unassigned
-       6      Mandatory Object missing                    0: Unassigned                                         [RFC5440]
-                                                          1: RP object missing                                  [RFC5440]
-                                                          2: RRO missing for a reoptimization request (R bit of [RFC5440]
+       6      Mandatory Object missing                    0: Unassigned                                          [RFC5440]
+                                                          1: RP object missing                                   [RFC5440]
+                                                          2: RRO missing for a reoptimization request (R bit of  [RFC5440]
                                                           the RP object set)
-                                                          3: END-POINTS object missing                          [RFC5440]
-                                                          4: MONITORING object missing                          [RFC5886]
+                                                          3: END-POINTS object missing                           [RFC5440]
+                                                          4: MONITORING object missing                           [RFC5886]
                                                           5-7: Unassigned
-                                                          8: LSP object missing                                 [RFC8231]
-                                                          9: ERO object missing                                 [RFC8231]
-                                                          10: SRP object missing                                [RFC8231]
-                                                          11: LSP-IDENTIFIERS TLV missing                       [RFC8231]
-                                                          12: LSP-DB-VERSION TLV missing                        [RFC8232]
+                                                          8: LSP object missing                                  [RFC8231]
+                                                          9: ERO object missing                                  [RFC8231]
+                                                          10: SRP object missing                                 [RFC8231]
+                                                          11: LSP-IDENTIFIERS TLV missing                        [RFC8231]
+                                                          12: LSP-DB-VERSION TLV missing                         [RFC8232]
                                                           13-255: Unassigned
-       7      Synchronized path computation request       0-255: Unassigned                                     [RFC5440]
+       7      Synchronized path computation request       0-255: Unassigned                                      [RFC5440]
               missing
-       8      Unknown request reference                   0-255: Unassigned                                     [RFC5440]
-       9      Attempt to establish a second PCEP session  0-255: Unassigned                                     [RFC5440]
-       10     Reception of an invalid object              0: Unassigned                                         [RFC5440]
-                                                          1: reception of an object with P flag not set
-                                                          although the P-flag must be set according to this     [RFC5440]
+       8      Unknown request reference                   0-255: Unassigned                                      [RFC5440]
+       9      Attempt to establish a second PCEP session  0-255: Unassigned                                      [RFC5440]
+       10     Reception of an invalid object              0: Unassigned                                          [RFC5440]
+                                                          1: reception of an object with P flag not set although
+                                                          the P-flag must be set according to this               [RFC5440]
                                                           specification.
-                                                          2: Bad label value (TEMPORARY - registered
-                                                          2015-08-14, extension registered 2017-08-04, expires  [draft-ietf-pce-segment-routing]
-                                                          2018-08-14)
+                                                          2: Bad label value (TEMPORARY - registered 2015-08-14, [draft-ietf-pce-segment-routing]
+                                                          extension registered 2017-08-04, expires 2018-08-14)
                                                           3: Unsupported number of Segment ERO subobjects
-                                                          (TEMPORARY - registered 2015-08-14, extension         [draft-ietf-pce-segment-routing]
+                                                          (TEMPORARY - registered 2015-08-14, extension          [draft-ietf-pce-segment-routing]
                                                           registered 2017-08-04, expires 2018-08-14)
                                                           4: Bad label format (TEMPORARY - registered
-                                                          2015-08-14, extension registered 2017-08-04, expires  [draft-ietf-pce-segment-routing]
+                                                          2015-08-14, extension registered 2017-08-04, expires   [draft-ietf-pce-segment-routing]
                                                           2018-08-14)
                                                           5: Non-identical ERO subobjects (TEMPORARY -
-                                                          registered 2015-08-14, extension registered           [draft-ietf-pce-segment-routing]
+                                                          registered 2015-08-14, extension registered            [draft-ietf-pce-segment-routing]
                                                           2017-08-04, expires 2018-08-14)
                                                           6: Both SID and NAI are absent in ERO subobject
-                                                          (TEMPORARY - registered 2015-08-14, extension         [draft-ietf-pce-segment-routing]
+                                                          (TEMPORARY - registered 2015-08-14, extension          [draft-ietf-pce-segment-routing]
                                                           registered 2017-08-04, expires 2018-08-14)
                                                           7: Both SID and NAI are absent in RRO subobject
-                                                          (TEMPORARY - registered 2015-08-14, extension         [draft-ietf-pce-segment-routing]
+                                                          (TEMPORARY - registered 2015-08-14, extension          [draft-ietf-pce-segment-routing]
                                                           registered 2017-08-04, expires 2018-08-14)
-                                                          8: SYMBOLIC-PATH-NAME TLV missing                     [RFC-ietf-pce-pce-initiated-lsp-11]
+                                                          8: SYMBOLIC-PATH-NAME TLV missing                      [RFC8281]
                                                           9: Default MSD is specified for the PCEP session
-                                                          (TEMPORARY - registered 2015-08-14, extension         [draft-ietf-pce-segment-routing]
+                                                          (TEMPORARY - registered 2015-08-14, extension          [draft-ietf-pce-segment-routing]
                                                           registered 2017-08-04, expires 2018-08-14)
-                                                          10: Non-identical RRO subjects (TEMPORARY -
-                                                          registered 2015-08-14, extension registered           [draft-ietf-pce-segment-routing]
-                                                          2017-08-04, expires 2018-08-14)
+                                                          10: Non-identical RRO subjects (TEMPORARY - registered
+                                                          2015-08-14, extension registered 2017-08-04, expires   [draft-ietf-pce-segment-routing]
+                                                          2018-08-14)
                                                           11: Malformed object (TEMPORARY - registered
-                                                          2015-08-14, extension registered 2017-08-04, expires  [draft-ietf-pce-segment-routing]
+                                                          2015-08-14, extension registered 2017-08-04, expires   [draft-ietf-pce-segment-routing]
                                                           2018-08-14)
                                                           12-255: Unassigned
-       11     Unrecognized EXRS subobject                 0-255: Unassigned                                     [RFC5521]
-       12     Diffserv-aware TE error                     0: Unassigned                                         [RFC5455]
-                                                          1: Unsupported class-type                             [RFC5455]
-                                                          2: Invalid class-type                                 [RFC5455]
-                                                          3: Class-Type and setup priority do not form a        [RFC5455]
+       11     Unrecognized EXRS subobject                 0-255: Unassigned                                      [RFC5521]
+       12     Diffserv-aware TE error                     0: Unassigned                                          [RFC5455]
+                                                          1: Unsupported class-type                              [RFC5455]
+                                                          2: Invalid class-type                                  [RFC5455]
+                                                          3: Class-Type and setup priority do not form a         [RFC5455]
                                                           configured TE-class
                                                           4-255: Unassigned
-       13     BRPC procedure completion failure           0: Unassigned                                         [RFC5441]
-                                                          1: BRPC procedure not supported by one or more PCEs   [RFC5441]
+       13     BRPC procedure completion failure           0: Unassigned                                          [RFC5441]
+                                                          1: BRPC procedure not supported by one or more PCEs    [RFC5441]
                                                           along the domain path
                                                           2-255: Unassigned
        14     Unassigned                                  0-255: Unassigned
-       15     Global Concurrent Optimization Error        0: Unassigned                                         [RFC5557]
-                                                          1: Insufficient memory                                [RFC5557]
-                                                          2: Global concurrent optimization not supported       [RFC5557]
+       15     Global Concurrent Optimization Error        0: Unassigned                                          [RFC5557]
+                                                          1: Insufficient memory                                 [RFC5557]
+                                                          2: Global concurrent optimization not supported        [RFC5557]
                                                           3-255: Unassigned
-       16     P2MP Capability Error                       0: Unassigned                                         [RFC8306]
-                                                          1: The PCE cannot satisfy the request due to          [RFC8306]
+       16     P2MP Capability Error                       0: Unassigned                                          [RFC8306]
+                                                          1: The PCE cannot satisfy the request due to           [RFC8306]
                                                           insufficient memory
-                                                          2: The PCE is not capable of P2MP computation         [RFC8306]
+                                                          2: The PCE is not capable of P2MP computation          [RFC8306]
                                                           3-255: Unassigned
-       17     P2MP END-POINTS Error                       0: Unassigned                                         [RFC8306]
-                                                          1: The PCE cannot satisfy the request due to no       [RFC8306]
+       17     P2MP END-POINTS Error                       0: Unassigned                                          [RFC8306]
+                                                          1: The PCE cannot satisfy the request due to no        [RFC8306]
                                                           END-POINTS with leaf type 2
-                                                          2: The PCE cannot satisfy the request due to no       [RFC8306]
+                                                          2: The PCE cannot satisfy the request due to no        [RFC8306]
                                                           END-POINTS with leaf type 3
-                                                          3: The PCE cannot satisfy the request due to no       [RFC8306]
+                                                          3: The PCE cannot satisfy the request due to no        [RFC8306]
                                                           END-POINTS with leaf type 4
-                                                          4: The PCE cannot satisfy the request due to          [RFC8306]
+                                                          4: The PCE cannot satisfy the request due to           [RFC8306]
                                                           inconsistent END-POINTS
                                                           5-255: Unassigned
-       18     P2MP Fragmentation Error                    0: Unassigned                                         [RFC8306]
-                                                          1: Fragmented request failure                         [RFC8306]
+       18     P2MP Fragmentation Error                    0: Unassigned                                          [RFC8306]
+                                                          1: Fragmented request failure                          [RFC8306]
                                                           2-255: Unassigned
        19     Invalid Operation                           0: Unassigned
                                                           1: Attempted LSP Update Request for a non-delegated
-                                                          LSP. The PCEP-ERROR object is followed by the LSP     [RFC8231]
+                                                          LSP. The PCEP-ERROR object is followed by the LSP      [RFC8231]
                                                           object that identifies the LSP.
-                                                          2: Attempted LSP Update Request if the stateful PCE   [RFC8231]
+                                                          2: Attempted LSP Update Request if the stateful PCE    [RFC8231]
                                                           capability was not advertised.
-                                                          3: Attempted LSP Update Request for an LSP identified [RFC8231]
+                                                          3: Attempted LSP Update Request for an LSP identified  [RFC8231]
                                                           by an unknown PLSP-ID.
                                                           4: Unassigned
-                                                          5: Attempted LSP State Report if active stateful PCE  [RFC8231]
+                                                          5: Attempted LSP State Report if active stateful PCE   [RFC8231]
                                                           capability was not advertised.
-                                                          6: PCE-initiated LSP limit reached                    [RFC-ietf-pce-pce-initiated-lsp-11]
-                                                          7: Delegation for PCE-initiated LSP cannot be revoked [RFC-ietf-pce-pce-initiated-lsp-11]
-                                                          8: Non-zero PLSP-ID in LSP Initiate Request           [RFC-ietf-pce-pce-initiated-lsp-11]
-                                                          9: LSP is not PCE initiated                           [RFC-ietf-pce-pce-initiated-lsp-11]
-                                                          10: PCE-initiated operation-frequency limit reached   [RFC-ietf-pce-pce-initiated-lsp-11]
+                                                          6: PCE-initiated LSP limit reached                     [RFC8281]
+                                                          7: Delegation for PCE-initiated LSP cannot be revoked  [RFC8281]
+                                                          8: Non-zero PLSP-ID in LSP Initiate Request            [RFC8281]
+                                                          9: LSP is not PCE initiated                            [RFC8281]
+                                                          10: PCE-initiated operation-frequency limit reached    [RFC8281]
                                                           11-255: Unassigned
        20     LSP State Synchronization Error             0: Unassigned
-                                                          1: A PCE indicates to a PCC that it cannot process
-                                                          (an otherwise valid) LSP State Report. The PCEP-      [RFC8231]
-                                                          ERROR object is followed by the LSP object that
-                                                          identifies the LSP.
-                                                          2: LSP-DB version mismatch.                           [RFC8232]
-                                                          3: Attempt to trigger synchronization before PCE      [RFC8232]
+                                                          1: A PCE indicates to a PCC that it cannot process (an
+                                                          otherwise valid) LSP State Report. The PCEP- ERROR     [RFC8231]
+                                                          object is followed by the LSP object that identifies
+                                                          the LSP.
+                                                          2: LSP-DB version mismatch.                            [RFC8232]
+                                                          3: Attempt to trigger synchronization before PCE       [RFC8232]
                                                           trigger.
                                                           4: Attempt to trigger a synchronization when the PCE
-                                                          triggered synchronization capability has not been     [RFC8232]
+                                                          triggered synchronization capability has not been      [RFC8232]
                                                           advertised.
-                                                          5: A PCC indicates to a PCE that it cannot complete   [RFC8231]
+                                                          5: A PCC indicates to a PCE that it cannot complete    [RFC8231]
                                                           the State Synchronization.
-                                                          6: Received an invalid LSP-DB Version Number.         [RFC8232]
-                                                          7: Received an invalid Speaker Entity Identifier.     [RFC8232]
+                                                          6: Received an invalid LSP-DB Version Number.          [RFC8232]
+                                                          7: Received an invalid Speaker Entity Identifier.      [RFC8232]
                                                           8-255: Unassigned
               Invalid traffic engineering path setup type
-       21     (TEMPORARY - registered 2015-08-14,         0: Unassigned                                         [draft-ietf-pce-lsp-setup-type]
+       21     (TEMPORARY - registered 2015-08-14,         0: Unassigned                                          [draft-ietf-pce-lsp-setup-type]
               extension registered 2017-08-04, expires
               2018-08-14)
-                                                          1: Unsupported path setup type (TEMPORARY -
-                                                          registered 2015-08-14, extension registered           [draft-ietf-pce-lsp-setup-type]
-                                                          2017-08-04, expires 2018-08-14)
-                                                          2: Mismatched path setup type (TEMPORARY - registered
-                                                          2015-08-14, extension registered 2017-08-04, expires  [draft-ietf-pce-lsp-setup-type]
+                                                          1: Unsupported path setup type (TEMPORARY - registered
+                                                          2015-08-14, extension registered 2017-08-04, expires   [draft-ietf-pce-lsp-setup-type]
                                                           2018-08-14)
-                                                          3-255: Unassigned                                     [draft-ietf-pce-lsp-setup-type]
+                                                          2: Mismatched path setup type (TEMPORARY - registered
+                                                          2015-08-14, extension registered 2017-08-04, expires   [draft-ietf-pce-lsp-setup-type]
+                                                          2018-08-14)
+                                                          3-255: Unassigned                                      [draft-ietf-pce-lsp-setup-type]
        22     Unassigned                                  0-255: Unassigned
        23     Bad parameter value                         0: Unassigned
-                                                          1: SYMBOLIC-PATH-NAME in use                          [RFC-ietf-pce-pce-initiated-lsp-11]
-                                                          2: Speaker identity included for an LSP that is not   [RFC-ietf-pce-pce-initiated-lsp-11]
+                                                          1: SYMBOLIC-PATH-NAME in use                           [RFC8281]
+                                                          2: Speaker identity included for an LSP that is not    [RFC8281]
                                                           PCE initiated
                                                           3-255: Unassigned
        24     LSP instantiation error                     0: Unassigned
-                                                          1: Unacceptable instantiation parameters              [RFC-ietf-pce-pce-initiated-lsp-11]
-                                                          2: Internal error                                     [RFC-ietf-pce-pce-initiated-lsp-11]
-                                                          3: Signaling error                                    [RFC-ietf-pce-pce-initiated-lsp-11]
+                                                          1: Unacceptable instantiation parameters               [RFC8281]
+                                                          2: Internal error                                      [RFC8281]
+                                                          3: Signaling error                                     [RFC8281]
                                                           4-255: Unassigned
        25     PCEP StartTLS failure                       0: Unassigned
-                                                          1: Reception of StartTLS after any PCEP exchange      [RFC8253]
-                                                          2: Reception of any other message apart from          [RFC8253]
-                                                          StartTLS, Open, or PCErr
-                                                          3: Failure, connection without TLS is not possible    [RFC8253]
-                                                          4: Failure, connection without TLS is possible        [RFC8253]
-                                                          5: No StartTLS message (nor PCErr/Open) before        [RFC8253]
+                                                          1: Reception of StartTLS after any PCEP exchange       [RFC8253]
+                                                          2: Reception of any other message apart from StartTLS, [RFC8253]
+                                                          Open, or PCErr
+                                                          3: Failure, connection without TLS is not possible     [RFC8253]
+                                                          4: Failure, connection without TLS is possible         [RFC8253]
+                                                          5: No StartTLS message (nor PCErr/Open) before         [RFC8253]
                                                           StartTLSWait timer expiry
                                                           6-255: Unassigned
-       26     Association Error (TEMPORARY - registered   0: Unassigned                                         [draft-ietf-pce-association-group]
+       26     Association Error (TEMPORARY - registered   0: Unassigned                                          [draft-ietf-pce-association-group]
               2017-10-17, expires 2018-10-17)
-                                                          1: Association-type is not supported (TEMPORARY -     [draft-ietf-pce-association-group]
+                                                          1: Association-type is not supported (TEMPORARY -      [draft-ietf-pce-association-group]
                                                           registered 2017-10-17, expires 2018-10-17)
-                                                          2: Too many LSPs in the association group (TEMPORARY  [draft-ietf-pce-association-group]
-                                                          - registered 2017-10-17, expires 2018-10-17)
-                                                          3: Too many association groups (TEMPORARY -           [draft-ietf-pce-association-group]
+                                                          2: Too many LSPs in the association group (TEMPORARY - [draft-ietf-pce-association-group]
                                                           registered 2017-10-17, expires 2018-10-17)
-                                                          4: Association unknown (TEMPORARY - registered        [draft-ietf-pce-association-group]
+                                                          3: Too many association groups (TEMPORARY - registered [draft-ietf-pce-association-group]
+                                                          2017-10-17, expires 2018-10-17)
+                                                          4: Association unknown (TEMPORARY - registered         [draft-ietf-pce-association-group]
                                                           2017-10-17, expires 2018-10-17)
                                                           5: Operator-configured association information
-                                                          mismatch (TEMPORARY - registered 2017-10-17, expires  [draft-ietf-pce-association-group]
+                                                          mismatch (TEMPORARY - registered 2017-10-17, expires   [draft-ietf-pce-association-group]
                                                           2018-10-17)
-                                                          6: Association information mismatch (TEMPORARY -      [draft-ietf-pce-association-group]
+                                                          6: Association information mismatch (TEMPORARY -       [draft-ietf-pce-association-group]
                                                           registered 2017-10-17, expires 2018-10-17)
-                                                          7: Cannot join the association group (TEMPORARY -     [draft-ietf-pce-association-group]
+                                                          7: Cannot join the association group (TEMPORARY -      [draft-ietf-pce-association-group]
                                                           registered 2017-10-17, expires 2018-10-17)
-                                                          8-255: Unassigned                                     [draft-ietf-pce-association-group]
+                                                          8-255: Unassigned                                      [draft-ietf-pce-association-group]
      27-255   Unassigned                                  0-255: Unassigned
 
 PCEP-ERROR Object Flag Field
@@ -1087,17 +1085,17 @@ Inter-Layer Object Path Property Bits
  IETF Review
 
    Reference
-           [RFC-ietf-pce-inter-layer-ext-12]
+           [RFC8282]
 
    Available Formats
            [IMG]
            CSV
 
-   Bit  Flag  Multi-Layer Path Property              Reference
+   Bit  Flag  Multi-Layer Path Property  Reference
    0-28      Unassigned
-   29   T    Triggered Signaling Allowed [RFC-ietf-pce-inter-layer-ext-12]
-   30   M    Multi-Layer Requested       [RFC-ietf-pce-inter-layer-ext-12]
-   31   I    Inter-Layer Allowed         [RFC-ietf-pce-inter-layer-ext-12]
+   29   T    Triggered Signaling Allowed [RFC8282]
+   30   M    Multi-Layer Requested       [RFC8282]
+   31   I    Inter-Layer Allowed         [RFC8282]
 
 LSP Object Flag Field
 
@@ -1116,9 +1114,9 @@ LSP Object Flag Field
            [IMG]
            CSV
 
-   Bit     Description                   Reference
+   Bit     Description      Reference
    0-3 Unassigned
-    4  Create               [RFC-ietf-pce-pce-initiated-lsp-11]
+    4  Create               [RFC8281]
    5-7 Operational (3 bits) [RFC8231]
     8  Administrative       [RFC8231]
     9  Remove               [RFC8231]
@@ -1142,12 +1140,12 @@ STATEFUL-PCE-CAPABILITY TLV Flag Field
            [IMG]
            CSV
 
-   Value           Description                         Reference
+   Value           Description            Reference
    0-25  Unassigned
     26   TRIGGERED-INITIAL-SYNC           [RFC8232]
     27   DELTA-LSP-SYNC-CAPABILITY        [RFC8232]
     28   TRIGGERED-RESYNC                 [RFC8232]
-    29   LSP-INSTANTIATION-CAPABILITY (I) [RFC-ietf-pce-pce-initiated-lsp-11]
+    29   LSP-INSTANTIATION-CAPABILITY (I) [RFC8281]
     30   INCLUDE-DB-VERSION               [RFC8232]
     31   LSP-UPDATE-CAPABILITY            [RFC8231]
 
@@ -1185,7 +1183,7 @@ SRP Object Flag Field
  Standards Action
 
    Reference
-           [RFC-ietf-pce-pce-initiated-lsp-11]
+           [RFC8281]
 
    Note
 
@@ -1193,6 +1191,6 @@ SRP Object Flag Field
            [IMG]
            CSV
 
-   Value Description              Reference
-   0-30  Unassigned  [RFC-ietf-pce-pce-initiated-lsp-11]
-    31   LSP-Remove  [RFC-ietf-pce-pce-initiated-lsp-11]
+   Value Description Reference
+   0-30  Unassigned  [RFC8281]
+    31   LSP-Remove  [RFC8281]
