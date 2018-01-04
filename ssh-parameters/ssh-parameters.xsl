@@ -114,6 +114,7 @@
      <xsl:when test="@id = 'ssh-parameters-19'">
       <tr>
         <th>Public Key Algorithm Name</th>
+        <th>Public Key Format</th>
         <th>Reference</th>
         <th>Note</th>
       </tr>
@@ -228,6 +229,14 @@
        <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
      </xsl:when>
+      <xsl:when test="../@id = 'ssh-parameters-19'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:format"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:value-of select="iana:note"/></td>
+        </tr>
+      </xsl:when>
      <xsl:when test="../@id = 'ssh-parameters-22'">
       <tr>
        <td><xsl:value-of select="iana:value"/></td>
