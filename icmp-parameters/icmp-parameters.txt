@@ -1,7 +1,7 @@
                                                  Internet Control Message Protocol (ICMP) Parameters
 
    Last Updated
-           2018-01-24
+           2018-01-25
 
    Available Formats
            [IMG]
@@ -47,7 +47,9 @@
           * Type 39 — SKIP (Deprecated)
           * Type 40 — Photuris
           * Type 41 — ICMP messages utilized by experimental mobility protocols such as Seamoby
-          * Types 42-252 — Unassigned
+          * Type 42 — Extended Echo Request
+          * Type 43 — Extended Echo Reply
+          * Types 44-252 — Unassigned
           * Type 253 — RFC3692-style Experiment 1
           * Type 254 — RFC3692-style Experiment 2
 
@@ -55,8 +57,8 @@
 
           * Sub-types — Class 1 — MPLS Label Stack Class
           * Sub-types — Class 2 — Interface Information Object
-
-               * Sub-types — Class 2 — Interface Information Object — Interface Roles
+          * Sub-types — Class 2 — Interface Information Object — Interface Roles
+          * Sub-types — Class 3 — MPLS Label Stack Class
 
 ICMP Type Numbers
 
@@ -76,7 +78,7 @@ ICMP Type Numbers
            [IMG]
            CSV
 
-    Type                                    Name                                           Reference
+    Type                                    Name                                             Reference
      0    Echo Reply                                                                [RFC792]
      1    Unassigned
      2    Unassigned
@@ -110,7 +112,9 @@ ICMP Type Numbers
      39   SKIP (Deprecated)                                                         [Markson][RFC6918]
      40   Photuris                                                                  [RFC2521]
      41   ICMP messages utilized by experimental mobility protocols such as Seamoby [RFC4065]
-   42-252 Unassigned
+     42   Extended Echo Request                                                     [RFC-ietf-intarea-probe-10]
+     43   Extended Echo Reply                                                       [RFC-ietf-intarea-probe-10]
+   44-252 Unassigned
     253   RFC3692-style Experiment 1                                                [RFC4727]
     254   RFC3692-style Experiment 2                                                [RFC4727]
     255   Reserved                                                                  [JBP]
@@ -524,7 +528,45 @@ Code Fields
    Codes  Description  Reference
    No registrations at this time.
 
-  Types 42-252 — Unassigned
+  Type 42 — Extended Echo Request
+
+   Registration Procedure(s)
+
+ First Come First Served
+
+   Reference
+           [RFC-ietf-intarea-probe-10]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Codes Description          Reference
+     0   No Error    [RFC-ietf-intarea-probe-10]
+   1-255 Unassigned
+
+  Type 43 — Extended Echo Reply
+
+   Registration Procedure(s)
+
+ First Come First Served
+
+   Reference
+           [RFC-ietf-intarea-probe-10]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Codes            Description                     Reference
+     0   No Error                          [RFC-ietf-intarea-probe-10]
+     1   Malformed Query                   [RFC-ietf-intarea-probe-10]
+     2   No Such Interface                 [RFC-ietf-intarea-probe-10]
+     3   No Such Table Entry               [RFC-ietf-intarea-probe-10]
+     4   Multiple Interfaces Satisfy Query [RFC-ietf-intarea-probe-10]
+   5-255 Unassigned
+
+  Types 44-252 — Unassigned
 
    Codes  Description  Reference
    No registrations at this time.
@@ -566,17 +608,18 @@ ICMP Extension Object Classes and Class Sub-types
     0-246  First Come First Served
    247-255 Private Use
 
-   Class Value          Class Name          Reference
-        1      MPLS Label Stack Class       [RFC4950]
-        2      Interface Information Object [RFC5837]
+   Class Value           Class Name                     Reference
+        1      MPLS Label Stack Class          [RFC4950]
+        2      Interface Information Object    [RFC5837]
+        3      Interface Identification Object [RFC-ietf-intarea-probe-10]
+      4-246    Unassigned
+     247-255   Reserved for Private Use        [RFC4884]
 
   Sub-types — Class 1 — MPLS Label Stack Class
 
    Registration Procedure(s)
 
- C-Type values for Class-num 1 are
- assignable on a first-come-first-serve (FCFS) basis
- [RFC2434].
+ First Come First Served
 
    Reference
            [RFC4950]
@@ -588,8 +631,8 @@ ICMP Extension Object Classes and Class Sub-types
    C-Type (Value)        Description        Reference
          0        Reserved                  [RFC4950]
          1        Incoming MPLS Label Stack [RFC4950]
-     0x02-0xF6    Unassigned                [RFC4950]
-     0xF7-0xFF    Reserved for private use  [RFC4950]
+       2-246      Unassigned
+      247-255     Reserved for private use  [RFC4950]
 
   Sub-types — Class 2 — Interface Information Object
 
@@ -609,7 +652,7 @@ ICMP Extension Object Classes and Class Sub-types
          6        Name Sub-object included                        [RFC5837]
          7        MTU included                                    [RFC5837]
 
-    Sub-types — Class 2 — Interface Information Object — Interface Roles
+  Sub-types — Class 2 — Interface Information Object — Interface Roles
 
    Available Formats
            [IMG]
@@ -620,6 +663,26 @@ ICMP Extension Object Classes and Class Sub-types
      1   Sub-IP Component of Incoming IP Interface [RFC5837]
      2   Outgoing IP Interface                     [RFC5837]
      3   IP Next-hop                               [RFC5837]
+
+  Sub-types — Class 3 — MPLS Label Stack Class
+
+   Registration Procedure(s)
+
+ First Come First Served
+
+   Reference
+           [RFC-ietf-intarea-probe-10]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Codes           Description                    Reference
+     0   Reserved                        [RFC-ietf-intarea-probe-10]
+     1   Identifies Interface By Name    [RFC-ietf-intarea-probe-10]
+     2   Identifies Interface By Index   [RFC-ietf-intarea-probe-10]
+     3   Identifies Interface By Address [RFC-ietf-intarea-probe-10]
+   4-255 Unassigned
 
                                                                         People
 
