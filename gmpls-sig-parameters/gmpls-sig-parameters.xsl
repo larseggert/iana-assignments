@@ -51,6 +51,9 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'special-purpose'">
+        <tr><th>Pattern/Value</th><th>Label Name</th><th>Applicable Objects</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Name</th><th>Reference</th></tr>
       </xsl:otherwise>
@@ -102,6 +105,12 @@
         <td align="center"><xsl:value-of select="iana:value"/></td>
         <td><xsl:value-of select="iana:description"/></td>
         <td><xsl:value-of select="iana:switching"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
+      </xsl:when>
+      <xsl:when test="../@id = 'special-purpose'">
+        <td align="center"><xsl:value-of select="iana:pattern"/></td>
+        <td><xsl:value-of select="iana:label"/></td>
+        <td><xsl:value-of select="iana:applicable"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
       </xsl:when>
       <xsl:otherwise>
