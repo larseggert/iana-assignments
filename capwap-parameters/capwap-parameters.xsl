@@ -119,6 +119,9 @@
       <xsl:when test="@id = 'ieee-80211-split-mac-profile'">
         <tr><th>Profile</th><th>Type Value</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:otherwise>
+        <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
