@@ -5,7 +5,7 @@
   <title>Structured Syntax Suffix Registry</title>
   <category>Multipurpose Internet Mail Extensions (MIME) and Media Types</category>
   <created>2012-07-20</created>
-  <updated>2017-02-17</updated>
+  <updated>2018-02-12</updated>
 
   <registry id="structured-syntax-suffix">
     <title>Structured Syntax Suffix Registry</title>
@@ -518,9 +518,78 @@
       <mod-dates/>
     </record>
     
+    <record date="2018-02-12">
+      <name>SQLite3 database</name>
+      <suffix>+sqlite3</suffix>
+      <xref type="uri" data="http://www.sqlite.org/fileformat2.html"/>
+      <xref type="uri" data="http://www.sqlite.org/lang.html"/>
+      <xref type="person" data="Clemens_Ladisch"/>
+      <encoding>binary</encoding>
+      <interop>
+        <paragraph>
+          Same as for "application/vnd.sqlite3".
+        </paragraph>
+        <paragraph>To allow identification of files when the media type name is not
+          available, each individual "xxx/yyy+sqlite3" registration should
+          specify an appliction ID value to be set with PRAGMA application_id
+          (http://www.sqlite.org/pragma.html#pragma_application_id), and should
+          specifiy it as a second magic number (file offset 68, see
+          http://www.sqlite.org/fileformat2.html#application_id) in addition to
+          the header string at offset 0. This value should also be added to the
+          magic.txt file in the SQLite repository http://www.sqlite.org/src/artifact?ci=trunk&amp;filename=magic.txt) by
+          submitting a patch to &lt;sqlite-users@mailinglists.sqlite.org&gt;.
+        </paragraph>
+      </interop>
+      <fragment>
+        <paragraph>The syntax and semantics of fragment identifiers specified for
+          +sqlite3 should be as specified for "application/vnd.sqlite3".
+          (At publication of this document, there is no fragment identification
+          syntax defined for "application/vnd.sqlite3".)
+        </paragraph>
+        <paragraph>
+          The syntax and semantics of fragment identifiers for a specific
+          "xxx/yyy+sqlite3" should be processed as follows:
+        </paragraph>
+        <paragraph>
+          For cases defined in +sqlite3, where the fragment identifier resolves
+          per the +sqlite3 rules, then as specified in +sqlite3.
+        </paragraph>
+        <paragraph>
+          For cases defined in +sqlite3, where the fragment identifier does not
+          resolve per the +sqlite3 rules, then as specified in "xxx/yyy+sqlite3".
+        </paragraph>
+        <paragraph>
+          For cases not defined in +sqlite3, then as specified in "xxx/yyy+sqlite3".
+        </paragraph>
+      </fragment>
+      <security>
+      <paragraph>
+        All the security considerations for "application/vnd.sqlite3" apply
+        to any type based on the sqlite3 format.
+      </paragraph>
+      <paragraph>
+        Each individual media type registered with a +sqlite3 suffix can have
+        additional security considerations. For example, if a specific
+        registration requires that certain extension functions are available,
+        or that blob fields contain data to be processed by other libraries or
+        external tools, or if only a single implementation exists to handle
+        a specific registered media type, then this increases the known attack
+        surface available to an attacker.
+      </paragraph>
+      </security>
+      <contact><xref type="person" data="SQLite_mailing_list"/></contact>
+      <controller><xref type="person" data="Clemens_Ladisch"/></controller>
+      <mod-dates/>
+    </record>
+    
   </registry>
   
   <people>
+    <person id="Clemens_Ladisch">
+      <name>Clemens Ladisch</name>
+      <uri>mailto:clemens&amp;ladisch.de</uri>
+      <updated>2018-02-12</updated>
+    </person>
     <person id="John_Mudge">
       <name>John Mudge</name>
       <uri>mailto:helpdesk&amp;omaorg.org</uri>
@@ -530,6 +599,11 @@
       <name>Open Mobile Naming Authority (OMNA)</name>
       <uri>mailto:helpdesk&amp;omaorg.org</uri>
       <updated>2016-06-19</updated>
+    </person>
+    <person id="SQLite_mailing_list">
+      <name>SQLite mailing list</name>
+      <uri>mailto:sqlite-users&amp;mailinglists.sqlite.org</uri>
+      <updated>2018-02-12</updated>
     </person>
   </people>
 </registry>
