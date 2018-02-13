@@ -4,7 +4,7 @@
            2007-05-10
 
    Last Updated
-           2017-12-22
+           2018-02-12
 
    Note
 
@@ -22,6 +22,13 @@
      * IPFIX Information Elements
 
           * IPFIX MPLS label type (Value 46)
+          * Forwarding Status (Value 89)
+
+               * Status 00b: Unknown
+               * Status 01b: Forwarded
+               * Status 10b: Dropped
+               * Status 11b: Consumed
+
           * Classification Engine IDs (Value 101)
           * NAT Event Type (Value 230)
           * flowSelectorAlgorithm (Value 390)
@@ -85,8 +92,8 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               The values of each bit are shown below, per the definition of the bits in the TCP
                                                                                               header [RFC793][RFC3168][RFC3540]:
 
-                                                                                               MSb                                                         LSb
-                                                                                                0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
+                                                                                              MSb                                                         LSb
+                                                                                              0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
                                                                                               +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
                                                                                               |               |           | N | C | E | U | A | P | R | S | F |
                                                                                               |     Zero      |   Future  | S | W | C | R | C | S | S | Y | I |
@@ -233,8 +240,8 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               sampled NetFlow:
 
 
-                                                                                                 1 - Deterministic Sampling,
-   35     samplingAlgorithm                      unsigned8            identifier   deprecated    2 - Random Sampling.                                                                                                                                          [RFC7270]                          0        2014-04-04
+                                                                                              1 - Deterministic Sampling,
+   35     samplingAlgorithm                      unsigned8            identifier   deprecated 2 - Random Sampling.                                                                                                                                             [RFC7270]                          0        2014-04-04
 
 
                                                                                               The values are not compatible with the selectorAlgorithm IE, where "Deterministic"
@@ -247,9 +254,9 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               observed for the number of seconds specified by this field.
                                                                                               Type of flow switching engine in a router/switch:
 
-                                                                                                 RP = 0,
-   38     engineType                             unsigned8            identifier   deprecated    VIP/Line card = 1,                                                                                                                                            [RFC7270]                          0        2014-04-04
-                                                                                                 PFC/DFC = 2.
+                                                                                              RP = 0,
+   38     engineType                             unsigned8            identifier   deprecated VIP/Line card = 1,                                                                                                                                               [RFC7270]                          0        2014-04-04
+                                                                                              PFC/DFC = 2.
 
                                                                                               Reserved for internal use on the Collector.
    39     engineId                               unsigned8            identifier   deprecated Versatile Interface Processor (VIP) or line card slot number of the flow switching                                                                               [RFC7270]                          0        2014-04-04
@@ -457,65 +464,27 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               This Information Element describes the forwarding status of the flow and any
                                                                                               attached reasons. The reduced-size encoding rules as per [RFC7011] apply.
 
-                                                                                              The basic encoding is 8 bits. The future extensions could add one or three bytes.
-                                                                                              The layout of the basic encoding is as follows:
+                                                                                              The basic encoding is 8 bits. The layout of the basic encoding is as follows:
 
-                                                                                                 MSB -   0   1   2   3   4   5   6   7   - LSB
-                                                                                                       +---+---+---+---+---+---+---+---+
-                                                                                                       | Status|  Reason code or flags |
-                                                                                                       +---+---+---+---+---+---+---+---+
+                                                                                              MSB -   0   1   2   3   4   5   6   7   - LSB
+                                                                                                   +---+---+---+---+---+---+---+---+
+                                                                                                   | Status|  Reason code or flags |
+                                                                                                   +---+---+---+---+---+---+---+---+
 
-                                                                                              Status:
-
-                                                                                              00b = Unknown
-                                                                                              01b = Forwarded
-                                                                                              10b = Dropped
-                                                                                              11b = Consumed
-
-
-                                                                                              Reason Code (status = 01b, Forwarded)
-
-                                                                                              01 000000b = 64 = Unknown
-                                                                                              01 000001b = 65 = Fragmented
-                                                                                              01 000010b = 66 = Not Fragmented
-
-                                                                                              Reason Code (status = 10b, Dropped)
-
-                                                                                              10 000000b = 128 = Unknown
-                                                                                              10 000001b = 129 = ACL deny
-                                                                                              10 000010b = 130 = ACL drop
-   89     forwardingStatus                       unsigned32           identifier   current    10 000011b = 131 = Unroutable                                                                              See "NetFlow Version 9 Flow-Record Format"            [RFC7270]                          0        2014-04-04
-                                                                                              10 000100b = 132 = Adjacency                                                                               [CCO-NF9FMT].
-                                                                                              10 000101b = 133 = Fragmentation and DF set
-                                                                                              10 000110b = 134 = Bad header checksum
-                                                                                              10 000111b = 135 = Bad total Length
-                                                                                              10 001000b = 136 = Bad header length
-                                                                                              10 001001b = 137 = bad TTL
-                                                                                              10 001010b = 138 = Policer
-                                                                                              10 001011b = 139 = WRED
-                                                                                              10 001100b = 140 = RPF
-                                                                                              10 001101b = 141 = For us
-                                                                                              10 001110b = 142 = Bad output interface
-                                                                                              10 001111b = 143 = Hardware
-
-                                                                                              Reason Code (status = 11b, Consumed)
-
-                                                                                              11 000000b = 192 = Unknown
-                                                                                              11 000001b = 193 = Punt Adjacency
-                                                                                              11 000010b = 194 = Incomplete Adjacency
-                                                                                              11 000011b = 195 = For us
-
+                                                                                              See the Forwarding Status sub-registries at
+   89     forwardingStatus                       unsigned8            identifier   current    [http://www.iana.org/assignments/ipfix/ipfix.xhtml#forwarding-status].                                     See "NetFlow Version 9 Flow-Record Format"            [RFC7270]                          1        2018-02-12
+                                                                                                                                                                                                         [CCO-NF9FMT].
                                                                                               Examples:
 
-                                                                                                value : 0x40 = 64
-                                                                                                binary: 01000000
-                                                                                                decode: 01        -> Forward
-                                                                                                          000000  -> No further information
+                                                                                              value : 0x40 = 64
+                                                                                              binary: 01000000
+                                                                                              decode: 01        -> Forward
+                                                                                                      000000  -> No further information
 
-                                                                                                value : 0x89 = 137
-                                                                                                binary: 10001001
-                                                                                                decode: 10        -> Drop
-                                                                                                          001001  -> Fragmentation and DF set
+                                                                                              value : 0x89 = 137
+                                                                                              binary: 10001001
+                                                                                              decode: 10        -> Drop
+                                                                                                      001001  -> Fragmentation and DF set
                                                                                               The value of the VPN route distinguisher of a corresponding entry in a VPN routing
                                                                                               and forwarding table. Route distinguisher ensures that the same address can be used
                                                                                               in several different MPLS VPNs and that it is possible for BGP to carry several
@@ -2587,6 +2556,133 @@ ElementID                  Name                   Abstract Data Type   Data Type
      5   LDP: Any label associated with dynamically assigned labels using LDP [RFC5102]
    6-255 Unassigned                                                           [RFC5102]
 
+  Forwarding Status (Value 89)
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ IE Doctors
+
+   Reference
+           [RFC7270]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Value Description Reference
+    00b  Unknown     [RFC7270]
+    01b  Forwarded   [RFC7270]
+    10b  Dropped     [RFC7270]
+    11b  Consumed    [RFC7270]
+
+    Status 00b: Unknown
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ IE Doctors
+
+   Reference
+           [RFC7270]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Binary    Hex    Description Reference
+          0x00-0x3F Unassigned
+
+    Status 01b: Forwarded
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ IE Doctors
+
+   Reference
+           [RFC7270]
+
+   Available Formats
+           [IMG]
+           CSV
+
+     Binary      Hex     Description      Reference
+   01 000000b   0x40    Unknown        [RFC7270]
+   01 000001b   0x41    Fragmented     [RFC7270]
+   01 000010b   0x42    Not Fragmented [RFC7270]
+   01 000011b   0x43    Tunneled       [Alfred_Nothaft]
+              0x44-0x7F Unassigned
+
+    Status 10b: Dropped
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ IE Doctors
+
+   Reference
+           [RFC7270]
+
+   Available Formats
+           [IMG]
+           CSV
+
+     Binary      Hex          Description        Reference
+   10 000000b   0x80    Unknown                  [RFC7270]
+   10 000001b   0x81    ACL deny                 [RFC7270]
+   10 000010b   0x82    ACL drop                 [RFC7270]
+   10 000011b   0x83    Unroutable               [RFC7270]
+   10 000100b   0x84    Adjacency                [RFC7270]
+   10 000101b   0x85    Fragmentation and DF set [RFC7270]
+   10 000110b   0x86    Bad header checksum      [RFC7270]
+   10 000111b   0x87    Bad total Length         [RFC7270]
+   10 001000b   0x88    Bad header length        [RFC7270]
+   10 001001b   0x89    bad TTL                  [RFC7270]
+   10 001010b   0x8A    Policer                  [RFC7270]
+   10 001011b   0x8B    WRED                     [RFC7270]
+   10 001100b   0x8C    RPF                      [RFC7270]
+   10 001101b   0x8D    For us                   [RFC7270]
+   10 001110b   0x8E    Bad output interface     [RFC7270]
+   10 001111b   0x8F    Hardware                 [RFC7270]
+              0x90-0xBF Unassigned
+
+    Status 11b: Consumed
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ IE Doctors
+
+   Reference
+           [RFC7270]
+
+   Available Formats
+           [IMG]
+           CSV
+
+     Binary      Hex        Description      Reference
+   11 000000b   0xC0    Unknown              [RFC7270]
+   11 000001b   0xC1    Punt Adjacency       [RFC7270]
+   11 000010b   0xC2    Incomplete Adjacency [RFC7270]
+   11 000011b   0xC3    For us               [RFC7270]
+              0xC4-0xFF Unassigned
+
   Classification Engine IDs (Value 101)
 
    Registration Procedure(s)
@@ -2942,10 +3038,11 @@ IPFIX Structured Data Types Semantics
                                                                         People
 
               ID                      Name                      Contact URI             Last Updated
+   [Alfred_Nothaft]          Alfred Nothaft          mailto:alfred.nothaft&nokia.com    2018-02-12
    [Andrew_Feren]            Andrew Feren            mailto:andrew.feren&plixer.com     2017-04-19
    [Brian_Trammell]          Brian Trammell          mailto:brian&trammell.ch           2013-08-01
    [Felix_Erlacher]          Felix Erlacher          mailto:felix.erlacher&ccs-labs.org 2017-06-19
    [ipfix-iana_at_cisco.com] ipfix-iana at cisco.com mailto:ipfix-iana&cisco.com        2013-04-11
-   [Paul_Aitken]             Paul Aitken             mailto:pjaitken&brocade.com        2017-02-21
+   [Paul_Aitken]             Paul Aitken             mailto:paul.aitken&att.com         2018-02-12
    [Qosmos]                  Qosmos                  http://www.qosmos.com              2017-02-21
    [Yaakov_J_Stein]          Yaakov (J) Stein        mailto:yaakov_s&rad.com            2013-04-11

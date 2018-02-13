@@ -27,6 +27,18 @@
       <xsl:when test="@id = 'ipfix-mpls-label-type'">
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'forwarding-status-00b'">
+        <tr><th>Binary</th><th>Hex</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'forwarding-status-01b'">
+        <tr><th>Binary</th><th>Hex</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'forwarding-status-10b'">
+        <tr><th>Binary</th><th>Hex</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'forwarding-status-11b'">
+        <tr><th>Binary</th><th>Hex</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:when test="@id = 'classification-engine-ids'">
         <tr><th>Value</th><th>Description</th><th>Default Length</th><th>Reference</th></tr>
       </xsl:when>
@@ -107,6 +119,18 @@
                    or ../@id = 'ipfix-information-element-data-types'
                    or ../@id = 'ipfix-information-element-semantics'">
         <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      
+      <xsl:when test="../@id = 'forwarding-status-00b'
+        or ../@id = 'forwarding-status-01b'
+        or ../@id = 'forwarding-status-10b'
+        or ../@id = 'forwarding-status-11b'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:binary-value"/></td>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
