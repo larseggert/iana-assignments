@@ -6,7 +6,7 @@
   <xsl:template name="iana:record_header">
     <xsl:choose>
       <xsl:when test="@id = 'rolie-urn-parameters'">
-        <tr><th>Name</th><th>Extension URI</th><th>Reference</th><th>Sub-Registry</th></tr>
+        <tr><th>Name</th><th>Extension URI</th><th>Reference</th><th>Subregistry</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'rolie-information-types'">
         <tr><th>Name</th><th>Index</th><th>Reference</th></tr>
