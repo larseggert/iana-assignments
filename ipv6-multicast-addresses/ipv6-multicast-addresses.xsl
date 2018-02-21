@@ -20,6 +20,7 @@
       <th>Address(s)</th>
       <th>Description</th>
       <th>Reference</th>
+      <th>Change Controller</th>
       <th>Date Registered</th>
       <th>Last Reviewed</th>
     </tr>
@@ -41,6 +42,7 @@
       <td style="font-family:monospace"><xsl:value-of select="iana:addr"/></td>
       <td><xsl:value-of select="iana:description"/></td>
       <td><xsl:apply-templates select="iana:xref"/></td>
+      <td><xsl:apply-templates select="iana:controller"/></td>
       <td><xsl:value-of select="@date"/></td>
       <td><xsl:value-of select="iana:reviewed"/></td>
     </tr>
