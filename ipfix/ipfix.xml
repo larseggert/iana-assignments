@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="ipfix">
 <title>IP Flow Information Export (IPFIX) Entities</title>
 <created>2007-05-10</created>
-<updated>2018-02-21</updated>
+<updated>2018-02-22</updated>
 
 <note><xref type="rfc" data="rfc7012"/> has obsoleted <xref type="rfc" data="rfc5102"/>. However, references to <xref type="rfc" data="rfc5102"/>
 remain as part of the historical record.</note>
@@ -171,8 +171,8 @@ The values of each bit are shown below, per the definition of the
 bits in the TCP header <xref type="rfc" data="rfc793"/><xref type="rfc" data="rfc3168"/><xref type="rfc" data="rfc3540"/>:
 </paragraph>
 <artwork>
-MSb                                                         LSb
-0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
+ MSb                                                         LSb
+  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
 +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
 |               |           | N | C | E | U | A | P | R | S | F |
 |     Zero      |   Future  | S | W | C | R | C | S | S | Y | I |
@@ -1627,41 +1627,43 @@ the respective IPv6 extension header, the value of the
 corresponding bit is 0.
 </paragraph>
 <artwork>
-0     1     2     3     4     5     6     7
-+-----+-----+-----+-----+-----+-----+-----+-----+
-| DST | HOP | Res | UNK |FRA0 | RH  |FRA1 | Res |  ...
-+-----+-----+-----+-----+-----+-----+-----+-----+
+        0     1     2     3     4     5     6     7
+    +-----+-----+-----+-----+-----+-----+-----+-----+
+    | DST | HOP | Res | UNK |FRA0 | RH  |FRA1 | Res |  ...
+    +-----+-----+-----+-----+-----+-----+-----+-----+
 
-8     9    10    11    12    13    14    15
-+-----+-----+-----+-----+-----+-----+-----+-----+
+        8     9    10    11    12    13    14    15
+    +-----+-----+-----+-----+-----+-----+-----+-----+
 ... |           Reserved    | MOB | ESP | AH  | PAY | ...
-+-----+-----+-----+-----+-----+-----+-----+-----+
+    +-----+-----+-----+-----+-----+-----+-----+-----+
 
-16    17    18    19    20    21    22    23
-+-----+-----+-----+-----+-----+-----+-----+-----+
+       16    17    18    19    20    21    22    23
+    +-----+-----+-----+-----+-----+-----+-----+-----+
 ... |                  Reserved                     | ...
-+-----+-----+-----+-----+-----+-----+-----+-----+
-24    25    26    27    28    29    30    31
-+-----+-----+-----+-----+-----+-----+-----+-----+
+    +-----+-----+-----+-----+-----+-----+-----+-----+
+
+       24    25    26    27    28    29    30    31
+    +-----+-----+-----+-----+-----+-----+-----+-----+
 ... |                  Reserved                     |
-+-----+-----+-----+-----+-----+-----+-----+-----+
+    +-----+-----+-----+-----+-----+-----+-----+-----+
 
 Bit    IPv6 Option   Description
+
 0, DST      60       Destination option header
 1, HOP       0       Hop-by-hop option header
 2, Res               Reserved
 3, UNK               Unknown Layer 4 header
-(compressed, encrypted, not supported)
+                     (compressed, encrypted, not supported)
 4, FRA0     44       Fragment header - first fragment
 5, RH       43       Routing header
 6, FRA1     44       Fragmentation header - not first fragment
 7, Res               Reserved
-8 to 11               Reserved
-12, MOB     135       IPv6 mobility [RFC3775]
-13, ESP      50       Encrypted security payload
-14, AH       51       Authentication Header
-15, PAY     108       Payload compression header
-16 to 31              Reserved
+8 to 11              Reserved
+12, MOB     135      IPv6 mobility [RFC3775]
+13, ESP      50      Encrypted security payload
+14, AH       51      Authentication Header
+15, PAY     108      Payload compression header
+16 to 31             Reserved
 </artwork>
 </description>
 <references>
@@ -1714,8 +1716,8 @@ stack entry, i.e., from the last label that was pushed.
 The size of this Information Element is 3 octets.
 </paragraph>
 <artwork>
-0                   1                   2
-0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3
+ 0                   1                   2
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                Label                  | Exp |S|
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -2787,24 +2789,28 @@ the following:
 </paragraph>
 <artwork>
 0x01: idle timeout
-The Flow was terminated because it was considered to be
-idle.
+      The Flow was terminated because it was considered to be
+      idle.
+      
 0x02: active timeout
-The Flow was terminated for reporting purposes while it was
-still active, for example, after the maximum lifetime of
-unreported Flows was reached.
+      The Flow was terminated for reporting purposes while it was
+      still active, for example, after the maximum lifetime of
+      unreported Flows was reached.
+
 0x03: end of Flow detected
-The Flow was terminated because the Metering Process
-detected signals indicating the end of the Flow,
-for example, the TCP FIN flag.
+      The Flow was terminated because the Metering Process
+      detected signals indicating the end of the Flow,
+      for example, the TCP FIN flag.
+
 0x04: forced end
-The Flow was terminated because of some external event,
-for example, a shutdown of the Metering Process initiated
-by a network management application.
+      The Flow was terminated because of some external event,
+      for example, a shutdown of the Metering Process initiated
+      by a network management application.
+
 0x05: lack of resources
-The Flow was terminated because of lack of resources
-available to the Metering Process and/or the Exporting
-Process.
+      The Flow was terminated because of lack of resources
+      available to the Metering Process and/or the Exporting
+      Process.
 </artwork>
 </description>
 <xref type="rfc" data="rfc5102"/>
@@ -4266,25 +4272,28 @@ packet header or the IPv6 Fragment header, respectively.
 <artwork>
 
 Bit 0:    (RS) Reserved.
-The value of this bit MUST be 0 until specified
-otherwise.
-Bit 1:    (DF) 0 = May Fragment,  1 = Don't Fragment.
-Corresponds to the value of the DF flag in the
-IPv4 header.  Will always be 0 for IPv6 unless
-a "don't fragment" feature is introduced to IPv6.
-Bit 2:    (MF) 0 = Last Fragment, 1 = More Fragments.
-Corresponds to the MF flag in the IPv4 header
-or to the M flag in the IPv6 Fragment header,
-respectively.  The value is 0 for IPv6 if there
-is no fragment header.
-Bits 3-7: (DC) Don't Care.
-The values of these bits are irrelevant.
+          The value of this bit MUST be 0 until specified
+          otherwise.
 
-0   1   2   3   4   5   6   7
-+---+---+---+---+---+---+---+---+
-| R | D | M | D | D | D | D | D |
-| S | F | F | C | C | C | C | C |
-+---+---+---+---+---+---+---+---+
+Bit 1:    (DF) 0 = May Fragment,  1 = Don't Fragment.
+          Corresponds to the value of the DF flag in the
+          IPv4 header.  Will always be 0 for IPv6 unless
+          a "don't fragment" feature is introduced to IPv6.
+
+Bit 2:    (MF) 0 = Last Fragment, 1 = More Fragments.
+          Corresponds to the MF flag in the IPv4 header
+          or to the M flag in the IPv6 Fragment header,
+          respectively.  The value is 0 for IPv6 if there
+          is no fragment header.
+
+Bits 3-7: (DC) Don't Care.
+          The values of these bits are irrelevant.
+
+     0   1   2   3   4   5   6   7
+   +---+---+---+---+---+---+---+---+
+   | R | D | M | D | D | D | D | D |
+   | S | F | F | C | C | C | C | C |
+   +---+---+---+---+---+---+---+---+
 </artwork>
 </description>
 <references>
@@ -4432,10 +4441,10 @@ i.e., the last label that was pushed.
 Bits 0-4:  Don't Care, value is irrelevant.
 Bits 5-7:  MPLS Exp field.
 
-0   1   2   3   4   5   6   7
-+---+---+---+---+---+---+---+---+
-|     don't care    |    Exp    |
-+---+---+---+---+---+---+---+---+
+     0   1   2   3   4   5   6   7
+   +---+---+---+---+---+---+---+---+
+   |     don't care    |    Exp    |
+   +---+---+---+---+---+---+---+---+
 </artwork>
 </description>
 <references>
@@ -4552,15 +4561,15 @@ set to the value of the scope field in the IPv6
 multicast address.
 </paragraph>
 <artwork>
-0      1      2      3      4      5      6      7
-+------+------+------+------+------+------+------+------+
-|   IPv6 multicast scope    |  T   | RES. | RES. | MCv4 |
-+------+------+------+------+------+------+------+------+
+      0      1      2      3      4      5      6      7
+   +------+------+------+------+------+------+------+------+
+   |   IPv6 multicast scope    |  T   | RES. | RES. | MCv4 |
+   +------+------+------+------+------+------+------+------+
 
-Bits 0-3:  set to value of multicast scope if IPv6 multicast
-Bit  4:    set to value of T flag, if IPv6 multicast
-Bits 5-6:  reserved for future use
-Bit  7:    set to 1 if IPv4 multicast
+   Bits 0-3:  set to value of multicast scope if IPv6 multicast
+   Bit  4:    set to value of T flag, if IPv6 multicast
+   Bits 5-6:  reserved for future use
+   Bit  7:    set to 1 if IPv4 multicast
 </artwork>
 </description>
 <references>
@@ -4639,62 +4648,61 @@ Option number X is mapped to bit X.
 The mapping is illustrated by the figure below.
 </paragraph>
 <artwork>
-0      1      2      3      4      5      6      7
-+------+------+------+------+------+------+------+------+
+        0      1      2      3      4      5      6      7
+    +------+------+------+------+------+------+------+------+
 ... |  RR  |CIPSO |E-SEC |  TS  | LSR  |  SEC | NOP  | EOOL |
-+------+------+------+------+------+------+------+------+
+    +------+------+------+------+------+------+------+------+
 
-8      9     10     11     12     13     14     15
-+------+------+------+------+------+------+------+------+
+        8      9     10     11     12     13     14     15
+    +------+------+------+------+------+------+------+------+
 ... |ENCODE| VISA | FINN | MTUR | MTUP | ZSU  | SSR  | SID  | ...
-+------+------+------+------+------+------+------+------+
+    +------+------+------+------+------+------+------+------+
 
-16     17     18     19     20     21     22     23
-+------+------+------+------+------+------+------+------+
+       16     17     18     19     20     21     22     23
+    +------+------+------+------+------+------+------+------+
 ... | DPS  |NSAPA | SDB  |RTRALT|ADDEXT|  TR  | EIP  |IMITD | ...
-+------+------+------+------+------+------+------+------+
+    +------+------+------+------+------+------+------+------+
 
-24     25     26     27     28     29     30     31
-+------+------+------+------+------+------+------+------+
-|      | EXP  |   to be assigned by IANA  |  QS  | UMP  | ...
-+------+------+------+------+------+------+------+------+
+       24     25     26     27     28     29     30     31
+    +------+------+------+------+------+------+------+------+
+... |      | EXP  |   to be assigned by IANA  |  QS  | UMP  |
+    +------+------+------+------+------+------+------+------+
 
-Type   Option
-Bit Value  Name    Reference
----+-----+-------+------------------------------------
-0     7   RR      Record Route, RFC 791
-1   134   CIPSO   Commercial Security
-2   133   E-SEC   Extended Security, RFC 1108
-3    68   TS      Time Stamp, RFC 791
-4   131   LSR     Loose Source Route, RFC791
-5   130   SEC     Security, RFC 1108
-6     1   NOP     No Operation, RFC 791
-7     0   EOOL    End of Options List, RFC 791
-8    15   ENCODE
-9   142   VISA    Experimental Access Control
-10   205   FINN    Experimental Flow Control
-11    12   MTUR    (obsoleted) MTU Reply, RFC 1191
-12    11   MTUP    (obsoleted) MTU Probe, RFC 1191
-13    10   ZSU     Experimental Measurement
-14   137   SSR     Strict Source Route, RFC 791
-15   136   SID     Stream ID, RFC 791
-16   151   DPS     Dynamic Packet State
-17   150   NSAPA   NSAP Address
-18   149   SDB     Selective Directed Broadcast
-19   147   ADDEXT  Address Extension
-20   148   RTRALT  Router Alert, RFC 2113
-21    82   TR      Traceroute, RFC 3193
-22   145   EIP     Extended Internet Protocol, RFC 1385
-23   144   IMITD   IMI Traffic Descriptor
-25    30   EXP     RFC3692-style Experiment
-25    94   EXP     RFC3692-style Experiment
-25   158   EXP     RFC3692-style Experiment
-25   222   EXP     RFC3692-style Experiment
-30    25   QS      Quick-Start
-31   152   UMP     Upstream Multicast Pkt.
-...  ...   ...     Further options numbers
-may be assigned by IANA
-
+       Type   Option
+   Bit Value  Name    Reference
+   ---+-----+-------+------------------------------------
+   0      7   RR      Record Route, RFC 791
+   1    134   CIPSO   Commercial Security
+   2    133   E-SEC   Extended Security, RFC 1108
+   3     68   TS      Time Stamp, RFC 791
+   4    131   LSR     Loose Source Route, RFC791
+   5    130   SEC     Security, RFC 1108
+   6      1   NOP     No Operation, RFC 791
+   7      0   EOOL    End of Options List, RFC 791
+   8     15   ENCODE
+   9    142   VISA    Experimental Access Control
+   10   205   FINN    Experimental Flow Control
+   11    12   MTUR    (obsoleted) MTU Reply, RFC 1191
+   12    11   MTUP    (obsoleted) MTU Probe, RFC 1191
+   13    10   ZSU     Experimental Measurement
+   14   137   SSR     Strict Source Route, RFC 791
+   15   136   SID     Stream ID, RFC 791
+   16   151   DPS     Dynamic Packet State
+   17   150   NSAPA   NSAP Address
+   18   149   SDB     Selective Directed Broadcast
+   19   147   ADDEXT  Address Extension
+   20   148   RTRALT  Router Alert, RFC 2113
+   21    82   TR      Traceroute, RFC 3193
+   22   145   EIP     Extended Internet Protocol, RFC 1385
+   23   144   IMITD   IMI Traffic Descriptor
+   25    30   EXP     RFC3692-style Experiment
+   25    94   EXP     RFC3692-style Experiment
+   25   158   EXP     RFC3692-style Experiment
+   25   222   EXP     RFC3692-style Experiment
+   30    25   QS      Quick-Start
+   31   152   UMP     Upstream Multicast Pkt.
+   ...  ...   ...     Further options numbers
+                      may be assigned by IANA
 </artwork>
 </description>
 <references>
@@ -4736,27 +4744,27 @@ numbers.  Option number X is mapped to bit X.
 TCP option numbers are maintained by IANA.
 </paragraph>
 <artwork>
-0     1     2     3     4     5     6     7
-+-----+-----+-----+-----+-----+-----+-----+-----+
-|   7 |   6 |   5 |   4 |   3 |   2 |   1 |   0 |  ...
-+-----+-----+-----+-----+-----+-----+-----+-----+
+        0     1     2     3     4     5     6     7
+    +-----+-----+-----+-----+-----+-----+-----+-----+
+    |   7 |   6 |   5 |   4 |   3 |   2 |   1 |   0 |  ...
+    +-----+-----+-----+-----+-----+-----+-----+-----+
 
-8     9    10    11    12    13    14    15
-+-----+-----+-----+-----+-----+-----+-----+-----+
+        8     9    10    11    12    13    14    15
+    +-----+-----+-----+-----+-----+-----+-----+-----+
 ... |  15 |  14 |  13 |  12 |  11 |  10 |   9 |   8 |...
-+-----+-----+-----+-----+-----+-----+-----+-----+
+    +-----+-----+-----+-----+-----+-----+-----+-----+
 
-16    17    18    19    20    21    22    23
-+-----+-----+-----+-----+-----+-----+-----+-----+
+       16    17    18    19    20    21    22    23
+    +-----+-----+-----+-----+-----+-----+-----+-----+
 ... |  23 |  22 |  21 |  20 |  19 |  18 |  17 |  16 |...
-+-----+-----+-----+-----+-----+-----+-----+-----+
+    +-----+-----+-----+-----+-----+-----+-----+-----+
 
-. . .
+                          . . .
 
-56    57    58    59    60    61    62    63
-+-----+-----+-----+-----+-----+-----+-----+-----+
+       56    57    58    59    60    61    62    63
+    +-----+-----+-----+-----+-----+-----+-----+-----+
 ... |  63 |  62 |  61 |  60 |  59 |  58 |  57 |  56 |
-+-----+-----+-----+-----+-----+-----+-----+-----+
+    +-----+-----+-----+-----+-----+-----+-----+-----+
 </artwork>
 </description>
 <references>

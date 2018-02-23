@@ -4,7 +4,7 @@
            2007-05-10
 
    Last Updated
-           2018-02-21
+           2018-02-22
 
    Note
 
@@ -92,8 +92,8 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               The values of each bit are shown below, per the definition of the bits in the TCP
                                                                                               header [RFC793][RFC3168][RFC3540]:
 
-                                                                                              MSb                                                         LSb
-                                                                                              0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
+                                                                                               MSb                                                         LSb
+                                                                                                0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
                                                                                               +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
                                                                                               |               |           | N | C | E | U | A | P | R | S | F |
                                                                                               |     Zero      |   Future  | S | W | C | R | C | S | S | Y | I |
@@ -345,49 +345,51 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               IPv6 extension header. Otherwise, if no observed packet of this Flow contained the
                                                                                               respective IPv6 extension header, the value of the corresponding bit is 0.
 
-                                                                                              0     1     2     3     4     5     6     7
-                                                                                              +-----+-----+-----+-----+-----+-----+-----+-----+
-                                                                                              | DST | HOP | Res | UNK |FRA0 | RH  |FRA1 | Res |  ...
-                                                                                              +-----+-----+-----+-----+-----+-----+-----+-----+
+                                                                                                      0     1     2     3     4     5     6     7
+                                                                                                  +-----+-----+-----+-----+-----+-----+-----+-----+
+                                                                                                  | DST | HOP | Res | UNK |FRA0 | RH  |FRA1 | Res |  ...
+                                                                                                  +-----+-----+-----+-----+-----+-----+-----+-----+
 
-                                                                                              8     9    10    11    12    13    14    15
-                                                                                              +-----+-----+-----+-----+-----+-----+-----+-----+
+                                                                                                      8     9    10    11    12    13    14    15
+                                                                                                  +-----+-----+-----+-----+-----+-----+-----+-----+
                                                                                               ... |           Reserved    | MOB | ESP | AH  | PAY | ...
-                                                                                              +-----+-----+-----+-----+-----+-----+-----+-----+
-                                                                                                                                                                                                         See [RFC8200] for the general definition of IPv6
-                                                                                              16    17    18    19    20    21    22    23                                                               extension headers and for the specification of the
-                                                                                              +-----+-----+-----+-----+-----+-----+-----+-----+                                                          hop-by-hop options header, the routing header, the
-                                                                                              ... |                  Reserved                     | ...                                                  fragment header, and the destination options header.
-                                                                                              +-----+-----+-----+-----+-----+-----+-----+-----+                                                          See [RFC4302] for the specification of the
-   64     ipv6ExtensionHeaders                   unsigned32           flags        current    24    25    26    27    28    29    30    31                                                               authentication header. See [RFC4303] for the          [RFC5102]                          0        2013-02-18
-                                                                                              +-----+-----+-----+-----+-----+-----+-----+-----+                                                          specification of the encapsulating security payload.
+                                                                                                  +-----+-----+-----+-----+-----+-----+-----+-----+
+
+                                                                                                     16    17    18    19    20    21    22    23                                                        See [RFC8200] for the general definition of IPv6
+                                                                                                  +-----+-----+-----+-----+-----+-----+-----+-----+                                                      extension headers and for the specification of the
+                                                                                              ... |                  Reserved                     | ...                                                  hop-by-hop options header, the routing header, the
+                                                                                                  +-----+-----+-----+-----+-----+-----+-----+-----+                                                      fragment header, and the destination options header.
+                                                                                                                                                                                                         See [RFC4302] for the specification of the
+   64     ipv6ExtensionHeaders                   unsigned32           flags        current           24    25    26    27    28    29    30    31                                                        authentication header. See [RFC4303] for the          [RFC5102]                          0        2013-02-18
+                                                                                                  +-----+-----+-----+-----+-----+-----+-----+-----+                                                      specification of the encapsulating security payload.
                                                                                               ... |                  Reserved                     |                                                      The diagram provided in [RFC5102] is incorrect. The
-                                                                                              +-----+-----+-----+-----+-----+-----+-----+-----+                                                          diagram in this registry is taken from Errata 1738.
+                                                                                                  +-----+-----+-----+-----+-----+-----+-----+-----+                                                      diagram in this registry is taken from Errata 1738.
                                                                                                                                                                                                          See [RFC Errata 1738]
                                                                                               Bit    IPv6 Option   Description
+
                                                                                               0, DST      60       Destination option header
                                                                                               1, HOP       0       Hop-by-hop option header
                                                                                               2, Res               Reserved
                                                                                               3, UNK               Unknown Layer 4 header
-                                                                                              (compressed, encrypted, not supported)
+                                                                                                                   (compressed, encrypted, not supported)
                                                                                               4, FRA0     44       Fragment header - first fragment
                                                                                               5, RH       43       Routing header
                                                                                               6, FRA1     44       Fragmentation header - not first fragment
                                                                                               7, Res               Reserved
-                                                                                              8 to 11               Reserved
-                                                                                              12, MOB     135       IPv6 mobility [RFC3775]
-                                                                                              13, ESP      50       Encrypted security payload
-                                                                                              14, AH       51       Authentication Header
-                                                                                              15, PAY     108       Payload compression header
-                                                                                              16 to 31              Reserved
+                                                                                              8 to 11              Reserved
+                                                                                              12, MOB     135      IPv6 mobility [RFC3775]
+                                                                                              13, ESP      50      Encrypted security payload
+                                                                                              14, AH       51      Authentication Header
+                                                                                              15, PAY     108      Payload compression header
+                                                                                              16 to 31             Reserved
   65-69   Assigned for NetFlow v9 compatibility                                                                                                                                                          [RFC3954]                                             [RFC5102]                          0        2013-02-18
                                                                                               The Label, Exp, and S fields from the top MPLS label stack entry, i.e., from the
                                                                                               last label that was pushed.
 
                                                                                               The size of this Information Element is 3 octets.
 
-                                                                                              0                   1                   2
-   70     mplsTopLabelStackSection               octetArray           default      current    0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3                                                            See [RFC3032].                                        [RFC5102]                          1        2014-02-03
+                                                                                               0                   1                   2
+   70     mplsTopLabelStackSection               octetArray           default      current     0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3                                                           See [RFC3032].                                        [RFC5102]                          1        2014-02-03
                                                                                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
                                                                                               |                Label                  | Exp |S|
                                                                                               +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -559,24 +561,28 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               The reason for Flow termination. The range of values includes the following:
 
                                                                                               0x01: idle timeout
-                                                                                              The Flow was terminated because it was considered to be
-                                                                                              idle.
+                                                                                                    The Flow was terminated because it was considered to be
+                                                                                                    idle.
+
                                                                                               0x02: active timeout
-                                                                                              The Flow was terminated for reporting purposes while it was
-                                                                                              still active, for example, after the maximum lifetime of
-                                                                                              unreported Flows was reached.
+                                                                                                    The Flow was terminated for reporting purposes while it was
+                                                                                                    still active, for example, after the maximum lifetime of
+                                                                                                    unreported Flows was reached.
+
                                                                                               0x03: end of Flow detected
-   136    flowEndReason                          unsigned8            identifier   current    The Flow was terminated because the Metering Process                                                                                                             [RFC5102]                          0        2013-02-18
-                                                                                              detected signals indicating the end of the Flow,
-                                                                                              for example, the TCP FIN flag.
+   136    flowEndReason                          unsigned8            identifier   current          The Flow was terminated because the Metering Process                                                                                                       [RFC5102]                          0        2013-02-18
+                                                                                                    detected signals indicating the end of the Flow,
+                                                                                                    for example, the TCP FIN flag.
+
                                                                                               0x04: forced end
-                                                                                              The Flow was terminated because of some external event,
-                                                                                              for example, a shutdown of the Metering Process initiated
-                                                                                              by a network management application.
+                                                                                                    The Flow was terminated because of some external event,
+                                                                                                    for example, a shutdown of the Metering Process initiated
+                                                                                                    by a network management application.
+
                                                                                               0x05: lack of resources
-                                                                                              The Flow was terminated because of lack of resources
-                                                                                              available to the Metering Process and/or the Exporting
-                                                                                              Process.
+                                                                                                    The Flow was terminated because of lack of resources
+                                                                                                    available to the Metering Process and/or the Exporting
+                                                                                                    Process.
                                                                                               An identifier of a set of common properties that is unique per Observation Domain
    137    commonPropertiesId                     unsigned64           identifier   current    and Transport Session. Typically, this Information Element is used to link to                                                                                    [RFC5102]                          0        2013-02-18
                                                                                               information reported in separate Data Records.
@@ -770,25 +776,28 @@ ElementID                  Name                   Abstract Data Type   Data Type
 
 
                                                                                               Bit 0:    (RS) Reserved.
-                                                                                              The value of this bit MUST be 0 until specified
-                                                                                              otherwise.
-                                                                                              Bit 1:    (DF) 0 = May Fragment,  1 = Don't Fragment.
-                                                                                              Corresponds to the value of the DF flag in the
-                                                                                              IPv4 header.  Will always be 0 for IPv6 unless
-                                                                                              a "don't fragment" feature is introduced to IPv6.                                                          See [RFC791] for the specification of the IPv4
-   197    fragmentFlags                          unsigned8            flags        current    Bit 2:    (MF) 0 = Last Fragment, 1 = More Fragments.                                                      fragment flags. See [RFC8200] for the specification   [RFC5102]                          0        2013-02-18
-                                                                                              Corresponds to the MF flag in the IPv4 header                                                              of the IPv6 Fragment header.
-                                                                                              or to the M flag in the IPv6 Fragment header,
-                                                                                              respectively.  The value is 0 for IPv6 if there
-                                                                                              is no fragment header.
-                                                                                              Bits 3-7: (DC) Don't Care.
-                                                                                              The values of these bits are irrelevant.
+                                                                                                        The value of this bit MUST be 0 until specified
+                                                                                                        otherwise.
 
-                                                                                              0   1   2   3   4   5   6   7
-                                                                                              +---+---+---+---+---+---+---+---+
-                                                                                              | R | D | M | D | D | D | D | D |
-                                                                                              | S | F | F | C | C | C | C | C |
-                                                                                              +---+---+---+---+---+---+---+---+
+                                                                                              Bit 1:    (DF) 0 = May Fragment,  1 = Don't Fragment.
+                                                                                                        Corresponds to the value of the DF flag in the
+                                                                                                        IPv4 header.  Will always be 0 for IPv6 unless
+                                                                                                        a "don't fragment" feature is introduced to IPv6.
+                                                                                                                                                                                                         See [RFC791] for the specification of the IPv4
+   197    fragmentFlags                          unsigned8            flags        current    Bit 2:    (MF) 0 = Last Fragment, 1 = More Fragments.                                                      fragment flags. See [RFC8200] for the specification   [RFC5102]                          0        2013-02-18
+                                                                                                        Corresponds to the MF flag in the IPv4 header                                                    of the IPv6 Fragment header.
+                                                                                                        or to the M flag in the IPv6 Fragment header,
+                                                                                                        respectively.  The value is 0 for IPv6 if there
+                                                                                                        is no fragment header.
+
+                                                                                              Bits 3-7: (DC) Don't Care.
+                                                                                                        The values of these bits are irrelevant.
+
+                                                                                                   0   1   2   3   4   5   6   7
+                                                                                                 +---+---+---+---+---+---+---+---+
+                                                                                                 | R | D | M | D | D | D | D | D |
+                                                                                                 | S | F | F | C | C | C | C | C |
+                                                                                                 +---+---+---+---+---+---+---+---+
                                                                                               The sum of the squared numbers of octets per incoming packet since the previous
    198    octetDeltaSumOfSquares                 unsigned64                        current    report (if any) for this Flow at the Observation Point. The number of octets                                                                                     [RFC5102]                          0        2013-02-18
                                                                                               includes IP header(s) and IP payload.
@@ -807,10 +816,10 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               Bits 0-4:  Don't Care, value is irrelevant.
    203    mplsTopLabelExp                        unsigned8            flags        current    Bits 5-7:  MPLS Exp field.                                                                                 See [RFC3032] for the specification of the Exp field. [RFC5102]                          0        2013-02-18
                                                                                                                                                                                                          See [RFC3270] for usage of the Exp field.
-                                                                                              0   1   2   3   4   5   6   7
-                                                                                              +---+---+---+---+---+---+---+---+
-                                                                                              |     don't care    |    Exp    |
-                                                                                              +---+---+---+---+---+---+---+---+
+                                                                                                   0   1   2   3   4   5   6   7
+                                                                                                 +---+---+---+---+---+---+---+---+
+                                                                                                 |     don't care    |    Exp    |
+                                                                                                 +---+---+---+---+---+---+---+---+
                                                                                               The effective length of the IP payload.
 
                                                                                               For IPv4 packets, the value of this Information Element is the difference between
@@ -839,15 +848,15 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               remaining four bits are set to the value of the scope field in the IPv6 multicast                          multicast scope. The diagram provided in [RFC5102] is
                                                                                               address.                                                                                                   incorrect. The diagram in this registry is taken from
                                                                                                                                                                                                          Errata 1736. See [RFC Errata 1736]
-                                                                                              0      1      2      3      4      5      6      7
-                                                                                              +------+------+------+------+------+------+------+------+
-                                                                                              |   IPv6 multicast scope    |  T   | RES. | RES. | MCv4 |
-                                                                                              +------+------+------+------+------+------+------+------+
+                                                                                                    0      1      2      3      4      5      6      7
+                                                                                                 +------+------+------+------+------+------+------+------+
+                                                                                                 |   IPv6 multicast scope    |  T   | RES. | RES. | MCv4 |
+                                                                                                 +------+------+------+------+------+------+------+------+
 
-                                                                                              Bits 0-3:  set to value of multicast scope if IPv6 multicast
-                                                                                              Bit  4:    set to value of T flag, if IPv6 multicast
-                                                                                              Bits 5-6:  reserved for future use
-                                                                                              Bit  7:    set to 1 if IPv4 multicast
+                                                                                                 Bits 0-3:  set to value of multicast scope if IPv6 multicast
+                                                                                                 Bit  4:    set to value of T flag, if IPv6 multicast
+                                                                                                 Bits 5-6:  reserved for future use
+                                                                                                 Bit  7:    set to 1 if IPv4 multicast
                                                                                               The value of the Internet Header Length (IHL) field in the IPv4 header. It                                 See [RFC791] for the specification of the IPv4
    207    ipv4IHL                                unsigned8                         current    specifies the length of the header in units of 4 octets. Please note that its unit  4 octets               header.                                               [RFC5102]                          0        2013-02-18
                                                                                               is different from most of the other Information Elements reporting length values.
@@ -865,61 +874,61 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               Options are mapped to bits according to their option numbers. Option number X is
                                                                                               mapped to bit X. The mapping is illustrated by the figure below.
 
-                                                                                              0      1      2      3      4      5      6      7
-                                                                                              +------+------+------+------+------+------+------+------+
+                                                                                                      0      1      2      3      4      5      6      7
+                                                                                                  +------+------+------+------+------+------+------+------+
                                                                                               ... |  RR  |CIPSO |E-SEC |  TS  | LSR  |  SEC | NOP  | EOOL |
-                                                                                              +------+------+------+------+------+------+------+------+
+                                                                                                  +------+------+------+------+------+------+------+------+
 
-                                                                                              8      9     10     11     12     13     14     15
-                                                                                              +------+------+------+------+------+------+------+------+
+                                                                                                      8      9     10     11     12     13     14     15
+                                                                                                  +------+------+------+------+------+------+------+------+
                                                                                               ... |ENCODE| VISA | FINN | MTUR | MTUP | ZSU  | SSR  | SID  | ...
-                                                                                              +------+------+------+------+------+------+------+------+
+                                                                                                  +------+------+------+------+------+------+------+------+
 
-                                                                                              16     17     18     19     20     21     22     23
-                                                                                              +------+------+------+------+------+------+------+------+
+                                                                                                     16     17     18     19     20     21     22     23
+                                                                                                  +------+------+------+------+------+------+------+------+
                                                                                               ... | DPS  |NSAPA | SDB  |RTRALT|ADDEXT|  TR  | EIP  |IMITD | ...
-                                                                                              +------+------+------+------+------+------+------+------+
+                                                                                                  +------+------+------+------+------+------+------+------+
 
-                                                                                              24     25     26     27     28     29     30     31
-                                                                                              +------+------+------+------+------+------+------+------+
-                                                                                              |      | EXP  |   to be assigned by IANA  |  QS  | UMP  | ...                                              See [RFC791] for the definition of IPv4 options. See
-                                                                                              +------+------+------+------+------+------+------+------+                                                  the list of IPv4 option numbers assigned by IANA at
+                                                                                                     24     25     26     27     28     29     30     31
+                                                                                                  +------+------+------+------+------+------+------+------+
+                                                                                              ... |      | EXP  |   to be assigned by IANA  |  QS  | UMP  |                                              See [RFC791] for the definition of IPv4 options. See
+                                                                                                  +------+------+------+------+------+------+------+------+                                              the list of IPv4 option numbers assigned by IANA at
                                                                                                                                                                                                          [IANA registry ip-parameters]. The diagram provided
-   208    ipv4Options                            unsigned32           flags        current    Type   Option                                                                                              in [RFC5102] is incorrect. The diagram in this        [RFC5102]                          0        2013-02-18
-                                                                                              Bit Value  Name    Reference                                                                               registry is taken from Errata 1737. See [RFC Errata
-                                                                                              ---+-----+-------+------------------------------------                                                     1737]
-                                                                                              0     7   RR      Record Route, RFC 791
-                                                                                              1   134   CIPSO   Commercial Security
-                                                                                              2   133   E-SEC   Extended Security, RFC 1108
-                                                                                              3    68   TS      Time Stamp, RFC 791
-                                                                                              4   131   LSR     Loose Source Route, RFC791
-                                                                                              5   130   SEC     Security, RFC 1108
-                                                                                              6     1   NOP     No Operation, RFC 791
-                                                                                              7     0   EOOL    End of Options List, RFC 791
-                                                                                              8    15   ENCODE
-                                                                                              9   142   VISA    Experimental Access Control
-                                                                                              10   205   FINN    Experimental Flow Control
-                                                                                              11    12   MTUR    (obsoleted) MTU Reply, RFC 1191
-                                                                                              12    11   MTUP    (obsoleted) MTU Probe, RFC 1191
-                                                                                              13    10   ZSU     Experimental Measurement
-                                                                                              14   137   SSR     Strict Source Route, RFC 791
-                                                                                              15   136   SID     Stream ID, RFC 791
-                                                                                              16   151   DPS     Dynamic Packet State
-                                                                                              17   150   NSAPA   NSAP Address
-                                                                                              18   149   SDB     Selective Directed Broadcast
-                                                                                              19   147   ADDEXT  Address Extension
-                                                                                              20   148   RTRALT  Router Alert, RFC 2113
-                                                                                              21    82   TR      Traceroute, RFC 3193
-                                                                                              22   145   EIP     Extended Internet Protocol, RFC 1385
-                                                                                              23   144   IMITD   IMI Traffic Descriptor
-                                                                                              25    30   EXP     RFC3692-style Experiment
-                                                                                              25    94   EXP     RFC3692-style Experiment
-                                                                                              25   158   EXP     RFC3692-style Experiment
-                                                                                              25   222   EXP     RFC3692-style Experiment
-                                                                                              30    25   QS      Quick-Start
-                                                                                              31   152   UMP     Upstream Multicast Pkt.
-                                                                                              ...  ...   ...     Further options numbers
-                                                                                              may be assigned by IANA
+   208    ipv4Options                            unsigned32           flags        current           Type   Option                                                                                       in [RFC5102] is incorrect. The diagram in this        [RFC5102]                          0        2013-02-18
+                                                                                                 Bit Value  Name    Reference                                                                            registry is taken from Errata 1737. See [RFC Errata
+                                                                                                 ---+-----+-------+------------------------------------                                                  1737]
+                                                                                                 0      7   RR      Record Route, RFC 791
+                                                                                                 1    134   CIPSO   Commercial Security
+                                                                                                 2    133   E-SEC   Extended Security, RFC 1108
+                                                                                                 3     68   TS      Time Stamp, RFC 791
+                                                                                                 4    131   LSR     Loose Source Route, RFC791
+                                                                                                 5    130   SEC     Security, RFC 1108
+                                                                                                 6      1   NOP     No Operation, RFC 791
+                                                                                                 7      0   EOOL    End of Options List, RFC 791
+                                                                                                 8     15   ENCODE
+                                                                                                 9    142   VISA    Experimental Access Control
+                                                                                                 10   205   FINN    Experimental Flow Control
+                                                                                                 11    12   MTUR    (obsoleted) MTU Reply, RFC 1191
+                                                                                                 12    11   MTUP    (obsoleted) MTU Probe, RFC 1191
+                                                                                                 13    10   ZSU     Experimental Measurement
+                                                                                                 14   137   SSR     Strict Source Route, RFC 791
+                                                                                                 15   136   SID     Stream ID, RFC 791
+                                                                                                 16   151   DPS     Dynamic Packet State
+                                                                                                 17   150   NSAPA   NSAP Address
+                                                                                                 18   149   SDB     Selective Directed Broadcast
+                                                                                                 19   147   ADDEXT  Address Extension
+                                                                                                 20   148   RTRALT  Router Alert, RFC 2113
+                                                                                                 21    82   TR      Traceroute, RFC 3193
+                                                                                                 22   145   EIP     Extended Internet Protocol, RFC 1385
+                                                                                                 23   144   IMITD   IMI Traffic Descriptor
+                                                                                                 25    30   EXP     RFC3692-style Experiment
+                                                                                                 25    94   EXP     RFC3692-style Experiment
+                                                                                                 25   158   EXP     RFC3692-style Experiment
+                                                                                                 25   222   EXP     RFC3692-style Experiment
+                                                                                                 30    25   QS      Quick-Start
+                                                                                                 31   152   UMP     Upstream Multicast Pkt.
+                                                                                                 ...  ...   ...     Further options numbers
+                                                                                                                    may be assigned by IANA
                                                                                               TCP options in packets of this Flow. The information is encoded in a set of bit
                                                                                               fields. For each TCP option, there is a bit in this set. The bit is set to 1 if any
                                                                                               observed packet of this Flow contains the corresponding TCP option. Otherwise, if
@@ -929,27 +938,27 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               Options are mapped to bits according to their option numbers. Option number X is
                                                                                               mapped to bit X. TCP option numbers are maintained by IANA.
 
-                                                                                              0     1     2     3     4     5     6     7
-                                                                                              +-----+-----+-----+-----+-----+-----+-----+-----+
-                                                                                              |   7 |   6 |   5 |   4 |   3 |   2 |   1 |   0 |  ...
-                                                                                              +-----+-----+-----+-----+-----+-----+-----+-----+                                                          See [RFC793] for the definition of TCP options. See
+                                                                                                      0     1     2     3     4     5     6     7
+                                                                                                  +-----+-----+-----+-----+-----+-----+-----+-----+
+                                                                                                  |   7 |   6 |   5 |   4 |   3 |   2 |   1 |   0 |  ...
+                                                                                                  +-----+-----+-----+-----+-----+-----+-----+-----+                                                      See [RFC793] for the definition of TCP options. See
                                                                                                                                                                                                          the list of TCP option numbers assigned by IANA at
-   209    tcpOptions                             unsigned64           flags        current    8     9    10    11    12    13    14    15                                                                [IANA registry tcp-parameters]. The diagram provided  [RFC5102]                          0        2013-02-18
-                                                                                              +-----+-----+-----+-----+-----+-----+-----+-----+                                                          in [RFC5102] is incorrect. The diagram in this
+   209    tcpOptions                             unsigned64           flags        current            8     9    10    11    12    13    14    15                                                        [IANA registry tcp-parameters]. The diagram provided  [RFC5102]                          0        2013-02-18
+                                                                                                  +-----+-----+-----+-----+-----+-----+-----+-----+                                                      in [RFC5102] is incorrect. The diagram in this
                                                                                               ... |  15 |  14 |  13 |  12 |  11 |  10 |   9 |   8 |...                                                   registry is taken from Errata 1739. See [RFC Errata
-                                                                                              +-----+-----+-----+-----+-----+-----+-----+-----+                                                          1739]
+                                                                                                  +-----+-----+-----+-----+-----+-----+-----+-----+                                                      1739]
 
-                                                                                              16    17    18    19    20    21    22    23
-                                                                                              +-----+-----+-----+-----+-----+-----+-----+-----+
+                                                                                                     16    17    18    19    20    21    22    23
+                                                                                                  +-----+-----+-----+-----+-----+-----+-----+-----+
                                                                                               ... |  23 |  22 |  21 |  20 |  19 |  18 |  17 |  16 |...
-                                                                                              +-----+-----+-----+-----+-----+-----+-----+-----+
+                                                                                                  +-----+-----+-----+-----+-----+-----+-----+-----+
 
-                                                                                              . . .
+                                                                                                                        . . .
 
-                                                                                              56    57    58    59    60    61    62    63
-                                                                                              +-----+-----+-----+-----+-----+-----+-----+-----+
+                                                                                                     56    57    58    59    60    61    62    63
+                                                                                                  +-----+-----+-----+-----+-----+-----+-----+-----+
                                                                                               ... |  63 |  62 |  61 |  60 |  59 |  58 |  57 |  56 |
-                                                                                              +-----+-----+-----+-----+-----+-----+-----+-----+
+                                                                                                  +-----+-----+-----+-----+-----+-----+-----+-----+
    210    paddingOctets                          octetArray           default      current    The value of this Information Element is always a sequence of 0x00 values.                                                                                       [RFC5102]                          0        2013-02-18
    211    collectorIPv4Address                   ipv4Address          default      current    An IPv4 address to which the Exporting Process sends Flow information.                                                                                           [RFC5102]                          1        2014-02-03
    212    collectorIPv6Address                   ipv6Address          default      current    An IPv6 address to which the Exporting Process sends Flow information.                                                                                           [RFC5102]                          1        2014-02-03
