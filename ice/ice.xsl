@@ -8,7 +8,13 @@
   <xsl:template name="iana:record_header">
   <xsl:choose>
     <xsl:when test="@id = 'options'">
-      <tr><th>Name</th><th>Reference</th></tr>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Contact</th>
+        <th>Change Controller</th>
+        <th>Reference</th>
+      </tr>
     </xsl:when>
     <xsl:when test="@id = 'transport-extensions'">
       <tr><th>Token</th><th>Reference</th></tr>
@@ -20,6 +26,9 @@
       <xsl:when test="../@id = 'options'">
         <tr>
           <td align="center"><xsl:value-of select="iana:name"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:contact"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
