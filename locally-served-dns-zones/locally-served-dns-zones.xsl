@@ -14,6 +14,9 @@
       <xsl:when test="@id = 'ipv6'">
         <tr><th>Zone</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'transport-independent'">
+        <tr><th>Zone</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
