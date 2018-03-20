@@ -17,6 +17,9 @@
       <xsl:when test="@id = 'rbridge-channel-protocol'">
         <tr><th>Protocol</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'trill-address-flush-tlv-types'">
+        <tr><th>Protocol</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:when test="@id = 'extended-rbridge-channel-payload-types'">
         <tr><th>PType</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
@@ -114,6 +117,13 @@
       </xsl:when>
       
       <xsl:when test="../@id = 'rbridge-channel-protocol'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:name"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'trill-address-flush-tlv-types'">
         <tr>
           <td align="center"><xsl:value-of select="iana:name"/></td>
           <td><xsl:value-of select="iana:description"/></td>
