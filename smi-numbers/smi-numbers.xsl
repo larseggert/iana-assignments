@@ -98,7 +98,8 @@
                         @id = 'smi-numbers-1.3.6.1.5.5.7.22' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.23' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.48' or
-                        @id = 'smi-numbers-1.3.6.1.5.5.7.48.1'">
+                        @id = 'smi-numbers-1.3.6.1.5.5.7.48.1' or
+                        @id = 'smi-numbers-1.3.101'">
           <th>Decimal</th>
           <th>Description</th>
         </xsl:when>   
@@ -134,6 +135,10 @@
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:value-of select="iana:description"/></td>
+        </xsl:when>
+        <xsl:when test="../@id = 'smi-numbers-1.3.101'">
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:name"/></td>
         </xsl:when>
         <xsl:otherwise>
           <xsl:if test="../iana:record/iana:value"><td align="center"><xsl:value-of select="iana:value"/></td></xsl:if>
