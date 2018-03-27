@@ -83,6 +83,14 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'authorization-server-metadata'">
+        <tr>
+          <th>Metadata Name</th>
+          <th>Metadata Description</th>
+          <th>Change Controller</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       
     </xsl:choose>
   </xsl:template>
@@ -169,6 +177,14 @@
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'authorization-server-metadata'">
+        <tr>
+          <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
