@@ -26,6 +26,12 @@
         <th>Reference</th>
         <th>Date</th>
       </xsl:when>
+      <xsl:when test="@id = 'layer2-info-extended-community-control-flags-bit-vector'">
+        <th>Value</th>
+        <th>Name</th>
+        <th>Reference</th>
+        <th>Date</th>
+      </xsl:when>
       <xsl:when test="@id = 'evpn'
         or @id = 'trans-two-octet-as'
         or @id = 'non-trans-two-octet-as'
