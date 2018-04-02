@@ -26,7 +26,7 @@
       <xsl:when test="../@id = 'options'">
         <tr>
           <td align="center"><xsl:value-of select="iana:name"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:contact"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
