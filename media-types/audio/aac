@@ -1,0 +1,125 @@
+(registered 2018-04-06, last updated 2018-04-06)
+
+Type name: audio
+
+Subtype name: aac
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: Binary
+
+   Files are encoded binary MPEG-4 Advanced Audio Coding (AAC) media 
+   packed in one of the following MPEG-4 audio formats:
+
+      1) Low Overhead Audio Transport Multiplex / Low Overhead Audio 
+         Stream (LATM/LOAS) as defined in ISO/IEC 14496-3
+      2) Audio Data Transport Stream (ADTS) as defined in 
+         ISO/IEC 14496-3
+
+   Receivers can distinguish the two by inspecting the binary data 
+   stream and searching for the syncwords as listed below:
+
+      1) Syncword for LOAS AudioSyncStream() 0x2B7 (11bit sequence)
+      2) Syncword for LOAS EPAudioSyncStream() 0x4DE1 (16bit 
+         sequence)
+      3) Syncword for ADTS adts_sequence() 0xFFF (12bit sequence)
+
+   The syncword should be the first bits that are received from a 
+   server when requesting data identified with this mime type.
+
+   Encoded audio files packed in LATM/LOAS format should have the 
+   file extension ".loas".
+
+   Encoded audio files packed in ADTS format should have the file 
+   extension ".aac".
+
+   Files shall be transmitted without CR/LF conversion, 7-bit 
+   stripping, or any other modification to the binary data.
+
+   Files may contain ID3v2.x frames at any frame boundary.
+
+   For use over the Internet, it is assumed that lower layers take 
+   care of transmission errors, so audio/aac data may include frames 
+   without the optional cyclic redundancy check (CRC).
+
+   For use over the Internet, it is assumed that lower layers take 
+   care of transmission errors, so audio/aac data may include frames 
+   without the optional cyclic redundancy check (CRC).
+
+   The AAC audio data is binary data, and must be specifically 
+   encoded for non-binary transport; the Base64 encoding is suitable 
+   when attaching to Email. Note that the MPEG audio data typically 
+   does not yield further compression when using file-based lossless 
+   compression, e.g. zip.
+
+Security considerations: AAC is a tagged data format, and some tags 
+   are available for private use (e.g. the Data Stream Element). As 
+   such, arbitrary material could potentially be transferred in the 
+   AAC stream, including executable content. Tagged data containing 
+   executable content should never be sent and must not be executed 
+   if it is received.
+
+   Note: The requirement that such content must not be executed on 
+   receipt is especially important since situations exist where 
+   content will be generated independently and therefore could 
+   contain executable content that the sender or receiver is unaware 
+   of. 
+
+   It is the responsibility of the decoder/player client to respect 
+   and apply appropriate file security and protection against any 
+   potential malicious content.
+
+   AAC is an algorithm that can drastically reduce and compress audio 
+   data and hence audio/aac objects represent compressed data. 
+   Conversely, depending on the previously applied compression 
+   factor, decoding / uncompressing this data can lead to a 
+   significant growth in data size.
+
+   audio/aac objects are not signed or encrypted internally. External 
+   security mechanisms must be employed to ensure content 
+   confidentiality and integrity.
+
+Interoperability considerations: The AAC family of codec technologies 
+   is specified in ISO/IEC 13818-7 as AAC LC Profile, in 
+   ISO/IEC 14496-3 as AAC, HE-AAC and HE-AAC v2 Profiles. 
+   Implementations of the AAC family of technologies have reference 
+   software for reading and writing the file format and are available 
+   for a variety of computer platforms.
+
+Published specification:
+
+   ISO/IEC 14496-3
+   ISO/IEC 13818-7
+
+Applications that use this media type: Advanced Audio Coding (AAC) 
+   audio is device, platform, and vendor neutral and is supported by 
+   a wide range of encoders and decoders/players, for example for 
+   Multimedia, HLS Audio-Only Streams - IETF HTTP Live Streaming, 
+   SHOUTcast/Icecast2 Audio Streams.
+
+Fragment identifier considerations: N/A
+
+Additional information:
+
+   Deprecated alias names for this type: N/A
+   Magic number(s): N/A 
+   File extension(s): .adts or .aac (ADTS), .loas or .ass (LATM/LOAS)
+   Macintosh file type code(s): N/A
+
+Person & email address to contact for further information:
+
+   Max Neuendorf
+   max.neuendorf&iis.fraunhofer.de
+
+Intended usage: Common
+
+Restrictions on usage: N/A
+
+Author:
+
+   Max Neuendorf
+   max.neuendorf&iis.fraunhofer.de
+
+Change controller: ISO/IEC JTC1/SC29/WG11 ("MPEG")
