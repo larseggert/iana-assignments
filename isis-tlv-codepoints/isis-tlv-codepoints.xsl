@@ -101,6 +101,14 @@
       </tr>
      </xsl:when>
       
+      <xsl:when test="@id = 'bier-info-sub-tlv'">
+        <tr>
+          <th>Type</th>
+          <th>Name</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      
       <xsl:otherwise>
        <tr>
         <th>Type</th>

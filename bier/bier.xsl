@@ -11,6 +11,9 @@
       <xsl:when test="@id = 'bier-next-protocol-identifiers'">
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'bier-algorithm'">
+        <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -23,6 +26,13 @@
       <td><xsl:apply-templates select="iana:xref"/></td>
     </tr>
     </xsl:when>
+      <xsl:when test="../@id = 'bier-algorithm'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <td><xsl:value-of select="iana:description"/></td>
