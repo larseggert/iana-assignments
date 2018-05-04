@@ -9,6 +9,9 @@
   <xsl:template name="iana:record_header">
         <tr><th>Binary</th><th>Keyword</th><th>Reference</th></tr>
   </xsl:template>
+  
+  <xsl:template name="iana:registryempty">
+  </xsl:template>
 
   <xsl:template match="iana:record">
         <tr>

@@ -7,15 +7,26 @@
   <xsl:import href="../_support/iana-registry.xsl" />
 
   <xsl:template name="iana:record_header">
-    <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
+    <xsl:choose>
+      <xsl:when test="@id = 'ipv4-routeralert-values-1'">
+        <tr><th>Value</th><th>Description</th><th>Reference</th></tr> 
+      </xsl:when>
+    </xsl:choose>  
   </xsl:template>
-
+  
+  <xsl:template name="iana:registryempty">
+  </xsl:template>
+  
   <xsl:template match="iana:record">
-    <tr>
-      <td><xsl:value-of select="iana:token"/></td>
-      <td><xsl:apply-templates select="iana:description"/></td>
-      <td><xsl:apply-templates select="iana:xref"/></td>
-    </tr>
+    <xsl:choose>
+      <xsl:when test="../@id = 'ipv4-routeralert-values-1'">
+        <tr>
+          <td><xsl:value-of select="iana:token"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+    </xsl:choose>
   </xsl:template>
 
 </xsl:stylesheet>

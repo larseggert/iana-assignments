@@ -3,9 +3,10 @@
 <?oxygen RNGSchema="ip-parameters.rng" type="xml"?>
 <registry xmlns="http://www.iana.org/assignments" id="ip-parameters">
   <title>Internet Protocol Version 4 (IPv4) Parameters</title>
-  <updated>2016-02-24</updated>
+  <updated>2018-05-03</updated>
+
   <registry id="ip-parameters-1">
-  <title>IP OPTION NUMBERS</title>
+  <title>IP Option Numbers</title>
   <registration_rule>Not defined</registration_rule>
   <note>The Internet Protocol (IP) has provision for optional header fields
 identified by an option type field.  Options 0 and 1 are exactly one
@@ -289,175 +290,67 @@ option type field.  IP options are commonly referred to by this value.
 in explicitly-configured experiments; they MUST NOT be shipped as
 defaults in implementations.  See RFC 3692 for details.</footnote>
   </registry>
-
+   
+  <registry id="ipv4-router-alert-option-values">
+    <title>IPv4 Router Alert Option Values</title>
+    <xref type="rfc" data="rfc5350"/>
+    <registration_rule>IETF Review</registration_rule>
+    <record>
+      <value>0</value>
+      <description>Router shall examine packet</description>
+      <xref type="rfc" data="rfc2113"/>
+    </record>
+    <record>
+      <value>1-32</value>
+      <description>Aggregated Reservation Nesting Level</description>
+      <xref type="rfc" data="rfc3175"/>
+    </record>
+    <record>
+      <value>33-64</value>
+      <description>QoS NSLP Aggregation Levels 0-31</description>
+      <xref type="rfc" data="rfc5974"/>
+    </record>
+    <record>
+      <value>65</value>
+      <description>NSIS NATFW NSLP</description>
+      <xref type="rfc" data="rfc5973"/>
+    </record>
+    <record>
+      <value>66-65502</value>
+      <description>Unassigned</description>
+    </record>
+    <record>
+      <value>65503-65534</value>
+      <description>Reserved for experimental use</description>
+      <xref type="rfc" data="rfc5350"/>
+    </record>
+    <record>
+      <value>65535</value>
+      <description>Reserved</description>
+      <xref type="rfc" data="rfc5350"/>
+    </record>
+  </registry>
+  
   <registry id="ip-parameters-2">
-    <title>IP TIME TO LIVE PARAMETER</title>
+    <title>IP Time to Live Parameter</title>
     <registration_rule>Not defined</registration_rule>
     <note>The current recommended default time to live (TTL) for the Internet
-Protocol (IP) is 64 <xref type="rfc" data="rfc791"/>, <xref type="rfc" data="rfc1122"/>.
+Protocol (IP) is 64 <xref type="rfc" data="rfc791"/><xref type="rfc" data="rfc1122"/>.
     </note>
   </registry>
   
   <registry id="ip-parameters-3">
-    <title>IP TOS PARAMETERS</title>
-    <registration_rule>Not defined</registration_rule>
-    <description>This documents the default Type-of-Service values that are currently
-recommended for the most important Internet protocols.
-    </description>
-    <record>
-      <value>0000</value>
-      <description>Default</description>
-      <xref type="rfc" data="rfc2474">Obsoleted by RFC2474</xref>
-    </record>
-    <record>
-      <value>0001</value>
-      <description>Minimize Monetary Cost</description>
-      <xref type="rfc" data="rfc2474">Obsoleted by RFC2474</xref>
-    </record>
-    <record>
-      <value>0010</value>
-      <description>Maximize Reliability</description>
-      <xref type="rfc" data="rfc2474">Obsoleted by RFC2474</xref>
-    </record>
-    <record>
-      <value>0100</value>
-      <description>Maximize Throughput</description>
-      <xref type="rfc" data="rfc2474">Obsoleted by RFC2474</xref>
-    </record>
-    <record>
-      <value>1000</value>
-      <description>Minimize Delay</description>
-      <xref type="rfc" data="rfc2474">Obsoleted by RFC2474</xref>
-    </record>
-    <record>
-      <value>1111</value>
-      <description>Maximize Security</description>
-      <xref type="rfc" data="rfc2474">Obsoleted by RFC2474</xref>
-    </record>
+    <title>IP TOS Parameters</title>
+    <registration_rule>Registrations no longer accepted</registration_rule>
+    <note>This registry was deprecated following the publication of <xref type="rfc" data="rfc2474"/>.
+    </note>
   </registry>
 
   <registry id="ip-parameters-4">
     <title>Type-of-Service Values</title>
-    <registration_rule>Not defined</registration_rule>
-    <note>The TOS value is used to indicate "better".  Only one TOS value or
-property can be requested in any one IP datagram.
-
-Generally, protocols which are involved in direct interaction with a
-human should select low delay, while data transfers which may involve
-large blocks of data are need high throughput.  Finally, high reliability
-is most important for datagram-based Internet management functions.
-
-Application protocols not included in these tables should be able to
-make appropriate choice of low delay (8 decimal, 1000 binary) or high
-throughput (4 decimal, 0100 binary).
-
-The following are recommended values for TOS.
-
-An application may (at the request of the user) substitute
-0001 (minimize monetary cost) for any of the below values.
+    <registration_rule>Registrations no longer accepted</registration_rule>
+    <note>This registry was deprecated following the publication of <xref type="rfc" data="rfc2474"/>.
     </note>
-    <record>
-      <protocol>TELNET <xref type="note" data="3"/></protocol>
-      <value>1000</value>
-      <note>(minimize delay)</note>
-    </record>
-    <record>
-      <protocol>FTP</protocol>
-    </record>
-    <record>
-      <protocol>  Control</protocol>
-      <value>1000</value>
-      <note>(minimize delay)</note>
-    </record>
-    <record>
-      <protocol>  Data <xref type="note" data="4"/></protocol>
-      <value>0100</value>
-      <note>(maximize throughput)</note>
-    </record>
-    <record>
-      <protocol>TFTP</protocol>
-      <value>1000</value>
-      <note>(minimize delay)</note>
-    </record>
-    <record>
-      <protocol>SMTP <xref type="note" data="5"/></protocol>
-    </record>
-    <record>
-      <protocol>  Command phase</protocol>
-      <value>1000</value>
-      <note>(minimize delay)</note>
-    </record>
-    <record>
-      <protocol>  DATA phase</protocol>
-      <value>0100</value>
-      <note>(maximize throughput)</note>
-    </record>
-    <record>
-      <protocol>Domain Name Service</protocol>
-    </record>
-    <record>
-      <protocol>  UDP Query</protocol>
-      <value>1000</value>
-      <note>(minimize delay)</note>
-    </record>
-    <record>
-      <protocol>  TCP Query</protocol>
-      <value>0000</value>
-    </record>
-    <record>
-      <protocol>  Zone Transfer</protocol>
-      <value>0100</value>
-      <note>(maximize throughput)</note>
-    </record>
-    <record>
-      <protocol>NNTP</protocol>
-      <value>0001</value>
-      <note>(minimize monetary cost)</note>
-    </record>
-    <record>
-      <protocol>ICMP</protocol>
-    </record>
-    <record>
-      <protocol>  Errors</protocol>
-      <value>0000</value>
-    </record>
-    <record>
-      <protocol>  Requests</protocol>
-      <value>0000 <xref type="note" data="6"/></value>
-    </record>
-    <record>
-      <protocol>  Responses</protocol>
-      <value>&lt;same as request&gt; <xref type="note" data="6"/></value>
-    </record>
-    <record>
-      <protocol>Any IGP</protocol>
-      <value>0010</value>
-      <note>(maximize reliability)</note>
-    </record>
-    <record>
-      <protocol>EGP</protocol>
-      <value>0000</value>
-    </record>
-    <record>
-      <protocol>SNMP</protocol>
-      <value>0010</value>
-      <note>(maximize reliability)</note>
-    </record>
-    <record>
-      <protocol>BOOTP</protocol>
-      <value>0000</value>
-    </record>
-    <footnote anchor="3">Includes all interactive user protocols (e.g., rlogin).</footnote>
-    <footnote anchor="4">Includes all bulk data transfer protocols (e.g., rcp).</footnote>
-    <footnote anchor="5">If the implementation does not support changing the TOS
-during the lifetime of the connection, then the
-recommended TOS on opening the connection is the default
-TOS (0000).</footnote>
-    <footnote anchor="6">Although ICMP request messages are normally sent with
-the default TOS, there are sometimes good reasons why they
-would be sent with some other TOS value.  An ICMP
-response always uses the same TOS value as was used in the
-corresponding ICMP request message.</footnote>
   </registry>
 
   <people>
