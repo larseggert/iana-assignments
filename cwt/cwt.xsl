@@ -15,6 +15,7 @@
           <th>JWT Claim Name</th>
           <th>Claim Key</th>
           <th>Claim Value Type</th>
+          <th>Change Controller</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
@@ -23,13 +24,14 @@
 
   <xsl:template match="iana:record">
     <xsl:choose>
-      <xsl:when test="../@id = 'header-parameters'">
+      <xsl:when test="../@id = 'claims-registry'">
         <tr>
           <td><xsl:value-of select="iana:claim"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:value-of select="iana:jwt"/></td>
           <td><xsl:apply-templates select="iana:key"/></td>
           <td><xsl:apply-templates select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:change"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
@@ -40,6 +42,7 @@
           <td><xsl:value-of select="iana:jwt"/></td>
           <td><xsl:apply-templates select="iana:key"/></td>
           <td><xsl:apply-templates select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:change"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:otherwise>
