@@ -116,6 +116,10 @@
       <th>Name</th><th>Reference</th><th>Change Controller</th>
      </xsl:when>
      
+     <xsl:when test="@id = 'rid-attribute'">
+      <th>RID Parameter Name</th><th>Reference</th>
+     </xsl:when>
+     
     </xsl:choose>
     </tr>
   </xsl:template>
@@ -200,6 +204,10 @@
       <td><xsl:value-of select="iana:value"/></td>
       <td><xsl:apply-templates select="iana:xref"/></td>
       <td><xsl:apply-templates select="iana:controller"/></td>
+     </xsl:when>
+     <xsl:when test="../@id = 'rid-attribute'">
+      <td><xsl:value-of select="iana:value"/></td>
+      <td><xsl:apply-templates select="iana:xref"/></td>
      </xsl:when>
      <xsl:otherwise>
        <td><xsl:value-of select="iana:value"/></td>
