@@ -46,6 +46,13 @@
         <th>Reference</th>
       </tr>
      </xsl:when>
+      <xsl:when test="@id = 'ipv6-neighbor-discovery-prefix-information-options'">
+        <tr>
+          <th>RA Option Bit</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
      <xsl:otherwise>
       <tr>
         <th>Code</th>
@@ -76,7 +83,8 @@
        or ../@id = 'icmpv6-parameters-10' 
        or ../@id = 'address-registration'
        or ../@id = 'sixlowpan-capability-bits' 
-       or ../@id = 'icmpv6-parameters-11'">
+       or ../@id = 'icmpv6-parameters-11'
+       or ../@id = 'ipv6-neighbor-discovery-prefix-information-options'">
       <tr>
        <td align="center"><xsl:value-of select="iana:value"/></td>
        <td><xsl:apply-templates select="iana:description"/></td>
