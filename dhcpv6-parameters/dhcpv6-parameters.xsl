@@ -12,7 +12,12 @@
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'dhcpv6-parameters-2'">
-        <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
+        <tr><th>Value</th>
+          <th>Description</th>
+          <th>Client ORO</th>
+          <th>Singleton Option</th>
+          <th>Reference</th>
+        </tr>
       </xsl:when>
       <xsl:when test="@id = 'dhcpv6-parameters-3'">
         <tr><th>Code</th><th>Name</th><th>Reference</th></tr>
@@ -54,11 +59,24 @@
   </xsl:template>
 
   <xsl:template match="iana:record">
-    <tr>
-      <td align="center"><xsl:value-of select="iana:value"/></td>
-      <td><xsl:value-of select="iana:description"/></td>
-      <td><xsl:apply-templates select="iana:xref"/></td>
-    </tr>
+    <xsl:choose>
+      <xsl:when test="../@id = 'dhcpv6-parameters-2'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:value-of select="iana:oro"/></td>
+          <td><xsl:apply-templates select="iana:singleton"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
 </xsl:stylesheet>
