@@ -48,7 +48,7 @@
      </xsl:when>
       <xsl:when test="@id = 'ipv6-neighbor-discovery-prefix-information-options'">
         <tr>
-          <th>RA Option Bit</th>
+          <th>PIO Option bit</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
