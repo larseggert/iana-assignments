@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" ns="http://www.iana.org/assignments">
-
+  
   <include href="../_support/iana-registry.rng"/>
-
+  
   
   <define name="desc">
     <element name="registry">
@@ -21,9 +21,28 @@
   </define>
   
   
-  <!-- this is for the TLS Extractor Label Registry -->
+  <!-- Alert, Handshake Type, SupportedGroups -->
   
-  <define name="extractor">
+  <define name="withcomment">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <zeroOrMore>
+        <element name="record">
+          <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+          <optional><attribute name="updated"><ref name="genericDate"/></attribute></optional>
+          <element name="value"><text/></element>
+          <element name="description"><text/></element>
+          <optional><element name="dtls"><text/></element></optional>
+          <ref name="references"/>
+          <optional><element name="comment"><text/></element></optional>
+        </element>
+      </zeroOrMore>
+    </element>
+  </define>
+  
+  <!-- this is for the TLS Exporter Label Registry -->
+  
+  <define name="exporter">
     <element name="registry">
       <ref name="registryMeta"/>
       <zeroOrMore>
@@ -38,8 +57,45 @@
       </zeroOrMore>
     </element>
   </define>
-
-
+  
+  <!-- this is for the TLS SignatureScheme -->
+  
+  <define name="signaturescheme">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <zeroOrMore>
+        <element name="record">
+          <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+          <optional><attribute name="updated"><ref name="genericDate"/></attribute></optional>
+          <element name="value"><text/></element>
+          <element name="description"><text/></element>
+          <optional><element name="recommended"><text/></element></optional>
+          <ref name="references"/>
+          <optional><element name="note"><text/></element></optional>
+        </element>
+      </zeroOrMore>
+    </element>
+  </define>
+  
+  <!-- this is for the TLS PskKeyExchangeMode -->
+  
+  <define name="pskkeyexchangemode">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <zeroOrMore>
+        <element name="record">
+          <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+          <optional><attribute name="updated"><ref name="genericDate"/></attribute></optional>
+          <element name="value"><text/></element>
+          <element name="description"><text/></element>
+          <optional><element name="recommended"><text/></element></optional>
+          <ref name="references"/>
+          <optional><element name="note"><text/></element></optional>
+        </element>
+      </zeroOrMore>
+    </element>
+  </define>
+  
   <start>
     <element name="registry">
       <ref name="registryMeta"/>
@@ -62,9 +118,9 @@
         </zeroOrMore>
       </element>
       <ref name="desc"/>
-      <ref name="desc"/>
-      <ref name="desc"/>
-      <ref name="desc"/>
+      <ref name="withcomment"/>
+      <ref name="withcomment"/>
+      <ref name="withcomment"/>
       <ref name="desc"/>
       <ref name="desc"/>
       
@@ -75,13 +131,15 @@
       <ref name="desc"/>
       
       <ref name="desc"/>
-      <ref name="extractor"/>
+      <ref name="exporter"/>
       
       <ref name="desc"/>
       <ref name="desc"/> <!-- Heartbeat Message Types -->
       <ref name="desc"/>  <!-- Heartbeat Modes -->
+      <ref name="pskkeyexchangemode"/> <!-- TLS PskKeyExchangeMode -->
+      <ref name="signaturescheme"/> <!-- TLS SignatureScheme -->
       <ref name="people"/>
     </element>
   </start>
-
+  
 </grammar>
