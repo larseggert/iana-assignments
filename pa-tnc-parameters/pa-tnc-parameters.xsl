@@ -11,12 +11,9 @@
       <xsl:when test="@id = 'pa-tnc-parameters-1'">
         <tr><th>PEN</th><th>Integer</th><th>Name</th><th>Reference</th></tr>
       </xsl:when>
-      <xsl:when test="@id = 'pa-tnc-parameters-2'">
+      <xsl:otherwise>
         <tr><th>PEN</th><th>Integer</th><th>Name</th><th>Reference</th></tr>
-      </xsl:when>
-      <xsl:when test="@id = 'pa-tnc-parameters-3'">
-        <tr><th>PEN</th><th>Integer</th><th>Name</th><th>Reference</th></tr>
-      </xsl:when>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
@@ -30,22 +27,14 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'pa-tnc-parameters-2'">
+      <xsl:otherwise>
         <tr>
           <td align="center"><xsl:value-of select="iana:pen"/></td>
           <td align="center"><xsl:value-of select="iana:type"/></td>
           <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
-      </xsl:when>
-      <xsl:when test="../@id = 'pa-tnc-parameters-3'">
-        <tr>
-          <td align="center"><xsl:value-of select="iana:pen"/></td>
-          <td align="center"><xsl:value-of select="iana:type"/></td>
-          <td><xsl:value-of select="iana:name"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
-        </tr>
-      </xsl:when>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
