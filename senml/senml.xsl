@@ -19,10 +19,10 @@
         <tr>
           <th>Name</th>
           <th>Label</th>
-          <th>CL</th>
+          <th>CBOR Label</th>
           <th>JSON Type</th>
           <th>XML Type</th>
-          <th>EI</th>
+          <th>EXI ID</th>
           <th>Reference</th>
           <th>Note</th>
         </tr>
