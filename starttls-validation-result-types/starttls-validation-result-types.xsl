@@ -8,7 +8,7 @@
 
   <xsl:template name="iana:record_header">
     <xsl:choose>
-      <xsl:when test="@id = 'starttls-validation-result-types'">
+      <xsl:when test="@id = 'starttls-validation-result-types-1'">
         <tr>
           <th>Result Type</th>
           <th>Description</th>
@@ -21,7 +21,7 @@
 
   <xsl:template match="iana:record">
     <xsl:choose>
-      <xsl:when test="../@id = 'starttls-validation-result-types'">
+      <xsl:when test="../@id = 'starttls-validation-result-types-1'">
       <tr>
         <td><xsl:value-of select="iana:value"/></td>
         <td><xsl:apply-templates select="iana:description"/></td>
