@@ -6,6 +6,9 @@
 
   <xsl:import href="../_support/iana-registry.xsl" />
 
+  <xsl:template match="iana:record">
+  </xsl:template>
+
   <xsl:template name="iana:record_header">
     <xsl:choose> 
       <xsl:when test="@id = 'dhcpv6-parameters-1'">

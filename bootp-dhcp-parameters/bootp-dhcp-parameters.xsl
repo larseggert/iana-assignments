@@ -6,6 +6,9 @@
 
   <xsl:import href="../_support/iana-registry.xsl" />
 
+  <xsl:template name="iana:registryempty">
+  </xsl:template>
+
   <xsl:template name="iana:record_header">
     <xsl:choose> 
       <xsl:when test="@id = 'options'">
