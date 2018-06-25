@@ -6,7 +6,7 @@
 
   <xsl:import href="../_support/iana-registry.xsl" />
 
-  <xsl:template match="iana:record">
+  <xsl:template name="iana:registryempty">
   </xsl:template>
 
   <xsl:template name="iana:record_header">
