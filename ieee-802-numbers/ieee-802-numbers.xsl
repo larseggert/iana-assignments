@@ -13,14 +13,14 @@
         <th>Exp. Ethernet (decimal)</th>
         <th>Exp. Ethernet (octal)</th>
         <th>Description</th>
-        <th>References</th>
+        <th>Reference</th>
       </tr>
      </xsl:when>
      <xsl:when test="@id = 'ieee-802-numbers-2'">
        <tr>
         <th>Hex</th>
         <th>Name</th>
-        <th>References</th>
+        <th>Reference</th>
       </tr>
      </xsl:when>
      <xsl:when test="@id = 'ieee-802-numbers-3'">
@@ -29,9 +29,16 @@
         <th>Link Service Access Point (Internet Binary )</th>
         <th>Link Service Access Point (Decimal)</th>
         <th>Description</th>
-        <th>References</th>
+        <th>Reference</th>
       </tr>
      </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <th>Value</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
   <xsl:template match="iana:record">
@@ -62,6 +69,13 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 </xsl:stylesheet>
