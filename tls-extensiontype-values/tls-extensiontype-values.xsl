@@ -6,10 +6,22 @@
   <xsl:template name="iana:record_header">
     <xsl:choose> 
       <xsl:when test="@id = 'tls-extensiontype-values-1'">
-        <tr><th>Value</th><th>Extension Name</th><th>TLS 1.3</th><th>Reference</th></tr>
+        <tr>
+          <th>Value</th>
+          <th>Extension Name</th>
+          <th>TLS 1.3</th>
+          <th>Recommended</th>
+          <th>Reference</th>
+        </tr>
       </xsl:when>
       <xsl:when test="@id = 'tls-extensiontype-values-3'">
-        <tr><th>Value</th><th>Extension Name</th><th>Reference</th><th>Comment</th></tr>
+        <tr>
+          <th>Value</th>
+          <th>Extension Name</th>
+          <th>Recommended</th>
+          <th>Reference</th>
+          <th>Comment</th>
+        </tr>
       </xsl:when>
       <xsl:when test="@id = 'certificate-status'">
         <tr><th>Value</th><th>Description</th><th>Reference</th><th>Comment</th></tr>
@@ -30,11 +42,20 @@
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:value-of select="iana:tls13"/></td>
+          <td><xsl:value-of select="iana:rec"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'tls-extensiontype-values-3'
-        or 'certificate-status'">
+      <xsl:when test="../@id = 'tls-extensiontype-values-3'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:value-of select="iana:rec"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:value-of select="iana:comment"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'certificate-status'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
