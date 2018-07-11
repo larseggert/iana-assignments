@@ -1,0 +1,260 @@
+(registered 2018-07-11, last updated 2018-07-11)
+
+Name: Chet Ensign
+
+Email: chet.ensign&oasis-open.org
+
+Media type name: application
+
+Media subtype name: taxii+json
+
+Required parameters: None
+
+Optional parameters: version. 
+   This parameter is used to designate the specification version of 
+   TAXII that is being used during HTTP content negotiation. Example:
+   "application/taxii+json;version=2.1". The parameter value is of 
+   the form 'n.m', where n is the major version and m the minor 
+   version, both unsigned integer values.
+
+Encoding considerations: binary
+   Encoding considerations are identical to those specified for the 
+  "application/json" media type. See [RFC8259].
+
+Security considerations: These considerations are, in part, derived 
+   from Section 9 of the Resource-Oriented Lightweight Information 
+   Exchange [RFC8322].
+
+   This document defines a resource-oriented approach for exchanging 
+   cyber threat intelligence using HTTP [RFC7230] over TLS [RFC5246] 
+   and the JSON [RFC8259] Format. As such, implementers must 
+   understand the security considerations described in those 
+   specifications. All that follows is guidance; instructions that 
+   are more specific are out of scope for this document.
+
+   Security considerations relating to the generation and consumption 
+   of TAXII messages are similar to application/json and are 
+   discussed in Section 12 of [RFC8259].
+
+   The discovery API contains one or multiple URLs, therefor the 
+   security considerations stated in Section 6 of [RFC1738] should be
+   consulted especially in regards to parsing relative URLs and 
+   attempts of path traversal. 
+
+   Documents of "application/taxii+json" are simply request and 
+   response messages for an RPC like mechanism for searching, 
+   uploading and downloading Cyber Threat Intelligence (CTI) 
+   documents, most commonly STIX. The documents only contain metadata
+   about the TAXII server, such as descriptions, versions of CTI or 
+   status response of the request. Documents do not contain active or
+   executable content.
+
+   Unicode is used to represent text such as descriptions in the 
+   format. The considerations documented by Unicode Technical Report 
+   #36: Unicode Security Considerations [UNICODE] should be taken 
+   into account.
+
+   To protect the confidentiality of a given resource provided by a 
+   TAXII implementation, requests for retrieval of a resource need to
+   be authenticated to prevent unauthorized users from accessing the 
+   resource. It can also be useful to log and audit access to 
+   sensitive resources to verify that proper access controls remain 
+   in place over time.
+
+   Access control to content made available using TAXII should use 
+   mechanisms that are appropriate to the sensitivity of the 
+   information. While the primitive authentication mechanism of HTTP 
+   Basic Authentication [RFC7617] is mandatory to implement for base 
+   level interoperability it is rarely appropriate for sensitive
+   information. A number of authentication schemes are defined in the 
+   "HTTP Authentication Schemes" registry at IANA [IANA AUTH]. Of 
+   these, HTTP Origin-Bound Authentication (HOBA) [RFC7486] and 
+   SCRAM-SHA-256 [RFC7804] ("SCRAM" stands for "Salted Challenge 
+   Response Authentication Mechanism") provide improved security 
+   properties over HTTP Basic [RFC7617] and Digest [RFC7616] 
+   authentication schemes. However, sharing communities that are 
+   engaged in sensitive collaborative analysis and/or operational 
+   response for indicators and incidents targeting high-value 
+   information systems should adopt a suitably stronger user
+   authentication solution, such as a risk-based or multi-fact
+   or approach.
+
+   Collaborating consortiums may benefit from the adoption of a 
+   federated identity solution, such as those based upon OAuth 
+   [RFC6749] with the JSON Web Token (JWT) [RFC7797], or SAML-core 
+   [SAML-core] ("SAML" stands for "Security Assertion Markup 
+   Language"), SAML-bind [SAML-bind], and SAML-prof [SAML-prof] for 
+   web-based authentication and cross-organizational single sign-on. 
+   Dependency on a trusted third-party identity provider implies that 
+   appropriate care must be exercised to sufficiently secure the 
+   identity provider. Any attacks on the federated identity system 
+   would present a risk to the consortium, as a relying party. 
+   Potential mitigations include deployment of a federation-aware 
+   identity provider that is under the control of the 
+   information-sharing consortium, with suitably stringent technical 
+   and management controls.
+
+   It is recommended that all TAXII servers authenticate and 
+   authorize access to all collection data on a per-client basis 
+   using robust security methods. While this specification defines 
+   HTTP Basic as a minimum suggested authentication mechanism, more 
+   advanced security authentication methods are recommended when 
+   products or deployments require stronger authentication and 
+   authorization frameworks for accessing or posting data to the 
+   TAXII server.
+
+   Authorization of resource representations is the responsibility of 
+   the source system, i.e., based on the authenticated user identity 
+   associated with an HTTP(S) request. The required authorization 
+   policies that are to be enforced must therefore be managed by the 
+   security administrators of the source system. Various 
+   authorization architectures would be suitable for this purpose, 
+   such as Role-Based Access Control (RBAC) [NIST RBAC] and/or 
+   Attribute-Based Access Control (ABAC), as embodied in the 
+   eXtensible Access Control Markup Language (XACML) [XACML]. In 
+   particular, implementers adopting XACML may benefit from the 
+   capability to represent their authorization policies in a 
+   standardized, interoperable format. Note that implementers are 
+   free to choose any suitable authorization mechanism that is 
+   capable of fulfilling the policy enforcement requirements relevant 
+   to their consortium and/or organization.
+
+   While the authentication and confidentiality for the TAXII session 
+   is done at a lower level via the transport mechanism (HTTPS), this 
+   does not obviate the consumer (server or client) from validating 
+   the format and contents of the documents sent in a session. This 
+   validation should includes checking various limits, such as 
+   document size limits, to limit the risk of the other party 
+   attempting to attack the service.
+
+   Additional security requirements such as enforcing message-level 
+   security at the destination system could supplement the security 
+   enforcements performed at the source system; however, these 
+   destination-provided policy enforcements are out of scope for this 
+   specification. Implementers requiring this capability should 
+   consider leveraging, for example, the <RIDPolicy> element in the 
+   RID schema. Refer to Section 9 of [RFC6545] for more information. 
+   Additionally, the underlying JSON serialization used in the 
+   representation can offer encryption and message authentication 
+   capabilities. For example, JSON Web Encryption [RFC7516] and JSON 
+   Web Signature [RFC7515], can provide such mechanisms.
+
+   TAXII Servers may manage response volume in different ways. 
+   Implementers should be aware that a search request may return more 
+   records than is prudent to return in a single HTTP Response. To 
+   mitigate this, TAXII servers should consider implementing 
+   restrictions on the number of records it will return in a single 
+   HTTP response.
+
+   TAXII provides clients a rich set of filtering and query options 
+   to return specific results from repositories of CTI data. As such, 
+   TAXII servers should implement protections against queries that 
+   can potentially consume a significant amount of resources and 
+   prevent the server from functioning in a normal way. 
+
+   TAXII defines an optional error message that may contain sensitive 
+   application data. Implementers should ensure that they do not leak 
+   descriptive text or application return codes for things that a 
+   user may not have access to, for example leak info about existence 
+   of something, implementation of something, vs. just not having 
+   access. 
+
+   Note: Despite TAXII searching and returning STIX objects, this 
+   format does not encapsulate any CTI content. It is expected that 
+   CTI documents will be sent with the appropriate mime-type. For 
+   these, consult their own security consideration sections.
+
+Privacy considerations: These considerations are, in part, derived 
+   from Section 10 of the Resource-Oriented Lightweight Information 
+   Exchange [RFC8322].
+
+   The documents contain various descriptions and other text. There 
+   is no expectation that these will contain private information, but 
+   as some may be user provided, there is no guarantee that a user 
+   will not inadvertently include private data. It is expected that 
+   the client or server authenticate the other party through the 
+   transport mechanism before sending any possible private data. As 
+   the protocol is about sharing data, it is expected that the 
+   parties understand their obligations in keeping relevant data 
+   private.
+
+   Adoption of the information-sharing approach described in this 
+   document will enable users to more easily perform correlations 
+   across separate, and potentially unrelated, cybersecurity 
+   information providers. A client may succeed in assembling a data 
+   set that would not have been permitted within the context of the 
+   authorization policies of either provider when considered 
+   individually. Thus, providers may face a risk of an attacker 
+   obtaining an access that constitutes an undetected separation of 
+   duties (SOD) violation. It is important to note that this risk is 
+   not unique to this specification, and a similar potential for 
+   abuse exists with any other cybersecurity information-sharing 
+   protocol. However, the wide availability of tools for HTTP clients 
+   implies that the resources and technical skills required for a 
+   successful exploit may be less than it was previously. This risk 
+   can be best mitigated through appropriate vetting of the client at 
+   the time of account provisioning. In addition, any increase in the 
+   risk of this type of abuse should be offset by the corresponding 
+   increase in effectiveness that this specification affords to the 
+   defenders.
+
+   Overall, privacy concerns in TAXII can be mitigated by following 
+   security considerations and by the careful use of the content 
+   exchanged via TAXII.
+
+Interoperability considerations: The TAXII specification specifies 
+   the format of conforming messages and the interpretation thereof. 
+   In addition, the OASIS Cyber Threat Intelligence (CTI) Technical 
+   Committee has defined interoperability tests to ensure conforming 
+   products and solutions can exchange TAXII documents.
+
+Published specification:
+   TAXII Version 2.0 OASIS Committee Specification 01
+   http://docs.oasis-open.org/cti/taxii/v2.0/cs01/taxii-v2.0-cs01.html
+   Cited in the "OASIS Standards" document:
+   https://www.oasis-open.org/standards#oasiscommiteespecs, from
+   https://www.oasis-open.org/standards#taxii2.0
+
+Applications which use this media: TAXII is an application layer 
+   protocol for the communication of cyber threat information 
+   including STIX in a simple and scalable manner.
+
+Fragment identifier considerations: None
+
+Restrictions on usage: None
+
+Additional information:
+
+   1. Deprecated alias names for this type:    
+      application/vnd.oasis.taxii+json
+   2. Magic number(s): n/a [RFC8259]
+   3. File extension(s): None
+   4. Macintosh file type code: TEXT [RFC8259]
+   5. Object Identifiers: None
+
+General Comments:
+   1. The "Published specification:" cited above was approved as 
+      Version 2.0 but is now under active revision (2018-05)
+
+   2. The revised TAXII specification Version 2.1 will contain the 
+      complete text of the (finalized) IANA Media Type Registration 
+      in an Appendix; in Version 2.0 the media type identifier was 
+      drafted (incorrectly) as a candidate for the vendor tree
+
+   3. The technical content in the Version 2.1 revision for TAXII 
+      does not materially change anything vis-a-vis TAXII Version 2.0 
+      as respects serialization, transport, or client-server 
+      interactions that depend upon media type and content negotiation
+
+Person to contact for further information:
+
+   1. Name: Chet Ensign
+   2. Email: chet.ensign&oasis-open.org
+
+Intended usage: COMMON
+
+Author/Change controller: 
+
+   Author: OASIS Cyber Threat Intelligence (CTI) Technical Committee;
+   URI reference: http://www.oasis-open.org/committees/cti/. 
+   Change controller: OASIS
