@@ -15,6 +15,12 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'passport-rph-types'">
+        <tr>
+          <th>Type</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       
     </xsl:choose>
   </xsl:template>
@@ -29,6 +35,12 @@
           <td><xsl:apply-templates select="iana:xref"/></td>    
         </tr>
       </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>    
+        </tr>
+      </xsl:otherwise>
       
     </xsl:choose>
   </xsl:template>
