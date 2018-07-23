@@ -11,6 +11,14 @@
       <xsl:when test="@id = 'trill-parameters-2'">
         <tr><th>Address</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'trill-ethertypes'">
+        <tr>
+          <th>Value</th>
+          <th>Mnemonic</th>
+          <th>Explanation</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:when test="@id = 'extended-header-flags'">
         <tr><th>Bits</th><th>Purpose</th><th>Reference</th></tr>
       </xsl:when>
@@ -105,6 +113,14 @@
         <tr>
           <td align="center"><xsl:value-of select="iana:code"/></td>
           <td><xsl:value-of select="iana:algorithm"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'trill-ethertypes'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:mnemonic"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
