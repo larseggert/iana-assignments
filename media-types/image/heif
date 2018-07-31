@@ -1,0 +1,137 @@
+(registered 2018-07-30, last updated 2018-07-30)
+
+MIME media type name: image
+
+MIME subtype name: heif, heic
+
+   The semantics of the subtypes are as follows:
+
+   heif: High efficiency image file containing one or more image 
+      items using any coding format
+
+   heic: High efficiency image file conforming to the requirements 
+      for the 'heic', 'heix', 'heim', or 'heis' brand (and hence 
+      containing one or more HEVC coded image items). (A brand in the 
+      file header identifies a specific profile of a more general 
+      format.)
+
+   The use of subtype values is constrained as follows: 
+
+   The MIME subtype name may be 'heic' only if the file conforms to 
+   the requirements of the 'heic', 'heix', 'heim', or 'heis' brand, 
+   and contains at least one of those brands as a compatible brand. 
+   The MIME subtype name may be 'heif' only if the file conforms to 
+   the requirements of the 'mif1' brand, and contains that brand as a 
+   compatible brand.
+
+Required parameters: none
+
+Optional parameters:
+
+   profiles: Specified by RFC 6381 and its successors.
+
+   codecs: Specified by RFC 6381 and its successors for files 
+      conforming to specifications derived from ISO/IEC 14496-12. 
+      Note that for HEVC, the format of a list item included in the 
+      value of the codecs parameter is specified in ISO/IEC 14496-15.
+
+   itemtypes: One or more comma-separated item descriptions. 
+
+      Each item description corresponds to the type of one or more 
+      image items included in the file, in any order. An item 
+      description should be present for the primary item of the file 
+      and may be present for other image items of the file. 
+
+      Each item description starts with an item type string and is 
+      followed by a plus-separated ('+') list of zero or more item 
+      property strings. 
+
+      An item type string starts with the four-character item_type 
+      value of the item and may be followed by zero or more 
+      dot-separated ('.') qualifiers specified below. The field 
+      item_type is defined in ISO/IEC 14496-12.
+
+      When the item type is a four-character code of a coded image, 
+      it may be followed by a dot-separated ('.') value, as specified 
+      for the codecs parameter of the ISO base media file format name 
+      space in RFC 6381. For the item type 'hvc1', the value after 
+      the '.' is the profile-tier-level value as specified in ISO/IEC 
+      14496-15.
+
+      When the item type is a four-character code of a derived image 
+      item, it may be followed by a dot-separated ('.') pixel count 
+      value that is the positive decimal integer indicating the 
+      number of pixels that is required for the input images of the 
+      derived image item and the reconstructed image itself. For the 
+      item type 'hvc1', the pixel count value must be present for an 
+      item description, when that pixel count value is greater than 
+      twice the largest pixel count inferred from the 
+      profile-tier-level value of any coded image of the same item 
+      description list.
+
+      An item property string consists of the box-type of an item 
+      property marked as essential. The list of the item property 
+      strings must indicate the entire set of item properties that 
+      are marked as essential. The item property strings must appear 
+      in the order they are associated with the image item in the 
+      file.
+
+   lhevcptl: For multi-layer image items, specifies the decoding 
+      capabilities required for different combinations of layers and 
+      temporal sub-layers; the syntax and semantics are specific to 
+      HEVC and are formally specified by the lhevcptl optional MIME 
+      parameter in ISO/IEC 14496-15 for the L-HEVC sample entry 
+      types. Informatively, the syntax is BLInternal, ListItem1(, 
+      ListItemN)*, where 
+
+      BLInternal is 0 or 1; 
+      each Listitem has the structure 
+         OlsIdx.MaxTid.ProfileTierLevel1(.ProfileTierLevelN)*
+      and
+      OlsIdx and MaxTid are integers
+      ProfileTierLevelX is the substring specified for any HEVC 
+         sample-entry for the codecs parameter
+
+   dependencies: a list of comma-separated URLs (see RFC 3986) from 
+      the DataReferenceBoxes in the top-level MetaBox and all tracks. 
+      The DataReferenceBoxes indicating a reference to the same file 
+      as the container file must not be listed. The URLs should be 
+      relative whenever possible. Note that the URLs are often, but 
+      not required to be, relative, and that some characters in URLs 
+      may require escaping in some situations. DataReferenceBox and 
+      MetaBox are specified in ISO/IEC 14496-12.
+
+Encoding considerations: as for video/mp4
+
+Security considerations: See section 4 of RFC 4337 and section 7 of 
+   RFC 6381. This format does not supply integrity or confidentiality 
+   protection and so they are applied externally when needed. The 
+   security considerations of URLs are discussed in RFC 3986.
+
+Interoperability considerations: Interoperably deployed in reference 
+   code available from ISO, Javascript code from Nokia labs, in 
+   open-source in MP4Box and various other implementations.
+
+Published specification: ISO/IEC 23008-12, available as a Publicly 
+   Available Standard at 
+   http://standards.iso.org/ittf/PubliclyAvailableStandards/index.html
+
+Applications: Multimedia, Imaging, Pictures
+
+Fragment identifier considerations: Fragment identifiers are 
+   specified in Annex L of ISO/IEC 14496-12, available as a Publicly 
+   Available Standard at 
+   http://standards.iso.org/ittf/PubliclyAvailableStandards/index.html
+
+Additional information:
+
+   Magic number(s): none
+   File extension(s): heif (for subtype heif), heic (for subtype heic)
+   Macintosh File Type Code(s): None
+
+Person to contact for info: David Singer, singer&apple.com
+
+Intended usage: Common
+
+Author/Change controller: David Singer, ISO/IEC/JTC1/SC29/WG11 file 
+   format chair
