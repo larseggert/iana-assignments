@@ -1,0 +1,166 @@
+(registered 2018-08-09, last updated 2018-08-09)
+
+Name: Andrey Galkin
+
+Email: andrey&futoin.org
+
+Media type name: application
+
+Media subtype name: vnd.futoin+json
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: 8bit
+   
+   This is a JSON-encoded version of FutoIn API message which is 
+   always represented in UTF-8.
+
+Security considerations: This media type describes a generic 
+   application programming interface message coding format. It covers
+   request, response and error message format types.
+
+   The semantics of a specific interface utilizing the media type are
+   not specified by the media type itself.
+
+   As a consequence:
+
+   1. Even though active or executable content may be encapsulated by
+      users, it is discouraged.
+   
+   A general-purpose client or server must never try to execute any 
+      code found in the payload.
+
+   2. The privacy of all messages employing this media type should be
+      maintained by the peer-to-peer communications layer; there is 
+      no mechanism in the media type itself that provides privacy 
+      protection.
+
+   2.1. There is no strict requirement for data privacy protection of
+      a generic message. However, interface specifications that 
+      employ this media type may impose such restrictions on a 
+      case-by-case basis.
+
+   2.2. There is an optional extensible message integrity mechanism 
+      based on the "sec" message field.
+
+   3. There are a number of mechanisms external to this media type 
+      that can used to require and/or provide additional security:
+
+   3.1. Optional "SecureChannel" interface constraint as defined in 
+      FTN3.
+
+      This can be used to to insure that transmission occurs over a 
+      channel that provides both data privacy and data integrity 
+      protection.
+
+      Modern TLS, VPN, or similar technologies can be used to meet 
+      this requirement.
+
+      All peers involved in the communication must reject processing 
+      if this requirement is not fulfilled.
+
+   3.2. Optional "MessageSignature" interface constraint as defined 
+      in FTN3. This can be used to require that each message be 
+      signed by strong Message Authentication Code or equal.
+
+      All peers involved in the communication must reject processing 
+      if:
+
+         a) this requirement is not fulfilled,
+         b) and/or "sec" field coding format is not supported,
+         c) and/or signature verification fails.
+
+   3.3. Unless optional "AllowAnonymous" interface requirement as 
+      defined in FTN3 is set, request message processing peer 
+      (Executor as in FTN3) must require some type of client 
+      authentication. Otherwise, processing of such request must be 
+      rejected.
+
+      Additionally, this media type inherits security considerations 
+      from: 
+
+      The JavaScript Object Notation
+      (JSON) Data Interchange Format - 
+      https://tools.ietf.org/html/rfc8259#section-12
+
+   Interoperability considerations:
+
+   1. For messages coding and security:
+
+      1.1. FutoIn specifications are revised and extended over
+      time. A compliant implementation must reject processing, if any 
+      part of the message is not recognized.
+
+   1.2. Response message must always be coded in the same media type
+      format as the request message, if it can be recognized.
+
+      JSON is a safe fallback for error messages related to request 
+      decoding.
+
+   1.3. JSON-coded message should always start from byte with value 
+      0x7B (ASCII symbol "{") for fast auto-detection.
+
+   2. For semantical compatibility:
+
+      FTN3 defines special rules for backward compatible interface
+      definition changes. Based on the rules, Invoker peer which uses
+      older minor version of interface specification must always be 
+      able to call Executor which uses newer minor version of the 
+      same major version.
+
+   3. For generic compliance:
+
+      It is common in field when at least one peer in communication 
+      is not fully compliant to FTN3. So, it is suggested to have at 
+      least one fully compliant peer in any given interaction to 
+      ensure message validation against interface specification. In 
+      theory, that increases chance of successful interoperability 
+      with other implementations.
+
+Published specification:
+
+   FTN3 - generic message format specification:
+   https://specs.futoin.org/final/preview/ftn3_iface_definition.html
+
+   FTN5 - defines HTTP integration and use of media types:
+   https://specs.futoin.org/final/preview/ftn5_iface_http_integration.html
+
+   Backup links:
+
+   FTN3:  
+   https://github.com/futoin/specs/blob/master/final/ftn3_iface_definition.md
+
+   FTN5: 
+   https://github.com/futoin/specs/blob/master/final/ftn5_iface_http_integration.md
+
+Applications which use this media: FutoIn (FTN3) provides a generic 
+   convention for API request, response and error messages. This 
+   particular type is JSON coded representation.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: N/A
+
+Additional information:
+
+   1. Deprecated alias names for this type: application/futoin+json
+   2. Magic number(s): N/A
+   3. File extension(s): N/A
+   4. Macintosh file type code: N/A
+   5. Object Identifiers: N/A
+
+General Comments: This application is based on provisions in Appendix
+   A and Section 4.2.9. of RFC 6838.
+
+Person to contact for further information:
+
+   1. Name: Andrey Galkin
+   2. Email: andrey&futoin.org
+
+Intended usage: Common
+
+   JSON representation of FutoIn API message.
+
+Author/Change controller: Andrey Galkin, on behalf of FutoIn project
