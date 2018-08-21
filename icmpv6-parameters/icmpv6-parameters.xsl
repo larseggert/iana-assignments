@@ -53,6 +53,34 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'icmpv6-adress-registration-option-flags'">
+        <tr>
+          <th>ARO Status</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'icmpv6-adress-registration-option-i-field'">
+        <tr>
+          <th>Value</th>
+          <th>Meaning</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'icmpv6-parameters-codes-type-157-code-suffix'">
+        <tr>
+          <th>Code Suffix</th>
+          <th>Meaning</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'icmpv6-parameters-codes-type-158-code-suffix'">
+        <tr>
+          <th>Code Suffix</th>
+          <th>Meaning</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
      <xsl:otherwise>
       <tr>
         <th>Code</th>
@@ -94,7 +122,7 @@
      <xsl:otherwise>
       <tr>
        <td align="center"><xsl:value-of select="iana:value"/></td>
-       <xsl:if test="../iana:record/iana:name"><td><xsl:value-of select="iana:name"/></td></xsl:if>
+        <xsl:if test="../iana:record/iana:name"><td><xsl:apply-templates select="iana:name"/></td></xsl:if>
        <xsl:if test="../iana:record/iana:xref"><td><xsl:apply-templates select="iana:xref"/></td></xsl:if>
       </tr>
      </xsl:otherwise>

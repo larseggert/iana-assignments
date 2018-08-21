@@ -1,7 +1,7 @@
                                            Internet Control Message Protocol version 6 (ICMPv6) Parameters
 
    Last Updated
-           2018-08-02
+           2018-08-20
 
    Available Formats
            [IMG]
@@ -38,6 +38,8 @@
           * Type 145 - Home Agent Address Discovery
           * Type 146 - Mobile Prefix Solicitation
           * Type 147 - Mobile Prefix Advertisement
+          * Type 157 - Duplicate Address Request Code Suffix
+          * Type 158 - Duplicate Address Confirmation Code Suffix
           * Type 160 - Extended Echo Request
           * Type 161 - Extended Echo Reply
 
@@ -50,8 +52,10 @@
      * Qtypes
      * IPv6 ND Router Advertisement flags
      * Address Registration Option Status Values
-     * 6LoWPAN capability Bits
+     * 6LoWPAN Capability Bits
      * IPv6 Neighbor Discovery Prefix Information Option Flags
+     * Address Registration Option Flags
+     * Address Registration Option I-Field
 
 ICMPv6 "type" Numbers
 
@@ -515,6 +519,48 @@ ICMPv6 "Code" Fields
                 Code
    No registrations at this time.
 
+  Type 157 - Duplicate Address Request Code Suffix
+
+   Registration Procedure(s)
+
+ IETF Review or IESG Approval
+
+   Reference
+           [RFC-ietf-6lo-rfc6775-update-21]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Code Suffix               Meaning                           Reference
+        0      [RFC6775] DAR message                [RFC6775]
+        1      EDAR message with 64-bit ROVR field  [RFC-ietf-6lo-rfc6775-update-21]
+        2      EDAR message with 128-bit ROVR field [RFC-ietf-6lo-rfc6775-update-21]
+        3      EDAR message with 192-bit ROVR field [RFC-ietf-6lo-rfc6775-update-21]
+        4      EDAR message with 256-bit ROVR field [RFC-ietf-6lo-rfc6775-update-21]
+      5-15     Unassigned
+
+  Type 158 - Duplicate Address Confirmation Code Suffix
+
+   Registration Procedure(s)
+
+ IETF Review or IESG Approval
+
+   Reference
+           [RFC-ietf-6lo-rfc6775-update-21]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Code Suffix               Meaning                           Reference
+        0      [RFC6775] DAC message                [RFC6775]
+        1      EDAC message with 64-bit ROVR field  [RFC-ietf-6lo-rfc6775-update-21]
+        2      EDAC message with 128-bit ROVR field [RFC-ietf-6lo-rfc6775-update-21]
+        3      EDAC message with 192-bit ROVR field [RFC-ietf-6lo-rfc6775-update-21]
+        4      EDAC message with 256-bit ROVR field [RFC-ietf-6lo-rfc6775-update-21]
+      5-15     Unassigned
+
   Type 160 - Extended Echo Request
 
    Registration Procedure(s)
@@ -779,13 +825,21 @@ Address Registration Option Status Values
            [IMG]
            CSV
 
-   Value     Description     Reference
-     0   Success             [RFC6775]
-     1   Duplicate Address   [RFC6775]
-     2   Neighbor Cache Full [RFC6775]
-   3-255 Unassigned
+   Value                 Description                            Reference
+     0    Success                                    [RFC6775]
+     1    Duplicate Address                          [RFC6775]
+     2    Neighbor Cache Full                        [RFC6775]
+     3    Moved                                      [RFC-ietf-6lo-rfc6775-update-21]
+     4    Removed                                    [RFC-ietf-6lo-rfc6775-update-21]
+     5    Validation Requested                       [RFC-ietf-6lo-rfc6775-update-21]
+     6    Duplicate Source Address                   [RFC-ietf-6lo-rfc6775-update-21]
+     7    Invalid Source Address                     [RFC-ietf-6lo-rfc6775-update-21]
+     8    Registered Address topologically incorrect [RFC-ietf-6lo-rfc6775-update-21]
+     9    6LBR Registry saturated                    [RFC-ietf-6lo-rfc6775-update-21]
+     10   Validation Failed                          [RFC-ietf-6lo-rfc6775-update-21]
+   11-255 Unassigned
 
-6LoWPAN capability Bits
+6LoWPAN Capability Bits
 
    Registration Procedure(s)
 
@@ -798,9 +852,14 @@ Address Registration Option Status Values
            [IMG]
            CSV
 
-    Bit           Description          Reference
+    Bit           Description                     Reference
     0-7  Reserved for Experimental Use [RFC7400]
-   8-14  Unassigned
+    8-9  Unassigned
+    10   EDA Support (D bit)           [RFC-ietf-6lo-rfc6775-update-21]
+    11   6LR capable (L bit)           [RFC-ietf-6lo-rfc6775-update-21]
+    12   6LBR capable (B bit)          [RFC-ietf-6lo-rfc6775-update-21]
+    13   Routing Registrar (P bit)     [RFC-ietf-6lo-rfc6775-update-21]
+    14   EARO support (E bit)          [RFC-ietf-6lo-rfc6775-update-21]
     15   GHC capable bit (G bit)       [RFC7400]
    16-47 Unassigned
 
@@ -822,6 +881,41 @@ IPv6 Neighbor Discovery Prefix Information Option Flags
          1        A - Autonomous Address Configuration Flag [RFC4861]
          2        R - Router Address Flag                   [RFC6275]
         3-7       Reserved
+
+Address Registration Option Flags
+
+   Registration Procedure(s)
+
+ IETF Review or IESG Approval
+
+   Reference
+           [RFC-ietf-6lo-rfc6775-update-21]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   ARO Status Description            Reference
+      0-5     Unassigned
+       6      'R' Flag    [RFC-ietf-6lo-rfc6775-update-21]
+       7      'T' Flag    [RFC-ietf-6lo-rfc6775-update-21]
+
+Address Registration Option I-Field
+
+   Registration Procedure(s)
+
+ IETF Review or IESG Approval
+
+   Reference
+           [RFC-ietf-6lo-rfc6775-update-21]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Value                Meaning                           Reference
+     0   Abstract Index for Topology Selection [RFC-ietf-6lo-rfc6775-update-21]
+    1-3  Unassigned
 
                                                                        Footnote
 
