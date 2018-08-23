@@ -209,7 +209,14 @@
   </xsl:template>
 
   <xsl:template match="iana:registry/iana:note">
-    <dt>Note</dt>
+    <xsl:choose>
+      <xsl:when test="@title">
+       <dt><xsl:value-of select="@title"/></dt>
+      </xsl:when>
+      <xsl:otherwise>
+       <dt>Note</dt>
+      </xsl:otherwise>
+    </xsl:choose>
     <dd>
       <xsl:choose>
         <xsl:when test="@format = 'rich'">
@@ -486,13 +493,13 @@
         </a>
       </xsl:when>
       <xsl:when test="@type = 'rfc-errata'">
-        <a href="http://www.rfc-editor.org/errata_search.php?eid={@data}"><span>RFC Errata </span>
+        <a href="http://www.rfc-editor.org/errata_search.php?eid={@data}">RFC Errata 
           <xsl:choose>
             <xsl:when test="normalize-space()">
-<xsl:value-of select="."/>
+              <xsl:value-of select="."/>
             </xsl:when>
             <xsl:otherwise>
-<xsl:value-of select="translate(@data,$alpha,$ALPHA)"/>
+              <xsl:value-of select="translate(@data,$alpha,$ALPHA)"/>
             </xsl:otherwise>
           </xsl:choose>
         </a>

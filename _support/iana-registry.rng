@@ -2,7 +2,7 @@
 <grammar xmlns="http://relaxng.org/ns/structure/1.0"
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
   ns="http://www.iana.org/assignments">
-
+  
   <define name="registryMeta">
     <interleave>
       <attribute name="id"><data type="ID"/></attribute>
@@ -10,10 +10,15 @@
       <optional><element name="created"><ref name="genericDate"/></element></optional>
       <optional><element name="updated"><data type="date"/></element></optional>
       <optional><element name="registration_rule"><ref
-            name="text_with_references"/></element></optional>
+        name="text_with_references"/></element></optional>
       <optional><element name="expert"><text/></element></optional>
       <optional><element name="description"><ref name="text_with_references"/></element></optional>
-      <zeroOrMore><element name="note"><ref name="text_with_references"/></element></zeroOrMore>
+      <zeroOrMore>
+        <element name="note">
+          <optional><attribute name="title"><text/></attribute></optional>
+          <ref name="text_with_references"/>
+        </element>
+      </zeroOrMore>
       <ref name="references"/>
       <optional><element name="hide"><empty/></element></optional>
       <zeroOrMore><element name="category"><text/></element></zeroOrMore>
@@ -21,19 +26,19 @@
       <optional><ref name="file"/></optional>
     </interleave>
   </define>
-
+  
   <define name="range">
     <element name="range">
-       <interleave>
-	  <element name="value"><text/></element>
-	  <optional><element name="hex"><text/></element></optional>
-	  <element name="registration_rule"><ref name="text_with_references"/></element>
-	  <optional><element name="note"><ref name="text_with_references"/></element></optional>
-	  <optional><ref name="xref"/></optional>
-       </interleave>
+      <interleave>
+        <element name="value"><text/></element>
+        <optional><element name="hex"><text/></element></optional>
+        <element name="registration_rule"><ref name="text_with_references"/></element>
+        <optional><element name="note"><ref name="text_with_references"/></element></optional>
+        <optional><ref name="xref"/></optional>
+      </interleave>
     </element>
   </define>
-
+  
   <define name="people">
     <element name="people">
       <zeroOrMore>
@@ -47,7 +52,7 @@
       </zeroOrMore>
     </element>
   </define>
-
+  
   <define name="xref">
     <element name="xref">
       <optional>
@@ -105,13 +110,13 @@
       <text/>
     </element>
   </define>
-
+  
   <define name="references">
     <zeroOrMore>
       <ref name="xref"/>
     </zeroOrMore>
   </define>
-
+  
   <define name="text_with_references">
     <interleave>
       <zeroOrMore>
@@ -120,7 +125,7 @@
       </zeroOrMore>
     </interleave>
   </define>
-
+  
   <define name="richText">
     <zeroOrMore>
       <choice>
@@ -138,32 +143,32 @@
       </choice>
     </zeroOrMore>
   </define>
-
+  
   <define name="genericRange">
     <data type="string">
       <param name="pattern">(\d+|0x[\da-fA-F]+)(\s*-\s*(\d+|0x[\da-fA-F]+))?</param>
     </data>
   </define>
-
+  
   <define name="genericDate">
     <choice>
       <data type="date"/>
       <data type="gYearMonth"/>
     </choice>
   </define>
-
+  
   <define name="hex32">
     <data type="string">
       <param name="pattern">0x[0-9]{8}</param>
     </data>
   </define>
-
+  
   <define name="binary">
     <data type="string">
       <param name="pattern">[0-1]+</param>
     </data>
   </define>
-
+  
   <define name="footnotes">
     <zeroOrMore>
       <element name="footnote">
@@ -177,7 +182,7 @@
       </element>
     </zeroOrMore>
   </define>
-
+  
   <define name="file">
     <element name="file">
       <attribute name="type">
@@ -195,5 +200,5 @@
       <data type="anyURI"/>
     </element>
   </define>
-
+  
 </grammar>
