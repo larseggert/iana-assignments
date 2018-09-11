@@ -1,0 +1,479 @@
+                                        Group Secure Association Group Management Protocol (GSAKMP) Parameters
+
+   Created
+           2005-07-27
+
+   Last Updated
+           2018-09-10
+
+   Reference
+           [RFC4535]
+
+   Available Formats
+           [IMG]
+           XML [IMG]
+           HTML [IMG]
+           Plain text
+
+   Registries included below
+
+     * GSAKMP Group Identification Types
+     * GSAKMP Payload Types
+     * GSAKMP Exchange Types
+     * GSAKMP Policy Token Types
+     * GSAKMP Key Download Data Item Types
+     * GSAKMP Cryptographic Key Types
+     * GSAKMP Rekey Event Types
+     * GSAKMP Identification Classification
+     * GSAKMP Identification Types
+     * GSAKMP Certificate Types
+     * GSAKMP Signature Types
+     * GSAKMP Notification Types
+     * GSAKMP Acknowledgment Types
+     * GSAKMP Mechanism Types
+     * GSAKMP Nonce Hash Types
+     * GSAKMP Key Creation Types
+     * GSAKMP Nonce Types
+
+GSAKMP Group Identification Types
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC4535]
+
+   Available Formats
+           [IMG]
+           CSV
+
+     Grp ID Type     Value                               Description/Defined In                              Reference
+   Reserved            0                                                                                     [RFC4535]
+   UTF-8               1    Format defined in Section 7.1.1.1.1 of [RFC4535].                                [RFC4535]
+   Octet String        2    This type MUST be implemented. Format defined in Section 7.1.1.1.2 of [RFC4535]. [RFC4535]
+   IPv4                3    Format defined in Section 7.1.1.1.3 of [RFC4535].                                [RFC4535]
+   IPv6                4    Format defined in Section 7.1.1.1.4 of [RFC4535].                                [RFC4535]
+   Reserved to IANA  5-192                                                                                   [RFC4535]
+   Private Use      193-255                                                                                  [RFC4535]
+
+GSAKMP Payload Types
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC4535]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Next_Payload_Type   Value  Reference
+   None                   0    [RFC4535]
+   Policy Token           1    [RFC4535]
+   Key Download Packet    2    [RFC4535]
+   Rekey event            3    [RFC4535]
+   Identification         4    [RFC4535]
+   Reserved               5    [RFC4535]
+   Certificate            6    [RFC4535]
+   Reserved               7    [RFC4535]
+   Signature              8    [RFC4535]
+   Notification           9    [RFC4535]
+   Vendor ID             10    [RFC4535]
+   Key Creation          11    [RFC4535]
+   Nonce                 12    [RFC4535]
+   Reserved to IANA    13-192  [RFC4535]
+   Private Use         193-255 [RFC4535]
+
+GSAKMP Exchange Types
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC4535]
+
+   Available Formats
+           [IMG]
+           CSV
+
+        Exchange_Type        Value  Reference
+   Reserved                   0-3   [RFC4535]
+   Key Download Ack/Failure    4    [RFC4535]
+   Rekey Event                 5    [RFC4535]
+   Reserved                   6-7   [RFC4535]
+   Request to Join             8    [RFC4535]
+   Key Download                9    [RFC4535]
+   Cookie Download            10    [RFC4535]
+   Request to Join Error      11    [RFC4535]
+   Lack of Ack                12    [RFC4535]
+   Request to Depart          13    [RFC4535]
+   Departure Response         14    [RFC4535]
+   Departure Ack              15    [RFC4535]
+   Reserved to IANA         16-192  [RFC4535]
+   Private Use              193-255 [RFC4535]
+
+GSAKMP Policy Token Types
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC4535]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Policy_Token_Type     Value                                      Definition/Defined In                                   Reference
+   Reserved                0                                                                                                [RFC4535]
+   GSAKMP_ASN.1_PT_V1      1      All implementations of GSAKMP MUST support this PT format. Format specified in [RFC4534]. [RFC4534]
+   Reserved to IANA     2-49152                                                                                             [RFC4535]
+   Private Use        49153-65535                                                                                           [RFC4535]
+
+GSAKMP Key Download Data Item Types
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC4535]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Key Download Data Item Type  Value                                              Definition                                             Reference
+   GTPK                           0    This type MUST be implemented. This type identifies that the data contains group traffic           [RFC4535]
+                                       protection key information.
+   Rekey - LKH                    1    Optional                                                                                           [RFC4535]
+   Reserved to IANA             2-192                                                                                                     [RFC4535]
+   Private Use                 193-255                                                                                                    [RFC4535]
+
+GSAKMP Cryptographic Key Types
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC4535]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Cryptographic_Key_Types    Value       Description/Defined In    Reference
+   Reserved                    0-2                                  [RFC4535]
+   3DES_CBC64_192               3                                   [RFC2451]
+   Reserved                   4-11                                  [RFC4535]
+   AES_CBC_128                 12      This type MUST be supported. [RFC4306]
+   AES_CTR                     13                                   [RFC4306]
+   Reserved to IANA         14-49152                                [RFC4535]
+   Private Use             49153-65535                              [RFC4535]
+
+GSAKMP Rekey Event Types
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC4535]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Rekey_Event_Type  Value                                             Description/Defined In                                             Reference
+                            This type MUST be implemented. In this case, the size of the Rekey Event Data field will be zero bytes long.
+   None                0    The purpose of a Rekey Event Payload with type None is when it is necessary to send out a new token with no   [RFC4535]
+                            rekey information. GSAKMP Rekey Msg requires a Rekey Event Payload, and in this instance it would have rekey
+                            data of type None.
+   GSAKMP_LKH          1    The rekey data will be of type LKH formatted according to GSAKMP. The format for this field is defined in     [RFC4535]
+                            Section 7.5.1.2 of [RFC4535].
+   Reserved to IANA  2-192                                                                                                                [RFC4535]
+   Private Use      193-255                                                                                                               [RFC4535]
+
+GSAKMP Identification Classification
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC4535]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   ID_Classification  Value  Reference
+   Sender               0    [RFC4535]
+   Receiver             1    [RFC4535]
+   Third Party          2    [RFC4535]
+   Reserved to IANA   3-192  [RFC4535]
+   Private Use       193-255 [RFC4535]
+
+GSAKMP Identification Types
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC4535]
+
+   Available Formats
+           [IMG]
+           CSV
+
+            ID_Type            Value          PKIX Cert Field                               Description/Defined In                        Reference
+   Reserved                      0                                                                                                        [RFC4535]
+   ID_IPV4_ADDR                  1    SubjAltName iPAddress           See Section 3.5 of [RFC4306].                                       [RFC4306]
+   ID_FQDN                       2    SubjAltName dNSName             See Section 3.5 of [RFC4306].                                       [RFC4306]
+   ID_RFC822_ADDR                3    SubjAltName rfc822Name          See Section 3.5 of [RFC4306].                                       [RFC4306]
+   Reserved                      4                                                                                                        [RFC4535]
+   ID_IPV6_ADDR                  5    SubjAltName iPAddress           See Section 3.5 of [RFC4306].                                       [RFC4306]
+   Reserved                     6-8                                                                                                       [RFC4535]
+   ID_DER_ASN1_DN                9    Entire Subject, bitwise Compare See Section 3.5 of [RFC4306].                                       [RFC4306]
+   Reserved                     10                                                                                                        [RFC4535]
+   ID_KEY_ID                    11    N/A                             See Section 3.5 of [RFC4306].                                       [RFC4306]
+   Reserved                    12-29
+   Unencoded Name (ID_U_NAME)   30    Subject                         The format for this type is defined in Section 7.6.1.1 of           [RFC4535]
+                                                                      [RFC4535].
+   ID_DN_STRING                 31    Subject                         See [RFC4514]. This type MUST be implemented.                       [RFC4514]
+   Reserved to IANA           32-192                                                                                                      [RFC4535]
+   Private Use                193-255                                                                                                     [RFC4535]
+
+GSAKMP Certificate Types
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC4535]
+
+   Available Formats
+           [IMG]
+           CSV
+
+              Certificate_Type                Value                         Description/Defined In                      Reference None 0  [RFC4535]
+   Reserved                                    1-3                                                                      [RFC4535]
+   X.509v3 Certificate -- Signature -- DER      4      This type MUST be implemented. Contains a DER encoded X.509      [RFC4535]
+   Encoding                                            certificate.
+   Reserved                                    5-6                                                                      [RFC4535]
+   Certificate Revocation List (CRL)            7      Contains a BER encoded X.509 CRL.                                [RFC4535]
+   Reserved                                    8-9                                                                      [RFC4535]
+   X.509 Certificate -- Attribute              10      See Section 3.6 of [RFC4306].                                    [RFC4306]
+   Raw RSA Key                                 11      See Section 3.6 of [RFC4306].                                    [RFC4306]
+   Hash and URL of X.509 Certificate           12      See Section 3.6 of [RFC4306].                                    [RFC4306]
+   Hash and URL of X.509 bundle                13      See Section 3.6 of [RFC4306].                                    [RFC4306]
+   Reserved to IANA                         14-49152                                                                    [RFC4535]
+   Private Use                             49153-65535                                                                  [RFC4535]
+
+GSAKMP Signature Types
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC4535]
+
+   Available Formats
+           [IMG]
+           CSV
+
+            Signature Type             Value       Description/Defined In                                  Reference
+   DSS/SHA1 with ASN.1/DER encoding      0      This type MUST be supported. [RFC4535]
+   (DSS-SHA1-ASN1-DER)
+   RSA1024-MD5                           1                                   [RFC8017]
+                                                                             [NIST, "Digital Signature Standard", FIPS PUB 186-2, National
+   ECDSA-P384-SHA3                       2                                   Institute of Standards and Technology, U.S. Department of Commerce,
+                                                                             January 2000.]
+   Reserved to IANA                   3-41952                                [RFC4535]
+   Private Use                      41953-65536                              [RFC4535]
+
+GSAKMP Notification Types
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC4535]
+
+   Available Formats
+           [IMG]
+           CSV
+
+              Notification Type               Value    Reference
+   None                                         0      [RFC4535]
+   Invalid-Payload-Type                         1      [RFC4535]
+   Reserved                                    2-3     [RFC4535]
+   Invalid-Version                              4      [RFC4535]
+   Invalid-Group-ID                             5      [RFC4535]
+   Invalid-Sequence-ID                          6      [RFC4535]
+   Payload-Malformed                            7      [RFC4535]
+   Invalid-Key-Information                      8      [RFC4535]
+   Invalid-ID-Information                       9      [RFC4535]
+   Reserved                                    10      [RFC4535]
+   Invalid-Certificate                         11      [RFC4535]
+   Cert-Type-Unsupported                       12      [RFC4535]
+   Invalid-Cert-Authority                      13      [RFC4535]
+   Authentication-Failed                       14      [RFC4535]
+   Reserved                                   15-16    [RFC4535]
+   Certificate-Unavailable                     17      [RFC4535]
+   Reserved                                    18      [RFC4535]
+   Unauthorized-Request                        19      [RFC4535]
+   Reserved                                   20-22    [RFC4535]
+   Acknowledgment                              23      [RFC4535]
+   Reserved                                   24-25    [RFC4535]
+   Nack                                        26      [RFC4535]
+   Cookie-Required                             27      [RFC4535]
+   Cookie                                      28      [RFC4535]
+   Mechanism Choices                           29      [RFC4535]
+   Leave Group                                 30      [RFC4535]
+   Departure Accepted                          31      [RFC4535]
+   Request to Depart Error                     32      [RFC4535]
+   Invalid Exchange Type                       33      [RFC4535]
+   IPv4 Value                                  34      [RFC4535]
+   IPv6 Value                                  35      [RFC4535]
+   Prohibited by Group Policy                  36      [RFC4535]
+   Prohibited by Locally Configured Policy     37      [RFC4535]
+   Reserved to IANA                         38-49152   [RFC4535]
+   Private Use                             49153-65535 [RFC4535]
+
+GSAKMP Acknowledgment Types
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC4535]
+
+   Available Formats
+           [IMG]
+           CSV
+
+       ACK_Type      Value      Definition     Reference
+   Simple              0    Data portion null. [RFC4535]
+   Reserved to IANA  1-192
+   Private Use      193-255
+
+GSAKMP Mechanism Types
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC4535]
+
+   Available Formats
+           [IMG]
+           CSV
+
+       Mechanism_Type      Value  Mechanism Choice Data Value Table Reference Reference
+   Key Creation Algorithm    0    Table 26, [RFC4535]                         [RFC4535]
+   Encryption Algorithm      1    Table 16, [RFC4535]                         [RFC4535]
+   Nonce Hash Algorithm      2    Table 25, [RFC4535]                         [RFC4535]
+   Reserved to IANA        3-192                                              [RFC4535]
+   Private Use            193-255                                             [RFC4535]
+
+GSAKMP Nonce Hash Types
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC4535]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Nonce_Hash_Type     Value             Definition          Reference
+   Reserved              0                                   [RFC4535]
+   SHA-1                 1      This type MUST be supported. [RFC4535]
+   Reserved to IANA   2-49152                                [RFC4535]
+   Private Use      49153-65535                              [RFC4535]
+
+GSAKMP Key Creation Types
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC4535]
+
+   Available Formats
+           [IMG]
+           CSV
+
+            Key Creation Type              Value                                    Definition/Defined In                                 Reference
+   Reserved                                 0-1                                                                                           [RFC4535]
+   Diffie-Hellman. 1024-bit MODP Group.             This type MUST be supported. Defined in [RFC4306] B.2. If the output of the process
+   Truncated                                 2      is longer than needed for the defined mechanism, use the first X low order bits, and  [RFC4306]
+                                                    truncate the remainder.
+   Reserved                                3-13                                                                                           [RFC4535]
+   Diffie-Hellman. 2048-bit MODP Group.     14      If the output of the process is longer than needed for the defined mechanism, use the [RFC3526]
+   Truncated                                        first X low order bits, and truncate the remainder.
+   Reserved to IANA                      15-49152                                                                                         [RFC4535]
+   Private Use                          49153-65535                                                                                       [RFC4535]
+
+GSAKMP Nonce Types
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC4535]
+
+   Available Formats
+           [IMG]
+           CSV
+
+       Nonce_Type       Value                                                  Definition                                                 Reference
+   None                   0                                                                                                               [RFC4535]
+   Initiator (Nonce_I)    1                                                                                                               [RFC4535]
+   Responder (Nonce_R)    2                                                                                                               [RFC4535]
+   Combined (Nonce_C)     3    Hash (Append (Initiator_Value,Responder_Value)) The hash type comes from the Policy (e.g., Security Suite  [RFC4535]
+                               Definition of Policy Token).
+   Reserved to IANA     4-192                                                                                                             [RFC4535]
+   Private Use         192-255                                                                                                            [RFC4535]

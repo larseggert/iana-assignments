@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes" ns="http://www.iana.org/assignments">
+
+  <include href="../_support/iana-registry.rng"/>
+
+
+  <define name="generic-registry">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <zeroOrMore>
+        <element name="record">
+          <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+          <optional><attribute name="updated"><ref name="genericDate"/></attribute></optional>
+          <element name="name"><text/></element>
+          <element name="value"><ref name="genericRange"/></element>
+          <optional><element name="description"><ref name="text_with_references"/></element></optional>
+          <ref name="references"/>
+        </element>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <define name="identification-type-registry">
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <zeroOrMore>
+        <element name="record">
+          <optional><attribute name="date"><ref name="genericDate"/></attribute></optional>
+          <optional><attribute name="updated"><ref name="genericDate"/></attribute></optional>
+          <element name="name"><text/></element>
+          <element name="value"><ref name="genericRange"/></element>
+          <optional><element name="field_name"><text/></element></optional>
+          <optional><element name="description"><ref name="text_with_references"/></element></optional>
+          <ref name="references"/>
+        </element>
+      </zeroOrMore>
+    </element>
+  </define>
+
+  <start>
+    <element name="registry">
+      <ref name="registryMeta"/>
+      <ref name="generic-registry"/> <!-- GSAKMP Group Identification Types -->
+      <ref name="generic-registry"/> <!-- GSAKMP Payload Types -->
+      <ref name="generic-registry"/> <!-- GSAKMP Exchange Types -->
+      <ref name="generic-registry"/> <!-- GSAKMP Policy Token Types -->
+      <ref name="generic-registry"/> <!-- GSAKMP Key Download Data Item Types -->
+      <ref name="generic-registry"/> <!-- GSAKMP Cryptographic Key Types -->
+      <ref name="generic-registry"/> <!-- GSAKMP Rekey Event Types -->
+      <ref name="generic-registry"/> <!-- GSAKMP Identification Classification -->
+      <ref name="identification-type-registry"/> <!-- GSAKMP Identification Types -->
+      <ref name="generic-registry"/> <!-- GSAKMP Certificate Types -->
+      <ref name="generic-registry"/> <!-- GSAKMP Signature Types -->
+      <ref name="generic-registry"/> <!-- GSAKMP Notification Types -->
+      <ref name="generic-registry"/> <!-- GSAKMP Acknowledgment Types -->
+      <ref name="generic-registry"/> <!-- GSAKMP Mechanism Types -->
+      <ref name="generic-registry"/> <!-- GSAKMP Nonce Hash Types -->
+      <ref name="generic-registry"/> <!-- GSAKMP Key Creation Types -->
+      <ref name="generic-registry"/> <!-- GSAKMP Nonce Types -->
+      <ref name="people"/>
+    </element>
+  </start>
+
+</grammar>
