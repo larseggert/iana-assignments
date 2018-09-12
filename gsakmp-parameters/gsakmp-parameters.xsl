@@ -87,11 +87,11 @@
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'gsakmp-parameters-10'">
+        <tr>
           <td><xsl:value-of select="iana:name"/></td>
           <td align="center"><xsl:value-of select="iana:value"/></td>
-        <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
-        <tr>
         </tr>
       </xsl:when>
       <xsl:otherwise>
