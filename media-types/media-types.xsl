@@ -19,7 +19,6 @@
     <tr>
       <th>Name</th>
       <th>Template</th>
-      <xsl:if test="iana:record/iana:description"><th>Description</th></xsl:if>
       <th>Reference</th>
     </tr>
   </xsl:template>
@@ -31,9 +30,6 @@
         <xsl:apply-templates select="iana:obsolete"/>
       </td>
       <td><xsl:apply-templates select="iana:file"/></td>
-      <xsl:if test="../iana:record/iana:description">
-        <td><xsl:apply-templates select="iana:description"/></td>
-      </xsl:if>
       <td><xsl:apply-templates select="iana:xref"/></td>
     </tr>
   </xsl:template>
