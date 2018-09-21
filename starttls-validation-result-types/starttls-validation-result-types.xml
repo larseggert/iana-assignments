@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="starttls-validation-result-types">
   <title>STARTTLS Validation Result Types</title>
   <created>2018-06-14</created>
-  <updated>2018-08-02</updated>
+  <updated>2018-09-21</updated>
 
   <registry id="starttls-validation-result-types-1">
     <title>STARTTLS Validation Result Types</title>
@@ -13,52 +13,78 @@
     <expert>Alexander Brotman, Daniel Margolis, Viktor Dukhovni</expert>
     <record date="2018-06-14">
       <value>starttls-not-supported</value>
-      <description>4.3</description>
+      <description>This indicates that the recipient MX did not support STARTTLS.</description>
       <xref type="draft" data="RFC-ietf-uta-smtp-tlsrpt-23"/>
     </record>
     <record date="2018-06-14">
       <value>certificate-host-mismatch</value>
-      <description>4.3</description>
+      <description>This indicates that the certificate presented did not adhere to the
+        constraints specified in the MTA-STS or DANE policy, e.g., if the MX hostname 
+        does not match any identities listed in the subject alternative name (SAN)
+        <xref type="rfc" data="rfc5280"/>.</description>
       <xref type="draft" data="RFC-ietf-uta-smtp-tlsrpt-23"/>
     </record>
     <record date="2018-06-14">
       <value>certificate-expired</value>
-      <description>4.3</description>
+      <description>This indicates that the certificate has expired.</description>
       <xref type="draft" data="RFC-ietf-uta-smtp-tlsrpt-23"/>
     </record>
     <record date="2018-06-14">
       <value>tlsa-invalid</value>
-      <description>4.3</description>
+      <description>This indicates a validation error in the TLSA record associated
+        with a DANE policy. None of the records in the RRset were found to be valid.</description>
       <xref type="draft" data="RFC-ietf-uta-smtp-tlsrpt-23"/>
     </record>
     <record date="2018-06-14">
       <value>dnssec-invalid</value>
-      <description>4.3</description>
+      <description>This indicates that no valid records were returned from the recursive 
+        resolver.</description>
       <xref type="draft" data="RFC-ietf-uta-smtp-tlsrpt-23"/>
     </record>
     <record date="2018-06-14">
       <value>dane-required</value>
-      <description>4.3</description>
+      <description>This indicates that the sending system is
+        configured to require DANE TLSA records for all the MX hosts of
+        the destination domain, but no DNSSEC-validated TLSA records were
+        present for the MX host that is the subject of the report. Mandatory DANE for SMTP is 
+        described in Section 6 of <xref type="rfc" data="rfc7672"/>.
+        Such policies may be created by mutual agreement between two
+        organizations that frequently exchange sensitive content via email.</description>
       <xref type="draft" data="RFC-ietf-uta-smtp-tlsrpt-23"/>
     </record>
     <record date="2018-06-14">
       <value>certificate-not-trusted</value>
-      <description>4.3</description>
+      <description>This is a label that covers multiple
+        certificate-related failures that include, but are not limited to,
+        errors such as untrusted/unknown certification authorities (CAs),
+        certificate name constraints, certificate chain errors, etc. When
+        using this declaration, the reporting MTA SHOULD utilize the
+        "failure-reason-code" to provide more information to the receiving entity.</description>
       <xref type="draft" data="RFC-ietf-uta-smtp-tlsrpt-23"/>
     </record>
     <record date="2018-06-14">
       <value>sts-policy-invalid</value>
-      <description>4.3</description>
+      <description>This indicates a validation error for the overall MTA-STS Policy.</description>
       <xref type="draft" data="RFC-ietf-uta-smtp-tlsrpt-23"/>
     </record>
     <record date="2018-06-14">
       <value>sts-webpki-invalid</value>
-      <description>4.3</description>
+      <description>This indicates that the MTA-STS Policy could
+        not be authenticated using PKIX validation.</description>
       <xref type="draft" data="RFC-ietf-uta-smtp-tlsrpt-23"/>
     </record>
     <record date="2018-06-14">
       <value>validation-failure</value>
-      <description>4.3</description>
+      <description>This indicates a general failure for a
+        reason not matching a category above. When using this
+        declaration, the reporting MTA SHOULD utilize the "failure-reason-code"
+        to provide more information to the receiving entity.</description>
+      <xref type="draft" data="RFC-ietf-uta-smtp-tlsrpt-23"/>
+    </record>
+    <record date="2018-09-21">
+      <value>sts-policy-fetch-error</value>
+      <description>This indicates a failure to retrieve an
+        MTA-STS policy, for example, because the policy host is unreachable.</description>
       <xref type="draft" data="RFC-ietf-uta-smtp-tlsrpt-23"/>
     </record>
   </registry>
