@@ -60,6 +60,14 @@
           <th>Use</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'multicast-email-smtp-extensions'">
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Reference</th>
+          <th>Note</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -97,6 +105,14 @@
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:apply-templates select="iana:use"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'multicast-email-smtp-extensions'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:status"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:note"/></td>
         </tr>
       </xsl:when>
     </xsl:choose>
