@@ -4,7 +4,7 @@
            2018-06-14
 
    Last Updated
-           2018-09-21
+           2018-09-28
 
    Available Formats
            [IMG]
@@ -27,35 +27,32 @@ STARTTLS Validation Result Types
  Alexander Brotman, Daniel Margolis, Viktor Dukhovni
 
    Reference
-           [RFC-ietf-uta-smtp-tlsrpt-23]
+           [RFC8460]
 
    Available Formats
            [IMG]
            CSV
 
-          Result Type                                              Description                                                  Reference
-   starttls-not-supported    This indicates that the recipient MX did not support STARTTLS.                           [RFC-ietf-uta-smtp-tlsrpt-23]
-                             This indicates that the certificate presented did not adhere to the constraints
-   certificate-host-mismatch specified in the MTA-STS or DANE policy, e.g., if the MX hostname does not match any     [RFC-ietf-uta-smtp-tlsrpt-23]
-                             identities listed in the subject alternative name (SAN) [RFC5280].
-   certificate-expired       This indicates that the certificate has expired.                                         [RFC-ietf-uta-smtp-tlsrpt-23]
-   tlsa-invalid              This indicates a validation error in the TLSA record associated with a DANE policy. None [RFC-ietf-uta-smtp-tlsrpt-23]
-                             of the records in the RRset were found to be valid.
-   dnssec-invalid            This indicates that no valid records were returned from the recursive resolver.          [RFC-ietf-uta-smtp-tlsrpt-23]
-                             This indicates that the sending system is configured to require DANE TLSA records for
-                             all the MX hosts of the destination domain, but no DNSSEC-validated TLSA records were
-   dane-required             present for the MX host that is the subject of the report. Mandatory DANE for SMTP is    [RFC-ietf-uta-smtp-tlsrpt-23]
-                             described in Section 6 of [RFC7672]. Such policies may be created by mutual agreement
-                             between two organizations that frequently exchange sensitive content via email.
-                             This is a label that covers multiple certificate-related failures that include, but are
-                             not limited to, errors such as untrusted/unknown certification authorities (CAs),
-   certificate-not-trusted   certificate name constraints, certificate chain errors, etc. When using this             [RFC-ietf-uta-smtp-tlsrpt-23]
-                             declaration, the reporting MTA SHOULD utilize the "failure-reason-code" to provide more
-                             information to the receiving entity.
-   sts-policy-invalid        This indicates a validation error for the overall MTA-STS Policy.                        [RFC-ietf-uta-smtp-tlsrpt-23]
-   sts-webpki-invalid        This indicates that the MTA-STS Policy could not be authenticated using PKIX validation. [RFC-ietf-uta-smtp-tlsrpt-23]
-                             This indicates a general failure for a reason not matching a category above. When using
-   validation-failure        this declaration, the reporting MTA SHOULD utilize the "failure-reason-code" to provide  [RFC-ietf-uta-smtp-tlsrpt-23]
-                             more information to the receiving entity.
-   sts-policy-fetch-error    This indicates a failure to retrieve an MTA-STS policy, for example, because the policy  [RFC-ietf-uta-smtp-tlsrpt-23]
-                             host is unreachable.
+          Result Type                                                        Description                                                  Reference
+   starttls-not-supported    This indicates that the recipient MX did not support STARTTLS.                                               [RFC8460]
+                             This indicates that the certificate presented did not adhere to the constraints specified in the MTA-STS or
+   certificate-host-mismatch DANE policy, e.g., if the MX hostname does not match any identities listed in the subject alternative name   [RFC8460]
+                             (SAN) [RFC5280].
+   certificate-expired       This indicates that the certificate has expired.                                                             [RFC8460]
+   tlsa-invalid              This indicates a validation error in the TLSA record associated with a DANE policy. None of the records in   [RFC8460]
+                             the RRset were found to be valid.
+   dnssec-invalid            This indicates that no valid records were returned from the recursive resolver.                              [RFC8460]
+                             This indicates that the sending system is configured to require DANE TLSA records for all the MX hosts of
+   dane-required             the destination domain, but no DNSSEC-validated TLSA records were present for the MX host that is the        [RFC8460]
+                             subject of the report. Mandatory DANE for SMTP is described in Section 6 of [RFC7672]. Such policies may be
+                             created by mutual agreement between two organizations that frequently exchange sensitive content via email.
+                             This is a label that covers multiple certificate-related failures that include, but are not limited to,
+   certificate-not-trusted   errors such as untrusted/unknown certification authorities (CAs), certificate name constraints, certificate  [RFC8460]
+                             chain errors, etc. When using this declaration, the reporting MTA SHOULD utilize the "failure-reason-code"
+                             to provide more information to the receiving entity.
+   sts-policy-invalid        This indicates a validation error for the overall MTA-STS Policy.                                            [RFC8460]
+   sts-webpki-invalid        This indicates that the MTA-STS Policy could not be authenticated using PKIX validation.                     [RFC8460]
+                             This indicates a general failure for a reason not matching a category above. When using this declaration,
+   validation-failure        the reporting MTA SHOULD utilize the "failure-reason-code" to provide more information to the receiving      [RFC8460]
+                             entity.
+   sts-policy-fetch-error    This indicates a failure to retrieve an MTA-STS policy, for example, because the policy host is unreachable. [RFC8460]
