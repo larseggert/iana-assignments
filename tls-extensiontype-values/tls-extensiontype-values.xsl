@@ -17,7 +17,7 @@
       <xsl:when test="@id = 'tls-extensiontype-values-3'">
         <tr>
           <th>Value</th>
-          <th>Extension Name</th>
+          <th>Name</th>
           <th>Recommended</th>
           <th>Reference</th>
           <th>Comment</th>
