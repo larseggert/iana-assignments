@@ -1,0 +1,114 @@
+(registered 2018-11-28, last updated 2018-11-28)
+
+Type name: audio
+
+Subtype name: TETRA_ACELP
+
+Required parameters: In SDP information describing the media type the
+   following parameter is required:
+
+   rate: RTP timestamp clock rate, which is equal to the sampling 
+   rate. The typical rate is 8000; other rates may be specified.
+
+Optional parameters: In SDP information describing the media type the
+   following parameters are optional:
+
+   ptime: packet time in milliseconds for the media represented in 
+   a packet made up of one full TETRA speech frame.
+
+   maxptime: maximum amount of media that can be encapsulated in each
+   packet – this is the framing rate for the TETRA Inter-System 
+   Interface.
+
+   If the values of these optional parameters are omitted then the 
+   following values shall be used.
+
+   ptime: 60
+   maxptime: 60
+
+Encoding considerations: This media type is framed binary data.
+
+Security considerations: RTP packets using the payload format defined
+   in this specification are subject to the general security 
+   considerations discussed in RFC 3550 and in any used profile, like
+   AVP [RFC 3551] or SAVP [RFC 3711]. As this format transports 
+   encoded speech, the main security issues include confidentiality, 
+   authentication, and integrity of the speech itself. The payload 
+   format itself does not have any built-in security mechanisms, 
+   although any audio media and control information carried may be 
+   separately ciphered.
+
+   External mechanisms, such as SRTP [RFC 3711], may be used for the 
+   security functionality. The appropriate mechanisms to provide 
+   security to RTP and the payloads following this memo may vary, 
+   depending on the application, the transport, and the signalling 
+   protocol employed. 
+
+   Security mechanisms that may be used are TLS [RFC 4346] (RTP over 
+   TCP) and IPsec [RFC 4301], but other alternatives may also exist. 
+
+   This payload format, which does not include any executable 
+   content, does not exhibit any significant non-uniformity in the 
+   receiver side computational complexity for packet processing, and 
+   thus is unlikely to pose a denial-of-service threat due to the 
+   receipt of pathological data.
+
+   The payload audio part consists of media data that will either 
+   decode to a 30ms speech frame as described in ETSI EN 300 395-2 
+   or, if indicated, stolen frames which contain a Layer 2 signalling
+   message as described in ETSI EN 300 392-2. An incorrectly 
+   formatted L2 signalling message will be discarded as invalid. 
+   Consequently, even if the payload contents are corrupted, the 
+   decoded data size is capped and receipt of pathological data will 
+   not cause an overly large decoded data set.
+
+   It is recommended that the payload should be at a minimum 
+   integrity protected in order to prevent payload modifications that
+   may impact downstream terminal behaviour.
+
+Interoperability considerations:
+
+   This media type carries TETRA ACELP encoded audio framed as per 
+   Generic Speech Format specification (TS 100 392-3-8) to allow 
+   interoperability between network operators independent of the 
+   network manufacturer.
+
+   The encoding of the audio part of the payload is described in ETSI
+   EN 300 395-2: "Terrestrial Trunked Radio (TETRA); Speech codec for
+   full-rate traffic channel; Part 2: TETRA codec".
+
+   For the purposes of using the TETRA_ACELP media type within the 
+   TETRA Inter-System Interface (ISI) the following values of the 
+   optional SDP parameter values are mandated or else the remote peer
+   will refuse the connection setup.
+
+   ptime: 60
+   maxptime: 60
+
+Published specification:
+
+   ETSI TS 100 392-3-8 v1.3.12.7: Terrestrial Trunked Radio (TETRA); 
+   Voice plus Data (V+D); Part 3: Interworking at the Inter-System 
+   Interface (ISI); Sub-part 8: Generic Speech Format Implementation
+
+   ETSI EN 300 395-2 v1.3.1: "Terrestrial Trunked Radio (TETRA); 
+   Speech codec for full-rate traffic channel; Part 2: TETRA codec".
+
+   ETSI EN 300 392-2 v3.8.1: "Terrestrial Trunked Radio (TETRA); 
+   Voice Plus Data (V+D); Part 2: Air Interface (AI)".
+
+Applications that use this media type: Devices or applications that 
+   send or receive TETRA ACELP encoded audio over RTP/IP.
+
+Person & email address to contact for further information:
+   Miguel Angel Reina Ortega <MiguelAngel.ReinaOrtega&etsi.org>
+
+Intended usage: COMMON
+
+Restrictions on usage: This media type depends on RTP framing, and 
+   hence is only defined for transfer via RTP (RFC 3550). Transfer 
+   within other framing protocols is  not defined at this time.
+
+Author: ETSI TCCE WG3
+
+Change controller: ETSI
