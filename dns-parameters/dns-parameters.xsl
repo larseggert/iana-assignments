@@ -100,6 +100,13 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'dns-underscore-global-scoped-entries'">
+        <tr>
+          <th>RR Type</th>
+          <th>_NODE NAME</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -158,6 +165,13 @@
           <td><xsl:value-of select="iana:bit"/></td>
           <td align="center"><xsl:value-of select="iana:flag"/></td>
           <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'dns-underscore-global-scoped-entries'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
