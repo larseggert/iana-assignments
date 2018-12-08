@@ -1,7 +1,7 @@
                                                          Domain Name System (DNS) Parameters
 
    Last Updated
-           2018-11-29
+           2018-12-07
 
    Available Formats
            [IMG]
@@ -25,6 +25,7 @@
      * EDNS version Number (8 bits)
      * Child Synchronization (CSYNC) Flags
      * DNS Underscore Global Scoped Entries
+     * DSO Type Codes
 
 DNS CLASSes
 
@@ -278,14 +279,15 @@ DNS OpCodes
            [IMG]
            CSV
 
-   OpCode               Name               Reference
+   OpCode               Name                           Reference
      0    Query                            [RFC1035]
      1    IQuery (Inverse Query, OBSOLETE) [RFC3425]
      2    Status                           [RFC1035]
      3    Unassigned
      4    Notify                           [RFC1996]
      5    Update                           [RFC2136]
-    6-15  Unassigned
+     6    DNS Stateful Operations (DSO)    [RFC-ietf-dnsop-session-signal-20]
+    7-15  Unassigned
 
 DNS RCODEs
 
@@ -300,7 +302,7 @@ DNS RCODEs
            [IMG]
            CSV
 
-     RCODE                         Name                                 Description                Reference
+     RCODE                         Name                                 Description                        Reference
        0      NoError                                        No Error                          [RFC1035]
        1      FormErr                                        Format Error                      [RFC1035]
        2      ServFail                                       Server Failure                    [RFC1035]
@@ -313,7 +315,8 @@ DNS RCODEs
        9      NotAuth                                        Server Not Authoritative for zone [RFC2136]
        9      NotAuth                                        Not Authorized                    [RFC2845]
        10     NotZone                                        Name not contained in zone        [RFC2136]
-     11-15    Unassigned
+       11     DSOTYPENI                                      DSO-TYPE Not Implemented          [RFC-ietf-dnsop-session-signal-20]
+     12-15    Unassigned
        16     BADVERS                                        Bad OPT Version                   [RFC6891]
        16     BADSIG                                         TSIG Signature Failure            [RFC2845]
        17     BADKEY                                         Key not recognized                [RFC2845]
@@ -654,6 +657,34 @@ DNS Underscore Global Scoped Entries
    URI        _vpim                                             [RFC6118]
    URI        _web                                              [RFC6118]
    URI        _xmpp                                             [RFC6118]
+
+DSO Type Codes
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-dnsop-session-signal-20]
+
+   Available Formats
+           [IMG]
+           CSV
+
+     Range   Registration Procedures
+   0004-003F Standards Action
+   0040-F7FF Expert Review
+   FC00-FFFF Standards Action
+
+       Type                              Name                         Early Data  Status              Reference
+       0000      Reserved                                             NO         Standard [RFC-ietf-dnsop-session-signal-20]
+      0x0001     KeepAlive                                            OK         Standard [RFC-ietf-dnsop-session-signal-20]
+      0x0002     RetryDelay                                           NO         Standard [RFC-ietf-dnsop-session-signal-20]
+      0x0003     EncryptionPadding                                    NA         Standard [RFC-ietf-dnsop-session-signal-20]
+   0x0004-0x003F Unassigned, reserved for DSO session-management TLVs NO
+   0x0040-0xF7FF Unassigned                                           NO
+   0xF800-0xFBFF Reserved for Experimental/Local Use                  NO                  [RFC-ietf-dnsop-session-signal-20]
+   0xFC00-0xFFFF Reserved for future expansion                        NO
 
                                                                         People
 
