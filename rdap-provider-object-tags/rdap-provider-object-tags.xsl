@@ -26,7 +26,7 @@
         <tr>
           <td><xsl:apply-templates select="iana:contact"/></td>
           <td><xsl:value-of select="iana:id"/></td>
-          <td><xsl:apply-templates select="iana:url"/></td>
+          <td style="white-space: pre"><xsl:call-template name="url"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
