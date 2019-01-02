@@ -1,0 +1,232 @@
+                                             Automated Certificate Management Environment (ACME) Protocol
+
+   Created
+           2019-01-02
+
+   Last Updated
+           2019-01-02
+
+   Available Formats
+           [IMG]
+           XML [IMG]
+           HTML [IMG]
+           Plain text
+
+   Registries included below
+
+     * ACME Account Object Fields
+     * ACME Order Object Fields
+     * ACME Authorization Object Fields
+     * ACME Error Types
+     * ACME Resource Types
+     * ACME Directory Metadata Fields
+     * ACME Identifier Types
+     * ACME Validation Methods
+
+ACME Account Object Fields
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-acme-acme-18]
+
+   Available Formats
+           [IMG]
+           CSV
+
+         Field Name         Field Type      Requests          Reference
+   status                 string          new, account [RFC-ietf-acme-acme-18]
+   contact                array of string new, account [RFC-ietf-acme-acme-18]
+   externalAccountBinding object          new          [RFC-ietf-acme-acme-18]
+   termsOfServiceAgreed   boolean         new          [RFC-ietf-acme-acme-18]
+   orders                 string          none         [RFC-ietf-acme-acme-18]
+
+ACME Order Object Fields
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-acme-acme-18]
+
+   Available Formats
+           [IMG]
+           CSV
+
+     Field Name     Field Type    Configurable        Reference
+   status         string          false        [RFC-ietf-acme-acme-18]
+   expires        string          false        [RFC-ietf-acme-acme-18]
+   identifiers    array of object true         [RFC-ietf-acme-acme-18]
+   notBefore      string          true         [RFC-ietf-acme-acme-18]
+   notAfter       string          true         [RFC-ietf-acme-acme-18]
+   authorizations array of string false        [RFC-ietf-acme-acme-18]
+   finalize       string          false        [RFC-ietf-acme-acme-18]
+   certificate    string          false        [RFC-ietf-acme-acme-18]
+
+ACME Authorization Object Fields
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-acme-acme-18]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Field Name   Field Type    Configurable        Reference
+   identifier object          true         [RFC-ietf-acme-acme-18]
+   status     string          false        [RFC-ietf-acme-acme-18]
+   expires    string          false        [RFC-ietf-acme-acme-18]
+   challenges array of object false        [RFC-ietf-acme-acme-18]
+   wildcard   boolean         false        [RFC-ietf-acme-acme-18]
+
+ACME Error Types
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-acme-acme-18]
+
+   Available Formats
+           [IMG]
+           CSV
+
+            Type                                             Description                                          Reference
+   accountDoesNotExist     The request specified an account that does not exist                            [RFC-ietf-acme-acme-18]
+   alreadyRevoked          The request specified a certificate to be revoked that has already been revoked [RFC-ietf-acme-acme-18]
+   badCSR                  The CSR is unacceptable (e.g., due to a short key)                              [RFC-ietf-acme-acme-18]
+   badNonce                The client sent an unacceptable anti-replay nonce                               [RFC-ietf-acme-acme-18]
+   badRevocationReason     The revocation reason provided is not allowed by the server                     [RFC-ietf-acme-acme-18]
+   badSignatureAlgorithm   The JWS was signed with an algorithm the server does not support                [RFC-ietf-acme-acme-18]
+   caa                     Certification Authority Authorization (CAA) records forbid the CA from issuing  [RFC-ietf-acme-acme-18]
+   compound                Specific error conditions are indicated in the "subproblems" array.             [RFC-ietf-acme-acme-18]
+   connection              The server could not connect to validation target                               [RFC-ietf-acme-acme-18]
+   dns                     There was a problem with a DNS query during identifier validation               [RFC-ietf-acme-acme-18]
+   externalAccountRequired The request must include a value for the "externalAccountBinding" field         [RFC-ietf-acme-acme-18]
+   incorrectResponse       Response received didn't match the challenge's requirements                     [RFC-ietf-acme-acme-18]
+   invalidContact          A contact URL for an account was invalid                                        [RFC-ietf-acme-acme-18]
+   malformed               The request message was malformed                                               [RFC-ietf-acme-acme-18]
+   rateLimited             The request exceeds a rate limit                                                [RFC-ietf-acme-acme-18]
+   rejectedIdentifier      The server will not issue for the identifier                                    [RFC-ietf-acme-acme-18]
+   serverInternal          The server experienced an internal error                                        [RFC-ietf-acme-acme-18]
+   tls                     The server received a TLS error during validation                               [RFC-ietf-acme-acme-18]
+   unauthorized            The client lacks sufficient authorization                                       [RFC-ietf-acme-acme-18]
+   unsupportedContact      A contact URL for an account used an unsupported protocol scheme                [RFC-ietf-acme-acme-18]
+   unsupportedIdentifier   An identifier is of an unsupported type                                         [RFC-ietf-acme-acme-18]
+   userActionRequired      Visit the "instance" URL and take actions specified there                       [RFC-ietf-acme-acme-18]
+
+ACME Resource Types
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-acme-acme-18]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Field Name   Resource Type           Reference
+   newNonce   New nonce          [RFC-ietf-acme-acme-18]
+   newAccount New account        [RFC-ietf-acme-acme-18]
+   newOrder   New order          [RFC-ietf-acme-acme-18]
+   newAuthz   New authorization  [RFC-ietf-acme-acme-18]
+   revokeCert Revoke certificate [RFC-ietf-acme-acme-18]
+   keyChange  Key change         [RFC-ietf-acme-acme-18]
+   meta       Metadata object    [RFC-ietf-acme-acme-18]
+
+ACME Directory Metadata Fields
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-acme-acme-18]
+
+   Available Formats
+           [IMG]
+           CSV
+
+         Field Name          Field Type           Reference
+   termsOfService          string          [RFC-ietf-acme-acme-18]
+   website                 string          [RFC-ietf-acme-acme-18]
+   caaIdentities           array of string [RFC-ietf-acme-acme-18]
+   externalAccountRequired boolean         [RFC-ietf-acme-acme-18]
+
+ACME Identifier Types
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-acme-acme-18]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Label        Reference
+   dns   [RFC-ietf-acme-acme-18]
+
+ACME Validation Methods
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-acme-acme-18]
+
+   Available Formats
+           [IMG]
+           CSV
+
+     Label    Identifier Type ACME        Reference
+   http-01    dns             Y    [RFC-ietf-acme-acme-18]
+   dns-01     dns             Y    [RFC-ietf-acme-acme-18]
+   tls-sni-01 RESERVED        N    [RFC-ietf-acme-acme-18]
+   tls-sni-02 RESERVED        N    [RFC-ietf-acme-acme-18]

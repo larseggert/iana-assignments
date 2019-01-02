@@ -18,7 +18,7 @@
       <th>Modification Date</th>
       <th>Reference</th>
       <th>Service Code</th>
-      <th>Known Unauthorized Uses</th>
+      <th>Unauthorized Use Reported</th>
       <th>Assignment Notes</th>
     </tr>
   </xsl:template>
