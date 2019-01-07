@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl" href="c-dns.xsl"?>
+<?oxygen RNGSchema="c-dns.rng" type="xml"?>
+<registry xmlns="http://www.iana.org/assignments" id="c-dns">
+  <title>C-DNS DNS Capture Format</title>
+  <created>2019-01-07</created>
+  <updated>2019-01-07</updated>
+
+  <registry id="c-dns-transports">
+    <title>C-DNS Transports</title>
+    <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>
+    <registration_rule>Expert Review</registration_rule>
+    <expert>Unassigned</expert>
+    <note>In version 1.0 of C-DNS <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>, 
+there is a field to identify the type of DNS transport.  This field 
+is 4 bits in size.
+    </note>
+    <record date="2019-01-07">
+      <value>0</value>
+      <description>UDP</description>
+      <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>
+    </record>
+    <record date="2019-01-07">
+      <value>1</value>
+      <description>TCP</description>
+      <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>
+    </record>
+    <record date="2019-01-07">
+      <value>2</value>
+      <description>TLS</description>
+      <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>
+    </record>
+    <record date="2019-01-07">
+      <value>3</value>
+      <description>DTLS</description>
+      <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>
+    </record>
+    <record date="2019-01-07">
+      <value>4</value>
+      <description>DoH</description>
+      <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>
+    </record>
+    <record>
+      <value>5-15</value>
+      <description>Unassigned</description>
+    </record>
+  </registry>
+  
+  <registry id="c-dns-storage-flags">
+    <title>C-DNS Storage Flags</title>
+    <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>
+    <registration_rule>Expert Review</registration_rule>
+    <expert>Unassigned</expert>
+    <note>In version 1.0 of C-DNS <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>, 
+there is a field describing attributes of the data recorded.  The 
+field is a CBOR <xref type="rfc" data="rfc7049"/> unsigned integer holding bit flags.
+    </note>
+    <record date="2019-01-07">
+      <value>0</value>
+      <name>anonymised-data</name>
+      <description>The data has been anonymised.</description>
+      <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>
+    </record>
+    <record date="2019-01-07">
+      <value>1</value>
+      <name>sampled-data</name>
+      <description>The data is sampled data.</description>
+      <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>
+    </record>
+    <record date="2019-01-07">
+      <value>2</value>
+      <name>normalized-names</name>
+      <description>Names in the data have been normalized.</description>
+      <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>
+    </record>
+    <record>
+      <value>3-63</value>
+      <name>Unassigned</name>
+      <description/>
+    </record>
+  </registry>
+
+  <registry id="c-dns-response-flags">
+    <title>C-DNS Response Flags</title>
+    <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>
+    <registration_rule>Expert Review</registration_rule>
+    <expert>Unassigned</expert>
+    <note>In version 1.0 of C-DNS <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>, 
+there is a field describing attributes of the responses recorded.  
+The field is a CBOR <xref type="rfc" data="rfc7049"/> unsigned integer holding bit flags.
+    </note>
+    <record date="2019-01-07">
+      <value>0</value>
+      <name>from-cache</name>
+      <description>The response came from cache.</description>
+      <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>
+    </record>
+    <record>
+      <value>1-63</value>
+      <name>Unassigned</name>
+      <description/>
+    </record>
+  </registry>
+
+  <registry id="c-dns-address-event-types">
+    <title>C-DNS Address Event Types</title>
+    <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>
+    <registration_rule>Expert Review</registration_rule>
+    <expert>Unassigned</expert>
+    <note>In version 1.0 of C-DNS <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>, 
+there is a field identifying types of the events related to client 
+addresses.  This field is a CBOR <xref type="rfc" data="rfc7049"/> unsigned integer.  There 
+is a related optional field "ae-code", which, if present, holds an 
+additional CBOR unsigned integer giving additional information 
+specific to the event type.
+    </note>
+    <record date="2019-01-07">
+      <value>0</value>
+      <type>TCP reset</type>
+      <ae>None</ae>
+      <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>
+    </record>
+    <record date="2019-01-07">
+      <value>1</value>
+      <type>ICMP time exceeded</type>
+      <ae>ICMP code <xref type="uri" data="https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml#icmp-parameters-codes">icmpcodes</xref></ae>
+      <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>
+    </record>
+    <record date="2019-01-07">
+      <value>2</value>
+      <type>ICMP destination unreachable</type>
+      <ae>ICMP code <xref type="uri" data="https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml#icmp-parameters-codes">icmpcodes</xref></ae>
+      <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>
+    </record>
+    <record date="2019-01-07">
+      <value>3</value>
+      <type>ICMPv6 time exceeded</type>
+      <ae>ICMPv6 code <xref type="uri" data="https://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xhtml#icmpv6-parameters-3">icmpv6codes</xref></ae>
+      <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>
+    </record>
+    <record date="2019-01-07">
+      <value>4</value>
+      <type>ICMPv6 destination unreachable</type>
+      <ae>ICMPv6 code <xref type="uri" data="https://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xhtml#icmpv6-parameters-3">icmpv6codes</xref></ae>
+      <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>
+    </record>
+    <record date="2019-01-07">
+      <value>5</value>
+      <type>ICMPv6 packet too big</type>
+      <ae>ICMPv6 code <xref type="uri" data="https://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xhtml#icmpv6-parameters-3">icmpv6codes</xref></ae>
+      <xref type="draft" data="RFC-ietf-dnsop-dns-capture-format-10"/>
+    </record>
+    <record>
+      <value>6-18446744073709551615</value>
+      <type>Unassigned</type>
+      <ae/>
+    </record>
+  </registry>
+  
+  <people/>
+</registry>
