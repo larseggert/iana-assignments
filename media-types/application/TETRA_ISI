@@ -1,0 +1,175 @@
+(registered 2019-01-08, last updated 2019-01-08)
+
+Type name: application
+
+Subtype name: TETRA_ISI
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: framed binary
+
+Security considerations: The reference specifications detail how SIP 
+   entities, each representing a TETRA Switching and Management 
+   Infrastructure (SwMI), transport the TETRA_ISI media type and 
+   handle message bodies that are identified by a particular header -
+   the Inter-System Interface (ISI) header - that both identifies the
+   particular TETRA Additional Network Feature (ANF) session that the
+   message body refers to and carries related Protocol Data Units 
+   (PDUs) between the endpoints, or SDP negotiations for set up of 
+   streaming media. The ANFs handle Individual Calls, Group Calls, 
+   Short Data Service and Mobility Management: the requirements, 
+   architecture and creation of PDUs for each type of ANF are 
+   specified in ETSI TS 100 392-3-12, ETSI TS 100 392-3-13, ETSI 100 
+   392-3-14 and ETSI 100 392-3-15 respectively. 
+
+   Information contained in the ISI will include sensitive user 
+   information, potentially requiring use of encryption and 
+   consequently it is recommended in ETSI TS 300 392-3-11 that the 
+   path between two SwMIs is encrypted. 
+
+   The Message Body Handling is consequently closely aligned with 
+   that of the Session Initiation Protocol [RFC3261] and subject to 
+   the security recommendations in that RFC.
+
+   This media type does not employ compression.
+
+   This payload format, which does not include any executable 
+   content, does not exhibit any significant non-uniformity in the 
+   immediate receiver side computational complexity for packet 
+   processing and thus is not expected to pose a denial-of-service 
+   threat due to the receipt of pathological data. 
+
+   The protocol is designed with mechanisms to protect the receiving 
+   functions from malformed PDUs. If a received message is detected 
+   as malformed or incomplete in either header or underlying TETRA 
+   PDU then an ISI Return Error message is sent as described in ETSI 
+   TS 100 392-3-11. If a received message is addressed to an ANF 
+   entity that is not present or not supported then an ISI Reject 
+   message is sent as described in ETSI TS 100 392-3-11. 
+
+   Consequently only well-formed and correctly addressed messages 
+   will receive any significant processing effort.
+
+   One of the key features of a TETRA system is to provide point to 
+   multipoint group communication over a trunked link and thus it is 
+   necessary to consider the risks of a denial-of-service threat or 
+   abnormal response size threat due to the receipt of data that 
+   seeks to exploit the one-to-many aspect of group communications, 
+   or attempts to overload the link that the TETRA ISI is carried 
+   over. The underlying TETRA protocols permit terminal configuration
+   options by the network operator that enable transmitting users to 
+   request disposition receipts for group-addressed messages and so, 
+   if so allowed, it is possible for a single message carried over a 
+   link using the TETRA_ISI media type to trigger the generation of a
+   large number of disposition receipts by remote users in the 
+   opposite direction along with the associated temporary spike in 
+   traffic load. The TETRA ISI and TETRA protocols enable this risk 
+   to be mitigated in a number of ways. 
+
+   Firstly, it is already recommended in ETSI TS 100 392-3-11 that 
+   the path between SwMIs which would carry the TETRA_ISI media type 
+   is encrypted, which ensures that any such message cannot be 
+   inserted into the transmit path other than by originating at a 
+   valid endpoint SwMI. Secondly, a terminal is not normally 
+   permitted to access a TETRA SwMI without passing an identification
+   and authentication check to authorize use. The TETRA_ISI media 
+   type supports the transfer of authentication parameters across the
+   ISI link to allow migrating terminals to be authenticated when 
+   both endpoints also support the authenticating function. It is 
+   recommended that the authentication functionality is supported and
+   thus terminals configured to allow response requests to group data
+   should not be present on a system in an unintended way. Thirdly, 
+   the process of connecting two or more SwMIs via the TETRA_ISI 
+   media type is carried out via inter-operator agreement on the 
+   configurations and services that may be used and consequently any 
+   system where such group disposition notifications are allowed 
+   should be bandwidth dimensioned to handle the traffic load from 
+   such responses. 
+
+   Further, the endpoints (SwMIs) are able to protect themselves from
+   overloading due to the TETRA_ISI media type transport via use of 
+   the ISI Reject message that indicates resource limitation as 
+   described in ETSI TS 100 392-3-9.
+
+   This application type provides a format for exchanging information
+   in SIP, so the security considerations from RFC 3261 and its 
+   subsequent updates and clarifications – e.g. RFC6026, RFC6141 - 
+   apply. For streaming services, the Session Description Protocol 
+   (SDP) and SDP Offer/Answer are used to negotiate and enable 
+   streaming of the media and so the security considerations from 
+   RFC4566 and RFC3264 apply to media negotiation within this 
+   application type.
+
+   The underlying specification ETSI TS 300 392-3-11 has a number of 
+   RFCs as normative references and any implementation of this 
+   content type should take the security considerations of these RFCs
+   into account for the relevant deployment scenarios. 
+
+Interoperability considerations: This media type carries TETRA 
+   Inter-System Interface (TETRA ISI) application data as described 
+   in ETSI TS 100 392-3-9. This media type is used in a SIP body as 
+   specified in ETSI TS 100 392-3-11.
+
+Published specifications:
+
+   ETSI TS 100 392-3-9 v1.1.1: 
+   Terrestrial Trunked Radio (TETRA); Voice plus Data (V+D); Part 3:
+   Interworking at the Inter-System Interface (ISI); Sub-part 9: 
+   Transport Layer Independent, General design 
+   https://www.etsi.org/deliver/etsi_ts/100300_100399/1003920309/01.01.01_60/ts_1003920309v010101p.pdf
+
+   ETSI TS 100 392-3-11 v1.1.1: 
+   Terrestrial Trunked Radio (TETRA); Voice plus Data (V+D); Part 3: 
+   Interworking at the Inter-System Interface (ISI); Sub-part 11: 
+   Transport layer dependent General design, SIP/IP 
+   https://www.etsi.org/deliver/etsi_ts/100300_100399/1003920311/01.01.01_60/ts_1003920311v010101p.pdf
+
+   ETSI TS 100 392-3-12 v1.1.1: 
+   Terrestrial Trunked Radio (TETRA); Voice plus Data (V+D); Part 3: 
+   Interworking at the Inter-System Interface (ISI); Sub-part 12: 
+   Transport layer independent Additional Network Feature Individual 
+   Call (ANF-ISIIC)
+   https://www.etsi.org/deliver/etsi_ts/100300_100399/1003920312/01.01.01_60/ts_1003920312v010101p.pdf
+
+   ETSI TS 100 392-3-13 v1.1.1: 
+   Terrestrial Trunked Radio (TETRA); Voice plus Data (V+D); Part 3: 
+   Interworking at the Inter-System Interface (ISI); Sub-part 13: 
+   Transport layer independent Additional Network Feature Group Call 
+   (ANF-ISIGC) 
+   https://www.etsi.org/deliver/etsi_ts/100300_100399/1003920313/01.01.01_60/ts_1003920313v010101p.pdf
+
+   ETSI TS 100 392-3-14 v1.1.1: 
+   Terrestrial Trunked Radio (TETRA); Voice plus Data (V+D); Part 3: 
+   Interworking at the Inter-System Interface (ISI); Sub-part 14: 
+   Transport layer independent Additional Network Feature Short Data 
+   Service (ANF-ISISDS) 
+   https://www.etsi.org/deliver/etsi_ts/100300_100399/1003920314/01.01.01_60/ts_1003920314v010101p.pdf
+
+   ETSI TS 100 392-3-15 v1.1.1: 
+   Terrestrial Trunked Radio (TETRA); Voice plus Data (V+D); Part 3: 
+   Interworking at the Inter-System Interface (ISI); Sub-part 15: 
+   Transport layer independent Additional Network Feature Mobility 
+   Management (ANF-ISIMM) 
+   https://www.etsi.org/deliver/etsi_ts/100300_100399/1003920315/01.01.01_60/ts_1003920315v010101p.pdf
+
+Applications that use this media type: Devices or applications that 
+   implement the TETRA Inter-System Interface.
+
+Fragment identifier considerations: N/A
+
+Additional information: N/A
+
+   Person & email address to contact for further information:
+   Miguel Angel Reina Ortega <MiguelAngel.ReinaOrtega&etsi.org>
+
+Intended Usage: COMMON
+
+Restrictions on usage: This media type depends on SIP framing, and 
+   hence is only defined for transfer as a SIP body. Detailed usage 
+   is described in ETSI TS 100 392-3-11. 
+
+Author: ETSI TCCE WG3
+
+Change controller: ETSI
