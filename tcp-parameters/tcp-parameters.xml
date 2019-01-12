@@ -3,7 +3,7 @@
 <?oxygen RNGSchema="tcp-parameters.rng" type="xml"?>
 <registry xmlns="http://www.iana.org/assignments" id="tcp-parameters">
   <title>Transmission Control Protocol (TCP) Parameters</title>
-  <updated>2018-06-25</updated>
+  <updated>2019-01-11</updated>
   <registry id="tcp-parameters-1">
     <title>TCP Option Kind Numbers</title>
     <xref type="rfc" data="rfc2780"/>
@@ -234,7 +234,9 @@ followed by length-2 octets of option data.
     </record>
     <record>
       <value>69</value>
-      <description>Reserved (known unauthorized use without proper IANA assignment) [**]</description>
+      <length>N</length>
+      <description>Encryption Negotiation (TCP-ENO)</description>
+      <xref type="draft" data="RFC-ietf-tcpinc-tcpeno-19"/>
     </record>
     <record>
       <value>70</value>
@@ -437,8 +439,8 @@ followed by length-2 octets of option data.
     </record>
     <record date="2016-05-05">
       <value>0x454E</value>
-      <description>TCP-ENO</description>
-      <reference><xref type="draft" data="draft-ietf-tcpinc-tcpeno"/></reference>
+      <description>TCP-ENO <xref type="note" data="2"/></description>
+      <reference><xref type="draft" data="RFC-ietf-tcpinc-tcpeno-19"/></reference>
     </record> 
       <record date="2013-09-05">
       <value>0x5323</value>
@@ -474,7 +476,31 @@ followed by length-2 octets of option data.
  
 </registry>
   
+  <registry id="tcp-encryption">
+    <title>TCP Encryption Protocol Identifiers</title>
+    <xref type="draft" data="RFC-ietf-tcpinc-tcpeno-19"/>
+    <registration_rule>IETF Review or Expert Review with RFC Required</registration_rule>
+    <expert>Unassigned</expert>
+    <record date="2019-01-11">
+      <value>0x20</value>
+      <description>Experimental Use</description>
+      <reference><xref type="draft" data="RFC-ietf-tcpinc-tcpeno-19"/></reference>
+    </record>
+    
+    <record>
+      <value>0x21-0x6f</value>
+      <description>Unassigned</description>
+      <reference/>
+    </record>
+    <record date="2019-01-11">
+      <value>0x70-0x7f</value>
+      <description>Reserved for extended values</description>
+      <reference><xref type="draft" data="RFC-ietf-tcpinc-tcpeno-19"/></reference>
+    </record> 
+  </registry>
+ 
 <footnote anchor="1"><xref type="uri" data="https://devcentral.f5.com/tech-tips/articles/accessing-tcp-options-from-irules"/></footnote>
+<footnote anchor="2">current and new implementations MUST use option 69.</footnote>
   
   <people>
     <person id="J_Kay">
