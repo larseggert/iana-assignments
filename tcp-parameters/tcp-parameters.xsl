@@ -29,7 +29,7 @@
       <xsl:when test="@id = 'tcp-encryption'">
         <tr><th>Value</th><th>Meaning</th><th>Reference</th></tr>
       </xsl:when>
-      <xsl:when test="@id = 'tcpcrypt-aead-algorithm'">
+      <xsl:when test="@id = 'tcpcrypt-aead-algorithms'">
         <tr><th>Value</th><th>AEAD Algorithm</th><th>Reference</th></tr>
       </xsl:when>
     </xsl:choose>
@@ -87,7 +87,7 @@
           <td><xsl:apply-templates select="iana:reference"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'tcpcrypt-aead-algorithm'">
+      <xsl:when test="../@id = 'tcpcrypt-aead-algorithms'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
