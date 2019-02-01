@@ -50,6 +50,18 @@
         <th>Reference</th>
         <th>Date</th>
       </xsl:when>
+      <xsl:when test="@id = 'df-alg'">
+        <th>Alg</th>
+        <th>Name</th>
+        <th>Reference</th>
+        <th>Date</th>
+      </xsl:when>
+      <xsl:when test="@id = 'df-election-capabilities'">
+        <th>Bit</th>
+        <th>Name</th>
+        <th>Reference</th>
+        <th>Date</th>
+      </xsl:when>
       <xsl:otherwise>
         <th>Type Value</th>
         <th>Name</th>
