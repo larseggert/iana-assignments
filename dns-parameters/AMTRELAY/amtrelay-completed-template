@@ -1,0 +1,63 @@
+A. Submission Date: 2019-01-25
+
+B.1 Submission Type:
+[x] New RRTYPE [ ] Modification to RRTYPE
+B.2 Kind of RR:
+[x] Data RR [ ] Meta-RR
+
+C. Contact Information for submitter (will be publicly posted):
+Name: Jake Holland
+Email Address: jakeholland.net&gmail.com
+International telephone number: +1-626-486-3706
+Other contact handles: jholland&akamai.com
+
+D. Motivation for the new RRTYPE application.
+It provides a bootstrap so AMT (RFC 7450) gateways can discover
+an AMT relay that can receive multicast traffic from a specific source,
+in order to signal multicast group membership and receive multicast
+traffic over a unicast tunnel using AMT.
+
+E. Description of the proposed RR type.
+This description can be provided in-line in the template, as an
+attachment, or with a publicly available URL.
+Please see draft-ietf-mboned-driad-amt-discovery.
+
+F. What existing RRTYPE or RRTYPEs come closest to filling that need
+and why are they unsatisfactory?
+Some similar concepts appear in IPSECKEY, as described in
+Section 1.2 of [RFC4025]. The IPSECKEY RRType is unsatisfactory
+because it refers to IPSec Keys instead of to AMT relays, but
+the motivating considerations for using reverse IP and for
+providing a precedence are similar--an AMT gateway often
+has access to a source address for a multicast (S,G), but does
+not have access to a relay address that can receive multicast
+traffic from the source, without administrative configuration.
+
+Defining a format for a TXT record could serve the need for AMT
+relay discovery semantics, but Section 5 of [RFC5507] provides a
+compelling argument for requesting a new RRType instead.
+
+G. What mnemonic is requested for the new RRTYPE (optional)?
+AMTRELAY
+
+H. Does the requested RRTYPE make use of any existing IANA registry
+or require the creation of a new IANA subregistry in DNS
+Parameters?
+Yes, IANA is requested to create a subregistry named "AMT Relay
+Type Field" in a "AMTRELAY Resource Record Parameters" registry.
+The field values are defined in Section 4.2.3 and Section 4.2.4,
+and a summary table is given in Section 5.
+
+I. Does the proposal require/expect any changes in DNS
+servers/resolvers that prevent the new type from being processed
+as an unknown RRTYPE (see RFC3597)?
+No.
+
+J. Comments:
+It may be worth noting that the gateway type field from Section 2.3 of
+[RFC4025] and Section 2.5 of [RFC4025] is very similar to the
+Relay Type field in this request. I tentatively assume that trying to
+re-use that sub-registry is a worse idea than duplicating it, but I'll
+invite others to consider the question and voice an opinion, in case
+there is a different consensus.
+https://www.ietf.org/assignments/ipseckey-rr-parameters
