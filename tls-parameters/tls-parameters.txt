@@ -4,7 +4,7 @@
            2005-08-23
 
    Last Updated
-           2018-12-13
+           2019-02-07
 
    Available Formats
            [IMG]
@@ -77,7 +77,7 @@ TLS ClientCertificateType Identifiers
    64-223  Specification Required
    224-255 Reserved for Private Use
 
-    Value         Description        DTLS-OK Reference
+    Value         Description        DTLS-OK              Reference
       0    Unassigned
       1    rsa_sign                  Y       [RFC5246]
       2    dss_sign                  Y       [RFC5246]
@@ -91,7 +91,9 @@ TLS ClientCertificateType Identifiers
      64    ecdsa_sign                Y       [RFC8422]
      65    rsa_fixed_ecdh            Y       [RFC8422]
      66    ecdsa_fixed_ecdh          Y       [RFC8422]
-   67-223  Unassigned
+     67    gost_sign256              Y       [draft-smyshlyaev-tls12-gost-suites]
+     68    gost_sign512              Y       [draft-smyshlyaev-tls12-gost-suites]
+   69-223  Unassigned
    224-255 Reserved for Private Use          [RFC5246]
 
 TLS Cipher Suites
@@ -513,7 +515,11 @@ TLS Cipher Suites
         0xC0,0xB4      TLS_SHA256_SHA256                                             Y       N           [draft-camwinget-tls-ts13-macciphersuites]
         0xC0,0xB5      TLS_SHA384_SHA384                                             Y       N           [draft-camwinget-tls-ts13-macciphersuites]
       0xC0,0xB6-FF     Unassigned
-        0xC1-CB,*      Unassigned
+        0xC1,0x00      TLS_GOSTR341112_256_WITH_KUZNYECHIK_CTR_OMAC                  N       N           [draft-smyshlyaev-tls12-gost-suites]
+        0xC1,0x01      TLS_GOSTR341112_256_WITH_MAGMA_CTR_OMAC                       N       N           [draft-smyshlyaev-tls12-gost-suites]
+        0xC1,0x02      TLS_GOSTR341112_256_WITH_28147_CNT_IMIT                       N       N           [draft-smyshlyaev-tls12-gost-suites]
+      0xC1,0x03-FF     Unassigned
+        0xC2-CB,*      Unassigned
       0xCC,0x00-A7     Unassigned
         0xCC,0xA8      TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256                   Y       Y           [RFC7905]
         0xCC,0xA9      TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256                 Y       Y           [RFC7905]
@@ -754,7 +760,14 @@ TLS Supported Groups
        31      brainpoolP256r1                 Y       N           [draft-bruckert-brainpool-for-tls13]
        32      brainpoolP384r1                 Y       N           [draft-bruckert-brainpool-for-tls13]
        33      brainpoolP512r1                 Y       N           [draft-bruckert-brainpool-for-tls13]
-     34-255    Unassigned
+       34      GC256A                          Y       N           [draft-smyshlyaev-tls12-gost-suites]
+       35      GC256B                          Y       N           [draft-smyshlyaev-tls12-gost-suites]
+       36      GC256C                          Y       N           [draft-smyshlyaev-tls12-gost-suites]
+       37      GC256D                          Y       N           [draft-smyshlyaev-tls12-gost-suites]
+       38      GC512A                          Y       N           [draft-smyshlyaev-tls12-gost-suites]
+       39      GC512B                          Y       N           [draft-smyshlyaev-tls12-gost-suites]
+       40      GC512C                          Y       N           [draft-smyshlyaev-tls12-gost-suites]
+     41-255    Unassigned
        256     ffdhe2048                       Y       N           [RFC7919]
        257     ffdhe3072                       Y       N           [RFC7919]
        258     ffdhe4096                       Y       N           [RFC7919]
@@ -897,7 +910,7 @@ TLS SignatureAlgorithm
    64-223  Specification Required
    224-255 Reserved for Private Use
 
-    Value        Description        DTLS-OK Reference
+    Value        Description        DTLS-OK              Reference
       0    anonymous                Y       [RFC5246]
       1    rsa                      Y       [RFC5246]
       2    dsa                      Y       [RFC5246]
@@ -905,7 +918,10 @@ TLS SignatureAlgorithm
      4-6   Reserved                         [RFC8447]
       7    ed25519                  Y       [RFC8422]
       8    ed448                    Y       [RFC8422]
-    9-223  Reserved                         [RFC8447]
+    9-63   Reserved                         [RFC8447]
+     64    gostr34102012_256        Y       [draft-smyshlyaev-tls12-gost-suites]
+     65    gostr34102012_512        Y       [draft-smyshlyaev-tls12-gost-suites]
+   66-223  Reserved                         [RFC8447]
    224-255 Reserved for Private Use         [RFC5246]
 
 TLS HashAlgorithm
