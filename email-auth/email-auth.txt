@@ -4,7 +4,7 @@
            2009-01-30
 
    Last Updated
-           2018-12-21
+           2019-02-07
 
    Available Formats
            [IMG]
@@ -29,7 +29,7 @@ Email Authentication Methods
  Murray Kucherawy (primary), Dave Crocker (secondary), Scott Kitterman (secondary)
 
    Reference
-           [RFC7601]
+           [RFC-ietf-dmarc-rfc7601bis-06]
 
    Available Formats
            [IMG]
@@ -41,11 +41,13 @@ Email Authentication Methods
               [RFC-ietf-dmarc-arc-protocol-23,                             The instance id of the oldest validating AMS, or 0 if
    arc        Section 6]                       header oldest-pass          they all pass (see [RFC-ietf-dmarc-arc-protocol-23,   active     1
                                                                            Section 5.2])
-   auth       [RFC7601]                        smtp   auth                 identity confirmed by the AUTH command                active     1
-   auth       [RFC7601]                        smtp   mailfrom             AUTH parameter of the SMTP MAIL command               active     1
-   dkim       [RFC7601]                        header d                    value of signature "d" tag                            active     1
-   dkim       [RFC7601]                        header i                    value of signature "i" tag                            active     1
+   auth       [RFC-ietf-dmarc-rfc7601bis-06]   smtp   auth                 identity confirmed by the AUTH command                active     1
+   auth       [RFC-ietf-dmarc-rfc7601bis-06]   smtp   mailfrom             AUTH parameter of the SMTP MAIL command               active     1
+   dkim       [RFC-ietf-dmarc-rfc7601bis-06]   header d                    value of signature "d" tag                            active     1
+   dkim       [RFC-ietf-dmarc-rfc7601bis-06]   header i                    value of signature "i" tag                            active     1
    dkim       [RFC6008]                        header b                    full or partial value of signature "b" tag            active     1
+   dkim       [RFC-ietf-dmarc-rfc7601bis-06]   header a                    value of signature "a" tag                            active     1
+   dkim       [RFC-ietf-dmarc-rfc7601bis-06]   header s                    value of signature "s" tag                            active     1
    dkim-adsp  [RFC5617][RFC7601]               header from                 contents of the [RFC5322] From: header field, with    deprecated 1
                                                                            comments removed
    dkim-atps  [RFC6541]                        header from                 contents of the [RFC5322] From: header field, with    active     1
@@ -58,9 +60,9 @@ Email Authentication Methods
                                                                            contents of the [RFC5322] Sender: header field, after
    domainkeys [RFC7601]                        header sender               removing comments, and removing the local-part and    deprecated 1
                                                                            following "@" if not authenticated
-   iprev      [RFC7601]                        policy iprev                client IP address                                     active     1
+   iprev      [RFC-ietf-dmarc-rfc7601bis-06]   policy iprev                client IP address                                     active     1
    rrvs       [RFC7293]                        smtp   rcptto               envelope recipient                                    active     1
-   sender-id  [RFC7601]                        header name of header field value of header field used by PRA after removing      active     1
+   sender-id  [RFC7601]                        header name of header field value of header field used by PRA after removing      deprecated 1
                                                       used by PRA          comments and parts not authenticated
                                                                            The MIME body part reference that contains the S/MIME
    smime      [RFC7281]                        body   smime-part           signature. See [Section 3.2.1 of RFC7281] for full    active     1
@@ -75,9 +77,9 @@ Email Authentication Methods
                                                                            Issuer name DN (e.g., "CN=CA1,ST=BC,c=CA") of the
    smime      [RFC7281]                        body   smime-issuer         certificate associated with the S/MIME signature (see active     1
                                                                            section 4.1.2.2 of [RFC5280]).
-   spf        [RFC7601]                        smtp   mailfrom             envelope sender after removing parts not              active     1
+   spf        [RFC-ietf-dmarc-rfc7601bis-06]   smtp   mailfrom             envelope sender after removing parts not              active     1
                                                                            authenticated
-   spf        [RFC7601]                        smtp   helo                 HELO/EHLO value                                       active     1
+   spf        [RFC-ietf-dmarc-rfc7601bis-06]   smtp   helo                 HELO/EHLO value                                       active     1
    vbr        [RFC6212]                        header md                   DNS domain name used as the subject of a VBR query    active     1
    vbr        [RFC6212]                        header mv                   DNS domain name of the entity acting as the voucher   active     1
 
@@ -92,7 +94,7 @@ Email Authentication Result Names
  Murray Kucherawy (primary), Dave Crocker (secondary), Scott Kitterman (secondary)
 
    Reference
-           [RFC7601]
+           [RFC-ietf-dmarc-rfc7601bis-06]
 
    Available Formats
            [IMG]
@@ -102,18 +104,18 @@ Email Authentication Result Names
    arc            fail      [RFC-ietf-dmarc-arc-protocol-23] section 2.2 active
    arc            none      [RFC-ietf-dmarc-arc-protocol-23] section 2.2 active
    arc            pass      [RFC-ietf-dmarc-arc-protocol-23] section 2.2 active
-   auth           fail      [RFC7601] section 2.7.4                      active
-   auth           none      [RFC7601] section 2.7.4                      active
-   auth           pass      [RFC7601] section 2.7.4                      active
-   auth           permerror [RFC7601] section 2.7.4                      active
-   auth           temperror [RFC7601] section 2.7.4                      active
-   dkim           fail      [RFC7601] section 2.7.1                      active
-   dkim           neutral   [RFC7601] section 2.7.1                      active
-   dkim           none      [RFC7601] section 2.7.1                      active
-   dkim           pass      [RFC7601] section 2.7.1                      active
-   dkim           permerror [RFC7601] section 2.7.1                      active
-   dkim           policy    [RFC7601] section 2.7.1                      active
-   dkim           temperror [RFC7601] section 2.7.1                      active
+   auth           fail      [RFC-ietf-dmarc-rfc7601bis-06] section 2.7.4 active
+   auth           none      [RFC-ietf-dmarc-rfc7601bis-06] section 2.7.4 active
+   auth           pass      [RFC-ietf-dmarc-rfc7601bis-06] section 2.7.4 active
+   auth           permerror [RFC-ietf-dmarc-rfc7601bis-06] section 2.7.4 active
+   auth           temperror [RFC-ietf-dmarc-rfc7601bis-06] section 2.7.4 active
+   dkim           fail      [RFC-ietf-dmarc-rfc7601bis-06] section 2.7.1 active
+   dkim           neutral   [RFC-ietf-dmarc-rfc7601bis-06] section 2.7.1 active
+   dkim           none      [RFC-ietf-dmarc-rfc7601bis-06] section 2.7.1 active
+   dkim           pass      [RFC-ietf-dmarc-rfc7601bis-06] section 2.7.1 active
+   dkim           permerror [RFC-ietf-dmarc-rfc7601bis-06] section 2.7.1 active
+   dkim           policy    [RFC-ietf-dmarc-rfc7601bis-06] section 2.7.1 active
+   dkim           temperror [RFC-ietf-dmarc-rfc7601bis-06] section 2.7.1 active
    dkim-adsp      discard   [RFC7601], [RFC5617] section 5.4             deprecated
    dkim-adsp      fail      [RFC7601], [RFC5617] section 5.4             deprecated
    dkim-adsp      none      [RFC7601], [RFC5617] section 5.4             deprecated
@@ -139,25 +141,25 @@ Email Authentication Result Names
    domainkeys     policy    [RFC7601] section 2.7.1                      deprecated
    domainkeys     pass      [RFC7601] section 2.7.1                      deprecated
    domainkeys     temperror [RFC7601] section 2.7.1                      deprecated
-   iprev          fail      [RFC7601] section 2.7.3                      active
-   iprev          pass      [RFC7601] section 2.7.3                      active
-   iprev          permerror [RFC7601] section 2.7.3                      active
-   iprev          temperror [RFC7601] section 2.7.3                      active
+   iprev          fail      [RFC-ietf-dmarc-rfc7601bis-06] section 2.7.3 active
+   iprev          pass      [RFC-ietf-dmarc-rfc7601bis-06] section 2.7.3 active
+   iprev          permerror [RFC-ietf-dmarc-rfc7601bis-06] section 2.7.3 active
+   iprev          temperror [RFC-ietf-dmarc-rfc7601bis-06] section 2.7.3 active
    rrvs           fail      [RFC7293] section 11                         active
    rrvs           none      [RFC7293] section 11                         active
    rrvs           pass      [RFC7293] section 11                         active
    rrvs           permerror [RFC7293] section 11                         active
    rrvs           temperror [RFC7293] section 11                         active
    rrvs           unknown   [RFC7293] section 11                         active
-   sender-id      fail      [RFC7601] section 2.7.2                      active
+   sender-id      fail      [RFC7601] section 2.7.2                      deprecated
    sender-id      hardfail  [RFC5451] section 2.4.2                      deprecated
-   sender-id      neutral   [RFC7601] section 2.7.2                      active
-   sender-id      none      [RFC7601] section 2.7.2                      active
-   sender-id      pass      [RFC7601] section 2.7.2                      active
-   sender-id      permerror [RFC7601] section 2.7.2                      active
-   sender-id      policy    [RFC7601] section 2.7.2                      active
-   sender-id      softfail  [RFC7601] section 2.7.2                      active
-   sender-id      temperror [RFC7601] section 2.7.2                      active
+   sender-id      neutral   [RFC7601] section 2.7.2                      deprecated
+   sender-id      none      [RFC7601] section 2.7.2                      deprecated
+   sender-id      pass      [RFC7601] section 2.7.2                      deprecated
+   sender-id      permerror [RFC7601] section 2.7.2                      deprecated
+   sender-id      policy    [RFC7601] section 2.7.2                      deprecated
+   sender-id      softfail  [RFC7601] section 2.7.2                      deprecated
+   sender-id      temperror [RFC7601] section 2.7.2                      deprecated
    smime          fail      [RFC7281] section 3.1                        active
    smime          neutral   [RFC7281] section 3.1                        active
    smime          none      [RFC7281] section 3.1                        active
@@ -191,14 +193,14 @@ Email Authentication Property Types
  Murray Kucherawy (primary), Dave Crocker (secondary), Scott Kitterman (secondary)
 
    Reference
-           [RFC7601]
+           [RFC-ietf-dmarc-rfc7601bis-06]
 
    Available Formats
            [IMG]
            CSV
 
-   ptype       Definition                                             Description
-   body   [RFC7601] section 2.3 The property being reported was found in the body of the message.
-   header [RFC7601] section 2.3 The property being reported was found in a header field of the message.
-   policy [RFC7601] section 2.3 The property being reported relates to a locally-defined policy.
-   smtp   [RFC7601] section 2.3 The property being reported is a parameter to an SMTP command used to relay the message.
+   ptype                  Definition                                                       Description
+   body   [RFC-ietf-dmarc-rfc7601bis-06] section 2.3 The property being reported was found in the body of the message.
+   header [RFC-ietf-dmarc-rfc7601bis-06] section 2.3 The property being reported was found in a header field of the message.
+   policy [RFC-ietf-dmarc-rfc7601bis-06] section 2.3 The property being reported relates to a locally-defined policy.
+   smtp   [RFC-ietf-dmarc-rfc7601bis-06] section 2.3 The property being reported is a parameter to an SMTP command used to relay the message.
