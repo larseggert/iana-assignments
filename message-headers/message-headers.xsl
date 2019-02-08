@@ -10,18 +10,18 @@
     <xsl:choose>
       <xsl:when test="@id = 'perm-headers' or @id = 'prov-headers'">
         <tr>
-          <td>Header Field Name</td>
-          <td>Template</td>
-          <td>Protocol</td>
-          <td>Status</td>
-          <td>Reference</td>
+          <th>Header Field Name</th>
+          <th>Template</th>
+          <th>Protocol</th>
+          <th>Status</th>
+          <th>Reference</th>
         </tr>
       </xsl:when>
       <xsl:otherwise>
         <tr>
-          <td>Value</td>
-          <td>Description</td>
-          <td>Reference</td>
+          <th>Value</th>
+          <th>Description</th>
+          <th>Reference</th>
         </tr>
       </xsl:otherwise>
     </xsl:choose>
