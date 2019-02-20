@@ -33,7 +33,7 @@
       </xsl:when>
       <xsl:when test="../@id = 'rtsp-parameters-2'">
         <tr>
-          <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
