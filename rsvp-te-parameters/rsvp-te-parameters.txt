@@ -4,7 +4,7 @@
            2006-01-23
 
    Last Updated
-           2018-12-04
+           2019-02-21
 
    Available Formats
            [IMG]
@@ -18,6 +18,9 @@
      * Attribute Flags
      * Session Attribute Object Flags
      * Record Route Object Sub-object Flags
+
+          * Label Sub-object Flags
+
      * Sub-TLV Types for WSON Processing Hop Attribute TLV
      * Values for Wavelength Assignment Method field in WavelengthSelection Sub-TLV
      * RTM_SET Object Sub-Object Types
@@ -35,16 +38,16 @@ Attributes TLV Space
            [IMG]
            CSV
 
-   Type                     Name                       Allowed on         Allowed on        Allowed on LSP Hop              Reference
-                                                     LSP_ATTRIBUTES LSP_REQUIRED_ATTRIBUTES     Attributes
-    1   Attribute Flags                                   Yes                 Yes                  Yes         [RFC5420][RFC7570]
-    2   Service ID TLV                                    Yes                 No                    No         [RFC6060][RFC7570]
-    3   OAM Configuration TLV                             Yes                 Yes                   No         [RFC7260][RFC7570]
-    4   WSON Processing Hop Attribute TLV                  No                 No                   Yes         [RFC7689]
-    5   RTM_SET sub-object                                Yes                 No                    No         [RFC8169]
-        ETLD (TEMPORARY - registered 2018-01-09,
-    6   extension registered 2018-12-04, expires           No                 No                   Yes         [draft-ietf-mpls-rsvp-shared-labels]
-        2020-01-09)
+   Type         Name               Allowed on                 Allowed on            Allowed on LSP                     Reference
+                                 LSP_ATTRIBUTES        LSP_REQUIRED_ATTRIBUTES      Hop Attributes
+    1   Attribute Flags                Yes                       Yes                     Yes        [RFC5420][RFC7570]
+    2   Service ID TLV                 Yes                        No                      No        [RFC6060][RFC7570]
+    3   OAM Configuration TLV          Yes                       Yes                      No        [RFC7260][RFC7570]
+    4   WSON Processing Hop            No                         No                     Yes        [RFC7689]
+        Attribute TLV
+    5   RTM_SET sub-object             Yes                        No                      No        [RFC8169]
+    6   ETLD                           No                         No                     Yes        [RFC-ietf-mpls-rsvp-shared-labels-09, Section
+                                                                                                    9.7]
 
 Attribute Flags
 
@@ -59,32 +62,26 @@ Attribute Flags
            [IMG]
            CSV
 
-   Bit No                        Name                        Attribute Flags Path Attribute Flags Resv RRO ERO              Reference
-     0    End-to-end re-routing                                      Yes                   No          No  No  [RFC4920][RFC5420][RFC7570]
-     1    Boundary re-routing                                        Yes                   No          No  No  [RFC4920][RFC5420][RFC7570]
-     2    Segment-based re-routing                                   Yes                   No          No  No  [RFC4920][RFC5420][RFC7570]
-     3    LSP Integrity Required                                     Yes                   No          No  No  [RFC4875][RFC7570]
-     4    Contiguous LSP                                             Yes                   No          Yes No  [RFC5151][RFC7570]
-     5    LSP stitching desired                                      Yes                   No          Yes No  [RFC5150][RFC7570]
-     6    Pre-Planned LSP Flag                                       Yes                   No          No  No  [RFC6001][RFC7570]
-     7    Non-PHP behavior flag                                      Yes                   No          Yes No  [RFC6511][RFC7570]
-     8    OOB mapping flag                                           Yes                   No          Yes No  [RFC6511][RFC7570]
-     9    Entropy Label Capability                                   Yes                  Yes          No  No  [RFC6790][RFC7570]
-     10   OAM MEP entities desired                                   Yes                  Yes          Yes No  [RFC7260][RFC7570]
-     11   OAM MIP entities desired                                   Yes                  Yes          Yes No  [RFC7260][RFC7570]
-     12   SRLG Collection Flag                                       Yes                   No          Yes No  [RFC8001][RFC7570]
-     13   Loopback                                                   Yes                   No          Yes Yes [RFC7571]
-     14   P2MP-TE Tree Re-evaluation Request                         Yes                   No          No  No  [RFC8149]
-     15   RTM_SET                                                    Yes                  Yes          No  No  [RFC8169]
-          TE Link Label (TEMPORARY - registered 2018-01-09,
-     16   extension registered 2018-12-04, expires                   Yes                   No          No  No  [draft-ietf-mpls-rsvp-shared-labels]
-          2020-01-09)
-          LSI-D (TEMPORARY - registered 2018-01-09,
-     17   extension registered 2018-12-04, expires                   Yes                   No          No  Yes [draft-ietf-mpls-rsvp-shared-labels]
-          2020-01-09)
-          LSI-D-S2E (TEMPORARY - registered 2018-01-09,
-     18   extension registered 2018-12-04, expires                   Yes                   No          No  No  [draft-ietf-mpls-rsvp-shared-labels]
-          2020-01-09)
+   Bit No                Name                Attribute Flags Path Attribute Flags Resv RRO ERO                     Reference
+     0    End-to-end re-routing                      Yes                   No          No  No  [RFC4920][RFC5420][RFC7570]
+     1    Boundary re-routing                        Yes                   No          No  No  [RFC4920][RFC5420][RFC7570]
+     2    Segment-based re-routing                   Yes                   No          No  No  [RFC4920][RFC5420][RFC7570]
+     3    LSP Integrity Required                     Yes                   No          No  No  [RFC4875][RFC7570]
+     4    Contiguous LSP                             Yes                   No          Yes No  [RFC5151][RFC7570]
+     5    LSP stitching desired                      Yes                   No          Yes No  [RFC5150][RFC7570]
+     6    Pre-Planned LSP Flag                       Yes                   No          No  No  [RFC6001][RFC7570]
+     7    Non-PHP behavior flag                      Yes                   No          Yes No  [RFC6511][RFC7570]
+     8    OOB mapping flag                           Yes                   No          Yes No  [RFC6511][RFC7570]
+     9    Entropy Label Capability                   Yes                  Yes          No  No  [RFC6790][RFC7570]
+     10   OAM MEP entities desired                   Yes                  Yes          Yes No  [RFC7260][RFC7570]
+     11   OAM MIP entities desired                   Yes                  Yes          Yes No  [RFC7260][RFC7570]
+     12   SRLG Collection Flag                       Yes                   No          Yes No  [RFC8001][RFC7570]
+     13   Loopback                                   Yes                   No          Yes Yes [RFC7571]
+     14   P2MP-TE Tree Re-evaluation Request         Yes                   No          No  No  [RFC8149]
+     15   RTM_SET                                    Yes                  Yes          No  No  [RFC8169]
+     16   TE Link Label                              Yes                   No          No  No  [RFC-ietf-mpls-rsvp-shared-labels-09, Section 9.2]
+     17   LSI-D                                      Yes                   No          No  Yes [RFC-ietf-mpls-rsvp-shared-labels-09, Section 9.4]
+     18   LSI-D-S2E                                  Yes                   No          No  No  [RFC-ietf-mpls-rsvp-shared-labels-09, Section 9.6]
 
 Session Attribute Object Flags
 
@@ -128,6 +125,29 @@ Record Route Object Sub-object Flags
    0x08 Node protection            [RFC4090]
    0x10 Unassigned
    0x20 Node-id                    [RFC4561]
+   0x40 Unassigned
+   0x80 Unassigned
+
+  Label Sub-object Flags
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC-ietf-mpls-rsvp-shared-labels-09]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Flag       Name                           Reference
+   0x01 Global Label     [RFC3209]
+   0x02 TE Link Label    [RFC-ietf-mpls-rsvp-shared-labels-09, Section 9.3]
+   0x04 Delegation Label [RFC-ietf-mpls-rsvp-shared-labels-09, Section 9.5]
+   0x08 Unassigned
+   0x10 Unassigned
+   0x20 Unassigned
    0x40 Unassigned
    0x80 Unassigned
 

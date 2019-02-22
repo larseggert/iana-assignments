@@ -36,7 +36,8 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'rsvp-te-parameters-4'">
+      <xsl:when test="@id = 'rsvp-te-parameters-4' or 
+        @id = 'rsvp-te-label-sub-object-flags'">
         <tr>
           <th>Flag</th>
           <th>Name</th>
