@@ -4,7 +4,7 @@
            2013-09-19
 
    Last Updated
-           2018-11-09
+           2019-02-28
 
    Available Formats
            [IMG]
@@ -99,10 +99,59 @@ CBOR Tags
                                             section 4.1.2)
 38                            array         Language-tagged string     [http://peteroupc.github.io/CBOR/langtags.html][Peter_Occil]
 39                            multiple      Identifier                 [https://github.com/lucas-clemente/cbor-specs/blob/master/id.md][Lucas_Clemente]
-40-60                         Unassigned
+40                            array of two  Multi-dimensional Array,   [draft-ietf-cbor-array-tags]
+                              arrays [1]    row-major order
+41                            array         Homogeneous Array          [draft-ietf-cbor-array-tags]
+42-60                         Unassigned
 61                            CBOR Web      CBOR Web Token (CWT)       [RFC8392][Michael_B._Jones]
                               Token (CWT)
-62-95                         Unassigned
+62-63                         Unassigned
+64                            byte string   uint8 Typed Array          [draft-ietf-cbor-array-tags]
+65                            byte string   uint16, big endian, Typed  [draft-ietf-cbor-array-tags]
+                                            Array
+66                            byte string   uint32, big endian, Typed  [draft-ietf-cbor-array-tags]
+                                            Array
+67                            byte string   uint64, big endian, Typed  [draft-ietf-cbor-array-tags]
+                                            Array
+68                            byte string   uint8 Typed Array, clamped [draft-ietf-cbor-array-tags]
+                                            arithmetic
+69                            byte string   uint16, little endian,     [draft-ietf-cbor-array-tags]
+                                            Typed Array
+70                            byte string   uint32, little endian,     [draft-ietf-cbor-array-tags]
+                                            Typed Array
+71                            byte string   uint64, little endian,     [draft-ietf-cbor-array-tags]
+                                            Typed Array
+72                            byte string   sint8 Typed Array          [draft-ietf-cbor-array-tags]
+73                            byte string   sint16, big endian, Typed  [draft-ietf-cbor-array-tags]
+                                            Array
+74                            byte string   sint32, big endian, Typed  [draft-ietf-cbor-array-tags]
+                                            Array
+75                            byte string   sint64, big endian, Typed  [draft-ietf-cbor-array-tags]
+                                            Array
+76                            byte string   (reserved)                 [draft-ietf-cbor-array-tags]
+77                            byte string   sint16, little endian,     [draft-ietf-cbor-array-tags]
+                                            Typed Array
+78                            byte string   sint32, little endian,     [draft-ietf-cbor-array-tags]
+                                            Typed Array
+79                            byte string   sint64, little endian,     [draft-ietf-cbor-array-tags]
+                                            Typed Array
+80                            byte string   IEEE 754 binary16, big     [draft-ietf-cbor-array-tags]
+                                            endian, Typed Array
+81                            byte string   IEEE 754 binary32, big     [draft-ietf-cbor-array-tags]
+                                            endian, Typed Array
+82                            byte string   IEEE 754 binary64, big     [draft-ietf-cbor-array-tags]
+                                            endian, Typed Array
+83                            byte string   IEEE 754 binary128, big    [draft-ietf-cbor-array-tags]
+                                            endian, Typed Array
+84                            byte string   IEEE 754 binary16, little  [draft-ietf-cbor-array-tags]
+                                            endian, Typed Array
+85                            byte string   IEEE 754 binary32, little  [draft-ietf-cbor-array-tags]
+                                            endian, Typed Array
+86                            byte string   IEEE 754 binary64, little  [draft-ietf-cbor-array-tags]
+                                            endian, Typed Array
+87                            byte string   IEEE 754 binary128, little [draft-ietf-cbor-array-tags]
+                                            endian, Typed Array
+88-95                         Unassigned
 96                            COSE_Encrypt  COSE Encrypted Data Object [RFC8152]
 97                            COSE_Mac      COSE MACed Data Object     [RFC8152]
 98                            COSE_Sign     COSE Signed Data Object    [RFC8152]
@@ -139,7 +188,10 @@ CBOR Tags
 1001                          map           extended time              [draft-bormann-cbor-time-tag-01]
 1002                          map           duration                   [draft-bormann-cbor-time-tag-01]
 1003                          map           period                     [draft-bormann-cbor-time-tag-01]
-1004-22097                    Unassigned
+1004-1039                     Unassigned
+1040                          array of two  Multi-dimensional Array,   [draft-ietf-cbor-array-tags]
+                              arrays [1]    column-major order
+1041-22097                    Unassigned
                                             hint that indicates an
 22098                         multiple      additional level of        [http://cbor.schmorp.de/indirection][Marc_A._Lehmann]
                                             indirection
@@ -163,3 +215,9 @@ CBOR Tags
    [Peter_Occil]       Peter Occil       mailto:poccil14&gmail.com       2018-11-09
    [Ravi_Raju]         Ravi Raju         mailto:ravir&employees.org      2018-03-06
    [Shane_Holloway]    Shane Holloway    mailto:shane.holloway&ieee.org  2018-10-25
+
+                                                                       Footnote
+
+   [1] second element of outer array in data item is native CBOR array
+       (major type 4) or Typed Array (one of Tag 64..87)
+
