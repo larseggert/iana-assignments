@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="acme">
   <title>Automated Certificate Management Environment (ACME) Protocol</title>
   <created>2019-01-02</created>
-  <updated>2019-01-10</updated>
+  <updated>2019-03-04</updated>
 
   <registry id="acme-account-object-fields">
     <title>ACME Account Object Fields</title>
@@ -31,6 +31,12 @@
     </record>
     <record date="2019-01-02">
       <name>termsOfServiceAgreed</name>
+      <type>boolean</type>
+      <requests>new</requests>
+      <xref type="draft" data="RFC-ietf-acme-acme-18"/>
+    </record>
+    <record date="2019-03-04">
+      <name>onlyReturnExisting</name>
       <type>boolean</type>
       <requests>new</requests>
       <xref type="draft" data="RFC-ietf-acme-acme-18"/>
@@ -76,6 +82,12 @@
       <name>notAfter</name>
       <type>string</type>
       <config>true</config>
+      <xref type="draft" data="RFC-ietf-acme-acme-18"/>
+    </record>
+    <record date="2019-03-04">
+      <name>error</name>
+      <type>string</type>
+      <config>false</config>
       <xref type="draft" data="RFC-ietf-acme-acme-18"/>
     </record>
     <record date="2019-01-02">
@@ -160,6 +172,11 @@
       <description>The client sent an unacceptable anti-replay nonce</description>
       <xref type="draft" data="RFC-ietf-acme-acme-18"/>
     </record>
+    <record date="2019-03-04">
+      <type>badPublicKey</type>
+      <description>The JWS was signed by a public key the server does not support</description>
+      <xref type="draft" data="RFC-ietf-acme-acme-18"/>
+    </record>
     <record date="2019-01-02">
       <type>badRevocationReason</type>
       <description>The revocation reason provided is not allowed by the server</description>
@@ -172,12 +189,12 @@
     </record>
     <record date="2019-01-02">
       <type>caa</type>
-      <description>Certification Authority Authorization (CAA) records forbid the CA from issuing</description>
+      <description>Certification Authority Authorization (CAA) records forbid the CA from issuing a certificate</description>
       <xref type="draft" data="RFC-ietf-acme-acme-18"/>
     </record>
     <record date="2019-01-02">
       <type>compound</type>
-      <description>Specific error conditions are indicated in the "subproblems" array.</description>
+      <description>Specific error conditions are indicated in the "subproblems" array</description>
       <xref type="draft" data="RFC-ietf-acme-acme-18"/>
     </record>
     <record date="2019-01-02">
@@ -210,6 +227,11 @@
       <description>The request message was malformed</description>
       <xref type="draft" data="RFC-ietf-acme-acme-18"/>
     </record>
+    <record date="2019-03-04">
+      <type>orderNotReady</type>
+      <description>The request attempted to finalize an order that is not ready to be finalized</description>
+      <xref type="draft" data="RFC-ietf-acme-acme-18"/>
+    </record>
     <record date="2019-01-02">
       <type>rateLimited</type>
       <description>The request exceeds a rate limit</description>
@@ -217,7 +239,7 @@
     </record>
     <record date="2019-01-02">
       <type>rejectedIdentifier</type>
-      <description>The server will not issue for the identifier</description>
+      <description>The server will not issue certificates for the identifier</description>
       <xref type="draft" data="RFC-ietf-acme-acme-18"/>
     </record>
     <record date="2019-01-02">
