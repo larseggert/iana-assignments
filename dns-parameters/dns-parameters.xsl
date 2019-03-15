@@ -100,7 +100,7 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'dns-underscore-global-scoped-entries'">
+      <xsl:when test="@id = 'underscored-globally-scoped-dns-node-names'">
         <tr>
           <th>RR Type</th>
           <th>_NODE NAME</th>
@@ -177,7 +177,7 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'dns-underscore-global-scoped-entries'">
+      <xsl:when test="../@id = 'underscored-globally-scoped-dns-node-names'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
