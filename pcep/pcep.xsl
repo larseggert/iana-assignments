@@ -166,14 +166,17 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'stateful-pce-capability-tlv'">
+      <xsl:when test="@id = 'stateful-pce-capability-tlv'
+        or @id = 'sr-ero-flag-field'
+        or @id = 'sr-capability-flag-field'">
         <tr>
           <th>Bit</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'lsp-error-code-tlv-error-code-field'">
+      <xsl:when test="@id = 'lsp-error-code-tlv-error-code-field'
+        or @id = 'path-setup-type-capability-sub-tlv-type-indicators'">
         <tr>
           <th>Value</th>
           <th>Meaning</th>
