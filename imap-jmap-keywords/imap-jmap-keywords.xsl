@@ -3,9 +3,9 @@
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:iana="http://www.iana.org/assignments"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-  
+
   <xsl:import href="../_support/iana-registry.xsl" />
-  
+
   <xsl:template name="iana:record_header">
     <xsl:choose> 
       <xsl:when test="@id = 'imap-keywords-1'">
@@ -13,7 +13,7 @@
       </xsl:when>
     </xsl:choose>
   </xsl:template>
-  
+
   <xsl:template match="iana:record">
     <xsl:choose>
       <xsl:when test="../@id = 'imap-keywords-1'">
@@ -28,5 +28,5 @@
       </xsl:when>
     </xsl:choose>
   </xsl:template>
-  
+
 </xsl:stylesheet>
