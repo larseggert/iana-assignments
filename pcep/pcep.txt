@@ -4,7 +4,7 @@
            2008-12-19
 
    Last Updated
-           2019-03-18
+           2019-03-25
 
    Available Formats
            [IMG]
@@ -53,6 +53,9 @@
      * SR-ERO Flag Field
      * PATH-SETUP-TYPE-CAPABILITY Sub-TLV Type Indicators
      * SR Capability Flag Field
+     * WA Object Flag Field
+     * Wavelength Restriction Constraint TLV Action Values
+     * Wavelength Allocation TLV Flag Field
 
 PCEP Messages
 
@@ -134,7 +137,9 @@ PCEP Objects
                                                                      2-15: Unassigned
            10         IRO                                            0: Reserved                                 [RFC5440][RFC Errata 4956]
                                                                      1: Include Route                            [RFC5440]
-                                                                     2-15: Unassigned
+                                                                     2: Optical Interface Class List             [RFC-ietf-pce-wson-rwa-ext-17]
+                                                                     3: Client Signal Information                [RFC-ietf-pce-wson-rwa-ext-17]
+                                                                     4-15: Unassigned
            11         SVEC                                           0: Reserved                                 [RFC5440][RFC Errata 4956]
                                                                      1: Synchronization Vector                   [RFC5440]
                                                                      2-15: Unassigned
@@ -155,7 +160,9 @@ PCEP Objects
                                                                      2-15: Unassigned
            17         XRO                                            0: Reserved                                 [RFC5521][RFC Errata 4956]
                                                                      1: Route exclusion                          [RFC5521]
-                                                                     2-15: Unassigned
+                                                                     2: Optical Interface Class List             [RFC-ietf-pce-wson-rwa-ext-17]
+                                                                     3: Client Signal Information                [RFC-ietf-pce-wson-rwa-ext-17]
+                                                                     4-15: Unassigned
            18         Unassigned                                     0: Reserved                                 [RFC Errata 4956]
                                                                      1-15: Unassigned
            19         MONITORING                                     0: Reserved                                 [RFC5886][RFC Errata 4956]
@@ -239,8 +246,11 @@ PCEP Objects
                                                                      1: S2LS (TEMPORARY - registered 2018-04-23, [draft-ietf-pce-stateful-pce-p2mp]
                                                                      expires 2019-04-23)
                                                                      2-15: Unassigned
-         42-247       Unassigned                                     0: Reserved                                 [RFC Errata 4956]
-         41-247       Unassigned                                     1-15: Unassigned
+           42         Wavelength Assignment                          0: Reserved                                 [RFC-ietf-pce-wson-rwa-ext-17]
+                                                                     1: Wavelength Assignment                    [RFC-ietf-pce-wson-rwa-ext-17]
+                                                                     2-15: Unassigned                            [RFC-ietf-pce-wson-rwa-ext-17]
+         43-247       Unassigned                                     0: Reserved                                 [RFC Errata 4956]
+                                                                     1-15: Unassigned
         248-255       Experimental Use                               0-15: Experimental Use                      [RFC8356]
 
 PCEP Message Common Header Flag Field
@@ -767,7 +777,12 @@ PCEP-ERROR Object Error Types and Values
                                                          registered 2017-10-17, extension registered 2018-09-19, [draft-ietf-pce-association-group]
                                                          expires 2019-10-17)
                                                          8-255: Unassigned                                       [draft-ietf-pce-association-group]
-     27-255   Unassigned                                 0-255: Unassigned
+       27     WSON RWA Error                             0: Unassigned
+                                                         1: Insufficient Memory                                  [RFC-ietf-pce-wson-rwa-ext-17]
+                                                         2: RWA computation Not supported                        [RFC-ietf-pce-wson-rwa-ext-17]
+                                                         3: Syntactical Encoding error                           [RFC-ietf-pce-wson-rwa-ext-17]
+                                                         4-255: Unassigned
+     28-255   Unassigned                                 0-255: Unassigned
 
 PCEP-ERROR Object Flag Field
 
@@ -973,7 +988,12 @@ PCEP TLV Type Indicators
         5      Order TLV                                                                                         [RFC5557]
         6      P2MP capable                                                                                      [RFC8306]
         7      VENDOR-INFORMATION-TLV                                                                            [RFC7470]
-      8-15     Unassigned
+        8      Wavelength Selection                                                                              [RFC-ietf-pce-wson-rwa-ext-17]
+        9      Wavelength Restriction                                                                            [RFC-ietf-pce-wson-rwa-ext-17]
+       10      Wavelength Allocation                                                                             [RFC-ietf-pce-wson-rwa-ext-17]
+       11      Optical Interface Class List                                                                      [RFC-ietf-pce-wson-rwa-ext-17]
+       12      Client Signal Information                                                                         [RFC-ietf-pce-wson-rwa-ext-17]
+      13-15    Unassigned
        16      STATEFUL-PCE-CAPABILITY                                                                           [RFC8231]
        17      SYMBOLIC-PATH-NAME                                                                                [RFC8231]
        18      IPV4-LSP-IDENTIFIERS                                                                              [RFC8231]
@@ -1016,8 +1036,9 @@ NO-PATH-VECTOR TLV Flag Field
            [IMG]
            CSV
 
-   Bit                Description               Reference
-   0-23 Unassigned
+   Bit                Description                         Reference
+   0-22 Unassigned
+    23  No RWA constraints met                  [RFC-ietf-pce-wson-rwa-ext-17]
     24  P2MP Reachability Problem               [RFC8306]
     25  No GCO solution found                   [RFC5557]
     26  No GCO migration path found             [RFC5557]
@@ -1327,3 +1348,55 @@ SR Capability Flag Field
    0-5 Unassigned
     6  Node or Adjacency Identifier (NAI) is supported (N) [RFC-ietf-pce-segment-routing-16]
     7  Unlimited Maximum SID Depth (X)                     [RFC-ietf-pce-segment-routing-16]
+
+WA Object Flag Field
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC-ietf-pce-wson-rwa-ext-17]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Bit       Description                 Reference
+   0-14 Unassigned
+    15  Explicit Label Control [RFC-ietf-pce-wson-rwa-ext-17]
+
+Wavelength Restriction Constraint TLV Action Values
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC-ietf-pce-wson-rwa-ext-17]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Value     Meaning               Reference
+     0   Inclusive List  [RFC-ietf-pce-wson-rwa-ext-17]
+     1   Inclusive Range [RFC-ietf-pce-wson-rwa-ext-17]
+   2-255 Unassigned
+
+Wavelength Allocation TLV Flag Field
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC-ietf-pce-wson-rwa-ext-17]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Bit         Description                   Reference
+   0-14 Unassigned
+    15  Wavelength Allocation Mode [RFC-ietf-pce-wson-rwa-ext-17]
