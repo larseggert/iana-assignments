@@ -41,6 +41,10 @@
       <xsl:when test="@id = 'signaling-option-numbers'">
         <tr><th>Applies to</th><th>Number</th><th>Name</th><th>Reference</th></tr>
       </xsl:when>
+      
+      <xsl:when test="@id = 'oscore-flag-bits'">
+        <tr><th>Bit Position</th><th>Name</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
            
     </xsl:choose>
   </xsl:template>
@@ -111,6 +115,15 @@
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:number"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      
+      <xsl:when test="../@id = 'oscore-flag-bits'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
