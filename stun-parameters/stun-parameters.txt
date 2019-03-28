@@ -4,7 +4,7 @@
            2008-08-01
 
    Last Updated
-           2018-07-24
+           2019-03-28
 
    Available Formats
            [IMG]
@@ -18,6 +18,8 @@
      * STUN Attributes
      * STUN Error Codes
      * Traversal Using Relays around NAT (TURN) Channel Numbers
+     * STUN Security Features
+     * STUN Password Algorithm
 
 STUN Methods
 
@@ -26,7 +28,7 @@ STUN Methods
  Dan Wing
 
    Reference
-           [RFC5389][RFC7983]
+           [RFC-ietf-tram-stunbis-21][RFC7983]
 
    Available Formats
            [IMG]
@@ -36,23 +38,23 @@ STUN Methods
    0x000-0x07F IETF Review
    0x080-0x0FF Designated Expert
 
-      Value                                                               Name                                                            Reference
-   0x000       Reserved                                                                                                                   [RFC5389]
-   0x001       Binding                                                                                                                    [RFC5389]
-   0x002       Reserved; was SharedSecret                                                                                                 [RFC5389]
-   0x003       Allocate                                                                                                                   [RFC5766]
-   0x004       Refresh                                                                                                                    [RFC5766]
+      Value                                                      Name                                                            Reference
+   0x000       Reserved                                                                                                  [RFC-ietf-tram-stunbis-21]
+   0x001       Binding                                                                                                   [RFC-ietf-tram-stunbis-21]
+   0x002       Reserved; prior to [RFC5389] this was SharedSecret                                                        [RFC-ietf-tram-stunbis-21]
+   0x003       Allocate                                                                                                  [RFC5766]
+   0x004       Refresh                                                                                                   [RFC5766]
    0x005       Unassigned
-   0x006       Send                                                                                                                       [RFC5766]
-   0x007       Data                                                                                                                       [RFC5766]
-   0x008       CreatePermission                                                                                                           [RFC5766]
-   0x009       ChannelBind                                                                                                                [RFC5766]
-   0x00A       Connect                                                                                                                    [RFC6062]
-   0x00B       ConnectionBind                                                                                                             [RFC6062]
-   0x00C       ConnectionAttempt                                                                                                          [RFC6062]
+   0x006       Send                                                                                                      [RFC5766]
+   0x007       Data                                                                                                      [RFC5766]
+   0x008       CreatePermission                                                                                          [RFC5766]
+   0x009       ChannelBind                                                                                               [RFC5766]
+   0x00A       Connect                                                                                                   [RFC6062]
+   0x00B       ConnectionBind                                                                                            [RFC6062]
+   0x00C       ConnectionAttempt                                                                                         [RFC6062]
    0x00D-0x0FF Unassigned
-   0x100-0xFFF Reserved (For DTLS-SRTP multiplexing collision avoidance, see [RFC7983]. Cannot be made available for assignment without   [RFC7983]
-               IETF Review.)
+   0x100-0xFFF Reserved (For DTLS-SRTP multiplexing collision avoidance, see [RFC7983]. Cannot be made available for     [RFC7983]
+               assignment without IETF Review.)
 
 STUN Attributes
 
@@ -61,7 +63,7 @@ STUN Attributes
  Dan Wing
 
    Reference
-           [RFC5389]
+           [RFC-ietf-tram-stunbis-21]
 
    Available Formats
            [IMG]
@@ -73,68 +75,74 @@ STUN Attributes
    0x8000-0xBFFF IETF Review             comprehension-optional range
    0xC000-0xFFFF Designated Expert       comprehension-optional range
 
-       Value                  Name                   Reference
-      0x0000     Reserved                       [RFC5389]
-      0x0001     MAPPED-ADDRESS                 [RFC5389]
-      0x0002     Reserved; was RESPONSE-ADDRESS [RFC5389]
-      0x0003     CHANGE-REQUEST                 [RFC5780]
-      0x0004     Reserved; was SOURCE-ADDRESS   [RFC5389]
-      0x0005     Reserved; was CHANGED-ADDRESS  [RFC5389]
-      0x0006     USERNAME                       [RFC5389]
-      0x0007     Reserved; was PASSWORD         [RFC5389]
-      0x0008     MESSAGE-INTEGRITY              [RFC5389]
-      0x0009     ERROR-CODE                     [RFC5389]
-      0x000A     UNKNOWN-ATTRIBUTES             [RFC5389]
-      0x000B     Reserved; was REFLECTED-FROM   [RFC5389]
-      0x000C     CHANNEL-NUMBER                 [RFC5766]
-      0x000D     LIFETIME                       [RFC5766]
+       Value                              Name                                  Reference
+      0x0000     Reserved                                               [RFC-ietf-tram-stunbis-21]
+      0x0001     MAPPED-ADDRESS                                         [RFC-ietf-tram-stunbis-21]
+      0x0002     Reserved; prior to [RFC5389] this was RESPONSE-ADDRESS [RFC-ietf-tram-stunbis-21]
+      0x0003     CHANGE-REQUEST                                         [RFC5780]
+      0x0004     Reserved; prior to [RFC5389] this was SOURCE-ADDRESS   [RFC-ietf-tram-stunbis-21]
+      0x0005     Reserved; prior to [RFC5389] this was CHANGED-ADDRESS  [RFC-ietf-tram-stunbis-21]
+      0x0006     USERNAME                                               [RFC-ietf-tram-stunbis-21]
+      0x0007     Reserved; prior to [RFC5389] this was PASSWORD         [RFC-ietf-tram-stunbis-21]
+      0x0008     MESSAGE-INTEGRITY                                      [RFC-ietf-tram-stunbis-21]
+      0x0009     ERROR-CODE                                             [RFC-ietf-tram-stunbis-21]
+      0x000A     UNKNOWN-ATTRIBUTES                                     [RFC-ietf-tram-stunbis-21]
+      0x000B     Reserved; prior to [RFC5389] this was REFLECTED-FROM   [RFC-ietf-tram-stunbis-21]
+      0x000C     CHANNEL-NUMBER                                         [RFC5766]
+      0x000D     LIFETIME                                               [RFC5766]
    0x000E-0x000F Reserved
-      0x0010     Reserved (was BANDWIDTH)       [RFC5766]
+      0x0010     Reserved (was BANDWIDTH)                               [RFC5766]
       0x0011     Reserved
-      0x0012     XOR-PEER-ADDRESS               [RFC5766]
-      0x0013     DATA                           [RFC5766]
-      0x0014     REALM                          [RFC5389]
-      0x0015     NONCE                          [RFC5389]
-      0x0016     XOR-RELAYED-ADDRESS            [RFC5766]
-      0x0017     REQUESTED-ADDRESS-FAMILY       [RFC6156]
-      0x0018     EVEN-PORT                      [RFC5766]
-      0x0019     REQUESTED-TRANSPORT            [RFC5766]
-      0x001A     DONT-FRAGMENT                  [RFC5766]
-      0x001B     ACCESS-TOKEN                   [RFC7635]
-   0x001C-0x001F Unassigned
-      0x0020     XOR-MAPPED-ADDRESS             [RFC5389]
-      0x0021     Reserved (was TIMER-VAL)       [RFC5766]
-      0x0022     RESERVATION-TOKEN              [RFC5766]
+      0x0012     XOR-PEER-ADDRESS                                       [RFC5766]
+      0x0013     DATA                                                   [RFC5766]
+      0x0014     REALM                                                  [RFC-ietf-tram-stunbis-21]
+      0x0015     NONCE                                                  [RFC-ietf-tram-stunbis-21]
+      0x0016     XOR-RELAYED-ADDRESS                                    [RFC5766]
+      0x0017     REQUESTED-ADDRESS-FAMILY                               [RFC6156]
+      0x0018     EVEN-PORT                                              [RFC5766]
+      0x0019     REQUESTED-TRANSPORT                                    [RFC5766]
+      0x001A     DONT-FRAGMENT                                          [RFC5766]
+      0x001B     ACCESS-TOKEN                                           [RFC7635]
+      0x001C     MESSAGE-INTEGRITY-SHA256                               [RFC-ietf-tram-stunbis-21]
+      0x001D     PASSWORD-ALGORITHM                                     [RFC-ietf-tram-stunbis-21]
+      0x001E     USERHASH                                               [RFC-ietf-tram-stunbis-21]
+   0x001F-0x001F Unassigned
+      0x0020     XOR-MAPPED-ADDRESS                                     [RFC-ietf-tram-stunbis-21]
+      0x0021     Reserved (was TIMER-VAL)                               [RFC5766]
+      0x0022     RESERVATION-TOKEN                                      [RFC5766]
       0x0023     Reserved
-      0x0024     PRIORITY                       [RFC8445]
-      0x0025     USE-CANDIDATE                  [RFC8445]
-      0x0026     PADDING                        [RFC5780]
-      0x0027     RESPONSE-PORT                  [RFC5780]
+      0x0024     PRIORITY                                               [RFC8445]
+      0x0025     USE-CANDIDATE                                          [RFC8445]
+      0x0026     PADDING                                                [RFC5780]
+      0x0027     RESPONSE-PORT                                          [RFC5780]
    0x0028-0x0029 Reserved
-      0x002A     CONNECTION-ID                  [RFC6062]
+      0x002A     CONNECTION-ID                                          [RFC6062]
    0x002B-0x002F Unassigned
       0x0030     Reserved
    0x0031-0x7FFF Unassigned
-   0x8000-0x8021 Unassigned
-      0x8022     SOFTWARE                       [RFC5389]
-      0x8023     ALTERNATE-SERVER               [RFC5389]
+   0x8000-0x8001 Unassigned
+      0x8002     PASSWORD-ALGORITHMS                                    [RFC-ietf-tram-stunbis-21]
+      0x8003     ALTERNATE-DOMAIN                                       [RFC-ietf-tram-stunbis-21]
+   0x8004-0x8021 Unassigned
+      0x8022     SOFTWARE                                               [RFC-ietf-tram-stunbis-21]
+      0x8023     ALTERNATE-SERVER                                       [RFC-ietf-tram-stunbis-21]
       0x8024     Reserved
-      0x8025     TRANSACTION_TRANSMIT_COUNTER   [RFC7982]
+      0x8025     TRANSACTION_TRANSMIT_COUNTER                           [RFC7982]
       0x8026     Reserved
-      0x8027     CACHE-TIMEOUT                  [RFC5780]
-      0x8028     FINGERPRINT                    [RFC5389]
-      0x8029     ICE-CONTROLLED                 [RFC8445]
-      0x802A     ICE-CONTROLLING                [RFC8445]
-      0x802B     RESPONSE-ORIGIN                [RFC5780]
-      0x802C     OTHER-ADDRESS                  [RFC5780]
-      0x802D     ECN-CHECK STUN                 [RFC6679]
-      0x802E     THIRD-PARTY-AUTHORIZATION      [RFC7635]
+      0x8027     CACHE-TIMEOUT                                          [RFC5780]
+      0x8028     FINGERPRINT                                            [RFC-ietf-tram-stunbis-21]
+      0x8029     ICE-CONTROLLED                                         [RFC8445]
+      0x802A     ICE-CONTROLLING                                        [RFC8445]
+      0x802B     RESPONSE-ORIGIN                                        [RFC5780]
+      0x802C     OTHER-ADDRESS                                          [RFC5780]
+      0x802D     ECN-CHECK STUN                                         [RFC6679]
+      0x802E     THIRD-PARTY-AUTHORIZATION                              [RFC7635]
       0x802F     Unassigned
-      0x8030     MOBILITY-TICKET                [RFC8016]
+      0x8030     MOBILITY-TICKET                                        [RFC8016]
    0x8031-0xBFFF Unassigned
-      0xC000     CISCO-STUN-FLOWDATA            [Dan_Wing]
-      0xC001     ENF-FLOW-DESCRIPTION           [Pål_Erik_Martinsen]
-      0xC002     ENF-NETWORK-STATUS             [Pål_Erik_Martinsen]
+      0xC000     CISCO-STUN-FLOWDATA                                    [Dan_Wing]
+      0xC001     ENF-FLOW-DESCRIPTION                                   [Pål_Erik_Martinsen]
+      0xC002     ENF-NETWORK-STATUS                                     [Pål_Erik_Martinsen]
    0xC003-0xFFFF Unassigned
 
 STUN Error Codes
@@ -144,27 +152,27 @@ STUN Error Codes
  IETF Review
 
    Reference
-           [RFC5389]
+           [RFC-ietf-tram-stunbis-21]
 
    Available Formats
            [IMG]
            CSV
 
-    Value               Name              Reference
+    Value               Name                      Reference
     0-299  Reserved
-     300   Try Alternate                  [RFC5389]
+     300   Try Alternate                  [RFC-ietf-tram-stunbis-21]
    301-399 Unassigned
-     400   Bad Request                    [RFC5389]
-     401   Unauthorized                   [RFC5389]
+     400   Bad Request                    [RFC-ietf-tram-stunbis-21]
+     401   Unauthenticated                [RFC-ietf-tram-stunbis-21]
      402   Unassigned
      403   Forbidden                      [RFC5766]
      404   Unassigned
      405   Mobility Forbidden             [RFC8016]
    406-419 Unassigned
-     420   Unknown Attribute              [RFC5389]
+     420   Unknown Attribute              [RFC-ietf-tram-stunbis-21]
    421-436 Unassigned
      437   Allocation Mismatch            [RFC5766]
-     438   Stale Nonce                    [RFC5389]
+     438   Stale Nonce                    [RFC-ietf-tram-stunbis-21]
      439   Unassigned
      440   Address Family not Supported   [RFC6156]
      441   Wrong Credentials              [RFC5766]
@@ -177,7 +185,7 @@ STUN Error Codes
      486   Allocation Quota Reached       [RFC5766]
      487   Role Conflict                  [RFC8445]
    488-499 Unassigned
-     500   Server Error                   [RFC5389]
+     500   Server Error                   [RFC-ietf-tram-stunbis-21]
    501-507 Unassigned
      508   Insufficient Capacity          [RFC5766]
    509-699 Unassigned
@@ -205,6 +213,47 @@ Traversal Using Relays around NAT (TURN) Channel Numbers
    0x0000-0x3FFF Reserved                                                                 [RFC5766]
    0x4000-0x4FFF Used by TURN                                                             [RFC5766]
    0x5000-0xFFFF Reserved (For DTLS-SRTP multiplexing collision avoidance, see [RFC7983]) [RFC7983]
+
+STUN Security Features
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC-ietf-tram-stunbis-21]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Bit         Name                 Reference
+    0   Password algorithms [RFC-ietf-tram-stunbis-21]
+    1   Username anonymity  [RFC-ietf-tram-stunbis-21]
+   2-23 Unassigned
+
+STUN Password Algorithm
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-tram-stunbis-21]
+
+   Available Formats
+           [IMG]
+           CSV
+
+       Range     Registration Procedures
+   0x0000-0x7FFF IETF Review
+   0x8000-0xFFFF Expert Review
+
+       Value        Name            Reference
+      0x0000     Reserved   [RFC-ietf-tram-stunbis-21]
+      0x0001     MD5        [RFC-ietf-tram-stunbis-21]
+      0x0002     SHA-256    [RFC-ietf-tram-stunbis-21]
+   0x0003-0xFFFF Unassigned
 
                                                                         People
 

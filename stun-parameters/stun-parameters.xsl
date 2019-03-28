@@ -5,21 +5,13 @@
   <xsl:template name="iana:record_header">
   <xsl:choose> 
       
-      <xsl:when test="@id = 'stun-parameters-2'">
-        <tr><th>Value</th><th>Name</th><th>Reference</th></tr>
-      </xsl:when>      
-      <xsl:when test="@id = 'stun-parameters-4'">
-        <tr><th>Value</th><th>Name</th><th>Reference</th></tr>
-      </xsl:when>
-    <xsl:when test="@id = 'stun-parameters-5'">
-      <tr><th>Value</th><th>Name</th><th>Reference</th></tr>
+    <xsl:when test="@id = 'stun-security-features'">
+      <tr><th>Bit</th><th>Name</th><th>Reference</th></tr>
     </xsl:when>
-      <xsl:when test="@id = 'stun-parameters-6'">
-        <tr><th>Value</th><th>Name</th><th>Reference</th></tr>
-      </xsl:when>
-    <xsl:when test="@id = 'turn-channel'">
+    <xsl:otherwise>
       <tr><th>Value</th><th>Name</th><th>Reference</th></tr>
-    </xsl:when>
+    </xsl:otherwise>
+    
     </xsl:choose>
   </xsl:template>
 
