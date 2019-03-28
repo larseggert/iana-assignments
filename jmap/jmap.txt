@@ -34,9 +34,12 @@ JMAP Capabilities
    intended use field is _common or _placeholder Specification Required
                  all other values                Expert Review
 
-         Capability Name       Intended Use Change Controller Security and Privacy Considerations              Reference
-   urn:ietf:params:jmap:core   common       IETF              [RFC-ietf-jmap-core-17, Section 8]  [RFC-ietf-jmap-core-17, Section 2]
-   urn:ietf:params:jmap:error: placeholder  IETF              [RFC-ietf-jmap-core-17, Section 8]  [RFC-ietf-jmap-core-17, Section 9.5]
+              Capability Name            Intended Use Change Controller Security and Privacy Considerations              Reference
+   urn:ietf:params:jmap:core             common       IETF              [RFC-ietf-jmap-core-17, Section 8]  [RFC-ietf-jmap-core-17, Section 2]
+   urn:ietf:params:jmap:error:           placeholder  IETF              [RFC-ietf-jmap-core-17, Section 8]  [RFC-ietf-jmap-core-17, Section 9.5]
+   urn:ietf:params:jmap:mail             common       IETF              [RFC-ietf-jmap-mail-16, Section 9]  [RFC-ietf-jmap-mail-16]
+   urn:ietf:params:jmap:submission       common       IETF              [RFC-ietf-jmap-mail-16, Section 9]  [RFC-ietf-jmap-mail-16]
+   urn:ietf:params:jmap:vacationresponse common       IETF              [RFC-ietf-jmap-mail-16, Section 9]  [RFC-ietf-jmap-mail-16]
 
 JMAP Error Codes
 
@@ -55,92 +58,118 @@ JMAP Error Codes
            [IMG]
            CSV
 
-           JMAP Error Code         Intended Use Change Controller                  Description                               Reference
-   accountNotFound                 common       IETF              The accountId does not correspond to a valid  [RFC-ietf-jmap-core-17, Section
-                                                                  account.                                      3.5.2]
-                                                                  The accountId given corresponds to a valid    [RFC-ietf-jmap-core-17, Section
-   accountNotSupportedByMethod     common       IETF              account, but the account does not support     3.5.2]
-                                                                  this method or data type.
+           JMAP Error Code         Intended Use Change Controller                   Description                               Reference
+   accountNotFound                 common       IETF              The accountId does not correspond to a valid     [RFC-ietf-jmap-core-17, Section
+                                                                  account.                                         3.5.2]
+                                                                  The accountId given corresponds to a valid       [RFC-ietf-jmap-core-17, Section
+   accountNotSupportedByMethod     common       IETF              account, but the account does not support this   3.5.2]
+                                                                  method or data type.
                                                                   This method call would modify state in an
-   accountReadOnly                 common       IETF              account that is read-only (as returned on the [RFC-ietf-jmap-core-17, Section
-                                                                  corresponding Account object in the JMAP      3.5.2]
-                                                                  Session resource).
-   anchorNotFound                  common       IETF              An anchor argument was supplied, but it       [RFC-ietf-jmap-core-17, Section
-                                                                  cannot be found in the results of the query.  5.5]
+   accountReadOnly                 common       IETF              account that is read-only (as returned on the    [RFC-ietf-jmap-core-17, Section
+                                                                  corresponding Account object in the JMAP Session 3.5.2]
+                                                                  resource).
+   anchorNotFound                  common       IETF              An anchor argument was supplied, but it cannot   [RFC-ietf-jmap-core-17, Section
+                                                                  be found in the results of the query.            5.5]
                                                                   The server forbids duplicates and the record
-                                                                  already exists in the target account. An      [RFC-ietf-jmap-core-17, Section
-   alreadyExists                   common       IETF              existingId property of type Id MUST be        5.4]
-                                                                  included on the error object with the id of
-                                                                  the existing record.
-   cannotCalculateChanges          common       IETF              The server cannot calculate the changes from  [RFC-ietf-jmap-core-17, Section 5.2
-                                                                  the state string given by the client.         and 5.6]
-   forbidden                       common       IETF              The action would violate an ACL or other      [RFC-ietf-jmap-core-17, Section
-                                                                  permissions policy.                           3.5.2, 5.3, and 7.2.1]
-   fromAccountNotFound             common       IETF              The fromAccountId does not correspond to a    [RFC-ietf-jmap-core-17, Section 5.4
-                                                                  valid account.                                and 6.3]
-                                                                  The fromAccountId given corresponds to a      [RFC-ietf-jmap-core-17, Section
-   fromAccountNotSupportedByMethod common       IETF              valid account, but the account does not       5.4]
-                                                                  support this data type.
-                                                                  One of the arguments is of the wrong type or  [RFC-ietf-jmap-core-17, Section
-   invalidArguments                common       IETF              otherwise invalid, or a required argument is  3.5.2]
+                                                                  already exists in the target account. An         [RFC-ietf-jmap-core-17, Section
+   alreadyExists                   common       IETF              existingId property of type Id MUST be included  5.4]
+                                                                  on the error object with the id of the existing
+                                                                  record.
+   cannotCalculateChanges          common       IETF              The server cannot calculate the changes from the [RFC-ietf-jmap-core-17, Section
+                                                                  state string given by the client.                5.2 and 5.6]
+   forbidden                       common       IETF              The action would violate an ACL or other         [RFC-ietf-jmap-core-17, Section
+                                                                  permissions policy.                              3.5.2, 5.3, and 7.2.1]
+   fromAccountNotFound             common       IETF              The fromAccountId does not correspond to a valid [RFC-ietf-jmap-core-17, Section
+                                                                  account.                                         5.4 and 6.3]
+                                                                  The fromAccountId given corresponds to a valid   [RFC-ietf-jmap-core-17, Section
+   fromAccountNotSupportedByMethod common       IETF              account, but the account does not support this   5.4]
+                                                                  data type.
+                                                                  One of the arguments is of the wrong type or     [RFC-ietf-jmap-core-17, Section
+   invalidArguments                common       IETF              otherwise invalid, or a required argument is     3.5.2]
                                                                   missing.
-   invalidPatch                    common       IETF              The PatchObject given to update the record    [RFC-ietf-jmap-core-17, Section
-                                                                  was not a valid patch.                        5.3]
-   invalidProperties               common       IETF              The record given is invalid.                  [RFC-ietf-jmap-core-17, Section
-                                                                                                                5.3]
-   notFound                        common       IETF              The id given cannot be found.                 [RFC-ietf-jmap-core-17, Section
-                                                                                                                5.3]
-                                                                  The content type of the request was not       [RFC-ietf-jmap-core-17, Section
-   notJSON                         common       IETF              application/json or the request did not parse 3.5.1]
-                                                                  as I-JSON.
-   notRequest                      common       IETF              The request parsed as JSON but did not match  [RFC-ietf-jmap-core-17, Section
-                                                                  the type signature of the Request object.     3.5.1]
-                                                                  The create would exceed a server-defined      [RFC-ietf-jmap-core-17, Section
-   overQuota                       common       IETF              limit on the number or total size of objects  5.3]
-                                                                  of this type.
-                                                                  Too many objects of this type have been
-   rateLimit                       common       IETF              created recently, and a server-defined rate   [RFC-ietf-jmap-core-17, Section
-                                                                  limit has been reached. It may work if tried  5.3]
-                                                                  again later.
-                                                                  The total number of actions exceeds the       [RFC-ietf-jmap-core-17, Section 5.1
-   requestTooLarge                 common       IETF              maximum number the server is willing to       and 5.3]
-                                                                  process in a single method call.
-   invalidResultReference          common       IETF              The method used a result reference for one of [RFC-ietf-jmap-core-17, Section
-                                                                  its arguments, but this failed to resolve.    3.5.2]
-                                                                  An unexpected or unknown error occurred       [RFC-ietf-jmap-core-17, Section
-   serverFail                      common       IETF              during the processing of the call. The method 3.5.2]
-                                                                  call made no changes to the server's state.
-                                                                  Some, but not all expected changes described
-                                                                  by the method occurred. The client MUST       [RFC-ietf-jmap-core-17, Section
-   serverPartialFail               limited      IETF              re-synchronise impacted data to determine     3.5.2]
-                                                                  server state. Use of this error is strongly
+   invalidPatch                    common       IETF              The PatchObject given to update the record was   [RFC-ietf-jmap-core-17, Section
+                                                                  not a valid patch.                               5.3]
+   invalidProperties               common       IETF              The record given is invalid.                     [RFC-ietf-jmap-core-17, Section
+                                                                                                                   5.3]
+   notFound                        common       IETF              The id given cannot be found.                    [RFC-ietf-jmap-core-17, Section
+                                                                                                                   5.3]
+                                                                  The content type of the request was not          [RFC-ietf-jmap-core-17, Section
+   notJSON                         common       IETF              application/json or the request did not parse as 3.5.1]
+                                                                  I-JSON.
+   notRequest                      common       IETF              The request parsed as JSON but did not match the [RFC-ietf-jmap-core-17, Section
+                                                                  type signature of the Request object.            3.5.1]
+                                                                  The create would exceed a server-defined limit   [RFC-ietf-jmap-core-17, Section
+   overQuota                       common       IETF              on the number or total size of objects of this   5.3]
+                                                                  type.
+                                                                  Too many objects of this type have been created  [RFC-ietf-jmap-core-17, Section
+   rateLimit                       common       IETF              recently, and a server-defined rate limit has    5.3]
+                                                                  been reached. It may work if tried again later.
+                                                                  The total number of actions exceeds the maximum  [RFC-ietf-jmap-core-17, Section
+   requestTooLarge                 common       IETF              number the server is willing to process in a     5.1 and 5.3]
+                                                                  single method call.
+   invalidResultReference          common       IETF              The method used a result reference for one of    [RFC-ietf-jmap-core-17, Section
+                                                                  its arguments, but this failed to resolve.       3.5.2]
+                                                                  An unexpected or unknown error occurred during   [RFC-ietf-jmap-core-17, Section
+   serverFail                      common       IETF              the processing of the call. The method call made 3.5.2]
+                                                                  no changes to the server's state.
+                                                                  Some, but not all expected changes described by
+                                                                  the method occurred. The client MUST             [RFC-ietf-jmap-core-17, Section
+   serverPartialFail               limited      IETF              re-synchronise impacted data to determine server 3.5.2]
+                                                                  state. Use of this error is strongly
                                                                   discouraged.
                                                                   Some internal server resource was temporarily
-   serverUnavailable               common       IETF              unavailable. Attempting the same operation    [RFC-ietf-jmap-core-17, Section
-                                                                  later (perhaps after a backoff with a random  3.5.2]
-                                                                  factor) may succeed.
-                                                                  This is a singleton type, so you cannot       [RFC-ietf-jmap-core-17, Section
-   singleton                       common       IETF              create another one or destroy the existing    5.3]
-                                                                  one.
-   stateMismatch                   common       IETF              An ifInState argument was supplied and it     [RFC-ietf-jmap-core-17, Section
-                                                                  does not match the current state.             5.3]
-                                                                  The action would result in an object that     [RFC-ietf-jmap-core-17, Section
-   tooLarge                        common       IETF              exceeds a server-defined limit for the        5.3]
-                                                                  maximum size of a single object of this type.
-   tooManyChanges                  common       IETF              There are more changes than the client's      [RFC-ietf-jmap-core-17, Section
-                                                                  maxChanges argument.                          5.6]
-                                                                  The client included a capability in the       [RFC-ietf-jmap-core-17, Section
-   unknownCapability               common       IETF              "using" property of the request that the      3.5.1]
-                                                                  server does not support.
-   unknownMethod                   common       IETF              The server does not recognise this method     [RFC-ietf-jmap-core-17, Section
-                                                                  name.                                         3.5.2]
-   unsupportedFilter               common       IETF              The filter is syntactically valid, but the    [RFC-ietf-jmap-core-17, Section
-                                                                  server cannot process it.                     5.5]
-                                                                  The sort is syntactically valid, but includes
-   unsupportedSort                 common       IETF              a property the server does not support        [RFC-ietf-jmap-core-17, Section
-                                                                  sorting on, or a collation method it does not 5.5]
-                                                                  recognise.
-                                                                  The client requested an object be both
-   willDestroy                     common       IETF              updated and destroyed in the same /set        [RFC-ietf-jmap-core-17, Section
-                                                                  request, and the server has decided to        5.3]
-                                                                  therefore ignore the update.
+   serverUnavailable               common       IETF              unavailable. Attempting the same operation later [RFC-ietf-jmap-core-17, Section
+                                                                  (perhaps after a backoff with a random factor)   3.5.2]
+                                                                  may succeed.
+   singleton                       common       IETF              This is a singleton type, so you cannot create   [RFC-ietf-jmap-core-17, Section
+                                                                  another one or destroy the existing one.         5.3]
+   stateMismatch                   common       IETF              An ifInState argument was supplied and it does   [RFC-ietf-jmap-core-17, Section
+                                                                  not match the current state.                     5.3]
+                                                                  The action would result in an object that        [RFC-ietf-jmap-core-17, Section
+   tooLarge                        common       IETF              exceeds a server-defined limit for the maximum   5.3]
+                                                                  size of a single object of this type.
+   tooManyChanges                  common       IETF              There are more changes than the client's         [RFC-ietf-jmap-core-17, Section
+                                                                  maxChanges argument.                             5.6]
+                                                                  The client included a capability in the "using"  [RFC-ietf-jmap-core-17, Section
+   unknownCapability               common       IETF              property of the request that the server does not 3.5.1]
+                                                                  support.
+   unknownMethod                   common       IETF              The server does not recognise this method name.  [RFC-ietf-jmap-core-17, Section
+                                                                                                                   3.5.2]
+   unsupportedFilter               common       IETF              The filter is syntactically valid, but the       [RFC-ietf-jmap-core-17, Section
+                                                                  server cannot process it.                        5.5]
+                                                                  The sort is syntactically valid, but includes a  [RFC-ietf-jmap-core-17, Section
+   unsupportedSort                 common       IETF              property the server does not support sorting on, 5.5]
+                                                                  or a collation method it does not recognise.
+                                                                  The client requested an object be both updated
+   willDestroy                     common       IETF              and destroyed in the same /set request, and the  [RFC-ietf-jmap-core-17, Section
+                                                                  server has decided to therefore ignore the       5.3]
+                                                                  update.
+                                                                  The mailbox still has at least one child         [RFC-ietf-jmap-mail-16, Section
+   mailboxHasChild                 common       IETF              mailbox. The client MUST remove these before it  2.5]
+                                                                  can delete the parent mailbox.
+                                                                  The mailbox has at least one message assigned to [RFC-ietf-jmap-mail-16, Section
+   mailboxHasEmail                 common       IETF              it and the onDestroyRemoveMessages argument was  2.5]
+                                                                  false.
+   blobNotFound                    common       IETF              At least one blob id referenced in the object    [RFC-ietf-jmap-mail-16, Section
+                                                                  doesn't exist.                                   4.6]
+   tooManyKeywords                 common       IETF              The change to the email's keywords would exceed  [RFC-ietf-jmap-mail-16, Section
+                                                                  a server-defined maximum.                        4.6]
+   tooManyMailboxes                common       IETF              The change to the email's mailboxes would exceed [RFC-ietf-jmap-mail-16, Section
+                                                                  a server-defined maximum.                        4.6]
+   invalidEmail                    common       IETF              The email to be sent is invalid in some way.     [RFC-ietf-jmap-mail-16, Section
+                                                                                                                   7.5]
+   tooManyRecipients               common       IETF              The [RFC5321] envelope (supplied or generated)   [RFC-ietf-jmap-mail-16, Section
+                                                                  has more recipients than the server allows.      7.5]
+   noRecipients                    common       IETF              The [RFC5321] envelope (supplied or generated)   [RFC-ietf-jmap-mail-16, Section
+                                                                  does not have any rcptTo emails.                 7.5]
+                                                                  The rcptTo property of the [RFC5321] envelope
+   invalidRecipients               common       IETF              (supplied or generated) contains at least one    [RFC-ietf-jmap-mail-16, Section
+                                                                  rcptTo value which is not a valid email for      7.5]
+                                                                  sending to.
+   forbiddenMailFrom               common       IETF              The server does not permit the user to send an   [RFC-ietf-jmap-mail-16, Section
+                                                                  email with the [RFC5321] envelope From.          7.5]
+                                                                  The server does not permit the user to send an   [RFC-ietf-jmap-mail-16, Sections
+   forbiddenFrom                   common       IETF              email with the [RFC5322] From header field of    6.3 and 7.5]
+                                                                  the email to be sent.
+   forbiddenToSend                 common       IETF              The user does not have permission to send at all [RFC-ietf-jmap-mail-16, Section
+                                                                  right now.                                       7.5]
