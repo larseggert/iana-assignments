@@ -141,6 +141,11 @@
        <th>Description</th>
        <th>Reference</th>
       </xsl:when>
+     <xsl:when test="@id = 'sip-pns'">
+      <th>Value</th>
+      <th>Description</th>
+      <th>Reference</th>
+     </xsl:when>
       <xsl:otherwise>
        <th>Priority-Values (least to greatest)</th>
        <th>Priority Numerical Value</th>
@@ -173,7 +178,8 @@
        or ../@id = 'uui-packages'
        or ../@id = 'uui-content'
        or ../@id = 'uui-encoding'
-       or ../@id = 'sip-parameters-72'">
+       or ../@id = 'sip-parameters-72'
+       or ../@id = 'sip-pns'">
        <td><xsl:value-of select="iana:value"/></td>
        <td><xsl:apply-templates select="iana:description"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>

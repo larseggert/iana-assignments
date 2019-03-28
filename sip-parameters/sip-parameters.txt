@@ -4,7 +4,7 @@
            2002-01
 
    Last Updated
-           2019-03-27
+           2019-03-28
 
    Available Formats
            [IMG]
@@ -94,6 +94,7 @@
      * UUI Packages
      * UUI Content Parameters
      * UUI Encoding Parameters
+     * Push Notification Service (PNS)
 
 Header Fields
 
@@ -540,16 +541,16 @@ Response Codes
            [IMG]
            CSV
 
-   Response Code           Description            Reference
+   Response Code               Description                         Reference
    100           Trying
    180           Ringing
    181           Call Is Being Forwarded
    182           Queued
    183           Session Progress
-   199           Early Dialog Terminated          [RFC6228]
+   199           Early Dialog Terminated                 [RFC6228]
    200           OK
-   202           Accepted (Deprecated)            [RFC6665]
-   204           No Notification                  [RFC5839]
+   202           Accepted (Deprecated)                   [RFC6665]
+   204           No Notification                         [RFC5839]
    300           Multiple Choices
    301           Moved Permanently
    302           Moved Temporarily
@@ -565,28 +566,28 @@ Response Codes
    407           Proxy Authentication Required
    408           Request Timeout
    410           Gone
-   412           Conditional Request Failed       [RFC3903]
+   412           Conditional Request Failed              [RFC3903]
    413           Request Entity Too Large
    414           Request-URI Too Long
    415           Unsupported Media Type
    416           Unsupported URI Scheme
-   417           Unknown Resource-Priority        [RFC4412]
+   417           Unknown Resource-Priority               [RFC4412]
    420           Bad Extension
    421           Extension Required
-   422           Session Interval Too Small       [RFC4028]
+   422           Session Interval Too Small              [RFC4028]
    423           Interval Too Brief
-   424           Bad Location Information         [RFC6442]
-   428           Use Identity Header              [RFC8224]
-   429           Provide Referrer Identity        [RFC3892]
-   430           Flow Failed                      [RFC5626]
-   433           Anonymity Disallowed             [RFC5079]
-   436           Bad Identity Info                [RFC8224]
-   437           Unsupported Credential           [RFC8224]
-   438           Invalid Identity Header          [RFC8224]
-   439           First Hop Lacks Outbound Support [RFC5626]
-   440           Max-Breadth Exceeded             [RFC5393]
-   469           Bad Info Package                 [RFC6086]
-   470           Consent Needed                   [RFC5360]
+   424           Bad Location Information                [RFC6442]
+   428           Use Identity Header                     [RFC8224]
+   429           Provide Referrer Identity               [RFC3892]
+   430           Flow Failed                             [RFC5626]
+   433           Anonymity Disallowed                    [RFC5079]
+   436           Bad Identity Info                       [RFC8224]
+   437           Unsupported Credential                  [RFC8224]
+   438           Invalid Identity Header                 [RFC8224]
+   439           First Hop Lacks Outbound Support        [RFC5626]
+   440           Max-Breadth Exceeded                    [RFC5393]
+   469           Bad Info Package                        [RFC6086]
+   470           Consent Needed                          [RFC5360]
    480           Temporarily Unavailable
    481           Call/Transaction Does Not Exist
    482           Loop Detected
@@ -596,10 +597,10 @@ Response Codes
    486           Busy Here
    487           Request Terminated
    488           Not Acceptable Here
-   489           Bad Event                        [RFC6665]
+   489           Bad Event                               [RFC6665]
    491           Request Pending
    493           Undecipherable
-   494           Security Agreement Required      [RFC3329]
+   494           Security Agreement Required             [RFC3329]
    500           Server Internal Error
    501           Not Implemented
    502           Bad Gateway
@@ -607,12 +608,13 @@ Response Codes
    504           Server Time-out
    505           Version Not Supported
    513           Message Too Large
-   580           Precondition Failure             [RFC3312]
+   555           Push Notification Service Not Supported [RFC-ietf-sipcore-sip-push-29]
+   580           Precondition Failure                    [RFC3312]
    600           Busy Everywhere
    603           Decline
    604           Does Not Exist Anywhere
    606           Not Acceptable
-   607           Unwanted                         [RFC8197]
+   607           Unwanted                                [RFC8197]
 
 SIP Privacy Header Field Values
 
@@ -677,7 +679,7 @@ SIP/SIPS URI Parameters
            [IMG]
            CSV
 
-   Parameter Name Predefined Values     Reference
+   Parameter Name Predefined Values           Reference
    aai            No                [RFC5552]
    bnc            No                [RFC6140]
    cause          Yes               [RFC4458][RFC8119]
@@ -700,6 +702,10 @@ SIP/SIPS URI Parameters
    ob             No                [RFC5626]
    param[n]       No                [RFC4240]
    play           No                [RFC4240]
+   pn-param       No                [RFC-ietf-sipcore-sip-push-29]
+   pn-prid        No                [RFC-ietf-sipcore-sip-push-29]
+   pn-provider    No                [RFC-ietf-sipcore-sip-push-29]
+   pn-purr        No                [RFC-ietf-sipcore-sip-push-29]
    postbody       No                [RFC5552]
    repeat         No                [RFC4240]
    sg             No                [RFC6140]
@@ -2428,9 +2434,28 @@ SIP Feature-Capability Indicator Registration Tree
            [IMG]
            CSV
 
-    Name                                                            Description                                                           Reference
-   sip.607 This feature-capability indicator, when included in a Feature-Caps header field of a REGISTER response, indicates that the     [RFC8197]
-           server supports, and will process, the 607 (Unwanted) response code.
+      Name                                                  Description                                                        Reference
+   sip.607     This feature-capability indicator, when included in a Feature-Caps header field of a REGISTER         [RFC8197]
+               response, indicates that the server supports, and will process, the 607 (Unwanted) response code.
+               This feature-capability indicator, when inserted in a Feature-Caps header field of a SIP REGISTER
+   sip.pns     request or a SIP 2xx response to a REGISTER request, denotes that the entity associated with the      [RFC-ietf-sipcore-sip-push-29]
+               indicator supports the SIP push mechanism and the type of push notification service conveyed by the
+               indicator value.
+               This feature-capability indicator, when inserted in a SIP 2xx response to a SIP REGISTER request,
+               denotes that the entity associated with the indicator supports the Voluntary Application Server
+   sip.vapid   Identification (VAPID) mechanism when the entity requests that a push notifications be sent to a SIP  [RFC-ietf-sipcore-sip-push-29]
+               UA. The indicator value is a public key identifying the entity, that can be used by a SIP UA to
+               restrict subscriptions to that entity.
+               This feature-capability indicator, when inserted in a SIP 2xx response to a SIP REGISTER request,
+               denotes that the entity associated with the indicator expects to receive binding-refresh REGISTER
+   sip.pnsreg  requests for the binding from the SIP UA associated with the binding before the binding expires, even [RFC-ietf-sipcore-sip-push-29]
+               if the entity does not request that a push notification be sent to the SIP UA in order to trigger the
+               binding-refresh REGISTER requests. The indicator value conveys the minimum time (given in seconds),
+               prior to the binding expiration when the UA MUST send the REGISTER request.
+               This feature-capability indicator, when inserted in a SIP 2xx response to a SIP REGISTER request,
+   sip.pnspurr conveys that the entity associated with the indicator will store information that can be used to      [RFC-ietf-sipcore-sip-push-29]
+               associate a mid-dialog SIP request with the binding information in the REGISTER request. The
+               indicator value is an identifier that can be used a key to retrieve the binding information.
 
 Priority Header Field Values
 
@@ -2542,6 +2567,28 @@ UUI Encoding Parameters
 
    Encoding                Description                Reference
    hex      The UUI data is encoded using hexadecimal [RFC7433]
+
+Push Notification Service (PNS)
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-sipcore-sip-push-29]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Value               Description                         Reference
+   apns    Apple Push Notification service        [RFC-ietf-sipcore-sip-push-29]
+   fcm     Firebase Cloud Messaging               [RFC-ietf-sipcore-sip-push-29]
+   webpush Generic Event Delivery Using HTTP Push [RFC-ietf-sipcore-sip-push-29]
 
                                                                         People
 
