@@ -1,4 +1,4 @@
-(registered 2017-09-07, last updated 2017-09-07)
+(registered 2017-09-07, last updated 2019-04-16)
 
 Name: Barbara Stark
 Email: bs7652&att.com
@@ -21,7 +21,7 @@ Interoperability considerations:
 Content will be protobuf encoded. Protobuf schema is published with the specification. 
 
 Published specification:
-http://usp.technology/
+https://usp.technology/
 
 Applications which use this media:
 This media type is used by USP Endpoints to transmit USP Messages for purpose of: 
@@ -34,9 +34,6 @@ Fragment identifier considerations:
 none
 
 Restrictions on usage:
-none
-
-Provisional registration? (standards tree only):
 none
 
 Additional information:
