@@ -5,7 +5,7 @@
   <title>Multiprotocol Label Switching (MPLS) Label Switched Paths (LSPs) Ping Parameters</title>
   <category>Multiprotocol Label Switching Architecture (MPLS)</category>
   <created>2006-01-12</created>
-  <updated>2018-03-14</updated>
+  <updated>2019-04-26</updated>
   
   <registry id="message-types">
     <title>Message Types</title>
@@ -367,10 +367,11 @@ when there is only one downstream for a given node.</footnote>
       <xref type="rfc" data="rfc8029"/>
       <subtlv>No Sub-TLVs</subtlv>
     </record>
-    <record>
+    <record date="2019-04-26">
       <type>4</type>
-      <name>Unassigned</name>
-      <subtlv/>
+      <name>LSR Capability TLV</name>
+      <xref type="draft" data="RFC-ietf-mpls-lsp-ping-lag-multipath-08"/>
+      <subtlv>No Sub-TLVs</subtlv>
     </record>
     <record>
       <type>5</type>
@@ -378,10 +379,11 @@ when there is only one downstream for a given node.</footnote>
       <xref type="rfc" data="rfc8029"/>
       <subtlv>No Sub-TLVs</subtlv>
     </record>
-    <record>
+    <record date="2019-04-26">
       <type>6</type>
-      <name>Unassigned</name>
-      <subtlv/>
+      <name>Detailed Interface and Label Stack TLV</name>
+      <xref type="draft" data="RFC-ietf-mpls-lsp-ping-lag-multipath-08"/>
+      <subtlv><xref type="uri" data="http://www.iana.org/assignments/mpls-lsp-ping-parameters/mpls-lsp-ping-parameters.xml#sub-tlv-6"/></subtlv>
     </record>
     <record>
       <type>7</type>
@@ -804,7 +806,48 @@ when there is only one downstream for a given node.</footnote>
     </record>
   </registry>
   
-    <registry id="sub-tlv-9">
+    <registry id="sub-tlv-6">
+      <title>Sub-TLVs for TLV Type 6</title>
+      <xref type="draft" data="RFC-ietf-mpls-lsp-ping-lag-multipath-08"/>
+      <range>
+        <value>3-16383</value>
+        <registration_rule>Standards Action</registration_rule>
+        <note>mandatory TLVs</note>
+      </range>
+      <range>
+        <value>16384-31743</value>
+        <registration_rule>Specification Required</registration_rule>
+      </range>
+      <range>
+        <value>32768-49161</value>
+        <registration_rule>Standards Action</registration_rule>
+        <note>optional TLVs</note>
+      </range>
+      <range>
+        <value>49162-64511</value>
+        <registration_rule>Specification Required</registration_rule>
+      </range>
+      <expert>Unassigned</expert>
+      <record date="2019-04-26">
+        <type>1</type>
+        <name>Incoming Label Stack</name>
+        <xref type="draft" data="RFC-ietf-mpls-lsp-ping-lag-multipath-08"/>
+        <comment/>
+      </record>
+      <record date="2019-04-26">
+        <type>2</type>
+        <name>Incoming Interface Index</name>
+        <xref type="draft" data="RFC-ietf-mpls-lsp-ping-lag-multipath-08"/>
+        <comment/>
+      </record>
+      <record>
+        <type>3-64511</type>
+        <name>Unassigned</name>
+        <comment/>
+      </record>
+    </registry>
+  
+  <registry id="sub-tlv-9">
     <title>Sub-TLVs for TLV Type 9</title>
       <xref type="rfc" data="rfc8029"/>
     <registration_rule>None</registration_rule>
@@ -816,7 +859,7 @@ when there is only one downstream for a given node.</footnote>
     </record>
     </registry>
   
-    <registry id="sub-tlv-11">
+   <registry id="sub-tlv-11">
     <title>Sub-TLVs for TLV Type 11</title>
       <xref type="rfc" data="rfc8029"/>
     <expert>Unassigned</expert>
@@ -921,7 +964,7 @@ when there is only one downstream for a given node.</footnote>
      <record>
       <type>2</type>
       <name>Label stack</name>
-       <xref type="rfc" data="rfc8029"/>
+      <xref type="rfc" data="rfc8029"/>
       <comment/>
     </record>
     <record>
@@ -930,8 +973,20 @@ when there is only one downstream for a given node.</footnote>
       <xref type="rfc" data="rfc8029"/>
       <comment/>
     </record>
+    <record date="2019-04-26">
+      <type>4</type>
+      <name>Local Interface Index Sub-TLV </name>
+      <xref type="draft" data="RFC-ietf-mpls-lsp-ping-lag-multipath-08"/>
+      <comment/>
+    </record>
+     <record date="2019-04-26">
+       <type>5</type>
+       <name>Remote Interface Index Sub-TLV</name>
+       <xref type="draft" data="RFC-ietf-mpls-lsp-ping-lag-multipath-08"/>
+       <comment/>
+     </record>
     <record>
-      <type>4-31743</type>
+      <type>6-31743</type>
       <name>Unassigned</name>
       <comment/>
     </record>
@@ -1421,8 +1476,13 @@ marked "Reserved".
       <description>L: Label-based load balance indicator</description>
       <xref type="rfc" data="rfc8012"/>
     </record>
+    <record date="2019-04-26">
+      <value>3</value>
+      <description>G: LAG Description Indicator</description>
+      <xref type="draft" data="RFC-ietf-mpls-lsp-ping-lag-multipath-08"/>
+    </record>
     <record>
-      <value>3-0</value>
+      <value>2-0</value>
       <description>Unassigned</description>
     </record>
   </registry>
@@ -1525,9 +1585,10 @@ marked "Reserved".
   </registry>
   
   <registry id="interface-label-stack-address-type">
-    <title>Interface and Label Stack Address Types</title>
+    <title>Interface and Label Stack and Detailed Interface and Label Stack Address Types</title>
     <registration_rule>Standards Action</registration_rule>
     <xref type="rfc" data="rfc8029"/>
+    <xref type="draft" data="RFC-ietf-mpls-lsp-ping-lag-multipath-08"/>
     <record date="2015-03-17">
       <value>0</value>
       <description>Reserved</description>
@@ -1790,5 +1851,41 @@ marked "Reserved".
     </record>
   </registry>
 
+  <registry id="lsr-capability-flags">
+    <title>LSR Capability Flags</title>
+    <registration_rule>Standards Action</registration_rule>
+    <xref type="draft" data="RFC-ietf-mpls-lsp-ping-lag-multipath-08"/>
+    <record date="2019-04-26">
+      <value>31</value>
+      <description>D: Downstream LAG Info Accommodation</description>
+      <xref type="draft" data="RFC-ietf-mpls-lsp-ping-lag-multipath-08"/>
+    </record>
+    <record date="2019-04-26">
+      <value>30</value>
+      <description>U: Upstream LAG Info Accommodation</description>
+      <xref type="draft" data="RFC-ietf-mpls-lsp-ping-lag-multipath-08"/>
+    </record>
+    <record>
+      <value>0-29</value>
+      <description>Unassigned</description>
+    </record>
+  </registry>
+  
+  <registry id="interface-index-flags">
+    <title>Interface Index Flags</title>
+    <registration_rule>Standards Action</registration_rule>
+    <xref type="draft" data="RFC-ietf-mpls-lsp-ping-lag-multipath-08"/>
+    <record date="2019-04-26">
+      <value>15</value>
+      <description>M: LAG Member Link Indicator</description>
+      <xref type="draft" data="RFC-ietf-mpls-lsp-ping-lag-multipath-08"/>
+    </record>
+    <record>
+      <value>0-14</value>
+      <description>Unassigned</description>
+    </record>
+  </registry>
+
   <people/>
+  
 </registry>

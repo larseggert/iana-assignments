@@ -19,6 +19,7 @@
         <tr><th>Type</th><th>TLV Name</th><th>Reference</th><th>Sub-TLV Registry</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'sub-tlv-1-16-21' 
+        or @id = 'sub-tlv-6'
         or @id = 'sub-tlv-9' 
         or @id = 'sub-tlv-11' 
         or @id = 'sub-tlv-20'
@@ -63,7 +64,8 @@
         </tr>
       </xsl:when>
       <xsl:when test="@id = 'ds-flags'
-        or @id = 'proxy-flags'">
+        or @id = 'proxy-flags'
+        or @id = 'interface-index-flags'">
         <tr>
           <th>Bit Number</th>
           <th>Name</th>
@@ -97,6 +99,7 @@
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'sub-tlv-1-16-21' 
+        or ../@id = 'sub-tlv-6' 
         or ../@id = 'sub-tlv-9' 
         or ../@id = 'sub-tlv-11' 
         or ../@id = 'sub-tlv-20'
