@@ -1,0 +1,113 @@
+Name: VESvault Corp 
+
+Email: jz&vesvault.com 
+
+Media type name: application 
+
+Media subtype name: vnd.ves.encrypted
+
+Required parameters: N/A 
+
+Optional parameters: 
+   ves-uri: Optionally, a URI of the VESvault object containing the 
+   cipher key for the content, as described in  
+   [https://www.vesvault.com/assets/download/VES%20URI%20Scheme.pdf].
+   The format of the value must comply with RFC 3986. If ves-uri is 
+   not supplied, the VESvault object is deduced by other means, such 
+   as from Message ID for a VESmail message, or from an external ID 
+   for a file in a cloud storage. 
+
+   encrypted-meta: Optionally, arbitrary JSON metadata, encrypted 
+   using the same cipher protocol and key as the content, Base64 
+   encoded after the encryption. The format of the value must comply 
+   with RFC 4648 section 4.
+
+Encoding considerations: binary 
+
+Security considerations: The content is encrypted, the cipher key is 
+   stored in the VESvault cloud repository in an encrypted form, and 
+   is decryptable only by the owner of the content, and by persons 
+   explicitly authorized by the owner.
+
+   The cipher key is fetched from, or deposited to, the VESvault 
+   repository in an end-to-end encrypted form. Additionally, all 
+   communications with the VESvault repository are performed using 
+   TLS encryption layer, with encryption schemas no weaker than the 
+   OWASP recommendations for TLS encryption strength.
+
+   The security of the decrypted content cannot be assessed, as it is
+   specific to the application.
+
+   The security of the metadata in the optional "encrypted-meta" 
+   parameter, and of the metadata stored in VESvault repository, 
+   cannot be assessed, as it is specific to the application.
+
+   If the cipher algorithm that was used to encrypt the content does 
+   not provide cryptographically strong encryption according to the 
+   OWASP recommendations, the encrypted content cannot be considered 
+   secure.
+
+   If the cipher algorithm that was used to encrypt the content, does
+   not provide integrity check of at least 128 bit strength, and 
+   either the encrypted content was altered by a third party or a 
+   wrong encryption key is used due to altered supplementary data, 
+   the decryption of such content may produce unexpected binary data 
+   without triggering decryption errors. Security of such content 
+   cannot be assessed.
+
+   Considering the last 2 points, it is recommended to use VESvault 
+   cipher algorithm AES256GCM1K 
+   [https://www.vesvault.com/assets/download/VES%20Cipher%20Algo%20AES256GCM1K.pdf] 
+   or a cipher algorithm of an equivalent strength. 
+
+Interoperability considerations: The content is accessible on any 
+   platform that can run libVES.c [https://ves.host/docs/libVES-c] 
+   or VES command line utility [https://ves.host/docs/ves-util] 
+   AND supports the cipher algorithm that was used for encrypting the
+   content. 
+
+   Cipher algorithms built in the official libVES.c are recommended. 
+   
+   When a custom algorithm is used, it has to be supported by all 
+   involved parties. 
+
+
+Published specification: The specifications related to VESvault 
+   encryption are published on https://ves.host 
+
+Applications which use this media: The application will decrypt or 
+   encrypt the content, using a cipher key deposited in the VESvault 
+   online repository in an end-to-end encrypted form.
+
+   The encryption and decryption can be done using libVES.c 
+   [https://ves.host/docs/libVES-c], VES utility 
+   [https://ves.host/docs/ves-util], or an equivalent tool.
+
+Fragment identifier considerations: N/A 
+
+Restrictions on usage: N/A 
+
+Additional information: 
+
+   1. Deprecated alias names for this type: 
+      application/x-ves-encrypted 
+   2. Magic number(s): N/A 
+   3. File extension(s): VES 
+   4. Macintosh file type code: N/A 
+   5. Object Identifiers: N/A 
+
+General Comments:  N/A 
+
+Person to contact for further information: 
+
+   1. Name: Jim Zubov 
+   2. Email: jz&vesvault.com
+
+Intended usage: Common 
+   Encrypted content with the cipher key being stored in the VESvault
+   online repository in an end-to-end encrypted form. 
+   The encryption and decryption can be done using libVES.c 
+   [https://ves.host/docs/libVES-c], VES utility 
+   [https://ves.host/docs/ves-util], or an equivalent tool. 
+
+Author/Change controller: Jim Zubov <jz&vesvault.com>
