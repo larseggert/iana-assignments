@@ -59,7 +59,7 @@
       <xsl:when test="../@id = 'trip-parameters-5'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
-          <td style="white-space:pre"><xsl:value-of select="iana:description"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>

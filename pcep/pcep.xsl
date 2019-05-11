@@ -170,7 +170,8 @@
       <xsl:when test="@id = 'stateful-pce-capability-tlv'
         or @id = 'sr-ero-flag-field'
         or @id = 'sr-capability-flag-field'
-        or @id = 'wavelength-allocation-tlv-flag-field'">
+        or @id = 'wavelength-allocation-tlv-flag-field'
+        or @id = 's2ls-object-flag-field'">
         <tr>
           <th>Bit</th>
           <th>Description</th>
