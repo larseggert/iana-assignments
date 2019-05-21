@@ -50,7 +50,7 @@
         <tr>
           <td><xsl:value-of select="iana:id"/></td>
           <td><xsl:value-of select="iana:common"/></td>
-          <td><xsl:value-of select="iana:definition"/></td>
+          <td><xsl:apply-templates select="iana:definition"/></td>
           <td><xsl:value-of select="iana:incompatible"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
