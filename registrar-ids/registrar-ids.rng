@@ -2,9 +2,19 @@
 <grammar xmlns="http://relaxng.org/ns/structure/1.0"
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
   ns="http://www.iana.org/assignments">
-
+  
   <include href="../_support/iana-registry.rng"/>
-
+  
+  <define name="rdapurl">
+    <element name="rdapurl">
+      <oneOrMore>
+        <element name="server">
+          <data type="anyURI"/>
+        </element>
+      </oneOrMore>
+    </element>
+  </define>
+  
   <start>
     <element name="registry">
       <ref name="registryMeta"/>
@@ -17,11 +27,14 @@
             <element name="value"><data type="positiveInteger"/></element>
             <element name="name"><text/></element>
             <element name="status"><text/></element>
+            <optional>
+              <ref name="rdapurl"/>
+            </optional>
           </element>
         </zeroOrMore>
       </element>
       <ref name="people"/>
     </element>
   </start>
-
+  
 </grammar>
