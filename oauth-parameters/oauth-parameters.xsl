@@ -120,7 +120,7 @@
         <tr>
           <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:value-of select="iana:usage"/></td>
-          <td><xsl:value-of select="iana:protocol"/></td>
+          <td><xsl:apply-templates select="iana:protocol"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
