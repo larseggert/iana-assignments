@@ -171,7 +171,9 @@
         or @id = 'sr-ero-flag-field'
         or @id = 'sr-capability-flag-field'
         or @id = 'wavelength-allocation-tlv-flag-field'
-        or @id = 's2ls-object-flag-field'">
+        or @id = 's2ls-object-flag-field'
+        or @id = 'h-pce-capability-tlv-flag-field'
+        or @id = 'h-pce-flag-tlv-flag-field'">
         <tr>
           <th>Bit</th>
           <th>Description</th>
@@ -180,7 +182,8 @@
       </xsl:when>
       <xsl:when test="@id = 'lsp-error-code-tlv-error-code-field'
         or @id = 'path-setup-type-capability-sub-tlv-type-indicators'
-        or @id = 'wavelength-restriction-constraint-tlv-action-values'">
+        or @id = 'wavelength-restriction-constraint-tlv-action-values'
+        or @id = 'domain-id-tlv-domain-type'">
         <tr>
           <th>Value</th>
           <th>Meaning</th>
