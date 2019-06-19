@@ -10,7 +10,8 @@
           <th>Value</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'radius-types-2'">
+      <xsl:when test="@id = 'radius-types-2'
+        or @id = 'softwire46-configuration-multicast-attributes'">
         <tr>
           <th>Value</th>
           <th>Description</th>
@@ -60,6 +61,13 @@
           <th>Value</th>
           <th>Description</th>
           <th>Data Type</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'option-codes-softwire46-priority-attribute'">
+        <tr>
+          <th>Option Code</th>
+          <th>Softwire46 Mechanism</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
@@ -125,7 +133,8 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'radius-ip-port-configuration-reporting-tlvs'">
+      <xsl:when test="../@id = 'radius-ip-port-configuration-reporting-tlvs'
+        or ../@id = 'softwire46-configuration-multicast-attributes'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>         
