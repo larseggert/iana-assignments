@@ -22,6 +22,9 @@
       <xsl:when test="@id = 'hop-control-actions-values'">
         <tr><th>Value</th><th>Action</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'queue-parameters-sub-data-item-type-values'">
+        <tr><th>Type Code</th><th>Description/Policy</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Bit</th><th>Description</th><th>Reference</th></tr>
       </xsl:otherwise>
