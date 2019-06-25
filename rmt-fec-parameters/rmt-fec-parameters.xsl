@@ -38,7 +38,7 @@
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
-          <td><xsl:apply-templates select="iana:cite"/></td>
+          <td><xsl:apply-templates select="iana:refs"/></td>
         </tr>
       </xsl:when>
       <xsl:otherwise>
