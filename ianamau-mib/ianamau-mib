@@ -8,7 +8,7 @@ IANA-MAU-MIB DEFINITIONS ::= BEGIN
        ;
 
      ianaMauMIB MODULE-IDENTITY
-       LAST-UPDATED "201704100000Z" -- April 10, 2017
+       LAST-UPDATED "201907110000Z" -- July 11, 2019
        ORGANIZATION "IANA"
        CONTACT-INFO "        Internet Assigned Numbers Authority
 
@@ -40,14 +40,8 @@ IANA-MAU-MIB DEFINITIONS ::= BEGIN
 
          The following reference is used throughout this MIB module:
 
-         [IEEE802.3] refers to:
-            IEEE Std 802.3, 2005 Edition: 'IEEE Standard for
-            Information technology - Telecommunications and information
-            exchange between systems - Local and metropolitan area
-            networks - Specific requirements -
-            Part 3: Carrier sense multiple access with collision
-            detection (CSMA/CD) access method and physical layer
-            specifications'.
+         [IEEE802.3] refers to IEEE Std 802.3, 2018 Edition: 
+         'IEEE Standard for Ethernet'.
 
          This reference should be updated as appropriate when new
          MAU types, Media Availability states, Auto Negotiation
@@ -58,6 +52,10 @@ IANA-MAU-MIB DEFINITIONS ::= BEGIN
          RFC 4836; for full legal notices see the RFC itself.
          Supplementary information may be available at:
          http://www.ietf.org/copyrights/ianamib.html"
+
+       REVISION     "201907110000Z"  -- July 11, 2019
+       DESCRIPTION  "Added support for 2.5GBase-T and 5GBase-T media 
+                     types."
 
        REVISION     "201704100000Z"  -- April 10, 2017
        DESCRIPTION  "Added new MAU types and associated AutoNeg 
@@ -218,7 +216,9 @@ IANA-MAU-MIB DEFINITIONS ::= BEGIN
               b100GbaseKR4(99), -- 100GBASE-KR4 
               b100GbaseKP4(100), -- 100GBASE-KP4 
               b100GbaseR(101), -- 100GBASE-R 
-              b100GbaseSR4(102) -- 100GBASE-SR4
+              b100GbaseSR4(102), -- 100GBASE-SR4
+              b2p5GbaseT(103), -- 2.5GBASE-T
+              b5GbaseT(104) -- 5GBASE-T
          }
 
      IANAifMauMediaAvailable ::= TEXTUAL-CONVENTION
@@ -454,7 +454,9 @@ IANA-MAU-MIB DEFINITIONS ::= BEGIN
               b100GbaseCR4(30), -- 100GBASE-CR4 
               b100GbaseKR4(31), -- 100GBASE-KR4 
               b100GbaseKP4(32), -- 100GBASE-KP4 
-              bForceMS(33) -- 1000BASE-T1 Force MS
+              bForceMS(33), -- 1000BASE-T1 Force MS
+              b2p5GbaseT(34), -- 2.5GBASE-T
+              b5GBaseT(35) -- 5GBASE-T
          }
 
      IANAifJackType ::= TEXTUAL-CONVENTION
@@ -1182,4 +1184,18 @@ IANA-MAU-MIB DEFINITIONS ::= BEGIN
          REFERENCE "IEEE Std 802.3, Clause 95" 
          ::= { dot3MauType 102 }
 
+       dot3MauType2p5GigT OBJECT-IDENTITY 
+         STATUS current 
+         DESCRIPTION "2.5GBASE-T Four-pair twisted-pair balanced copper cabling PHY" 
+         REFERENCE "IEEE Std 802.3-2018, Clause 126" 
+         ::= { dot3MauType 103 }
+
+       dot3MauType5GigT OBJECT-IDENTITY 
+         STATUS current 
+         DESCRIPTION "5GBASE-T Four-pair twisted-pair balanced copper cabling PHY" 
+         REFERENCE "IEEE Std 802.3-2018, Clause 126" 
+         ::= { dot3MauType 104 }
+
+
 END
+
