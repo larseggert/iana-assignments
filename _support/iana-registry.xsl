@@ -376,7 +376,7 @@
 	  <tbody>
              <xsl:for-each select="iana:range">
                 <tr>
-                   <td align="center"><xsl:value-of select="iana:value"/></td>
+                   <td><xsl:value-of select="iana:value"/></td>
                    <xsl:if test="../iana:range/iana:hex">
                       <td><xsl:apply-templates select="iana:hex"/></td>
                    </xsl:if>
