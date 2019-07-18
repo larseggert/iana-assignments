@@ -50,8 +50,13 @@
       <xsl:when test="@id = 'transit-info-option-flags'">
         <tr><th>Bit Number</th><th>Capability Description</th><th>Reference</th></tr>
       </xsl:when>
-      <xsl:when test="@id = 'solicited-info-option-flags'">
+      <xsl:when test="@id = 'flags' or
+        @id = 'rpl-dco-flags' or
+        @id = 'rpl-dco-ack-flags'">
         <tr><th>Bit Number</th><th>Capability Description</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'rpl-dco-ack-status'">
+        <tr><th>Status Code</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
