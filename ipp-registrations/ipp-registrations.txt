@@ -4,7 +4,7 @@
            2002-07-15
 
    Last Updated
-           2019-05-28
+           2019-07-18
 
    Available Formats
            [IMG]
@@ -1556,6 +1556,8 @@ Printer       materials-col-supported                                           
 Description
 Printer       max-materials-col-supported                                                                                        integer(1:MAX)              [PWG5100.21]
 Description
+Printer       max-page-ranges-supported                                                                                          integer(1:MAX)              [IPP20190711]
+Description
 Printer       max-save-info-supported                                                                                            integer(1:MAX)              [PWG5100.11]
 Description
 Printer       max-stitching-locations-supported                                                                                  integer(1:MAX)              [PWG5100.1]
@@ -1910,6 +1912,8 @@ Description
 Printer       pwg-raster-document-sheet-back                                                                                     type2 keyword               [PWG5102.4]
 Description
 Printer       pwg-raster-document-type-supported                                                                                 1setOf type2 keyword        [PWG5102.4]
+Description
+Printer       pwg-safe-gcode-supported                                                                                           1setOf text(MAX)            [PWGSAFEGCODE]
 Description
 Printer       reference-uri-schemes-supported                                                                                    1setOf uriScheme            [RFC8011]
 Description
@@ -5534,7 +5538,8 @@ Keyword Attribute Values
                                                                                                      1setOf (type2
    printer-kind                               roll                                                   keyword |                   [PWG5100.16]
                                                                                                      name(MAX))
-   printer-state-reasons                                                                             type2 keyword               [RFC8011]
+   printer-state-reasons                                                                             1setOf type2                [RFC8011]
+                                                                                                     keyword
    printer-state-reasons                      alert-removal-of-binary-change-entry                   1setOf type2                [PWG5100.9]
                                                                                                      keyword
    printer-state-reasons                      bander-added                                           1setOf type2                [PWG5100.9]
@@ -5797,6 +5802,16 @@ Keyword Attribute Values
                                                                                                      keyword
    printer-state-reasons                      fan-failure                                            1setOf type2                [PWG5100.21]
                                                                                                      keyword
+   printer-state-reasons                      fax-modem-life-almost-over                             1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      fax-modem-life-over                                    1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      fax-modem-missing                                      1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      fax-modem-turned-off                                   1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      fax-modem-turned-on                                    1setOf type2                [PWG5107.3]
+                                                                                                     keyword
    printer-state-reasons                      folder-added                                           1setOf type2                [PWG5100.9]
                                                                                                      keyword
    printer-state-reasons                      folder-almost-empty                                    1setOf type2                [PWG5100.9]
@@ -5959,9 +5974,23 @@ Keyword Attribute Values
                                                                                                      keyword
    printer-state-reasons                      input-media-size-change                                1setOf type2                [PWG5100.9]
                                                                                                      keyword
+   printer-state-reasons                      input-media-tray-failure                               1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      input-media-tray-feed-error                            1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      input-media-tray-jam                                   1setOf type2                [PWG5107.3]
+                                                                                                     keyword
    printer-state-reasons                      input-media-type-change                                1setOf type2                [PWG5100.9]
                                                                                                      keyword
    printer-state-reasons                      input-media-weight-change                              1setOf type2                [PWG5100.9]
+                                                                                                     keyword
+   printer-state-reasons                      input-pick-roller-failure                              1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      input-pick-roller-life-over                            1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      input-pick-roller-life-warn                            1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      input-pick-roller-missing                              1setOf type2                [PWG5107.3]
                                                                                                      keyword
    printer-state-reasons                      input-tray-elevation-failure                           1setOf type2                [PWG5100.9]
                                                                                                      keyword
@@ -6147,9 +6176,15 @@ Keyword Attribute Values
                                                                                                      keyword
    printer-state-reasons                      marker-adjusting-print-quality                         1setOf type2                [PWG5100.9]
                                                                                                      keyword
+   printer-state-reasons                      marker-cleaner-missing                                 1setOf type2                [PWG5107.3]
+                                                                                                     keyword
    printer-state-reasons                      marker-developer-almost-empty                          1setOf type2                [PWG5100.9]
                                                                                                      keyword
    printer-state-reasons                      marker-developer-empty                                 1setOf type2                [PWG5100.9]
+                                                                                                     keyword
+   printer-state-reasons                      marker-developer-missing                               1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      marker-fuser-missing                                   1setOf type2                [PWG5107.3]
                                                                                                      keyword
    printer-state-reasons                      marker-fuser-thermistor-failure                        1setOf type2                [PWG5100.9]
                                                                                                      keyword
@@ -6159,15 +6194,27 @@ Keyword Attribute Values
                                                                                                      keyword
    printer-state-reasons                      marker-ink-empty                                       1setOf type2                [PWG5100.9]
                                                                                                      keyword
+   printer-state-reasons                      marker-ink-missing                                     1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      marker-opc-missing                                     1setOf type2                [PWG5107.3]
+                                                                                                     keyword
    printer-state-reasons                      marker-print-ribbon-almost-empty                       1setOf type2                [PWG5100.9]
                                                                                                      keyword
    printer-state-reasons                      marker-print-ribbon-empty                              1setOf type2                [PWG5100.9]
+                                                                                                     keyword
+   printer-state-reasons                      marker-print-ribbon-missing                            1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      marker-supply-almost-empty                             1setOf type2                [PWG5107.3]
                                                                                                      keyword
    printer-state-reasons                      marker-supply-empty                                    1setOf type2                [RFC8011]
                                                                                                      keyword
    printer-state-reasons                      marker-supply-low                                      1setOf type2                [RFC8011]
                                                                                                      keyword
+   printer-state-reasons                      marker-supply-missing                                  1setOf type2                [PWG5107.3]
+                                                                                                     keyword
    printer-state-reasons                      marker-toner-cartridge-missing                         1setOf type2                [PWG5100.9]
+                                                                                                     keyword
+   printer-state-reasons                      marker-toner-missing                                   1setOf type2                [PWG5107.3]
                                                                                                      keyword
    printer-state-reasons                      marker-waste-almost-full                               1setOf type2                [RFC8011]
                                                                                                      keyword
@@ -6177,9 +6224,15 @@ Keyword Attribute Values
                                                                                                      keyword
    printer-state-reasons                      marker-waste-ink-receptacle-full                       1setOf type2                [PWG5100.9]
                                                                                                      keyword
+   printer-state-reasons                      marker-waste-ink-receptacle-missing                    1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      marker-waste-missing                                   1setOf type2                [PWG5107.3]
+                                                                                                     keyword
    printer-state-reasons                      marker-waste-toner-receptacle-almost-full              1setOf type2                [PWG5100.9]
                                                                                                      keyword
    printer-state-reasons                      marker-waste-toner-receptacle-full                     1setOf type2                [PWG5100.9]
+                                                                                                     keyword
+   printer-state-reasons                      marker-waste-toner-receptacle-missing                  1setOf type2                [PWG5107.3]
                                                                                                      keyword
    printer-state-reasons                      material-empty                                         1setOf type2                [PWG5100.21]
                                                                                                      keyword
@@ -6199,11 +6252,37 @@ Keyword Attribute Values
                                                                                                      keyword
    printer-state-reasons                      media-path-cannot-duplex-media-selected                1setOf type2                [PWG5100.9]
                                                                                                      keyword
+   printer-state-reasons                      media-path-failure                                     1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      media-path-input-empty                                 1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      media-path-input-feed-error                            1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      media-path-input-jam                                   1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      media-path-input-request                               1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      media-path-jam                                         1setOf type2                [PWG5107.3]
+                                                                                                     keyword
    printer-state-reasons                      media-path-media-tray-almost-full                      1setOf type2                [PWG5100.9]
                                                                                                      keyword
    printer-state-reasons                      media-path-media-tray-full                             1setOf type2                [PWG5100.9]
                                                                                                      keyword
    printer-state-reasons                      media-path-media-tray-missing                          1setOf type2                [PWG5100.9]
+                                                                                                     keyword
+   printer-state-reasons                      media-path-output-feed-error                           1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      media-path-output-full                                 1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      media-path-output-jam                                  1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      media-path-pick-roller-failure                         1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      media-path-pick-roller-life-over                       1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      media-path-pick-roller-life-warn                       1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      media-path-pick-roller-missing                         1setOf type2                [PWG5107.3]
                                                                                                      keyword
    printer-state-reasons                      motor-failure                                          1setOf type2                [PWG5100.21]
                                                                                                      keyword
@@ -6222,6 +6301,12 @@ Keyword Attribute Values
    printer-state-reasons                      output-area-full                                       1setOf type2                [RFC8011]
                                                                                                      keyword
    printer-state-reasons                      output-mailbox-select-failure                          1setOf type2                [PWG5100.9]
+                                                                                                     keyword
+   printer-state-reasons                      output-media-tray-failure                              1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      output-media-tray-feed-error                           1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      output-media-tray-jam                                  1setOf type2                [PWG5107.3]
                                                                                                      keyword
    printer-state-reasons                      output-tray-missing                                    1setOf type2                [RFC8011]
                                                                                                      keyword
@@ -6390,6 +6475,52 @@ Keyword Attribute Values
    printer-state-reasons                      puncher-unrecoverable-storage-error                    1setOf type2                [PWG5100.9]
                                                                                                      keyword
    printer-state-reasons                      puncher-warming-up                                     1setOf type2                [PWG5100.9]
+                                                                                                     keyword
+   printer-state-reasons                      scan-media-path-failure                                1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scan-media-path-input-feed-error                       1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scan-media-path-input-jam                              1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scan-media-path-input-request                          1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scan-media-path-jam                                    1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scan-media-path-output-feed-error                      1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scan-media-path-output-full                            1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scan-media-path-output-jam                             1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scan-media-path-pick-roller-failure                    1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scan-media-path-pick-roller-life-over                  1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scan-media-path-pick-roller-life-warn                  1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scan-media-path-pick-roller-missing                    1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scan-media-path-tray-almost-full                       1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scan-media-path-tray-full                              1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scan-media-path-tray-missing                           1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scanner-light-failure                                  1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scanner-light-life-almost-over                         1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scanner-light-life-over                                1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scanner-light-missing                                  1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scanner-sensor-failure                                 1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scanner-sensor-life-almost-over                        1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scanner-sensor-life-over                               1setOf type2                [PWG5107.3]
+                                                                                                     keyword
+   printer-state-reasons                      scanner-sensor-missing                                 1setOf type2                [PWG5107.3]
                                                                                                      keyword
    printer-state-reasons                      separation-cutter-added                                1setOf type2                [PWG5100.9]
                                                                                                      keyword
