@@ -1,7 +1,7 @@
                                                     Transmission Control Protocol (TCP) Parameters
 
    Last Updated
-           2019-05-23
+           2019-07-26
 
    Available Formats
            [IMG]
@@ -19,6 +19,7 @@
      * TCP Experimental Option Experiment Identifiers (TCP ExIDs)
      * TCP Encryption Protocol Identifiers
      * tcpcrypt AEAD Algorithms
+     * MPTCP MP_TCPRST Reason Codes
 
 TCP Option Kind Numbers
 
@@ -87,7 +88,7 @@ TCP Option Kind Numbers
    27     8        Quick-Start Response                                                        [RFC4782]
    28     4        User Timeout Option (also, other known unauthorized use) [***][1]           [RFC5482]
    29              TCP Authentication Option (TCP-AO)                                          [RFC5925]
-   30     N        Multipath TCP (MPTCP)                                                       [RFC6824]
+   30     N        Multipath TCP (MPTCP)                                                       [RFC-ietf-mptcp-rfc6824bis-18]
    31              Reserved (known unauthorized use without proper IANA assignment) [**]
    32              Reserved (known unauthorized use without proper IANA assignment) [**]
    33              Reserved (known unauthorized use without proper IANA assignment) [**]
@@ -146,23 +147,30 @@ MPTCP Option Subtypes
  Standards Action
 
    Reference
-           [RFC6824]
+           [RFC-ietf-mptcp-rfc6824bis-18]
+
+   Note
+
+ This registry specifies the MPTCP Option Subtypes for MPTCP v1,
+ which obsoletes the Experimental MPTCP v0.  For the MPTCP v0
+ subtypes, please refer to [RFC6824].
 
    Available Formats
            [IMG]
            CSV
 
-    Value           Symbol                                    Name                                   Reference
-   0x0     MP_CAPABLE               Multipath Capable                                         [RFC6824], Section 3.1
-   0x1     MP_JOIN                  Join Connection                                           [RFC6824], Section 3.2
-   0x2     DSS                      Data Sequence Signal (Data ACK and Data Sequence Mapping) [RFC6824], Section 3.3
-   0x3     ADD_ADDR                 Add Address                                               [RFC6824], Section 3.4.1
-   0x4     REMOVE_ADDR              Remove Address                                            [RFC6824], Section 3.4.2
-   0x5     MP_PRIO                  Change Subflow Priority                                   [RFC6824], Section 3.3.8
-   0x6     MP_FAIL                  Fallback                                                  [RFC6824], Section 3.6
-   0x7     MP_FASTCLOSE             Fast Close                                                [RFC6824], Section 3.5
-   0x8-0xe Unassigned
-   0xf     Reserved for Private Use                                                           [RFC6824]
+    Value           Symbol                                    Name                                              Reference
+   0x0     MP_CAPABLE               Multipath Capable                                         [RFC-ietf-mptcp-rfc6824bis-18, Section 3.1]
+   0x1     MP_JOIN                  Join Connection                                           [RFC-ietf-mptcp-rfc6824bis-18, Section 3.2]
+   0x2     DSS                      Data Sequence Signal (Data ACK and data sequence mapping) [RFC-ietf-mptcp-rfc6824bis-18, Section 3.3]
+   0x3     ADD_ADDR                 Add Address                                               [RFC-ietf-mptcp-rfc6824bis-18, Section 3.4.1]
+   0x4     REMOVE_ADDR              Remove Address                                            [RFC-ietf-mptcp-rfc6824bis-18, Section 3.4.2]
+   0x5     MP_PRIO                  Change Subflow Priority                                   [RFC-ietf-mptcp-rfc6824bis-18, Section 3.3.8]
+   0x6     MP_FAIL                  Fallback                                                  [RFC-ietf-mptcp-rfc6824bis-18, Section 3.7]
+   0x7     MP_FASTCLOSE             Fast Close                                                [RFC-ietf-mptcp-rfc6824bis-18, Section 3.5]
+   0x8     MP_TCPRST                Subflow Reset                                             [RFC-ietf-mptcp-rfc6824bis-18, Section 3.6]
+   0x9-0xe Unassigned
+   0xf     Reserved for Private Use                                                           [RFC-ietf-mptcp-rfc6824bis-18]
 
 MPTCP Handshake Algorithms
 
@@ -171,17 +179,24 @@ MPTCP Handshake Algorithms
  Standards Action
 
    Reference
-           [RFC6824]
+           [RFC-ietf-mptcp-rfc6824bis-18]
+
+   Note
+
+ This registry specifies the MPTCP Handshake Algorithms for
+ MPTCP v1, which obsoletes the Experimental MPTCP v0.  For the MPTCP
+ v0 subtypes, please refer to [RFC6824].
 
    Available Formats
            [IMG]
            CSV
 
-   Flag Bit      Meaning            Reference
-   A        Checksum required [RFC6824], Section 3.1
-   B        Extensibility     [RFC6824], Section 3.2
-   C-G      Unassigned
-   H        HMAC-SHA1         [RFC6824], Section 3.2
+   Flag Bit                             Meaning                                              Reference
+   A        Checksum required                                               [RFC-ietf-mptcp-rfc6824bis-18, Section 3.1]
+   B        Extensibility                                                   [RFC-ietf-mptcp-rfc6824bis-18, Section 3.1]
+   C        Do not attempt to establish new subflows to the source address. [RFC-ietf-mptcp-rfc6824bis-18, Section 3.1]
+   D-G      Unassigned
+   H        HMAC-SHA256                                                     [RFC-ietf-mptcp-rfc6824bis-18, Section 3.2]
 
 TCP Experimental Option Experiment Identifiers (TCP ExIDs)
 
@@ -265,6 +280,33 @@ tcpcrypt AEAD Algorithms
    0x0003-0x000f Unassigned
    0x0010        AEAD_CHACHA20_POLY1305 [RFC8548]
    0x0011-0xffff Unassigned
+
+MPTCP MP_TCPRST Reason Codes
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-mptcp-rfc6824bis-18]
+
+   Available Formats
+           [IMG]
+           CSV
+
+     Code              Meaning                            Reference
+   0x00      Unspecified TCP error       [RFC-ietf-mptcp-rfc6824bis-18, Section 3.6]
+   0x01      MPTCP specific error        [RFC-ietf-mptcp-rfc6824bis-18, Section 3.6]
+   0x02      Lack of resources           [RFC-ietf-mptcp-rfc6824bis-18, Section 3.6]
+   0x03      Administratively prohibited [RFC-ietf-mptcp-rfc6824bis-18, Section 3.6]
+   0x04      Too much outstanding data   [RFC-ietf-mptcp-rfc6824bis-18, Section 3.6]
+   0x05      Unacceptable performance    [RFC-ietf-mptcp-rfc6824bis-18, Section 3.6]
+   0x06      Middlebox interference      [RFC-ietf-mptcp-rfc6824bis-18, Section 3.6]
+   0x07-0xff Unassigned
 
                                                                         People
 

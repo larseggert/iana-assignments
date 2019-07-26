@@ -32,6 +32,9 @@
       <xsl:when test="@id = 'tcpcrypt-aead-algorithms'">
         <tr><th>Value</th><th>AEAD Algorithm</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'mptcp-mp-tcprst-reason-codes'">
+        <tr><th>Code</th><th>Meaning</th><th>Reference</th></tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -88,6 +91,13 @@
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'tcpcrypt-aead-algorithms'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'mptcp-mp-tcprst-reason-codes'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
