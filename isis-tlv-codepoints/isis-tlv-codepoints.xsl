@@ -73,6 +73,7 @@
       <tr>
         <th>Value</th>
         <th>Name</th>
+		<th>Reference</th>
       </tr>
      </xsl:when>
      
@@ -165,6 +166,7 @@
       <tr>
        <td><xsl:value-of select="iana:value"/></td>
        <td><xsl:value-of select="iana:name"/></td>
+	   <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
      </xsl:when>
       <xsl:when test="../@id = 'isis-tlv-codepoints-135-235-236-237'">
