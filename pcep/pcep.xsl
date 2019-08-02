@@ -145,7 +145,8 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'bu-object-type-field'">
+      <xsl:when test="@id = 'bu-object-type-field'
+        or @id = 'association-type-field'">
         <tr>
           <th>Type</th>
           <th>Name</th>
@@ -173,7 +174,8 @@
         or @id = 'wavelength-allocation-tlv-flag-field'
         or @id = 's2ls-object-flag-field'
         or @id = 'h-pce-capability-tlv-flag-field'
-        or @id = 'h-pce-flag-tlv-flag-field'">
+        or @id = 'h-pce-flag-tlv-flag-field'
+        or @id = 'association-flag-field'">
         <tr>
           <th>Bit</th>
           <th>Description</th>
