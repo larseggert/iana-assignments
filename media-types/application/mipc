@@ -1,0 +1,100 @@
+(registered 2019-08-21, last updated 2019-08-21)
+
+Type name:
+application
+
+Subtype name:
+mipc
+
+Required parameters:
+N/A
+
+Optional parameters:
+N/A
+
+Encoding considerations:
+Binary: This media type requires encoding on transports not capable of handling binary
+
+Security considerations:
+MIPC utilizes a structure that can store arrays of point cloud data and metadata corresponding to this point cloud data. The fields defined in the MIPC are of a descriptive nature and provide information that may be useful to facilitate viewing, rendering, and cataloging of data by a recipient. As such, the fields currently defined in the MIPC format do not in and of themselves create additional security risks, since the fields are not used to induce any behavior by the recipient application.
+
+However, MIPC has an extensible structure, supporting both extensions defined and standardized by NGA and vendor-defined extensions, thus presenting additional security risks. It is thus possible that data embedded in a MIPC file could be used to induce actions on the part of the recipient, either through a well-defined and known software capability, or as a result of malware or other malicious exploitation.
+
+In addition, MIPC uses HDF5 as its underlying data format. Any security concerns related to HDF5 also apply to MIPC.
+
+MIPC includes metadata fields specifying confidentiality markings, access rights and handling of the data, including requirements if the file is to be maintained in a secure environment. In this case the intention is that alteration or removal of this metadata from the file would be treated as an offense under national or international law, as would be removing the file from a secure environment. While MIPC does not include the ability within itself to encrypt the contents, end-to-end encryption (e.g., HTTPS, TLS, SSL) should be used when transmitting files that include sensitive data or where access is restricted. Once received, these sensitive files should also be encrypted at rest using storage-based encryption mechanisms.
+
+MIPC, given its use of HDF5, does provide for the data to be compressed, and thus processing of the data could consume significantly more resources than might be assumed solely based on the compressed size of the data file.
+
+Interoperability considerations:
+MIPC data is encoded using HDF5 as the underlying data format. Any tool that consumes an HDF5 file can provide access to the MIPC data, even if it does not understand the semantics of the data or the specific organization of the data within the file.
+
+Referenced to published specification:
+NGA.STND.0055-02 MIPCFFDD - 
+NGA.STND.0055-01 MIPCDIDD - 
+Modality Independent Point Cloud (MIPC), Volume 1, Design and Implementation Description Document (DIDD)
+Modality Independent Point Cloud (MIPC), Vol 2, File Format Description Document (FFDD)
+
+This standard is available at the National System for Geospatial Intelligence (NSG) Standards Registry at the following URLs:
+https://nsgreg.nga.mil/JESC-approved.jsp
+https://nsgreg.nga.mil/doc/view?i=4246 https://nsgreg.nga.mil/doc/view?i=4247
+
+Application usage:
+The Modality Independent Point Cloud (MIPC) standard defines the content, structure, and file format for geospatial data in 3D irregularly sampled point clouds. 3D point cloud data can be created from different remote sensing modalities; such as Light Detection and Ranging (LiDAR), multi-look electro-optical (EO) imagery, and Synthetic Aperture RADAR (SAR). The MIPC standard is implemented in the Hierarchical Data Format, version 5 (HDF5) as the file container. MIPC defines a more general point cloud than point clouds from particular phenomenologies such as Sensor Independent Point Cloud (SIPC) standard for LIDAR. The MIPC FFDD describes the conventions, methods, and processes for storing and extracting geospatial point cloud information based on the MIPC standard for data and metadata content established by the National Geospatial-Intelligence Agency (NGA).
+
+MIPC is designed to solve the problems of the current point cloud formats such as LAS, BPF, and FXYZ. The MIPC standard provides an efficient data structure for point clouds that supports internal tiling of large collections of points within the file to accommodate any spatial acceleration structure, such as octrees and quadtrees, or even simple spatial tiling. These tiling strategies speed up search of relevant points for a given Area of Interest (AOI). The data structure also supports the inclusion or fusion of point cloud data from multiple sensors and modalities over the same scene. MIPC also standardizes a rich collection of metadata in a hierarchical structure to reduce redundancy of information, and to provide information in the proper location within the file. MIPC mandates HDF5 as the file format container. This format is already used heavily within the scientific data community and has an established Application Programming Interface (API) that greatly reduces development effort and risk for tools that write and read this type of data. The format supports the storage of additional auxiliary data, such as images, DEM, extracted features, shapes, text, tables, signatures, etc.
+
+Fragment identifier considerations:
+N/A
+
+Restrictions on usage:
+The MIPC standard is intended to be a US Government standard open to the public. There are no ITAR (International Traffic in Arms Regulations) specific data within the MIPC specification. There are no patents associated with the specification. Copyrights belong to the US Government to the extent they do for any other standard specification published in this manner. There is no cost for accessing this standard, and there is no use license.
+
+Additional Information:
+
+   Magic number:
+   To first verify that the file is HDF5 formatted, the data consumer 
+   must search for the HDF5 superblock. The superblock may begin at 
+   certain predefined offsets within the HDF5 file, allowing a block 
+   of unspecified content for users to place additional information 
+   at the beginning (and end) of the HDF5 file without limiting the 
+   HDF5 Library’s ability to manage the objects within the file 
+   itself. This feature was designed to accommodate wrapping an HDF5 
+   file in another file format or adding descriptive information to 
+   an HDF5 file without requiring the modification of the actual 
+   file’s information. The superblock is located by searching for the 
+   HDF5 format signature at byte offset 0, byte offset 512, and at 
+   successive locations in the file, each a multiple of two of the 
+   previous location; in other words, at these byte offsets: 0, 512, 
+   1024, 2048, and so on. The first eight bytes of the superblock are 
+   “\211HDF\r\n\032\n” (0x89, 0x48, 0x44, 0x46, 0x0d, 0x0a, 0x1a, 
+   0x0a)
+
+   Once the file is identified as an HDF5, there is unfortunately no 
+   specific internal data element that can authoritatively identify 
+   the file as an MIPC file; the data consumer must attempt to parse 
+   the contained data according to the MIPC data model, and if 
+   successful, can assume that the HDF file conforms to the MIPC data 
+   model.
+
+   File extension:
+   .h5
+
+Intended usage:
+LIMITED USE
+For the transmission and indication of Point Cloud Data (from either LiDAR or electro-optical imaging sources) in the MIPC format.
+
+Contact name:
+Bryan Blank
+
+Contact email:
+ntbchair&nga.mil
+
+Author/change controller:
+National Imagery Transmission Format Technical Board
+Geospatial-Intelligence Standards Working Group
+NGA National Center for Geospatial Intelligence Standards (NCGIS)
+Mail Stop N32
+7500 GEOINT Drive
+Springfield, VA 22150
+USA

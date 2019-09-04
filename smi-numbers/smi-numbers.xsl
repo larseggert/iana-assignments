@@ -66,6 +66,7 @@
                         @id = 'security-smime-10' or
                         @id = 'security-smime-11' or
                         @id = 'security-smime-12' or
+                        @id = 'security-smime-13' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.0' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.1' or

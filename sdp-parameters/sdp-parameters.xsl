@@ -10,7 +10,6 @@
      <tr>
     <xsl:choose>
       <xsl:when test="@id = 'sdp-parameters-1' or
-        @id = 'sdp-parameters-4' or
         @id = 'sdp-parameters-5' or
         @id = 'sdp-parameters-6' or
 		      @id = 'sdp-parameters-2'">
@@ -19,14 +18,24 @@
        <th>Reference</th>
       </xsl:when>
      
-     <xsl:when test="@id = 'sdp-parameters-3' or
-      @id = 'sdp-parameters-7' or
-      @id = 'sdp-parameters-8' or
-      @id = 'sdp-parameters-9' or
-      @id = 'sdp-parameters-10' or
-      @id = 'sdp-parameters-11'">
+     <xsl:when test="@id = 'sdp-parameters-3'">
       <th>Type</th>
       <th>SDP Name</th>
+      <th>Mux Category</th>
+      <th>Reference</th>
+     </xsl:when>
+     
+     <xsl:when test="@id = 'sdp-parameters-4'">
+      <th>Type</th>
+      <th>SDP Name</th>
+      <th>Usable addrtype Values</th>
+      <th>Reference</th>
+     </xsl:when>
+     
+     <xsl:when test="@id = 'sdp-att-field'">
+      <th>Type</th>
+      <th>SDP Name</th>
+      <th>Usage Level</th>
       <th>Mux Category</th>
       <th>Reference</th>
      </xsl:when>
@@ -119,6 +128,10 @@
      <xsl:when test="@id = 'rid-attribute'">
       <th>RID Parameter Name</th><th>Reference</th>
      </xsl:when>
+	 
+     <xsl:when test="@id = 'candidate-attribute-extensions'">
+      <th>Name</th><th>Description</th><th>Change Controller</th><th>Reference</th>
+     </xsl:when>
      
     </xsl:choose>
     </tr>
@@ -129,24 +142,35 @@
     <xsl:choose>
        <xsl:when test="../@id = 'sdp-parameters-1' or
                        ../@id = 'sdp-parameters-2' or
-                       ../@id = 'sdp-parameters-4' or
                        ../@id = 'sdp-parameters-5' or
                        ../@id = 'sdp-parameters-6'">
        <td><xsl:value-of select="iana:type"/></td>
        <td><xsl:value-of select="iana:name"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
       </xsl:when>
-     <xsl:when test="../@id = 'sdp-parameters-3' or
-      ../@id = 'sdp-parameters-7' or
-      ../@id = 'sdp-parameters-8' or
-      ../@id = 'sdp-parameters-9' or
-      ../@id = 'sdp-parameters-10' or
-      ../@id = 'sdp-parameters-11'">
+     
+     <xsl:when test="../@id = 'sdp-parameters-3'">
       <td><xsl:value-of select="iana:type"/></td>
       <td><xsl:value-of select="iana:name"/></td>
       <td><xsl:value-of select="iana:mux"/></td>
       <td><xsl:apply-templates select="iana:xref"/></td>
      </xsl:when>
+     
+     <xsl:when test="../@id = 'sdp-parameters-4'">
+      <td><xsl:value-of select="iana:type"/></td>
+      <td><xsl:value-of select="iana:name"/></td>
+      <td><xsl:apply-templates select="iana:usable"/></td>
+      <td><xsl:apply-templates select="iana:xref"/></td>
+     </xsl:when>
+     
+     <xsl:when test="../@id = 'sdp-att-field'">
+      <td><xsl:value-of select="iana:type"/></td>
+      <td><xsl:value-of select="iana:name"/></td>
+      <td><xsl:value-of select="iana:usage"/></td>
+      <td><xsl:value-of select="iana:mux"/></td>
+      <td><xsl:apply-templates select="iana:xref"/></td>
+     </xsl:when>
+     
       <xsl:when test="../@id = 'sdp-parameters-12'">
        <td><xsl:value-of select="iana:type"/></td>
        <td><xsl:value-of select="iana:name"/></td>
@@ -154,18 +178,21 @@
        <td><xsl:value-of select="iana:mux"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
       </xsl:when>
-      <xsl:when test="../@id = 'sdp-parameters-13'">
+      <xsl:when test
+       ="../@id = 'sdp-parameters-13'">
        <td><xsl:value-of select="iana:description"/></td>
        <td><xsl:value-of select="iana:name"/></td>
        <td><xsl:value-of select="iana:mux"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
-      </xsl:when>      
+      </xsl:when>
+     
      <xsl:when test="../@id = 'cs-correlation-values'">
        <td><xsl:value-of select="iana:value"/></td>
        <td><xsl:value-of select="iana:description"/></td>
       <td><xsl:value-of select="iana:mux"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
       </xsl:when>
+     
       <xsl:when test="../@id = 'sdp-parameters-14' or
                        ../@id = 'sdp-parameters-16' or
                        ../@id = 'sdp-parameters-17' or
@@ -175,6 +202,7 @@
        <td><xsl:value-of select="iana:mux"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
       </xsl:when>
+     
       <xsl:when test="../@id = 'sdp-parameters-15' or
                        ../@id = 'sdp-parameters-19'">
        <td><xsl:value-of select="iana:name"/></td>
@@ -183,12 +211,14 @@
        <td><xsl:value-of select="iana:mux"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
       </xsl:when>
+     
       <xsl:when test="../@id = 'sdp-parameters-20' or
                        ../@id = 'sdp-parameters-21'">
        <td><xsl:value-of select="iana:name"/></td>
        <td><xsl:value-of select="iana:mux"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
       </xsl:when>
+     
       <xsl:when test="../@id = 'sdp-parameters-22'">
        <td><xsl:value-of select="iana:name"/></td>
        <td><xsl:value-of select="iana:description"/></td>
@@ -196,25 +226,37 @@
        <td><xsl:apply-templates select="iana:actual"/></td>
        <td><xsl:apply-templates select="iana:latent"/></td>
       </xsl:when>
+     
      <xsl:when test="../@id = 'multiplexing-categories'">
       <td><xsl:value-of select="iana:value"/></td>
       <td><xsl:apply-templates select="iana:xref"/></td>
      </xsl:when>
+     
      <xsl:when test="../@id = 'association-usage-name'">
       <td><xsl:value-of select="iana:value"/></td>
       <td><xsl:apply-templates select="iana:xref"/></td>
       <td><xsl:apply-templates select="iana:controller"/></td>
      </xsl:when>
+     
      <xsl:when test="../@id = 'rid-attribute'">
       <td><xsl:value-of select="iana:value"/></td>
       <td><xsl:apply-templates select="iana:xref"/></td>
      </xsl:when>
+     
+     <xsl:when test="../@id = 'candidate-attribute-extensions'">
+      <td><xsl:value-of select="iana:value"/></td>
+	     <td><xsl:value-of select="iana:description"/></td>
+	     <td><xsl:apply-templates select="iana:controller"/></td>
+      <td><xsl:apply-templates select="iana:xref"/></td>
+     </xsl:when>
+     
      <xsl:otherwise>
        <td><xsl:value-of select="iana:value"/></td>
        <td><xsl:value-of select="iana:description"/></td>
-      <td><xsl:value-of select="iana:mux"/></td>
+       <td><xsl:value-of select="iana:mux"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
       </xsl:otherwise>
+     
     </xsl:choose>
      </tr>
   </xsl:template>
