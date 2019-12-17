@@ -21,20 +21,6 @@
         <th>rest</th>
       </tr>
      </xsl:when>
-     <xsl:when test="@id = 'ipv6-parameters-3'">
-      <tr>
-        <th>Value</th>
-        <th>Description</th>
-        <th>Reference</th>
-      </tr>
-     </xsl:when>
-      <xsl:when test="@id = 'rpl-option-tlv'">
-        <tr>
-          <th>Value</th>
-          <th>Description</th>
-          <th>Reference</th>
-        </tr>
-      </xsl:when>
       <xsl:when test="@id = 'extension-header'">
         <tr>
           <th>Protocol Number</th>
@@ -45,9 +31,22 @@
       <xsl:when test="@id = 'taggerId-types'">
         <tr><th>Type</th><th>Mnemonic</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'segment-routing-header-flags'">
+        <tr>
+          <th>Bit</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <th>Value</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
   
   
   <xsl:template match="iana:record">
@@ -98,6 +97,13 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 </xsl:stylesheet>

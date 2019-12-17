@@ -4,7 +4,7 @@
            2005-11-15
 
    Last Updated
-           2019-08-16
+           2019-12-12
 
    Available Formats
            [IMG]
@@ -71,65 +71,98 @@ TLS ExtensionType Values
            [IMG]
            CSV
 
-      Value                              Extension Name                              TLS 1.3   Recommended                Reference
-   0           server_name                                                         CH, EE      Y           [RFC6066]
-   1           max_fragment_length                                                 CH, EE      N           [RFC6066][RFC8449]
-   2           client_certificate_url                                              -           Y           [RFC6066]
-   3           trusted_ca_keys                                                     -           Y           [RFC6066]
-   4           truncated_hmac                                                      -           N           [RFC6066][IESG Action 2018-08-16]
-   5           status_request                                                      CH, CR, CT  Y           [RFC6066]
-   6           user_mapping                                                        -           Y           [RFC4681]
-   7           client_authz                                                        -           N           [RFC5878]
-   8           server_authz                                                        -           N           [RFC5878]
-   9           cert_type                                                           -           N           [RFC6091]
-   10          supported_groups (renamed from "elliptic_curves")                   CH, EE      Y           [RFC8422][RFC7919]
-   11          ec_point_formats                                                    -           Y           [RFC8422]
-   12          srp                                                                 -           N           [RFC5054]
-   13          signature_algorithms                                                CH, CR      Y           [RFC8446]
-   14          use_srtp                                                            CH, EE      Y           [RFC5764]
-   15          heartbeat                                                           CH, EE      Y           [RFC6520]
-   16          application_layer_protocol_negotiation                              CH, EE      Y           [RFC7301]
-   17          status_request_v2                                                   -           Y           [RFC6961]
-   18          signed_certificate_timestamp                                        CH, CR, CT  N           [RFC6962]
-   19          client_certificate_type                                             CH, EE      Y           [RFC7250]
-   20          server_certificate_type                                             CH, EE      Y           [RFC7250]
-   21          padding                                                             CH          Y           [RFC7685]
-   22          encrypt_then_mac                                                    -           Y           [RFC7366]
-   23          extended_master_secret                                              -           Y           [RFC7627]
-   24          token_binding                                                       -           Y           [RFC8472]
-   25          cached_info                                                         -           Y           [RFC7924]
-   26          tls_lts                                                             -           N           [draft-gutmann-tls-lts]
-   27          compress_certificate (TEMPORARY - registered 2018-05-23, extension  CH, CR      Y           [draft-ietf-tls-certificate-compression]
-               registered 2019-04-22, expires 2020-05-23)
-   28          record_size_limit                                                   CH, EE      Y           [RFC8449]
-   29          pwd_protect                                                         CH          N           [RFC8492]
-   30          pwd_clear                                                           CH          N           [RFC8492]
-   31          password_salt                                                       CH, SH, HRR N           [RFC8492]
-   32          ticket_pinning                                                      CH, EE      N           [RFC-sheffer-tls-pinning-ticket-12]
-   33-34       Unassigned
-   35          session_ticket (renamed from "SessionTicket TLS")                   -           Y           [RFC5077][RFC8447]
+      Value                             Extension Name                            TLS 1.3   Recommended                  Reference
+   0           server_name                                                      CH, EE      Y           [RFC6066]
+   1           max_fragment_length                                              CH, EE      N           [RFC6066][RFC8449]
+   2           client_certificate_url                                           -           Y           [RFC6066]
+   3           trusted_ca_keys                                                  -           Y           [RFC6066]
+   4           truncated_hmac                                                   -           N           [RFC6066][IESG Action 2018-08-16]
+   5           status_request                                                   CH, CR, CT  Y           [RFC6066]
+   6           user_mapping                                                     -           Y           [RFC4681]
+   7           client_authz                                                     -           N           [RFC5878]
+   8           server_authz                                                     -           N           [RFC5878]
+   9           cert_type                                                        -           N           [RFC6091]
+   10          supported_groups (renamed from "elliptic_curves")                CH, EE      Y           [RFC8422][RFC7919]
+   11          ec_point_formats                                                 -           Y           [RFC8422]
+   12          srp                                                              -           N           [RFC5054]
+   13          signature_algorithms                                             CH, CR      Y           [RFC8446]
+   14          use_srtp                                                         CH, EE      Y           [RFC5764]
+   15          heartbeat                                                        CH, EE      Y           [RFC6520]
+   16          application_layer_protocol_negotiation                           CH, EE      Y           [RFC7301]
+   17          status_request_v2                                                -           Y           [RFC6961]
+   18          signed_certificate_timestamp                                     CH, CR, CT  N           [RFC6962]
+   19          client_certificate_type                                          CH, EE      Y           [RFC7250]
+   20          server_certificate_type                                          CH, EE      Y           [RFC7250]
+   21          padding                                                          CH          Y           [RFC7685]
+   22          encrypt_then_mac                                                 -           Y           [RFC7366]
+   23          extended_master_secret                                           -           Y           [RFC7627]
+   24          token_binding                                                    -           Y           [RFC8472]
+   25          cached_info                                                      -           Y           [RFC7924]
+   26          tls_lts                                                          -           N           [draft-gutmann-tls-lts]
+   27          compress_certificate (TEMPORARY - registered 2018-05-23,         CH, CR      Y           [draft-ietf-tls-certificate-compression]
+               extension registered 2019-04-22, expires 2020-05-23)
+   28          record_size_limit                                                CH, EE      Y           [RFC8449]
+   29          pwd_protect                                                      CH          N           [RFC8492]
+   30          pwd_clear                                                        CH          N           [RFC8492]
+   31          password_salt                                                    CH, SH, HRR N           [RFC8492]
+   32          ticket_pinning                                                   CH, EE      N           [RFC8672]
+   33          tls_cert_with_extern_psk                                         CH, SH      N           [draft-ietf-tls-tls13-cert-with-extern-psk]
+   34          Unassigned
+   35          session_ticket (renamed from "SessionTicket TLS")                -           Y           [RFC5077][RFC8447]
    36-40       Unassigned
-   41          pre_shared_key                                                      CH, SH      Y           [RFC8446]
-   42          early_data                                                          CH, EE, NST Y           [RFC8446]
-   43          supported_versions                                                  CH, SH, HRR Y           [RFC8446]
-   44          cookie                                                              CH, HRR     Y           [RFC8446]
-   45          psk_key_exchange_modes                                              CH          Y           [RFC8446]
+   41          pre_shared_key                                                   CH, SH      Y           [RFC8446]
+   42          early_data                                                       CH, EE, NST Y           [RFC8446]
+   43          supported_versions                                               CH, SH, HRR Y           [RFC8446]
+   44          cookie                                                           CH, HRR     Y           [RFC8446]
+   45          psk_key_exchange_modes                                           CH          Y           [RFC8446]
    46          Unassigned
-   47          certificate_authorities                                             CH, CR      Y           [RFC8446]
-   48          oid_filters                                                         CR          Y           [RFC8446]
-   49          post_handshake_auth                                                 CH          Y           [RFC8446]
-   50          signature_algorithms_cert                                           CH, CR      Y           [RFC8446]
-   51          key_share                                                           CH, SH, HRR Y           [RFC8446]
-   52          transparency_info                                                   CH, CR, CT  Y           [draft-ietf-trans-rfc6962-bis]
-   53          connection_id (TEMPORARY - registered 2019-07-02, expires           -           Y           [draft-ietf-tls-dtls-connection-id]
+   47          certificate_authorities                                          CH, CR      Y           [RFC8446]
+   48          oid_filters                                                      CR          Y           [RFC8446]
+   49          post_handshake_auth                                              CH          Y           [RFC8446]
+   50          signature_algorithms_cert                                        CH, CR      Y           [RFC8446]
+   51          key_share                                                        CH, SH, HRR Y           [RFC8446]
+   52          transparency_info                                                CH, CR, CT  Y           [draft-ietf-trans-rfc6962-bis]
+   53          connection_id (TEMPORARY - registered 2019-07-02, expires        -           Y           [draft-ietf-tls-dtls-connection-id]
                2020-07-02)
    54          Unassigned
-   55          external_id_hash                                                    CH, EE      Y           [RFC-ietf-mmusic-sdp-uks-07]
-   56          external_session_id                                                 CH, EE      Y           [RFC-ietf-mmusic-sdp-uks-07]
-   57-65279    Unassigned
-   65280       Reserved for Private Use                                                                    [RFC8446]
-   65281       renegotiation_info                                                  -           Y           [RFC5746]
-   65282-65535 Reserved for Private Use                                                                    [RFC8446]
+   55          external_id_hash                                                 CH, EE      Y           [RFC-ietf-mmusic-sdp-uks-07]
+   56          external_session_id                                              CH, EE      Y           [RFC-ietf-mmusic-sdp-uks-07]
+   57-2569     Unassigned
+   2570        Reserved                                                         CH, CR, NST N           [RFC-ietf-tls-grease-04]
+   2571-6681   Unassigned
+   6682        Reserved                                                         CH, CR, NST N           [RFC-ietf-tls-grease-04]
+   6683-10793  Unassigned
+   10794       Reserved                                                         CH, CR, NST N           [RFC-ietf-tls-grease-04]
+   10795-14905 Unassigned
+   14906       Reserved                                                         CH, CR, NST N           [RFC-ietf-tls-grease-04]
+   14907-19017 Unassigned
+   19018       Reserved                                                         CH, CR, NST N           [RFC-ietf-tls-grease-04]
+   19019-23129 Unassigned
+   23130       Reserved                                                         CH, CR, NST N           [RFC-ietf-tls-grease-04]
+   23131-27241 Unassigned
+   27242       Reserved                                                         CH, CR, NST N           [RFC-ietf-tls-grease-04]
+   27243-31353 Unassigned
+   31354       Reserved                                                         CH, CR, NST N           [RFC-ietf-tls-grease-04]
+   31355-35465 Unassigned
+   35466       Reserved                                                         CH, CR, NST N           [RFC-ietf-tls-grease-04]
+   35467-39577 Unassigned
+   39578       Reserved                                                         CH, CR, NST N           [RFC-ietf-tls-grease-04]
+   39579-43689 Unassigned
+   43690       Reserved                                                         CH, CR, NST N           [RFC-ietf-tls-grease-04]
+   43691-47801 Unassigned
+   47802       Reserved                                                         CH, CR, NST N           [RFC-ietf-tls-grease-04]
+   47803-51913 Unassigned
+   51914       Reserved                                                         CH, CR, NST N           [RFC-ietf-tls-grease-04]
+   51915-56025 Unassigned
+   56026       Reserved                                                         CH, CR, NST N           [RFC-ietf-tls-grease-04]
+   56027-60137 Unassigned
+   60138       Reserved                                                         CH, CR, NST N           [RFC-ietf-tls-grease-04]
+   60139-64249 Unassigned
+   64250       Reserved                                                         CH, CR, NST N           [RFC-ietf-tls-grease-04]
+   64251-65279 Unassigned
+   65280       Reserved for Private Use                                                                 [RFC8446]
+   65281       renegotiation_info                                               -           Y           [RFC5746]
+   65282-65535 Reserved for Private Use                                                                 [RFC8446]
 
 TLS Certificate Types
 
@@ -225,6 +258,22 @@ TLS Application-Layer Protocol Negotiation (ALPN) Protocol IDs
            CSV
 
              Protocol                        Identification Sequence                                          Reference
+   Reserved                      0x0A 0x0A                                        [RFC-ietf-tls-grease-04]
+   Reserved                      0x1A 0x1A                                        [RFC-ietf-tls-grease-04]
+   Reserved                      0x2A 0x2A                                        [RFC-ietf-tls-grease-04]
+   Reserved                      0x3A 0x3A                                        [RFC-ietf-tls-grease-04]
+   Reserved                      0x4A 0x4A                                        [RFC-ietf-tls-grease-04]
+   Reserved                      0x5A 0x5A                                        [RFC-ietf-tls-grease-04]
+   Reserved                      0x6A 0x6A                                        [RFC-ietf-tls-grease-04]
+   Reserved                      0x7A 0x7A                                        [RFC-ietf-tls-grease-04]
+   Reserved                      0x8A 0x8A                                        [RFC-ietf-tls-grease-04]
+   Reserved                      0x9A 0x9A                                        [RFC-ietf-tls-grease-04]
+   Reserved                      0xAA 0xAA                                        [RFC-ietf-tls-grease-04]
+   Reserved                      0xBA 0xBA                                        [RFC-ietf-tls-grease-04]
+   Reserved                      0xCA 0xCA                                        [RFC-ietf-tls-grease-04]
+   Reserved                      0xDA 0xDA                                        [RFC-ietf-tls-grease-04]
+   Reserved                      0xEA 0xEA                                        [RFC-ietf-tls-grease-04]
+   Reserved                      0xFA 0xFA                                        [RFC-ietf-tls-grease-04]
    HTTP/0.9                      0x68 0x74 0x74 0x70 0x2f 0x30 0x2e 0x39          [RFC1945]
                                  ("http/0.9")
    HTTP/1.0                      0x68 0x74 0x74 0x70 0x2f 0x31 0x2e 0x30          [RFC1945]
@@ -254,6 +303,10 @@ TLS Application-Layer Protocol Negotiation (ALPN) Protocol IDs
                                  0x6e 0x74 ("xmpp-client")
    XMPP jabber:server namespace  0x78 0x6d 0x70 0x70 0x2d 0x73 0x65 0x72 0x76     [https://xmpp.org/extensions/xep-0368.html]
                                  0x65 0x72 ("xmpp-server")
+   acme-tls/1                    0x61 0x63 0x6d 0x65 0x2d 0x74 0x6c 0x73 0x2f     [RFC-ietf-acme-tls-alpn-07]
+                                 0x31 ("acme-tls/1")
+   OASIS Message Queuing         0x6d 0x71 0x74 0x74 (“mqtt”)                     [http://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html]
+   Telemetry Transport (MQTT)
 
 TLS CachedInformationType Values
 

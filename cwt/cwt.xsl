@@ -19,6 +19,17 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'confirmation-methods'">
+		<tr>
+          <th>Confirmation Method Name</th>
+          <th>Confirmation Method Description</th>
+		  <th>JWT Confirmation Method Name</th>
+		  <th>Confirmation Key</th>
+		  <th>Confirmation Value Type</th>
+          <th>Change Controller</th>
+          <th>Reference</th>
+	    </tr>
+      </xsl:when>	  
     </xsl:choose>
   </xsl:template>
 
@@ -27,6 +38,17 @@
       <xsl:when test="../@id = 'claims-registry'">
         <tr>
           <td><xsl:value-of select="iana:claim"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:value-of select="iana:jwt"/></td>
+          <td><xsl:apply-templates select="iana:key"/></td>
+          <td><xsl:apply-templates select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:change"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'confirmation-methods'">
+        <tr>
+          <td><xsl:value-of select="iana:confirmation"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:value-of select="iana:jwt"/></td>
           <td><xsl:apply-templates select="iana:key"/></td>

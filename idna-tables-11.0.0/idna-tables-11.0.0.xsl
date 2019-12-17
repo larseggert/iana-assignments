@@ -9,7 +9,12 @@
   <xsl:template name="iana:record_header">
     <xsl:choose> 
       <xsl:when test="@id = 'idna-tables-properties'">
-        <tr><th>Codepoint</th><th>Property</th><th>Description</th></tr>
+        <tr>
+          <th>Codepoint</th>
+          <th>Property</th>
+          <th>Status</th>
+          <th>Description</th>
+        </tr>
       </xsl:when>
       <xsl:when test="@id = 'idna-tables-context'">
        <tr>
@@ -29,6 +34,7 @@
         <tr>
           <td align="right"><xsl:value-of select="iana:codepoint"/></td>
           <td><xsl:value-of select="iana:property"/></td>
+          <td><xsl:value-of select="iana:status"/></td>
           <td><xsl:value-of select="iana:description"/></td>
         </tr>
       </xsl:when>

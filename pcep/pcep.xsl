@@ -146,7 +146,8 @@
         </tr>
       </xsl:when>
       <xsl:when test="@id = 'bu-object-type-field'
-        or @id = 'association-type-field'">
+        or @id = 'association-type-field'
+        or @id = 'auto-bandwidth-attributes-sub-tlv'">
         <tr>
           <th>Type</th>
           <th>Name</th>
@@ -175,7 +176,8 @@
         or @id = 's2ls-object-flag-field'
         or @id = 'h-pce-capability-tlv-flag-field'
         or @id = 'h-pce-flag-tlv-flag-field'
-        or @id = 'association-flag-field'">
+        or @id = 'association-flag-field'
+        or @id = 'auto-bandwidth-capability-tlv-flag-field'">
         <tr>
           <th>Bit</th>
           <th>Description</th>
@@ -189,6 +191,13 @@
         <tr>
           <th>Value</th>
           <th>Meaning</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'path-protection-association-group-tlv-flag-field'">
+        <tr>
+          <th>Bit</th>
+          <th>Name</th>
           <th>Reference</th>
         </tr>
       </xsl:when>

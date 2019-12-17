@@ -4,7 +4,7 @@
            2019-01-02
 
    Last Updated
-           2019-03-13
+           2019-10-28
 
    Available Formats
            [IMG]
@@ -22,6 +22,8 @@
      * ACME Directory Metadata Fields
      * ACME Identifier Types
      * ACME Validation Methods
+     * ACME Order Auto-Renewal Fields
+     * ACME Directory Metadata Auto-Renewal Fields
 
 ACME Account Object Fields
 
@@ -65,16 +67,18 @@ ACME Order Object Fields
            [IMG]
            CSV
 
-     Field Name     Field Type    Configurable Reference
-   status         string          false        [RFC8555]
-   expires        string          false        [RFC8555]
-   identifiers    array of object true         [RFC8555]
-   notBefore      string          true         [RFC8555]
-   notAfter       string          true         [RFC8555]
-   error          string          false        [RFC8555]
-   authorizations array of string false        [RFC8555]
-   finalize       string          false        [RFC8555]
-   certificate    string          false        [RFC8555]
+      Field Name      Field Type    Configurable        Reference
+   status           string          false        [RFC8555]
+   expires          string          false        [RFC8555]
+   identifiers      array of object true         [RFC8555]
+   notBefore        string          true         [RFC8555]
+   notAfter         string          true         [RFC8555]
+   error            string          false        [RFC8555]
+   authorizations   array of string false        [RFC8555]
+   finalize         string          false        [RFC8555]
+   certificate      string          false        [RFC8555]
+   auto-renewal     object          true         [RFC-ietf-acme-star-11]
+   star-certificate string          false        [RFC-ietf-acme-star-11]
 
 ACME Authorization Object Fields
 
@@ -117,31 +121,39 @@ ACME Error Types
            [IMG]
            CSV
 
-            Type                                                   Description                                          Reference
-   accountDoesNotExist     The request specified an account that does not exist                                         [RFC8555]
-   alreadyRevoked          The request specified a certificate to be revoked that has already been revoked              [RFC8555]
-   badCSR                  The CSR is unacceptable (e.g., due to a short key)                                           [RFC8555]
-   badNonce                The client sent an unacceptable anti-replay nonce                                            [RFC8555]
-   badPublicKey            The JWS was signed by a public key the server does not support                               [RFC8555]
-   badRevocationReason     The revocation reason provided is not allowed by the server                                  [RFC8555]
-   badSignatureAlgorithm   The JWS was signed with an algorithm the server does not support                             [RFC8555]
-   caa                     Certification Authority Authorization (CAA) records forbid the CA from issuing a certificate [RFC8555]
-   compound                Specific error conditions are indicated in the "subproblems" array                           [RFC8555]
-   connection              The server could not connect to validation target                                            [RFC8555]
-   dns                     There was a problem with a DNS query during identifier validation                            [RFC8555]
-   externalAccountRequired The request must include a value for the "externalAccountBinding" field                      [RFC8555]
-   incorrectResponse       Response received didn't match the challenge's requirements                                  [RFC8555]
-   invalidContact          A contact URL for an account was invalid                                                     [RFC8555]
-   malformed               The request message was malformed                                                            [RFC8555]
-   orderNotReady           The request attempted to finalize an order that is not ready to be finalized                 [RFC8555]
-   rateLimited             The request exceeds a rate limit                                                             [RFC8555]
-   rejectedIdentifier      The server will not issue certificates for the identifier                                    [RFC8555]
-   serverInternal          The server experienced an internal error                                                     [RFC8555]
-   tls                     The server received a TLS error during validation                                            [RFC8555]
-   unauthorized            The client lacks sufficient authorization                                                    [RFC8555]
-   unsupportedContact      A contact URL for an account used an unsupported protocol scheme                             [RFC8555]
-   unsupportedIdentifier   An identifier is of an unsupported type                                                      [RFC8555]
-   userActionRequired      Visit the "instance" URL and take actions specified there                                    [RFC8555]
+                 Type                                                     Description                                              Reference
+   accountDoesNotExist               The request specified an account that does not exist                                   [RFC8555]
+   alreadyRevoked                    The request specified a certificate to be revoked that has already been revoked        [RFC8555]
+   badCSR                            The CSR is unacceptable (e.g., due to a short key)                                     [RFC8555]
+   badNonce                          The client sent an unacceptable anti-replay nonce                                      [RFC8555]
+   badPublicKey                      The JWS was signed by a public key the server does not support                         [RFC8555]
+   badRevocationReason               The revocation reason provided is not allowed by the server                            [RFC8555]
+   badSignatureAlgorithm             The JWS was signed with an algorithm the server does not support                       [RFC8555]
+   caa                               Certification Authority Authorization (CAA) records forbid the CA from issuing a       [RFC8555]
+                                     certificate
+   compound                          Specific error conditions are indicated in the "subproblems" array                     [RFC8555]
+   connection                        The server could not connect to validation target                                      [RFC8555]
+   dns                               There was a problem with a DNS query during identifier validation                      [RFC8555]
+   externalAccountRequired           The request must include a value for the "externalAccountBinding" field                [RFC8555]
+   incorrectResponse                 Response received didn't match the challenge's requirements                            [RFC8555]
+   invalidContact                    A contact URL for an account was invalid                                               [RFC8555]
+   malformed                         The request message was malformed                                                      [RFC8555]
+   orderNotReady                     The request attempted to finalize an order that is not ready to be finalized           [RFC8555]
+   rateLimited                       The request exceeds a rate limit                                                       [RFC8555]
+   rejectedIdentifier                The server will not issue certificates for the identifier                              [RFC8555]
+   serverInternal                    The server experienced an internal error                                               [RFC8555]
+   tls                               The server received a TLS error during validation                                      [RFC8555]
+   unauthorized                      The client lacks sufficient authorization                                              [RFC8555]
+   unsupportedContact                A contact URL for an account used an unsupported protocol scheme                       [RFC8555]
+   unsupportedIdentifier             An identifier is of an unsupported type                                                [RFC8555]
+   userActionRequired                Visit the "instance" URL and take actions specified there                              [RFC8555]
+   autoRenewalCanceled               The short-term certificate is no longer available because the auto-renewal Order has   [RFC-ietf-acme-star-11]
+                                     been explicitly canceled by the IdO
+   autoRenewalExpired                The short-term certificate is no longer available because the auto-renewal Order has   [RFC-ietf-acme-star-11]
+                                     expired
+   autoRenewalCancellationInvalid    A request to cancel an auto-renewal Order that is not in state "valid" has been        [RFC-ietf-acme-star-11]
+                                     received
+   autoRenewalRevocationNotSupported A request to revoke an auto-renewal Order has been received                            [RFC-ietf-acme-star-11]
 
 ACME Resource Types
 
@@ -186,11 +198,12 @@ ACME Directory Metadata Fields
            [IMG]
            CSV
 
-         Field Name          Field Type    Reference
+         Field Name          Field Type           Reference
    termsOfService          string          [RFC8555]
    website                 string          [RFC8555]
    caaIdentities           array of string [RFC8555]
    externalAccountRequired boolean         [RFC8555]
+   auto-renewal            object          [RFC-ietf-acme-star-11]
 
 ACME Identifier Types
 
@@ -209,8 +222,9 @@ ACME Identifier Types
            [IMG]
            CSV
 
-   Label Reference
+   Label       Reference
    dns   [RFC8555]
+   ip    [RFC-ietf-acme-ip-08]
 
 ACME Validation Methods
 
@@ -229,8 +243,57 @@ ACME Validation Methods
            [IMG]
            CSV
 
-     Label    Identifier Type ACME Reference
-   http-01    dns             Y    [RFC8555]
-   dns-01     dns             Y    [RFC8555]
-   tls-sni-01 RESERVED        N    [RFC8555]
-   tls-sni-02 RESERVED        N    [RFC8555]
+      Label    Identifier Type ACME          Reference
+   http-01     dns             Y    [RFC8555]
+   dns-01      dns             Y    [RFC8555]
+   tls-sni-01  RESERVED        N    [RFC8555]
+   tls-sni-02  RESERVED        N    [RFC8555]
+   http-01     ip              Y    [RFC-ietf-acme-ip-08]
+   tls-alpn-01 ip              Y    [RFC-ietf-acme-ip-08]
+   tls-alpn-01 dns             Y    [RFC-ietf-acme-tls-alpn-07]
+
+ACME Order Auto-Renewal Fields
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-acme-star-11]
+
+   Available Formats
+           [IMG]
+           CSV
+
+        Field Name       Field Type Configurable        Reference
+   start-date            string     true         [RFC-ietf-acme-star-11]
+   end-date              string     true         [RFC-ietf-acme-star-11]
+   lifetime              integer    true         [RFC-ietf-acme-star-11]
+   lifetime-adjust       integer    true         [RFC-ietf-acme-star-11]
+   allow-certificate-get boolean    true         [RFC-ietf-acme-star-11]
+
+ACME Directory Metadata Auto-Renewal Fields
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-acme-star-11]
+
+   Available Formats
+           [IMG]
+           CSV
+
+        Field Name       Field Type        Reference
+   min-lifetime          integer    [RFC-ietf-acme-star-11]
+   max-duration          integer    [RFC-ietf-acme-star-11]
+   allow-certificate-get boolean    [RFC-ietf-acme-star-11]

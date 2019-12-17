@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="acme">
   <title>Automated Certificate Management Environment (ACME) Protocol</title>
   <created>2019-01-02</created>
-  <updated>2019-03-13</updated>
+  <updated>2019-10-28</updated>
 
   <registry id="acme-account-object-fields">
     <title>ACME Account Object Fields</title>
@@ -107,6 +107,18 @@
       <type>string</type>
       <config>false</config>
       <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-10-25">
+      <name>auto-renewal</name>
+      <type>object</type>
+      <config>true</config>
+      <xref type="draft" data="RFC-ietf-acme-star-11"/>
+    </record>
+    <record date="2019-10-25">
+      <name>star-certificate</name>
+      <type>string</type>
+      <config>false</config>
+      <xref type="draft" data="RFC-ietf-acme-star-11"/>
     </record>
   </registry>
 
@@ -272,6 +284,29 @@
       <description>Visit the "instance" URL and take actions specified there</description>
       <xref type="rfc" data="rfc8555"/>
     </record>
+    <record date="2019-10-25">
+      <type>autoRenewalCanceled</type>
+      <description>The short-term certificate is no longer available because the 
+        auto-renewal Order has been explicitly canceled by the IdO</description>
+      <xref type="draft" data="RFC-ietf-acme-star-11"/>
+    </record>
+    <record date="2019-10-25">
+      <type>autoRenewalExpired</type>
+      <description>The short-term certificate is no longer available because the 
+        auto-renewal Order has expired</description>
+      <xref type="draft" data="RFC-ietf-acme-star-11"/>
+    </record>
+    <record date="2019-10-25">
+      <type>autoRenewalCancellationInvalid</type>
+      <description>A request to cancel an auto-renewal Order that is not in 
+        state "valid" has been received</description>
+      <xref type="draft" data="RFC-ietf-acme-star-11"/>
+    </record>
+    <record date="2019-10-25">
+      <type>autoRenewalRevocationNotSupported</type>
+      <description>A request to revoke an auto-renewal Order has been received</description>
+      <xref type="draft" data="RFC-ietf-acme-star-11"/>
+    </record>
   </registry>
 
   <registry id="acme-resource-types">
@@ -341,6 +376,11 @@
       <type>boolean</type>
       <xref type="rfc" data="rfc8555"/>
     </record>
+    <record date="2019-10-25">
+      <name>auto-renewal</name>
+      <type>object</type>
+      <xref type="draft" data="RFC-ietf-acme-star-11"/>
+    </record>
   </registry>
   
   <registry id="acme-identifier-types">
@@ -351,6 +391,10 @@
     <record date="2019-01-02">
       <name>dns</name>
       <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-10-11">
+      <name>ip</name>
+      <xref type="draft" data="RFC-ietf-acme-ip-08"/>
     </record>
   </registry>
   
@@ -382,6 +426,83 @@
       <type>RESERVED</type>
       <challenge>N</challenge>
       <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-10-11">
+      <name>http-01</name>
+      <type>ip</type>
+      <challenge>Y</challenge>
+      <xref type="draft" data="RFC-ietf-acme-ip-08"/>
+    </record>
+    <record date="2019-10-11">
+      <name>tls-alpn-01</name>
+      <type>ip</type>
+      <challenge>Y</challenge>
+      <xref type="draft" data="RFC-ietf-acme-ip-08"/>
+    </record>
+    <record date="2019-10-23">
+      <name>tls-alpn-01</name>
+      <type>dns</type>
+      <challenge>Y</challenge>
+      <xref type="draft" data="RFC-ietf-acme-tls-alpn-07"/>
+    </record>
+  </registry>
+  
+  <registry id="acme-order-auto-renewal-fields">
+    <title>ACME Order Auto-Renewal Fields</title>
+    <xref type="draft" data="RFC-ietf-acme-star-11"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Unassigned</expert>
+    <record date="2019-10-25">
+      <name>start-date</name>
+      <type>string</type>
+      <config>true</config>
+      <xref type="draft" data="RFC-ietf-acme-star-11"/>
+    </record>
+    <record date="2019-10-25">
+      <name>end-date</name>
+      <type>string</type>
+      <config>true</config>
+      <xref type="draft" data="RFC-ietf-acme-star-11"/>
+    </record>
+    <record date="2019-10-25">
+      <name>lifetime</name>
+      <type>integer</type>
+      <config>true</config>
+      <xref type="draft" data="RFC-ietf-acme-star-11"/>
+    </record>
+    <record date="2019-10-25">
+      <name>lifetime-adjust</name>
+      <type>integer</type>
+      <config>true</config>
+      <xref type="draft" data="RFC-ietf-acme-star-11"/>
+    </record>
+    <record date="2019-10-25">
+      <name>allow-certificate-get</name>
+      <type>boolean</type>
+      <config>true</config>
+      <xref type="draft" data="RFC-ietf-acme-star-11"/>
+    </record>
+  </registry>
+  
+  <registry id="acme-directory-metadata-auto-renewal-fields">
+    <title>ACME Directory Metadata Auto-Renewal Fields</title>
+    <xref type="draft" data="RFC-ietf-acme-star-11"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Unassigned</expert>
+    <record date="2019-10-25">
+      <name>min-lifetime</name>
+      <type>integer</type>
+      <xref type="draft" data="RFC-ietf-acme-star-11"/>
+    </record>
+    <record date="2019-10-25">
+      <name>max-duration</name>
+      <type>integer</type>
+      <xref type="draft" data="RFC-ietf-acme-star-11"/>
+    </record>
+    <record date="2019-10-25">
+      <name>allow-certificate-get</name>
+      <type>boolean</type>
+      <xref type="draft" data="RFC-ietf-acme-star-11"/>
     </record>
   </registry>
   

@@ -481,7 +481,7 @@
     <xsl:text>[</xsl:text>
     <xsl:choose>
       <xsl:when test="@type = 'rfc'">
-        <a href="http://www.iana.org/go/{@data}">
+        <a href="https://www.iana.org/go/{@data}">
           <xsl:choose>
             <xsl:when test="normalize-space()">
               <xsl:value-of select="."/>
@@ -508,8 +508,8 @@
         <a>
           <xsl:attribute name="href">
             <xsl:choose>
-              <xsl:when test="starts-with(@data, 'RFC-')">http://www.iana.org/go/draft-<xsl:value-of select="substring(@data,5)"/></xsl:when>
-              <xsl:otherwise>http://www.iana.org/go/<xsl:value-of select="@data"/></xsl:otherwise>
+              <xsl:when test="starts-with(@data, 'RFC-')">https://www.iana.org/go/draft-<xsl:value-of select="substring(@data,5)"/></xsl:when>
+              <xsl:otherwise>https://www.iana.org/go/<xsl:value-of select="@data"/></xsl:otherwise>
             </xsl:choose>
           </xsl:attribute>
           <xsl:choose>
@@ -541,7 +541,7 @@
         <a href="#note{@data}"><xsl:value-of select="@data"/></a>
       </xsl:when>
       <xsl:when test="@type = 'registry'">
-        <a href="http://www.iana.org/assignments/{@data}">
+        <a href="https://www.iana.org/assignments/{@data}">
           <xsl:choose>
             <xsl:when test="normalize-space()">
               <xsl:value-of select="."/>

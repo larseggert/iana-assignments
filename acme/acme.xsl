@@ -17,7 +17,8 @@
         </tr>
       </xsl:when>
       <xsl:when test="@id = 'acme-order-object-fields'
-        or @id ='acme-authorization-object-fields'">
+        or @id ='acme-authorization-object-fields'
+        or @id = 'acme-order-auto-renewal-fields'">
         <tr>
           <th>Field Name</th>
           <th>Field Type</th>
@@ -39,7 +40,8 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'acme-directory-metadata-fields'">
+      <xsl:when test="@id = 'acme-directory-metadata-fields'
+        or @id = 'acme-directory-metadata-auto-renewal-fields'">
         <tr>
           <th>Field Name</th>
           <th>Field Type</th>
@@ -74,7 +76,8 @@
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'acme-order-object-fields'
-        or ../@id ='acme-authorization-object-fields'">
+        or ../@id = 'acme-authorization-object-fields'
+        or ../@id = 'acme-order-auto-renewal-fields'">
         <tr>
           <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:type"/></td>
@@ -90,7 +93,8 @@
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'acme-resource-types'
-        or ../@id = 'acme-directory-metadata-fields'">
+        or ../@id = 'acme-directory-metadata-fields'
+        or ../@id = 'acme-directory-metadata-auto-renewal-fields'">
         <tr>
           <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:type"/></td>
