@@ -169,6 +169,14 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'generalized-endpoint-type'">
+        <tr>
+          <th>Value</th>
+          <th>Type</th>
+          <th>Meaning</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:when test="@id = 'stateful-pce-capability-tlv'
         or @id = 'sr-ero-flag-field'
         or @id = 'sr-capability-flag-field'
@@ -198,6 +206,13 @@
         <tr>
           <th>Bit</th>
           <th>Name</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'gmpls-capability-tlv-flag-field'">
+        <tr>
+          <th>Bit</th>
+          <th>Capability Description</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
@@ -260,6 +275,14 @@
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:flag"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'generalized-endpoint-type'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:type"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>

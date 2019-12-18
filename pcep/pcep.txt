@@ -4,7 +4,7 @@
            2008-12-19
 
    Last Updated
-           2019-12-16
+           2019-12-17
 
    Available Formats
            [IMG]
@@ -65,6 +65,8 @@
      * AUTO-BANDWIDTH-CAPABILITY TLV Flag Field
      * AUTO-BANDWIDTH-ATTRIBUTES Sub-TLV Types
      * Path Protection Association Group TLV Flag Field
+     * Generalized Endpoint Type
+     * GMPLS-CAPABILITY TLV Flag Field
 
 PCEP Messages
 
@@ -110,145 +112,150 @@ PCEP Objects
    0-247   IETF Review
    248-255 Experimental Use
 
-   Object-Class Value        Name                                      Object-Type                                           Reference
-           0          Reserved            0-15: Reserved                                                        [RFC5440][RFC Errata 4956]
-           1          OPEN                0: Reserved                                                           [RFC5440][RFC Errata 4956]
-                                          1: Open                                                               [RFC5440]
+   Object-Class Value        Name                             Object-Type                                           Reference
+           0          Reserved            0-15: Reserved                                       [RFC5440][RFC Errata 4956]
+           1          OPEN                0: Reserved                                          [RFC5440][RFC Errata 4956]
+                                          1: Open                                              [RFC5440]
                                           2-15: Unassigned
-           2          RP                  0: Reserved                                                           [RFC5440][RFC Errata 4956]
-                                          1: Request Parameters                                                 [RFC5440]
+           2          RP                  0: Reserved                                          [RFC5440][RFC Errata 4956]
+                                          1: Request Parameters                                [RFC5440]
                                           2-15: Unassigned
-           3          NO-PATH             0: Reserved                                                           [RFC5440][RFC Errata 4956]
-                                          1: No Path                                                            [RFC5440]
+           3          NO-PATH             0: Reserved                                          [RFC5440][RFC Errata 4956]
+                                          1: No Path                                           [RFC5440]
                                           2-15: Unassigned
-           4          END-POINTS          0: Reserved                                                           [RFC5440][RFC Errata 4956]
-                                          1: IPv4 addresses                                                     [RFC5440]
-                                          2: IPv6 addresses                                                     [RFC5440]
-                                          3: IPv4                                                               [RFC8306]
-                                          4: IPv6                                                               [RFC8306]
+           4          END-POINTS          0: Reserved                                          [RFC5440][RFC Errata 4956]
+                                          1: IPv4 addresses                                    [RFC5440]
+                                          2: IPv6 addresses                                    [RFC5440]
+                                          3: IPv4                                              [RFC8306]
+                                          4: IPv6                                              [RFC8306]
+                                          5: Generalized Endpoint                              [RFC-ietf-pce-gmpls-pcep-extensions-16, Section 2.5]
+                                          6-15: Unassigned
+           5          BANDWIDTH           0: Reserved                                          [RFC5440][RFC Errata 4956]
+                                          1: Requested bandwidth                               [RFC5440]
+                                          2: Bandwidth of an existing TE LSP for which a       [RFC5440]
+                                          reoptimization is requested
+                                          3: Generalized bandwidth                             [RFC-ietf-pce-gmpls-pcep-extensions-16, Section 2.3]
+                                          4: Generalized bandwidth of an existing TE-LSP for   [RFC-ietf-pce-gmpls-pcep-extensions-16, Section 2.3]
+                                          which a reoptimization is requested
                                           5-15: Unassigned
-           5          BANDWIDTH           0: Reserved                                                           [RFC5440][RFC Errata 4956]
-                                          1: Requested bandwidth                                                [RFC5440]
-                                          2: Bandwidth of an existing TE LSP for which a reoptimization is      [RFC5440]
-                                          requested
+           6          METRIC              0: Reserved                                          [RFC5440][RFC Errata 4956]
+                                          1: Metric                                            [RFC5440]
+                                          2-15: Unassigned
+           7          ERO                 0: Reserved                                          [RFC5440][RFC Errata 4956]
+                                          1: Explicit Route                                    [RFC5440]
+                                          2-15: Unassigned
+           8          RRO                 0: Reserved                                          [RFC5440][RFC Errata 4956]
+                                          1: Recorded Route                                    [RFC5440]
+                                          2-15: Unassigned
+           9          LSPA                0: Reserved                                          [RFC5440][RFC Errata 4956]
+                                          1: LSP Attributes                                    [RFC5440]
+                                          2-15: Unassigned
+           10         IRO                 0: Reserved                                          [RFC5440][RFC Errata 4956]
+                                          1: Include Route                                     [RFC5440]
+                                          2-15: Unassigned
+           11         SVEC                0: Reserved                                          [RFC5440][RFC Errata 4956]
+                                          1: Synchronization Vector                            [RFC5440]
+                                          2-15: Unassigned
+           12         NOTIFICATION        0: Reserved                                          [RFC5440][RFC Errata 4956]
+                                          1: Notification                                      [RFC5440]
+                                          2-15: Unassigned
+           13         PCEP-ERROR          0: Reserved                                          [RFC5440][RFC Errata 4956]
+                                          1: PCEP Error                                        [RFC5440]
+                                          2-15: Unassigned
+           14         LOAD-BALANCING      0: Reserved                                          [RFC5440][RFC Errata 4956]
+                                          1: Load Balancing                                    [RFC5440]
+                                          2: Generalized Load Balancing                        [RFC-ietf-pce-gmpls-pcep-extensions-16, Section 2.4]
                                           3-15: Unassigned
-           6          METRIC              0: Reserved                                                           [RFC5440][RFC Errata 4956]
-                                          1: Metric                                                             [RFC5440]
+           15         CLOSE               0: Reserved                                          [RFC5440][RFC Errata 4956]
+                                          1: Close                                             [RFC5440]
                                           2-15: Unassigned
-           7          ERO                 0: Reserved                                                           [RFC5440][RFC Errata 4956]
-                                          1: Explicit Route                                                     [RFC5440]
+           16         PATH-KEY            0: Reserved                                          [RFC5520][RFC Errata 4956]
+                                          1: Path Key                                          [RFC5520]
                                           2-15: Unassigned
-           8          RRO                 0: Reserved                                                           [RFC5440][RFC Errata 4956]
-                                          1: Recorded Route                                                     [RFC5440]
+           17         XRO                 0: Reserved                                          [RFC5521][RFC Errata 4956]
+                                          1: Route exclusion                                   [RFC5521]
                                           2-15: Unassigned
-           9          LSPA                0: Reserved                                                           [RFC5440][RFC Errata 4956]
-                                          1: LSP Attributes                                                     [RFC5440]
-                                          2-15: Unassigned
-           10         IRO                 0: Reserved                                                           [RFC5440][RFC Errata 4956]
-                                          1: Include Route                                                      [RFC5440]
-                                          2-15: Unassigned
-           11         SVEC                0: Reserved                                                           [RFC5440][RFC Errata 4956]
-                                          1: Synchronization Vector                                             [RFC5440]
-                                          2-15: Unassigned
-           12         NOTIFICATION        0: Reserved                                                           [RFC5440][RFC Errata 4956]
-                                          1: Notification                                                       [RFC5440]
-                                          2-15: Unassigned
-           13         PCEP-ERROR          0: Reserved                                                           [RFC5440][RFC Errata 4956]
-                                          1: PCEP Error                                                         [RFC5440]
-                                          2-15: Unassigned
-           14         LOAD-BALANCING      0: Reserved                                                           [RFC5440][RFC Errata 4956]
-                                          1: Load Balancing                                                     [RFC5440]
-                                          2-15: Unassigned
-           15         CLOSE               0: Reserved                                                           [RFC5440][RFC Errata 4956]
-                                          1: Close                                                              [RFC5440]
-                                          2-15: Unassigned
-           16         PATH-KEY            0: Reserved                                                           [RFC5520][RFC Errata 4956]
-                                          1: Path Key                                                           [RFC5520]
-                                          2-15: Unassigned
-           17         XRO                 0: Reserved                                                           [RFC5521][RFC Errata 4956]
-                                          1: Route exclusion                                                    [RFC5521]
-                                          2-15: Unassigned
-           18         Unassigned          0: Reserved                                                           [RFC Errata 4956]
+           18         Unassigned          0: Reserved                                          [RFC Errata 4956]
                                           1-15: Unassigned
-           19         MONITORING          0: Reserved                                                           [RFC5886][RFC Errata 4956]
-                                          1: Monitoring                                                         [RFC5886]
+           19         MONITORING          0: Reserved                                          [RFC5886][RFC Errata 4956]
+                                          1: Monitoring                                        [RFC5886]
                                           2-15: Unassigned
-           20         PCC-REQ-ID          0: Reserved                                                           [RFC5886][RFC Errata 4956]
-                                          1: IPV4 Addresses                                                     [RFC5886]
-                                          2: IPV6 Addresses                                                     [RFC5886]
+           20         PCC-REQ-ID          0: Reserved                                          [RFC5886][RFC Errata 4956]
+                                          1: IPV4 Addresses                                    [RFC5886]
+                                          2: IPV6 Addresses                                    [RFC5886]
                                           3-15: Unassigned
-           21         OF                  0: Reserved                                                           [RFC5541][RFC Errata 4956]
-                                          1: Objective Function                                                 [RFC5541]
+           21         OF                  0: Reserved                                          [RFC5541][RFC Errata 4956]
+                                          1: Objective Function                                [RFC5541]
                                           2-15: Unassigned
-           22         CLASSTYPE           0: Reserved                                                           [RFC5455][RFC Errata 4956]
-                                          1: Class-Type                                                         [RFC5455]
+           22         CLASSTYPE           0: Reserved                                          [RFC5455][RFC Errata 4956]
+                                          1: Class-Type                                        [RFC5455]
                                           2-15: Unassigned
-           23         Unassigned          0: Reserved                                                           [RFC Errata 4956]
+           23         Unassigned          0: Reserved                                          [RFC Errata 4956]
                                           1-15: Unassigned
-           24         GLOBAL-CONSTRAINTS  0: Reserved                                                           [RFC5557][RFC Errata 4956]
-                                          1: Global Constraints                                                 [RFC5557]
+           24         GLOBAL-CONSTRAINTS  0: Reserved                                          [RFC5557][RFC Errata 4956]
+                                          1: Global Constraints                                [RFC5557]
                                           2-15: Unassigned
-           25         PCE-ID              0: Reserved                                                           [RFC5886][RFC Errata 4956]
-                                          1: IPV4 Addresses                                                     [RFC5886]
-                                          2: IPV6 Addresses                                                     [RFC5886]
+           25         PCE-ID              0: Reserved                                          [RFC5886][RFC Errata 4956]
+                                          1: IPV4 Addresses                                    [RFC5886]
+                                          2: IPV6 Addresses                                    [RFC5886]
                                           3-15: Unassigned
-           26         PROC-TIME           0: Reserved                                                           [RFC5886][RFC Errata 4956]
-                                          1: PROC-TIME                                                          [RFC5886]
+           26         PROC-TIME           0: Reserved                                          [RFC5886][RFC Errata 4956]
+                                          1: PROC-TIME                                         [RFC5886]
                                           2-15: Unassigned
-           27         OVERLOAD            0: Reserved                                                           [RFC5886][RFC Errata 4956]
-                                          1: overload                                                           [RFC5886]
+           27         OVERLOAD            0: Reserved                                          [RFC5886][RFC Errata 4956]
+                                          1: overload                                          [RFC5886]
                                           2-15: Unassigned
-           28         UNREACH-DESTINATION 0: Reserved                                                           [RFC8306]
-                                          1: IPv4                                                               [RFC8306]
-                                          2: IPv6                                                               [RFC8306]
+           28         UNREACH-DESTINATION 0: Reserved                                          [RFC8306]
+                                          1: IPv4                                              [RFC8306]
+                                          2: IPv6                                              [RFC8306]
                                           3-15: Unassigned
-           29         SERO                0: Reserved                                                           [RFC8306]
-                                          1: SERO                                                               [RFC8306]
+           29         SERO                0: Reserved                                          [RFC8306]
+                                          1: SERO                                              [RFC8306]
                                           2-15: Unassigned
-           30         SRRO                0: Reserved                                                           [RFC8306]
-                                          1: SRRO                                                               [RFC8306]
+           30         SRRO                0: Reserved                                          [RFC8306]
+                                          1: SRRO                                              [RFC8306]
                                           2-15: Unassigned
-           31         BNC                 0: Reserved                                                           [RFC8306]
-                                          1: Branch node list                                                   [RFC8306]
-                                          2: Non-branch node list                                               [RFC8306]
+           31         BNC                 0: Reserved                                          [RFC8306]
+                                          1: Branch node list                                  [RFC8306]
+                                          2: Non-branch node list                              [RFC8306]
                                           3-15: Unassigned
-           32         LSP                 0: Reserved                                                           [RFC8231]
-                                          1: LSP                                                                [RFC8231]
+           32         LSP                 0: Reserved                                          [RFC8231]
+                                          1: LSP                                               [RFC8231]
                                           2-15: Unassigned
-           33         SRP                 0: Reserved                                                           [RFC8231]
-                                          1: SRP                                                                [RFC8231]
+           33         SRP                 0: Reserved                                          [RFC8231]
+                                          1: SRP                                               [RFC8231]
                                           2-15: Unassigned
-           34         VENDOR-INFORMATION  0: Reserved                                                           [RFC7470][RFC Errata 4956]
-                                          1: Vendor-Specific Constraints                                        [RFC7470]
+           34         VENDOR-INFORMATION  0: Reserved                                          [RFC7470][RFC Errata 4956]
+                                          1: Vendor-Specific Constraints                       [RFC7470]
                                           2-15: Unassigned
-           35         BU                  0: Reserved                                                           [RFC8233][RFC Errata 4956]
-                                          1: BU                                                                 [RFC8233]
+           35         BU                  0: Reserved                                          [RFC8233][RFC Errata 4956]
+                                          1: BU                                                [RFC8233]
                                           2-15: Unassigned
-           36         INTER-LAYER         0: Reserved                                                           [RFC8282]
-                                          1: Inter-layer                                                        [RFC8282]
+           36         INTER-LAYER         0: Reserved                                          [RFC8282]
+                                          1: Inter-layer                                       [RFC8282]
                                           2-15: Unassigned
-           37         SWITCH-LAYER        0: Reserved                                                           [RFC8282]
-                                          1: Switch-layer                                                       [RFC8282]
+           37         SWITCH-LAYER        0: Reserved                                          [RFC8282]
+                                          1: Switch-layer                                      [RFC8282]
                                           2-15: Unassigned
-           38         REQ-ADAP-CAP        0: Reserved                                                           [RFC8282]
-                                          1: Req-Adap-Cap                                                       [RFC8282]
+           38         REQ-ADAP-CAP        0: Reserved                                          [RFC8282]
+                                          1: Req-Adap-Cap                                      [RFC8282]
                                           2-15: Unassigned
-           39         SERVER-INDICATION   0: Reserved                                                           [RFC8282]
-                                          1: Server-indication                                                  [RFC8282]
+           39         SERVER-INDICATION   0: Reserved                                          [RFC8282]
+                                          1: Server-indication                                 [RFC8282]
                                           2-15: Unassigned
-           40         ASSOCIATION         0: Reserved                                                           [RFC-ietf-pce-association-group-10]
-                                          1: IPv4                                                               [RFC-ietf-pce-association-group-10]
-                                          2: IPv6                                                               [RFC-ietf-pce-association-group-10]
+           40         ASSOCIATION         0: Reserved                                          [RFC-ietf-pce-association-group-10]
+                                          1: IPv4                                              [RFC-ietf-pce-association-group-10]
+                                          2: IPv6                                              [RFC-ietf-pce-association-group-10]
                                           3-15: Unassigned
-           41         S2LS                0: Reserved                                                           [RFC8623]
-                                          1: S2LS                                                               [RFC8623]
+           41         S2LS                0: Reserved                                          [RFC8623]
+                                          1: S2LS                                              [RFC8623]
                                           2-15: Unassigned
-           42         WA                  0: Reserved                                                           [RFC-ietf-pce-wson-rwa-ext-17]
-                                          1: Wavelength Assignment                                              [RFC-ietf-pce-wson-rwa-ext-17]
+           42         WA                  0: Reserved                                          [RFC-ietf-pce-wson-rwa-ext-17]
+                                          1: Wavelength Assignment                             [RFC-ietf-pce-wson-rwa-ext-17]
                                           2-15: Unassigned
-         43-247       Unassigned          0: Reserved                                                           [RFC Errata 4956]
+         43-247       Unassigned          0: Reserved                                          [RFC Errata 4956]
                                           1-15: Unassigned
-        248-255       Experimental Use    0-15: Experimental Use                                                [RFC8356]
+        248-255       Experimental Use    0-15: Experimental Use                               [RFC8356]
 
 PCEP Message Common Header Flag Field
 
@@ -307,8 +314,9 @@ RP Object Flag Field
            [IMG]
            CSV
 
-    Bit            Description            Reference
-   0-16  Unassigned
+    Bit            Description                                 Reference
+   0-14  Unassigned
+   15-16 routing granularity (RG)         [RFC-ietf-pce-gmpls-pcep-extensions-16, Section 2.2]
     17   Core-tree computation (C-bit)    [RFC7334]
     18   Fragmentation (F-bit)            [RFC8306]
     19   P2MP (N-bit)                     [RFC8306]
@@ -456,7 +464,7 @@ IRO Subobjects
            [IMG]
            CSV
 
-   Value                 Description                          Reference
+   Value                 Description                               Reference
      1    IPv4 prefix                               [RFC3209]
      2    IPv6 prefix                               [RFC3209]
      3    Unassigned
@@ -466,7 +474,8 @@ IRO Subobjects
      7    IS-IS Area ID                             [RFC7897][RFC7898]
      8    Optical Interface Class List              [RFC-ietf-pce-wson-rwa-ext-17]
      9    Client Signal Information                 [RFC-ietf-pce-wson-rwa-ext-17]
-   10-31  Unassigned
+     10   Label subobject                           [RFC-ietf-pce-gmpls-pcep-extensions-16]
+   11-31  Unassigned
      32   Autonomous system number                  [RFC3209]
      33   Explicit Exclusion Route subobject (EXRS) [RFC4874]
    34-127 Unassigned
@@ -592,7 +601,13 @@ PCEP-ERROR Object Error Types and Values
                                                3: Unassigned
                                                4: Unsupported parameter                               [RFC5441]
                                                5: Unsupported network performance constraint          [RFC8233]
-                                               6-255: Unassigned
+                                               6: Bandwidth Object type 3 or 4 not supported          [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               7: Unsupported endpoint type in END-POINTS Generalized [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               Endpoint object type
+                                               8: Unsupported TLV present in END-POINTS Generalized   [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               Endpoint object type
+                                               9: Unsupported granularity in the RP object flags      [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               10-255: Unassigned
        5      Policy violation                 0: Unassigned                                          [RFC5440]
                                                1: C bit of the METRIC object set (request rejected)   [RFC5440]
                                                2: O bit of the RP object cleared (request rejected)   [RFC5440]
@@ -653,7 +668,21 @@ PCEP-ERROR Object Error Types and Values
                                                21: MSD must be nonzero                                [RFC8664]
                                                22: Mismatch of O field in S2LS and LSP object         [RFC8623]
                                                23: Incompatible OF codes in H-PCE                     [RFC8685]
-                                               24-255: Unassigned
+                                               24: Bad Bandwidth Object type 3 (Generalized
+                                               bandwidth) or 4 (Generalized bandwidth of existing     [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               TE-LSP for which a reoptimization is requested)
+                                               25: Unsupported LSP Protection Flags in                [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               PROTECTION-ATTRIBUTE TLV
+                                               26: Unsupported Secondary LSP Protection Flags in      [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               PROTECTION-ATTRIBUTE TLV
+                                               27: Unsupported Link Protection Type in                [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               PROTECTION-ATTRIBUTE TLV
+                                               28: LABEL-SET TLV present with 0 bit set but without R [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               bit set in RP
+                                               29: Wrong LABEL-SET TLV present with 0 and L bit set   [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               30: Wrong LABEL-SET with O bit set and wrong format    [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               31: Missing GMPLS-CAPABILITY TLV                       [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               32-255: Unassigned
        11     Unrecognized EXRS subobject      0-255: Unassigned                                      [RFC5521]
        12     Diffserv-aware TE error          0: Unassigned                                          [RFC5455]
                                                1: Unsupported class-type                              [RFC5455]
@@ -784,7 +813,13 @@ PCEP-ERROR Object Error Types and Values
                                                1: H-PCE Capability not advertised                     [RFC8685]
                                                2: Parent PCE Capability cannot be provided            [RFC8685]
                                                3-255: Unassigned
-     29-255   Unassigned                       0-255: Unassigned
+       29     Path computation failure         0: Unassigned                                          [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               1: Unacceptable request message                        [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               2: Generalized bandwidth value not supported           [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               3: Label Set constraint could not be met               [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               4: Label constraint could not be met                   [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               5-255: Unassigned
+     30-255   Unassigned                       0-255: Unassigned
 
 PCEP-ERROR Object Flag Field
 
@@ -900,7 +935,7 @@ XRO Subobjects
            [IMG]
            CSV
 
-   Value          Description                    Reference
+   Value          Description                         Reference
      1    IPv4 prefix                  [RFC3209]
      2    IPv6 prefix                  [RFC3209]
      3    Unassigned
@@ -910,7 +945,8 @@ XRO Subobjects
      7    IS-IS Area ID                [RFC7897][RFC7898]
      8    Optical Interface Class List [RFC-ietf-pce-wson-rwa-ext-17]
      9    Client Signal Information    [RFC-ietf-pce-wson-rwa-ext-17]
-   10-31  Unassigned
+     10   Label subobject              [RFC-ietf-pce-gmpls-pcep-extensions-16]
+   11-31  Unassigned
      32   Autonomous system number     [RFC3209]
      33   Unassigned
      34   SRLG                         [RFC4874]
@@ -986,7 +1022,7 @@ PCEP TLV Type Indicators
    0-65503     IETF Review
    65504-65535 Experimental Use
 
-      Value                 Description                                Reference
+      Value                 Description                                     Reference
         0      Reserved                              [RFC5440]
         1      NO-PATH-VECTOR TLV                    [RFC5440]
         2      OVERLOAD-DURATION TLV                 [RFC5440]
@@ -1026,7 +1062,14 @@ PCEP TLV Type Indicators
        36      AUTO-BANDWIDTH-CAPABILITY             [RFC-ietf-pce-stateful-pce-auto-bandwidth-12]
        37      AUTO-BANDWIDTH-ATTRIBUTES             [RFC-ietf-pce-stateful-pce-auto-bandwidth-12]
        38      Path Protection Association Group TLV [RFC-ietf-pce-stateful-path-protection-11]
-    39-65503   Unassigned
+       39      IPV4-ADDRESS                          [RFC-ietf-pce-gmpls-pcep-extensions-16, Section 2.5.2.1]
+       40      IPV6-ADDRESS                          [RFC-ietf-pce-gmpls-pcep-extensions-16, Section 2.5.2.2]
+       41      UNNUMBERED-ENDPOINT                   [RFC-ietf-pce-gmpls-pcep-extensions-16, Section 2.5.2.3]
+       42      LABEL-REQUEST                         [RFC-ietf-pce-gmpls-pcep-extensions-16, Section 2.5.2.4]
+       43      LABEL-SET                             [RFC-ietf-pce-gmpls-pcep-extensions-16, Section 2.5.2.5]
+       44      PROTECTION-ATTRIBUTE                  [RFC-ietf-pce-gmpls-pcep-extensions-16, Section 2.8]
+       45      GMPLS-CAPABILITY                      [RFC-ietf-pce-gmpls-pcep-extensions-16, Section 2.1.2]
+    46-65503   Unassigned
    65504-65535 Experimental Use                      [RFC8356]
 
 NO-PATH-VECTOR TLV Flag Field
@@ -1046,21 +1089,28 @@ NO-PATH-VECTOR TLV Flag Field
            [IMG]
            CSV
 
-   Bit                    Description                              Reference
-   0-18 Unassigned
-    19  Destination is not found in the indicated domain [RFC8685]
-    20  No available resource in one or more domains     [RFC8685]
-    21  Unresponsive child PCE(s)                        [RFC8685]
-    22  Destination domain unknown                       [RFC8685]
-    23  No RWA constraints met                           [RFC-ietf-pce-wson-rwa-ext-17]
-    24  P2MP Reachability Problem                        [RFC8306]
-    25  No GCO solution found                            [RFC5557]
-    26  No GCO migration path found                      [RFC5557]
-    27  PKS expansion failure                            [RFC5520]
-    28  BRPC Path computation chain unavailable          [RFC5441]
-    29  Unknown Source                                   [RFC5440]
-    30  Unknown Destination                              [RFC5440]
-    31  PCE currently Unavailable                        [RFC5440]
+   Bit                              Description                                             Reference
+   0-11 Unassigned
+    12  LOAD-BALANCING could not be performed with the bandwidth constraints [RFC-ietf-pce-gmpls-pcep-extensions-16]
+    13  No label resource in range                                           [RFC-ietf-pce-gmpls-pcep-extensions-16]
+    14  No endpoint label resource in range                                  [RFC-ietf-pce-gmpls-pcep-extensions-16]
+    15  No endpoint label resource                                           [RFC-ietf-pce-gmpls-pcep-extensions-16]
+    16  Granularity not supported                                            [RFC-ietf-pce-gmpls-pcep-extensions-16]
+    17  No Resource                                                          [RFC-ietf-pce-gmpls-pcep-extensions-16]
+    18  Protection Mismatch                                                  [RFC-ietf-pce-gmpls-pcep-extensions-16]
+    19  Destination is not found in the indicated domain                     [RFC8685]
+    20  No available resource in one or more domains                         [RFC8685]
+    21  Unresponsive child PCE(s)                                            [RFC8685]
+    22  Destination domain unknown                                           [RFC8685]
+    23  No RWA constraints met                                               [RFC-ietf-pce-wson-rwa-ext-17]
+    24  P2MP Reachability Problem                                            [RFC8306]
+    25  No GCO solution found                                                [RFC5557]
+    26  No GCO migration path found                                          [RFC5557]
+    27  PKS expansion failure                                                [RFC5520]
+    28  BRPC Path computation chain unavailable                              [RFC5441]
+    29  Unknown Source                                                       [RFC5440]
+    30  Unknown Destination                                                  [RFC5440]
+    31  PCE currently Unavailable                                            [RFC5440]
 
 MONITORING Object Flag Field
 
@@ -1590,3 +1640,41 @@ Path Protection Association Group TLV Flag Field
     30  S - SECONDARY-LSP     [RFC-ietf-pce-stateful-path-protection-11]
    6-29 Unassigned
    0-5  Protection Type Flags [RFC-ietf-pce-stateful-path-protection-11]
+
+Generalized Endpoint Type
+
+   Reference
+           [RFC-ietf-pce-gmpls-pcep-extensions-16]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+   0-244   Standards Action
+   245-255 Experimental Use
+
+    Value         Type                              Meaning                                     Reference
+   0       Point-to-Point                                                        [RFC-ietf-pce-gmpls-pcep-extensions-16]
+   1       Point-to-Multipoint New leaves to add                                 [RFC-ietf-pce-gmpls-pcep-extensions-16]
+   2                           Old leaves to remove                              [RFC-ietf-pce-gmpls-pcep-extensions-16]
+   3                           Old leaves whose path can be modified/reoptimized [RFC-ietf-pce-gmpls-pcep-extensions-16]
+   4                           Old leaves whose path has to be left unchanged    [RFC-ietf-pce-gmpls-pcep-extensions-16]
+   5-244   Unassigned
+   245-255 Experimental Use                                                      [RFC-ietf-pce-gmpls-pcep-extensions-16]
+
+GMPLS-CAPABILITY TLV Flag Field
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC-ietf-pce-gmpls-pcep-extensions-16]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Bit  Capability Description Reference
+   0-31 Unassigned
