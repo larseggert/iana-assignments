@@ -7,39 +7,55 @@
     <xsl:choose> 
       
       <xsl:when test="@id = 'extension-name'">
-        <tr><th>Extension Identifier</th>
+        <tr>
+          <th>Extension Identifier</th>
           <th>Extension Common Name</th>
           <th>Extension Definition</th>
           <th>Known Incompatible Extensions</th>
-          <th>Reference</th></tr>
+          <th>Reference</th>
+          <th>Change Controller</th>
+        </tr>
       </xsl:when>
       <xsl:when test="@id = 'subprotocol-name'">
-        <tr><th>Subprotocol Identifier</th>
+        <tr>
+          <th>Subprotocol Identifier</th>
           <th>Subprotocol Common Name</th>
           <th>Subprotocol Definition</th>
-          <th>Reference</th></tr>
+          <th>Reference</th>
+          <th>Change Controller</th>
+        </tr>
       </xsl:when>
       
       <xsl:when test="@id = 'version-number'">
-        <tr><th>Version Number</th>
+        <tr>
+          <th>Version Number</th>
           <th>Reference</th>
-        <th>Status</th></tr>
+          <th>Status</th>
+          <th>Change Controller</th>
+        </tr>
       </xsl:when>
       <xsl:when test="@id = 'close-code-number'">
-        <tr><th>Status Code</th>
+        <tr>
+          <th>Status Code</th>
           <th>Meaning</th>
           <th>Contact</th>
-          <th>Reference</th></tr>
+          <th>Reference</th>
+          <th>Change Controller</th>
+        </tr>
       </xsl:when>
       <xsl:when test="@id = 'opcode'">
-        <tr><th>Opcode</th>
+        <tr>
+          <th>Opcode</th>
           <th>Meaning</th>
-          <th>Reference</th></tr>
+          <th>Reference</th>
+        </tr>
       </xsl:when>
       <xsl:when test="@id = 'framing-header-bits'">
-        <tr><th>Value</th>
+        <tr>
+          <th>Value</th>
           <th>Description</th>
-          <th>Reference</th></tr>
+          <th>Reference</th>
+        </tr>
       </xsl:when>
     </xsl:choose>
   </xsl:template>
@@ -53,6 +69,7 @@
           <td><xsl:apply-templates select="iana:definition"/></td>
           <td><xsl:value-of select="iana:incompatible"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'subprotocol-name'">
@@ -61,6 +78,7 @@
           <td><xsl:value-of select="iana:common"/></td>
           <td><xsl:apply-templates select="iana:definition"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'version-number'">
@@ -68,6 +86,7 @@
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:value-of select="iana:status"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
         </tr>
       </xsl:when>
       
@@ -77,6 +96,7 @@
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:contact/iana:xref"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
         </tr>
       </xsl:when>
       
