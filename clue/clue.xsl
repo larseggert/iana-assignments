@@ -9,6 +9,21 @@
       <xsl:when test="@id = 'view'">
         <tr><th>Value</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'clue-message-types'">
+        <tr>
+          <th>Message</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'clue-response-codes'">
+        <tr>
+          <th>Number</th>
+          <th>Default Response String</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Reference</th></tr>
       </xsl:otherwise>
@@ -20,6 +35,21 @@
       <xsl:when test="../@id = 'view'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'clue-message-types'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'clue-response-codes'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:default"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>

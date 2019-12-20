@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns="urn:ietf:params:xml:ns:clue-protocol"
+        xmlns:dm="urn:ietf:params:xml:ns:clue-info"
+        version="1.0"
+        targetNamespace="urn:ietf:params:xml:ns:clue-protocol"
+        elementFormDefault="qualified"
+        attributeFormDefault="unqualified">
+  <!-- Import data model schema -->
+  <xs:import namespace="urn:ietf:params:xml:ns:clue-info"/>
+  <!-- ELEMENT DEFINITIONS -->
+  <xs:element name="options" type="optionsMessageType" />
+  <xs:element name="optionsResponse" type="optionsResponseMessageType"/>
+  <xs:element name="advertisement" type="advertisementMessageType"/>
+  <xs:element name="ack" type="advAcknowledgementMessageType"/>
+  <xs:element name="configure" type="configureMessageType"/>
+  <xs:element name="configureResponse"
+        type="configureResponseMessageType"/>
+  <!-- CLUE MESSAGE TYPE -->
+  <xs:complexType name="clueMessageType" abstract="true">
+    <xs:sequence>
+      <xs:element name="clueId" type="xs:string" minOccurs="0" />
+      <xs:element name="sequenceNr" type="xs:positiveInteger" />
+    </xs:sequence>
+    <xs:attribute name="protocol" type="xs:string" fixed="CLUE"
+        use="required" />
+    <xs:attribute name="v" type="versionType" use="required" />
+  </xs:complexType>
+  <!-- CLUE RESPONSE TYPE -->
+  <xs:complexType name="clueResponseType">
+    <xs:complexContent>
+      <xs:extension base="clueMessageType">
+        <xs:sequence>
+          <xs:element name="responseCode" type="responseCodeType" />
+          <xs:element name="reasonString" type="xs:string"
+                minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!-- VERSION TYPE -->
+  <xs:simpleType name="versionType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[1-9][0-9]*\.[0-9]+" />
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- RESPONSE CODE TYPE -->
+  <xs:simpleType name="responseCodeType">
+    <xs:restriction base="xs:integer">
+      <xs:pattern value="[1-9][0-9][0-9]" />
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- SUCCESS RESPONSE CODE TYPE -->
+  <xs:simpleType name="successResponseCodeType">
+    <xs:restriction base="xs:integer">
+      <xs:pattern value="2[0-9][0-9]" />
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- CLUE OPTIONS -->
+  <xs:complexType name="optionsMessageType">
+    <xs:complexContent>
+      <xs:extension base="clueMessageType">
+        <xs:sequence>
+          <xs:element name="mediaProvider" type="xs:boolean"/>
+          <xs:element name="mediaConsumer" type="xs:boolean"/>
+          <xs:element name="supportedVersions" type="versionsListType"
+                minOccurs="0" />
+          <xs:element name="supportedExtensions"
+                type="extensionsListType" minOccurs="0"/>
+          <xs:any namespace="##other" processContents="lax"
+                minOccurs="0"/>
+        </xs:sequence>
+        <xs:anyAttribute namespace="##other" processContents="lax"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!-- VERSIONS LIST TYPE -->
+  <xs:complexType name="versionsListType">
+    <xs:sequence>
+      <xs:element name="version" type="versionType" minOccurs="1"
+        maxOccurs="unbounded"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0"/>
+    </xs:sequence>
+    <xs:anyAttribute namespace="##other" processContents="lax" />
+  </xs:complexType>
+  <!-- EXTENSIONS LIST TYPE -->
+  <xs:complexType name="extensionsListType">
+    <xs:sequence>
+      <xs:element name="extension" type="extensionType" minOccurs="1"
+        maxOccurs="unbounded"/>
+      <xs:any namespace="##other" processContents="lax" minOccurs="0"/>
+    </xs:sequence>
+    <xs:anyAttribute namespace="##other" processContents="lax" />
+  </xs:complexType>
+  <!-- EXTENSION TYPE -->
+  <xs:complexType name="extensionType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" />
+      <xs:element name="schemaRef" type="xs:anyURI" />
+      <xs:element name="version" type="versionType" />
+      <xs:any namespace="##other" processContents="lax" minOccurs="0"/>
+    </xs:sequence>
+    <xs:anyAttribute namespace="##other" processContents="lax"/>
+  </xs:complexType>
+  <!-- CLUE 'optionsResponse' -->
+  <xs:complexType name="optionsResponseMessageType">
+    <xs:complexContent>
+      <xs:extension base="clueResponseType">
+        <xs:sequence>
+          <xs:element name="mediaProvider" type="xs:boolean"
+                minOccurs="0"/>
+          <xs:element name="mediaConsumer" type="xs:boolean"
+                minOccurs="0"/>
+          <xs:element name="version" type="versionType" minOccurs="0"/>
+          <xs:element name="commonExtensions" type="extensionsListType"
+                minOccurs="0"/>
+          <xs:any namespace="##other" processContents="lax"
+                minOccurs="0"/>
+        </xs:sequence>
+        <xs:anyAttribute namespace="##other" processContents="lax"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!-- CLUE ADVERTISEMENT MESSAGE TYPE -->
+  <xs:complexType name="advertisementMessageType">
+    <xs:complexContent>
+      <xs:extension base="clueMessageType">
+        <xs:sequence>
+          <!-- mandatory -->
+          <xs:element name="mediaCaptures" type="dm:mediaCapturesType"/>
+          <xs:element name="encodingGroups"
+                type="dm:encodingGroupsType"/>
+          <xs:element name="captureScenes" type="dm:captureScenesType"/>
+          <!-- optional -->
+          <xs:element name="simultaneousSets"
+                type="dm:simultaneousSetsType" minOccurs="0"/>
+          <xs:element name="globalViews" type="dm:globalViewsType"
+                minOccurs="0"/>
+          <xs:element name="people" type="dm:peopleType" minOccurs="0"/>
+          <xs:any namespace="##other" processContents="lax"
+                minOccurs="0"/>
+        </xs:sequence>
+        <xs:anyAttribute namespace="##other" processContents="lax"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!-- 'ack' MESSAGE TYPE -->
+  <xs:complexType name="advAcknowledgementMessageType">
+    <xs:complexContent>
+      <xs:extension base="clueResponseType">
+        <xs:sequence>
+          <xs:element name="advSequenceNr" type="xs:positiveInteger"/>
+          <xs:any namespace="##other" processContents="lax"
+                minOccurs="0"/>
+        </xs:sequence>
+        <xs:anyAttribute namespace="##other" processContents="lax"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!-- CLUE 'configure' MESSAGE TYPE -->
+  <xs:complexType name="configureMessageType">
+    <xs:complexContent>
+      <xs:extension base="clueMessageType">
+        <xs:sequence>
+          <!-- mandatory fields -->
+          <xs:element name="advSequenceNr" type="xs:positiveInteger"/>
+          <xs:element name="ack" type="successResponseCodeType"
+                minOccurs="0"/>
+          <xs:element name="captureEncodings"
+                type="dm:captureEncodingsType" minOccurs="0"/>
+          <xs:any namespace="##other" processContents="lax"
+                minOccurs="0"/>
+        </xs:sequence>
+        <xs:anyAttribute namespace="##other" processContents="lax"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <!-- 'configureResponse' MESSAGE TYPE -->
+  <xs:complexType name="configureResponseMessageType">
+    <xs:complexContent>
+      <xs:extension base="clueResponseType">
+        <xs:sequence>
+          <xs:element name="confSequenceNr" type="xs:positiveInteger"/>
+          <xs:any namespace="##other" processContents="lax"
+                minOccurs="0"/>
+        </xs:sequence>
+        <xs:anyAttribute namespace="##other" processContents="lax"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>
