@@ -4,7 +4,7 @@
            2018-08-20
 
    Last Updated
-           2018-11-07
+           2019-12-23
 
    Available Formats
            [IMG]
@@ -20,6 +20,9 @@
      * 6P Return Codes
      * 6P Scheduling Function Identifiers
      * 6P CellOptions Bitmap
+     * Constrained Join Protocol Parameters
+     * Constrained Join Protocol Key Usage
+     * Constrained Join Protocol Configuration Codes
 
 6P Version Numbers
 
@@ -154,7 +157,7 @@
            CSV
 
     Range    Registration Procedures
-    0-127  IETF Review or IESG Approval
+   0-127   IETF Review or IESG Approval
    128-255 Expert Review
 
    SFID     Name    Reference
@@ -179,8 +182,117 @@
            [IMG]
            CSV
 
-   bit     Name      Reference
+   Bit     Name      Reference
    0   TX (Transmit) [RFC8480]
    1   RX (Receive)  [RFC8480]
    2   SHARED        [RFC8480]
    3-7 Unassigned
+
+Constrained Join Protocol Parameters
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-6tisch-minimal-security-15]
+
+   Available Formats
+           [IMG]
+           CSV
+
+                 Range                Registration Procedures
+   Integer values less than -65536    Private Use
+   Integer values from -65536 to -257 Specification Required
+   Integer values from -256 to 255    Standards Action
+   Integer values from 256 to 65535   Specification Required
+   Integer values greater than 65535  Expert Review
+
+             Name                 Label          CBOR Type                      Description                                 Reference
+   Reserved for Private Use  less than -65536                                                                 [RFC-ietf-6tisch-minimal-security-15]
+   Unassigned                -65536 to 0                                                                      [RFC-ietf-6tisch-minimal-security-15]
+   role                      1                unsigned integer Identifies the role parameter                  [RFC-ietf-6tisch-minimal-security-15]
+   link-layer key set        2                array            Identifies the array carrying one or more      [RFC-ietf-6tisch-minimal-security-15]
+                                                               link-level cryptographic keys
+   short identifier          3                array            Identifies the assigned short identifier       [RFC-ietf-6tisch-minimal-security-15]
+   JRC address               4                byte string      Identifies the IPv6 address of of the JRC      [RFC-ietf-6tisch-minimal-security-15]
+   network identifier        5                byte string      Identifies the network identifier parameter    [RFC-ietf-6tisch-minimal-security-15]
+   blacklist                 6                array            Identifies the blacklist parameter             [RFC-ietf-6tisch-minimal-security-15]
+   join rate                 7                unsigned integer Identifies the join rate parameter             [RFC-ietf-6tisch-minimal-security-15]
+   unsupported configuration 8                array            Identifies the unsupported configuration       [RFC-ietf-6tisch-minimal-security-15]
+                                                               parameter
+
+Constrained Join Protocol Key Usage
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-6tisch-minimal-security-15]
+
+   Available Formats
+           [IMG]
+           CSV
+
+                 Range                Registration Procedures
+   Integer values less than -65536    Private Use
+   Integer values from -65536 to -257 Specification Required
+   Integer values from -256 to 255    Standards Action
+   Integer values from 256 to 65535   Specification Required
+   Integer values greater than 65535  Expert Review
+
+             Name                Value             Algorithm                       Description                              Reference
+   Reserved for Private Use less than -65536                                                                  [RFC-ietf-6tisch-minimal-security-15]
+   Unassigned               -65536 to -1                                                                      [RFC-ietf-6tisch-minimal-security-15]
+   6TiSCH-K1K2-ENC-MIC32    0                IEEE802154-AES-CCM-128 Use MIC-32 for EBs, ENC-MIC-32 for DATA   [RFC-ietf-6tisch-minimal-security-15]
+                                                                    and ACKNOWLEDGMENT.
+   6TiSCH-K1K2-ENC-MIC64    1                IEEE802154-AES-CCM-128 Use MIC-64 for EBs, ENC-MIC-64 for DATA   [RFC-ietf-6tisch-minimal-security-15]
+                                                                    and ACKNOWLEDGMENT.
+   6TiSCH-K1K2-ENC-MIC128   2                IEEE802154-AES-CCM-128 Use MIC-128 for EBs, ENC-MIC-128 for DATA [RFC-ietf-6tisch-minimal-security-15]
+                                                                    and ACKNOWLEDGMENT.
+   6TiSCH-K1K2-MIC32        3                IEEE802154-AES-CCM-128 Use MIC-32 for EBs, DATA and              [RFC-ietf-6tisch-minimal-security-15]
+                                                                    ACKNOWLEDGMENT.
+   6TiSCH-K1K2-MIC64        4                IEEE802154-AES-CCM-128 Use MIC-64 for EBs, DATA and              [RFC-ietf-6tisch-minimal-security-15]
+                                                                    ACKNOWLEDGMENT.
+   6TiSCH-K1K2-MIC128       5                IEEE802154-AES-CCM-128 Use MIC-128 for EBs, DATA and             [RFC-ietf-6tisch-minimal-security-15]
+                                                                    ACKNOWLEDGMENT.
+   6TiSCH-K1-MIC32          6                IEEE802154-AES-CCM-128 Use MIC-32 for EBs.                       [RFC-ietf-6tisch-minimal-security-15]
+   6TiSCH-K1-MIC64          7                IEEE802154-AES-CCM-128 Use MIC-64 for EBs.                       [RFC-ietf-6tisch-minimal-security-15]
+   6TiSCH-K1-MIC128         8                IEEE802154-AES-CCM-128 Use MIC-128 for EBs.                      [RFC-ietf-6tisch-minimal-security-15]
+   6TiSCH-K2-MIC32          9                IEEE802154-AES-CCM-128 Use MIC-32 for DATA and ACKNOWLEDGMENT.   [RFC-ietf-6tisch-minimal-security-15]
+   6TiSCH-K2-MIC64          10               IEEE802154-AES-CCM-128 Use MIC-64 for DATA and ACKNOWLEDGMENT.   [RFC-ietf-6tisch-minimal-security-15]
+   6TiSCH-K2-MIC128         11               IEEE802154-AES-CCM-128 Use MIC-128 for DATA and ACKNOWLEDGMENT.  [RFC-ietf-6tisch-minimal-security-15]
+   6TiSCH-K2-ENC-MIC32      12               IEEE802154-AES-CCM-128 Use ENC-MIC-32 for DATA and               [RFC-ietf-6tisch-minimal-security-15]
+                                                                    ACKNOWLEDGMENT.
+   6TiSCH-K2-ENC-MIC64      13               IEEE802154-AES-CCM-128 Use ENC-MIC-64 for DATA and               [RFC-ietf-6tisch-minimal-security-15]
+                                                                    ACKNOWLEDGMENT.
+   6TiSCH-K2-ENC-MIC128     14               IEEE802154-AES-CCM-128 Use ENC-MIC-128 for DATA and              [RFC-ietf-6tisch-minimal-security-15]
+                                                                    ACKNOWLEDGMENT.
+
+Constrained Join Protocol Configuration Codes
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-6tisch-minimal-security-15]
+
+   Available Formats
+           [IMG]
+           CSV
+
+                 Range                Registration Procedures
+   Integer values less than -65536    Private Use
+   Integer values from -65536 to -257 Specification Required
+   Integer values from -256 to 255    Standards Action
+   Integer values from 256 to 65535   Specification Required
+   Integer values greater than 65535  Expert Review
+
+             Name                Value                                 Description                                          Reference
+   Reserved for Private Use less than -65536                                                                  [RFC-ietf-6tisch-minimal-security-15]
+   Unassigned               -65536 to -1                                                                      [RFC-ietf-6tisch-minimal-security-15]
+   Unsupported              0                The indicated setting is not supported by the networking stack   [RFC-ietf-6tisch-minimal-security-15]
+                                             implementation.
+   Malformed                1                The indicated parameter value is malformed.                      [RFC-ietf-6tisch-minimal-security-15]

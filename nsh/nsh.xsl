@@ -34,6 +34,7 @@
           <th>Value</th>
           <th>Meaning</th>
           <th>Reference</th>
+          <th>Change Controller</th>
         </tr>
       </xsl:when>
       <xsl:when test="@id = 'next-protocol'">
@@ -55,11 +56,12 @@
 
   <xsl:template match="iana:record">
     <xsl:choose>
-      <xsl:when test="../@id = 'base-header'">
+      <xsl:when test="../@id = 'md-class'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
         </tr>
       </xsl:when>
       <xsl:otherwise>
