@@ -12,7 +12,7 @@
       <xsl:when test="@id = 'token-types'">
         <tr>
           <th>Name</th>
-          <th>Additional Endpoint Response Parameters</th>
+          <th>Additional Token Endpoint Response Parameters</th>
           <th>HTTP Authentication Scheme(s)</th>
           <th>Change Controller</th>
           <th>Reference</th>
