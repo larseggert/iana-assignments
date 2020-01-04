@@ -33,6 +33,9 @@
       <xsl:when test="@id = 'flooding-mechanism-message-types'">
         <tr><th>Type</th><th>Name</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'pim-designated-router-load-balancing-hash-algorithms'">
+        <tr><th>Type</th><th>Name</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
       </xsl:otherwise>
