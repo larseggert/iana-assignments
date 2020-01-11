@@ -1,0 +1,134 @@
+Name: Miguel Angel Reina Ortega
+
+Email: miguelangel.reinaortega&etsi.org
+
+Media type name: audio
+
+Media subtype name: TETRA_ACELP_BB
+
+Required parameters:
+
+   rate: RTP timestamp clock rate (samples/second), which is equal to
+      the sampling rate. The typical rate is 8000; other rates may be
+      specified.
+
+Optional parameters:
+
+   ptime: packet time in milliseconds (non-negative integer) for the 
+      media represented in a packet made up of one full TETRA speech 
+      frame.
+
+   maxptime: maximum amount of media in milliseconds (non-negative 
+      integer) that can be encapsulated in each packet – this is the 
+      framing rate.
+
+   payload-type: list of active payload types supported in a comma 
+      separated list from {0, … , 3} as per ETSI TS 100 392-19-2 
+      clause A.3.7
+
+   encryption-mode: list of encryption modes that can be used in a 
+      comma separated list from {0,1}, as per ETSI TS 100 392-19-2 
+      clause A.3.7
+
+   If the values of these optional parameters are omitted then the 
+   following values shall be used.
+
+   ptime: 30
+
+   maxptime: 30
+
+   payload-type: 0 (where 0 represents a particular format of the 
+      payload type (see ETSI TS 100 392-19-2 clause A.4.2)
+
+   encryption-mode: 0 (where 0 represents a no end-to-end encryption 
+      mode, (see ETSI TS 100 392-19-2 clause A.4.2)
+
+Encoding considerations: “framed” (transport_provided)
+
+Security considerations: RTP packets using the payload format defined
+   in this specification are subject to the general security 
+   considerations discussed in RFC 3550 and in any used profile, like
+   AVP [RFC 3551] or SAVP [RFC 3711]. As this format transports 
+   encoded speech, the main security issues include confidentiality, 
+   authentication, and integrity of the speech itself. The payload 
+   format itself does not have any built-in security mechanisms, 
+   although any audio media and control information carried may be 
+   separately ciphered.
+
+   External mechanisms, such as SRTP [RFC 3711], may be used for the 
+   security functionality. The appropriate mechanisms to provide 
+   security to RTP and the payloads following this memo may vary 
+   depending on the application, the transport, and the signaling 
+   protocol employed. Security mechanisms that may be used are TLS 
+   [RFC 4346] (RTP over TCP) and IPsec [RFC 4301], but other 
+   alternatives may also exist.
+
+   This media type does not employ compression.
+
+   The media packets in this payload format do not contain any 
+   executable content. This payload format does contain the option to
+   carry ‘stolen’ user plane packets instead of the media packets to 
+   allow certain activities such as encryption synchronization, as 
+   described in ETSI EN 300 392-2. However, these packets will be 
+   discarded if not understood by the receiving endpoint and do not 
+   include any executable content. The payload format does not 
+   exhibit any significant non-uniformity in the receiver side 
+   computational complexity for packet processing, and thus is 
+   unlikely to pose a denial-of-service threat due to the receipt of 
+   abnormal data.
+
+   It is recommended that the payload should be at a minimum 
+   integrity protected in order to prevent payload modifications that 
+   may impact downstream terminal behaviour.
+
+Interoperability considerations: This media type carries 
+   TETRA_ACELP_BB encoded audio framed as per the TETRA speech over 
+   mission critical broadband systems specification (ETSI TS 100 
+   392-19-2) to allow interoperability between network operators 
+   independent of the network manufacturer.
+
+   The encoding of the audio part of the payload is described in ETSI 
+   EN 300 395-2:
+	
+   "Terrestrial Trunked Radio (TETRA); Speech codec for full-rate 
+    traffic channel; Part 2: TETRA codec".
+
+Published specification: ETSI TS 100 392-19-2 v1.1.1: “Terrestrial 
+   Trunked Radio (TETRA); Voice plus Data (V+D); Sub-part 2: Format 
+   for the transport of TETRA speech over mission critical broadband 
+   systems”.
+
+   ETSI EN 300 395-2 v1.3.1: "Terrestrial Trunked Radio (TETRA); 
+   Speech codec for full-rate traffic channel; Part 2: TETRA codec".
+
+   ETSI EN 300 392-2 v3.8.1: “Terrestrial Trunked Radio (TETRA); 
+   Voice plus Data (V+D); Part 2 Air Interface (AI)”.
+
+Applications which use this media: Devices or applications that send 
+   or receive TETRA_ACELP_BB encoded audio over RTP/IP
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: This media type depends on RTP framing, and 
+   hence is only defined for transfer via RTP (RFC 3550). Transfer 
+   within other framing protocols is not defined at this time.
+
+Additional information:
+
+   1. Deprecated alias names for this type: N/A 
+   2. Magic number(s): N/A 
+   3. File extension(s): N/A 
+   4. Macintosh file type code: N/A 
+   5. Object Identifiers: N/A
+
+General Comments:
+
+
+Person to contact for further information:
+
+   1. Name: Miguel Angel Reina Ortega
+   2. Email: miguelangel.reinaortega&etsi.org
+
+Intended usage: Common
+
+Author/Change controller: ETSI TCCE WG4/ETSI
