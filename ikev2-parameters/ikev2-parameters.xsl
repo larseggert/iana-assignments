@@ -162,32 +162,18 @@
        <th>Reference</th>
       </tr>
      </xsl:when>
+     <xsl:when test="@id = 'ikev2-post-quantum-preshared-key-id-types'">
+        <tr>
+          <th>Value</th>
+          <th>PPK_ID Type</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
+  
   <xsl:template match="iana:record">
     <xsl:choose>
-    <xsl:when test="../@id = 'ikev2-parameters-1' or
-                     ../@id = 'ikev2-parameters-6' or
-                     ../@id = 'ikev2-parameters-7' or
-                     ../@id = 'ikev2-parameters-9' or
-                     ../@id = 'ikev2-parameters-10' or
-                     ../@id = 'ikev2-parameters-11' or
-                     ../@id = 'ikev2-parameters-12' or
-                     ../@id = 'ikev2-parameters-14' or
-                     ../@id = 'ikev2-parameters-16' or
-                     ../@id = 'ikev2-parameters-17' or
-                     ../@id = 'ikev2-parameters-18' or
-                     ../@id = 'ikev2-parameters-19' or
-                     ../@id = 'ikev2-parameters-20' or
-                     ../@id = 'secure-password-methods' or
-                     ../@id = 'hash-algorithms' or
-                     ../@id = 'ikev2-parameters-22'">
-      <tr>
-       <td align="center"><xsl:value-of select="iana:value"/></td>
-       <td><xsl:value-of select="iana:description"/></td>
-       <td><xsl:apply-templates select="iana:xref"/></td>
-      </tr>
-     </xsl:when>
      <xsl:when test="../@id = 'ikev2-parameters-2'">
       <tr>
        <td align="center"><xsl:value-of select="iana:value"/></td>
@@ -245,6 +231,13 @@
        <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
      </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 </xsl:stylesheet>
