@@ -1,7 +1,7 @@
                                                     Hypertext Transfer Protocol (HTTP) Parameters
 
    Last Updated
-           2019-12-06
+           2020-01-22
 
    Available Formats
            [IMG]
@@ -113,30 +113,73 @@ HTTP Preferences
            [IMG]
            CSV
 
-    Preference                  Value                                              Description                                     Reference
-   respond-async                                     Indicates that the client prefers that the server respond               [RFC7240], Section 4.1
-                                                     asynchronously to a request.
-                                                     When the value is "minimal", it indicates that the client prefers that
-                 One of either "minimal" or          the server return a minimal response to a request. When the value is
-   return        "representation"                    "representation", it indicates that the client prefers that the server  [RFC7240], Section 4.2
-                                                     include a representation of the current state of the resource in
-                                                     response to a request.
-   wait                                              Indicates an upper bound to the length of time the client expects it    [RFC7240], Section 4.3
-                                                     will take the server to process the request once it has been received.
-                                                     When value is "strict", it indicates that the client wishes the server
-                                                     to apply strict validation and error handling to the processing of a
-   handling      One of either "strict" or "lenient" request. When the value is "lenient", it indicates that the client      [RFC7240], Section 4.4
-                                                     wishes the server to apply lenient validation and error handling to the
-                                                     processing of the request.
-                                                     The "depth-noroot" preference indicates that the client wishes for the
-                                                     server to exclude the target (root) resource from processing by the
-                                                     HTTP method and only apply the HTTP method to the target resource's
-   depth-noroot                                      subordinate resources. This preference is only intended to be used with [RFC8144], Section 4
-                                                     HTTP methods whose definitions explicitly provide support for the Depth
-                                                     [RFC4918] header field. Furthermore, this preference only applies when
-                                                     the Depth header field has a value of "1" or "infinity" (either
-                                                     implicitly or explicitly).
-   safe                                              Indicates that safe (i.e., unobjectionable) content is preferred.       [RFC8674]
+            Preference                            Value                                        Description                          Reference
+   respond-async                                                           Indicates that the client prefers that the server   [RFC7240], Section
+                                                                           respond asynchronously to a request.                4.1
+                                                                           When the value is "minimal", it indicates that the
+                                                                           client prefers that the server return a minimal
+                                One of either "minimal" or                 response to a request. When the value is            [RFC7240], Section
+   return                       "representation"                           "representation", it indicates that the client      4.2
+                                                                           prefers that the server include a representation of
+                                                                           the current state of the resource in response to a
+                                                                           request.
+                                                                           Indicates an upper bound to the length of time the  [RFC7240], Section
+   wait                                                                    client expects it will take the server to process   4.3
+                                                                           the request once it has been received.
+                                                                           When value is "strict", it indicates that the
+                                                                           client wishes the server to apply strict validation
+                                                                           and error handling to the processing of a request.  [RFC7240], Section
+   handling                     One of either "strict" or "lenient"        When the value is "lenient", it indicates that the  4.4
+                                                                           client wishes the server to apply lenient
+                                                                           validation and error handling to the processing of
+                                                                           the request.
+                                                                           The "depth-noroot" preference indicates that the
+                                                                           client wishes for the server to exclude the target
+                                                                           (root) resource from processing by the HTTP method
+                                                                           and only apply the HTTP method to the target
+                                                                           resource's subordinate resources. This preference
+   depth-noroot                                                            is only intended to be used with HTTP methods whose [RFC8144], Section 4
+                                                                           definitions explicitly provide support for the
+                                                                           Depth [RFC4918] header field. Furthermore, this
+                                                                           preference only applies when the Depth header field
+                                                                           has a value of "1" or "infinity" (either implicitly
+                                                                           or explicitly).
+   safe                                                                    Indicates that safe (i.e., unobjectionable) content [RFC8674]
+                                                                           is preferred.
+                                                                           Indicates that the service is allowed to return
+   odata.allow-entityreferences                                            references in place of resources that have          [OData Version 4.01
+                                                                           previously been returned, with at least the         Part 1: Protocol]
+                                                                           properties requested, in the same response.
+                                                                           Requests that the service invoke the specified URL
+                                                                           to signal some service state, such as the
+   odata.callback                                                          completion of an asynchronous result or             [OData Version 4.01
+                                                                           availability of new or modified information. The    Part 1: Protocol]
+                                                                           service state that triggers the change is dependent
+                                                                           upon the request.
+                                                                           Requests that the service attempt to continue
+                                                                           processing a request that encounters non-fatal
+   odata.continue-on-error                                                 errors, for example in a multi-part request. The    [OData Version 4.01
+                                                                           response SHOULD indicate what portions of the       Part 1: Protocol]
+                                                                           request were and were not able to be successfully
+                                                                           handled.
+                                Comma-separated list of terms to include
+                                or, when prefixed with a minus sign (-),
+                                exclude from the response. Terms MUST be   Specifies the set of annotations the client         [OData Version 4.01
+   odata.include-annotations    namespace-qualified and MAY specify just a requests to be included, where applicable, or       Part 1: Protocol]
+                                namespace to include or exclude all terms  excluded in the response.
+                                within that namespace. The special value
+                                "*" matches all annotations.
+                                A positive integer that represents the     Requests that each collection within the response   [OData Version 4.01
+   odata.maxpagesize            maximum number of items each collection in contain no more than the number of items specified  Part 1: Protocol]
+                                a response SHOULD contain.                 as the positive integer value of this preference.
+                                One of nulls - properties containing null
+                                values may be omitted from the response    Specifies whether a server can omit properties with [OData Version 4.01
+   omit-values                  defaults - properties containing the       a null value or properties set to their default     Part 1: Protocol]
+                                property default value may be omitted from value from a response.
+                                the response.
+                                                                           Requests that the service initiate change tracking  [OData Version 4.01
+   odata.track-changes                                                     on the result of this request, according to the     Part 1: Protocol]
+                                                                           underlying protocol.
 
 HTTP Range Unit Registry
 
