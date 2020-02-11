@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="pcep">
   <title>Path Computation Element Protocol (PCEP) Numbers</title>
   <created>2008-12-19</created>
-  <updated>2020-02-03</updated>
+  <updated>2020-02-11</updated>
   
   <registry id="pcep-messages">
     <title>PCEP Messages</title>
@@ -1978,10 +1978,17 @@
       <value-description>P2MP-LSP-IDENTIFIERS TLV missing</value-description>
       <xref type="rfc" data="rfc8623"/>
     </record>
+    <record date="2020-02-11">
+      <type-value>6</type-value>
+      <type-description>Mandatory Object missing</type-description>
+      <value-value>15</value-value>
+      <value-description>DISJOINTNESS-CONFIGURATION TLV</value-description>
+      <xref type="draft" data="RFC-ietf-pce-association-diversity-14"/>
+    </record>
     <record>
       <type-value>6</type-value>
       <type-description>Mandatory Object missing</type-description>
-      <value-value>15-255</value-value>
+      <value-value>16-255</value-value>
       <value-description>Unassigned</value-description>
     </record>
     <record>
@@ -2235,10 +2242,17 @@
       <value-description>Missing GMPLS-CAPABILITY TLV</value-description>
       <xref type="draft" data="RFC-ietf-pce-gmpls-pcep-extensions-16"/>
     </record>
+    <record date="2020-02-11">
+      <type-value>10</type-value>
+      <type-description>Reception of an invalid object</type-description>
+      <value-value>32</value-value>
+      <value-description>Incompatible OF code</value-description>
+      <xref type="draft" data="RFC-ietf-pce-association-diversity-14"/>
+    </record>
     <record>
       <type-value>10</type-value>
       <type-description>Reception of an invalid object</type-description>
-      <value-value>32-255</value-value>
+      <value-value>33-255</value-value>
       <value-description>Unassigned</value-description>
     </record>
     <record>
@@ -3271,8 +3285,23 @@
       <description>Minimize the number of Common Transit Domains (MCTD)</description>
       <xref type="rfc" data="rfc8685"/>
     </record>
+    <record date="2020-02-11">
+      <value>15</value>
+      <description>Minimize the number of shared Links (MSL)</description>
+      <xref type="draft" data="RFC-ietf-pce-association-diversity-14"/>
+    </record>
+    <record date="2020-02-11">
+      <value>16</value>
+      <description>Minimize the number of shared SRLGs (MSS)</description>
+      <xref type="draft" data="RFC-ietf-pce-association-diversity-14"/>
+    </record>
+    <record date="2020-02-11">
+      <value>17</value>
+      <description>Minimize the number of shared Nodes (MSN)</description>
+      <xref type="draft" data="RFC-ietf-pce-association-diversity-14"/>
+    </record>
     <record>
-      <value>15-32767</value>
+      <value>18-32767</value>
       <description>Unassigned</description>
     </record>
     <record>
@@ -3520,8 +3549,18 @@
       <description>GMPLS-CAPABILITY</description>
       <xref type="draft" data="RFC-ietf-pce-gmpls-pcep-extensions-16">RFC-ietf-pce-gmpls-pcep-extensions-16, Section 2.1.2</xref>
     </record>
+    <record date="2020-02-11">
+      <value>46</value>
+      <description>Disjointness Configuration TLV</description>
+      <xref type="draft" data="RFC-ietf-pce-association-diversity-14"/>
+    </record>
+    <record date="2020-02-11">
+      <value>47</value>
+      <description>Disjointness Status TLV</description>
+      <xref type="draft" data="RFC-ietf-pce-association-diversity-14"/>
+    </record>
     <record>
-      <value>46-65503</value>
+      <value>48-65503</value>
       <description>Unassigned</description>
     </record>
     <record>
@@ -3537,8 +3576,18 @@
     <registration_rule>IETF Review</registration_rule>
     <note>Bits are numbered from bit 0 as the most significant bit.</note>
     <record>
-      <value>0-11</value>
+      <value>0-9</value>
       <description>Unassigned</description>
+    </record>
+    <record date="2020-02-11">
+      <value>10</value>
+      <description>Requested disjoint computation not supported</description>
+      <xref type="draft" data="RFC-ietf-pce-association-diversity-14"/>
+    </record>
+    <record date="2020-02-11">
+      <value>11</value>
+      <description>Disjoint path not found</description>
+      <xref type="draft" data="RFC-ietf-pce-association-diversity-14"/>
     </record>
     <record date="2019-12-17">
       <value>12</value>
@@ -4252,8 +4301,13 @@
       <description>Path Protection Association</description>
       <xref type="draft" data="RFC-ietf-pce-stateful-path-protection-11"/>
     </record>
+    <record date="2020-02-11">
+      <value>2</value>
+      <description>Disjointness Association Type</description>
+      <xref type="draft" data="RFC-ietf-pce-association-diversity-14"/>
+    </record>
     <record>
-      <value>2-65535</value>
+      <value>3-65535</value>
       <description>Unassigned</description>
     </record>
   </registry>
@@ -4447,6 +4501,41 @@
     <registration_rule>Standards Action</registration_rule>
     <record>
       <value>0-31</value>
+      <description>Unassigned</description>
+    </record>
+  </registry>
+  
+  <registry id="disjointness-configuration-tlv-flag-field">
+    <title>Disjointness Configuration TLV Flag Field</title>
+    <xref type="draft" data="RFC-ietf-pce-association-diversity-14"/>
+    <registration_rule>Standards Action</registration_rule>
+    <record date="2020-02-11">
+      <value>31</value>
+      <description>L - Link Diverse</description>
+      <xref type="draft" data="RFC-ietf-pce-association-diversity-14"/>
+    </record>
+    <record date="2020-02-11">
+      <value>30</value>
+      <description>N - Node Diverse</description>
+      <xref type="draft" data="RFC-ietf-pce-association-diversity-14"/>
+    </record>
+    <record date="2020-02-11">
+      <value>29</value>
+      <description>S - SRLG Diverse</description>
+      <xref type="draft" data="RFC-ietf-pce-association-diversity-14"/>
+    </record>
+    <record date="2020-02-11">
+      <value>28</value>
+      <description>P - Shortest Path</description>
+      <xref type="draft" data="RFC-ietf-pce-association-diversity-14"/>
+    </record>
+    <record date="2020-02-11">
+      <value>27</value>
+      <description>T - Strict Disjointness</description>
+      <xref type="draft" data="RFC-ietf-pce-association-diversity-14"/>
+    </record>
+    <record>
+      <value>0-26</value>
       <description>Unassigned</description>
     </record>
   </registry>

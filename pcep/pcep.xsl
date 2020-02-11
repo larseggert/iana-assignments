@@ -209,6 +209,13 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'disjointness-configuration-tlv-flag-field'">
+        <tr>
+          <th>Bit</th>
+          <th>Name</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:when test="@id = 'gmpls-capability-tlv-flag-field'">
         <tr>
           <th>Bit</th>
