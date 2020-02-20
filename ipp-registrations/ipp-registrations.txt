@@ -4,7 +4,7 @@
            2002-07-15
 
    Last Updated
-           2019-12-06
+           2020-02-20
 
    Available Formats
            [IMG]
@@ -468,6 +468,10 @@ Document      media-col                                                         
 Template
 Document      media-col                                      <Member attributes are the same as the                                                            [PWG5100.7]
 Template                                                     "media-col" Job Template attribute>
+Document      media-col                                      media-top-offset                                                      integer(MIN:MIN)            [IPPLABEL]
+Template
+Document      media-col                                      media-tracking                                                        type2 keyword               [IPPLABEL]
+Template
 Document      multiple-object-handling                                                                                             type2 keyword               [PWG5100.21]
 Template
 Document      number-up                                                                                                            integer(1:MAX)              [PWG5100.5]
@@ -510,6 +514,8 @@ Document      print-color-mode                                                  
 Template
 Document      print-content-optimize                                                                                               type2 keyword               [PWG5100.7]
 Template
+Document      print-darkness                                                                                                       integer(-100:100)           [IPPLABEL]
+Template
 Document      print-objects                                                                                                        1setOf collection           [PWG5100.21]
 Template
 Document      print-objects                                  document-number                                                       integer(1:MAX)              [PWG5100.21]
@@ -535,6 +541,8 @@ Template
 Document      print-quality                                                                                                        type2 enum                  [PWG5100.5]
 Template
 Document      print-rendering-intent                                                                                               type2 keyword               [PWG5100.13]
+Template
+Document      print-speed                                                                                                          integer(1:MAX)              [IPPLABEL]
 Template
 Document      print-supports                                                                                                       type2 keyword               [PWG5100.21]
 Template
@@ -1015,6 +1023,8 @@ Job Template  media-col                                      media-source       
 Job Template  media-col                                      media-thickness                                                       integer(1:MAX)              [PWG5100.7]
 Job Template  media-col                                      media-tooth                                                           type2 keyword | name(MAX)   [PWG5100.7]
 Job Template  media-col                                      media-top-margin                                                      integer(0:MAX)              [PWG5100.7]
+Job Template  media-col                                      media-top-offset                                                      integer(MIN:MIN)            [IPPLABEL]
+Job Template  media-col                                      media-tracking                                                        type2 keyword               [IPPLABEL]
 Job Template  media-col                                      media-type                                                            type2 keyword | name(MAX)   [PWG5100.7]
 Job Template  media-col                                      media-weight-metric                                                   integer(0:MAX)              [PWG5100.7]
 Job Template  media-input-tray-check                                                                                               type2 keyword | name(MAX)   [PWG5100.3]
@@ -1052,6 +1062,7 @@ Job Template  print-accuracy                                 z-accuracy         
 Job Template  print-base                                                                                                           type2 keyword               [PWG5100.21]
 Job Template  print-color-mode                                                                                                     type2 keyword               [PWG5100.13]
 Job Template  print-content-optimize                                                                                               type2 keyword               [PWG5100.7]
+Job Template  print-darkness                                                                                                       integer(-100:100)           [IPPLABEL]
 Job Template  print-objects                                                                                                        1setOf collection           [PWG5100.21]
 Job Template  print-objects                                  document-number                                                       integer(1:MAX)              [PWG5100.21]
 Job Template  print-objects                                  object-offset                                                         collection                  [PWG5100.21]
@@ -1066,6 +1077,7 @@ Job Template  print-objects                                  object-uuid        
 Job Template  print-quality                                                                                                        type2 enum                  [RFC8011]
 Job Template  print-rendering-intent                                                                                               type2 keyword               [PWG5100.13]
 Job Template  print-scaling                                                                                                        type2 keyword               [PWG5100.16]
+Job Template  print-speed                                                                                                          integer(1:MAX)              [IPPLABEL]
 Job Template  print-supports                                                                                                       type2 keyword               [PWG5100.21]
 Job Template  printer-resolution                                                                                                   resolution                  [RFC8011]
 Job Template  proof-print                                                                                                          collection                  [PWG5100.11]
@@ -1664,6 +1676,14 @@ Printer       jpeg-x-dimension-supported                                        
 Description
 Printer       jpeg-y-dimension-supported                                                                                           rangeOfInteger(1:65535)     [PWG5100.16]
 Description
+Printer       label-mode-configured                                                                                                type2 keyword               [IPPLABEL]
+Description
+Printer       label-mode-supported                                                                                                 1setOf type2 keyword        [IPPLABEL]
+Description
+Printer       label-tear-offset-configured                                                                                         integer(MIN:MAX)            [IPPLABEL]
+Description
+Printer       label-tear-offset-supported                                                                                          rangeOfInteger(MIN:MAX)     [IPPLABEL]
+Description
 Printer       laminating-sides-supported                                                                                           1setOf type1 keyword        [PWG5100.1]
 Description
 Printer       laminating-type-supported                                                                                            1setOf (type2 keyword |     [PWG5100.1]
@@ -1775,6 +1795,10 @@ Description
 Printer       media-tooth-supported                                                                                                1setOf type2 keyword |      [PWG5100.7]
 Description                                                                                                                        name(MAX)
 Printer       media-top-margin-supported                                                                                           1setOf integer(0:MAX)       [PWG5100.7]
+Description
+Printer       media-top-offset-supported                                                                                           1setOf (integer(MIN:MAX) |  [IPPLABEL]
+Description                                                                                                                        rangeOfInteger(MIN:MIN))
+Printer       media-tracking-supported                                                                                             1setOf type2 keyword        [IPPLABEL]
 Description
 Printer       media-type-supported                                                                                                 1setOf (type2 keyword |     [PWG5100.7]
 Description                                                                                                                        name(MAX))
@@ -1935,6 +1959,10 @@ Printer       print-content-optimize-default                                    
 Description
 Printer       print-content-optimize-supported                                                                                     1setOf type2 keyword        [PWG5100.7]
 Description
+Printer       print-darkness-default                                                                                               integer(-100:100)           [IPPLABEL]
+Description
+Printer       print-darkness-supported                                                                                             integer(1:100)              [IPPLABEL]
+Description
 Printer       print-objects-supported                                                                                              1setOf keyword              [PWG5100.21]
 Description
 Printer       print-quality-default                                                                                                type2 enum                  [RFC8011]
@@ -1949,6 +1977,10 @@ Printer       print-scaling-default                                             
 Description
 Printer       print-scaling-supported                                                                                              1setOf type2 keyword        [PWG5100.16]
 Description
+Printer       print-speed-default                                                                                                  integer(1:MAX)              [IPPLABEL]
+Description
+Printer       print-speed-supported                                                                                                1setOf (integer(1:MAX) |    [IPPLABEL]
+Description                                                                                                                        rangeOfInteger(1:MAX))
 Printer       print-supports-default                                                                                               type2 keyword               [PWG5100.21]
 Description
 Printer       print-supports-supported                                                                                             1setOf type2 keyword        [PWG5100.21]
@@ -1968,6 +2000,10 @@ Description
 Printer       printer-contact-col                            contact-vcard                                                         1setOf text(MAX)            [PWG5100.22]
 Description
 Printer       printer-current-time                                                                                                 dateTime                    [RFC8011]
+Description
+Printer       printer-darkness-configured                                                                                          integer(0:100)              [IPPLABEL]
+Description
+Printer       printer-darkness-supported                                                                                           integer(1:100)              [IPPLABEL]
 Description
 Printer       printer-device-id                                                                                                    text(1023)                  [PWG5107.2]
 Description
@@ -2290,6 +2326,52 @@ Printer       xri-security-supported                                            
 Status
 Printer       xri-uri-scheme-supported                                                                                             1setOf uriScheme            [RFC3380]
 Status
+Resource      resource-info                                                                                                        text(MAX)                   [PWG5100.22]
+Description
+Resource      resource-name                                                                                                        name(MAX)                   [PWG5100.22]
+Description
+Resource      date-time-at-canceled                                                                                                dateTime | no-value         [PWG5100.22]
+Status
+Resource      date-time-at-creation                                                                                                dateTime                    [PWG5100.22]
+Status
+Resource      date-time-at-installed                                                                                               dateTime | no-value         [PWG5100.22]
+Status
+Resource      resource-data-uri                                                                                                    uri | no-value              [PWG5100.22]
+Status
+Resource      resource-format                                                                                                      mimeMediaType               [PWG5100.22]
+Status
+Resource      resource-id                                                                                                          integer(1:MAX)              [PWG5100.22]
+Status
+Resource      resource-k-octets                                                                                                    integer(0:MAX)              [PWG5100.22]
+Status
+Resource      resource-natural-language                                                                                            naturalLanguage             [PWG5100.22]
+Status
+Resource      resource-patches                                                                                                     text(MAX) | no-value        [PWG5100.22]
+Status
+Resource      resource-signature                                                                                                   1setOf octetString(MAX)     [PWG5100.22]
+Status
+Resource      resource-state                                                                                                       type1 enum                  [PWG5100.22]
+Status
+Resource      resource-state-message                                                                                               text(MAX)                   [PWG5100.22]
+Status
+Resource      resource-state-reasons                                                                                               1setOf type2 keyword        [PWG5100.22]
+Status
+Resource      resource-string-version                                                                                              text(MAX) | no-value        [PWG5100.22]
+Status
+Resource      resource-type                                                                                                        type2 keyword               [PWG5100.22]
+Status
+Resource      resource-use-count                                                                                                   integer(0:MAX)              [PWG5100.22]
+Status
+Resource      resource-uuid                                                                                                        uri(45)                     [PWG5100.22]
+Status
+Resource      resource-version                                                                                                     octetString(64) | no-value  [PWG5100.22]
+Status
+Resource      time-at-canceled                                                                                                     integer(MIN:MAX) | no-value [PWG5100.22]
+Status
+Resource      time-at-creation                                                                                                     integer(MIN:MAX)            [PWG5100.22]
+Status
+Resource      time-at-installed                                                                                                    integer(MIN:MAX) | no-value [PWG5100.22]
+Status
 Subscription  notify-job-id                                                                                                        integer(1:MAX)              [RFC3995]
 Status
 Subscription  notify-lease-expiration-time                                                                                         integer(0:MAX)              [RFC3995]
@@ -2530,52 +2612,6 @@ System Status system-uuid                                                       
 System Status xri-authentication-supported                                                                                         1setOf type2 keyword        [PWG5100.22]
 System Status xri-security-supported                                                                                               1setOf type2 keyword        [PWG5100.22]
 System Status xri-uri-scheme-supported                                                                                             1setOf uriScheme            [PWG5100.22]
-Resource      resource-info                                                                                                        text(MAX)                   [PWG5100.22]
-Description
-Resource      resource-name                                                                                                        name(MAX)                   [PWG5100.22]
-Description
-Resource      date-time-at-canceled                                                                                                dateTime | no-value         [PWG5100.22]
-Status
-Resource      date-time-at-creation                                                                                                dateTime                    [PWG5100.22]
-Status
-Resource      date-time-at-installed                                                                                               dateTime | no-value         [PWG5100.22]
-Status
-Resource      resource-data-uri                                                                                                    uri | no-value              [PWG5100.22]
-Status
-Resource      resource-format                                                                                                      mimeMediaType               [PWG5100.22]
-Status
-Resource      resource-id                                                                                                          integer(1:MAX)              [PWG5100.22]
-Status
-Resource      resource-k-octets                                                                                                    integer(0:MAX)              [PWG5100.22]
-Status
-Resource      resource-natural-language                                                                                            naturalLanguage             [PWG5100.22]
-Status
-Resource      resource-patches                                                                                                     text(MAX) | no-value        [PWG5100.22]
-Status
-Resource      resource-signature                                                                                                   1setOf octetString(MAX)     [PWG5100.22]
-Status
-Resource      resource-state                                                                                                       type1 enum                  [PWG5100.22]
-Status
-Resource      resource-state-message                                                                                               text(MAX)                   [PWG5100.22]
-Status
-Resource      resource-state-reasons                                                                                               1setOf type2 keyword        [PWG5100.22]
-Status
-Resource      resource-string-version                                                                                              text(MAX) | no-value        [PWG5100.22]
-Status
-Resource      resource-type                                                                                                        type2 keyword               [PWG5100.22]
-Status
-Resource      resource-use-count                                                                                                   integer(0:MAX)              [PWG5100.22]
-Status
-Resource      resource-uuid                                                                                                        uri(45)                     [PWG5100.22]
-Status
-Resource      resource-version                                                                                                     octetString(64) | no-value  [PWG5100.22]
-Status
-Resource      time-at-canceled                                                                                                     integer(MIN:MAX) | no-value [PWG5100.22]
-Status
-Resource      time-at-creation                                                                                                     integer(MIN:MAX)            [PWG5100.22]
-Status
-Resource      time-at-installed                                                                                                    integer(MIN:MAX) | no-value [PWG5100.22]
-Status
 
 Keyword Attribute Values
 
@@ -3732,6 +3768,20 @@ Keyword Attribute Values
    jpeg-features-supported                    none                                                    1setOf type2               [APPLE20151021]
                                                                                                       keyword
    jpeg-features-supported                    progressive                                             1setOf type2               [APPLE20151021]
+                                                                                                      keyword
+   label-mode-configured                                                                              type2 keyword              [IPPLABEL]
+   label-mode-configured                      applicator                                              type2 keyword              [IPPLABEL]
+   label-mode-configured                      cutter                                                  type2 keyword              [IPPLABEL]
+   label-mode-configured                      cutter-delayed                                          type2 keyword              [IPPLABEL]
+   label-mode-configured                      kiosk                                                   type2 keyword              [IPPLABEL]
+   label-mode-configured                      peel-off                                                type2 keyword              [IPPLABEL]
+   label-mode-configured                      peel-off-prepeel                                        type2 keyword              [IPPLABEL]
+   label-mode-configured                      rewind                                                  type2 keyword              [IPPLABEL]
+   label-mode-configured                      rfid                                                    type2 keyword              [IPPLABEL]
+   label-mode-configured                      tear-off                                                type2 keyword              [IPPLABEL]
+   label-mode-supported                                                                               1setOf type2               [IPPLABEL]
+                                                                                                      keyword
+   label-mode-supported                       < all label-mode-configured values >                    1setOf type2               [IPPLABEL]
                                                                                                       keyword
    laminating-sides                                                                                   type1 keyword              [PWG5100.1]
    laminating-sides                           back                                                    type1 keyword              [PWG5100.1]
@@ -5219,6 +5269,14 @@ Keyword Attribute Values
                                                                                                       1setOf (type2
    media-tooth-supported                      <Any "media-tooth" value>                               keyword |                  [PWG5100.7]
                                                                                                       name(MAX))
+   media-tracking                                                                                     type2 keyword              [IPPLABEL]
+   media-tracking                             continuous                                              type2 keyword              [IPPLABEL]
+   media-tracking                             mark                                                    type2 keyword              [IPPLABEL]
+   media-tracking                             web                                                     type2 keyword              [IPPLABEL]
+   media-tracking-supported                                                                           1setOf type2               [IPPLABEL]
+                                                                                                      keyword
+   media-tracking-supported                   < all media-tracking values >                           1setOf type2               [IPPLABEL]
+                                                                                                      keyword
    media-type                                                                                         type2 keyword |            [PWG5100.7]
                                                                                                       name(MAX)
    media-type                                 aluminum                                                type2 keyword |            [PWG5101.1]
@@ -5332,6 +5390,8 @@ Keyword Attribute Values
    media-type                                 labels                                                  type2 keyword |            [PWG5101.1]
                                                                                                       name(MAX)
    media-type                                 labels-colored                                          type2 keyword |            [PWG5101.1]
+                                                                                                      name(MAX)
+   media-type                                 labels-continuous                                       type2 keyword |            [IPPLABEL]
                                                                                                       name(MAX)
    media-type                                 labels-glossy                                           type2 keyword |            [PWG5101.1]
                                                                                                       name(MAX)
