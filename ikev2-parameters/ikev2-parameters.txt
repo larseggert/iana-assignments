@@ -4,7 +4,7 @@
            2005-01-18
 
    Last Updated
-           2020-01-21
+           2020-02-26
 
    Available Formats
            [IMG]
@@ -254,18 +254,19 @@ Transform Type Values
            [IMG]
            CSV
 
-     Number         Name          Reference
-       0      Reserved          [RFC7296]
-       1      PRF_HMAC_MD5      [RFC2104]
-       2      PRF_HMAC_SHA1     [RFC2104]
-       3      PRF_HMAC_TIGER    [UNSPECIFIED]
-       4      PRF_AES128_XCBC   [RFC4434]
-       5      PRF_HMAC_SHA2_256 [RFC4868]
-       6      PRF_HMAC_SHA2_384 [RFC4868]
-       7      PRF_HMAC_SHA2_512 [RFC4868]
-       8      PRF_AES128_CMAC   [RFC4615]
-     9-1023   Unassigned
-   1024-65535 Private use       [RFC7296]
+     Number           Name                  Reference
+       0      Reserved             [RFC7296]
+       1      PRF_HMAC_MD5         [RFC2104]
+       2      PRF_HMAC_SHA1        [RFC2104]
+       3      PRF_HMAC_TIGER       [UNSPECIFIED]
+       4      PRF_AES128_XCBC      [RFC4434]
+       5      PRF_HMAC_SHA2_256    [RFC4868]
+       6      PRF_HMAC_SHA2_384    [RFC4868]
+       7      PRF_HMAC_SHA2_512    [RFC4868]
+       8      PRF_AES128_CMAC      [RFC4615]
+       9      PRF_HMAC_STRIBOG_512 [draft-smyslov-ike2-gost-02]
+    10-1023   Unassigned
+   1024-65535 Private use          [RFC7296]
 
   Transform Type 3 - Integrity Algorithm Transform IDs
 
@@ -332,34 +333,36 @@ Transform Type Values
            [IMG]
            CSV
 
-     Number                           Name                            Recipient Tests   Reference
-       0      NONE                                                                      [RFC7296]
-       1      768-bit MODP Group                                    [RFC6989], Sec. 2.1 [RFC7296]
-       2      1024-bit MODP Group                                   [RFC6989], Sec. 2.1 [RFC7296]
-      3-4     Reserved                                                                  [RFC7296]
-       5      1536-bit MODP Group                                   [RFC6989], Sec. 2.1 [RFC3526]
-      6-13    Unassigned                                                                [RFC7296]
-       14     2048-bit MODP Group                                   [RFC6989], Sec. 2.1 [RFC3526]
-       15     3072-bit MODP Group                                   [RFC6989], Sec. 2.1 [RFC3526]
-       16     4096-bit MODP Group                                   [RFC6989], Sec. 2.1 [RFC3526]
-       17     6144-bit MODP Group                                   [RFC6989], Sec. 2.1 [RFC3526]
-       18     8192-bit MODP Group                                   [RFC6989], Sec. 2.1 [RFC3526]
-       19     256-bit random ECP group                              [RFC6989], Sec. 2.3 [RFC5903]
-       20     384-bit random ECP group                              [RFC6989], Sec. 2.3 [RFC5903]
-       21     521-bit random ECP group                              [RFC6989], Sec. 2.3 [RFC5903]
-       22     1024-bit MODP Group with 160-bit Prime Order Subgroup [RFC6989], Sec. 2.2 [RFC5114]
-       23     2048-bit MODP Group with 224-bit Prime Order Subgroup [RFC6989], Sec. 2.2 [RFC5114]
-       24     2048-bit MODP Group with 256-bit Prime Order Subgroup [RFC6989], Sec. 2.2 [RFC5114]
-       25     192-bit Random ECP Group                              [RFC6989], Sec. 2.3 [RFC5114]
-       26     224-bit Random ECP Group                              [RFC6989], Sec. 2.3 [RFC5114]
-       27     brainpoolP224r1                                       [RFC6989], Sec. 2.3 [RFC6954]
-       28     brainpoolP256r1                                       [RFC6989], Sec. 2.3 [RFC6954]
-       29     brainpoolP384r1                                       [RFC6989], Sec. 2.3 [RFC6954]
-       30     brainpoolP512r1                                       [RFC6989], Sec. 2.3 [RFC6954]
-       31     Curve25519                                            [RFC8031], Sec. 3.2 [RFC8031]
-       32     Curve448                                              [RFC8031], Sec. 3.2 [RFC8031]
-    33-1023   Unassigned
-   1024-65535 Reserved for Private Use                                                  [RFC7296]
+     Number                           Name                                     Recipient Tests                      Reference
+       0      NONE                                                                                         [RFC7296]
+       1      768-bit MODP Group                                    [RFC6989], Sec. 2.1                    [RFC7296]
+       2      1024-bit MODP Group                                   [RFC6989], Sec. 2.1                    [RFC7296]
+      3-4     Reserved                                                                                     [RFC7296]
+       5      1536-bit MODP Group                                   [RFC6989], Sec. 2.1                    [RFC3526]
+      6-13    Unassigned                                                                                   [RFC7296]
+       14     2048-bit MODP Group                                   [RFC6989], Sec. 2.1                    [RFC3526]
+       15     3072-bit MODP Group                                   [RFC6989], Sec. 2.1                    [RFC3526]
+       16     4096-bit MODP Group                                   [RFC6989], Sec. 2.1                    [RFC3526]
+       17     6144-bit MODP Group                                   [RFC6989], Sec. 2.1                    [RFC3526]
+       18     8192-bit MODP Group                                   [RFC6989], Sec. 2.1                    [RFC3526]
+       19     256-bit random ECP group                              [RFC6989], Sec. 2.3                    [RFC5903]
+       20     384-bit random ECP group                              [RFC6989], Sec. 2.3                    [RFC5903]
+       21     521-bit random ECP group                              [RFC6989], Sec. 2.3                    [RFC5903]
+       22     1024-bit MODP Group with 160-bit Prime Order Subgroup [RFC6989], Sec. 2.2                    [RFC5114]
+       23     2048-bit MODP Group with 224-bit Prime Order Subgroup [RFC6989], Sec. 2.2                    [RFC5114]
+       24     2048-bit MODP Group with 256-bit Prime Order Subgroup [RFC6989], Sec. 2.2                    [RFC5114]
+       25     192-bit Random ECP Group                              [RFC6989], Sec. 2.3                    [RFC5114]
+       26     224-bit Random ECP Group                              [RFC6989], Sec. 2.3                    [RFC5114]
+       27     brainpoolP224r1                                       [RFC6989], Sec. 2.3                    [RFC6954]
+       28     brainpoolP256r1                                       [RFC6989], Sec. 2.3                    [RFC6954]
+       29     brainpoolP384r1                                       [RFC6989], Sec. 2.3                    [RFC6954]
+       30     brainpoolP512r1                                       [RFC6989], Sec. 2.3                    [RFC6954]
+       31     Curve25519                                            [RFC8031], Sec. 3.2                    [RFC8031]
+       32     Curve448                                              [RFC8031], Sec. 3.2                    [RFC8031]
+       33     GOST3410_2012_256                                     [draft-smyslov-ike2-gost-02, Sec. 6.1] [draft-smyslov-ike2-gost-02]
+       34     GOST3410_2012_512                                     [draft-smyslov-ike2-gost-02, Sec. 6.1] [draft-smyslov-ike2-gost-02]
+    35-1023   Unassigned
+   1024-65535 Reserved for Private Use                                                                     [RFC7296]
 
   Transform Type 5 - Extended Sequence Numbers Transform IDs
 
@@ -881,14 +884,16 @@ IKEv2 Hash Algorithms
            [IMG]
            CSV
 
-     Value         Hash Algorithm      Reference
+     Value         Hash Algorithm               Reference
        0      Reserved                 [RFC7427]
        1      SHA1                     [RFC7427]
        2      SHA2-256                 [RFC7427]
        3      SHA2-384                 [RFC7427]
        4      SHA2-512                 [RFC7427]
        5      Identity                 [RFC8420]
-     6-1023   Unassigned
+       6      STRIBOG_256              [draft-smyslov-ike2-gost-02]
+       7      STRIBOG_512              [draft-smyslov-ike2-gost-02]
+     8-1023   Unassigned
    1024-65535 Reserved for Private Use [RFC7427]
 
 IKEv2 Post-quantum Preshared Key ID Types
