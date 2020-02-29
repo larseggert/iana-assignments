@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+  xmlns:epp="urn:ietf:params:xml:ns:epp-1.0"
+  xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
+  xmlns:loginSec="urn:ietf:params:xml:ns:epp:loginSec-1.0"
+  targetNamespace="urn:ietf:params:xml:ns:epp:loginSec-1.0"
+  elementFormDefault="qualified">
+  <!--
+  Import common element types.
+  -->
+  <import namespace="urn:ietf:params:xml:ns:eppcom-1.0" />
+  <import namespace="urn:ietf:params:xml:ns:epp-1.0" />
+  <annotation>
+    <documentation>Extensible Provisioning Protocol v1.0
+       Login Security Extension Schema.</documentation>
+  </annotation>
+  <!-- Login command extension elements -->
+  <element name="loginSec" type="loginSec:loginSecType" />
+  <!--
+    Attributes associated with the login command extension.
+   -->
+  <complexType name="loginSecType">
+    <sequence>
+      <element name="userAgent"
+        type="loginSec:userAgentType" minOccurs="0" />
+      <element name="pw"
+        type="loginSec:pwType" minOccurs="0" />
+      <element name="newPW"
+        type="loginSec:pwType" minOccurs="0" />
+    </sequence>
+  </complexType>
+  <simpleType name="pwType">
+    <restriction base="token">
+      <minLength value="6" />
+    </restriction>
+  </simpleType>
+  <complexType name="userAgentType">
+    <choice>
+      <sequence>
+        <element name="app"
+          type="token" />
+        <element name="tech"
+          type="token" minOccurs="0" />
+        <element name="os"
+          type="token" minOccurs="0" />
+      </sequence>
+      <sequence>
+        <element name="tech"
+          type="token" />
+        <element name="os"
+          type="token" minOccurs="0" />
+      </sequence>
+      <element name="os"
+        type="token" />
+    </choice>
+  </complexType>
+  <!-- Login response extension elements -->
+  <element name="loginSecData"
+    type="loginSec:loginSecDataType" />
+  <complexType name="loginSecDataType">
+    <sequence>
+      <element name="event"
+        type="loginSec:eventType"
+        minOccurs="1" maxOccurs="unbounded" />
+    </sequence>
+  </complexType>
+  <!-- Security event element -->
+  <complexType name="eventType">
+    <simpleContent>
+      <extension base="normalizedString">
+        <attribute name="type"
+          type="loginSec:typeEnum" use="required" />
+        <attribute name="name"
+          type="token" />
+        <attribute name="level"
+          type="loginSec:levelEnum" use="required" />
+        <attribute name="exDate"
+          type="dateTime" />
+        <attribute name="value"
+          type="token" />
+        <attribute name="duration"
+          type="duration" />
+        <attribute name="lang"
+          type="language" default="en" />
+      </extension>
+    </simpleContent>
+  </complexType>
+  <!--
+    Enumerated list of event types, with extensibility via "custom".
+    -->
+  <simpleType name="typeEnum">
+    <restriction base="token">
+      <enumeration value="password" />
+      <enumeration value="certificate" />
+      <enumeration value="cipher" />
+      <enumeration value="tlsProtocol" />
+      <enumeration value="newPW" />
+      <enumeration value="stat" />
+      <enumeration value="custom" />
+    </restriction>
+  </simpleType>
+  <!--
+    Enumerated list of levels.
+    -->
+  <simpleType name="levelEnum">
+    <restriction base="token">
+      <enumeration value="warning" />
+      <enumeration value="error" />
+    </restriction>
+  </simpleType>
+  <!--
+ End of schema.
+ -->
+</schema>
