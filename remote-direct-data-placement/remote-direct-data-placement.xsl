@@ -10,7 +10,7 @@
     <xsl:choose> 
       <xsl:when test="@id = 'remote-direct-data-placement-rdma-cm-private-data-identifiers'">
         <tr>
-          <th>Value</th>
+          <th>Format Identifier</th>
           <th>Length</th>
           <th>Description</th>
           <th>Reference</th>
