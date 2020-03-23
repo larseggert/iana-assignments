@@ -28,6 +28,17 @@
         </tr>
       </xsl:when>
       
+      <xsl:when test="@id = 'secondary-units'">
+        <tr>
+          <th>Secondary Unit</th>
+          <th>Description</th>
+          <th>SenML Unit</th>
+          <th>Scale</th>
+          <th>Offset</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      
     </xsl:choose>
   </xsl:template>
 
@@ -56,6 +67,16 @@
         </tr>
       </xsl:when>
       
+      <xsl:when test="../@id = 'secondary-units'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:value-of select="iana:unit"/></td>
+          <td><xsl:value-of select="iana:scale"/></td>
+          <td><xsl:value-of select="iana:offset"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
