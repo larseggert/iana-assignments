@@ -19,6 +19,12 @@
           <th>Version</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'performance-metrics-spec'">
+        <tr>
+          <th>Identifier</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <th>Identifier</th>
@@ -44,6 +50,12 @@
           <td><xsl:value-of select="iana:version"/></td>
         </tr>
       </xsl:when>
+      <xsl:when test="../@id = 'performance-metrics-spec'">
+        <tr>
+          <td><xsl:value-of select="iana:id"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>      
       <xsl:otherwise>
         <tr>
           <td><xsl:value-of select="iana:id"/></td>
