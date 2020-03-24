@@ -70,7 +70,7 @@
       <xsl:when test="../@id = 'secondary-units'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:value-of select="iana:unit"/></td>
           <td><xsl:value-of select="iana:scale"/></td>
           <td><xsl:value-of select="iana:offset"/></td>
