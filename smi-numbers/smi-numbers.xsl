@@ -98,6 +98,7 @@
                         @id = 'smi-numbers-1.3.6.1.5.5.7.21' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.22' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.23' or
+                        @id = 'smi-numbers-1.3.6.1.5.5.7.24' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.48' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.48.1' or
                         @id = 'smi-numbers-1.3.101'">
