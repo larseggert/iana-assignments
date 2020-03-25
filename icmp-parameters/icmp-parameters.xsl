@@ -14,7 +14,7 @@
       <xsl:when test="@id = 'icmp-parameters-ext-class-1' or @id = 'icmp-parameters-ext-class-2'">
         <tr><th>C-Type (Value)</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
-      <xsl:when test="@id = 'icmp-parameters-ext-class-2-if-roles'">
+      <xsl:when test="@id = 'icmp-parameters-ext-class-2-if-roles' or @id = 'icmp-parameters-ext-class-4'">
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:otherwise>
