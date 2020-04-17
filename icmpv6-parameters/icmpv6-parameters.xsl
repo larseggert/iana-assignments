@@ -120,7 +120,7 @@
        or ../@id = 'sixlowpan-capability-bits' 
        or ../@id = 'icmpv6-parameters-11'
        or ../@id = 'ipv6-neighbor-discovery-prefix-information-options'
-	   or ../@id = 'pvd-option-flags'">
+	     or ../@id = 'pvd-option-flags'">
       <tr>
        <td align="center"><xsl:value-of select="iana:value"/></td>
        <td><xsl:apply-templates select="iana:description"/></td>
