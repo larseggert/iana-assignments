@@ -7,13 +7,20 @@
   <xsl:import href="../_support/iana-registry.xsl" />
 
   <xsl:template name="iana:record_header">
-    <tr><th>Per Hop Behavior Identification Codes</th><th>Reference</th></tr>
+    <tr>
+      <th>Value</th>
+      <th>Description</th>
+      <th>Reference</th>
+      <th>Change Controller</th>
+    </tr>
   </xsl:template>
 
   <xsl:template match="iana:record">
     <tr>
       <td align="center"><xsl:value-of select="iana:value"/></td>
+      <td align="center"><xsl:value-of select="iana:description"/></td>
       <td><xsl:apply-templates select="iana:xref"/></td>
+      <td><xsl:apply-templates select="iana:controller"/></td>
     </tr>
   </xsl:template>
 
