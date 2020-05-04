@@ -1,67 +1,82 @@
-(Last updated 23 March 2006)
+(registered 2006-03-23, last updated 2020-05-04)
 
+Name: Alexis Tamas
 
-Name : Alexis Tamas
+Email: alexis.tamas&op3ft.org
 
-Email : fnsl&frogans.com
+Media type name: application
 
-MIME media type name : Application
+Media subtype name: vnd.frogans.fnc
 
-MIME subtype name : Vendor Tree - vnd.frogans.fnc
+Required parameters: N/A
 
-Required parameters : none
+Optional parameters: N/A
 
-Optional parameters : none
+Encoding considerations: 8bit
 
-Encoding considerations : 8bit
-This media type may require encoding on transports not capable of
-handling 8 bit text.
+Security considerations: This media type represents XML documents 
+   called Frogans Network Certificates (FNC). These documents are 
+   specified in version 3.0 of the Frogans Network System Language 
+   (FNSL) technical specification 
+   (https://www.frogans.org/en/resources/fnsl/access.html). Given 
+   that FNSL documents are authenticated using digital signatures (to 
+   ensure secure access and use of Frogans networks), there are no 
+   security issues associated with this type. This media type 
+   represents no executable content and does not require integrity or 
+   confidentiality protection.
 
-Security considerations :
-This type is a media type representing XML documents called frogans
-network certificates. These documents are specified in the FNSL
-specifications 3.0. section 8.
-(http://www.frogans.com/en/doc/FNSL30.txt). As all FNSL documents
-are authenticated by the means of digital signatures, to ensure the
-secure access and use of frogans networks, there is no security
-issue associated with this type. This media type includes no executable 
-content and does not require integrity or confidentiality protection
+Interoperability considerations: This type is interoperable on any 
+   system.
 
-Interoperability considerations :
-This type is fully interoperable on any system.
+Published specification: The specification of this type is included 
+   in version 3.0 of the Frogans Network System Language (FNSL) 
+   technical specification 
+   (https://www.frogans.org/en/resources/fnsl/access.html).
 
-Published specification :
-The specifications for this type are included in section 8. of the
-Frogans Network System Language specifications 3.0:
-http://www.frogans.com/en/doc/FNSL30.txt
+Applications which use this media:
+   - on the client side: some old versions of Frogans Player
+   - on the server side: HTTP servers
 
+Fragment identifier considerations: N/A
 
-Applications which use this media :
-- the Frogans Player on client side;
-- any HTTP server on server side; for example: http://frogans-
-certificate.frogans.net/frogans.certificate.fnc
+Restrictions on usage: N/A
 
-Additional information :
+Additional information:
 
-1. Magic number(s) : none
-2. File extension(s) : .FNC
-3. Macintosh file type code : none
-4. Object Identifiers: none
+   1. Deprecated alias names for this type: N/A
+   2. Magic number(s): N/A
+   3. File extension(s): .FNC
+   4. Macintosh file type code: N/A
+   5. Object Identifiers: N/A
 
-The Frogans technology is a technology which is used for publishing
-content on the Internet, called frogans. See
-http://www.frogans.com/
+General Comments: Frogans is a medium for publishing content and 
+   services on the Internet. From its inception in 1999, the medium 
+   was designed as a generic software layer running on top of the 
+   original Internet infrastructure (i.e., the TCP and IP protocols 
+   and the Domain Name System (DNS)), alongside other existing layers 
+   such as E-mail or the World Wide Web. The Frogans Network System 
+   Language (FNSL) is an XML-based markup language that defines the 
+   Frogans address resolution process. The official Web site of the 
+   Frogans technology is https://www.frogans.org/
 
-Person to contact for further information :
+Person to contact for further information:
 
-1. Name : Alexis Tamas
-2. Email : fnsl&frogans.com
+   1. Name: Alexis Tamas
+   2. Email: alexis.tamas&op3ft.org
 
-Intended usage : Common
-This type is used to distribute frogans network certificates on the
-Internet.
+Intended usage: Obsolete
 
-Author/Change controller : Alexis Tamas
+   This type was used for the distribution of Frogans Network 
+   Certificate (FNC) documents on the Internet. It was registered in 
+   2006 to work with version 3.0 of the Frogans Network System 
+   Language (FNSL) technical specification. But the use of a media 
+   type for the distribution of FNC documents on the Internet was 
+   determined to be unsatisfactory because using a media type from a 
+   Web page to launch another application did not always work, 
+   especially on mobile devices. As a result, this type is no longer 
+   used as of version 4.0 of the FNSL technical specification 
+   (https://www.frogans.org/en/resources/fnsl/access.html).
 
-
-(File created 23 March 2006)
+Author/Change controller: Organization for the Promotion, Protection 
+   and Progress of Frogans Technology (OP3FT) 
+   <mailto:contact-standards&op3ft.org>
