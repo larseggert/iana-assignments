@@ -116,6 +116,13 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'extended-dns-error-codes'">
+        <tr>
+          <th>INFO-CODE</th>
+          <th>Purpose</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
