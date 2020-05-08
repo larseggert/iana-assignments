@@ -78,6 +78,20 @@
           <th>Description</th>
           <th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'protocol-segment-id-sub-tlv'">
+        <tr>
+          <th>Value</th>
+          <th>Meaning</th>
+          <th>Reference</th>
+          <th>Notes</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'protocol-label-stack-sub-tlv-downstream-detailed-mapping-tlv'">
+        <tr>
+          <th>Value</th>
+          <th>Meaning</th>
+          <th>Reference</th>
+          <th>Notes</th></tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <th>Value</th>
@@ -139,6 +153,22 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
+      <xsl:when test="../@id = 'protocol-segment-id-sub-tlv'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:notes"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'protocol-label-stack-sub-tlv-downstream-detailed-mapping-tlv'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:notes"/></td>
+        </tr>
+      </xsl:when>   
       <xsl:otherwise>
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
