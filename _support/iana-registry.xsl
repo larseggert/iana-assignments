@@ -90,7 +90,7 @@
 
   <xsl:template match="/iana:registry/iana:people">
     <xsl:if test="iana:person">
-      <h1 class="people">People</h1>
+      <h1 class="people">Contact Information</h1>
       <table class="sortable">
         <thead>
           <tr>
