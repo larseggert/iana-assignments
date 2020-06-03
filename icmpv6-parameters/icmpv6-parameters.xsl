@@ -88,6 +88,18 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'icmpv6-crypto-types'">
+        <tr>
+          <th>Crypto-Type Value</th>
+          <th>Elliptic Curve</th>
+          <th>Hash Function</th>
+          <th>Signature Algorithm</th>
+          <th>Representation Conventions</th>
+          <th>Public Key Size</th>
+          <th>Signature Size</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
      <xsl:otherwise>
       <tr>
         <th>Code</th>
@@ -127,6 +139,18 @@
        <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
      </xsl:when>
+      <xsl:when test="../@id = 'icmpv6-crypto-types'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:elliptic"/></td>
+          <td><xsl:apply-templates select="iana:hash"/></td>
+          <td><xsl:apply-templates select="iana:signature"/></td>
+          <td><xsl:apply-templates select="iana:rep_conv"/></td>
+          <td><xsl:apply-templates select="iana:public_key_size"/></td>
+          <td><xsl:apply-templates select="iana:signature_size"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
      <xsl:otherwise>
       <tr>
        <td align="center"><xsl:value-of select="iana:value"/></td>

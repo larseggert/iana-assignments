@@ -1,7 +1,7 @@
                                            Internet Control Message Protocol version 6 (ICMPv6) Parameters
 
    Last Updated
-           2020-04-24
+           2020-06-02
 
    Available Formats
            [IMG]
@@ -57,6 +57,7 @@
      * Address Registration Option Flags
      * Address Registration Option I-Field
      * PvD Option Flags
+     * Crypto-Types
 
 ICMPv6 "type" Numbers
 
@@ -866,9 +867,10 @@ Address Registration Option Status Values
            [IMG]
            CSV
 
-    Bit           Description          Reference
+    Bit           Description                 Reference
     0-7  Reserved for Experimental Use [RFC7400]
-    8-9  Unassigned
+     8   Unassigned
+     9   AP-ND Enabled (1 bit)         [RFC-ietf-6lo-ap-nd-23]
     10   EDA Support (D bit)           [RFC8505]
     11   6LR capable (L bit)           [RFC8505]
     12   6LBR capable (B bit)          [RFC8505]
@@ -949,6 +951,34 @@ PvD Option Flags
     1   L-flag     [RFC-ietf-intarea-provisioning-domains-11]
     2   R-flag     [RFC-ietf-intarea-provisioning-domains-11]
    3-15 Unassigned
+
+Crypto-Types
+
+   Registration Procedure(s)
+
+ Specification Required or IESG Approval
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-6lo-ap-nd-23]
+
+   Available Formats
+           [IMG]
+           CSV
+
+  Crypto-Type  Elliptic     Hash     Signature          Representation Conventions              Public Key Size      Signature        Reference
+     Value       Curve    Function   Algorithm                                                                         Size
+  0           NIST P-256  SHA-256   ECDSA       Weierstrass, (un)compressed, MSB/msb       33/65 bytes               64 bytes  [RFC-ietf-6lo-ap-nd-23]
+              [FIPS186-4] [RFC6234] [FIPS186-4] first, [RFC7518]                           (compressed/uncompressed)
+  1           Curve25519  SHA-512   Ed25519     Edwards, compressed, LSB/lsb first,        32 bytes (compressed)     64 bytes  [RFC-ietf-6lo-ap-nd-23]
+              [RFC7748]   [RFC6234] [RFC8032]   [RFC8037]
+              Curve25519  SHA-256   ECDSA       Weierstrass, (un)compressed, MSB/msb       33/65 bytes
+  2           [RFC7748]   [RFC6234] [FIPS186-4] first,                                     (compressed/uncompressed) 64 bytes  [RFC-ietf-6lo-ap-nd-23]
+                                                [draft-ietf-lwig-curve-representations-09]
+  3-255
 
                                                                        Footnote
 
