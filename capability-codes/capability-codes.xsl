@@ -7,7 +7,12 @@
     <xsl:choose> 
       
       <xsl:when test="@id = 'capability-codes-2'">
-        <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
+        <tr>
+          <th>Value</th>
+          <th>Description</th>
+          <th>Reference</th>
+          <th>Change Controller</th>
+        </tr>
       </xsl:when>
     </xsl:choose>
   </xsl:template>
@@ -20,6 +25,7 @@
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
         </tr>
       </xsl:when>
     </xsl:choose>
