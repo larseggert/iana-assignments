@@ -65,6 +65,16 @@
        <th>Description</th>
        <th>Reference</th>
       </xsl:when>
+     <xsl:when test="@id = 'rtp-ekt-message-types'">
+      <th>Value</th>
+      <th>Message Type</th>
+      <th>Reference</th>
+     </xsl:when>
+     <xsl:when test="@id = 'rtp-ekt-ciphers'">
+      <th>Value</th>
+      <th>Name</th>
+      <th>Reference</th>
+     </xsl:when>
     </xsl:choose>
     </tr>
   </xsl:template>
@@ -86,8 +96,7 @@
        <td><xsl:value-of select="iana:clock_rate"/></td>
        <td><xsl:value-of select="iana:channels"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
-      </xsl:when>
-      
+      </xsl:when>     
       <xsl:when test="../@id = 'rtp-parameters-4' or ../@id = 'rtp-parameters-5'">
        <td><xsl:value-of select="iana:value"/></td>
        <td><xsl:value-of select="iana:abbrev"/></td>
@@ -130,6 +139,11 @@
        <td><xsl:value-of select="iana:description"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
       </xsl:when>
+     <xsl:otherwise>
+      <td><xsl:value-of select="iana:value"/></td>
+      <td><xsl:value-of select="iana:description"/></td>
+      <td><xsl:apply-templates select="iana:xref"/></td>
+     </xsl:otherwise>
     </xsl:choose>
      </tr>
   </xsl:template>
