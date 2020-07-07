@@ -1,0 +1,61 @@
+                                                                   Captive Portals
+
+   Created
+           2020-07-07
+
+   Last Updated
+           2020-07-07
+
+   Available Formats
+           [IMG]
+           XML [IMG]
+           HTML [IMG]
+           Plain text
+
+   Registry included below
+
+     * Captive Portal API Keys
+
+Captive Portal API Keys
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-capport-api-08]
+
+   Available Formats
+           [IMG]
+           CSV
+
+          Key          Type                                           Description                                                 Reference
+                              Indicates whether the client is in a state of captivity, i.e it has not satisfied the
+   captive            boolean conditions to access the external network. If the client is captive (i.e. captive=true), it [RFC-ietf-capport-api-08]
+                              will still be allowed enough access for it to perform server authentication
+                              [RFC-ietf-capport-api-08, Section 4.1].
+   user-portal-url    string  Provides the URL of a web portal that MUST be accessed over TLS with which a user can       [RFC-ietf-capport-api-08]
+                              interact.
+                              Provides the URL of a webpage or site that SHOULD be accessed over TLS on which the
+   venue-info-url     string  operator of the network has information that it wishes to share with the user (e.g., store  [RFC-ietf-capport-api-08]
+                              info, maps, flight status, or entertainment).
+                              Indicates that the URL specified as "user-portal-url" allows the user to extend a session
+   can-extend-session boolean once the client is no longer in a state of captivity. This provides a hint that a client    [RFC-ietf-capport-api-08]
+                              system can suggest accessing the portal URL to the user when the session is near its limit
+                              in terms of time or bytes.
+                              An integer that indicates the number of seconds remaining, after which the client will be
+   seconds-remaining  number  placed into a captive state. The API server SHOULD include this value if the client is not  [RFC-ietf-capport-api-08]
+                              captive (i.e. captive=false) and the client session is time-limited, and SHOULD omit this
+                              value for captive clients (i.e. captive=true) or when the session is not time-limited.
+                              An integer that indicates the number of bytes remaining, after which the client will be in
+                              placed into a captive state. The byte count represents the sum of the total number of IP
+                              packet (layer 3) bytes sent and received by the client, including IP headers. Captive
+   bytes-remaining    number  portal systems might not count traffic to whitelisted servers, such as the API server, but  [RFC-ietf-capport-api-08]
+                              clients cannot rely on such behavior. The API server SHOULD include this value if the
+                              client is not captive (i.e. captive=false) and the client session is byte-limited, and
+                              SHOULD omit this value for captive clients (i.e. captive=true) or when the session is not
+                              byte-limited.
