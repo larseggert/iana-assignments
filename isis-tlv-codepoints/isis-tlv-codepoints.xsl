@@ -117,6 +117,14 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+	  
+      <xsl:when test="@id = 'tlv-238'">
+       <tr>
+         <th>Value</th>
+         <th>Description</th>
+         <th>Reference</th>
+       </tr>
+      </xsl:when>
       
       <xsl:otherwise>
        <tr>
@@ -192,6 +200,13 @@
        <td><xsl:value-of select="iana:value"/></td>
        <td><xsl:value-of select="iana:description"/></td>
        <td><xsl:value-of select="iana:allowed"/></td>
+       <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+     </xsl:when>
+     <xsl:when test="../@id = 'isis-tlv-codepoints-238'">
+      <tr>
+       <td><xsl:value-of select="iana:value"/></td>
+       <td><xsl:value-of select="iana:description"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
      </xsl:when>
