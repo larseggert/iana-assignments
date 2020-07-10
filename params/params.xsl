@@ -33,8 +33,8 @@
        <xsl:when test="../@id = 'params-1'">
     <tr>
       <td><xsl:value-of select="iana:name"/></td>
-      <td><xsl:apply-templates select="iana:xref[@type != 'uri']"/></td>
-      <td><xsl:apply-templates select="iana:xref[@type = 'uri']"/></td>
+      <td><xsl:apply-templates select="iana:xref"/></td>
+      <td><xsl:apply-templates select="iana:reg"/></td>
     </tr>
        </xsl:when>
        </xsl:choose>
