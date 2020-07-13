@@ -4,7 +4,7 @@
            2008-12-19
 
    Last Updated
-           2020-07-06
+           2020-07-13
 
    Available Formats
            [IMG]
@@ -65,7 +65,7 @@
      * AUTO-BANDWIDTH-CAPABILITY TLV Flag Field
      * AUTO-BANDWIDTH-ATTRIBUTES Sub-TLV Types
      * Path Protection Association Group TLV Flag Field
-     * Generalized Endpoint Type
+     * Generalized Endpoint Types
      * GMPLS-CAPABILITY TLV Flag Field
      * Disjointness Configuration TLV Flag Field
 
@@ -317,7 +317,7 @@ RP Object Flag Field
 
     Bit            Description                                 Reference
    0-14  Unassigned
-   15-16 routing granularity (RG)         [RFC-ietf-pce-gmpls-pcep-extensions-16, Section 2.2]
+   15-16 Routing Granularity (RG)         [RFC-ietf-pce-gmpls-pcep-extensions-16, Section 2.2]
     17   Core-tree computation (C-bit)    [RFC7334]
     18   Fragmentation (F-bit)            [RFC8306]
     19   P2MP (N-bit)                     [RFC8306]
@@ -601,7 +601,7 @@ PCEP-ERROR Object Error Types and Values
                                                3: Unassigned
                                                4: Unsupported parameter                                     [RFC5441]
                                                5: Unsupported network performance constraint                [RFC8233]
-                                               6: Bandwidth Object type 3 or 4 not supported                [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               6: BANDWIDTH object type 3 or 4 not supported                [RFC-ietf-pce-gmpls-pcep-extensions-16]
                                                7: Unsupported endpoint type in END-POINTS Generalized       [RFC-ietf-pce-gmpls-pcep-extensions-16]
                                                Endpoint object type
                                                8: Unsupported TLV present in END-POINTS Generalized         [RFC-ietf-pce-gmpls-pcep-extensions-16]
@@ -641,7 +641,7 @@ PCEP-ERROR Object Error Types and Values
        9      Attempt to establish a second    0-255: Unassigned                                            [RFC5440]
               PCEP session
        10     Reception of an invalid object   0: Unassigned                                                [RFC5440]
-                                               1: reception of an object with P flag not set although the   [RFC5440]
+                                               1: Reception of an object with P flag not set although the   [RFC5440]
                                                P-flag must be set according to this specification.
                                                2: Bad label value                                           [RFC8664]
                                                3: Unsupported number of SR-ERO subobjects                   [RFC8664]
@@ -665,19 +665,18 @@ PCEP-ERROR Object Error Types and Values
                                                21: MSD must be nonzero                                      [RFC8664]
                                                22: Mismatch of O field in S2LS and LSP object               [RFC8623]
                                                23: Incompatible OF codes in H-PCE                           [RFC8685]
-                                               24: Bad Bandwidth Object type 3 (Generalized bandwidth) or 4
-                                               (Generalized bandwidth of existing TE-LSP for which a        [RFC-ietf-pce-gmpls-pcep-extensions-16]
-                                               reoptimization is requested)
+                                               24: Bad BANDWIDTH object type 3 or 4                         [RFC-ietf-pce-gmpls-pcep-extensions-16]
                                                25: Unsupported LSP Protection Flags in PROTECTION-ATTRIBUTE [RFC-ietf-pce-gmpls-pcep-extensions-16]
                                                TLV
                                                26: Unsupported Secondary LSP Protection Flags in            [RFC-ietf-pce-gmpls-pcep-extensions-16]
                                                PROTECTION-ATTRIBUTE TLV
                                                27: Unsupported Link Protection Type in PROTECTION-ATTRIBUTE [RFC-ietf-pce-gmpls-pcep-extensions-16]
                                                TLV
-                                               28: LABEL-SET TLV present with 0 bit set but without R bit   [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               28: LABEL-SET TLV present with O bit set but without R bit   [RFC-ietf-pce-gmpls-pcep-extensions-16]
                                                set in RP
-                                               29: Wrong LABEL-SET TLV present with 0 and L bit set         [RFC-ietf-pce-gmpls-pcep-extensions-16]
-                                               30: Wrong LABEL-SET with O bit set and wrong format          [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               29: Wrong LABEL-SET TLV present with O and L bits set        [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               30: Wrong LABEL-SET TLV present with O bit set and wrong     [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               format
                                                31: Missing GMPLS-CAPABILITY TLV                             [RFC-ietf-pce-gmpls-pcep-extensions-16]
                                                32: Incompatible OF code                                     [RFC-ietf-pce-association-diversity-14]
                                                33-255: Unassigned
@@ -810,7 +809,7 @@ PCEP-ERROR Object Error Types and Values
        29     Path computation failure         0: Unassigned                                                [RFC-ietf-pce-gmpls-pcep-extensions-16]
                                                1: Unacceptable request message                              [RFC-ietf-pce-gmpls-pcep-extensions-16]
                                                2: Generalized bandwidth value not supported                 [RFC-ietf-pce-gmpls-pcep-extensions-16]
-                                               3: Label Set constraint could not be met                     [RFC-ietf-pce-gmpls-pcep-extensions-16]
+                                               3: Label set constraint could not be met                     [RFC-ietf-pce-gmpls-pcep-extensions-16]
                                                4: Label constraint could not be met                         [RFC-ietf-pce-gmpls-pcep-extensions-16]
                                                5-255: Unassigned
      30-255   Unassigned                       0-255: Unassigned
@@ -939,7 +938,7 @@ XRO Subobjects
      7    IS-IS Area ID                [RFC7897][RFC7898]
      8    Optical Interface Class List [RFC-ietf-pce-wson-rwa-ext-17]
      9    Client Signal Information    [RFC-ietf-pce-wson-rwa-ext-17]
-     10   Label subobject              [RFC-ietf-pce-gmpls-pcep-extensions-16]
+     10   Label                        [RFC-ietf-pce-gmpls-pcep-extensions-16]
    11-31  Unassigned
      32   Autonomous system number     [RFC3209]
      33   Unassigned
@@ -1646,7 +1645,7 @@ Path Protection Association Group TLV Flag Field
    6-29 Unassigned
    0-5  Protection Type Flags [RFC8745]
 
-Generalized Endpoint Type
+Generalized Endpoint Types
 
    Reference
            [RFC-ietf-pce-gmpls-pcep-extensions-16]
@@ -1659,14 +1658,14 @@ Generalized Endpoint Type
    0-244   Standards Action
    245-255 Experimental Use
 
-    Value         Type                              Meaning                                     Reference
-   0       Point-to-Point                                                        [RFC-ietf-pce-gmpls-pcep-extensions-16]
-   1       Point-to-Multipoint New leaves to add                                 [RFC-ietf-pce-gmpls-pcep-extensions-16]
-   2                           Old leaves to remove                              [RFC-ietf-pce-gmpls-pcep-extensions-16]
-   3                           Old leaves whose path can be modified/reoptimized [RFC-ietf-pce-gmpls-pcep-extensions-16]
-   4                           Old leaves whose path has to be left unchanged    [RFC-ietf-pce-gmpls-pcep-extensions-16]
+    Value                  Type                                Reference
+   0       Point-to-Point                       [RFC-ietf-pce-gmpls-pcep-extensions-16]
+   1       Point-to-Multipoint with leaf type 1 [RFC-ietf-pce-gmpls-pcep-extensions-16]
+   2       Point-to-Multipoint with leaf type 2 [RFC-ietf-pce-gmpls-pcep-extensions-16]
+   3       Point-to-Multipoint with leaf type 3 [RFC-ietf-pce-gmpls-pcep-extensions-16]
+   4       Point-to-Multipoint with leaf type 4 [RFC-ietf-pce-gmpls-pcep-extensions-16]
    5-244   Unassigned
-   245-255 Experimental Use                                                      [RFC-ietf-pce-gmpls-pcep-extensions-16]
+   245-255 Experimental Use                     [RFC-ietf-pce-gmpls-pcep-extensions-16]
 
 GMPLS-CAPABILITY TLV Flag Field
 

@@ -173,7 +173,6 @@
         <tr>
           <th>Value</th>
           <th>Type</th>
-          <th>Meaning</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
@@ -290,7 +289,6 @@
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:type"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
