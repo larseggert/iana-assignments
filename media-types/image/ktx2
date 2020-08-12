@@ -1,0 +1,117 @@
+(registered 2020-08-11, last updated 2020-08-11)
+
+Type name: Image
+
+Subtype name: ktx2
+
+Required parameters: none
+
+Optional parameters: none
+
+Encoding considerations: binary
+
+Security considerations:
+The ktx2 type is a binary data stream which contains no executable
+code that could disrupt a client processor. There is no provision
+in the type specification that would allow authors to insert
+executable code that would present any security risk to a client
+machine. The only effect associated with this data is to cause an
+image to be rendered on the recipient's display.
+
+Because every item's length is available at its beginning, there
+is robust defense against corrupted or fraudulent data that might
+overflow a decoder's buffer. Also the signature bytes provide early
+detection of common file transmission errors.
+
+The image payload may be uncompressed or block-compressed. The
+payload may be further supercompressed with variable-rate compression.
+
+Block compression schemes are designed so small blocks of data
+(typically 64 to 128 bits) can be decompressed in real time into a
+small block of pixels (typically 4x4) during texel fetch. In such
+schemes it is not possible for a small amount of data to expand
+enormously because the level of compression is limited; the compressed
+size is related directly to the number of pixels in the uncompressed
+image and not to the content of the data.
+
+When variable-rate compression is used, the format includes information
+as to the expected size of the uncompressed data. However applications
+must not rely on this and must guard against buffer overflow and
+ultra large memory allocation.
+
+The ktx2 type does not provide encryption of the data payload. Users
+or applications wishing or needing to keep their images confidential
+must overlay their own encryption on the ktx data during transmission.
+
+Interoperability considerations:
+
+The ktx2 type is a container capable of holding a payload in one
+of a large number of formats, potentially supercompressed with one
+of a number of schemes. While the container format will not change,
+new payload formats and supercompression schemes may be added over
+time. Consumers of this media-type must fail gracefully in the
+face of unrecognized formats and schemes. Since formats and schemes
+are identified in the ktx2 header, applications can quickly reject
+those they do not support.
+
+Published specification:
+
+The KTX file format specification can be found at
+
+https://github.khronos.org/KTX-Specification/
+
+Applications Usage:
+
+Currently the tools in the KTX Software repo
+(https://github.com/KhronosGroup/KTX-Software) - ktx2check, ktx2ktx2,
+ktxinfo, ktxsc, toktx - and gltfpack. Prototype loaders are available
+in THREE.js and Babylon.js. It is anticipated it will incorporated
+within the glTF standard and be widely used by by applications using
+glTF content and by applications built on top of OpenGl, Vulkan,
+WebGL and other 3D API standards as the means of delivering texture
+data. Since image/ktx2 supports universal textures (textures that
+can be transcoded to any GPU block-compressed format) uptake is
+expected to be nearly, er, universal.
+
+Fragment Identifier Considerations:
+
+The syntax and semantics for identifying fragments in the payload of a KTX file,
+is as specified in https://github.khronos.org/KTX-Specification/ktx-frag.html.
+
+Restrictions on Usage: none
+
+Provisional registration? No
+
+Additional information:
+
+Magic number(s): 12 octets
+{ 0xAB,0x4B,0x54,0x58,0x20,0x32,0x30,0xBB,0x0D,0x0A,0x1A,0x0A }
+File extension(s): .ktx2
+Macintosh file type code(s): n/a
+Mccintosh Uniform Type Identifier: public.ktx2, conforms to public.image
+
+Intended usage: COMMON
+
+Restrictions on usage: none
+
+Other Information & Comments:
+
+Relationship to image/ktx: image/ktx shares the purpose of being a
+container for texture data for use with 3D APIs. image/ktx2 offers
+a significant increase in functionality, including universal textures
+and supercompression, that required incompatible changes to the
+container format hence this new registration request.
+
+Contact Person:
+
+Mark Callow (khronos at callow.im)
+
+Authors:
+
+Mark Callow, Alexey Knyazev
+
+Change controller:
+
+The Khronos Group (www.khronos.org), the industry consortium
+responsible for standards such as OpenGL, OpenGL ES, WebGL and
+Vulkan. For change requests contact <iana at khronos.org>.

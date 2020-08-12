@@ -1,0 +1,68 @@
+Type name: audio
+
+Subtype name: G7291
+
+Required parameters: none
+
+Optional parameters:
+
+maxbitrate:  the absolute maximum codec bit rate for the session, in
+   bits per second.  Permissible values are 8000, 12000, 14000,
+   16000, 18000, 20000, 22000, 24000, 26000, 28000, 30000, and 32000.
+   32000 is implied if this parameter is omitted.  The maxbitrate
+   restricts the range of bit rates which can be used.  The bit rates
+   indicated by FT and MBS fields in the RTP packets MUST NOT exceed
+   maxbitrate.
+
+mbs:  the current maximum codec bit rate supported as a receiver, in
+   bits per second.  Permissible values are in the same set as for
+   the maxbitrate parameter, with the constraint that mbs MUST be
+   lower or equal to maxbitrate.  If the mbs parameter is omitted, it
+   is set to the maxbitrate value.  So if both mbs and maxbitrate are
+   omitted, they are both set to 32000.  The mbs parameter
+   corresponds to a MBS value in the RTP packets as per table in
+   Section 5.2 of RFC 4749.  Note that this parameter may be
+   dynamically updated by the MBS field of the RTP packets sent; it
+   is not an absolute value for the session.
+
+ptime:  the recommended length of time (in milliseconds) represented
+   by the media in a packet.  See Section 6 of RFC 4566.
+
+maxptime:  the maximum length of time (in milliseconds) that can be
+   encapsulated in a packet.  See Section 6 of RFC 4566
+
+dtx: indicates that Discontinuous Transmission (DTX) is used or
+   preferred. Permissible values are 0 and 1. 0 means no DTX. 1
+   means DTX support, as described in Annex C of ITU-T Recommendation
+   G.729.1. 0 is implied if this parameter is omitted.
+
+   When DTX is turned off, the RTP payload must not contain a
+   Silence Insertion Descriptor (SID), and the frame type (FT) value 14
+   must not be used.
+
+Encoding considerations: This media type is framed and contains
+   binary data; see Section 4.8 of RFC 4288.
+
+Security considerations: See Section 8 of RFC 4749
+
+Interoperability considerations: none
+
+Published specification: RFC 4749
+
+Applications which use this media type: Audio and video conferencing
+   tools.
+
+Additional information: none
+
+Person & email address to contact for further information:
+   Aurelien Sollaud, aurelien.sollaud&orange-ftgroup.com
+
+Intended usage: COMMON
+
+Restrictions on usage: This media type depends on RTP framing, and
+   hence is only defined for transfer via RTP [RFC 3550].
+
+Author: Aurelien Sollaud
+
+Change controller: IETF Audio/Video Transport working group delegated
+   from the IESG
