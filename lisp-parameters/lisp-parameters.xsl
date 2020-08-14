@@ -24,7 +24,10 @@
           <th>Reference</th>
           <th>Change Controller (First Come First Served Range)</th>
         </tr>
-      </xsl:when>
+		</xsl:when>
+        <xsl:when test="@id = 'lisp-gpe-next-protocol'">
+          <tr><th>Next Protocol</th><th>Description</th><th>Reference</th></tr>
+        </xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
       </xsl:otherwise>
