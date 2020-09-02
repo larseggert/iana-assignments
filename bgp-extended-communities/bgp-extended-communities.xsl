@@ -44,7 +44,8 @@
         or @id = 'bgp-extended-communities-10'
         or @id = 'generic-transitive-experimental-part2'
         or @id = 'generic-transitive-experimental-part3'
-        or @id = 'evpn-layer-2-attributes-control-flags'">
+        or @id = 'evpn-layer-2-attributes-control-flags'
+        or @id = 'sfc-extended-community'">
         <th>Sub-Type Value</th>
         <th>Name</th>
         <th>Reference</th>

@@ -64,6 +64,31 @@
         </tr>
       </xsl:when>
       
+      <xsl:when test="@id = 'sfp-attribute-tlvs'">
+        <tr>
+          <th>Type</th>
+          <th>Name</th>
+          <th>Reference</th>
+          <th>Registration Date</th>
+        </tr>
+      </xsl:when>
+	  
+      <xsl:when test="@id = 'sfp-association-type'">
+        <tr>
+          <th>Association Type</th>
+          <th>Name</th>
+          <th>Reference</th>
+          <th>Registration Date</th>
+        </tr>
+      </xsl:when>
+      
+      <xsl:when test="@id = 'sfp-association-type'">
+        <tr>
+          <th>Bit Number</th>
+          <th>Name</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Name</th><th>Reference</th></tr>
       </xsl:otherwise>
@@ -131,7 +156,23 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      
+      <xsl:when test="../@id = 'sfp-attribute-tlvs'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:value-of select="iana:registration"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'sfp-association-type'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:value-of select="iana:registration"/></td>
+        </tr>
+      </xsl:when>
+
       <xsl:otherwise>
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
