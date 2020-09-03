@@ -82,13 +82,14 @@
         </tr>
       </xsl:when>
       
-      <xsl:when test="@id = 'sfp-association-type'">
+      <xsl:when test="@id = 'sfc-spi/si-representation-flags'">
         <tr>
           <th>Bit Number</th>
           <th>Name</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
+	  
       <xsl:otherwise>
         <tr><th>Value</th><th>Name</th><th>Reference</th></tr>
       </xsl:otherwise>
