@@ -17,6 +17,12 @@
       <xsl:when test="@id = 'flags'">
         <tr><th>Bit</th><th>Name</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'ae'">
+        <tr><th>AE</th><th>Name</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'hello'">
+        <tr><th>Bit</th><th>Name</th><th>Reference</th></tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
