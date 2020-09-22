@@ -4,7 +4,7 @@
            2009-01-30
 
    Last Updated
-           2020-09-10
+           2020-09-22
 
    Available Formats
            [IMG]
@@ -35,67 +35,58 @@ Email Authentication Methods
            [IMG]
            CSV
 
-     Method              Definition            ptype          Property                               Value                         Status   Version
-   arc        [RFC8617, Section 6]             smtp   remote-ip                 IP address (v4 or v6) of originating SMTP        active     1
-                                                                                connection
-   arc        [RFC8617, Section 6]             header oldest-pass               The instance id of the oldest validating AMS or  active     1
-                                                                                0 if they all pass (see [RFC8617, Section 5.2])
-   auth       [RFC8601]                        smtp   auth                      identity confirmed by the AUTH command           active     1
-   auth       [RFC8601]                        smtp   mailfrom                  AUTH parameter of the SMTP MAIL command          active     1
-   dkim       [RFC8601]                        header d                         value of signature "d" tag                       active     1
-   dkim       [RFC8601]                        header i                         value of signature "i" tag                       active     1
-   dkim       [RFC6008]                        header b                         full or partial value of signature "b" tag       active     1
-   dkim       [RFC8601]                        header a                         value of signature "a" tag                       active     1
-   dkim       [RFC8601]                        header s                         value of signature "s" tag                       active     1
-   dkim-adsp  [RFC5617][RFC7601]               header from                      contents of the [RFC5322] From: header field,    deprecated 1
-                                                                                with comments removed
-   dkim-atps  [RFC6541]                        header from                      contents of the [RFC5322] From: header field,    active     1
-                                                                                with comments removed
-   dmarc      [RFC7489]                        header from                      the domain portion of the RFC5322.From field     active     1
-                                                                                Evaluated DMARC policy applied/to be applied
-   dmarc      [RFC7489]                        policy dmarc                     after policy options including pct: and sp: have active     1
-                                                                                been processed. Must be none, quarantine, or
-                                                                                reject.
-   dnswl      [RFC-vesely-authmethod-dnswl-16] dns    zone                      DNSWL publicly accessible query root domain      active     1
-   dnswl      [RFC-vesely-authmethod-dnswl-16] policy ip                        type A response received (or a quoted,           active     1
-                                                                                comma-separated list thereof)
-   dnswl      [RFC-vesely-authmethod-dnswl-16] policy txt                       type TXT query response                          active     1
-   dnswl      [RFC-vesely-authmethod-dnswl-16] dns    sec                       one of "yes" for DNSSEC authenticated data, "no" active     1
-                                                                                for not signed, or "na" for not applicable
-   domainkeys [RFC7601]                        header d                         value of signature "d" tag                       deprecated 1
-                                                                                contents of the [RFC5322] From: header field,
-   domainkeys [RFC7601]                        header from                      after removing comments, and removing the        deprecated 1
-                                                                                local-part and following "@" if not
-                                                                                authenticated
-                                                                                contents of the [RFC5322] Sender: header field,
-   domainkeys [RFC7601]                        header sender                    after removing comments, and removing the        deprecated 1
-                                                                                local-part and following "@" if not
-                                                                                authenticated
-   iprev      [RFC8601]                        policy iprev                     client IP address                                active     1
-   rrvs       [RFC7293]                        smtp   rcptto                    envelope recipient                               active     1
-   sender-id  [RFC7601]                        header name of header field used value of header field used by PRA after removing deprecated 1
-                                                      by PRA                    comments and parts not authenticated
-                                                                                The MIME body part reference that contains the
-   smime      [RFC7281]                        body   smime-part                S/MIME signature. See [Section 3.2.1 of RFC7281] active     1
-                                                                                for full syntax.
-                                                                                The email address [RFC5322] associated with the
-                                                                                S/MIME signature. The email address can be
-   smime      [RFC7281]                        body   smime-identifer           specified explicitly or derived from the         active     1
-                                                                                identity of the signer. Note that this email
-                                                                                address can correspond to a countersignature.
-                                                                                serialNumber of the certificate associated with
-   smime      [RFC7281]                        body   smime-serial              the S/MIME signature (see Section 4.1.2.2 of     active     1
-                                                                                [RFC5280]).
-                                                                                Issuer name DN (e.g., "CN=CA1,ST=BC,c=CA") of
-   smime      [RFC7281]                        body   smime-issuer              the certificate associated with the S/MIME       active     1
-                                                                                signature (see section 4.1.2.2 of [RFC5280]).
-   spf        [RFC8601]                        smtp   mailfrom                  envelope sender after removing parts not         active     1
-                                                                                authenticated
-   spf        [RFC8601]                        smtp   helo                      HELO/EHLO value                                  active     1
-   vbr        [RFC6212]                        header md                        DNS domain name used as the subject of a VBR     active     1
-                                                                                query
-   vbr        [RFC6212]                        header mv                        DNS domain name of the entity acting as the      active     1
-                                                                                voucher
+     Method        Definition      ptype            Property                                     Value                             Status   Version
+   arc        [RFC8617, Section 6] smtp   remote-ip                    IP address (v4 or v6) of originating SMTP connection      active     1
+   arc        [RFC8617, Section 6] header oldest-pass                  The instance id of the oldest validating AMS or 0 if they active     1
+                                                                       all pass (see [RFC8617, Section 5.2])
+   auth       [RFC8601]            smtp   auth                         identity confirmed by the AUTH command                    active     1
+   auth       [RFC8601]            smtp   mailfrom                     AUTH parameter of the SMTP MAIL command                   active     1
+   dkim       [RFC8601]            header d                            value of signature "d" tag                                active     1
+   dkim       [RFC8601]            header i                            value of signature "i" tag                                active     1
+   dkim       [RFC6008]            header b                            full or partial value of signature "b" tag                active     1
+   dkim       [RFC8601]            header a                            value of signature "a" tag                                active     1
+   dkim       [RFC8601]            header s                            value of signature "s" tag                                active     1
+   dkim-adsp  [RFC5617][RFC7601]   header from                         contents of the [RFC5322] From: header field, with        deprecated 1
+                                                                       comments removed
+   dkim-atps  [RFC6541]            header from                         contents of the [RFC5322] From: header field, with        active     1
+                                                                       comments removed
+   dmarc      [RFC7489]            header from                         the domain portion of the RFC5322.From field              active     1
+                                                                       Evaluated DMARC policy applied/to be applied after policy
+   dmarc      [RFC7489]            policy dmarc                        options including pct: and sp: have been processed. Must  active     1
+                                                                       be none, quarantine, or reject.
+   dnswl      [RFC8904]            dns    zone                         DNSWL publicly accessible query root domain               active     1
+   dnswl      [RFC8904]            policy ip                           type A response received (or a quoted, comma-separated    active     1
+                                                                       list thereof)
+   dnswl      [RFC8904]            policy txt                          type TXT query response                                   active     1
+   dnswl      [RFC8904]            dns    sec                          one of "yes" for DNSSEC authenticated data, "no" for not  active     1
+                                                                       signed, or "na" for not applicable
+   domainkeys [RFC7601]            header d                            value of signature "d" tag                                deprecated 1
+                                                                       contents of the [RFC5322] From: header field, after
+   domainkeys [RFC7601]            header from                         removing comments, and removing the local-part and        deprecated 1
+                                                                       following "@" if not authenticated
+                                                                       contents of the [RFC5322] Sender: header field, after
+   domainkeys [RFC7601]            header sender                       removing comments, and removing the local-part and        deprecated 1
+                                                                       following "@" if not authenticated
+   iprev      [RFC8601]            policy iprev                        client IP address                                         active     1
+   rrvs       [RFC7293]            smtp   rcptto                       envelope recipient                                        active     1
+   sender-id  [RFC7601]            header name of header field used by value of header field used by PRA after removing comments deprecated 1
+                                          PRA                          and parts not authenticated
+                                                                       The MIME body part reference that contains the S/MIME
+   smime      [RFC7281]            body   smime-part                   signature. See [Section 3.2.1 of RFC7281] for full        active     1
+                                                                       syntax.
+                                                                       The email address [RFC5322] associated with the S/MIME
+   smime      [RFC7281]            body   smime-identifer              signature. The email address can be specified explicitly  active     1
+                                                                       or derived from the identity of the signer. Note that
+                                                                       this email address can correspond to a countersignature.
+   smime      [RFC7281]            body   smime-serial                 serialNumber of the certificate associated with the       active     1
+                                                                       S/MIME signature (see Section 4.1.2.2 of [RFC5280]).
+                                                                       Issuer name DN (e.g., "CN=CA1,ST=BC,c=CA") of the
+   smime      [RFC7281]            body   smime-issuer                 certificate associated with the S/MIME signature (see     active     1
+                                                                       section 4.1.2.2 of [RFC5280]).
+   spf        [RFC8601]            smtp   mailfrom                     envelope sender after removing parts not authenticated    active     1
+   spf        [RFC8601]            smtp   helo                         HELO/EHLO value                                           active     1
+   vbr        [RFC6212]            header md                           DNS domain name used as the subject of a VBR query        active     1
+   vbr        [RFC6212]            header mv                           DNS domain name of the entity acting as the voucher       active     1
 
 Email Authentication Result Names
 
@@ -148,10 +139,10 @@ Email Authentication Result Names
    dmarc          pass      [RFC7489] section 11.2           active
    dmarc          permerror [RFC7489] section 11.2           active
    dmarc          temperror [RFC7489]                        active
-   dnswl          none      [RFC-vesely-authmethod-dnswl-16] active
-   dnswl          pass      [RFC-vesely-authmethod-dnswl-16] active
-   dnswl          permerror [RFC-vesely-authmethod-dnswl-16] active
-   dnswl          temperror [RFC-vesely-authmethod-dnswl-16] active
+   dnswl          none      [RFC8904]                        active
+   dnswl          pass      [RFC8904]                        active
+   dnswl          permerror [RFC8904]                        active
+   dnswl          temperror [RFC8904]                        active
    domainkeys     temperror [RFC7601] section 2.7.1          deprecated
    domainkeys     neutral   [RFC7601] section 2.7.1          deprecated
    domainkeys     none      [RFC7601] section 2.7.1          deprecated
@@ -217,9 +208,9 @@ Email Authentication Property Types
            [IMG]
            CSV
 
-   ptype             Definition                                                  Description
-   body   [RFC8601] section 2.3            The property being reported was found in the body of the message.
-   dns    [RFC-vesely-authmethod-dnswl-16] The property being reported belongs to the Domain Name System.
-   header [RFC8601] section 2.3            The property being reported was found in a header field of the message.
-   policy [RFC8601] section 2.3            The property being reported relates to a locally-defined policy.
-   smtp   [RFC8601] section 2.3            The property being reported is a parameter to an SMTP command used to relay the message.
+   ptype       Definition                                             Description
+   body   [RFC8601] section 2.3 The property being reported was found in the body of the message.
+   dns    [RFC8904]             The property being reported belongs to the Domain Name System.
+   header [RFC8601] section 2.3 The property being reported was found in a header field of the message.
+   policy [RFC8601] section 2.3 The property being reported relates to a locally-defined policy.
+   smtp   [RFC8601] section 2.3 The property being reported is a parameter to an SMTP command used to relay the message.
