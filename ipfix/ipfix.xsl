@@ -42,11 +42,33 @@
       <xsl:when test="@id = 'classification-engine-ids'">
         <tr><th>Value</th><th>Description</th><th>Default Length</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'ipfix-flow-end-reason'">
+        <tr><th>Value</th><th>Name</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:when test="@id = 'ipfix-nat-event-type'">
         <tr><th>Value</th><th>Event Name</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'ipfix-biflow-direction'">
+        <tr><th>Value</th><th>Name</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'ipfix-anonymization-technique'">
+        <tr>
+          <th>Value</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Applicable to</th>
+          <th>Recommended for</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'ipfix-value-distribution-method'">
+        <tr><th>Value</th><th>Name</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:when test="@id = 'ipfix-flowselectoralgorithm'">
         <tr><th>ID</th><th>Technique</th><th>Parameters</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'ipfix-mib-capture-time-semantics'">
+        <tr><th>Value</th><th>Name</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'ipfix-nat-quota-exceeded-event'">
         <tr><th>Value</th><th>Quota Exceeded Event Name</th><th>Reference</th></tr>
@@ -146,11 +168,67 @@
         </tr>
       </xsl:when>
       
+      <xsl:when test="../@id = 'ipfix-flow-end-reason'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      
+      <xsl:when test="../@id = 'ipfix-biflow-direction'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      
+      <xsl:when test="../@id = 'ipfix-anonymization-technique'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:applicable"/></td>
+          <td><xsl:apply-templates select="iana:recommended"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      
+      <xsl:when test="../@id = 'ipfix-value-distribution-method'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      
       <xsl:when test="../@id = 'ipfix-flowselectoralgorithm'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:parameters"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      
+      <xsl:when test="../@id = 'ipfix-value-distribution-method'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      
+      <xsl:when test="../@id = 'ipfix-mib-capture-time-semantics'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
