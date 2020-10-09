@@ -493,7 +493,8 @@
         </a>
       </xsl:when>
       <xsl:when test="@type = 'rfc-errata'">
-        <a href="http://www.rfc-editor.org/errata_search.php?eid={@data}">RFC Errata 
+        <a href="http://www.rfc-editor.org/errata_search.php?eid={@data}">
+          <xsl:text>RFC Errata</xsl:text>
           <xsl:choose>
             <xsl:when test="normalize-space()">
               <xsl:value-of select="."/>
