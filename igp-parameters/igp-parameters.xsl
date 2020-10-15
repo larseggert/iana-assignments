@@ -22,7 +22,7 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'link-attribute-applications'">
+      <xsl:when test="@id = 'link-attribute-application-identifiers'">
         <tr>
           <th>Bit</th>
           <th>Name</th>
@@ -49,7 +49,7 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-    <xsl:when test="../@id = 'link-attribute-applications'">
+    <xsl:when test="../@id = 'link-attribute-application-identifiers'">
       <tr>
         <td><xsl:value-of select="iana:value"/></td>
         <td><xsl:apply-templates select="iana:description"/></td>
