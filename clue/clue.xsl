@@ -19,7 +19,7 @@
       <xsl:when test="@id = 'clue-response-codes'">
         <tr>
           <th>Number</th>
-          <th>Default Response String</th>
+          <th>Default Reason String</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
