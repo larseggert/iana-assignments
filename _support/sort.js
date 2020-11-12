@@ -1,5 +1,5 @@
 /*
- * Copyright 2009, Viagénie Inc.
+ * Copyright 2009, ViagÃ©nie Inc.
  * info&viagenie.ca
  *
  * This software is provided AS IS with no warranty.
