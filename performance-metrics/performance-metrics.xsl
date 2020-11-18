@@ -8,7 +8,7 @@
 
   <xsl:template name="iana:record_header">
     <xsl:choose> 
-      <xsl:when test="@id = 'performance-metrics-summary'">
+      <xsl:when test="@id = 'performance-metrics-registry'">
         <tr>
           <th>Identifier</th>
           <th>Name</th>
@@ -39,7 +39,7 @@
 
   <xsl:template match="iana:record">
     <xsl:choose>
-      <xsl:when test="../@id = 'performance-metrics-summary'">
+      <xsl:when test="../@id = 'performance-metrics-registry'">
         <tr>
           <td><xsl:value-of select="iana:id"/></td>
           <td><xsl:value-of select="iana:name"/></td>
