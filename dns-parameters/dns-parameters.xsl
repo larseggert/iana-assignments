@@ -123,12 +123,27 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'zonemd-schemes'">
+        <tr>
+          <th>Value</th>
+          <th>Description</th>
+          <th>Mnemonic</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'zonemd-hash-algorithms'">
+        <tr>
+          <th>Value</th>
+          <th>Description</th>
+          <th>Mnemonic</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
   <xsl:template match="iana:record">
-    <xsl:choose>
-      
+    <xsl:choose>     
       <xsl:when test="../@id = 'dns-parameters-2' 
         or ../@id = 'dns-parameters-8'">
         <tr>
@@ -197,6 +212,14 @@
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:value-of select="iana:early"/></td>
           <td><xsl:value-of select="iana:status"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'zonemd-schemes' or ../@id = 'zonemd-hash-algorithms'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:value-of select="iana:mnemonic"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
