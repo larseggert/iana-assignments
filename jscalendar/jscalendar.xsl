@@ -10,8 +10,8 @@
     <xsl:choose>
       <xsl:when test="@id = 'jscalendar-properties'">
         <tr>
-        <th>Property Type</th>
         <th>Property Name</th>
+        <th>Property Type</th>
         <th>Property Context</th>
         <th>Reference/Description</th>
         <th>Intended Usage</th>
