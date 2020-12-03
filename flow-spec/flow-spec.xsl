@@ -4,13 +4,19 @@
   <xsl:import href="../_support/iana-registry.xsl"/>
 
   <xsl:template name="iana:record_header">
-    <tr><th>Type Value</th><th>Name</th><th>Reference</th></tr>
+    <tr>
+    <th>Type Value</th>
+    <th>IPv4 Name</th>
+    <th>IPv6 Name</th>
+    <th>Reference</th>
+    </tr>
   </xsl:template>
 
   <xsl:template match="iana:record">
     <tr>
       <td align="center"><xsl:value-of select="iana:value"/></td>
-      <td><xsl:value-of select="iana:description"/></td>
+      <td><xsl:value-of select="iana:ipv4"/></td>
+      <td><xsl:value-of select="iana:ipv6"/></td>
       <td><xsl:apply-templates select="iana:xref"/></td>
     </tr>
   </xsl:template>
