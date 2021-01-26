@@ -6,7 +6,13 @@
   <xsl:template name="iana:record_header">
     <xsl:choose>
     <xsl:when test="@id = 'tags'">
-    <tr><th>Tag</th><th>Data Item</th><th>Semantics</th><th>Reference</th></tr>
+    <tr>
+    <th>Tag</th>
+    <th>Data Item</th>
+    <th>Semantics</th>
+    <th>Reference</th>
+    <th>Template</th>
+    </tr>
     </xsl:when>
     </xsl:choose>
   </xsl:template>
@@ -19,6 +25,7 @@
        <td><xsl:apply-templates select="iana:description"/></td>      
        <td><xsl:apply-templates select="iana:semantics"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
+       <td><xsl:apply-templates select="iana:file"/></td>
      </tr>
     </xsl:when>
     </xsl:choose>
