@@ -55,7 +55,7 @@
       </xsl:when>
       <xsl:when test="@id = 'icmpv6-adress-registration-option-flags'">
         <tr>
-          <th>ARO Status</th>
+          <th>Bit Number</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
