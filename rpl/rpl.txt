@@ -32,6 +32,8 @@
      * Solicited Information Option Flags
      * Destination Cleanup Object (DCO) Flags
      * Destination Cleanup Object Acknowledgment (DCO) Acknowledgment Flags
+     * RPL Non-Rejection Status
+     * RPL Rejection Status
 
 RPL Control Codes
 
@@ -83,14 +85,14 @@ Mode of Operation
            [IMG]
            CSV
 
-   Value                     Description                                Reference
+   Value                     Description                                                Reference
    0     No Downward routes maintained by RPL                [RFC6550]
    1     Non-Storing Mode of Operation                       [RFC6550]
    2     Storing Mode of Operation with no multicast support [RFC6550]
    3     Storing Mode of Operation with multicast support    [RFC6550]
    4     P2P Route Discovery Mode of Operation               [RFC6997]
    5-6   Unassigned
-   7     Reserved                                            [RFC-ietf-roll-useofrplinfo-44]
+   7     Reserved                                            [RFC-ietf-roll-useofrplinfo-44][RFC-ietf-roll-unaware-leaves-30]
 
 RPL Control Message Options
 
@@ -299,7 +301,8 @@ DODAG Configuration Option Flags for MOP 0..6
            CSV
 
    Bit Number     Capability Description                  Reference
-   0-1        Unassigned
+   0          Unassigned
+   1          Root Proxies EDAR/EDAC (P)      [RFC-ietf-roll-unaware-leaves-30]
    2          Turn on RFC8138 Compression (T) [RFC-ietf-roll-turnon-rfc8138-18]
    3          RPI 0x23 enable                 [RFC-ietf-roll-useofrplinfo-44]
    4          Authentication Enabled (A)      [RFC6550]
@@ -312,14 +315,16 @@ RPL Target Option Flags
  IETF Review
 
    Reference
-           [RFC6550]
+           [RFC6550][RFC-ietf-roll-unaware-leaves-30]
 
    Available Formats
            [IMG]
            CSV
 
-   Bit Number Capability Description Reference
-   0-7        Unassigned
+   Bit Number     Capability Description                 Reference
+   0          Advertiser address in Full (F) [RFC-ietf-roll-unaware-leaves-30]
+   1          Proxy EDAR Requested (X)       [RFC-ietf-roll-unaware-leaves-30]
+   2-3        Unassigned
 
 Transit Information Option Flags
 
@@ -392,3 +397,38 @@ Destination Cleanup Object Acknowledgment (DCO) Acknowledgment Flags
    Bit Number    Capability Description                Reference
    0          DODAGID field is present (D) [RFC-ietf-roll-efficient-npdao-15]
    1-7        Unassigned
+
+RPL Non-Rejection Status
+
+   Registration Procedure(s)
+
+ IETF Review
+
+   Reference
+           [RFC-ietf-roll-unaware-leaves-30]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Value        Meaning                         Reference
+   0     Unqualified acceptance [RFC6550][RFC-ietf-roll-unaware-leaves-30]
+   1-63  Unassigned
+
+RPL Rejection Status
+
+   Registration Procedure(s)
+
+ IETF Review
+
+   Reference
+           [RFC-ietf-roll-unaware-leaves-30]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Value        Meaning                     Reference
+   0     Unqualified rejection [RFC-ietf-roll-unaware-leaves-30]
+   1     No routing entry      [draft-ietf-roll-efficient-npdao-18]
+   2-63  Unassigned
