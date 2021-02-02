@@ -33,6 +33,7 @@
           <th>Name</th>
           <th>Value</th>
           <th>Description</th>
+          <th>Capabilities</th>
           <th>Change Controller</th>
           <th>Reference</th>
           <th>Recommended</th>
@@ -63,6 +64,7 @@
           <th>Name</th>
           <th>Value</th>
           <th>Description</th>
+          <th>Capabilities</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
@@ -107,6 +109,7 @@
           <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:value-of select="iana:capabilities"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:value-of select="iana:recommended"/></td>
@@ -137,6 +140,7 @@
           <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:value-of select="iana:capabilities"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
