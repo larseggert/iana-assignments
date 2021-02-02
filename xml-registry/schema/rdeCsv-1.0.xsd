@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="urn:ietf:params:xml:ns:rdeCsv-1.0"
+       xmlns:rdeCsv="urn:ietf:params:xml:ns:rdeCsv-1.0"
+       xmlns:rde="urn:ietf:params:xml:ns:rde-1.0"
+       xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
+       xmlns="http://www.w3.org/2001/XMLSchema"
+       elementFormDefault="qualified">
+ <!--
+ Import common element types
+ -->
+ <import namespace="urn:ietf:params:xml:ns:eppcom-1.0" />
+ <import namespace="urn:ietf:params:xml:ns:rde-1.0" />
+ <annotation>
+   <documentation>
+   Registry Data Escrow Comma-Separated Values (CSV)
+ </documentation>
+ </annotation>
+ <!-- csv content element -->
+ <element name="csv"
+          type="rdeCsv:csvType" />
+ <!-- Definition of CSV file -->
+ <complexType name="csvType">
+   <sequence>
+     <element name="fields"
+              type="rdeCsv:fieldsType" />
+     <element name="files"
+              type="rdeCsv:filesType" />
+   </sequence>
+   <attribute name="name"
+              type="token"
+              use="required" />
+   <attribute name="sep"
+              type="rdeCsv:sepType"
+              default="," />
+ </complexType>
+ <!-- field seperator must be a single character -->
+ <simpleType name="sepType">
+   <restriction base="string">
+     <minLength value="1" />
+     <maxLength value="1" />
+   </restriction>
+ </simpleType>
+ <!-- Abstract field type -->
+ <element name="field"
+          type="rdeCsv:fieldType"
+          abstract="true" />
+ <complexType name="fieldType">
+   <sequence />
+ </complexType>
+ <!-- fieldType with optional value (isRequired=false) -->
+ <complexType name="fieldOptionalType">
+   <complexContent>
+     <extension base="rdeCsv:fieldType">
+       <sequence />
+       <attribute name="isRequired"
+                  type="boolean"
+                  default="false" />
+       <attribute name="parent"
+                  type="boolean"
+                  default="false" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- fieldType with required value (isRequired=false) -->
+ <complexType name="fieldRequiredType">
+   <complexContent>
+     <extension base="rdeCsv:fieldType">
+       <sequence />
+       <attribute name="isRequired"
+                  type="boolean"
+                  default="true" />
+       <attribute name="parent"
+                  type="boolean"
+                  default="false" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- Concrete field types -->
+ <!-- UTF-8 Name field (e.g. domain name) -->
+ <element name="fUName"
+          type="rdeCsv:fNameType"
+          substitutionGroup="rdeCsv:field" />
+ <complexType name="fNameType">
+   <complexContent>
+     <extension base="rdeCsv:fieldOptionalType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="eppcom\:labelType" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <complexType name="fNameRequiredType">
+   <complexContent>
+     <extension base="rdeCsv:fieldRequiredType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="eppcom\:labelType" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- Registry Object IDentifier (roid) field -->
+ <element name="fRoid"
+          type="rdeCsv:fRoidType"
+          substitutionGroup="rdeCsv:field" />
+ <complexType name="fRoidType">
+   <complexContent>
+     <extension base="rdeCsv:fieldRequiredType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="eppcom\:roidType" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- Registrant field -->
+ <element name="fRegistrant"
+          type="rdeCsv:fRegistrantType"
+          substitutionGroup="rdeCsv:field" />
+ <complexType name="fRegistrantType">
+   <complexContent>
+     <extension base="rdeCsv:fieldOptionalType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="eppcom\:clIDType" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- Object Status Description -->
+ <element name="fStatusDescription"
+          type="rdeCsv:fNormalizedStringType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- clID fields (fClID, fCrID, fUpID) -->
+ <!-- Identifier of the client that sponsors the object -->
+ <element name="fClID"
+          type="rdeCsv:fClIDRequiredType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- Identifier of registrar of client
+that created the object -->
+ <element name="fCrRr"
+          type="rdeCsv:fClIDType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- Identifier of the client that created the object -->
+ <element name="fCrID"
+          type="rdeCsv:fClIDType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- Identifier of registrar of client that
+updated the object -->
+ <element name="fUpRr"
+          type="rdeCsv:fClIDType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- Identifier of the client that updated the object -->
+ <element name="fUpID"
+          type="rdeCsv:fClIDType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- Identifier of registrar of client that
+requested the transfer -->
+ <element name="fReRr"
+          type="rdeCsv:fClIDRequiredType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- Identifier of the client that requested
+the transfer -->
+ <element name="fReID"
+          type="rdeCsv:fClIDType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- Identifier of registrar client that
+should take or took action -->
+ <element name="fAcRr"
+          type="rdeCsv:fClIDRequiredType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- Identifier of the client that should take or
+took action -->
+ <element name="fAcID"
+          type="rdeCsv:fClIDType"
+          substitutionGroup="rdeCsv:field" />
+ <complexType name="fClIDType">
+   <complexContent>
+     <extension base="rdeCsv:fieldOptionalType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="eppcom\:clIDType" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <complexType name="fClIDRequiredType">
+   <complexContent>
+     <extension base="rdeCsv:fieldRequiredType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="eppcom\:clIDType" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- dateTime fields (fCrDate, fUpDate, fExDate) -->
+ <element name="fCrDate"
+          type="rdeCsv:fDateTimeType"
+          substitutionGroup="rdeCsv:field" />
+ <element name="fUpDate"
+          type="rdeCsv:fDateTimeType"
+          substitutionGroup="rdeCsv:field" />
+ <element name="fExDate"
+          type="rdeCsv:fDateTimeType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- Date and time that transfer was requested -->
+ <element name="fReDate"
+          type="rdeCsv:fRequiredDateTimeType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- Date and time of a required or completed response -->
+ <element name="fAcDate"
+          type="rdeCsv:fRequiredDateTimeType"
+          substitutionGroup="rdeCsv:field" />
+ <element name="fTrDate"
+          type="rdeCsv:fDateTimeType"
+          substitutionGroup="rdeCsv:field" />
+ <complexType name="fDateTimeType">
+   <complexContent>
+     <extension base="rdeCsv:fieldOptionalType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="dateTime" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <complexType name="fRequiredDateTimeType">
+   <complexContent>
+     <extension base="rdeCsv:fieldRequiredType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="dateTime" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- boolean type -->
+ <complexType name="fBooleanType">
+   <complexContent>
+     <extension base="rdeCsv:fieldOptionalType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="boolean" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <complexType name="fRequiredBooleanType">
+   <complexContent>
+     <extension base="rdeCsv:fieldRequiredType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="boolean" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- unsignedByte type -->
+ <complexType name="fUnsignedByteType">
+   <complexContent>
+     <extension base="rdeCsv:fieldOptionalType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="unsignedByte" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <complexType name="fRequiredUnsignedByteType">
+   <complexContent>
+     <extension base="rdeCsv:fieldRequiredType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="unsignedByte" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- unsignedShort type -->
+ <complexType name="fUnsignedShortType">
+   <complexContent>
+     <extension base="rdeCsv:fieldOptionalType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="unsignedShort" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <complexType name="fRequiredUnsignedShortType">
+   <complexContent>
+     <extension base="rdeCsv:fieldRequiredType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="unsignedShort" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- hexBinary type -->
+ <complexType name="fHexBinaryType">
+   <complexContent>
+     <extension base="rdeCsv:fieldOptionalType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="hexBinary" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <complexType name="fRequiredHexBinaryType">
+   <complexContent>
+     <extension base="rdeCsv:fieldRequiredType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="hexBinary" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- language type -->
+ <element name="fLang"
+          type="rdeCsv:fLangType"
+          substitutionGroup="rdeCsv:field" />
+ <complexType name="fLangType">
+   <complexContent>
+     <extension base="rdeCsv:fieldOptionalType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="language" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- IDN Table Identifier -->
+ <element name="fIdnTableId"
+          type="rdeCsv:fTokenType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- State of the most recent transfer request -->
+ <element name="fTrStatus"
+          type="rdeCsv:fTrStatusType"
+          substitutionGroup="rdeCsv:field" />
+ <complexType name="fTrStatusType">
+   <complexContent>
+     <extension base="rdeCsv:fieldRequiredType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="eppcom\:trStatusType" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- General token type -->
+ <complexType name="fTokenType">
+   <complexContent>
+     <extension base="rdeCsv:fieldOptionalType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="token" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- General normalizedString type -->
+ <complexType name="fNormalizedStringType">
+   <complexContent>
+     <extension base="rdeCsv:fieldOptionalType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="normalizedString" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- positive integer type -->
+ <complexType name="fPositiveIntegerType">
+   <complexContent>
+     <extension base="rdeCsv:fieldOptionalType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="positiveInteger" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- Custom / extension field type -->
+ <element name="fCustom"
+          type="rdeCsv:fCustomType"
+          substitutionGroup="rdeCsv:field" />
+ <complexType name="fCustomType">
+   <complexContent>
+     <extension base="rdeCsv:fieldOptionalType">
+       <sequence />
+       <attribute name="name"
+                  type="token" />
+       <attribute name="type"
+                  type="token"
+                  default="token" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- Ordered list of field definitions for the csv -->
+ <complexType name="fieldsType">
+   <sequence maxOccurs="unbounded">
+     <element ref="rdeCsv:field" />
+   </sequence>
+ </complexType>
+ <!-- List of files -->
+ <complexType name="filesType">
+   <sequence>
+     <element name="file"
+              type="rdeCsv:fileType"
+              maxOccurs="unbounded" />
+   </sequence>
+ </complexType>
+ <!-- File definition -->
+ <complexType name="fileType">
+   <simpleContent>
+     <extension base="token">
+       <attribute name="compression"
+                  type="token" />
+       <attribute name="encoding"
+                  type="token"
+                  default="UTF-8" />
+       <attribute name="cksum"
+                  type="token" />
+       <attribute name="cksumAlg"
+                  type="token"
+                  default="CRC32" />
+     </extension>
+   </simpleContent>
+ </complexType>
+ <!-- URL fields -->
+ <element name="fUrl"
+          type="rdeCsv:anyURIType"
+          substitutionGroup="rdeCsv:field" />
+ <complexType name="anyURIType">
+   <complexContent>
+     <extension base="rdeCsv:fieldOptionalType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="anyURI" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!--
+ End of schema.
+ -->
+</schema>

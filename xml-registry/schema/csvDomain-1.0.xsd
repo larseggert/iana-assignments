@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="urn:ietf:params:xml:ns:csvDomain-1.0"
+       xmlns:csvDomain="urn:ietf:params:xml:ns:csvDomain-1.0"
+       xmlns:rde="urn:ietf:params:xml:ns:rde-1.0"
+       xmlns:rdeCsv="urn:ietf:params:xml:ns:rdeCsv-1.0"
+       xmlns:rgp="urn:ietf:params:xml:ns:rgp-1.0"
+       xmlns:secDNS="urn:ietf:params:xml:ns:secDNS-1.1"
+       xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
+       xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
+       xmlns="http://www.w3.org/2001/XMLSchema"
+       elementFormDefault="qualified">
+ <!--
+ Import common element types
+ -->
+ <import namespace="urn:ietf:params:xml:ns:eppcom-1.0" />
+ <import namespace="urn:ietf:params:xml:ns:domain-1.0" />
+ <import namespace="urn:ietf:params:xml:ns:secDNS-1.1" />
+ <import namespace="urn:ietf:params:xml:ns:rgp-1.0" />
+ <import namespace="urn:ietf:params:xml:ns:rde-1.0" />
+ <import namespace="urn:ietf:params:xml:ns:rdeCsv-1.0" />
+ <annotation>
+   <documentation>
+   Domain Name Comma-Separated Values (CSV) Object
+  </documentation>
+ </annotation>
+ <!--
+ Child elements of the <rde:contents> object
+ -->
+ <element name="contents"
+          type="csvDomain:contentType"
+          substitutionGroup="rde:content" />
+ <complexType name="contentType">
+   <complexContent>
+     <extension base="rde:contentType">
+       <sequence>
+         <element ref="rdeCsv:csv"
+                  maxOccurs="unbounded" />
+       </sequence>
+     </extension>
+   </complexContent>
+ </complexType>
+ <!--
+ Child elements of the <rde:deletes> object
+ -->
+ <element name="deletes"
+          type="csvDomain:deleteType"
+          substitutionGroup="rde:delete" />
+ <complexType name="deleteType">
+   <complexContent>
+     <extension base="rde:deleteType">
+       <sequence>
+         <element ref="rdeCsv:csv"
+                  maxOccurs="unbounded" />
+       </sequence>
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- Domain name field -->
+ <element name="fName"
+          type="rdeCsv:fNameRequiredType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- RGP status field -->
+ <element name="fRgpStatus"
+          type="csvDomain:fRgpStatusType"
+          substitutionGroup="rdeCsv:field" />
+ <complexType name="fRgpStatusType">
+   <complexContent>
+     <extension base="rdeCsv:fieldOptionalType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="rgp\:statusValueType" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- Contact type field -->
+ <element name="fContactType"
+          type="csvDomain:fContactsTypeType"
+          substitutionGroup="rdeCsv:field" />
+ <complexType name="fContactsTypeType">
+   <complexContent>
+     <extension base="rdeCsv:fieldRequiredType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="domain\:contactAttrType" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- DNSSEC field types -->
+ <!-- Maximum signature lifetime field -->
+ <element name="fMaxSigLife"
+          type="csvDomain:fMaxSigLifeType"
+          substitutionGroup="rdeCsv:field" />
+ <complexType name="fMaxSigLifeType">
+   <complexContent>
+     <extension base="rdeCsv:fieldOptionalType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="secDNS\:maxSigLifeType" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- Key tag field -->
+ <element name="fKeyTag"
+          type="rdeCsv:fRequiredUnsignedShortType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- DS Algorithm field -->
+ <element name="fDsAlg"
+          type="rdeCsv:fRequiredUnsignedByteType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- Digest type field -->
+ <element name="fDigestType"
+          type="rdeCsv:fRequiredUnsignedByteType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- Digest field -->
+ <element name="fDigest"
+          type="rdeCsv:fRequiredHexBinaryType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- Flags field -->
+ <element name="fFlags"
+          type="rdeCsv:fRequiredUnsignedShortType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- Protocol field -->
+ <element name="fProtocol"
+          type="rdeCsv:fRequiredUnsignedByteType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- Key Algorithm field -->
+ <element name="fKeyAlg"
+          type="rdeCsv:fRequiredUnsignedByteType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- Public Key field -->
+ <element name="fPubKey"
+          type="csvDomain:fPubKeyType"
+          substitutionGroup="rdeCsv:field" />
+ <complexType name="fPubKeyType">
+   <complexContent>
+     <extension base="rdeCsv:fieldRequiredType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="secDNS\:keyType" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- Original Domain Name for Variant field -->
+ <element name="fOriginalName"
+          type="rdeCsv:fNameType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- Domain status field -->
+ <element name="fStatus"
+          type="csvDomain:fStatusType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- Domain status based on domain-1.0.xsd  -->
+ <complexType name="fStatusType">
+   <complexContent>
+     <extension base="rdeCsv:fieldRequiredType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="domain\:statusValueType" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!--
+ End of schema.
+ -->
+</schema>

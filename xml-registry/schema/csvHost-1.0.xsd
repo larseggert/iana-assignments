@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="urn:ietf:params:xml:ns:csvHost-1.0"
+       xmlns:csvHost="urn:ietf:params:xml:ns:csvHost-1.0"
+       xmlns:rde="urn:ietf:params:xml:ns:rde-1.0"
+       xmlns:rdeCsv="urn:ietf:params:xml:ns:rdeCsv-1.0"
+       xmlns:host="urn:ietf:params:xml:ns:host-1.0"
+       xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
+       xmlns="http://www.w3.org/2001/XMLSchema"
+       elementFormDefault="qualified">
+ <!--
+ Import common element types
+ -->
+ <import namespace="urn:ietf:params:xml:ns:eppcom-1.0" />
+ <import namespace="urn:ietf:params:xml:ns:host-1.0" />
+ <import namespace="urn:ietf:params:xml:ns:rde-1.0" />
+ <import namespace="urn:ietf:params:xml:ns:rdeCsv-1.0" />
+ <annotation>
+   <documentation>
+   Host Comma-Separated Values (CSV) Object
+  </documentation>
+ </annotation>
+ <!--
+ Child elements of the <rde:contents> object
+ -->
+ <element name="contents"
+          type="csvHost:contentType"
+          substitutionGroup="rde:content" />
+ <complexType name="contentType">
+   <complexContent>
+     <extension base="rde:contentType">
+       <sequence>
+         <element ref="rdeCsv:csv"
+                  maxOccurs="unbounded" />
+       </sequence>
+     </extension>
+   </complexContent>
+ </complexType>
+ <!--
+ Child elements of the <rde:deletes> object
+ -->
+ <element name="deletes"
+          type="csvHost:deleteType"
+          substitutionGroup="rde:delete" />
+ <complexType name="deleteType">
+   <complexContent>
+     <extension base="rde:deleteType">
+       <sequence>
+         <element ref="rdeCsv:csv"
+                  maxOccurs="unbounded" />
+       </sequence>
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- Host name field -->
+ <element name="fName"
+          type="rdeCsv:fNameRequiredType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- IP address field -->
+ <element name="fAddr"
+          type="csvHost:fAddrType"
+          substitutionGroup="rdeCsv:field" />
+ <complexType name="fAddrType">
+   <complexContent>
+     <extension base="rdeCsv:fieldOptionalType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="host\:addrStringType" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- IP address version field -->
+ <element name="fAddrVersion"
+          type="csvHost:fAddrVersionType"
+          substitutionGroup="rdeCsv:field" />
+ <complexType name="fAddrVersionType">
+   <complexContent>
+     <extension base="rdeCsv:fieldOptionalType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="host\:ipType" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- Host status field -->
+ <element name="fStatus"
+          type="csvHost:fStatusType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- Host status based on host-1.0.xsd  -->
+ <complexType name="fStatusType">
+   <complexContent>
+     <extension base="rdeCsv:fieldRequiredType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="host\:statusValueType" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!--
+ End of schema.
+ -->
+</schema>

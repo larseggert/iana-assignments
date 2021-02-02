@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="urn:ietf:params:xml:ns:csvNNDN-1.0"
+       xmlns:csvNNDN="urn:ietf:params:xml:ns:csvNNDN-1.0"
+       xmlns:rde="urn:ietf:params:xml:ns:rde-1.0"
+       xmlns:rdeCsv="urn:ietf:params:xml:ns:rdeCsv-1.0"
+       xmlns:rdeNNDN="urn:ietf:params:xml:ns:rdeNNDN-1.0"
+       xmlns="http://www.w3.org/2001/XMLSchema"
+       elementFormDefault="qualified">
+ <!--
+ Import common element types
+ -->
+ <import namespace="urn:ietf:params:xml:ns:rde-1.0" />
+ <import namespace="urn:ietf:params:xml:ns:rdeCsv-1.0" />
+ <import namespace="urn:ietf:params:xml:ns:rdeNNDN-1.0" />
+ <annotation>
+   <documentation>
+   NNDN (NNDN's not domain name) (CSV) Object
+  </documentation>
+ </annotation>
+ <!--
+ Child elements of the <rde:contents> object
+ -->
+ <element name="contents"
+          type="csvNNDN:contentType"
+          substitutionGroup="rde:content" />
+ <complexType name="contentType">
+   <complexContent>
+     <extension base="rde:contentType">
+       <sequence>
+         <element ref="rdeCsv:csv"
+                  maxOccurs="unbounded" />
+       </sequence>
+     </extension>
+   </complexContent>
+ </complexType>
+ <!--
+ Child elements of the <rde:deletes> object
+ -->
+ <element name="deletes"
+          type="csvNNDN:deleteType"
+          substitutionGroup="rde:delete" />
+ <complexType name="deleteType">
+   <complexContent>
+     <extension base="rde:deleteType">
+       <sequence>
+         <element ref="rdeCsv:csv"
+                  maxOccurs="unbounded" />
+       </sequence>
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- A-Label format name field -->
+ <element name="fAName"
+          type="rdeCsv:fNameRequiredType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- domain name used to generate the IDN variant field -->
+ <element name="fOriginalName"
+          type="rdeCsv:fNameType"
+          substitutionGroup="rdeCsv:field" />
+ <!-- RGP status field -->
+ <element name="fNameState"
+          type="csvNNDN:fNameStateType"
+          substitutionGroup="rdeCsv:field" />
+ <complexType name="fNameStateType">
+   <complexContent>
+     <extension base="rdeCsv:fieldRequiredType">
+       <sequence />
+       <attribute name="type"
+                  type="token"
+                  default="rdeNNDN\:nameState" />
+     </extension>
+   </complexContent>
+ </complexType>
+ <!-- Mirroring uses NS mirror mechanism? -->
+ <element name="fMirroringNS"
+          type="rdeCsv:fBooleanType"
+          substitutionGroup="rdeCsv:field" />
+ <!--
+ End of schema.
+ -->
+</schema>
