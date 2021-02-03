@@ -139,6 +139,14 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'server-cookie-methods'">
+        <tr>
+          <th>Version</th>
+          <th>Size</th>
+          <th>Method</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -220,6 +228,14 @@
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:value-of select="iana:mnemonic"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'server-cookie-methods'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:version"/></td>
+          <td><xsl:value-of select="iana:size"/></td>
+          <td><xsl:value-of select="iana:method"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
