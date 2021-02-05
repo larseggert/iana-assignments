@@ -90,6 +90,22 @@
         </tr>
       </xsl:when>
 	  
+      <xsl:when test="@id = 'bfd-mode'">
+        <tr>
+          <th>Value</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+	  
+      <xsl:when test="@id = 'bfd-discriminator-optional-tlv-type'">
+        <tr>
+          <th>Value</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+	  
       <xsl:otherwise>
         <tr><th>Value</th><th>Name</th><th>Reference</th></tr>
       </xsl:otherwise>
@@ -171,6 +187,20 @@
           <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:value-of select="iana:registration"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'bfd-mode'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'bfd-discriminator-optional-tlv-type'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
 
