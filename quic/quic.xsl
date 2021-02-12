@@ -48,6 +48,7 @@
         <th>Value</th>
         <th>Code</th>
         <th>Description</th>
+        <th>Status</th>
         <th>Specification</th>
         <th>Date</th>
         <th>Change Controller</th>
