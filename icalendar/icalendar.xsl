@@ -59,6 +59,12 @@
       <xsl:when test="@id = 'display-types'">
         <tr><th>Feature Type</th><th>Status</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'participant-types'">
+        <tr><th>Participant Type</th><th>Status</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'resource-types'">
+        <tr><th>Resource Type</th><th>Status</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Name</th><th>Status</th><th>Reference</th></tr>
       </xsl:otherwise>

@@ -4,7 +4,7 @@
            2009-04-29
 
    Last Updated
-           2019-06-05
+           2021-02-23
 
    Note
 
@@ -36,6 +36,8 @@
      * Schedule Force Send Values Registry
      * Display Types
      * Feature Types
+     * Participant Types
+     * Resource Types
 
 Components
 
@@ -54,7 +56,7 @@ Components
            [IMG]
            CSV
 
-     Component   Status         Reference
+     Component   Status                        Reference
    VCALENDAR     Current [RFC5545], Section 3.4
    VEVENT        Current [RFC5545], Section 3.6.1
    VTODO         Current [RFC5545], Section 3.6.2
@@ -66,6 +68,9 @@ Components
    DAYLIGHT      Current [RFC5545], Section 3.6.5
    VAVAILABILITY Current [RFC7953], Section 3.1
    AVAILABLE     Current [RFC7953], Section 3.1
+   PARTICIPANT   Current [RFC-ietf-calext-eventpub-extensions-18], Section 7.1
+   VLOCATION     Current [RFC-ietf-calext-eventpub-extensions-18], Section 7.2
+   VRESOURCE     Current [RFC-ietf-calext-eventpub-extensions-18], Section 7.3
 
 Properties
 
@@ -84,64 +89,70 @@ Properties
            [IMG]
            CSV
 
-       Property       Status                       Reference
-   CALSCALE         Current    [RFC5545], Section 3.7.1
-   METHOD           Current    [RFC5545], Section 3.7.2
-   PRODID           Current    [RFC5545], Section 3.7.3
-   VERSION          Current    [RFC5545], Section 3.7.4
-   ATTACH           Current    [RFC5545], Section 3.8.1.1
-   CATEGORIES       Current    [RFC5545], Section 3.8.1.2; [RFC7986], Section 5.6
-   CLASS            Current    [RFC5545], Section 3.8.1.3
-   COMMENT          Current    [RFC5545], Section 3.8.1.4
-   DESCRIPTION      Current    [RFC5545], Section 3.8.1.5; [RFC7986], Section 5.2
-   GEO              Current    [RFC5545], Section 3.8.1.6
-   LOCATION         Current    [RFC5545], Section 3.8.1.7
-   PERCENT-COMPLETE Current    [RFC5545], Section 3.8.1.8
-   PRIORITY         Current    [RFC5545], Section 3.8.1.9
-   RESOURCES        Current    [RFC5545], Section 3.8.1.10
-   STATUS           Current    [RFC5545], Section 3.8.1.11
-   SUMMARY          Current    [RFC5545], Section 3.8.1.12
-   COMPLETED        Current    [RFC5545], Section 3.8.2.1
-   DTEND            Current    [RFC5545], Section 3.8.2.2
-   DUE              Current    [RFC5545], Section 3.8.2.3
-   DTSTART          Current    [RFC5545], Section 3.8.2.4
-   DURATION         Current    [RFC5545], Section 3.8.2.5
-   FREEBUSY         Current    [RFC5545], Section 3.8.2.6
-   TRANSP           Current    [RFC5545], Section 3.8.2.7
-   TZID             Current    [RFC5545], Section 3.8.3.1
-   TZNAME           Current    [RFC5545], Section 3.8.3.2
-   TZOFFSETFROM     Current    [RFC5545], Section 3.8.3.3
-   TZOFFSETTO       Current    [RFC5545], Section 3.8.3.4
-   TZURL            Current    [RFC5545], Section 3.8.3.5
-   ATTENDEE         Current    [RFC5545], Section 3.8.4.1
-   CONTACT          Current    [RFC5545], Section 3.8.4.2
-   ORGANIZER        Current    [RFC5545], Section 3.8.4.3
-   RECURRENCE-ID    Current    [RFC5545], Section 3.8.4.4
-   RELATED-TO       Current    [RFC5545], Section 3.8.4.5
-   URL              Current    [RFC5545], Section 3.8.4.6; [RFC7986], Section 5.5
-   UID              Current    [RFC5545], Section 3.8.4.7; [RFC7986], Section 5.3
-   EXDATE           Current    [RFC5545], Section 3.8.5.1
-   EXRULE           Deprecated [RFC2445], Section 4.8.5.2
-   RDATE            Current    [RFC5545], Section 3.8.5.2
-   RRULE            Current    [RFC5545], Section 3.8.5.3
-   ACTION           Current    [RFC5545], Section 3.8.6.1
-   REPEAT           Current    [RFC5545], Section 3.8.6.2
-   TRIGGER          Current    [RFC5545], Section 3.8.6.3
-   CREATED          Current    [RFC5545], Section 3.8.7.1
-   DTSTAMP          Current    [RFC5545], Section 3.8.7.2
-   LAST-MODIFIED    Current    [RFC5545], Section 3.8.7.3; [RFC7986], Section 5.4
-   SEQUENCE         Current    [RFC5545], Section 3.8.7.4
-   REQUEST-STATUS   Current    [RFC5545], Section 3.8.8.3
-   XML              Current    [RFC6321], Section 4.2
-   TZUNTIL          Current    [RFC7808], Section 7.1
-   TZID-ALIAS-OF    Current    [RFC7808], Section 7.2
-   BUSYTYPE         Current    [RFC7953], Section 3.2
-   NAME             Current    [RFC7986], Section 5.1
-   REFRESH-INTERVAL Current    [RFC7986], Section 5.7
-   SOURCE           Current    [RFC7986], Section 5.8
-   COLOR            Current    [RFC7986], Section 5.9
-   IMAGE            Current    [RFC7986], Section 5.10
-   CONFERENCE       Current    [RFC7986], Section 5.11
+        Property        Status                         Reference
+   CALSCALE           Current    [RFC5545], Section 3.7.1
+   METHOD             Current    [RFC5545], Section 3.7.2
+   PRODID             Current    [RFC5545], Section 3.7.3
+   VERSION            Current    [RFC5545], Section 3.7.4
+   ATTACH             Current    [RFC5545], Section 3.8.1.1
+   CATEGORIES         Current    [RFC5545], Section 3.8.1.2; [RFC7986], Section 5.6
+   CLASS              Current    [RFC5545], Section 3.8.1.3
+   COMMENT            Current    [RFC5545], Section 3.8.1.4
+   DESCRIPTION        Current    [RFC5545], Section 3.8.1.5; [RFC7986], Section 5.2
+   GEO                Current    [RFC5545], Section 3.8.1.6
+   LOCATION           Current    [RFC5545], Section 3.8.1.7
+   PERCENT-COMPLETE   Current    [RFC5545], Section 3.8.1.8
+   PRIORITY           Current    [RFC5545], Section 3.8.1.9
+   RESOURCES          Current    [RFC5545], Section 3.8.1.10
+   STATUS             Current    [RFC5545], Section 3.8.1.11
+   SUMMARY            Current    [RFC5545], Section 3.8.1.12
+   COMPLETED          Current    [RFC5545], Section 3.8.2.1
+   DTEND              Current    [RFC5545], Section 3.8.2.2
+   DUE                Current    [RFC5545], Section 3.8.2.3
+   DTSTART            Current    [RFC5545], Section 3.8.2.4
+   DURATION           Current    [RFC5545], Section 3.8.2.5
+   FREEBUSY           Current    [RFC5545], Section 3.8.2.6
+   TRANSP             Current    [RFC5545], Section 3.8.2.7
+   TZID               Current    [RFC5545], Section 3.8.3.1
+   TZNAME             Current    [RFC5545], Section 3.8.3.2
+   TZOFFSETFROM       Current    [RFC5545], Section 3.8.3.3
+   TZOFFSETTO         Current    [RFC5545], Section 3.8.3.4
+   TZURL              Current    [RFC5545], Section 3.8.3.5
+   ATTENDEE           Current    [RFC5545], Section 3.8.4.1
+   CONTACT            Current    [RFC5545], Section 3.8.4.2
+   ORGANIZER          Current    [RFC5545], Section 3.8.4.3
+   RECURRENCE-ID      Current    [RFC5545], Section 3.8.4.4
+   RELATED-TO         Current    [RFC5545], Section 3.8.4.5
+   URL                Current    [RFC5545], Section 3.8.4.6; [RFC7986], Section 5.5
+   UID                Current    [RFC5545], Section 3.8.4.7; [RFC7986], Section 5.3
+   EXDATE             Current    [RFC5545], Section 3.8.5.1
+   EXRULE             Deprecated [RFC2445], Section 4.8.5.2
+   RDATE              Current    [RFC5545], Section 3.8.5.2
+   RRULE              Current    [RFC5545], Section 3.8.5.3
+   ACTION             Current    [RFC5545], Section 3.8.6.1
+   REPEAT             Current    [RFC5545], Section 3.8.6.2
+   TRIGGER            Current    [RFC5545], Section 3.8.6.3
+   CREATED            Current    [RFC5545], Section 3.8.7.1
+   DTSTAMP            Current    [RFC5545], Section 3.8.7.2
+   LAST-MODIFIED      Current    [RFC5545], Section 3.8.7.3; [RFC7986], Section 5.4
+   SEQUENCE           Current    [RFC5545], Section 3.8.7.4
+   REQUEST-STATUS     Current    [RFC5545], Section 3.8.8.3
+   XML                Current    [RFC6321], Section 4.2
+   TZUNTIL            Current    [RFC7808], Section 7.1
+   TZID-ALIAS-OF      Current    [RFC7808], Section 7.2
+   BUSYTYPE           Current    [RFC7953], Section 3.2
+   NAME               Current    [RFC7986], Section 5.1
+   REFRESH-INTERVAL   Current    [RFC7986], Section 5.7
+   SOURCE             Current    [RFC7986], Section 5.8
+   COLOR              Current    [RFC7986], Section 5.9
+   IMAGE              Current    [RFC7986], Section 5.10
+   CONFERENCE         Current    [RFC7986], Section 5.11
+   CALENDAR-ADDRESS   Current    [RFC-ietf-calext-eventpub-extensions-18], Section 6.4
+   LOCATION-TYPE      Current    [RFC-ietf-calext-eventpub-extensions-18], Section 6.1
+   PARTICIPANT-TYPE   Current    [RFC-ietf-calext-eventpub-extensions-18], Section 6.2
+   RESOURCE-TYPE      Current    [RFC-ietf-calext-eventpub-extensions-18], Section 6.3
+   STRUCTURED-DATA    Current    [RFC-ietf-calext-eventpub-extensions-18], Section 6.6
+   STYLED-DESCRIPTION Current    [RFC-ietf-calext-eventpub-extensions-18], Section 6.5
 
 Parameters
 
@@ -160,7 +171,7 @@ Parameters
            [IMG]
            CSV
 
-        Parameter      Status          Reference
+        Parameter      Status                        Reference
    ALTREP              Current [RFC5545], Section 3.2.1
    CN                  Current [RFC5545], Section 3.2.2
    CUTYPE              Current [RFC5545], Section 3.2.3
@@ -191,6 +202,8 @@ Parameters
    SIZE                Current [RFC8607], Section 4.1
    FILENAME            Current [RFC8607], Section 4.2
    MANAGED-ID          Current [RFC8607], Section 4.3
+   ORDER               Current [RFC-ietf-calext-eventpub-extensions-18], Section 5.1
+   SCHEMA              Current [RFC-ietf-calext-eventpub-extensions-18], Section 5.2
 
 Value Data Types
 
@@ -565,3 +578,55 @@ Feature Types
    PHONE     Current [RFC7986], Section 6.3
    SCREEN    Current [RFC7986], Section 6.3
    VIDEO     Current [RFC7986], Section 6.3
+
+Participant Types
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-calext-eventpub-extensions-18]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Participant Type  Status                        Reference
+   ACTIVE            Current [RFC-ietf-calext-eventpub-extensions-18], Section 6.2
+   INACTIVE          Current [RFC-ietf-calext-eventpub-extensions-18], Section 6.2
+   SPONSOR           Current [RFC-ietf-calext-eventpub-extensions-18], Section 6.2
+   CONTACT           Current [RFC-ietf-calext-eventpub-extensions-18], Section 6.2
+   BOOKING-CONTACT   Current [RFC-ietf-calext-eventpub-extensions-18], Section 6.2
+   EMERGENCY-CONTACT Current [RFC-ietf-calext-eventpub-extensions-18], Section 6.2
+   PUBLICITY-CONTACT Current [RFC-ietf-calext-eventpub-extensions-18], Section 6.2
+   PLANNER-CONTACT   Current [RFC-ietf-calext-eventpub-extensions-18], Section 6.2
+   PERFORMER         Current [RFC-ietf-calext-eventpub-extensions-18], Section 6.2
+   SPEAKER           Current [RFC-ietf-calext-eventpub-extensions-18], Section 6.2
+
+Resource Types
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-calext-eventpub-extensions-18]
+
+   Available Formats
+           [IMG]
+           CSV
+
+        Resource Type      Status                        Reference
+   PROJECTOR               Current [RFC-ietf-calext-eventpub-extensions-18], Section 6.3
+   ROOM                    Current [RFC-ietf-calext-eventpub-extensions-18], Section 6.3
+   REMOTE-CONFERENCE-AUDIO Current [RFC-ietf-calext-eventpub-extensions-18], Section 6.3
+   REMOTE-CONFERENCE-VIDEO Current [RFC-ietf-calext-eventpub-extensions-18], Section 6.3
