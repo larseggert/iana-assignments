@@ -38,6 +38,7 @@
      * Bundle Protocol TCP Convergence-Layer Version 4 XFER_REFUSE Reason Codes
      * Bundle Protocol TCP Convergence-Layer Version 4 SESS_TERM Reason Codes
      * Bundle Protocol TCP Convergence-Layer Version 4 MSG_REJECT Reason Codes
+     * Bundle Protocol URI Scheme Type
      * BPSec Security Context Identifiers
 
 Bundle Block Types
@@ -51,27 +52,28 @@ Bundle Block Types
  Scott Burleigh, Fred Templin
 
    Reference
-           [RFC6255]
+           [RFC6255][RFC-ietf-dtn-bpbis-31]
 
    Available Formats
            [IMG]
            CSV
 
-    Value                  Description                         Reference
-   0       Reserved                                     [RFC6255]
-   1       Bundle Payload Block                         [RFC5050]
-   2       Bundle Authentication Block                  [RFC6257]
-   3       Payload Integrity Block                      [RFC6257]
-   4       Payload Confidentiality Block                [RFC6257]
-   5       Previous-Hop Insertion Block                 [RFC6259]
-   6-7     Unassigned
-   8       Metadata Extension Block                     [RFC6258]
-   9       Extension Security Block                     [RFC6257]
-   10      Unassigned
-   11      Block Integrity Block                        [RFC-ietf-dtn-bpsec-27]
-   12      Block Confidentiality Block                  [RFC-ietf-dtn-bpsec-27]
-   13-191  Unassigned
-   192-255 Reserved for Private and/or Experimental Use [RFC5050]
+   Bundle Protocol Version  Value                  Description                             Reference
+   none                    0       Reserved                                     [RFC6255]
+   6,7                     1       Bundle Payload Block                         [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6                       2       Bundle Authentication Block                  [RFC6257]
+   6                       3       Payload Integrity Block                      [RFC6257]
+   6                       4       Payload Confidentiality Block                [RFC6257]
+   6                       5       Previous-Hop Insertion Block                 [RFC6259]
+   7                       6       Previous node (proximate sender)             [RFC-ietf-dtn-bpbis-31]
+   7                       7       Bundle age (in milliseconds)                 [RFC-ietf-dtn-bpbis-31]
+   6                       8       Metadata Extension Block                     [RFC6258]
+   6                       9       Extension Security Block                     [RFC6257]
+   7                       10      Hop count (#prior xmit attempts)             [RFC-ietf-dtn-bpbis-31]
+   7                       11      Block Integrity Block                        [RFC-ietf-dtn-bpsec-27]
+   7                       12      Block Confidentiality Block                  [RFC-ietf-dtn-bpsec-27]
+   7                       13-191  Unassigned
+   6,7                     192-255 Reserved for Private and/or Experimental Use [RFC5050][RFC-ietf-dtn-bpbis-31]
 
 Primary Bundle Protocol Version
 
@@ -86,10 +88,11 @@ Primary Bundle Protocol Version
            [IMG]
            CSV
 
-   Value Description Reference
+   Value Description        Reference
    0-5   Reserved    [RFC6255]
    6     Assigned    [RFC5050]
-   7-255 Unassigned
+   7     Assigned    [RFC-ietf-dtn-bpbis-31]
+   8-255 Unassigned
 
 Bundle Processing Control Flags
 
@@ -102,30 +105,30 @@ Bundle Processing Control Flags
  Scott Burleigh, Fred Templin
 
    Reference
-           [RFC6255]
+           [RFC6255][RFC-ietf-dtn-bpbis-31]
 
    Available Formats
            [IMG]
            CSV
 
-   Bit Position (right to left)                    Description                    Reference
-   0                            Bundle is a fragment                              [RFC5050]
-   1                            Application data unit is an administrative record [RFC5050]
-   2                            Bundle must not be fragmented                     [RFC5050]
-   3                            Custody transfer is requested                     [RFC5050]
-   4                            Destination endpoint is a singleton               [RFC5050]
-   5                            Acknowledgement by application is requested       [RFC5050]
-   6                            Reserved                                          [RFC5050]
-   7-8                          Class of service: priority                        [RFC5050]
-   9-13                         Class of service: reserved                        [RFC5050]
-   14                           Request reporting of bundle reception             [RFC5050]
-   15                           Request reporting of custody acceptance           [RFC5050]
-   16                           Request reporting of bundle forwarding            [RFC5050]
-   17                           Request reporting of bundle delivery              [RFC5050]
-   18                           Request reporting of bundle deletion              [RFC5050]
-   19                           Reserved                                          [RFC5050]
-   20                           Reserved                                          [RFC5050]
-   21-63                        Unassigned
+   Bundle Protocol Version Bit Position (right to left)                    Description                               Reference
+   6,7                     0                            Bundle is a fragment                              [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6,7                     1                            Application data unit is an administrative record [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6,7                     2                            Bundle must not be fragmented                     [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6                       3                            Custody transfer is requested                     [RFC5050]
+   6                       4                            Destination endpoint is a singleton               [RFC5050]
+   6,7                     5                            Acknowledgement by application is requested       [RFC5050][RFC-ietf-dtn-bpbis-31]
+   7                       6                            Status time requested in reports                  [RFC-ietf-dtn-bpbis-31]
+   6                       7-8                          Class of service: priority                        [RFC5050]
+   6                       9-13                         Class of service: reserved                        [RFC5050]
+   6,7                     14                           Request reporting of bundle reception             [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6                       15                           Request reporting of custody acceptance           [RFC5050]
+   6,7                     16                           Request reporting of bundle forwarding            [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6,7                     17                           Request reporting of bundle delivery              [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6,7                     18                           Request reporting of bundle deletion              [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6,7                     19                           Reserved                                          [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6,7                     20                           Reserved                                          [RFC5050][RFC-ietf-dtn-bpbis-31]
+                           21-63                        Unassigned
 
 Block Processing Control Flags
 
@@ -138,21 +141,21 @@ Block Processing Control Flags
  Scott Burleigh, Fred Templin
 
    Reference
-           [RFC6255]
+           [RFC6255][RFC-ietf-dtn-bpbis-31]
 
    Available Formats
            [IMG]
            CSV
 
-   Bit Position (right to left)                    Description                     Reference
-   0                            Block must be replicated in every fragment         [RFC5050]
-   1                            Transmit status report if block can't be processed [RFC5050]
-   2                            Delete bundle if block can't be processed          [RFC5050]
-   3                            Last block                                         [RFC5050]
-   4                            Discard block if it can't be processed             [RFC5050]
-   5                            Block was forwarded without being processed        [RFC5050]
-   6                            Block contains an EID-reference field              [RFC5050]
-   7-63                         Unassigned
+   Bundle Protocol Version Bit Position (right to left)                    Description                                Reference
+   6,7                     0                            Block must be replicated in every fragment         [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6,7                     1                            Transmit status report if block can't be processed [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6,7                     2                            Delete bundle if block can't be processed          [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6                       3                            Last block                                         [RFC5050]
+   6,7                     4                            Discard block if it can't be processed             [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6                       5                            Block was forwarded without being processed        [RFC5050]
+   6                       6                            Block contains an EID-reference field              [RFC5050]
+                           7-63                         Unassigned
 
 Bundle Status Report Flags
 
@@ -189,29 +192,32 @@ Bundle Status Report Reason Codes
  Scott Burleigh, Fred Templin
 
    Reference
-           [RFC6255]
+           [RFC6255][RFC-ietf-dtn-bpbis-31]
 
    Available Formats
            [IMG]
            CSV
 
-   Value                 Description                       Reference
-   0      No additional information                 [RFC5050]
-   1      Lifetime expired                          [RFC5050]
-   2      Forwarded over unidirectional link        [RFC5050]
-   3      Transmission canceled                     [RFC5050]
-   4      Depleted storage                          [RFC5050]
-   5      Destination endpoint ID unavailable       [RFC5050]
-   6      No known route to destination from here   [RFC5050]
-   7      No timely contact with next node on route [RFC5050]
-   8      Block unintelligible                      [RFC5050]
-   9      Missing Security Operation                [RFC-ietf-dtn-bpsec-27]
-   10     Unknown Security Operation                [RFC-ietf-dtn-bpsec-27]
-   11     Unexpected Security Operation             [RFC-ietf-dtn-bpsec-27]
-   12     Failed Security Operation                 [RFC-ietf-dtn-bpsec-27]
-   13     Conflicting Security Operation            [RFC-ietf-dtn-bpsec-27]
-   14-254 Unassigned
-   255    Reserved                                  [RFC6255]
+   Bundle Protocol Version Value                 Description                           Reference
+   6,7                     0      No additional information                 [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6,7                     1      Lifetime expired                          [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6,7                     2      Forwarded over unidirectional link        [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6,7                     3      Transmission canceled                     [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6,7                     4      Depleted storage                          [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6,7                     5      Destination endpoint ID unavailable       [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6,7                     6      No known route to destination from here   [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6,7                     7      No timely contact with next node on route [RFC5050][RFC-ietf-dtn-bpbis-31]
+   6,7                     8      Block unintelligible                      [RFC5050][RFC-ietf-dtn-bpbis-31]
+   7                       9      Hop limit exceeded                        [RFC-ietf-dtn-bpbis-31]
+   7                       10     Traffic pared                             [RFC-ietf-dtn-bpbis-31]
+   7                       11     Block unsupported                         [RFC-ietf-dtn-bpbis-31]
+   7                       12     Missing Security Operation                [RFC-ietf-dtn-bpsec-27]
+   7                       13     Unknown Security Operation                [RFC-ietf-dtn-bpsec-27]
+   7                       14     Unexpected Security Operation             [RFC-ietf-dtn-bpsec-27]
+   7                       15     Failed Security Operation                 [RFC-ietf-dtn-bpsec-27]
+   7                       16     Conflicting Security Operation            [RFC-ietf-dtn-bpsec-27]
+                           17-254 Unassigned
+   6,7                     255    Reserved                                  [RFC6255][RFC-ietf-dtn-bpbis-31]
 
 Bundle Custody Signal Reason Codes
 
@@ -660,6 +666,27 @@ Bundle Protocol TCP Convergence-Layer Version 4 MSG_REJECT Reason Codes
    0x03      Message Unexpected                       [RFC-ietf-dtn-tcpclv4-26]
    0x04-0xEF Unassigned
    0xF0-0xFF Reserved for Private or Experimental Use [RFC-ietf-dtn-tcpclv4-26]
+
+Bundle Protocol URI Scheme Type
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC-ietf-dtn-bpbis-31]
+
+   Available Formats
+           [IMG]
+           CSV
+
+     Value         Description        BP Utilization Reference     URI Definition Reference
+   0         Reserved                 n/a
+   1         dtn                      [RFC-ietf-dtn-bpbis-31]  [RFC-ietf-dtn-bpbis-31]
+   2         ipn                      [RFC-ietf-dtn-bpbis-31]  [RFC6260][RFC-ietf-dtn-bpbis-31]
+   3-254     Unassigned               n/a
+   255-65535 Reserved                 n/a
+   >65535    Reserved for Private Use n/a
 
 BPSec Security Context Identifiers
 
