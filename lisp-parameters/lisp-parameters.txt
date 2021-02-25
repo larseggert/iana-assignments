@@ -4,7 +4,7 @@
            2012-04-25
 
    Last Updated
-           2020-08-19
+           2021-02-24
 
    Available Formats
            [IMG]
@@ -16,7 +16,7 @@
 
      * LISP ACT values
      * LISP Address Type Codes
-     * LISP Key ID Numbers
+     * LISP Algorithm ID Numbers
      * LISP Crypto Cipher Suite
      * LISP LCAF Type
      * LISP Packet Types
@@ -30,18 +30,24 @@ LISP ACT values
  IETF Review or IESG Approval
 
    Reference
-           [RFC6830]
+           [RFC6830][RFC-draft-ietf-lisp-rfc6833bis]
 
    Available Formats
            [IMG]
            CSV
 
-   Value      Action                                                 Description                                             Reference
-   0     No-Action        The map-cache is kept alive and no packet encapsulation occurs.                                    [RFC6830]
-   1     Natively-Forward The packet is not encapsulated or dropped but natively forwarded.                                  [RFC6830]
-   2     Send-Map-Request The packet invokes sending a Map-Request.                                                          [RFC6830]
-   3     Drop             A packet that matches this map-cache entry is dropped. An ICMP Unreachable message SHOULD be sent. [RFC6830]
-   4-7   Unassigned
+   Value           Action                                        Description                                              Reference
+   0     No-Action                   The map-cache is kept alive and no packet encapsulation occurs.      [RFC6830][RFC-draft-ietf-lisp-rfc6833bis]
+   1     Natively-Forward            The packet is not encapsulated or dropped but natively forwarded.    [RFC6830][RFC-draft-ietf-lisp-rfc6833bis]
+   2     Send-Map-Request            The packet invokes sending a Map-Request.                            [RFC6830][RFC-draft-ietf-lisp-rfc6833bis]
+   3     Drop/No-Reason              A packet that matches this map-cache entry is dropped. An ICMP       [RFC6830][RFC-draft-ietf-lisp-rfc6833bis]
+                                     Unreachable message SHOULD be sent.
+   4     Drop/Policy-Denied          A packet matching this Map-Cache entry is dropped because the target [RFC-draft-ietf-lisp-rfc6833bis]
+                                     EWID is policy-denied by the xTR of the mapping system.
+                                     Packet matching the Map-Cache entry is dropped because the
+   5     Drop/Authentication-Failure Map-Request for the target EID fails an authentication check by the  [RFC-draft-ietf-lisp-rfc6833bis]
+                                     xTR or the mapping system.
+   6-7   Unassigned
 
 LISP Address Type Codes
 
@@ -59,24 +65,25 @@ LISP Address Type Codes
    Value Description Reference
    0-255 Unassigned
 
-LISP Key ID Numbers
+LISP Algorithm ID Numbers
 
    Registration Procedure(s)
 
  First Come First Served
 
    Reference
-           [RFC6830]
+           [RFC-draft-ietf-lisp-rfc6833bis]
 
    Available Formats
            [IMG]
            CSV
 
-    Value    Description    Reference
-   0       None             [RFC6830]
-   1       HMAC-SHA-1-96    [RFC6830]
-   2       HMAC-SHA-256-128 [RFC6830]
-   3-65535 Unassigned
+              Name             Number    MAC       KDF
+   None                        0
+   HMAC-SHA-1-96-None          1      [RFC2404] None
+   HMAC-SHA-256-128-None       2      [RFC4868] None
+   HMAC-SHA256-128+HKDF-SHA256 3      [RFC4868] [RFC4868]
+   Unassigned                  4-255
 
 LISP Crypto Cipher Suite
 
@@ -142,25 +149,25 @@ LISP Packet Types
  Standards Action
 
    Reference
-           [RFC-ietf-lisp-rfc8113bis-03]
+           [RFC-ietf-lisp-rfc8113bis-03][RFC-draft-ietf-lisp-rfc6833bis]
 
    Available Formats
            [IMG]
            CSV
 
-   Code                                                    Message                                                              Reference
-   0    Reserved                                                                                                      [RFC6830]
-   1    LISP Map-Request                                                                                              [RFC6830]
-   2    LISP Map-Reply                                                                                                [RFC6830]
-   3    LISP Map-Register                                                                                             [RFC6830]
-   4    LISP Map-Notify                                                                                               [RFC6830]
-   5    Unassigned
-   6    LISP DDT Map-Referral (TEMPORARY - registered 2017-04-19, extension registered 2020-04-27, expires            [RFC8111]
+   Code                                                  Message                                                              Reference
+   0    Reserved                                                                                                   [RFC-draft-ietf-lisp-rfc6833bis]
+   1    LISP Map-Request                                                                                           [RFC-draft-ietf-lisp-rfc6833bis]
+   2    LISP Map-Reply                                                                                             [RFC-draft-ietf-lisp-rfc6833bis]
+   3    LISP Map-Register                                                                                          [RFC-draft-ietf-lisp-rfc6833bis]
+   4    LISP Map-Notify                                                                                            [RFC-draft-ietf-lisp-rfc6833bis]
+   5    LISP Map-Notify-Ack                                                                                        [RFC-draft-ietf-lisp-rfc6833bis]
+   6    LISP DDT Map-Referral (TEMPORARY - registered 2017-04-19, extension registered 2020-04-27, expires         [RFC8111]
         2021-04-19)
    7    Unassigned
-   8    LISP Encapsulated Control Message                                                                             [RFC6830]
+   8    LISP Encapsulated Control Message                                                                          [RFC-draft-ietf-lisp-rfc6833bis]
    9-14 Unassigned
-   15   LISP Shared Extension Message                                                                                 [RFC-ietf-lisp-rfc8113bis-03]
+   15   LISP Shared Extension Message                                                                              [RFC-ietf-lisp-rfc8113bis-03]
 
 LISP Shared Extension Message Type Sub-types
 

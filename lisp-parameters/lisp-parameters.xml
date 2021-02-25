@@ -4,38 +4,50 @@
 <registry xmlns="http://www.iana.org/assignments" id="lisp-parameters">
   <title>Locator/ID Separation Protocol (LISP) Parameters</title>
   <created>2012-04-25</created>
-  <updated>2020-08-19</updated>
+  <updated>2021-02-24</updated>
   
   <registry id="lisp-act-value">
     <title>LISP ACT values</title>
-    <xref type="rfc" data="rfc6830"/>
+    <xref type="rfc" data="rfc6830"/><xref type="draft" data="RFC-draft-ietf-lisp-rfc6833bis"/>
     <registration_rule>IETF Review or IESG Approval</registration_rule>
     <record>
       <value>0</value>
       <action>No-Action</action>
       <description>The map-cache is kept alive and no packet encapsulation occurs.</description>
-      <xref type="rfc" data="rfc6830"/>
+      <xref type="rfc" data="rfc6830"/><xref type="draft" data="RFC-draft-ietf-lisp-rfc6833bis"/>
     </record>
     <record>
       <value>1</value>
       <action>Natively-Forward</action>
       <description>The packet is not encapsulated or dropped but natively forwarded.</description>
-      <xref type="rfc" data="rfc6830"/>
+      <xref type="rfc" data="rfc6830"/><xref type="draft" data="RFC-draft-ietf-lisp-rfc6833bis"/>
     </record>
     <record>
       <value>2</value>
       <action>Send-Map-Request</action>
       <description>The packet invokes sending a Map-Request.</description>
-      <xref type="rfc" data="rfc6830"/>
+      <xref type="rfc" data="rfc6830"/><xref type="draft" data="RFC-draft-ietf-lisp-rfc6833bis"/>
     </record>
-    <record>
+    <record updated="2021-02-24">
       <value>3</value>
-      <action>Drop</action>
+      <action>Drop/No-Reason</action>
       <description>A packet that matches this map-cache entry is dropped. An ICMP Unreachable message SHOULD be sent.</description>
-      <xref type="rfc" data="rfc6830"/>
+      <xref type="rfc" data="rfc6830"/><xref type="draft" data="RFC-draft-ietf-lisp-rfc6833bis"/>
+    </record>
+    <record date="2021-02-24">
+      <value>4</value>
+      <action>Drop/Policy-Denied</action>
+      <description>A packet matching this Map-Cache entry is dropped because the target EWID is policy-denied by the xTR of the mapping system.</description>
+      <xref type="draft" data="RFC-draft-ietf-lisp-rfc6833bis"/>
+    </record>
+    <record date="2021-02-24">
+      <value>5</value>
+      <action>Drop/Authentication-Failure</action>
+      <description>Packet matching the Map-Cache entry is dropped because the Map-Request for the target EID fails an authentication check by the xTR or the mapping system.</description>
+      <xref type="draft" data="RFC-draft-ietf-lisp-rfc6833bis"/>
     </record>
     <record>
-      <value>4-7</value>
+      <value>6-7</value>
       <action>Unassigned</action>
       <description/>
     </record>
@@ -58,32 +70,39 @@
       </record>
     </registry>
 
-  <registry id="lisp-key-id-numbers">
-    <title>LISP Key ID Numbers</title>
-    <xref type="rfc" data="rfc6830"/>
+  <registry id="lisp-algorithm-id-numbers">
+    <title>LISP Algorithm ID Numbers</title>
+    <xref type="draft" data="RFC-draft-ietf-lisp-rfc6833bis"/>
     <registration_rule>First Come First Served</registration_rule>
-    <record>
+    <record updated="2021-02-24">
+      <name>None</name>
       <value>0</value>
-      <action>None</action>
-      <description/>
-      <xref type="rfc" data="rfc6830"/>
+      <MAC>None</MAC>
+      <KDF>None</KDF>
     </record>
-    <record>
+    <record updated="2021-02-24">
+      <name>HMAC-SHA-1-96-None</name>
       <value>1</value>
-      <action>HMAC-SHA-1-96</action>
-      <description>Natively-Forward The packet is not encapsulated or dropped but natively forwarded.</description>
-      <xref type="rfc" data="rfc6830"/>
+      <mac><xref type="rfc" data="rfc2404"/></mac>
+      <kdf>None</kdf>
     </record>
-    <record>
+    <record updated="2021-02-24">
+      <name>HMAC-SHA-256-128-None</name>
       <value>2</value>
-      <action>HMAC-SHA-256-128</action>
-      <description>The packet invokes sending a Map-Request.</description>
-      <xref type="rfc" data="rfc6830"/>
+      <mac><xref type="rfc" data="rfc4868"/></mac>
+      <kdf>None</kdf>
+    </record>
+    <record updated="2021-02-24">
+      <name>HMAC-SHA256-128+HKDF-SHA256</name>
+      <value>3</value>
+      <mac><xref type="rfc" data="rfc4868"/></mac>
+      <kdf><xref type="rfc" data="rfc4868"/></kdf>
     </record>
     <record>
-     <value>3-65535</value>
-     <action>Unassigned</action>
-     <description/>
+     <name>Unassigned</name>
+     <value>4-255</value>
+      <mac/>
+      <kdf/>
     </record>
   </registry>
   
@@ -220,36 +239,37 @@
   
   <registry id="lisp-packet-types">
     <title>LISP Packet Types</title>
-    <xref type="draft" data="RFC-ietf-lisp-rfc8113bis-03"/>
+    <xref type="draft" data="RFC-ietf-lisp-rfc8113bis-03"/><xref type="draft" data="RFC-draft-ietf-lisp-rfc6833bis"/>
     <registration_rule>Standards Action</registration_rule>
     <record date="2017-02-13">
       <value>0</value>
       <description>Reserved</description>
-      <xref type="rfc" data="rfc6830"/>
+      <xref type="draft" data="RFC-draft-ietf-lisp-rfc6833bis"/>
     </record>
     <record date="2017-02-13">
       <value>1</value>
       <description>LISP Map-Request</description>
-      <xref type="rfc" data="rfc6830"/>
+      <xref type="draft" data="RFC-draft-ietf-lisp-rfc6833bis"/>
     </record>
     <record date="2017-02-13">
       <value>2</value>
       <description>LISP Map-Reply</description>
-      <xref type="rfc" data="rfc6830"/>
+      <xref type="draft" data="RFC-draft-ietf-lisp-rfc6833bis"/>
     </record>
     <record date="2017-02-13">
       <value>3</value>
       <description>LISP Map-Register</description>
-      <xref type="rfc" data="rfc6830"/>
+      <xref type="draft" data="RFC-draft-ietf-lisp-rfc6833bis"/>
     </record>
     <record date="2017-02-13">
       <value>4</value>
       <description>LISP Map-Notify</description>
-      <xref type="rfc" data="rfc6830"/>
+      <xref type="draft" data="RFC-draft-ietf-lisp-rfc6833bis"/>
     </record>
-    <record>
+    <record date="2021-02-24">
       <value>5</value>
-      <description>Unassigned</description>
+      <description>LISP Map-Notify-Ack</description>
+      <xref type="draft" data="RFC-draft-ietf-lisp-rfc6833bis"/>
     </record>
     <record date="2017-04-19">
       <value>6</value>
@@ -263,7 +283,7 @@
     <record date="2017-02-13">
       <value>8</value>
       <description>LISP Encapsulated Control Message</description>
-      <xref type="rfc" data="rfc6830"/>
+      <xref type="draft" data="RFC-draft-ietf-lisp-rfc6833bis"/>
     </record>
     <record>
       <value>9-14</value>

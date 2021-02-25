@@ -25,6 +25,14 @@
           <th>Change Controller (First Come First Served Range)</th>
         </tr>
 		</xsl:when>
+	  <xsl:when test="@id = 'lisp-algorithm-id-numbers'">
+        <tr>
+          <th>Name</th>
+          <th>Number</th>
+          <th>MAC</th>
+          <th>KDF</th>
+        </tr>
+		</xsl:when>
         <xsl:when test="@id = 'lisp-gpe-next-protocol'">
           <tr><th>Next Protocol</th><th>Description</th><th>Reference</th></tr>
         </xsl:when>
@@ -52,11 +60,12 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'lisp-key-id-numbers'">
+      <xsl:when test="../@id = 'lisp-algorithm-id-numbers'">
         <tr>
+          <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:value-of select="iana:value"/></td>
-          <td><xsl:value-of select="iana:action"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:mac"/></td>
+          <td><xsl:apply-templates select="iana:kdf"/></td>
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'lisp-crypto-cipher-suite'">
