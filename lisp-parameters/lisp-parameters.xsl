@@ -54,11 +54,6 @@
       </xsl:when>
       
       <xsl:when test="../@id = 'lisp-address-type-codes-registry'">
-        <tr>
-          <td><xsl:value-of select="iana:value"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
-        </tr>
       </xsl:when>
       <xsl:when test="../@id = 'lisp-algorithm-id-numbers'">
         <tr>
@@ -92,5 +87,7 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
+
+  <xsl:template name="iana:registryempty"/>
 
 </xsl:stylesheet>
