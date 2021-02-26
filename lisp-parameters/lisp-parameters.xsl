@@ -36,6 +36,60 @@
         <xsl:when test="@id = 'lisp-gpe-next-protocol'">
           <tr><th>Next Protocol</th><th>Description</th><th>Reference</th></tr>
         </xsl:when>
+        <xsl:when test="@id = 'lisp-parameters-lisp-control-plane-header-bits-map-request'">
+        <tr>
+          <th>Spec Name</th>
+          <th>IANA Name</th>
+          <th>BIT Position</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+		</xsl:when>
+		<xsl:when test="@id = 'lisp-parameters-lisp-control-plane-header-bits-map-reply'">
+        <tr>
+          <th>Spec Name</th>
+          <th>IANA Name</th>
+          <th>BIT Position</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+		</xsl:when>
+		<xsl:when test="@id = 'lisp-parameters-lisp-control-plane-header-bits-map-register'">
+        <tr>
+          <th>Spec Name</th>
+          <th>IANA Name</th>
+          <th>BIT Position</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+		</xsl:when>
+		<xsl:when test="@id = 'lisp-parameters-lisp-control-plane-header-bits-encapsulated-control-message'">
+        <tr>
+          <th>Spec Name</th>
+          <th>IANA Name</th>
+          <th>BIT Position</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+		</xsl:when>
+		<xsl:when test="@id = 'lisp-parameters-lisp-control-plane-header-bits-eid-record'">
+        <tr>
+          <th>Spec Name</th>
+          <th>IANA Name</th>
+          <th>BIT Position</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+		</xsl:when>
+		<xsl:when test="@id = 'lisp-parameters-lisp-control-plane-header-bits-rloc-record'">
+        <tr>
+          <th>Spec Name</th>
+          <th>IANA Name</th>
+          <th>BIT Position</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+		</xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
       </xsl:otherwise>
@@ -76,6 +130,60 @@
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'lisp-parameters-lisp-control-plane-header-bits-map-request'">
+        <tr>
+          <td><xsl:value-of select="iana:spec-name"/></td>
+          <td><xsl:value-of select="iana:iana-name"/></td>
+          <td><xsl:value-of select="iana:bit"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'lisp-parameters-lisp-control-plane-header-bits-map-reply'">
+        <tr>
+          <td><xsl:value-of select="iana:spec-name"/></td>
+          <td><xsl:value-of select="iana:iana-name"/></td>
+          <td><xsl:value-of select="iana:bit"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'lisp-parameters-lisp-control-plane-header-bits-map-register'">
+        <tr>
+          <td><xsl:value-of select="iana:spec-name"/></td>
+          <td><xsl:value-of select="iana:iana-name"/></td>
+          <td><xsl:value-of select="iana:bit"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'lisp-parameters-lisp-control-plane-header-bits-encapsulated-control-message'">
+        <tr>
+          <td><xsl:value-of select="iana:spec-name"/></td>
+          <td><xsl:value-of select="iana:iana-name"/></td>
+          <td><xsl:value-of select="iana:bit"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'lisp-parameters-lisp-control-plane-header-bits-eid-record'">
+        <tr>
+          <td><xsl:value-of select="iana:spec-name"/></td>
+          <td><xsl:value-of select="iana:iana-name"/></td>
+          <td><xsl:value-of select="iana:bit"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'lisp-parameters-lisp-control-plane-header-bits-rloc-record'">
+        <tr>
+          <td><xsl:value-of select="iana:spec-name"/></td>
+          <td><xsl:value-of select="iana:iana-name"/></td>
+          <td><xsl:value-of select="iana:bit"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
       <xsl:otherwise>
