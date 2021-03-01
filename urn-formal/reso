@@ -1,0 +1,245 @@
+Real Estate Standards Organization (RESO)                  J. Darnell, S. DeBord
+Request for Comments: xxxx                                                  RESO
+Category: Informational                                            December 2020
+
+
+                        A URN Namespace for RESO
+
+
+Status of this Memo
+
+  This document is intended to be informational for the internet community. 
+  The examples provided are non-normative at this point and RESO may continue 
+  to add additional identifiers or change what's outlined here at a future 
+  time, where appropriate. 
+
+
+Abstract
+
+  This document describes a Uniform Resource Name (URN) namespace to be used 
+  by the Real Estate Standards Organization (RESO) for the naming of items in 
+  RESO's standard metadata catalog, for identifying unique licensees and
+  organizations acting as as recorders in real estate transactions within 
+  a decentralized network, and for the creation of unique property identifiers
+  for real property and related assets.
+
+
+Copyright Notice
+
+  Copyright (c) Real Estate Standards Organization (RESO). All rights reserved.
+
+
+1. Introduction
+
+  The Real Estate Standards Organization (RESO) produces metadata catalogs, 
+  domain-specific models, and data transport standards for use by real estate 
+  transaction processors as well as data producers and consumers. 
+
+  During the recording of transactions, various identifiers are used that 
+  originate from many different organizations and participants, both licensed
+  and unlicensed, in various formats which involve RESO standard metadata items 
+  and their state at a given point of time. 
+
+  The primary goal of the 'reso' URN is to ensure that RESO standard data 
+  elements are identified within the transaction in a manner that provides 
+  consistent representations of participant and metadata identifiers.
+
+2.  Terminology
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   [RFC2119].
+
+3. Specification Template
+
+  3.1 Namespace ID:
+    "reso"
+
+  3.2 Registration Information:
+    Version: 1
+    Date: 2020-12-22
+
+  3.3 Registrant of the Namespace
+    Registering Organization: RESO
+    Designated Contact: info&reso.org
+
+  3.4 Syntactic Structure
+    At the time of publication, URNs that use the 'reso' NID SHOULD have one
+    of the following structures:
+
+    3.4.1 RESO Data Dictionary Metadata Elements
+      (a) Versioned Metadata Resource Element
+
+          Format:
+            urn:reso:metadata:{version}:resource:{resource-name}
+
+          where "version" MAY have values such as "1.6" or "1.7", and
+          "resource-name¨ is one of "Property", "Member", "Office", or 
+          other resource definitions RESO provides (see references).
+
+          Example: 
+            urn:reso:metadata:1.7:resource:property
+      
+      (b) Versioned Metadata Field Element
+
+          Format:
+            urn:reso:metadata:{version}:resource:{resource-name}:field:{field-name}
+
+          where "version" MAY have values such as "1.6" or "1.7",
+          "resource-name" is a defined resource, and
+          "field-name" is a defined data field in the domain.
+
+          Example: 
+            urn:reso:metadata:1.7:resource:property:field:listprice
+
+      (c) Field Metadata Element using Record Identifier
+
+          Format:
+            urn:reso:metadata:rid:{rid}
+
+          where "rid" is a version-independent field metadata identifier
+          assigned by RESO and unique within its domain.
+
+          Example: 
+            urn:reso:metadata:rid:100311
+
+          where rid 100311 is the "AboveGradeFinishedArea" field in RESO's 
+          Data Dictionary metadata catalog.
+
+      (d) Lookup Field Metadata Element using Lookup Field Identifier
+
+          Format:
+            urn:reso:metadata:lfid:{lookup-field-id}
+          
+          where "lfid" is a version-independent lookup value metadata 
+          identifier assigned by RESO and unique within its domain. 
+
+          Example:
+            urn:reso:metadata:lfid:301001
+
+          Lookup fields are used to group related collections of allowed 
+          field values. For example, "StandardStatus" can have a value of 
+          "Active" or "Active Under Contract" and its lfid is 301001.
+
+      (e) Lookup Metadata Element using Lookup Identifier
+
+          Format:
+            urn:reso:metadata:lid:{lookup-id}
+
+          where "lid" is a version-independent lookup value metadata 
+          identifier assigned by RESO and unique within its domain. 
+
+          Example:
+            urn:reso:metadata:lid:301002
+
+          Lookups values are to uniquely represent standard enumerated
+          values that are available for use within a given lookup field.
+          For example, "Active Under Contract" has a lid of 301002. 
+
+    
+    3.4.2 RESO Universal Property Identifier (UPI)
+
+      Format:
+        urn:reso:upi:{upi}
+
+      where "upi" is the RESO Universal Property Identifier (UPI) for a given
+      property. 
+
+      The RESO UPI is a standard format that encodes Country, 
+      State (FIPS), County (FIPS), Subcounty (FIPS), the parcel number, 
+      property type, and optional sub-property type in order to identify
+      unique real properties. If two UPIs are constructed from the
+      same underlying data using the RESO UPI standard, then the same 
+      identifier will be produced across disparate systems even if they don't
+      exchange the underlying data. 
+
+      Example:
+        urn:reso:upi:us-06037-n-abracanet-r-n
+
+      For more information about the RESO UPI, see section 5.2.
+
+
+    3.4.3 RESO Unique Licensee Identifier (ULI)
+
+      Format: 
+        urn:reso:uli:{uli}
+
+      where "uli" is a globally unique licensee identifier within the 
+      RESO domain.
+
+      RESO is constructing a licensee identifier standard and resolution 
+      protocol in order to assign a globally unique and immutable identifier 
+      to any participant in a transaction. This could be a real estate agent, 
+      broker, transaction coordinator, assessor, photographer, and others not 
+      specified here. 
+
+      Example:
+        urn:reso:uli:123e4567-e89b-12d3-a456-426652340000
+
+      where 123e4567-e89b-12d3-a456-426652340000 is a unique
+      identifier for a given licensee.
+
+    3.4.4 RESO Unique Organization Identifier (UOI)
+
+      Format:
+        urn:reso:uoi:{uoi}
+
+      where "uoi" is a globally unique organization identifier within
+      the RESO domain.
+
+      RESO assigns Unique Organization Identifiers within its domain 
+      to represent well-known organizations that exist as participants
+      in the real estate transaction.
+
+      Example:
+        urn:reso:uoi:2352675
+
+      where 2352675 is a unique identifier for a given organization.
+
+
+    3.4.5 Event Subjects and Recorders in RESO's standard Event Model
+
+      (a) Event Model Subject Identifiers
+
+        Format:
+          urn:reso:metadata:1.7:resource:{resource-name}:field:{field-name}:{value}
+          urn:reso:metadata:1.7:rid:{rid}:{value}
+
+        These are used to represent the subject in the recording of a
+        transaction and MAY have several different formats that build
+        on previous metadata URNs by also providing a value:
+
+        Examples:
+         urn:reso:metadata:1.7:resource:property:field:listingkey:abc123
+         urn:reso:metadata:1.7:resource:member:field:memberkey:z12345
+         urn:reso:metadata:1.7:rid:12385:3400000
+         urn:reso:upi:us-06037-n-abracanet-r-n
+
+
+      (b) Event Model Recorder Identifiers
+
+        Format: 
+          urn:reso:uoi:{uoi}
+
+        As outlined in 3.4.4, RESO issues unique identifiers
+        to be used by well-known organizations that participate in the 
+        real estate transaction.
+
+4. Security Considerations
+
+This document introduces no additional security considerations beyond
+those associated with the use and resolution of URNs in general.
+
+5. References
+
+  5.1 Normative References
+    [RFC2141]  Moats, R., "URN Syntax", RFC 2141, May 1997.
+
+  5.2 Informative References
+    [https://ddwiki.reso.org/display/DDW17]
+    RESO Data Dictionary 1.7 Wiki, January 2018.
+
+    [https://www.reso.org/universal-property-identifier/]
+    RESO Universal Property Identifier (UPI), Dec 2017.
+    
