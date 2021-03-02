@@ -179,6 +179,20 @@
         <th>Reference</th>
       </tr>
      </xsl:when>
+     <xsl:when test="@id = 'ppp-numbers-26'">
+       <tr>
+        <th>OUI (in hex)</th>
+        <th>Organization</th>
+        <th>Reference</th>
+      </tr>
+     </xsl:when>
+     <xsl:when test="@id = 'ppp-numbers-33'">
+       <tr>
+        <th>VER</th>
+        <th>Description</th>
+        <th>Reference</th>
+      </tr>
+     </xsl:when>
     </xsl:choose>
   </xsl:template>
   <xsl:template match="iana:record">
