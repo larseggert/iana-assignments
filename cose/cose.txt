@@ -4,7 +4,7 @@
            2017-01-11
 
    Last Updated
-           2021-02-02
+           2021-03-04
 
    Available Formats
            [IMG]
@@ -194,7 +194,9 @@ COSE Algorithms
                                using SHA-1
                         -65534
    Unassigned           to
-                        -260
+                        -261
+   WalnutDSA            -260   WalnutDSA         [kty]        IESG       [RFC-atkins-suit-cose-walnutdsa-07]                            No
+                               signature
    RS512                -259   RSASSA-PKCS1-v1_5 [kty]        IESG       [RFC8812][RFC-ietf-cose-rfc8152bis-algs-12]                    No
                                using SHA-512
    RS384                -258   RSASSA-PKCS1-v1_5 [kty]        IESG       [RFC8812][RFC-ietf-cose-rfc8152bis-algs-12]                    No
@@ -426,28 +428,37 @@ COSE Key Type Parameters
            [IMG]
            CSV
 
-   Key Type Name  Label  CBOR Type                             Description                                         Reference
-   1        crv   -1    int / tstr  EC identifier - Taken from the "COSE Elliptic Curves" registry     [RFC-ietf-cose-rfc8152bis-algs-12]
-   2        crv   -1    int / tstr  EC identifier - Taken from the "COSE Elliptic Curves" registry     [RFC-ietf-cose-rfc8152bis-algs-12]
-   4        k     -1    bstr        Key Value                                                          [RFC-ietf-cose-rfc8152bis-algs-12]
-   1        x     -2    bstr        x-coordinate                                                       [RFC-ietf-cose-rfc8152bis-algs-12]
-   2        x     -2    bstr        Public Key                                                         [RFC-ietf-cose-rfc8152bis-algs-12]
-   2        y     -3    bstr / bool y-coordinate                                                       [RFC-ietf-cose-rfc8152bis-algs-12]
-   1        d     -4    bstr        Private key                                                        [RFC-ietf-cose-rfc8152bis-algs-12]
-   2        d     -4    bstr        Private key                                                        [RFC-ietf-cose-rfc8152bis-algs-12]
-   3        n     -1    bstr        the RSA modulus n                                                  [RFC8230]
-   3        e     -2    bstr        the RSA public exponent e                                          [RFC8230]
-   3        d     -3    bstr        the RSA private exponent d                                         [RFC8230]
-   3        p     -4    bstr        the prime factor p of n                                            [RFC8230]
-   3        q     -5    bstr        the prime factor q of n                                            [RFC8230]
-   3        dP    -6    bstr        dP is d mod (p - 1)                                                [RFC8230]
-   3        dQ    -7    bstr        dQ is d mod (q - 1)                                                [RFC8230]
-   3        qInv  -8    bstr        qInv is the CRT coefficient q^(-1) mod p                           [RFC8230]
-   3        other -9    array       other prime infos, an array                                        [RFC8230]
-   3        r_i   -10   bstr        a prime factor r_i of n, where i >= 3                              [RFC8230]
-   3        d_i   -11   bstr        d_i = d mod (r_i - 1)                                              [RFC8230]
-   3        t_i   -12   bstr        the CRT coefficient t_i = (r_1 * r_2 * ... * r_(i-1))^(-1) mod r_i [RFC8230]
-   5        pub   -1    bstr        Public key for HSS/LMS hash-based digital signature                [RFC8778]
+   Key Type     Name      Label        CBOR Type                              Description                                    Reference
+   1        crv           -1    int / tstr               EC identifier - Taken from the "COSE Elliptic Curves"  [RFC-ietf-cose-rfc8152bis-algs-12]
+                                                         registry
+   1        x             -2    bstr                     x-coordinate                                           [RFC-ietf-cose-rfc8152bis-algs-12]
+   1        d             -4    bstr                     Private key                                            [RFC-ietf-cose-rfc8152bis-algs-12]
+   2        crv           -1    int / tstr               EC identifier - Taken from the "COSE Elliptic Curves"  [RFC-ietf-cose-rfc8152bis-algs-12]
+                                                         registry
+   2        x             -2    bstr                     Public Key                                             [RFC-ietf-cose-rfc8152bis-algs-12]
+   2        y             -3    bstr / bool              y-coordinate                                           [RFC-ietf-cose-rfc8152bis-algs-12]
+   2        d             -4    bstr                     Private key                                            [RFC-ietf-cose-rfc8152bis-algs-12]
+   3        n             -1    bstr                     the RSA modulus n                                      [RFC8230]
+   3        e             -2    bstr                     the RSA public exponent e                              [RFC8230]
+   3        d             -3    bstr                     the RSA private exponent d                             [RFC8230]
+   3        p             -4    bstr                     the prime factor p of n                                [RFC8230]
+   3        q             -5    bstr                     the prime factor q of n                                [RFC8230]
+   3        dP            -6    bstr                     dP is d mod (p - 1)                                    [RFC8230]
+   3        dQ            -7    bstr                     dQ is d mod (q - 1)                                    [RFC8230]
+   3        qInv          -8    bstr                     qInv is the CRT coefficient q^(-1) mod p               [RFC8230]
+   3        other         -9    array                    other prime infos, an array                            [RFC8230]
+   3        r_i           -10   bstr                     a prime factor r_i of n, where i >= 3                  [RFC8230]
+   3        d_i           -11   bstr                     d_i = d mod (r_i - 1)                                  [RFC8230]
+   3        t_i           -12   bstr                     the CRT coefficient t_i = (r_1 * r_2 * ... *           [RFC8230]
+                                                         r_(i-1))^(-1) mod r_i
+   4        k             -1    bstr                     Key Value                                              [RFC-ietf-cose-rfc8152bis-algs-12]
+   5        pub           -1    bstr                     Public key for HSS/LMS hash-based digital signature    [RFC8778]
+   6        N             -1    uint                     Group and Matrix (NxN) size                            [RFC-atkins-suit-cose-walnutdsa-07]
+   6        q             -2    uint                     Finite field F_q                                       [RFC-atkins-suit-cose-walnutdsa-07]
+   6        t-values      -3    array (of uint)          List of T-values, enties in F_q                        [RFC-atkins-suit-cose-walnutdsa-07]
+   6        matrix 1      -4    array (of array of uint) NxN Matrix of enties in F_q in column-major form       [RFC-atkins-suit-cose-walnutdsa-07]
+   6        permutation 1 -5    array (of uint)          Permutation associated with matrix 1                   [RFC-atkins-suit-cose-walnutdsa-07]
+   6        matrix 2      -6    array (of array of uint) NxN Matrix of enties in F_q in column-major form       [RFC-atkins-suit-cose-walnutdsa-07]
 
 COSE Key Types
 
@@ -473,6 +484,7 @@ COSE Key Types
    RSA       3     RSA Key                                             [kty(3)]                 [RFC8230][RFC-ietf-cose-rfc8152bis-algs-12]
    Symmetric 4     Symmetric Keys                                      [kty(4)]                 [RFC-ietf-cose-rfc8152bis-algs-12]
    HSS-LMS   5     Public key for HSS/LMS hash-based digital signature [kty(5), hash algorithm] [RFC8778][RFC-ietf-cose-rfc8152bis-algs-12]
+   WalnutDSA 6     WalnutDSA public key                                [kty(6)]                 [RFC-atkins-suit-cose-walnutdsa-07]
 
 COSE Elliptic Curves
 

@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="cose">
   <title>CBOR Object Signing and Encryption (COSE)</title>
   <created>2017-01-11</created>
-  <updated>2021-02-02</updated>
+  <updated>2021-03-04</updated>
   
   
   <registry id="header-parameters">
@@ -369,11 +369,20 @@
     </record>
     <record>
       <name>Unassigned</name>
-      <value>-65534 to -260</value>
+      <value>-65534 to -261</value>
       <description/>
       <controller/>
       <recommended/>
     </record>  
+    <record date="2021-03-04">
+      <name>WalnutDSA</name>
+      <value>-260</value>
+      <description>WalnutDSA signature</description>
+      <capabilities>[kty]</capabilities>
+      <controller>IESG</controller>
+      <xref type="draft" data="RFC-atkins-suit-cose-walnutdsa-07"/>
+      <recommended>No</recommended>
+    </record>
     <record date="2018-04-19" updated="2020-08-12">
       <name>RS512</name>
       <value>-259</value>
@@ -1122,22 +1131,6 @@ delegated to the COSE Key Type Parameters registry</registration_rule>
       <cbor-type>int / tstr</cbor-type>
       <description>EC identifier - Taken from the "COSE Elliptic Curves" registry</description>
       <xref type="draft" data="RFC-ietf-cose-rfc8152bis-algs-12"/>
-    </record>   
-    <record date="2017-01-11" updated="2019-03-14">
-      <keytype>2</keytype>
-      <name>crv</name>
-      <label>-1</label>
-      <cbor-type>int / tstr</cbor-type>
-      <description>EC identifier - Taken from the "COSE Elliptic Curves" registry</description>
-      <xref type="draft" data="RFC-ietf-cose-rfc8152bis-algs-12"/>
-    </record>
-    <record date="2017-01-11">
-      <keytype>4</keytype>
-      <name>k</name>
-      <label>-1</label>
-      <cbor-type>bstr</cbor-type>
-      <description>Key Value</description>
-      <xref type="draft" data="RFC-ietf-cose-rfc8152bis-algs-12"/>
     </record>
     <record date="2017-01-11">
       <keytype>1</keytype>
@@ -1145,6 +1138,22 @@ delegated to the COSE Key Type Parameters registry</registration_rule>
       <label>-2</label>
       <cbor-type>bstr</cbor-type>
       <description>x-coordinate</description>
+      <xref type="draft" data="RFC-ietf-cose-rfc8152bis-algs-12"/>
+    </record>
+    <record date="2017-01-11">
+      <keytype>1</keytype>
+      <name>d</name>
+      <label>-4</label>
+      <cbor-type>bstr</cbor-type>
+      <description>Private key</description>
+      <xref type="draft" data="RFC-ietf-cose-rfc8152bis-algs-12"/>
+    </record> 
+    <record date="2017-01-11" updated="2019-03-14">
+      <keytype>2</keytype>
+      <name>crv</name>
+      <label>-1</label>
+      <cbor-type>int / tstr</cbor-type>
+      <description>EC identifier - Taken from the "COSE Elliptic Curves" registry</description>
       <xref type="draft" data="RFC-ietf-cose-rfc8152bis-algs-12"/>
     </record>
     <record date="2017-01-11" updated="2021-02-01">
@@ -1162,15 +1171,7 @@ delegated to the COSE Key Type Parameters registry</registration_rule>
       <cbor-type>bstr / bool</cbor-type>
       <description>y-coordinate</description>
       <xref type="draft" data="RFC-ietf-cose-rfc8152bis-algs-12"/>
-    </record>
-    <record date="2017-01-11">
-      <keytype>1</keytype>
-      <name>d</name>
-      <label>-4</label>
-      <cbor-type>bstr</cbor-type>
-      <description>Private key</description>
-      <xref type="draft" data="RFC-ietf-cose-rfc8152bis-algs-12"/>
-    </record>    
+    </record>   
     <record date="2017-01-11">
       <keytype>2</keytype>
       <name>d</name>
@@ -1276,6 +1277,14 @@ delegated to the COSE Key Type Parameters registry</registration_rule>
         r_(i-1))^(-1) mod r_i</description>
       <xref type="rfc" data="rfc8230"/>
     </record>
+    <record date="2017-01-11">
+      <keytype>4</keytype>
+      <name>k</name>
+      <label>-1</label>
+      <cbor-type>bstr</cbor-type>
+      <description>Key Value</description>
+      <xref type="draft" data="RFC-ietf-cose-rfc8152bis-algs-12"/>
+    </record>
     <record date="2020-01-02">
       <keytype>5</keytype>
       <name>pub</name>
@@ -1283,6 +1292,54 @@ delegated to the COSE Key Type Parameters registry</registration_rule>
       <cbor-type>bstr</cbor-type>
       <description>Public key for HSS/LMS hash-based digital signature</description>
       <xref type="rfc" data="rfc8778"/>
+    </record>
+    <record date="2021-03-04">
+      <keytype>6</keytype>
+      <name>N</name>
+      <label>-1</label>
+      <cbor-type>uint</cbor-type>
+      <description>Group and Matrix (NxN) size</description>
+      <xref type="draft" data="RFC-atkins-suit-cose-walnutdsa-07"/>
+    </record>
+    <record date="2021-03-04">
+      <keytype>6</keytype>
+      <name>q</name>
+      <label>-2</label>
+      <cbor-type>uint</cbor-type>
+      <description>Finite field F_q</description>
+      <xref type="draft" data="RFC-atkins-suit-cose-walnutdsa-07"/>
+    </record>
+    <record date="2021-03-04">
+      <keytype>6</keytype>
+      <name>t-values</name>
+      <label>-3</label>
+      <cbor-type>array (of uint)</cbor-type>
+      <description>List of T-values, enties in F_q</description>
+      <xref type="draft" data="RFC-atkins-suit-cose-walnutdsa-07"/>
+    </record>
+    <record date="2021-03-04">
+      <keytype>6</keytype>
+      <name>matrix 1</name>
+      <label>-4</label>
+      <cbor-type>array (of array of uint)</cbor-type>
+      <description>NxN Matrix of enties in F_q in column-major form</description>
+      <xref type="draft" data="RFC-atkins-suit-cose-walnutdsa-07"/>
+    </record>
+    <record date="2021-03-04">
+      <keytype>6</keytype>
+      <name>permutation 1</name>
+      <label>-5</label>
+      <cbor-type>array (of uint)</cbor-type>
+      <description>Permutation associated with matrix 1</description>
+      <xref type="draft" data="RFC-atkins-suit-cose-walnutdsa-07"/>
+    </record>
+    <record date="2021-03-04">
+      <keytype>6</keytype>
+      <name>matrix 2</name>
+      <label>-6</label>
+      <cbor-type>array (of array of uint)</cbor-type>
+      <description>NxN Matrix of enties in F_q in column-major form</description>
+      <xref type="draft" data="RFC-atkins-suit-cose-walnutdsa-07"/>
     </record>
   </registry>
 
@@ -1334,6 +1391,13 @@ delegated to the COSE Key Type Parameters registry</registration_rule>
       <capabilities>[kty(5), hash algorithm]</capabilities>
       <xref type="rfc" data="rfc8778"/>
       <xref type="draft" data="RFC-ietf-cose-rfc8152bis-algs-12"/>
+    </record>
+    <record date="2021-03-04">
+      <name>WalnutDSA</name>
+      <value>6</value>
+      <description>WalnutDSA public key</description>
+      <capabilities>[kty(6)]</capabilities>
+      <xref type="draft" data="RFC-atkins-suit-cose-walnutdsa-07"/>
     </record>
   </registry>
 
