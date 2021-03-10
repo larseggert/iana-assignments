@@ -4,7 +4,7 @@
            2008-12-19
 
    Last Updated
-           2021-01-28
+           2021-03-10
 
    Available Formats
            [IMG]
@@ -73,6 +73,7 @@
      * FLOWSPEC Object Flag Field
      * PCEP Flow Specification TLV Type Indicators
      * PCEP L2 Flow Specification TLV Type Indicators
+     * Bidirectional LSP Association Group TLV Flag Field
 
 PCEP Messages
 
@@ -807,7 +808,14 @@ PCEP-ERROR Object Error Types and Values
                                                 11: Protection type is not supported                           [RFC8745]
                                                 12: Not expecting policy parameters                            [RFC-ietf-pce-association-policy-16]
                                                 13: Unacceptable policy parameters                             [RFC-ietf-pce-association-policy-16]
-                                                14-255: Unassigned
+                                                14: Bidirectional LSP Association - Group Mismatch             [RFC-ietf-pce-association-bidir-14]
+                                                15: Bidirectional LSP Association - Tunnel Mismatch            [RFC-ietf-pce-association-bidir-14]
+                                                16: Bidirectional LSP Association - Path Setup Type Not        [RFC-ietf-pce-association-bidir-14]
+                                                Supported
+                                                17: Bidirectional LSP Association - Direction Mismatch         [RFC-ietf-pce-association-bidir-14]
+                                                18: Bidirectional LSP Association - Co-routed Mismatch         [RFC-ietf-pce-association-bidir-14]
+                                                19: Bidirectional LSP Association - Endpoint Mismatch          [RFC-ietf-pce-association-bidir-14]
+                                                20-255: Unassigned
        27     WSON RWA error                    0: Unassigned                                                  [RFC8780]
                                                 1: Insufficient memory                                         [RFC8780]
                                                 2: RWA computation not supported                               [RFC8780]
@@ -1037,63 +1045,64 @@ PCEP TLV Type Indicators
    0-65503     IETF Review
    65504-65535 Experimental Use
 
-      Value                 Description                           Reference
-        0      Reserved                              [RFC5440]
-        1      NO-PATH-VECTOR TLV                    [RFC5440]
-        2      OVERLOAD-DURATION TLV                 [RFC5440]
-        3      REQ-MISSING TLV                       [RFC5440]
-        4      OF-List                               [RFC5541]
-        5      Order TLV                             [RFC5557]
-        6      P2MP capable                          [RFC8306]
-        7      VENDOR-INFORMATION-TLV                [RFC7470]
-        8      Wavelength Selection                  [RFC8780]
-        9      Wavelength Restriction                [RFC8780]
-       10      Wavelength Allocation                 [RFC8780]
-       11      Optical Interface Class List          [RFC8780]
-       12      Client Signal Information             [RFC8780]
-       13      H-PCE-CAPABILITY                      [RFC8685]
-       14      Domain-ID                             [RFC8685]
-       15      H-PCE-FLAG                            [RFC8685]
-       16      STATEFUL-PCE-CAPABILITY               [RFC8231]
-       17      SYMBOLIC-PATH-NAME                    [RFC8231]
-       18      IPV4-LSP-IDENTIFIERS                  [RFC8231]
-       19      IPV6-LSP-IDENTIFIERS                  [RFC8231]
-       20      LSP-ERROR-CODE                        [RFC8231]
-       21      RSVP-ERROR-SPEC                       [RFC8231]
+      Value                  Description                            Reference
+        0      Reserved                                [RFC5440]
+        1      NO-PATH-VECTOR TLV                      [RFC5440]
+        2      OVERLOAD-DURATION TLV                   [RFC5440]
+        3      REQ-MISSING TLV                         [RFC5440]
+        4      OF-List                                 [RFC5541]
+        5      Order TLV                               [RFC5557]
+        6      P2MP capable                            [RFC8306]
+        7      VENDOR-INFORMATION-TLV                  [RFC7470]
+        8      Wavelength Selection                    [RFC8780]
+        9      Wavelength Restriction                  [RFC8780]
+       10      Wavelength Allocation                   [RFC8780]
+       11      Optical Interface Class List            [RFC8780]
+       12      Client Signal Information               [RFC8780]
+       13      H-PCE-CAPABILITY                        [RFC8685]
+       14      Domain-ID                               [RFC8685]
+       15      H-PCE-FLAG                              [RFC8685]
+       16      STATEFUL-PCE-CAPABILITY                 [RFC8231]
+       17      SYMBOLIC-PATH-NAME                      [RFC8231]
+       18      IPV4-LSP-IDENTIFIERS                    [RFC8231]
+       19      IPV6-LSP-IDENTIFIERS                    [RFC8231]
+       20      LSP-ERROR-CODE                          [RFC8231]
+       21      RSVP-ERROR-SPEC                         [RFC8231]
        22      Unassigned
-       23      LSP-DB-VERSION                        [RFC8232]
-       24      SPEAKER-ENTITY-ID                     [RFC8232]
+       23      LSP-DB-VERSION                          [RFC8232]
+       24      SPEAKER-ENTITY-ID                       [RFC8232]
        25      Unassigned
-       26      SR-PCE-CAPABILITY (deprecated)        [RFC8664]
+       26      SR-PCE-CAPABILITY (deprecated)          [RFC8664]
        27      Unassigned
-       28      PATH-SETUP-TYPE                       [RFC8408]
-       29      Operator-configured Association Range [RFC8697]
-       30      Global Association Source             [RFC8697]
-       31      Extended Association ID               [RFC8697]
-       32      P2MP-IPV4-LSP-IDENTIFIERS             [RFC8623]
-       33      P2MP-IPV6-LSP-IDENTIFIERS             [RFC8623]
-       34      PATH-SETUP-TYPE-CAPABILITY            [RFC8408]
-       35      ASSOC-Type-List                       [RFC8697]
-       36      AUTO-BANDWIDTH-CAPABILITY             [RFC8733]
-       37      AUTO-BANDWIDTH-ATTRIBUTES             [RFC8733]
-       38      Path Protection Association Group TLV [RFC8745]
-       39      IPV4-ADDRESS                          [RFC8779, Section 2.5.2.1]
-       40      IPV6-ADDRESS                          [RFC8779, Section 2.5.2.2]
-       41      UNNUMBERED-ENDPOINT                   [RFC8779, Section 2.5.2.3]
-       42      LABEL-REQUEST                         [RFC8779, Section 2.5.2.4]
-       43      LABEL-SET                             [RFC8779, Section 2.5.2.5]
-       44      PROTECTION-ATTRIBUTE                  [RFC8779, Section 2.8]
-       45      GMPLS-CAPABILITY                      [RFC8779, Section 2.1.2]
-       46      DISJOINTNESS-CONFIGURATION            [RFC8800]
-       47      DISJOINTNESS-STATUS                   [RFC8800]
-       48      POLICY-PARAMETERS-TLV                 [RFC-ietf-pce-association-policy-16]
-       49      SCHED-LSP-ATTRIBUTE                   [RFC8934]
-       50      SCHED-PD-LSP-ATTRIBUTE                [RFC8934]
-       51      PCE-FLOWSPEC-CAPABILITY TLV           [RFC-ietf-pce-pcep-flowspec-12]
-       52      FLOW FILTER TLV                       [RFC-ietf-pce-pcep-flowspec-12]
-       53      L2 FLOW FILTER TLV                    [RFC-ietf-pce-pcep-flowspec-12]
-    54-65503   Unassigned
-   65504-65535 Experimental Use                      [RFC8356]
+       28      PATH-SETUP-TYPE                         [RFC8408]
+       29      Operator-configured Association Range   [RFC8697]
+       30      Global Association Source               [RFC8697]
+       31      Extended Association ID                 [RFC8697]
+       32      P2MP-IPV4-LSP-IDENTIFIERS               [RFC8623]
+       33      P2MP-IPV6-LSP-IDENTIFIERS               [RFC8623]
+       34      PATH-SETUP-TYPE-CAPABILITY              [RFC8408]
+       35      ASSOC-Type-List                         [RFC8697]
+       36      AUTO-BANDWIDTH-CAPABILITY               [RFC8733]
+       37      AUTO-BANDWIDTH-ATTRIBUTES               [RFC8733]
+       38      Path Protection Association Group TLV   [RFC8745]
+       39      IPV4-ADDRESS                            [RFC8779, Section 2.5.2.1]
+       40      IPV6-ADDRESS                            [RFC8779, Section 2.5.2.2]
+       41      UNNUMBERED-ENDPOINT                     [RFC8779, Section 2.5.2.3]
+       42      LABEL-REQUEST                           [RFC8779, Section 2.5.2.4]
+       43      LABEL-SET                               [RFC8779, Section 2.5.2.5]
+       44      PROTECTION-ATTRIBUTE                    [RFC8779, Section 2.8]
+       45      GMPLS-CAPABILITY                        [RFC8779, Section 2.1.2]
+       46      DISJOINTNESS-CONFIGURATION              [RFC8800]
+       47      DISJOINTNESS-STATUS                     [RFC8800]
+       48      POLICY-PARAMETERS-TLV                   [RFC-ietf-pce-association-policy-16]
+       49      SCHED-LSP-ATTRIBUTE                     [RFC8934]
+       50      SCHED-PD-LSP-ATTRIBUTE                  [RFC8934]
+       51      PCE-FLOWSPEC-CAPABILITY TLV             [RFC-ietf-pce-pcep-flowspec-12]
+       52      FLOW FILTER TLV                         [RFC-ietf-pce-pcep-flowspec-12]
+       53      L2 FLOW FILTER TLV                      [RFC-ietf-pce-pcep-flowspec-12]
+       54      Bidirectional LSP Association Group TLV [RFC-ietf-pce-association-bidir-14]
+    55-65503   Unassigned
+   65504-65535 Experimental Use                        [RFC8356]
 
 NO-PATH-VECTOR TLV Flag Field
 
@@ -1597,12 +1606,14 @@ ASSOCIATION Type Field
            [IMG]
            CSV
 
-    Type              Name                          Reference
-      0    Reserved                    [RFC8697]
-      1    Path Protection Association [RFC8745]
-      2    Disjoint Association        [RFC8800]
-      3    Policy Association          [RFC-ietf-pce-association-policy-16]
-   4-65535 Unassigned
+    Type                      Name                                 Reference
+      0    Reserved                                   [RFC8697]
+      1    Path Protection Association                [RFC8745]
+      2    Disjoint Association                       [RFC8800]
+      3    Policy Association                         [RFC-ietf-pce-association-policy-16]
+      4    Single-sided Bidirectional LSP Association [RFC-ietf-pce-association-bidir-14]
+      5    Double-sided Bidirectional LSP Association [RFC-ietf-pce-association-bidir-14]
+   6-65535 Unassigned
 
 AUTO-BANDWIDTH-CAPABILITY TLV Flag Field
 
@@ -1832,3 +1843,21 @@ PCEP L2 Flow Specification TLV Type Indicators
                [draft-ietf-idr-flowspec-l2vpn-15]
    256-65531   Unassigned
    65532-65535 Experimental Use                                                                                     [RFC-ietf-pce-pcep-flowspec-12]
+
+Bidirectional LSP Association Group TLV Flag Field
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC-ietf-pce-association-bidir-14]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Bit     Description                  Reference
+   0-29 Unassigned
+    30  C - Co-routed Path [RFC-ietf-pce-association-bidir-14]
+    31  R - Reverse LSP    [RFC-ietf-pce-association-bidir-14]
