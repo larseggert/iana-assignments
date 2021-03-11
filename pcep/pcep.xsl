@@ -250,6 +250,20 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'pcecc-capability'">
+        <tr>
+          <th>Bit</th>
+          <th>Name</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'cci-object-flag-field-mpls-label'">
+        <tr>
+          <th>Bit</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <th>Value</th>
