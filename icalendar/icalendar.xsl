@@ -65,6 +65,9 @@
       <xsl:when test="@id = 'resource-types'">
         <tr><th>Resource Type</th><th>Status</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'proximity-values'">
+        <tr><th>Value</th><th>Status</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Name</th><th>Status</th><th>Reference</th></tr>
       </xsl:otherwise>
