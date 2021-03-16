@@ -50,8 +50,8 @@
         <tr>
         <th>Value</th>
         <th>Stream Type</th>
-        <th>Description</th>
         <th>Sender</th>
+        <th>Status</th>
         <th>Specification</th>
         <th>Date</th>
         <th>Change Controller</th>
