@@ -63,6 +63,12 @@
         <th>Reference</th>
         <th>Date</th>
       </xsl:when>
+      <xsl:when test="@id = 'arp-nd-extended-community-flags'">
+        <th>Flag Position</th>
+        <th>Name</th>
+        <th>Reference</th>
+        <th>Date</th>
+      </xsl:when>
       <xsl:otherwise>
         <th>Type Value</th>
         <th>Name</th>
