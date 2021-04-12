@@ -17,7 +17,7 @@
   </xsl:when>
   <xsl:otherwise>
     <tr>
-      <th>Address(s)</th>
+      <th>Address(es)</th>
       <th>Description</th>
       <th>Reference</th>
       <th>Change Controller</th>
