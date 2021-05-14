@@ -76,7 +76,7 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = '_6tisch-cojp-configuration-codes'">
+      <xsl:when test="@id = '_6tisch-cojp-unsupported-configuration-codes'">
         <tr>
           <th>Name</th>
           <th>Value</th>
@@ -131,7 +131,7 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = '_6tisch-cojp-configuration-codes'">
+      <xsl:when test="../@id = '_6tisch-cojp-unsupported-configuration-codes'">
         <tr>
           <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:value"/></td> 
