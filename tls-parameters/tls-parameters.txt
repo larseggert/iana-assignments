@@ -4,7 +4,7 @@
            2005-08-23
 
    Last Updated
-           2021-04-02
+           2021-06-02
 
    Available Formats
            [IMG]
@@ -114,7 +114,7 @@ TLS Cipher Suites
  Yoav Nir, Rich Salz, Nick Sullivan
 
    Reference
-           [RFC8446][RFC8447]
+           [RFC8446][RFC8447][RFC-ietf-tls-dtls13-43]
 
    Note
 
@@ -175,6 +175,14 @@ TLS Cipher Suites
  the responsibility of those making use of the Private Use range to
  ensure that no conflicts occur (within the intended scope of use).
  For widespread experiments, temporary reservations are available.
+
+
+   Note
+
+ Any TLS cipher suite that is specified for use with DTLS MUST
+ define limits on the use of the associated AEAD function that
+ preserves margins for both confidentiality and integrity,
+ as specified in [RFC-ietf-tls-dtls13-43].
 
 
    Available Formats
@@ -650,7 +658,9 @@ TLS ContentType
      24   heartbeat                                                                                     Y       [RFC6520]
      25   tls12_cid (TEMPORARY - registered 2019-07-02, extension registered 2020-07-28, expires        Y       [draft-ietf-tls-dtls-connection-id]
           2021-07-02)
-   26-63  Unassigned
+     26   ACK                                                                                           Y       [RFC-ietf-tls-dtls13-43]
+   27-31  Unassigned
+   32-63  Reserved                                                                                              [RFC-ietf-tls-dtls13-43]
    64-255 Unassigned (Requires coordination; see [RFC7983])                                                     [RFC5764][RFC7983]
 
 TLS Alerts
@@ -666,19 +676,19 @@ TLS Alerts
            [IMG]
            CSV
 
-    Value              Description             DTLS-OK     Reference                       Comment
+    Value              Description             DTLS-OK        Reference                          Comment
       0    close_notify                        Y       [RFC8446]
      1-9   Unassigned
      10    unexpected_message                  Y       [RFC8446]
     11-19  Unassigned
      20    bad_record_mac                      Y       [RFC8446]
-     21    decryption_failed_RESERVED          Y       [RFC8446]          Used in TLS versions prior to 1.3.
+     21    decryption_failed_RESERVED          Y       [RFC8446]                Used in TLS versions prior to 1.3.
      22    record_overflow                     Y       [RFC8446]
     23-29  Unassigned
-     30    decompression_failure_RESERVED      Y       [RFC8446]          Used in TLS versions prior to 1.3.
+     30    decompression_failure_RESERVED      Y       [RFC8446]                Used in TLS versions prior to 1.3.
     31-39  Unassigned
      40    handshake_failure                   Y       [RFC8446]
-     41    no_certificate_RESERVED             Y       [RFC8446]          Used in SSLv3 but not in TLS.
+     41    no_certificate_RESERVED             Y       [RFC8446]                Used in SSLv3 but not in TLS.
      42    bad_certificate                     Y       [RFC8446]
      43    unsupported_certificate             Y       [RFC8446]
      44    certificate_revoked                 Y       [RFC8446]
@@ -689,8 +699,9 @@ TLS Alerts
      49    access_denied                       Y       [RFC8446]
      50    decode_error                        Y       [RFC8446]
      51    decrypt_error                       Y       [RFC8446]
-    52-59  Unassigned
-     60    export_restriction_RESERVED         Y       [RFC8446]          Used in TLS 1.0 but not TLS 1.1 or later.
+     52    the too_many_cids_requested         Y       [RFC-ietf-tls-dtls13-43]
+    53-59  Unassigned
+     60    export_restriction_RESERVED         Y       [RFC8446]                Used in TLS 1.0 but not TLS 1.1 or later.
     61-69  Unassigned
      70    protocol_version                    Y       [RFC8446]
      71    insufficient_security               Y       [RFC8446]
@@ -701,14 +712,14 @@ TLS Alerts
     87-89  Unassigned
      90    user_canceled                       Y       [RFC8446]
     91-99  Unassigned
-     100   no_renegotiation_RESERVED           Y       [RFC8446]          Used in TLS versions prior to 1.3.
+     100   no_renegotiation_RESERVED           Y       [RFC8446]                Used in TLS versions prior to 1.3.
    101-108 Unassigned
      109   missing_extension                   Y       [RFC8446]
      110   unsupported_extension               Y       [RFC8446]
-     111   certificate_unobtainable_RESERVED   Y       [RFC6066][RFC8446] Used in TLS versions prior to 1.3.
+     111   certificate_unobtainable_RESERVED   Y       [RFC6066][RFC8446]       Used in TLS versions prior to 1.3.
      112   unrecognized_name                   Y       [RFC6066]
      113   bad_certificate_status_response     Y       [RFC6066]
-     114   bad_certificate_hash_value_RESERVED Y       [RFC6066][RFC8446] Used in TLS versions prior to 1.3.
+     114   bad_certificate_hash_value_RESERVED Y       [RFC6066][RFC8446]       Used in TLS versions prior to 1.3.
      115   unknown_psk_identity                Y       [RFC4279]
      116   certificate_required                Y       [RFC8446]
    117-119 Unassigned
@@ -740,7 +751,8 @@ TLS HandshakeType
                                                                                                    functionality was moved to an extension.
      7    Unassigned
      8    encrypted_extensions                                 Y       [RFC8446]
-    9-10  Unassigned
+     9    RequestConnectionId                                  Y       [RFC-ietf-tls-dtls13-43]
+     10   NewConnectionId                                      Y       [RFC-ietf-tls-dtls13-43]
      11   certificate                                          Y       [RFC8446]
      12   server_key_exchange_RESERVED                         Y       [RFC8446]                   Used in TLS versions prior to 1.3.
      13   certificate_request                                  Y       [RFC8446]
