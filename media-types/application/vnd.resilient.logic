@@ -1,0 +1,92 @@
+(registered 2021-06-02, last updated 2021-06-02)
+
+Name: Benedikt Muessig
+
+Email: benedikt&resilient-group.de
+
+Media type name: application
+
+Media subtype name: vnd.resilient.logic
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+Security considerations: The file format contains a very slim 
+   bytecode architecture that consists of 16 instructions. There is 
+   no provision for the bytecode to access the file system, user data 
+   or unmanaged memory. Instructions are either interpreted or 
+   translation compiled and all bounds and instructions are checked 
+   by our implementations for validity.
+
+   There are no privacy concerns in the file format, as it does only 
+   contain logic gates, descriptions of the gates and debug 
+   annotation information for some of the instructions.
+
+   The bytecode is only run to calculate the result for a given 
+   combination of binary inputs. The bytecode program cannot interact 
+   with the system in any way, except returning booleans.
+
+   The format does not employ any compression and is not used to 
+   store confidential information.
+
+Interoperability considerations: The format is binary big-endian 
+   based. It contains data frames and the number of sections is 
+   variable and can be changed at a later date (although it will 
+   remain backwards-compatible).
+
+   There is version information attached, so that the implementation 
+   could detect a file created with a newer or older version of the 
+   software.
+
+Published specification: As of writing, we have not decided to 
+   release any details on the format implementation.
+
+   The file is basically structured like this:
+   - Magic numbers: 0x07, 0x52, 0x4c, 0x4d
+   - File version: one byte (high nibble: major, low nibble: minor)
+   - Header size: one byte (number of the following header bytes)
+   - Number of sections: one byte
+   - [Depending on the header size, additional optional fields may 
+      follow]
+
+   Now the sections follow directly one after another:
+   - Length of the section (big endian uint32)
+   - [The actual section data]
+
+   The first three sections are positional and required. Other 
+   sections may include unique identifiers.
+
+Applications which use this media: Programs written or authorized by 
+   us can read or write files of this media type to transport digital 
+   logic circuits between people and/or software over the internet. 
+   People can use our suite of programs to design digital logic and 
+   then obtain a copy encoded with the media type described here.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: N/A
+
+Additional information:
+
+   1. Deprecated alias names for this type: N/A
+   2. Magic number(s): {0x07, 0x52, 0x4c, 0x4d}
+   3. File extension(s): .rlm, .reload
+   4. Macintosh file type code: N/A
+   5. Object Identifiers: N/A
+
+Person to contact for further information:
+
+   1. Name: Benedikt Muessig
+   2. Email: benedikt&resilient-group.de
+
+Intended usage: Common
+
+   The media type is used primarily in education to transfer digital 
+   logic between people. It contains bytecode representing the logic 
+   gates, as well as annotation data to identify inputs, outputs and 
+   optionally the type of gates at positions in the bytecode.
+
+Author/Change controller: Resilient TechEd GmbH
