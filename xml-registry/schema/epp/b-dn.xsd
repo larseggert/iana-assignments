@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<schema targetNamespace="urn:ietf:params:xml:ns:epp:b-dn"
+ xmlns:b-dn="urn:ietf:params:xml:ns:epp:b-dn"
+ xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
+ xmlns="http://www.w3.org/2001/XMLSchema"
+ elementFormDefault="qualified">
+
+<!--
+ Import common element types.
+-->
+<import namespace="urn:iana:xml:ns:eppcom-1.0"/>
+
+<annotation>
+ <documentation>
+   Extensible Provisioning Protocol v1.0
+   Bundle Domain Extension Schema v1.0
+ </documentation>
+</annotation>
+
+<!--
+ Child elements found in EPP commands.
+-->
+<element name="create" type="b-dn:createDataType"/>
+
+<!--
+ Child elements of the <b-dn:create> command.
+ All elements must be present at time of creation
+-->
+<complexType name="createDataType">
+ <sequence>
+   <element name="rdn" type="b-dn:rdnType"
+     minOccurs="0"/>
+ </sequence>
+</complexType>
+
+<!--
+ Child response elements in <b-dn:infData>, <b-dn:delData>,
+ <b-dn:creData>, <b-dn:renData>, <b-dn:trnData> and <b-dn:upData>.
+-->
+<element name="infData" type="b-dn:bundleDataType"/>
+<element name="delData" type="b-dn:bundleDataType"/>
+<element name="creData" type="b-dn:bundleDataType"/>
+<element name="renData" type="b-dn:bundleDataType"/>
+<element name="trnData" type="b-dn:bundleDataType"/>
+<element name="upData" type="b-dn:bundleDataType"/>
+
+<complexType name="bundleDataType">
+ <sequence>
+   <element name="bundle" type="b-dn:bundleType" />
+ </sequence>
+</complexType>
+
+<complexType name="bundleType">
+ <sequence>
+   <element name="rdn" type="b-dn:rdnType" />
+   <element name="bdn" type="b-dn:rdnType"
+     minOccurs="0" maxOccurs="unbounded" />
+ </sequence>
+</complexType>
+
+<complexType name="rdnType">
+ <simpleContent>
+   <extension base="eppcom:labelType">
+     <attribute name="uLabel" type="eppcom:labelType"/>
+   </extension>
+ </simpleContent>
+</complexType>
+
+<!--
+ End of schema.
+-->
+</schema>
