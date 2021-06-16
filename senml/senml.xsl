@@ -38,6 +38,14 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+
+      <xsl:when test="@id = 'senml-features'">
+        <tr>
+          <th>Feature Code</th>
+          <th>Feature Name</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       
     </xsl:choose>
   </xsl:template>
@@ -77,6 +85,15 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
+
+      <xsl:when test="../@id = 'senml-features'">
+      <tr>
+        <td><xsl:value-of select="iana:value"/></td>
+        <td><xsl:apply-templates select="iana:description"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+    </xsl:when>
+
     </xsl:choose>
   </xsl:template>
 
