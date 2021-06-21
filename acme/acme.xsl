@@ -62,6 +62,13 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'acme-star-delegation-csr-template-extensions'">
+        <tr>
+          <th>Extension Name</th>
+          <th>Extension Syntax and Reference</th>
+          <th>Mapping to X.509 Certificate Extension</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -113,6 +120,13 @@
           <td><xsl:apply-templates select="iana:type"/></td>
           <td><xsl:apply-templates select="iana:challenge"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'acme-star-delegation-csr-template-extensions'">
+        <tr>
+          <td><xsl:apply-templates select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:ext"/></td>
+          <td><xsl:apply-templates select="iana:x509"/></td>
         </tr>
       </xsl:when>
     </xsl:choose>

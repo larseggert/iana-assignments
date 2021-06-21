@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="acme">
   <title>Automated Certificate Management Environment (ACME) Protocol</title>
   <created>2019-01-02</created>
-  <updated>2021-04-21</updated>
+  <updated>2021-06-21</updated>
 
 
   <registry id="acme-account-object-fields">
@@ -47,6 +47,12 @@
       <type>string</type>
       <requests>none</requests>
       <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2021-06-21">
+      <name>delegations</name>
+      <type>string</type>
+      <requests>none</requests>
+      <xref type="draft" data="RFC-ietf-acme-star-delegation-09"/>
     </record>
   </registry>
   
@@ -120,6 +126,18 @@
       <type>string</type>
       <config>false</config>
       <xref type="rfc" data="rfc8739"/>
+    </record>
+    <record date="2021-06-21">
+      <name>allow-certificate-get</name>
+      <type>boolean</type>
+      <config>true</config>
+      <xref type="draft" data="RFC-ietf-acme-star-delegation-09"/>
+    </record>
+    <record date="2021-06-21">
+      <name>delegation</name>
+      <type>string</type>
+      <config>true</config>
+      <xref type="draft" data="RFC-ietf-acme-star-delegation-09"/>
     </record>
   </registry>
 
@@ -308,6 +326,13 @@
       <description>A request to revoke an auto-renewal Order has been received</description>
       <xref type="rfc" data="rfc8739"/>
     </record>
+    <record date="2021-06-21">
+      <type>unknownDelegation</type>
+      <description>An unknown configuration is 
+        listed in the "delegations" attribute of the request Order
+      </description>
+      <xref type="draft" data="RFC-ietf-acme-star-delegation-09"/>
+    </record>
   </registry>
 
   <registry id="acme-resource-types">
@@ -381,6 +406,16 @@
       <name>auto-renewal</name>
       <type>object</type>
       <xref type="rfc" data="rfc8739"/>
+    </record>
+    <record date="2021-06-21">
+      <name>delegation-enabled</name>
+      <type>boolean</type>
+      <xref type="draft" data="RFC-ietf-acme-star-delegation-09"/>
+    </record>
+    <record date="2021-06-21">
+      <name>allow-certificate-get</name>
+      <type>boolean</type>
+      <xref type="draft" data="RFC-ietf-acme-star-delegation-09"/>
     </record>
   </registry>
   
@@ -519,5 +554,29 @@
     </record>
   </registry>
   
+  <registry id="acme-star-delegation-csr-template-extensions">
+    <title>STAR Delegation CSR Template Extensions</title>
+    <xref type="draft" data="RFC-ietf-acme-star-delegation-09"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Unassigned</expert>
+    <record date="2021-06-21">
+      <name>keyUsage</name>
+      <ext><xref type="draft" data="RFC-ietf-acme-star-delegation-09">RFC-ietf-acme-star-delegation-09, Appendix B</xref></ext>
+      <x509><xref type="rfc" data="rfc5280">RFC5280, Section 4.2.1.3</xref></x509>
+    </record>
+    <record date="2021-06-21">
+      <name>extendedKeyUsage</name>
+      <ext><xref type="draft" data="RFC-ietf-acme-star-delegation-09">RFC-ietf-acme-star-delegation-09, Appendix B</xref></ext>
+      <x509><xref type="rfc" data="rfc5280">RFC5280, Section 4.2.1.12</xref></x509>
+    </record>
+    <record date="2021-06-21">
+      <name>subjectAltName</name>
+      <ext><xref type="draft" data="RFC-ietf-acme-star-delegation-09">RFC-ietf-acme-star-delegation-09, Appendix B</xref></ext>
+      <x509><xref type="rfc" data="rfc5280">RFC5280, Section 4.2.1.6</xref> 
+        (note that only specific name formats are allowed: URI, DNS name, 
+        email address)</x509>
+    </record>
+  </registry>
+
   <people/>
 </registry>
