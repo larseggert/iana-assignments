@@ -10,6 +10,7 @@
           <th>Value</th>
           <th>Extension Name</th>
           <th>TLS 1.3</th>
+          <th>DTLS-Only</th>
           <th>Recommended</th>
           <th>Reference</th>
         </tr>
@@ -58,6 +59,7 @@
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:value-of select="iana:tls13"/></td>
+          <td><xsl:value-of select="iana:dtls-only"/></td>
           <td><xsl:value-of select="iana:rec"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
