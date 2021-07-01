@@ -4,7 +4,7 @@
            2020-11-25
 
    Last Updated
-           2020-12-01
+           2021-06-30
 
    Available Formats
            [IMG]
@@ -20,16 +20,17 @@
 
           * JSCalendar Enum Values for action (Context: Alert)
           * JSCalendar Enum Values for display (Context: Link)
-          * JSCalendar Enum Values for freeBusyStatus (Context: JSEvent, JSTask)
+          * JSCalendar Enum Values for features (Context: VirtualLocation)
+          * JSCalendar Enum Values for freeBusyStatus (Context: Event, Task)
           * JSCalendar Enum Values for kind (Context: Participant)
           * JSCalendar Enum Values for participationStatus (Context: Participant)
-          * JSCalendar Enum Values for privacy (Context: JSEvent, JSTask)
-          * JSCalendar Enum Values for progress (Context: JSTask, Participant)
+          * JSCalendar Enum Values for privacy (Context: Event, Task)
+          * JSCalendar Enum Values for progress (Context: Task, Participant)
           * JSCalendar Enum Values for relation (Context: Relation)
           * JSCalendar Enum Values for relativeTo (Context: OffsetTrigger, Location)
           * JSCalendar Enum Values for roles (Context: Participant)
           * JSCalendar Enum Values for scheduleAgent (Context: Participant)
-          * JSCalendar Enum Values for status (Context: JSEvent)
+          * JSCalendar Enum Values for status (Context: Event)
 
 JSCalendar Properties
 
@@ -50,22 +51,21 @@ JSCalendar Properties
 
         Property Name                     Property Type                  Property Context          Reference/Description        Intended   Change
                                                                                                                                  Usage   Controller
-                                                                        JSEvent, JSTask,
-                                                                        JSGroup,
-                                                                        AbsoluteTrigger,    [RFC-ietf-calext-jscalendar-32,
-                                                                        Alert, Link,        Section 4.1.1, Section 4.5.2,
-                                                                        Location, NDay,     Section 1.4.11, Section 4.2.5,
-   @type                   String                                       OffsetTrigger,      Section 4.4.5, Section 4.3.2,       common   IETF
-                                                                        Participant,        Section 4.1.3, Section 4.7.2,
-                                                                        RecurrenceRule,     Section 4.7.2, Section 4.2.6]
-                                                                        Relation, TimeZone,
+                                                                        Event, Task, Group,
+                                                                        AbsoluteTrigger,
+                                                                        Alert, Link,        [RFC-ietf-calext-jscalendar-32,
+                                                                        Location, NDay,     Section 4.1.1, Section 4.5.2,
+   @type                   String                                       OffsetTrigger,      Section 1.4.11, Section 4.2.5,      common   IETF
+                                                                        Participant,        Section 4.4.5, Section 4.3.2,
+                                                                        RecurrenceRule,     Section 4.1.3, Section 4.7.2,
+                                                                        Relation, TimeZone, Section 4.7.2, Section 4.2.6]
                                                                         TimeZoneRule,
                                                                         VirtualLocation
    acknowledged            UTCDateTime                                  Alert               [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.5.2]
    action                  String                                       Alert               [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.5.2]
-   alerts                  Id[Alert]                                    JSEvent, JSTask     [RFC-ietf-calext-jscalendar-32,     common   IETF
+   alerts                  Id[Alert]                                    Event, Task         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.5.2]
    aliases                 String[Boolean]                              TimeZone            [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.7.2]
@@ -87,12 +87,12 @@ JSCalendar Properties
                                                                                             Section 4.3.2]
    byYearDay               Int[]                                        RecurrenceRule      [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.3.2]
-   categories              String[Boolean]                              JSEvent, JSTask,    [RFC-ietf-calext-jscalendar-32,     common   IETF
-                                                                        JSGroup             Section 4.2.10]
+   categories              String[Boolean]                              Event, Task, Group  [RFC-ietf-calext-jscalendar-32,     common   IETF
+                                                                                            Section 4.2.10]
    cid                     String                                       Link                [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 1.4.11]
-   color                   String                                       JSEvent, JSTask,    [RFC-ietf-calext-jscalendar-32,     common   IETF
-                                                                        JSGroup             Section 4.2.11]
+   color                   String                                       Event, Task, Group  [RFC-ietf-calext-jscalendar-32,     common   IETF
+                                                                                            Section 4.2.11]
    comments                String[]                                     TimeZoneRule        [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.7.2]
    contentType             String                                       Link                [RFC-ietf-calext-jscalendar-32,     common   IETF
@@ -101,43 +101,44 @@ JSCalendar Properties
                                                                                             Section 4.2.5]
    count                   UnsignedInt                                  RecurrenceRule      [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.3.2]
-   created                 UTCDateTime                                  JSEvent, JSTask,    [RFC-ietf-calext-jscalendar-32,     common   IETF
-                                                                        JSGroup             Section 4.1.5]
+   created                 UTCDateTime                                  Event, Task, Group  [RFC-ietf-calext-jscalendar-32,     common   IETF
+                                                                                            Section 4.1.5]
    day                     String                                       NDay                [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.3.2]
    daylight                TimeZoneRule[]                               TimeZone            [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.7.2]
-   delegatedFrom           String[Boolean]                              Participant         [RFC-ietf-calext-jscalendar-32,     common   IETF
+   delegatedFrom           Id[Boolean]                                  Participant         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.4.5]
-   delegatedTo             String[Boolean]                              Participant         [RFC-ietf-calext-jscalendar-32,     common   IETF
+   delegatedTo             Id[Boolean]                                  Participant         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.4.5]
-                                                                        JSEvent, JSTask,    [RFC-ietf-calext-jscalendar-32,
+                                                                        Event, Task,        [RFC-ietf-calext-jscalendar-32,
    description             String                                       Location,           Section 4.2.2 , Section 4.2.5,      common   IETF
                                                                         Participant,        Section 4.4.5, Section 4.2.6]
                                                                         VirtualLocation
-   descriptionContentType  String                                       JSEvent, JSTask     [RFC-ietf-calext-jscalendar-32,     common   IETF
+   descriptionContentType  String                                       Event, Task         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.2.3]
    display                 String                                       Link                [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 1.4.11]
-   due                     LocalDateTime                                JSTask              [RFC-ietf-calext-jscalendar-32,     common   IETF
+   due                     LocalDateTime                                Task                [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 5.2.1]
-   duration                Duration                                     JSEvent             [RFC-ietf-calext-jscalendar-32,     common   IETF
+   duration                Duration                                     Event               [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 5.1.2]
    email                   String                                       Participant         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.4.5]
-   entries                 (JSTask|JSEvent)[]                           JSGroup             [RFC-ietf-calext-jscalendar-32,     common   IETF
+   entries                 (Task|Event)[]                               Group               [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 5.3.1]
-   estimatedDuration       Duration                                     JSTask              [RFC-ietf-calext-jscalendar-32,     common   IETF
+   estimatedDuration       Duration                                     Task                [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 5.2.3]
-   excluded                Boolean                                      JSEvent, JSTask     [RFC-ietf-calext-jscalendar-32,     common   IETF
+   excluded                Boolean                                      Event, Task         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.3.5]
-   excludedRecurrenceRules RecurrenceRule[]                             JSEvent, JSTask     [RFC-ietf-calext-jscalendar-32,     common   IETF
+   excludedRecurrenceRules RecurrenceRule[]                             Event, Task         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.3.3]
    expectReply             Boolean                                      Participant         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.4.5]
+   features                String[Boolean]                              VirtualLocation     [RFC-ietf-calext-jscalendar-32]     common   IETF
    firstDayOfWeek          String                                       RecurrenceRule      [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.3.2]
-   freeBusyStatus          String                                       JSEvent, JSTask     [RFC-ietf-calext-jscalendar-32,     common   IETF
+   freeBusyStatus          String                                       Event, Task         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.4.2]
    frequency               String                                       RecurrenceRule      [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.3.2]
@@ -145,30 +146,30 @@ JSCalendar Properties
                                                                                             Section 1.4.11]
    interval                UnsignedInt                                  RecurrenceRule      [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.3.2]
-   invitedBy               String                                       Participant         [RFC-ietf-calext-jscalendar-32,     common   IETF
+   invitedBy               Id                                           Participant         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.4.5]
-   keywords                String[Boolean]                              JSEvent, JSTask,    [RFC-ietf-calext-jscalendar-32,     common   IETF
-                                                                        JSGroup             Section 4.2.9]
+   keywords                String[Boolean]                              Event, Task, Group  [RFC-ietf-calext-jscalendar-32,     common   IETF
+                                                                                            Section 4.2.9]
    kind                    String                                       Participant         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.4.5]
    language                String                                       Participant         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.4.5]
-                                                                        JSGroup, JSEvent,   [RFC-ietf-calext-jscalendar-32,
-   links                   Id[Link]                                     JSTask, Location,   Section 4.2.7, Section 4.2.5,       common   IETF
+                                                                        Group, Event, Task, [RFC-ietf-calext-jscalendar-32,
+   links                   Id[Link]                                     Location,           Section 4.2.7, Section 4.2.5,       common   IETF
                                                                         Participant         Section 4.4.5]
-   locale                  String                                       JSGroup, JSEvent,   [RFC-ietf-calext-jscalendar-32,     common   IETF
-                                                                        JSTask              Section 4.2.8]
-   localizations           String[PatchObject]                          JSEvent, JSTask     [RFC-ietf-calext-jscalendar-32,     common   IETF
+   locale                  String                                       Group, Event, Task  [RFC-ietf-calext-jscalendar-32,     common   IETF
+                                                                                            Section 4.2.8]
+   localizations           String[PatchObject]                          Event, Task         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.6.1]
-   locationId              String                                       Participant         [RFC-ietf-calext-jscalendar-32,     common   IETF
+   locationId              Id                                           Participant         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.4.5]
-   locations               Id[Location]                                 JSEvent, JSTask     [RFC-ietf-calext-jscalendar-32,     common   IETF
+   locations               Id[Location]                                 Event, Task         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.2.5]
    locationTypes           String[Boolean]                              Location            [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.2.5]
-   memberOf                String[Boolean]                              Participant         [RFC-ietf-calext-jscalendar-32,     common   IETF
+   memberOf                Id[Boolean]                                  Participant         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.4.5]
-   method                  String                                       JSEvent, JSTask     [RFC-ietf-calext-jscalendar-32,     common   IETF
+   method                  String                                       Event, Task         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.1.8]
                                                                         Location,           [RFC-ietf-calext-jscalendar-32,
    name                    String                                       VirtualLocation,    Section 4.2.5, Section 4.2.6,       common   IETF
@@ -183,44 +184,48 @@ JSCalendar Properties
                                                                                             Section 4.7.2]
    offsetTo                UTCDateTime                                  TimeZoneRule        [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.7.2]
-   participants            Id[Participant]                              JSEvent, JSTask     [RFC-ietf-calext-jscalendar-32,     common   IETF
+   participants            Id[Participant]                              Event, Task         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.4.5]
    participationComment    String                                       Participant         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.4.5]
    participationStatus     String                                       Participant         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.4.5]
-   percentComplete         UnsignedInt                                  JSTask, Participant [RFC-ietf-calext-jscalendar-32,     common   IETF
+   percentComplete         UnsignedInt                                  Task, Participant   [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 5.2.4]
-   priority                Int                                          JSEvent, JSTask     [RFC-ietf-calext-jscalendar-32,     common   IETF
+   priority                Int                                          Event, Task         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.4.1]
-   privacy                 String                                       JSEvent, JSTask     [RFC-ietf-calext-jscalendar-32,     common   IETF
+   privacy                 String                                       Event, Task         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.4.3]
-   prodId                  String                                       JSEvent, JSTask,    [RFC-ietf-calext-jscalendar-32,     common   IETF
-                                                                        JSGroup             Section 4.1.4]
-   progress                String                                       JSTask, Participant [RFC-ietf-calext-jscalendar-32,     common   IETF
+   prodId                  String                                       Event, Task, Group  [RFC-ietf-calext-jscalendar-32,     common   IETF
+                                                                                            Section 4.1.4]
+   progress                String                                       Task, Participant   [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 5.2.5]
-   progressUpdated         UTCDateTime                                  JSTask, Participant [RFC-ietf-calext-jscalendar-32,     common   IETF
+   progressUpdated         UTCDateTime                                  Task, Participant   [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 5.2.6]
-   recurrenceId            LocalDateTime                                JSEvent, JSTask     [RFC-ietf-calext-jscalendar-32,     common   IETF
+   recurrenceId            LocalDateTime                                Event, Task         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.3.1]
-   recurrenceOverrides     LocalDateTime[PatchObject]                   JSEvent, JSTask,    [RFC-ietf-calext-jscalendar-32,     common   IETF
+   recurrenceIdTimeZone    TimeZoneId|null                              Event, Task         [RFC-ietf-calext-jscalendar-32]     common   IETF
+   recurrenceOverrides     LocalDateTime[PatchObject]                   Event, Task,        [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                         TimeZoneRule        Section 4.3.4, Section 4.7.2]
-   recurrenceRules         RecurrenceRule[]                             JSEvent, JSTask,    [RFC-ietf-calext-jscalendar-32,     common   IETF
+   recurrenceRules         RecurrenceRule[]                             Event, Task,        [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                         TimeZoneRule        Section 4.3.2, Section 4.7.2]
    rel                     String                                       Link                [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 1.4.11]
-   relatedTo               String[Relation]                             JSEvent, JSTask,    [RFC-ietf-calext-jscalendar-32,     common   IETF
-                                                                        Alert               Section 4.1.3, Section 4.5.2]
+   relatedTo               String[Relation]                             Event, Task, Alert  [RFC-ietf-calext-jscalendar-32,     common   IETF
+                                                                                            Section 4.1.3, Section 4.5.2]
    relation                String[Boolean]                              Relation            [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 1.4.10]
    relativeTo              String                                       OffsetTrigger,      [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                         Location            Section 4.5.2, Section 4.2.5]
-   replyTo                 String[String]                               JSEvent, JSTask     [RFC-ietf-calext-jscalendar-32,     common   IETF
+   replyTo                 String[String]                               Event, Task         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.4.4]
+   requestStatus           String                                       Event, Task         [RFC-ietf-calext-jscalendar-32]     common   IETF
    roles                   String[Boolean]                              Participant         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.4.5]
    rscale                  String                                       RecurrenceRule      [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.3.2]
+   sentBy                  String                                       Event, Task,        [RFC-ietf-calext-jscalendar-32]     common   IETF
+                                                                        Participant
    standard                TimeZoneRule[]                               TimeZone            [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.7.2]
    start                   LocalDateTime                                TimeZoneRule        [RFC-ietf-calext-jscalendar-32,     common   IETF
@@ -237,45 +242,45 @@ JSCalendar Properties
                                                                                             Section 4.4.5]
    sendTo                  String[String]                               Participant         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.4.5]
-   sequence                UnsignedInt                                  JSEvent, JSTask     [RFC-ietf-calext-jscalendar-32,     common   IETF
+   sequence                UnsignedInt                                  Event, Task         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.1.7]
-   showWithoutTime         Boolean                                      JSEvent, JSTask     [RFC-ietf-calext-jscalendar-32,     common   IETF
+   showWithoutTime         Boolean                                      Event, Task         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.2.4]
    size                    UnsignedInt                                  Link                [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 1.4.11]
    skip                    String                                       RecurrenceRule      [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.3.2]
-   source                  String                                       JSGroup             [RFC-ietf-calext-jscalendar-32,     common   IETF
+   source                  String                                       Group               [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 5.3.2]
-   start                   LocalDateTime                                JSEvent, JSTask     [RFC-ietf-calext-jscalendar-32,     common   IETF
+   start                   LocalDateTime                                Event, Task         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 5.1.1 , Section 5.2.2]
-   status                  String                                       JSEvent             [RFC-ietf-calext-jscalendar-32,     common   IETF
+   status                  String                                       Event               [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 5.1.3]
-   timeZone                TimeZoneId|null                              JSEvent, JSTask,    [RFC-ietf-calext-jscalendar-32,     common   IETF
+   timeZone                TimeZoneId|null                              Event, Task,        [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                         Location            Section 4.7.1 , Section 4.2.5]
-   timeZones               TimeZoneId[TimeZone]                         JSEvent, JSTask     [RFC-ietf-calext-jscalendar-32,     common   IETF
+   timeZones               TimeZoneId[TimeZone]                         Event, Task         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.7.2]
-   title                   String                                       JSEvent, JSTask,    [RFC-ietf-calext-jscalendar-32,     common   IETF
-                                                                        JSGroup, Link       Section 4.2.1]
+   title                   String                                       Event, Task, Group, [RFC-ietf-calext-jscalendar-32,     common   IETF
+                                                                        Link                Section 4.2.1]
    trigger                 OffsetTrigger|AbsoluteTrigger|UnknownTrigger Alert               [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.5.2]
    tzId                    String                                       TimeZone            [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.7.2]
-   uid                     String                                       JSEvent, JSTask,    [RFC-ietf-calext-jscalendar-32,     common   IETF
-                                                                        JSGroup             Section 4.1.2]
+   uid                     String                                       Event, Task, Group  [RFC-ietf-calext-jscalendar-32,     common   IETF
+                                                                                            Section 4.1.2]
    until                   LocalDateTime                                RecurrenceRule      [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.3.2]
-   updated                 UTCDateTime                                  JSEvent, JSTask,    [RFC-ietf-calext-jscalendar-32,     common   IETF
-                                                                        JSGroup             Section 4.1.6]
+   updated                 UTCDateTime                                  Event, Task, Group  [RFC-ietf-calext-jscalendar-32,     common   IETF
+                                                                                            Section 4.1.6]
    uri                     String                                       VirtualLocation     [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.2.6]
    url                     String                                       TimeZone            [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.7.2]
-   useDefaultAlerts        Boolean                                      JSEvent, JSTask     [RFC-ietf-calext-jscalendar-32,     common   IETF
+   useDefaultAlerts        Boolean                                      Event, Task         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.5.1]
    validUntil              UTCDateTime                                  TimeZone            [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.7.2]
-   virtualLocations        Id[VirtualLocation]                          JSEvent, JSTask     [RFC-ietf-calext-jscalendar-32,     common   IETF
+   virtualLocations        Id[VirtualLocation]                          Event, Task         [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.2.6]
    when                    UTCDateTime                                  AbsoluteTrigger     [RFC-ietf-calext-jscalendar-32,     common   IETF
                                                                                             Section 4.5.2]
@@ -341,16 +346,17 @@ JSCalendar Enum Values
       Property Name            Context                    Reference            Change Controller
    action              Alert                   [RFC-ietf-calext-jscalendar-32] IETF
    display             Link                    [RFC-ietf-calext-jscalendar-32] IETF
-   freeBusyStatus      JSEvent, JSTask         [RFC-ietf-calext-jscalendar-32] IETF
+   features            VirtualLocation         [RFC-ietf-calext-jscalendar-32] IETF
+   freeBusyStatus      Event, Task             [RFC-ietf-calext-jscalendar-32] IETF
    kind                Participant             [RFC-ietf-calext-jscalendar-32] IETF
    participationStatus Participant             [RFC-ietf-calext-jscalendar-32] IETF
-   privacy             JSEvent, JSTask         [RFC-ietf-calext-jscalendar-32] IETF
-   progress            JSTask, Participant     [RFC-ietf-calext-jscalendar-32] IETF
+   privacy             Event, Task             [RFC-ietf-calext-jscalendar-32] IETF
+   progress            Task, Participant       [RFC-ietf-calext-jscalendar-32] IETF
    relation            Relation                [RFC-ietf-calext-jscalendar-32] IETF
    relativeTo          OffsetTrigger, Location [RFC-ietf-calext-jscalendar-32] IETF
    roles               Participant             [RFC-ietf-calext-jscalendar-32] IETF
    scheduleAgent       Participant             [RFC-ietf-calext-jscalendar-32] IETF
-   status              JSEvent                 [RFC-ietf-calext-jscalendar-32] IETF
+   status              Event                   [RFC-ietf-calext-jscalendar-32] IETF
 
   JSCalendar Enum Values for action (Context: Alert)
 
@@ -396,7 +402,33 @@ JSCalendar Enum Values
    fullsize   [RFC-ietf-calext-jscalendar-32, Section 1.4.11] IETF
    thumbnail  [RFC-ietf-calext-jscalendar-32, Section 1.4.11] IETF
 
-  JSCalendar Enum Values for freeBusyStatus (Context: JSEvent, JSTask)
+  JSCalendar Enum Values for features (Context: VirtualLocation)
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-calext-jscalendar-32]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Enum Value      Reference/Description      Change Controller
+   audio      [RFC-ietf-calext-jscalendar-32] IETF
+   chat       [RFC-ietf-calext-jscalendar-32] IETF
+   feed       [RFC-ietf-calext-jscalendar-32] IETF
+   moderator  [RFC-ietf-calext-jscalendar-32] IETF
+   phone      [RFC-ietf-calext-jscalendar-32] IETF
+   screen     [RFC-ietf-calext-jscalendar-32] IETF
+   video      [RFC-ietf-calext-jscalendar-32] IETF
+
+  JSCalendar Enum Values for freeBusyStatus (Context: Event, Task)
 
    Registration Procedure(s)
 
@@ -464,7 +496,7 @@ JSCalendar Enum Values
    tentative    [RFC-ietf-calext-jscalendar-32, Section 4.4.5] IETF
    delegated    [RFC-ietf-calext-jscalendar-32, Section 4.4.5] IETF
 
-  JSCalendar Enum Values for privacy (Context: JSEvent, JSTask)
+  JSCalendar Enum Values for privacy (Context: Event, Task)
 
    Registration Procedure(s)
 
@@ -486,7 +518,7 @@ JSCalendar Enum Values
    private    [RFC-ietf-calext-jscalendar-32, Section 4.4.3] IETF
    secret     [RFC-ietf-calext-jscalendar-32, Section 4.4.3] IETF
 
-  JSCalendar Enum Values for progress (Context: JSTask, Participant)
+  JSCalendar Enum Values for progress (Context: Task, Participant)
 
    Registration Procedure(s)
 
@@ -601,7 +633,7 @@ JSCalendar Enum Values
    client     [RFC-ietf-calext-jscalendar-32, Section 4.4.5] IETF
    none       [RFC-ietf-calext-jscalendar-32, Section 4.4.5] IETF
 
-  JSCalendar Enum Values for status (Context: JSEvent)
+  JSCalendar Enum Values for status (Context: Event)
 
    Registration Procedure(s)
 
