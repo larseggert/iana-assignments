@@ -18,8 +18,8 @@
           <th>Description</th>
           <th>Units</th>
           <th>Range</th>
-          <th>References</th>
-          <th>Requester</th>
+          <th>Additional Information</th>
+          <th>Reference</th>
           <th>Revision</th>
           <th>Date</th>
         </tr>
