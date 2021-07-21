@@ -31,7 +31,7 @@
   <xsl:choose>
     <xsl:when test="../@id = 'sasl-mechanisms-1'">
       <tr>
-        <td><xsl:value-of select="iana:mechanism"/></td>
+        <td><xsl:apply-templates select="iana:mechanism"/></td>
         <td><xsl:value-of select="iana:usage"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
         <td><xsl:apply-templates select="iana:controller"/></td>
@@ -39,7 +39,7 @@
       </xsl:when>
       <xsl:when test="../@id = 'scram'">
         <tr>
-          <td><xsl:value-of select="iana:mechanism"/></td>
+          <td><xsl:apply-templates select="iana:mechanism"/></td>
           <td><xsl:value-of select="iana:usage"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:value-of select="iana:iteration"/></td>
