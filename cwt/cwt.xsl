@@ -38,7 +38,7 @@
       <xsl:when test="../@id = 'claims-registry'">
         <tr>
           <td><xsl:value-of select="iana:claim"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:value-of select="iana:jwt"/></td>
           <td><xsl:apply-templates select="iana:key"/></td>
           <td><xsl:apply-templates select="iana:value"/></td>
@@ -49,7 +49,7 @@
       <xsl:when test="../@id = 'confirmation-methods'">
         <tr>
           <td><xsl:value-of select="iana:confirmation"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:value-of select="iana:jwt"/></td>
           <td><xsl:apply-templates select="iana:key"/></td>
           <td><xsl:apply-templates select="iana:value"/></td>
@@ -60,7 +60,7 @@
       <xsl:otherwise>
         <tr>
           <td align="center"><xsl:value-of select="iana:claim"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:value-of select="iana:jwt"/></td>
           <td><xsl:apply-templates select="iana:key"/></td>
           <td><xsl:apply-templates select="iana:value"/></td>

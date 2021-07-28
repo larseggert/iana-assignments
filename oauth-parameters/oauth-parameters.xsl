@@ -102,7 +102,7 @@
       <xsl:when test="../@id = 'token-types'">
         <tr>
           <td><xsl:value-of select="iana:name"/></td>
-          <td><xsl:value-of select="iana:additional"/></td>
+          <td><xsl:apply-templates select="iana:additional"/></td>
           <td><xsl:value-of select="iana:http"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>

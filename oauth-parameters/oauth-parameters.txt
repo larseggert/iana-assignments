@@ -4,7 +4,7 @@
            2012-07-27
 
    Last Updated
-           2021-04-21
+           2021-07-27
 
    Available Formats
            [IMG]
@@ -49,9 +49,11 @@ OAuth Access Token Types
            [IMG]
            CSV
 
-    Name  Additional Token Endpoint Response Parameters HTTP Authentication Scheme(s) Change Controller        Reference
-   Bearer                                               Bearer                        IETF              [RFC6750]
-   N_A                                                                                IESG              [RFC8693, Section 2.2.1]
+    Name         Additional Token Endpoint Response Parameters        HTTP Authentication Scheme(s) Change Controller           Reference
+   Bearer                                                             Bearer                        IETF              [RFC6750]
+   N_A                                                                                              IESG              [RFC8693, Section 2.2.1]
+   PoP    "cnf", "rs_cnf" see section 3.3 of                          N/A                           IETF              [RFC-ietf-ace-oauth-authz-43]
+          [RFC-ietf-ace-oauth-params-15].
 
 OAuth Authorization Endpoint Response Types
 
@@ -109,64 +111,75 @@ OAuth Extensions Error Registry
            [IMG]
            CSV
 
-               Name                 Usage Location        Protocol                    Change Controller                          Reference
-                                                         Extension
-   invalid_request               resource access error bearer access  IETF                                               [RFC6750]
-                                 response              token type
-   invalid_token                 resource access error bearer access  IETF                                               [RFC6750]
-                                 response              token type
-   insufficient_scope            resource access error bearer access  IETF                                               [RFC6750]
-                                 response              token type
-                                 revocation endpoint   token
-   unsupported_token_type        error response        revocation     IETF                                               [RFC7009]
-                                                       endpoint
-                                 authorization                                                                           [OpenID Connect Core 1.0
-   interaction_required          endpoint              OpenID Connect [OpenID_Foundation_Artifact_Binding_Working_Group] incorporating errata set
-                                                                                                                         1]
-                                 authorization                                                                           [OpenID Connect Core 1.0
-   login_required                endpoint              OpenID Connect [OpenID_Foundation_Artifact_Binding_Working_Group] incorporating errata set
-                                                                                                                         1]
-                                 authorization                                                                           [OpenID Connect Core 1.0
-   session_selection_required    endpoint              OpenID Connect [OpenID_Foundation_Artifact_Binding_Working_Group] incorporating errata set
-                                                                                                                         1]
-                                 authorization                                                                           [OpenID Connect Core 1.0
-   consent_required              endpoint              OpenID Connect [OpenID_Foundation_Artifact_Binding_Working_Group] incorporating errata set
-                                                                                                                         1]
-                                 authorization                                                                           [OpenID Connect Core 1.0
-   invalid_request_uri           endpoint              OpenID Connect [OpenID_Foundation_Artifact_Binding_Working_Group] incorporating errata set
-                                                                                                                         1]
-                                 authorization                                                                           [OpenID Connect Core 1.0
-   invalid_request_object        endpoint              OpenID Connect [OpenID_Foundation_Artifact_Binding_Working_Group] incorporating errata set
-                                                                                                                         1]
-                                 authorization                                                                           [OpenID Connect Core 1.0
-   request_not_supported         endpoint              OpenID Connect [OpenID_Foundation_Artifact_Binding_Working_Group] incorporating errata set
-                                                                                                                         1]
-                                 authorization                                                                           [OpenID Connect Core 1.0
-   request_uri_not_supported     endpoint              OpenID Connect [OpenID_Foundation_Artifact_Binding_Working_Group] incorporating errata set
-                                                                                                                         1]
-                                 authorization                                                                           [OpenID Connect Core 1.0
-   registration_not_supported    endpoint              OpenID Connect [OpenID_Foundation_Artifact_Binding_Working_Group] incorporating errata set
-                                                                                                                         1]
-   need_info (and its subsidiary authorization server                                                                    [UMA 2.0 Grant for OAuth
-   parameters)                   response, token       Kantara UMA    [Kantara_UMA_WG]                                   2.0, Section 3.3.6]
-                                 endpoint
-                                 authorization server                                                                    [UMA 2.0 Grant for OAuth
-   request_denied                response, token       Kantara UMA    [Kantara_UMA_WG]                                   2.0, Section 3.3.6]
-                                 endpoint
-   request_submitted (and its    authorization server                                                                    [UMA 2.0 Grant for OAuth
-   subsidiary parameters)        response, token       Kantara UMA    [Kantara_UMA_WG]                                   2.0, Section 3.3.6]
-                                 endpoint
-   authorization_pending         Token endpoint        [RFC8628]      IETF                                               [RFC8628, Section 3.5]
-                                 response
-   access_denied                 Token endpoint        [RFC8628]      IETF                                               [RFC8628, Section 3.5]
-                                 response
-   slow_down                     Token endpoint        [RFC8628]      IETF                                               [RFC8628, Section 3.5]
-                                 response
-   expired_token                 Token endpoint        [RFC8628]      IETF                                               [RFC8628, Section 3.5]
-                                 response
-                                 implicit grant error  resource
-   invalid_target                response, token error parameter      IESG                                               [RFC8707]
-                                 response
+           Name                Usage          Protocol Extension                       Change Controller                            Reference
+                             Location
+                           resource
+invalid_request            access error  bearer access token type      IETF                                               [RFC6750]
+                           response
+                           resource
+invalid_token              access error  bearer access token type      IETF                                               [RFC6750]
+                           response
+                           resource
+insufficient_scope         access error  bearer access token type      IETF                                               [RFC6750]
+                           response
+                           revocation
+unsupported_token_type     endpoint      token revocation endpoint     IETF                                               [RFC7009]
+                           error
+                           response
+interaction_required       authorization OpenID Connect                [OpenID_Foundation_Artifact_Binding_Working_Group] [OpenID Connect Core 1.0
+                           endpoint                                                                                       incorporating errata set 1]
+login_required             authorization OpenID Connect                [OpenID_Foundation_Artifact_Binding_Working_Group] [OpenID Connect Core 1.0
+                           endpoint                                                                                       incorporating errata set 1]
+session_selection_required authorization OpenID Connect                [OpenID_Foundation_Artifact_Binding_Working_Group] [OpenID Connect Core 1.0
+                           endpoint                                                                                       incorporating errata set 1]
+consent_required           authorization OpenID Connect                [OpenID_Foundation_Artifact_Binding_Working_Group] [OpenID Connect Core 1.0
+                           endpoint                                                                                       incorporating errata set 1]
+invalid_request_uri        authorization OpenID Connect                [OpenID_Foundation_Artifact_Binding_Working_Group] [OpenID Connect Core 1.0
+                           endpoint                                                                                       incorporating errata set 1]
+invalid_request_object     authorization OpenID Connect                [OpenID_Foundation_Artifact_Binding_Working_Group] [OpenID Connect Core 1.0
+                           endpoint                                                                                       incorporating errata set 1]
+request_not_supported      authorization OpenID Connect                [OpenID_Foundation_Artifact_Binding_Working_Group] [OpenID Connect Core 1.0
+                           endpoint                                                                                       incorporating errata set 1]
+request_uri_not_supported  authorization OpenID Connect                [OpenID_Foundation_Artifact_Binding_Working_Group] [OpenID Connect Core 1.0
+                           endpoint                                                                                       incorporating errata set 1]
+registration_not_supported authorization OpenID Connect                [OpenID_Foundation_Artifact_Binding_Working_Group] [OpenID Connect Core 1.0
+                           endpoint                                                                                       incorporating errata set 1]
+                           authorization
+need_info (and its         server                                                                                         [UMA 2.0 Grant for OAuth 2.0,
+subsidiary parameters)     response,     Kantara UMA                   [Kantara_UMA_WG]                                   Section 3.3.6]
+                           token
+                           endpoint
+                           authorization
+                           server                                                                                         [UMA 2.0 Grant for OAuth 2.0,
+request_denied             response,     Kantara UMA                   [Kantara_UMA_WG]                                   Section 3.3.6]
+                           token
+                           endpoint
+                           authorization
+request_submitted (and its server                                                                                         [UMA 2.0 Grant for OAuth 2.0,
+subsidiary parameters)     response,     Kantara UMA                   [Kantara_UMA_WG]                                   Section 3.3.6]
+                           token
+                           endpoint
+                           Token
+authorization_pending      endpoint      [RFC8628]                     IETF                                               [RFC8628, Section 3.5]
+                           response
+                           Token
+access_denied              endpoint      [RFC8628]                     IETF                                               [RFC8628, Section 3.5]
+                           response
+                           Token
+slow_down                  endpoint      [RFC8628]                     IETF                                               [RFC8628, Section 3.5]
+                           response
+                           Token
+expired_token              endpoint      [RFC8628]                     IETF                                               [RFC8628, Section 3.5]
+                           response
+                           implicit
+                           grant error
+invalid_target             response,     resource parameter            IESG                                               [RFC8707]
+                           token error
+                           response
+unsupported_pop_key        token error   [RFC-ietf-ace-oauth-authz-43] IESG                                               [RFC-ietf-ace-oauth-authz-43,
+                           response                                                                                       Section 5.8.3]
+incompatible_ace_profiles  token error   [RFC-ietf-ace-oauth-authz-43] IESG                                               [RFC-ietf-ace-oauth-authz-43,
+                           response                                                                                       Section 5.8.3]
 
 OAuth Parameters
 
@@ -300,6 +313,8 @@ OAuth Parameters
                                                                                                          4.1.6][RFC-ietf-oauth-jwsreq-34]
    jti                   authorization request        IETF                                               [RFC7519, Section
                                                                                                          4.1.7][RFC-ietf-oauth-jwsreq-34]
+   ace_profile           token response               IESG                                               [RFC-ietf-ace-oauth-authz-43, Sections
+                                                                                                         5.8.2, 5.8.4.3]
 
 OAuth Token Type Hints
 
@@ -668,27 +683,33 @@ OAuth Token Introspection Response
            [IMG]
            CSV
 
-      Name                              Description                          Change Controller                      Reference
-   active      Token active status                                           IESG              [RFC7662, Section 2.2]
-   username    User identifier of the resource owner                         IESG              [RFC7662, Section 2.2]
-   client_id   Client identifier of the client                               IESG              [RFC7662, Section 2.2]
-   scope       Authorized scopes of the token                                IESG              [RFC7662, Section 2.2]
-   token_type  Type of the token                                             IESG              [RFC7662, Section 2.2]
-   exp         Expiration timestamp of the token                             IESG              [RFC7662, Section 2.2]
-   iat         Issuance timestamp of the token                               IESG              [RFC7662, Section 2.2]
-   nbf         Timestamp which the token is not valid before                 IESG              [RFC7662, Section 2.2]
-   sub         Subject of the token                                          IESG              [RFC7662, Section 2.2]
-   aud         Audience of the token                                         IESG              [RFC7662, Section 2.2]
-   iss         Issuer of the token                                           IESG              [RFC7662, Section 2.2]
-   jti         Unique identifier of the token                                IESG              [RFC7662, Section 2.2]
-   permissions array of objects, each describing a scoped, time-limitable    [Kantara_UMA_WG]  [Federated Authorization for UMA 2.0, Section 5.1.1]
-               permission for a resource
-   vot         Vector of Trust value                                         IESG              [RFC8485]
-   vtm         Vector of Trust trustmark URL                                 IESG              [RFC8485]
-   act         Actor                                                         IESG              [RFC8693, Section 4.1]
-   may_act     Authorized Actor - the party that is authorized to become the IESG              [RFC8693, Section 4.4]
-               actor
-   cnf         Confirmation                                                  IESG              [RFC7800][RFC8705]
+      Name                                 Description                              Change Controller                   Reference
+   active      Token active status                                                  IESG              [RFC7662, Section 2.2]
+   username    User identifier of the resource owner                                IESG              [RFC7662, Section 2.2]
+   client_id   Client identifier of the client                                      IESG              [RFC7662, Section 2.2]
+   scope       Authorized scopes of the token                                       IESG              [RFC7662, Section 2.2]
+   token_type  Type of the token                                                    IESG              [RFC7662, Section 2.2]
+   exp         Expiration timestamp of the token                                    IESG              [RFC7662, Section 2.2]
+   iat         Issuance timestamp of the token                                      IESG              [RFC7662, Section 2.2]
+   nbf         Timestamp which the token is not valid before                        IESG              [RFC7662, Section 2.2]
+   sub         Subject of the token                                                 IESG              [RFC7662, Section 2.2]
+   aud         Audience of the token                                                IESG              [RFC7662, Section 2.2]
+   iss         Issuer of the token                                                  IESG              [RFC7662, Section 2.2]
+   jti         Unique identifier of the token                                       IESG              [RFC7662, Section 2.2]
+   permissions array of objects, each describing a scoped, time-limitable           [Kantara_UMA_WG]  [Federated Authorization for UMA 2.0, Section
+               permission for a resource                                                              5.1.1]
+   vot         Vector of Trust value                                                IESG              [RFC8485]
+   vtm         Vector of Trust trustmark URL                                        IESG              [RFC8485]
+   act         Actor                                                                IESG              [RFC8693, Section 4.1]
+   may_act     Authorized Actor - the party that is authorized to become the actor  IESG              [RFC8693, Section 4.4]
+   cnf         Confirmation                                                         IESG              [RFC7800][RFC8705]
+   ace_profile The ACE profile used between client and RS.                          IESG              [RFC-ietf-ace-oauth-authz-43, Section 5.9.2]
+               "client-nonce". A nonce previously provided to the AS by the RS via
+   cnonce      the client. Used to verify token freshness when the RS cannot        IESG              [RFC-ietf-ace-oauth-authz-43, Section 5.9.2]
+               synchronize its clock with the AS.
+               "Expires in". Lifetime of the token in seconds from the time the RS
+   exi         first sees it. Used to implement a weaker from of token expiration   IESG              [RFC-ietf-ace-oauth-authz-43, Section 5.9.2]
+               for devices that cannot synchronize their internal clocks.
 
 OAuth Authorization Server Metadata
 
