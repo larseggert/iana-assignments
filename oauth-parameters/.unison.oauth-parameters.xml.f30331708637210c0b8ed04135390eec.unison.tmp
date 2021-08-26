@@ -1,0 +1,1711 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl" href="oauth-parameters.xsl"?>
+<?xml-model href="oauth-parameters.rng" schematypens="http://relaxng.org/ns/structure/1.0" ?>
+<registry xmlns="http://www.iana.org/assignments" id="oauth-parameters">
+  <title>OAuth Parameters</title>
+  <created>2012-07-27</created>
+  <updated>2021-08-25</updated>
+  
+  <registry id="token-types">
+    <title>OAuth Access Token Types</title>
+    <xref type="rfc" data="rfc6749"/>
+    <xref type="rfc" data="rfc8414"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Hannes Tschofenig</expert>
+    <note>Registration requests should be sent to the mailing list 
+described in <xref type="rfc" data="rfc8414"/>.
+    </note>
+    <record>
+      <name>Bearer</name>
+      <additional/>
+      <http>Bearer</http>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6750"/>
+    </record>
+    <record date="2019-06-17" updated="2019-07-24">
+      <name>N_A</name>
+      <additional/>
+      <http/>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8693">RFC8693, Section 2.2.1</xref>
+    </record>
+    <record date="2021-07-27">
+      <name>PoP</name>
+      <additional>"cnf", "rs_cnf" see section 3.1 of <xref type="rfc" data="rfc8747"/> 
+        and section 3.1 of <xref type="draft" data="RFC-ietf-ace-oauth-params-15"/>.</additional>
+      <http>N/A</http>
+      <controller>IETF</controller>
+      <xref type="draft" data="RFC-ietf-ace-oauth-authz-44"/>
+    </record>
+  </registry>
+  
+  <registry id="endpoint">
+    <title>OAuth Authorization Endpoint Response Types</title>
+    <xref type="rfc" data="rfc6749"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Hannes Tschofenig</expert>
+    <note>Registration requests should be sent to the mailing list 
+described in <xref type="rfc" data="rfc6749"/>.
+    </note>
+    <record>
+      <name>code</name>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6749"/>
+    </record>
+    <record>
+      <name>code id_token</name>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html">OAuth 2.0 Multiple Response Type Encoding Practices</xref>
+    </record>
+    <record>
+      <name>code id_token token</name>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html">OAuth 2.0 Multiple Response Type Encoding Practices</xref>
+    </record>
+    <record>
+      <name>code token</name>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html">OAuth 2.0 Multiple Response Type Encoding Practices</xref>
+    </record>
+    <record>
+      <name>id_token</name>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html">OAuth 2.0 Multiple Response Type Encoding Practices</xref>
+    </record>
+    <record>
+      <name>id_token token</name>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html">OAuth 2.0 Multiple Response Type Encoding Practices</xref>
+    </record>
+    <record>
+      <name>none</name>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html">OAuth 2.0 Multiple Response Type Encoding Practices</xref>
+    </record>
+    <record>
+      <name>token</name>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6749"/>
+    </record>
+  </registry>
+  
+  <registry id="extensions-error">
+    <title>OAuth Extensions Error Registry</title>
+    <xref type="rfc" data="rfc6749"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Hannes Tschofenig</expert>
+    <note>Registration requests should be sent to the mailing list 
+described in <xref type="rfc" data="rfc6749"/>.
+    </note>
+    <record>
+      <name>invalid_request</name>
+      <usage>resource access error response</usage>
+      <protocol>bearer access token type</protocol>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6750"/>
+    </record>
+    <record>
+      <name>invalid_token</name>
+      <usage>resource access error response</usage>
+      <protocol>bearer access token type</protocol>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6750"/>
+    </record>
+    <record>
+      <name>insufficient_scope</name>
+      <usage>resource access error response</usage>
+      <protocol>bearer access token type</protocol>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6750"/>
+    </record>    
+    <record>
+      <name>unsupported_token_type</name>
+      <usage>revocation endpoint error response</usage>
+      <protocol>token revocation endpoint</protocol>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc7009"/>
+    </record>    
+    <record date="2013-08-28">
+      <name>interaction_required</name>
+      <usage>authorization endpoint</usage>
+      <protocol>OpenID Connect</protocol>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>    
+    <record date="2013-08-28">
+      <name>login_required</name>
+      <usage>authorization endpoint</usage>
+      <protocol>OpenID Connect</protocol>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>    
+    <record date="2013-08-28">
+      <name>session_selection_required</name>
+      <usage>authorization endpoint</usage>
+      <protocol>OpenID Connect</protocol>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>    
+    <record date="2013-08-28">
+      <name>consent_required</name>
+      <usage>authorization endpoint</usage>
+      <protocol>OpenID Connect</protocol>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>    
+    <record date="2013-08-28">
+      <name>invalid_request_uri</name>
+      <usage>authorization endpoint</usage>
+      <protocol>OpenID Connect</protocol>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>    
+    <record date="2013-08-28">
+      <name>invalid_request_object</name>
+      <usage>authorization endpoint</usage>
+      <protocol>OpenID Connect</protocol>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>
+    <record date="2014-09-30">
+      <name>request_not_supported</name>
+      <usage>authorization endpoint</usage>
+      <protocol>OpenID Connect</protocol>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>
+    <record date="2014-09-30">
+      <name>request_uri_not_supported</name>
+      <usage>authorization endpoint</usage>
+      <protocol>OpenID Connect</protocol>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>
+    <record date="2014-09-30">
+      <name>registration_not_supported</name>
+      <usage>authorization endpoint</usage>
+      <protocol>OpenID Connect</protocol>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>
+    <record date="2018-04-23">
+      <name>need_info (and its subsidiary parameters)</name>
+      <usage>authorization server response, token endpoint</usage>
+      <protocol>Kantara UMA</protocol>
+      <controller><xref type="person" data="Kantara_UMA_WG"/></controller>
+      <xref type="uri" data="https://docs.kantarainitiative.org/uma/wg/rec-oauth-uma-grant-2.0.html">UMA 2.0 Grant for OAuth 2.0, Section 3.3.6</xref>
+    </record>
+    <record date="2018-04-23">
+      <name>request_denied</name>
+      <usage>authorization server response, token endpoint</usage>
+      <protocol>Kantara UMA</protocol>
+      <controller><xref type="person" data="Kantara_UMA_WG"/></controller>
+      <xref type="uri" data="https://docs.kantarainitiative.org/uma/wg/rec-oauth-uma-grant-2.0.html">UMA 2.0 Grant for OAuth 2.0, Section 3.3.6</xref>
+    </record>
+    <record date="2018-04-23">
+      <name>request_submitted (and its subsidiary parameters)</name>
+      <usage>authorization server response, token endpoint</usage>
+      <protocol>Kantara UMA</protocol>
+      <controller><xref type="person" data="Kantara_UMA_WG"/></controller>
+      <xref type="uri" data="https://docs.kantarainitiative.org/uma/wg/rec-oauth-uma-grant-2.0.html">UMA 2.0 Grant for OAuth 2.0, Section 3.3.6</xref>
+    </record>
+    <record date="2019-06-03">
+      <name>authorization_pending</name>
+      <usage>Token endpoint response</usage>
+      <protocol><xref type="rfc" data="rfc8628"/></protocol>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc8628">RFC8628, Section 3.5</xref>
+    </record>
+    <record date="2019-06-03">
+      <name>access_denied</name>
+      <usage>Token endpoint response</usage>
+      <protocol><xref type="rfc" data="rfc8628"/></protocol>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc8628">RFC8628, Section 3.5</xref>
+    </record>
+    <record date="2019-06-03">
+      <name>slow_down</name>
+      <usage>Token endpoint response</usage>
+      <protocol><xref type="rfc" data="rfc8628"/></protocol>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc8628">RFC8628, Section 3.5</xref>
+    </record>
+    <record date="2019-06-03">
+      <name>expired_token</name>
+      <usage>Token endpoint response</usage>
+      <protocol><xref type="rfc" data="rfc8628"/></protocol>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc8628">RFC8628, Section 3.5</xref>
+    </record>
+    <record date="2019-06-17" updated="2019-09-13">
+      <name>invalid_target</name>
+      <usage>implicit grant error response, token error response</usage>
+      <protocol>resource parameter</protocol>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8707"/>
+    </record>
+    <record date="2021-07-27">
+      <name>unsupported_pop_key</name>
+      <usage>token error response</usage>
+      <protocol><xref type="draft" data="RFC-ietf-ace-oauth-authz-44"/></protocol>
+      <controller>IETF</controller>
+      <xref type="draft" data="RFC-ietf-ace-oauth-authz-44">RFC-ietf-ace-oauth-authz-44, Section 5.8.3</xref>
+    </record>
+    <record date="2021-07-27">
+      <name>incompatible_ace_profiles</name>
+      <usage>token error response</usage>
+      <protocol><xref type="draft" data="RFC-ietf-ace-oauth-authz-44"/></protocol>
+      <controller>IETF</controller>
+      <xref type="draft" data="RFC-ietf-ace-oauth-authz-44">RFC-ietf-ace-oauth-authz-44, Section 5.8.3</xref>
+    </record>
+  </registry>
+  
+  <registry id="parameters">
+    <title>OAuth Parameters</title>
+    <xref type="rfc" data="rfc6749"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Hannes Tschofenig</expert>
+    <note>Registration requests should be sent to the mailing list 
+described in <xref type="rfc" data="rfc6749"/>.
+    </note>
+    <record>
+      <name>client_id</name>
+      <usage>authorization request, token request</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6749"/>
+    </record>
+    <record>
+      <name>client_secret</name>
+      <usage>token request</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6749"/>
+    </record>
+    <record>
+      <name>response_type</name>
+      <usage>authorization request</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6749"/>
+    </record>
+    <record>
+      <name>redirect_uri</name>
+      <usage>authorization request, token request</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6749"/>
+    </record>
+    <record>
+      <name>scope</name>
+      <usage>authorization request, authorization response, token request, token response</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6749"/>
+    </record>
+    <record>
+      <name>state</name>
+      <usage>authorization request, authorization response</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6749"/>
+    </record>
+    <record>
+      <name>code</name>
+      <usage>authorization response, token request</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6749"/>
+    </record>
+    <record date="2014-09-30">
+  
+      <name>error</name>
+      <usage>authorization response, token response</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6749"/>
+    </record>
+    <record>
+      <name>error_description</name>
+      <usage>authorization response, token response</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6749"/>
+    </record>
+    <record>
+      <name>error_uri</name>
+      <usage>authorization response, token response</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6749"/>
+    </record>
+    <record>
+      <name>grant_type</name>
+      <usage>token request</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6749"/>
+    </record>
+    <record>
+      <name>access_token</name>
+      <usage>authorization response, token response</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6749"/>
+    </record>
+    <record>
+      <name>token_type</name>
+      <usage>authorization response, token response</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6749"/>
+    </record>
+    <record>
+      <name>expires_in</name>
+      <usage>authorization response, token response</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6749"/>
+    </record>
+    <record>
+      <name>username</name>
+      <usage>token request</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6749"/>
+    </record>
+    <record>
+      <name>password</name>
+      <usage>token request</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6749"/>
+    </record>
+    <record>
+      <name>refresh_token</name>
+      <usage>token request, token response</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc6749"/>
+    </record>
+    <record date="2013-08-28">
+      <name>nonce</name>
+      <usage>authorization request</usage>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>
+    <record date="2013-08-28">
+      <name>display</name>
+      <usage>authorization request</usage>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>
+    <record date="2013-08-28">
+      <name>prompt</name>
+      <usage>authorization request</usage>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>
+    <record date="2013-08-28">
+      <name>max_age</name>
+      <usage>authorization request</usage>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>    
+    <record date="2013-08-28">
+      <name>ui_locales</name>
+      <usage>authorization request</usage>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>
+    <record date="2013-08-28">
+      <name>claims_locales</name>
+      <usage>authorization request</usage>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>
+    <record date="2013-08-28">
+      <name>id_token_hint</name>
+      <usage>authorization request</usage>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>
+    <record date="2013-08-28">
+      <name>login_hint</name>
+      <usage>authorization request</usage>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>
+    <record date="2013-08-28">
+      <name>acr_values</name>
+      <usage>authorization request</usage>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>    
+    <record date="2013-08-28">
+      <name>claims</name>
+      <usage>authorization request</usage>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>
+    <record date="2013-08-28">
+      <name>registration</name>
+      <usage>authorization request</usage>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>    
+    <record date="2013-08-28">
+      <name>request</name>
+      <usage>authorization request</usage>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>    
+    <record date="2013-08-28">
+      <name>request_uri</name>
+      <usage>authorization request</usage>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>    
+    <record date="2013-08-28">
+      <name>id_token</name>
+      <usage>authorization response, access token response</usage>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>
+    <record date="2013-08-28">
+      <name>session_state</name>
+      <usage>authorization response, access token response</usage>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-session-1_0.html">OpenID Connect Session Management 1.0</xref>
+    </record>
+    <record date="2015-01-12">
+      <name>assertion</name>
+      <usage>token request</usage>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7521"/>
+    </record>
+    <record date="2015-01-12">
+      <name>client_assertion</name>
+      <usage>token request</usage>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7521"/>
+    </record>
+    <record date="2015-01-12">
+      <name>client_assertion_type</name>
+      <usage>token request</usage>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7521"/>
+    </record>
+    <record date="2015-07-21">
+      <name>code_verifier</name>
+      <usage>token request</usage>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7636"/>
+    </record>
+    <record date="2015-07-21">
+      <name>code_challenge</name>
+      <usage>authorization request</usage>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7636"/>
+    </record>
+    <record date="2015-07-21">
+      <name>code_challenge_method</name>
+      <usage>authorization request</usage>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7636"/>
+    </record>
+    <record date="2018-04-23">
+      <name>claim_token</name>
+      <usage>client request, token endpoint</usage>
+      <controller><xref type="person" data="Kantara_UMA_WG"/></controller>
+      <xref type="uri" data="https://docs.kantarainitiative.org/uma/wg/rec-oauth-uma-grant-2.0.html">UMA 2.0 Grant for OAuth 2.0, Section 3.3.1</xref>
+    </record>
+    <record date="2018-04-23">
+      <name>pct</name>
+      <usage>client request, token endpoint</usage>
+      <controller><xref type="person" data="Kantara_UMA_WG"/></controller>
+      <xref type="uri" data="https://docs.kantarainitiative.org/uma/wg/rec-oauth-uma-grant-2.0.html">UMA 2.0 Grant for OAuth 2.0, Section 3.3.1</xref>
+    </record>
+    <record date="2018-04-23">
+      <name>pct</name>
+      <usage>authorization server response, token endpoint</usage>
+      <controller><xref type="person" data="Kantara_UMA_WG"/></controller>
+      <xref type="uri" data="https://docs.kantarainitiative.org/uma/wg/rec-oauth-uma-grant-2.0.html">UMA 2.0 Grant for OAuth 2.0, Section 3.3.5</xref>
+    </record>
+    <record date="2018-04-23">
+      <name>rpt</name>
+      <usage>client request, token endpoint</usage>
+      <controller><xref type="person" data="Kantara_UMA_WG"/></controller>
+      <xref type="uri" data="https://docs.kantarainitiative.org/uma/wg/rec-oauth-uma-grant-2.0.html">UMA 2.0 Grant for OAuth 2.0, Section 3.3.1</xref>
+    </record>
+    <record date="2018-04-23">
+      <name>ticket</name>
+      <usage>client request, token endpoint</usage>
+      <controller><xref type="person" data="Kantara_UMA_WG"/></controller>
+      <xref type="uri" data="https://docs.kantarainitiative.org/uma/wg/rec-oauth-uma-grant-2.0.html">UMA 2.0 Grant for OAuth 2.0, Section 3.3.1</xref>
+    </record>
+    <record date="2018-04-23">
+      <name>upgraded</name>
+      <usage>authorization server response, token endpoint</usage>
+      <controller><xref type="person" data="Kantara_UMA_WG"/></controller>
+      <xref type="uri" data="https://docs.kantarainitiative.org/uma/wg/rec-oauth-uma-grant-2.0.html">UMA 2.0 Grant for OAuth 2.0, Section 3.3.5</xref>
+    </record>
+    <record date="2018-08-23">
+      <name>vtr</name>
+      <usage>authorization request, token request</usage>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8485"/>
+    </record>
+    <record date="2019-06-07">
+      <name>device_code</name>
+      <usage>token request</usage>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8628">RFC8628, Section 3.1</xref>
+    </record>
+    <record date="2019-06-17" updated="2019-09-13">
+      <name>resource</name>
+      <usage>authorization request, token request</usage>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8707"/>
+    </record>
+    <record date="2019-06-17" updated="2019-07-24">
+      <name>audience</name>
+      <usage>token request</usage>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8693">RFC8693, Section 2.1</xref>
+    </record>
+    <record date="2019-06-17" updated="2019-07-24">
+      <name>requested_token_type</name>
+      <usage>token request</usage>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8693">RFC8693, Section 2.1</xref>
+    </record>
+    <record date="2019-06-17" updated="2019-07-24">
+      <name>subject_token</name>
+      <usage>token request</usage>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8693">RFC8693, Section 2.1</xref>
+    </record>
+    <record date="2019-06-17" updated="2019-07-24">
+      <name>subject_token_type</name>
+      <usage>token request</usage>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8693">RFC8693, Section 2.1</xref>
+    </record>
+    <record date="2019-06-17" updated="2019-07-24">
+      <name>actor_token</name>
+      <usage>token request</usage>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8693">RFC8693, Section 2.1</xref>
+    </record>
+    <record date="2019-06-17" updated="2019-07-24">
+      <name>actor_token_type</name>
+      <usage>token request</usage>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8693">RFC8693, Section 2.1</xref>
+    </record>
+    <record date="2019-06-17" updated="2019-07-24">
+      <name>issued_token_type</name>
+      <usage>token response</usage>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8693">RFC8693, Section 2.2.1</xref>
+    </record>
+    <record date="2019-07-19">
+      <name>response_mode</name>
+      <usage>Authorization Request</usage>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/oauth-v2-multiple-response-types-1_0.html">OAuth 2.0 Multiple Response Type Encoding Practices</xref>
+    </record>
+    <record date="2020-01-15">
+      <name>nfv_token</name>
+      <usage>Access Token Response</usage>
+      <controller><xref type="person" data="ETSI"/></controller>
+      <xref type="uri" data="https://www.etsi.org/deliver/etsi_gs/NFV-SEC/001_099/022/02.07.01_60/gs_NFV-SEC022v020701p.pdf">ETSI GS NFV-SEC 022 V2.7.1</xref>
+    </record>
+    <record date="2020-09-08">
+      <name>iss</name>
+      <usage>authorization request</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc7519">RFC7519, Section 4.1.1</xref>
+      <xref type="draft" data="RFC-ietf-oauth-jwsreq-34"/>
+    </record>
+    <record date="2020-09-08">
+      <name>sub</name>
+      <usage>authorization request</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc7519">RFC7519, Section 4.1.2</xref>
+      <xref type="draft" data="RFC-ietf-oauth-jwsreq-34"/>
+    </record>
+    <record date="2020-09-08">
+      <name>aud</name>
+      <usage>authorization request</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc7519">RFC7519, Section 4.1.3</xref>
+      <xref type="draft" data="RFC-ietf-oauth-jwsreq-34"/>
+    </record>
+    <record date="2020-09-08">
+      <name>exp</name>
+      <usage>authorization request</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc7519">RFC7519, Section 4.1.4</xref>
+      <xref type="draft" data="RFC-ietf-oauth-jwsreq-34"/>
+    </record>
+    <record date="2020-09-08">
+      <name>nbf</name>
+      <usage>authorization request</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc7519">RFC7519, Section 4.1.5</xref>
+      <xref type="draft" data="RFC-ietf-oauth-jwsreq-34"/>
+    </record>
+    <record date="2020-09-08">
+      <name>iat</name>
+      <usage>authorization request</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc7519">RFC7519, Section 4.1.6</xref>
+      <xref type="draft" data="RFC-ietf-oauth-jwsreq-34"/>
+    </record>
+    <record date="2020-09-08">
+      <name>jti</name>
+      <usage>authorization request</usage>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc7519">RFC7519, Section 4.1.7</xref>
+      <xref type="draft" data="RFC-ietf-oauth-jwsreq-34"/>
+    </record>
+    <record date="2021-07-27">
+      <name>ace_profile</name>
+      <usage>token response</usage>
+      <controller>IETF</controller>
+      <xref type="draft" data="RFC-ietf-ace-oauth-authz-44">RFC-ietf-ace-oauth-authz-44, Sections 5.8.2, 5.8.4.3</xref>
+    </record>
+    <record date="2021-08-12">
+      <name>nonce1</name>
+      <usage>client-rs request</usage>
+      <controller>IETF</controller>
+      <xref type="draft" data="RFC-ietf-ace-oscore-profile-19"/>
+    </record>
+    <record date="2021-08-12">
+      <name>nonce2</name>
+      <usage>rs-client response</usage>
+      <controller>IETF</controller>
+      <xref type="draft" data="RFC-ietf-ace-oscore-profile-19"/>
+    </record>
+    <record date="2021-08-12">
+      <name>ace_client_recipientid</name>
+      <usage>client-rs request</usage>
+      <controller>IETF</controller>
+      <xref type="draft" data="RFC-ietf-ace-oscore-profile-19"/>
+    </record>
+    <record date="2021-08-12">
+      <name>ace_server_recipientid</name>
+      <usage>rs-client response</usage>
+      <controller>IETF</controller>
+      <xref type="draft" data="RFC-ietf-ace-oscore-profile-19"/>
+    </record>
+  </registry>
+  
+  <registry id="token-type-hint">
+    <title>OAuth Token Type Hints</title>
+    <xref type="rfc" data="rfc7009"/>
+    <registration_rule>Specification Required</registration_rule>
+    <note>Registration requests must be sent to the mailing list 
+described in <xref type="rfc" data="rfc7009"/>.
+    </note>
+    <expert>Torsten Lodderstedt</expert>
+    <record>
+      <name>access_token</name>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc7009"/>
+    </record>    
+     <record>
+      <name>refresh_token</name>
+      <controller>IETF</controller>
+      <xref type="rfc" data="rfc7009"/>
+    </record>
+    <record date="2018-03-12">
+      <name>pct</name>
+      <controller><xref type="person" data="Kantara_UMA_WG"/></controller>
+      <xref type="uri" data="https://docs.kantarainitiative.org/uma/wg/rec-oauth-uma-grant-2.0.html#token-revocation">UMA 2.0 Grant for OAuth 2.0, Section 3.7</xref>
+    </record>
+   </registry>
+  
+  <registry id="uri">
+    <title>OAuth URI</title>
+    <xref type="rfc" data="rfc6755"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Hannes Tschofenig</expert>
+    <note>Prefix: urn:ietf:params:oauth
+    </note>
+    <record date="2015-01-12">
+      <urn>urn:ietf:params:oauth:grant-type:jwt-bearer</urn>
+      <name>JWT Bearer Token Grant Type Profile for OAuth 2.0</name>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7523"/>
+    </record>
+    <record date="2015-01-12">
+      <urn>urn:ietf:params:oauth:client-assertion-type:jwt-bearer</urn>
+      <name>JWT Bearer Token Profile for OAuth 2.0 Client Authentication</name>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7523"/>
+    </record>
+    <record date="2015-01-12">
+      <urn>urn:ietf:params:oauth:grant-type:saml2-bearer</urn>
+      <name>SAML 2.0 Bearer Assertion Grant Type Profile for OAuth 2.0</name>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7522"/>
+    </record>
+    <record date="2015-01-12">
+      <urn>urn:ietf:params:oauth:client-assertion-type:saml2-bearer</urn>
+      <name>SAML 2.0 Bearer Assertion Profile for OAuth 2.0 Client Authentication</name>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7522"/>
+    </record>
+    <record date="2015-01-23">
+      <urn>urn:ietf:params:oauth:token-type:jwt</urn>
+      <name>JSON Web Token (JWT) Token Type</name>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7519"/>
+    </record>
+    <record date="2019-06-03">
+      <urn>urn:ietf:params:oauth:grant-type:device_code</urn>
+      <name>Device flow grant type for OAuth 2.0</name>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8628">RFC8628, Section 3.1</xref>
+    </record>
+    <record date="2019-06-17" updated="2019-07-24">
+      <urn>urn:ietf:params:oauth:grant-type:token-exchange</urn>
+      <name>Token exchange grant type for OAuth 2.0</name>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8693">RFC8693, Section 2.1</xref>
+    </record>
+    <record date="2019-06-17" updated="2019-07-24">
+      <urn>urn:ietf:params:oauth:token-type:access_token</urn>
+      <name>Token type URI for an OAuth 2.0 access token</name>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8693">RFC8693, Section 3</xref>
+    </record>
+    <record date="2019-06-17" updated="2019-07-24">
+      <urn>urn:ietf:params:oauth:token-type:refresh_token</urn>
+      <name>Token type URI for an OAuth 2.0 refresh token</name>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8693">RFC8693, Section 3</xref>
+    </record>
+    <record date="2019-06-17" updated="2019-07-24">
+      <urn>urn:ietf:params:oauth:token-type:id_token</urn>
+      <name>Token type URI for an ID Token</name>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8693">RFC8693, Section 3</xref>
+    </record>
+    <record date="2019-06-17" updated="2019-07-24">
+      <urn>urn:ietf:params:oauth:token-type:saml1</urn>
+      <name>Token type URI for a base64url-encoded SAML 1.1 assertion</name>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8693">RFC8693, Section 3</xref>
+    </record>
+    <record date="2019-06-17" updated="2019-07-24">
+      <urn>urn:ietf:params:oauth:token-type:saml2</urn>
+      <name>Token type URI for a base64url-encoded SAML 2.0 assertion</name>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8693">RFC8693, Section 3</xref>
+    </record>
+    <record date="2021-07-30">
+      <urn>urn:ietf:params:oauth:request_uri</urn>
+      <name>A URN Sub-Namespace for OAuth Request URIs.</name>
+      <controller>IESG</controller>
+      <xref type="draft" data="RFC-ietf-oauth-par-10">RFC-ietf-oauth-par-10, Section 2.2</xref>
+    </record>
+  </registry>
+
+  <registry id="client-metadata">
+    <title>OAuth Dynamic Client Registration Metadata</title>
+    <xref type="rfc" data="rfc7591"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Justin Richer</expert>
+    <note>Registration requests should be sent to the mailing list 
+described in <xref type="rfc" data="rfc7591"/>.
+    </note>
+    <record date="2015-05-12">
+      <value>redirect_uris</value>
+      <description>Array of redirection URIs for use in redirect-based flows</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>token_endpoint_auth_method</value>
+      <description>Requested authentication method for the token endpoint</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>grant_types</value>
+      <description>Array of OAuth 2.0 grant types that the client may use</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>response_types</value>
+      <description>Array of the OAuth 2.0 response types that the client may use</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>client_name</value>
+      <description>Human-readable name of the client to be presented to the user</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>client_uri</value>
+      <description>URL of a web page providing information about the client</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>logo_uri</value>
+      <description>URL that references a logo for the client</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>scope</value>
+      <description>Space-separated list of OAuth 2.0 scope values</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>contacts</value>
+      <description>Array of strings representing ways to contact people 
+        responsible for this client, typically email addresses</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>tos_uri</value>
+      <description>URL that points to a human-readable terms of service document 
+        for the client</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>policy_uri</value>
+      <description>URL that points to a human-readable policy document for the 
+        client</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>jwks_uri</value>
+      <description>URL referencing the client's JSON Web Key Set <xref type="rfc" data="rfc7517"/> 
+        document representing the client's public keys</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>jwks</value>
+      <description>Client's JSON Web Key Set <xref type="rfc" data="rfc7517"/> 
+        document representing the client's public keys</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>software_id</value>
+      <description>Identifier for the software that comprises a client</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>software_version</value>
+      <description>Version identifier for the software that comprises a client</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>client_id</value>
+      <description>Client identifier</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>client_secret</value>
+      <description>Client secret</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>client_id_issued_at</value>
+      <description>Time at which the client identifier was issued</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>client_secret_expires_at</value>
+      <description>Time at which the client secret will expire</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-31">
+      <value>registration_access_token</value>
+      <description>OAuth 2.0 Bearer Token used to access
+      the client configuration endpoint</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7592"/>
+    </record>
+    <record date="2015-05-31">
+      <value>registration_client_uri</value>
+      <description>Fully qualified URI of the client
+      registration endpoint</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7592"/>
+    </record>
+    <record date="2015-12-03">
+      <value>application_type</value>
+      <description>Kind of the application -- "native" or "web"</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-registration-1_0-29.html#IANA">OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 2</xref>
+    </record>
+    <record date="2015-12-03">
+      <value>sector_identifier_uri</value>
+      <description>URL using the https scheme to be used in calculating 
+        Pseudonymous Identifiers by the OP</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-registration-1_0-29.html#IANA">OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 2</xref>
+    </record>
+    <record date="2015-12-03">
+      <value>subject_type</value>
+      <description>subject_type requested for responses to this Client -- 
+        "pairwise" or "public"</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-registration-1_0-29.html#IANA">OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 2</xref>
+    </record>
+    <record date="2015-12-03">
+      <value>id_token_signed_response_alg</value>
+      <description>JWS alg algorithm REQUIRED for signing the ID Token issued 
+        to this Client</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-registration-1_0-29.html#IANA">OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 2</xref>
+    </record>
+    <record date="2015-12-03">
+      <value>id_token_encrypted_response_alg</value>
+      <description>JWE alg algorithm REQUIRED for encrypting the ID Token 
+        issued to this Client</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-registration-1_0-29.html#IANA">OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 2</xref>
+    </record>
+    <record date="2015-12-03">
+      <value>id_token_encrypted_response_enc</value>
+      <description>JWE enc algorithm REQUIRED for encrypting the ID Token 
+        issued to this Client</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-registration-1_0-29.html#IANA">OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 2</xref>
+    </record>
+    <record date="2015-12-03">
+      <value>userinfo_signed_response_alg</value>
+      <description>JWS alg algorithm REQUIRED for signing UserInfo Responses</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-registration-1_0-29.html#IANA">OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 2</xref>
+    </record>
+    <record date="2015-12-03">
+      <value>userinfo_encrypted_response_alg</value>
+      <description>JWE alg algorithm REQUIRED for encrypting UserInfo Responses</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-registration-1_0-29.html#IANA">OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 2</xref>
+    </record>
+    <record date="2015-12-03">
+      <value>userinfo_encrypted_response_enc</value>
+      <description>JWE enc algorithm REQUIRED for encrypting UserInfo Responses</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-registration-1_0-29.html#IANA">OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 2</xref>
+    </record>
+    <record date="2015-12-03">
+      <value>request_object_signing_alg</value>
+      <description>JWS alg algorithm that MUST be used for signing Request 
+        Objects sent to the OP</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-registration-1_0-29.html#IANA">OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 2</xref>
+    </record>
+    <record date="2015-12-03">
+      <value>request_object_encryption_alg</value>
+      <description>JWE alg algorithm the RP is declaring that it may use for 
+        encrypting Request Objects sent to the OP</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-registration-1_0-29.html#IANA">OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 2</xref>
+    </record>
+    <record date="2015-12-03">
+      <value>request_object_encryption_enc</value>
+      <description>JWE enc algorithm the RP is declaring that it may use for 
+        encrypting Request Objects sent to the OP</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-registration-1_0-29.html#IANA">OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 2</xref>
+    </record>
+    <record date="2015-12-03">
+      <value>token_endpoint_auth_signing_alg</value>
+      <description>JWS alg algorithm that MUST be used for signing the JWT 
+        used to authenticate the Client at the Token Endpoint for the 
+        private_key_jwt and client_secret_jwt authentication methods</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-registration-1_0-29.html#IANA">OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 2</xref>
+    </record>
+    <record date="2015-12-03">
+      <value>default_max_age</value>
+      <description>Default Maximum Authentication Age</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-registration-1_0-29.html#IANA">OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 2</xref>
+    </record>
+    <record date="2015-12-03">
+      <value>require_auth_time</value>
+      <description>Boolean value specifying whether the auth_time Claim in the 
+        ID Token is REQUIRED</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-registration-1_0-29.html#IANA">OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 2</xref>
+    </record>
+    <record date="2015-12-03">
+      <value>default_acr_values</value>
+      <description>Default requested Authentication Context Class Reference values</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-registration-1_0-29.html#IANA">OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 2</xref>
+    </record>
+    <record date="2015-12-03">
+      <value>initiate_login_uri</value>
+      <description>URI using the https scheme that a third party can use to 
+        initiate a login by the RP</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-registration-1_0-29.html#IANA">OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 2</xref>
+    </record>
+    <record date="2015-12-03">
+      <value>request_uris</value>
+      <description>Array of request_uri values that are pre-registered by the 
+        RP for use at the OP</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-registration-1_0-29.html#IANA">OpenID Connect Dynamic Client Registration 1.0 incorporating errata set 2</xref>
+    </record>
+    <record date="2018-02-01">
+      <value>claims_redirect_uris</value>
+      <description>claims redirection endpoints</description>
+      <controller><xref type="person" data="Kantara_UMA_WG"/></controller>
+      <xref type="uri" data="https://docs.kantarainitiative.org/uma/wg/rec-oauth-uma-grant-2.0.html#as-config">UMA 2.0 Grant for OAuth 2.0, Section 2</xref>
+    </record>
+    <record date="2019-07-22" updated="2020-01-29">
+      <value>nfv_token_signed_response_alg</value>
+      <description>JWS alg algorithm required for signing the nfv Token issued to this Client</description>
+      <controller><xref type="person" data="ETSI"/></controller>
+      <xref type="uri" data="https://www.etsi.org/deliver/etsi_gs/NFV-SEC/001_099/022/02.07.01_60/gs_NFV-SEC022v020701p.pdf">ETSI GS NFV-SEC 022 V2.7.1</xref>
+    </record>
+    <record date="2019-07-22" updated="2020-01-29">
+      <value>nfv_token_encrypted_response_alg</value>
+      <description>JWE alg algorithm required for encrypting the nfv Token issued to this Client</description>
+      <controller><xref type="person" data="ETSI"/></controller>
+      <xref type="uri" data="https://www.etsi.org/deliver/etsi_gs/NFV-SEC/001_099/022/02.07.01_60/gs_NFV-SEC022v020701p.pdf">ETSI GS NFV-SEC 022 V2.7.1</xref>
+    </record>
+    <record date="2019-07-22" updated="2020-01-29">
+      <value>nfv_token_encrypted_response_enc</value>
+      <description>JWE enc algorithm required for encrypting the nfv Token issued to this Client</description>
+      <controller><xref type="person" data="ETSI"/></controller>
+      <xref type="uri" data="https://www.etsi.org/deliver/etsi_gs/NFV-SEC/001_099/022/02.07.01_60/gs_NFV-SEC022v020701p.pdf">ETSI GS NFV-SEC 022 V2.7.1</xref>
+    </record>
+    <record date="2019-09-13">
+      <value>tls_client_certificate_bound_access_tokens</value>
+      <description>Indicates the client's intention to
+        use mutual-TLS client certificate-bound access tokens.</description>
+      <controller><xref type="person" data="IESG"/></controller>
+      <xref type="rfc" data="rfc8705">RFC8705, Section 3.4</xref>
+    </record>
+    <record date="2019-09-13">
+      <value>tls_client_auth_subject_dn</value>
+      <description>String value specifying the expected
+        subject DN of the client certificate.</description>
+      <controller><xref type="person" data="IESG"/></controller>
+      <xref type="rfc" data="rfc8705">RFC8705, Section 2.1.2</xref>
+    </record>
+    <record date="2019-09-13">
+      <value>tls_client_auth_san_dns</value>
+      <description>String value specifying the expected
+        dNSName SAN entry in the client certificate.</description>
+      <controller><xref type="person" data="IESG"/></controller>
+      <xref type="rfc" data="rfc8705">RFC8705, Section 2.1.2</xref>
+    </record>
+    <record date="2019-09-13">
+      <value>tls_client_auth_san_uri</value>
+      <description>String value specifying the expected
+        uniformResourceIdentifier SAN entry in the client certificate.</description>
+      <controller><xref type="person" data="IESG"/></controller>
+      <xref type="rfc" data="rfc8705">RFC8705, Section 2.1.2</xref>
+    </record>
+    <record date="2019-09-13">
+      <value>tls_client_auth_san_ip</value>
+      <description>String value specifying the expected
+        iPAddress SAN entry in the client certificate.</description>
+      <controller><xref type="person" data="IESG"/></controller>
+      <xref type="rfc" data="rfc8705">RFC8705, Section 2.1.2</xref>
+    </record>
+    <record date="2019-09-13">
+      <value>tls_client_auth_san_email</value>
+      <description>String value specifying the expected
+        rfc822Name SAN entry in the client certificate.</description>
+      <controller><xref type="person" data="IESG"/></controller>
+      <xref type="rfc" data="rfc8705">RFC8705, Section 2.1.2</xref>
+    </record>
+    <record date="2020-09-08">
+      <value>require_signed_request_object</value>
+      <description>Indicates where authorization request needs
+        to be protected as Request Object and provided through either
+        "request" or "request_uri parameter".</description>
+      <controller><xref type="person" data="IETF"/></controller>
+      <xref type="draft" data="RFC-ietf-oauth-jwsreq-34">RFC-ietf-oauth-jwsreq-34, Section 10.5</xref>
+    </record>
+    <record date="2021-07-30">
+      <value>require_pushed_authorization_requests</value>
+      <description>Indicates whether the client is required to use PAR to initiate authorization requests.</description>
+      <controller><xref type="person" data="IESG"/></controller>
+      <xref type="draft" data="RFC-ietf-oauth-par-10">RFC-ietf-oauth-par-10, Section 6</xref>
+    </record>
+  </registry>
+
+  <registry id="token-endpoint-auth-method">
+    <title>OAuth Token Endpoint Authentication Methods</title>
+    <xref type="rfc" data="rfc7591"/>
+    <xref type="rfc" data="rfc8414"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Justin Richer</expert>
+    <note>Registration requests should be sent to the mailing list 
+described in <xref type="rfc" data="rfc7591"/>.
+    </note>
+    <record date="2015-05-12">
+      <value>none</value>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>client_secret_post</value>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-05-12">
+      <value>client_secret_basic</value>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7591"/>
+    </record>
+    <record date="2015-12-03">
+      <value>client_secret_jwt</value>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>
+    <record date="2015-12-03">
+      <value>private_key_jwt</value>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="http://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core 1.0 incorporating errata set 1</xref>
+    </record>
+    <record date="2019-09-13">
+      <value>tls_client_auth</value>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8705">RFC8705, Section 2.1.1</xref>
+    </record>
+    <record date="2019-09-13">
+      <value>self_signed_tls_client_auth</value>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8705">RFC8705, Section 2.2.1</xref>
+    </record>
+  </registry>
+
+  <registry id="pkce-code-challenge-method">
+    <title>PKCE Code Challenge Methods</title>
+    <xref type="rfc" data="rfc7636"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>John Bradley, Mike Jones</expert>
+    <note>Registration requests should be sent to the mailing list 
+described in <xref type="rfc" data="rfc7636"/>.
+    </note>
+    <record date="2015-05-12">
+      <value>plain</value>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7636">Section 4.2 of RFC7636</xref>
+    </record>
+    <record date="2015-05-12">
+      <value>S256</value>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7636">Section 4.2 of RFC7636</xref>
+    </record>
+  </registry>
+
+  <registry id="token-introspection-response">
+    <title>OAuth Token Introspection Response</title>
+    <xref type="rfc" data="rfc7662"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Justin Richer</expert>
+    <note>Registration requests should be sent to the mailing list 
+described in <xref type="rfc" data="rfc7662"/>.
+    </note>
+    <record date="2015-08-13">
+      <value>active</value>
+      <description>Token active status</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7662">RFC7662, Section 2.2</xref>
+    </record>
+    <record date="2015-08-13">
+      <value>username</value>
+      <description>User identifier of the resource owner</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7662">RFC7662, Section 2.2</xref>
+    </record>
+    <record date="2015-08-13">
+      <value>client_id</value>
+      <description>Client identifier of the client</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7662">RFC7662, Section 2.2</xref>
+    </record>
+    <record date="2015-08-13">
+      <value>scope</value>
+      <description>Authorized scopes of the token</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7662">RFC7662, Section 2.2</xref>
+    </record>
+    <record date="2015-08-13">
+      <value>token_type</value>
+      <description>Type of the token</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7662">RFC7662, Section 2.2</xref>
+    </record>
+    <record date="2015-08-13">
+      <value>exp</value>
+      <description>Expiration timestamp of the token</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7662">RFC7662, Section 2.2</xref>
+    </record>
+    <record date="2015-08-13">
+      <value>iat</value>
+      <description>Issuance timestamp of the token</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7662">RFC7662, Section 2.2</xref>
+    </record>
+    <record date="2015-08-13">
+      <value>nbf</value>
+      <description>Timestamp which the token is not valid before</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7662">RFC7662, Section 2.2</xref>
+    </record>
+    <record date="2015-08-13">
+      <value>sub</value>
+      <description>Subject of the token</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7662">RFC7662, Section 2.2</xref>
+    </record>
+    <record date="2015-08-13">
+      <value>aud</value>
+      <description>Audience of the token</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7662">RFC7662, Section 2.2</xref>
+    </record>
+    <record date="2015-08-13">
+      <value>iss</value>
+      <description>Issuer of the token</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7662">RFC7662, Section 2.2</xref>
+    </record>
+    <record date="2015-08-13">
+      <value>jti</value>
+      <description>Unique identifier of the token</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7662">RFC7662, Section 2.2</xref>
+    </record>
+    <record date="2017-06-22">
+      <value>permissions</value>
+      <description>array of objects, each describing a scoped, time-limitable permission for a resource</description>
+      <controller><xref type="person" data="Kantara_UMA_WG"/></controller>
+      <xref type="uri" data="https://docs.kantarainitiative.org/uma/wg/rec-oauth-uma-federated-authz-2.0.html#uma-bearer-token-profile">Federated Authorization for UMA 2.0, Section 5.1.1</xref>
+    </record>
+    <record date="2018-08-23">
+      <value>vot</value>
+      <description>Vector of Trust value</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8485"/>
+    </record>
+    <record date="2018-08-23">
+      <value>vtm</value>
+      <description>Vector of Trust trustmark URL</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8485"/>
+    </record>
+    <record date="2019-02-05" updated="2019-07-24">
+      <value>act</value>
+      <description>Actor</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8693">RFC8693, Section 4.1</xref>
+    </record>
+    <record date="2019-02-05" updated="2019-07-24">
+      <value>may_act</value>
+      <description>Authorized Actor - the party that is authorized
+        to become the actor</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8693">RFC8693, Section 4.4</xref>
+    </record>
+    <record date="2019-09-13">
+      <value>cnf</value>
+      <description>Confirmation</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc7800"/>
+      <xref type="rfc" data="rfc8705"/>
+    </record>
+    <record date="2021-07-27">
+      <value>ace_profile</value>
+      <description>The ACE profile used between client and RS.</description>
+      <controller>IETF</controller>
+      <xref type="draft" data="RFC-ietf-ace-oauth-authz-44">RFC-ietf-ace-oauth-authz-44, Section 5.9.2</xref>
+    </record>
+    <record date="2021-07-27">
+      <value>cnonce</value>
+      <description>"client-nonce".  A nonce previously provided to the
+        AS by the RS via the client.  Used to verify token freshness when
+        the RS cannot synchronize its clock with the AS.</description>
+      <controller>IETF</controller>
+      <xref type="draft" data="RFC-ietf-ace-oauth-authz-44">RFC-ietf-ace-oauth-authz-44, Section 5.9.2</xref>
+    </record>
+    <record date="2021-07-27">
+      <value>exi</value>
+      <description>"Expires in".  Lifetime of the token in seconds from
+        the time the RS first sees it.  Used to implement a weaker from of
+        token expiration for devices that cannot synchronize their
+        internal clocks.</description>
+      <controller>IETF</controller>
+      <xref type="draft" data="RFC-ietf-ace-oauth-authz-44">RFC-ietf-ace-oauth-authz-44, Section 5.9.2</xref>
+    </record>
+  </registry>
+
+  <registry id="authorization-server-metadata">
+    <title>OAuth Authorization Server Metadata</title>
+    <xref type="rfc" data="rfc8414"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Michael Jones, Nat Sakimura, John Bradley, Dick Hardt</expert>
+    <note>Registration requests should be sent to the mailing list 
+described in <xref type="rfc" data="rfc8414"/>.
+    </note>
+    <record date="2018-03-27">
+      <name>issuer</name>
+      <description>Authorization server's issuer identifier URL</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>authorization_endpoint</name>
+      <description>URL of the authorization server's authorization endpoint</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>token_endpoint</name>
+      <description>URL of the authorization server's token endpoint</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>jwks_uri</name>
+      <description>URL of the authorization server's JWK Set document</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>registration_endpoint</name>
+      <description>URL of the authorization server's OAuth 2.0 Dynamic Client Registration Endpoint </description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>scopes_supported</name>
+      <description>JSON array containing a list of the OAuth 2.0 "scope" values that this authorization server supports</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>response_types_supported</name>
+      <description>JSON array containing a list of the OAuth 2.0 "response_type" values that this authorization server supports</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>response_modes_supported</name>
+      <description>JSON array containing a list of the OAuth 2.0 "response_mode" values that this authorization server supports</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>grant_types_supported</name>
+      <description>JSON array containing a list of the OAuth 2.0 grant type values that this authorization server supports</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>token_endpoint_auth_methods_supported</name>
+      <description>JSON array containing a list of client authentication methods supported by this token endpoint</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>token_endpoint_auth_signing_alg_values_supported</name>
+      <description>JSON array containing a list of the JWS signing algorithms supported by the token endpoint for the
+        signature on the JWT used to authenticate the client at the token endpoint</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>service_documentation</name>
+      <description>URL of a page containing human-readable information that developers might want or need to know when using
+        the authorization server</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>ui_locales_supported</name>
+      <description>Languages and scripts supported for the user interface, represented as a 
+        JSON array of language tag values from BCP 47 <xref type="rfc" data="rfc5646"/></description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>op_policy_uri</name>
+      <description>URL that the authorization server provides to the person registering the client to read about the
+        authorization server's requirements on how the client can use the data provided by the authorization server</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>op_tos_uri</name>
+      <description>URL that the authorization server provides to the person registering the client to read about the
+        authorization server's terms of service</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>revocation_endpoint</name>
+      <description>URL of the authorization server's OAuth 2.0 revocation endpoint</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>revocation_endpoint_auth_methods_supported</name>
+      <description>JSON array containing a list of client authentication methods supported by this revocation endpoint</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>revocation_endpoint_auth_signing_alg_values_supported</name>
+      <description>JSON array containing a list of the JWS signing algorithms supported by the revocation endpoint
+        for the signature on the JWT used to authenticate the client at the revocation endpoint</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>introspection_endpoint</name>
+      <description>URL of the authorization server's OAuth 2.0 introspection endpoint</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>introspection_endpoint_auth_methods_supported</name>
+      <description>JSON array containing a list of client authentication methods supported by this introspection endpoint</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>introspection_endpoint_auth_signing_alg_values_supported</name>
+      <description>JSON array containing a list of the JWS signing algorithms supported by the introspection endpoint for the
+        signature on the JWT used to authenticate the client at the introspection endpoint</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-03-27">
+      <name>code_challenge_methods_supported</name>
+      <description>PKCE code challenge methods supported by this authorization server</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2</xref>
+    </record>
+    <record date="2018-06-27">
+      <name>signed_metadata</name>
+      <description>Signed JWT containing metadata values about
+        the authorization server as claims</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8414">RFC8414, Section 2.1</xref>
+    </record>
+    <record date="2019-06-03">
+      <name>device_authorization_endpoint</name>
+      <description>URL of the authorization server's device authorization endpoint</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8628">RFC8628, Section 4</xref>
+    </record>
+    <record date="2019-09-13">
+      <name>tls_client_certificate_bound_access_tokens</name>
+      <description>Indicates authorization server support for
+        mutual-TLS client certificate-bound access tokens.</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8705">RFC8705, Section 3.3</xref>
+    </record>
+    <record date="2019-09-13">
+      <name>mtls_endpoint_aliases</name>
+      <description>JSON object containing alternative
+        authorization server endpoints, which a client intending to do
+        mutual TLS will use in preference to the conventional endpoints.</description>
+      <controller>IESG</controller>
+      <xref type="rfc" data="rfc8705">RFC8705, Section 5</xref>
+    </record>
+    <record date="2020-01-13">
+      <name>nfv_token_signing_alg_values_supported</name>
+      <description>JSON array containing a list of the JWS signing algorithms supported by the
+        server for signing the JWT used as NFV Token</description>
+      <controller><xref type="person" data="ETSI"/></controller>
+      <xref type="uri" data="https://www.etsi.org/deliver/etsi_gs/NFV-SEC/001_099/022/02.07.01_60/gs_NFV-SEC022v020701p.pdf">ETSI GS NFV-SEC 022 V2.7.1</xref>
+    </record>
+    <record date="2020-01-13">
+      <name>nfv_token_encryption_alg_values_supported</name>
+      <description>JSON array containing a list of the JWE encryption algorithms (alg values)
+        supported by the server to encode the JWT used as NFV Token</description>
+      <controller><xref type="person" data="ETSI"/></controller>
+      <xref type="uri" data="https://www.etsi.org/deliver/etsi_gs/NFV-SEC/001_099/022/02.07.01_60/gs_NFV-SEC022v020701p.pdf">ETSI GS NFV-SEC 022 V2.7.1</xref>
+    </record>
+    <record date="2020-01-13">
+      <name>nfv_token_encryption_enc_values_supported</name>
+      <description>JSON array containing a list of the JWE encryption algorithms (enc values)
+        supported by the server to encode the JWT used as NFV Token</description>
+      <controller><xref type="person" data="ETSI"/></controller>
+      <xref type="uri" data="https://www.etsi.org/deliver/etsi_gs/NFV-SEC/001_099/022/02.07.01_60/gs_NFV-SEC022v020701p.pdf">ETSI GS NFV-SEC 022 V2.7.1</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>userinfo_endpoint</name>
+      <description>URL of the OP's UserInfo Endpoint</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>acr_values_supported</name>
+      <description>JSON array containing a list of the Authentication Context Class References that this OP supports</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>subject_types_supported</name>
+      <description>JSON array containing a list of the Subject Identifier types that this OP supports</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>id_token_signing_alg_values_supported</name>
+      <description>JSON array containing a list of the JWS "alg" values supported by the OP for the ID Token</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>id_token_encryption_alg_values_supported</name>
+      <description>JSON array containing a list of the JWE "alg" values supported by the OP for the ID Token</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>id_token_encryption_enc_values_supported</name>
+      <description>JSON array containing a list of the JWE "enc" values supported by the OP for the ID Token</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>userinfo_signing_alg_values_supported</name>
+      <description>JSON array containing a list of the JWS "alg" values supported by the UserInfo Endpoint</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>userinfo_encryption_alg_values_supported</name>
+      <description>JSON array containing a list of the JWE "alg" values supported by the UserInfo Endpoint</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>userinfo_encryption_enc_values_supported</name>
+      <description>JSON array containing a list of the JWE "enc" values supported by the UserInfo Endpoint</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>request_object_signing_alg_values_supported</name>
+      <description>JSON array containing a list of the JWS "alg" values supported by the OP for Request Objects</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>request_object_encryption_alg_values_supported</name>
+      <description>JSON array containing a list of the JWE "alg" values supported by the OP for Request Objects</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>request_object_encryption_enc_values_supported</name>
+      <description>JSON array containing a list of the JWE "enc" values supported by the OP for Request Objects</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>display_values_supported</name>
+      <description>JSON array containing a list of the "display" parameter values that the OpenID Provider supports</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>claim_types_supported</name>
+      <description>JSON array containing a list of the Claim Types that the OpenID Provider supports</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>claims_supported</name>
+      <description>JSON array containing a list of the Claim Names of the Claims that the OpenID Provider MAY be able to supply values for</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>claims_locales_supported</name>
+      <description>Languages and scripts supported for values in Claims being returned, represented as a JSON array of BCP 47 <xref type="rfc" data="rfc5646"/> language tag values</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>claims_parameter_supported</name>
+      <description>Boolean value specifying whether the OP supports use of the "claims" parameter</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>request_parameter_supported</name>
+      <description>Boolean value specifying whether the OP supports use of the "request" parameter</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>request_uri_parameter_supported</name>
+      <description>Boolean value specifying whether the OP supports use of the "request_uri" parameter</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-04-28">
+      <name>require_request_uri_registration</name>
+      <description>Boolean value specifying whether the OP requires any "request_uri" values used to be pre-registered</description>
+      <controller><xref type="person" data="OpenID_Foundation_Artifact_Binding_Working_Group"/></controller>
+      <xref type="uri" data="https://openid.net/specs/openid-connect-discovery-1_0-29.html">OpenID Connect Discovery 1.0, Section 3</xref>
+    </record>
+    <record date="2020-09-08">
+      <name>require_signed_request_object</name>
+      <description>Indicates where authorization request needs
+        to be protected as Request Object and provided through either
+        "request" or "request_uri parameter".</description>
+      <controller>IETF</controller>
+      <xref type="draft" data="RFC-ietf-oauth-jwsreq-34">RFC-ietf-oauth-jwsreq-34, Section 10.5</xref>
+    </record>
+    <record date="2021-07-30">
+      <name>pushed_authorization_request_endpoint</name>
+      <description>URL of the authorization server's pushed
+        authorization request endpoint</description>
+      <controller>IESG</controller>
+      <xref type="draft" data="RFC-ietf-oauth-par-10">RFC-ietf-oauth-par-10, Section 5</xref>
+    </record>
+    <record date="2021-07-30">
+      <name>require_pushed_authorization_requests</name>
+      <description>Indicates whether the authorization server
+        accepts authorization requests only via PAR.</description>
+      <controller>IESG</controller>
+      <xref type="draft" data="RFC-ietf-oauth-par-10">RFC-ietf-oauth-par-10, Section 5</xref>
+    </record>
+  </registry>
+  
+  <people>
+    <person id="ETSI">
+      <name>ETSI</name>
+      <uri>mailto:pnns&amp;etsi.org</uri>
+      <updated>2019-07-22</updated>
+    </person>  
+    <person id="Kantara_UMA_WG">
+      <name>Kantara Initiative User-Managed Access Work Group</name>
+      <uri>mailto:staff&amp;kantarainitiative.org</uri>
+      <updated>2018-04-23</updated>
+    </person>
+    <person id="OpenID_Foundation_Artifact_Binding_Working_Group">
+      <name>OpenID Foundation Artifact Binding Working Group</name>
+      <uri>mailto:openid-specs-ab&amp;lists.openid.net</uri>
+      <updated>2015-12-03</updated>
+    </person>
+  </people>
+</registry>
