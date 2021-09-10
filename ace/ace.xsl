@@ -13,7 +13,6 @@
           <th>Name</th>
           <th>CBOR Value</th>
           <th>Reference</th>
-          <th>Original Specification</th>
         </tr>
       </xsl:when>
       <xsl:when test="@id = 'oauth-grant-type-cbor-mappings'">
@@ -32,24 +31,6 @@
           <th>Original Specification</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'oauth-parameters-cbor-mappings'">
-        <tr>
-          <th>Name</th>
-          <th>CBOR Key</th>
-          <th>Value Type</th>
-          <th>Reference</th>
-          <th>Original Specification</th>
-        </tr>
-      </xsl:when>
-      <xsl:when test="@id = 'oauth-token-instrospection-response-cbor-mappings'">
-        <tr>
-          <th>Name</th>
-          <th>CBOR Key</th>
-          <th>Value Type</th>
-          <th>Reference</th>
-          <th>Original Specification</th>
-        </tr>
-      </xsl:when>
       <xsl:when test="@id = 'ace-profiles'">
         <tr>
           <th>Name</th>
@@ -58,6 +39,14 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <th>Name</th>
+          <th>CBOR Key</th>
+          <th>Value Type</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
@@ -68,7 +57,6 @@
           <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
-          <td><xsl:apply-templates select="iana:original"/></td>
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'oauth-grant-type-cbor-mappings'">
@@ -87,24 +75,6 @@
           <td><xsl:apply-templates select="iana:original"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'oauth-parameters-cbor-mappings'">
-        <tr>
-          <td><xsl:apply-templates select="iana:name"/></td>
-          <td><xsl:apply-templates select="iana:value"/></td>
-          <td><xsl:apply-templates select="iana:type"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
-          <td><xsl:apply-templates select="iana:original"/></td>
-        </tr>
-      </xsl:when>
-      <xsl:when test="../@id = 'oauth-token-instrospection-response-cbor-mappings'">
-        <tr>
-          <td><xsl:apply-templates select="iana:name"/></td>
-          <td><xsl:apply-templates select="iana:value"/></td>
-          <td><xsl:apply-templates select="iana:type"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
-          <td><xsl:apply-templates select="iana:original"/></td>
-        </tr>
-      </xsl:when>
       <xsl:when test="../@id = 'ace-profiles'">
         <tr>
           <td><xsl:apply-templates select="iana:name"/></td>
@@ -113,6 +83,14 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <td><xsl:apply-templates select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:type"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
