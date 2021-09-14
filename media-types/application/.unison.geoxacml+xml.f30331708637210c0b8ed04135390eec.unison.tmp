@@ -1,0 +1,74 @@
+(registered 2017-07-18, last updated 2017-07-18)
+
+Media type name: application
+
+Media subtype name: geoxacml+xml
+
+Required parameters: N/A
+
+Optional parameters:
+charset: The charset parameter is the same as the charset parameter of application/xml [RFC 7303], including the same default (see section 3.2).
+version: The version parameter indicates the version of the GeoXACML specification. It can be used for content negotiation when dealing with clients and servers that support multiple GeoXACML versions. Its range is the range of published GeoXACML versions. As of this writing that is: 1.0 [OGC 11-017]. These and future version identifiers must follow the OGC patterns for versions [OGC 06-135]: the pattern includes the major and minor version numbers to the first decimal place only (e.g., 1.1). If this parameter is not specified by the client, the server is free to return any version it deems fit. If a client cannot or does not want to deal with that, it should explicitly specify a version.
+
+Encoding considerations: binary
+Same as for application/xml [RFC 7303], section 9.1
+
+Security considerations:
+Per their specification, application/geoxacml+xml typed objects do not contain executable content. However, these objects are XML-based, and thus they have all of the general security considerations presented in section 10 of [RFC 7303].
+GeoXACML [OGC 11-017] contains information whose integrity and authenticity is important - identity provider and service provider public keys and endpoint addresses, for example. Sections "9.2.1 Authentication" and "9.2.4 Policy Integrity" in XACML [oasis-access_control-xacml-2.0-core-spec-os] describe requirements and considerations for such authentication and integrity protection.
+To counter potential issues, the publisher may sign application/geoxacml+xml typed objects. Any such signature should be verified by the recipient of the data 
+- both as a valid signature, and as being the signature of the publisher. The XACML v3.0 XML Digital Signature Profile [xacml-3.0-dsig-v1.0] describes how to use XML-based digital signatures with XACML.
+Additionally, various of the possible publication protocols, for example HTTPS, offer means for ensuring the authenticity of the publishing party and for protecting the policy in transit.
+Because GeoXACML is an extension of XACML format, it inherits the security considerations of XACML as well as any other extensions that may be present.
+
+Interoperability considerations:
+GeoXACML uses different XML namespace URIs.
+1.0 uses the urn:oasis:names:tc:xacml:2.0:policy XML namespace URI for policies, and the urn:oasis:names:tc:xacml:2.0:context XML namespace URI for requests and responses.
+Signed GeoXACML has a wrapping SAML 2.0 assertion [saml-core-2.0-os], which uses the urn:oasis:names:tc:SAML:2.0:assertion namespace URI. Interoperability with SAML is defined by the SAML 2.0 Profile of XACML [XACML-SAML-v2.0] for all versions of XACML.
+
+Published specification:
+[OGC 11-107] Open Geospatial Consortium (OGC): Geospatial eXtensible Access Control Markup Language (GeoXACML) Version 1.0.1, 2011-05-12.
+http://portal.opengeospatial.org/files/?artifact_id=42734
+
+Applications which use this media:
+Potentially any application implementing or using GeoXACML, as well as those applications implementing or using specifications based on GeoXACML.
+
+Fragment identifier considerations:
+N/A
+
+Restrictions on usage:
+N/A
+
+Provisional registration? (standards tree only):
+N/A
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): In general, the same as for application/xml
+3. File extension(s): N/A
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+General Comments:
+This registration is made on behalf of the Open Geospatial Consortium Technical Committee (OGC TC). Please refer to the OGC TC website for current information on committee chairperson(s) and their contact addresses: http://www.opengeospatial.org.
+Comments and potential errata should be submitted on the web form located at: http://ogc.standardstracker.org
+
+Person to contact for further information:
+
+1. Name: Scott Simmons
+2. Email: ssimmons&opengeospatial.org
+
+Intended usage: Common
+The Geospatial eXtensible Access Control Markup Language (GeoXACML) [OGC 11-017] defines a geographic extension to the architecture and language for access control (authorization) as defined by the eXtensible Access Control Markup Language (XACML). The language defines the data type geometry and geographic functions as defined in [ISO 19107] that enable policies with geo-specific functions. Requests, responses, and policies are based on XACML schemas. Clients send a request to a server to query whether a given action should be allowed. The server evaluates the request against the available policies and returns a response. The policies implement the organization's access control requirements.
+
+Author/Change controller: Open Geospatial Consortium
+
+References:
+[oasis-access_control-xacml-2.0-core-spec-os] OASIS: eXtensible Access Control Markup Language (XACML) Version 2.0, 1 Feb 2005 http://docs.oasis-open.org/xacml/2.0/access_control-xacml-2.0-core-specos.pdf
+
+[xacml-3.0-dsig-v1.0] OASIS: XACML v3.0 XML Digital Signature Profile Version 1.0. Edited by Erik Rissanen. 18 May 2014. OASIS Committee Specification 02. http://docs.oasis-open.org/xacml/3.0/dsig/v1.0/cs02/xacml-3.0-dsig-v1.0-cs02.html. Latest version: http://docs.oasis-open.org/xacml/3.0/dsig/v1.0/xacml-3.0-dsig-v1.0.html
+
+[saml-core-2.0-os] OASIS: Assertions and Protocols for the OASIS Security Assertion Markup Language (SAML) V2.0. 15 March 2005. http://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf
+
+[XACML-SAML-v2.0] OASIS: XACML SAML Profile Version 2.0. Edited by Erik Rissanen. 17 April 2014. OASIS Committee Specification Draft 05 / Public Review Draft 04. http://docs.oasis-open.org/xacml/xacml-saml-profile/v2.0/csprd04/xacml-saml-profile-v2.0-csprd04.html. Latest version: http://docs.oasis-open.org/xacml/xacml-saml-profile/v2.0/xacml-saml-profile-v2.0.html

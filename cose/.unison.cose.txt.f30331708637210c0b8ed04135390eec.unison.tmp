@@ -1,0 +1,526 @@
+                                                      CBOR Object Signing and Encryption (COSE)
+
+   Created
+           2017-01-11
+
+   Last Updated
+           2021-08-12
+
+   Available Formats
+           [IMG]
+           XML [IMG]
+           HTML [IMG]
+           Plain text
+
+   Registries included below
+
+     * COSE Header Parameters
+     * COSE Header Algorithm Parameters
+     * COSE Algorithms
+     * COSE Key Common Parameters
+     * COSE Key Type Parameters
+     * COSE Key Types
+     * COSE Elliptic Curves
+
+COSE Header Parameters
+
+   Expert(s)
+
+ Francesca Palombini, Matt Miller, Justin Richer, Carsten Bormann
+
+   Reference
+           [RFC-ietf-cose-rfc8152bis-struct-15]
+
+   Available Formats
+           [IMG]
+           CSV
+
+                    Range                                    Registration Procedures
+   Integer values in the range -1 to -65536 delegated to the COSE Header Algorithm Parameters registry
+   Integer values between 1 and 255         Standards Action With Expert Review
+   Integer values from 256 to 65535         Specification Required
+   Integer values greater than 65535        Expert Review
+   Strings of length 1                      Standards Action With Expert Review
+   Strings of length 2                      Specification Required
+   Strings of length greater than 2         Expert Review
+
+                 Name                 Label       Value Type          Value Registry          Description                   Reference
+   Reserved for Private Use         less than                                                                  [RFC-ietf-cose-rfc8152bis-struct-15]
+                                    -65536
+   delegated to the COSE Header     -65536 to
+   Algorithm Parameters registry    -1
+   Reserved                         0                                                                          [RFC-ietf-cose-rfc8152bis-struct-15]
+   alg                              1         int / tstr          COSE Algorithms        Cryptographic         [RFC-ietf-cose-rfc8152bis-struct-15]
+                                                                  registry               algorithm to use
+   crit                             2         [+ label]           COSE Header Parameters Critical headers to   [RFC-ietf-cose-rfc8152bis-struct-15]
+                                                                  registry               be understood
+                                                                  [COAP Content-Formats] Content type of the
+   content type                     3         tstr / uint         or [Media Types]       payload               [RFC-ietf-cose-rfc8152bis-struct-15]
+                                                                  registry
+   kid                              4         bstr                                       Key identifier        [RFC-ietf-cose-rfc8152bis-struct-15]
+   IV                               5         bstr                                       Full Initialization   [RFC-ietf-cose-rfc8152bis-struct-15]
+                                                                                         Vector
+   Partial IV                       6         bstr                                       Partial               [RFC-ietf-cose-rfc8152bis-struct-15]
+                                                                                         Initialization Vector
+   counter signature                7         COSE_Signature / [+                        CBOR-encoded          [RFC8152]
+                                              COSE_Signature ]                           signature structure
+   Unassigned                       8
+                                                                                         Counter signature
+   CounterSignature0                9         bstr                                       with implied signer   [RFC8152]
+                                                                                         and headers
+                                                                                         Identifies the
+   kid context                      10        bstr                                       context for the key   [RFC8613, Section 5.1]
+                                                                                         identifier
+   Unassigned                       11-31
+   x5bag (TEMPORARY - registered                                                         An unordered bag of
+   2019-08-20, extension registered 32        COSE_X509                                  X.509 certificates    [draft-ietf-cose-x509-08]
+   2021-08-12, expires 2022-08-20)
+   x5chain (TEMPORARY - registered                                                       An ordered chain of
+   2019-08-20, extension registered 33        COSE_X509                                  X.509 certificates    [draft-ietf-cose-x509-08]
+   2021-08-12, expires 2022-08-20)
+   x5t (TEMPORARY - registered                                                           Hash of an X.509
+   2019-08-20, extension registered 34        COSE_CertHash                              certificate           [draft-ietf-cose-x509-08]
+   2021-08-12, expires 2022-08-20)
+   x5u (TEMPORARY - registered                                                           URI pointing to an
+   2019-08-20, extension registered 35        uri                                        X.509 certificate     [draft-ietf-cose-x509-08]
+   2021-08-12, expires 2022-08-20)
+   Unassigned                       36-255
+   CUPHNonce                        256       bstr                                       Challenge Nonce       [FIDO Device Onboard Specification]
+   CUPHOwnerPubKey                  257       array                                      Public Key            [FIDO Device Onboard Specification]
+
+COSE Header Algorithm Parameters
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Göran Selander, Derek Atkins, Sean Turner
+
+   Reference
+           [RFC-ietf-cose-rfc8152bis-algs-12]
+
+   Available Formats
+           [IMG]
+           CSV
+
+        Name                         Algorithm                        Label        Type         Description                  Reference
+   Unassigned                                                     -65536 to -27
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
+                   direct+HKDF-AES-128, direct+HKDF-AES-256,
+                   ECDH-ES+HKDF-256, ECDH-ES+HKDF-512,                                     Party V other
+   PartyV other    ECDH-SS+HKDF-256, ECDH-SS+HKDF-512,            -26           bstr       provided information  [RFC-ietf-cose-rfc8152bis-algs-12]
+                   ECDH-ES+A128KW, ECDH-ES+A192KW,
+                   ECDH-ES+A256KW, ECDH-SS+A128KW,
+                   ECDH-SS+A192KW, ECDH-SS+A256KW
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
+                   direct+HKDF-AES-128, direct+HKDF-AES-256,
+                   ECDH-ES+HKDF-256, ECDH-ES+HKDF-512,                                     Party V provided
+   PartyV nonce    ECDH-SS+HKDF-256, ECDH-SS+HKDF-512,            -25           bstr / int nonce                 [RFC-ietf-cose-rfc8152bis-algs-12]
+                   ECDH-ES+A128KW, ECDH-ES+A192KW,
+                   ECDH-ES+A256KW, ECDH-SS+A128KW,
+                   ECDH-SS+A192KW, ECDH-SS+A256KW
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
+                   direct+HKDF-AES-128, direct+HKDF-AES-256,
+                   ECDH-ES+HKDF-256, ECDH-ES+HKDF-512,                                     Party V identity
+   PartyV identity ECDH-SS+HKDF-256, ECDH-SS+HKDF-512,            -24           bstr       information           [RFC-ietf-cose-rfc8152bis-algs-12]
+                   ECDH-ES+A128KW, ECDH-ES+A192KW,
+                   ECDH-ES+A256KW, ECDH-SS+A128KW,
+                   ECDH-SS+A192KW, ECDH-SS+A256KW
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
+                   direct+HKDF-AES-128, direct+HKDF-AES-256,
+                   ECDH-ES+HKDF-256, ECDH-ES+HKDF-512,                                     Party U other
+   PartyU other    ECDH-SS+HKDF-256, ECDH-SS+HKDF-512,            -23           bstr       provided information  [RFC-ietf-cose-rfc8152bis-algs-12]
+                   ECDH-ES+A128KW, ECDH-ES+A192KW,
+                   ECDH-ES+A256KW, ECDH-SS+A128KW,
+                   ECDH-SS+A192KW, ECDH-SS+A256KW
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
+                   direct+HKDF-AES-128, direct+HKDF-AES-256,
+                   ECDH-ES+HKDF-256, ECDH-ES+HKDF-512,                                     Party U provided
+   PartyU nonce    ECDH-SS+HKDF-256, ECDH-SS+HKDF-512,            -22           bstr / int nonce                 [RFC-ietf-cose-rfc8152bis-algs-12]
+                   ECDH-ES+A128KW, ECDH-ES+A192KW,
+                   ECDH-ES+A256KW, ECDH-SS+A128KW,
+                   ECDH-SS+A192KW, ECDH-SS+A256KW
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
+                   direct+HKDF-AES-128, direct+HKDF-AES-256,
+                   ECDH-ES+HKDF-256, ECDH-ES+HKDF-512,                                     Party U identity
+   PartyU identity ECDH-SS+HKDF-256, ECDH-SS+HKDF-512,            -21           bstr       information           [RFC-ietf-cose-rfc8152bis-algs-12]
+                   ECDH-ES+A128KW, ECDH-ES+A192KW,
+                   ECDH-ES+A256KW, ECDH-SS+A128KW,
+                   ECDH-SS+A192KW, ECDH-SS+A256KW
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
+                   direct+HKDF-AES-128, direct+HKDF-AES-256,
+                   ECDH-ES+HKDF-256, ECDH-ES+HKDF-512,
+   salt            ECDH-SS+HKDF-256, ECDH-SS+HKDF-512,            -20           bstr       Random salt           [RFC-ietf-cose-rfc8152bis-algs-12]
+                   ECDH-ES+A128KW, ECDH-ES+A192KW,
+                   ECDH-ES+A256KW, ECDH-SS+A128KW,
+                   ECDH-SS+A192KW, ECDH-SS+A256KW
+   Unassigned                                                     -19 to -4
+                   ECDH-SS+HKDF-256, ECDH-SS+HKDF-512,                                     Static public key
+   static key id   ECDH-SS+A128KW, ECDH-SS+A192KW, ECDH-SS+A256KW -3            bstr       identifier for the    [RFC-ietf-cose-rfc8152bis-algs-12]
+                                                                                           sender
+   static key      ECDH-SS+HKDF-256, ECDH-SS+HKDF-512,            -2            COSE_Key   Static public key for [RFC-ietf-cose-rfc8152bis-algs-12]
+                   ECDH-SS+A128KW, ECDH-SS+A192KW, ECDH-SS+A256KW                          the sender
+   ephemeral key   ECDH-ES+HKDF-256, ECDH-ES+HKDF-512,            -1            COSE_Key   Ephemeral public key  [RFC-ietf-cose-rfc8152bis-algs-12]
+                   ECDH-ES+A128KW, ECDH-ES+A192KW, ECDH-ES+A256KW                          for the sender
+
+COSE Algorithms
+
+   Expert(s)
+
+ Göran Selander, Derek Atkins, Sean Turner
+
+   Reference
+           [RFC-ietf-cose-rfc8152bis-algs-12][RFC-ietf-cose-hash-algs-09]
+
+   Available Formats
+           [IMG]
+           CSV
+
+                  Range                      Registration Procedures
+   Integer values from -65536 to -257  Specification Required
+   Integer values between -256 and 255 Standards Action With Expert Review
+   Integer values from 256 to 65535    Specification Required
+   Integer values greater than 65535   Expert Review
+   Strings of length 1                 Standards Action With Expert Review
+   Strings of length 2                 Specification Required
+   Strings of length greater than 2    Expert Review
+
+           Name         Value     Description    Capabilities   Change                             Reference                            Recommended
+                                                              Controller
+   Reserved for Private less
+   Use                  than                                             [RFC-ietf-cose-rfc8152bis-algs-12]                             No
+                        -65536
+   Unassigned           -65536
+   RS1                  -65535 RSASSA-PKCS1-v1_5 [kty]        IESG       [RFC8812][RFC-ietf-cose-rfc8152bis-algs-12]                    Deprecated
+                               using SHA-1
+                        -65534
+   Unassigned           to
+                        -261
+   WalnutDSA            -260   WalnutDSA         [kty]                   [RFC9021]                                                      No
+                               signature
+   RS512                -259   RSASSA-PKCS1-v1_5 [kty]        IESG       [RFC8812][RFC-ietf-cose-rfc8152bis-algs-12]                    No
+                               using SHA-512
+   RS384                -258   RSASSA-PKCS1-v1_5 [kty]        IESG       [RFC8812][RFC-ietf-cose-rfc8152bis-algs-12]                    No
+                               using SHA-384
+   RS256                -257   RSASSA-PKCS1-v1_5 [kty]        IESG       [RFC8812][RFC-ietf-cose-rfc8152bis-algs-12]                    No
+                               using SHA-256
+   Unassigned           -256
+                        to -48
+                               ECDSA using
+   ES256K               -47    secp256k1 curve   [kty]        IESG       [RFC8812][RFC-ietf-cose-rfc8152bis-algs-12]                    No
+                               and SHA-256
+                               HSS/LMS
+   HSS-LMS              -46    hash-based        [kty]                   [RFC8778][RFC-ietf-cose-rfc8152bis-algs-12]                    Yes
+                               digital signature
+   SHAKE256             -45    SHAKE-256 512-bit [kty]                   [RFC-ietf-cose-hash-algs-09][RFC-ietf-cose-rfc8152bis-algs-12] Yes
+                               Hash Value
+   SHA-512              -44    SHA-2 512-bit     [kty]                   [RFC-ietf-cose-hash-algs-09][RFC-ietf-cose-rfc8152bis-algs-12] Yes
+                               Hash
+   SHA-384              -43    SHA-2 384-bit     [kty]                   [RFC-ietf-cose-hash-algs-09][RFC-ietf-cose-rfc8152bis-algs-12] Yes
+                               Hash
+   RSAES-OAEP w/        -42    RSAES-OAEP w/     [kty]                   [RFC8230][RFC-ietf-cose-rfc8152bis-algs-12]                    Yes
+   SHA-512                     SHA-512
+   RSAES-OAEP w/        -41    RSAES-OAEP w/     [kty]                   [RFC8230][RFC-ietf-cose-rfc8152bis-algs-12]                    Yes
+   SHA-256                     SHA-256
+   RSAES-OAEP w/ RFC           RSAES-OAEP w/
+   8017 default         -40    SHA-1             [kty]                   [RFC8230][RFC-ietf-cose-rfc8152bis-algs-12]                    Yes
+   parameters
+   PS512                -39    RSASSA-PSS w/     [kty]                   [RFC8230][RFC-ietf-cose-rfc8152bis-algs-12]                    Yes
+                               SHA-512
+   PS384                -38    RSASSA-PSS w/     [kty]                   [RFC8230][RFC-ietf-cose-rfc8152bis-algs-12]                    Yes
+                               SHA-384
+   PS256                -37    RSASSA-PSS w/     [kty]                   [RFC8230][RFC-ietf-cose-rfc8152bis-algs-12]                    Yes
+                               SHA-256
+   ES512                -36    ECDSA w/ SHA-512  [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+   ES384                -35    ECDSA w/ SHA-384  [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               ECDH SS w/ Concat
+   ECDH-SS + A256KW     -34    KDF and AES Key   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               Wrap w/ 256-bit
+                               key
+                               ECDH SS w/ Concat
+   ECDH-SS + A192KW     -33    KDF and AES Key   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               Wrap w/ 192-bit
+                               key
+                               ECDH SS w/ Concat
+   ECDH-SS + A128KW     -32    KDF and AES Key   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               Wrap w/ 128-bit
+                               key
+                               ECDH ES w/ Concat
+   ECDH-ES + A256KW     -31    KDF and AES Key   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               Wrap w/ 256-bit
+                               key
+                               ECDH ES w/ Concat
+   ECDH-ES + A192KW     -30    KDF and AES Key   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               Wrap w/ 192-bit
+                               key
+                               ECDH ES w/ Concat
+   ECDH-ES + A128KW     -29    KDF and AES Key   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               Wrap w/ 128-bit
+                               key
+                               ECDH SS w/ HKDF -
+   ECDH-SS + HKDF-512   -28    generate key      [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               directly
+                               ECDH SS w/ HKDF -
+   ECDH-SS + HKDF-256   -27    generate key      [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               directly
+                               ECDH ES w/ HKDF -
+   ECDH-ES + HKDF-512   -26    generate key      [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               directly
+                               ECDH ES w/ HKDF -
+   ECDH-ES + HKDF-256   -25    generate key      [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               directly
+   Unassigned           -24 to
+                        -19
+   SHAKE128             -18    SHAKE-128 256-bit [kty]                   [RFC-ietf-cose-hash-algs-09][RFC-ietf-cose-rfc8152bis-algs-12] Yes
+                               Hash Value
+                               SHA-2 512-bit
+   SHA-512/256          -17    Hash truncated to [kty]                   [RFC-ietf-cose-hash-algs-09][RFC-ietf-cose-rfc8152bis-algs-12] Yes
+                               256-bits
+   SHA-256              -16    SHA-2 256-bit     [kty]                   [RFC-ietf-cose-hash-algs-09][RFC-ietf-cose-rfc8152bis-algs-12] Yes
+                               Hash
+                               SHA-2 256-bit
+   SHA-256/64           -15    Hash truncated to [kty]                   [RFC-ietf-cose-hash-algs-09][RFC-ietf-cose-rfc8152bis-algs-12] Filter Only
+                               64-bits
+   SHA-1                -14    SHA-1 Hash        [kty]                   [RFC-ietf-cose-hash-algs-09][RFC-ietf-cose-rfc8152bis-algs-12] Filter Only
+                               Shared secret w/
+   direct+HKDF-AES-256  -13    AES-MAC 256-bit   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               key
+                               Shared secret w/
+   direct+HKDF-AES-128  -12    AES-MAC 128-bit   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               key
+   direct+HKDF-SHA-512  -11    Shared secret w/  [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               HKDF and SHA-512
+   direct+HKDF-SHA-256  -10    Shared secret w/  [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               HKDF and SHA-256
+   Unassigned           -9
+   EdDSA                -8     EdDSA             [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+   ES256                -7     ECDSA w/ SHA-256  [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+   direct               -6     Direct use of CEK [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+   A256KW               -5     AES Key Wrap w/   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               256-bit key
+   A192KW               -4     AES Key Wrap w/   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               192-bit key
+   A128KW               -3     AES Key Wrap w/   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               128-bit key
+   Unassigned           -2 to
+                        -1
+   Reserved             0                                                [RFC-ietf-cose-rfc8152bis-algs-12]                             No
+                               AES-GCM mode w/
+   A128GCM              1      128-bit key,      [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               128-bit tag
+                               AES-GCM mode w/
+   A192GCM              2      192-bit key,      [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               128-bit tag
+                               AES-GCM mode w/
+   A256GCM              3      256-bit key,      [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               128-bit tag
+                               HMAC w/ SHA-256
+   HMAC 256/64          4      truncated to 64   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               bits
+   HMAC 256/256         5      HMAC w/ SHA-256   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+   HMAC 384/384         6      HMAC w/ SHA-384   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+   HMAC 512/512         7      HMAC w/ SHA-512   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+   Unassigned           8-9
+                               AES-CCM mode
+   AES-CCM-16-64-128    10     128-bit key,      [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               64-bit tag,
+                               13-byte nonce
+                               AES-CCM mode
+   AES-CCM-16-64-256    11     256-bit key,      [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               64-bit tag,
+                               13-byte nonce
+                               AES-CCM mode
+   AES-CCM-64-64-128    12     128-bit key,      [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               64-bit tag,
+                               7-byte nonce
+                               AES-CCM mode
+   AES-CCM-64-64-256    13     256-bit key,      [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               64-bit tag,
+                               7-byte nonce
+   AES-MAC 128/64       14     AES-MAC 128-bit   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               key, 64-bit tag
+   AES-MAC 256/64       15     AES-MAC 256-bit   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               key, 64-bit tag
+   Unassigned           16-23
+                               ChaCha20/Poly1305
+   ChaCha20/Poly1305    24     w/ 256-bit key,   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               128-bit tag
+   AES-MAC 128/128      25     AES-MAC 128-bit   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               key, 128-bit tag
+   AES-MAC 256/128      26     AES-MAC 256-bit   [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               key, 128-bit tag
+   Unassigned           27-29
+                               AES-CCM mode
+   AES-CCM-16-128-128   30     128-bit key,      [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               128-bit tag,
+                               13-byte nonce
+                               AES-CCM mode
+   AES-CCM-16-128-256   31     256-bit key,      [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               128-bit tag,
+                               13-byte nonce
+                               AES-CCM mode
+   AES-CCM-64-128-128   32     128-bit key,      [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               128-bit tag,
+                               7-byte nonce
+                               AES-CCM mode
+   AES-CCM-64-128-256   33     256-bit key,      [kty]                   [RFC-ietf-cose-rfc8152bis-algs-12]                             Yes
+                               128-bit tag,
+                               7-byte nonce
+                               For doing IV
+   IV-GENERATION        34     generation for                            [RFC-ietf-cose-rfc8152bis-algs-12]                             No
+                               symmetric
+                               algorithms.
+
+COSE Key Common Parameters
+
+   Expert(s)
+
+ Francesca Palombini, Matt Miller, Justin Richer, Carsten Bormann
+
+   Reference
+           [RFC-ietf-cose-rfc8152bis-struct-15]
+
+   Available Formats
+           [IMG]
+           CSV
+
+                    Range                                                           Registration Procedures
+   Integer values in the range -65536 to -1 used for key parameters specific to a single algorithm delegated to the COSE Key Type Parameters
+                                            registry
+   Integer values between 0 and 255         Standards Action With Expert Review
+   Integer values from 256 to 65535         Specification Required
+   Integer values greater than 65535        Expert Review
+   Strings of length 1                      Standards Action With Expert Review
+   Strings of length 2                      Specification Required
+   Strings of length greater than 2         Expert Review
+
+                  Name                    Label       CBOR Type    Value Registry          Description                      Reference
+   Reserved for Private Use            less than                                                               [RFC-ietf-cose-rfc8152bis-struct-15]
+                                       -65536
+   used for key parameters specific to
+   a single algorithm delegated to the -65536 to -1                                                            [RFC-ietf-cose-rfc8152bis-struct-15]
+   COSE Key Type Parameters registry
+   Reserved                            0                                                                       [RFC-ietf-cose-rfc8152bis-struct-15]
+   kty                                 1            tstr / int     COSE Key Types  Identification of the key   [RFC-ietf-cose-rfc8152bis-struct-15]
+                                                                                   type
+   kid                                 2            bstr                           Key identification value -  [RFC-ietf-cose-rfc8152bis-struct-15]
+                                                                                   match to kid in message
+   alg                                 3            tstr / int     COSE Algorithms Key usage restriction to    [RFC-ietf-cose-rfc8152bis-struct-15]
+                                                                                   this algorithm
+   key_ops                             4            [+ (tstr/int)]                 Restrict set of permissible [RFC-ietf-cose-rfc8152bis-struct-15]
+                                                                                   operations
+   Base IV                             5            bstr                           Base IV to be XORed with    [RFC-ietf-cose-rfc8152bis-struct-15]
+                                                                                   Partial IVs
+
+COSE Key Type Parameters
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Göran Selander, Derek Atkins, Sean Turner
+
+   Reference
+           [RFC-ietf-cose-rfc8152bis-algs-12]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Key Type     Name      Label        CBOR Type                               Description                                   Reference
+   1        crv           -1    int / tstr               EC identifier - Taken from the "COSE Elliptic Curves"   [RFC-ietf-cose-rfc8152bis-algs-12]
+                                                         registry
+   1        x             -2    bstr                     x-coordinate                                            [RFC-ietf-cose-rfc8152bis-algs-12]
+   1        d             -4    bstr                     Private key                                             [RFC-ietf-cose-rfc8152bis-algs-12]
+   2        crv           -1    int / tstr               EC identifier - Taken from the "COSE Elliptic Curves"   [RFC-ietf-cose-rfc8152bis-algs-12]
+                                                         registry
+   2        x             -2    bstr                     Public Key                                              [RFC-ietf-cose-rfc8152bis-algs-12]
+   2        y             -3    bstr / bool              y-coordinate                                            [RFC-ietf-cose-rfc8152bis-algs-12]
+   2        d             -4    bstr                     Private key                                             [RFC-ietf-cose-rfc8152bis-algs-12]
+   3        n             -1    bstr                     the RSA modulus n                                       [RFC8230]
+   3        e             -2    bstr                     the RSA public exponent e                               [RFC8230]
+   3        d             -3    bstr                     the RSA private exponent d                              [RFC8230]
+   3        p             -4    bstr                     the prime factor p of n                                 [RFC8230]
+   3        q             -5    bstr                     the prime factor q of n                                 [RFC8230]
+   3        dP            -6    bstr                     dP is d mod (p - 1)                                     [RFC8230]
+   3        dQ            -7    bstr                     dQ is d mod (q - 1)                                     [RFC8230]
+   3        qInv          -8    bstr                     qInv is the CRT coefficient q^(-1) mod p                [RFC8230]
+   3        other         -9    array                    other prime infos, an array                             [RFC8230]
+   3        r_i           -10   bstr                     a prime factor r_i of n, where i >= 3                   [RFC8230]
+   3        d_i           -11   bstr                     d_i = d mod (r_i - 1)                                   [RFC8230]
+   3        t_i           -12   bstr                     the CRT coefficient t_i = (r_1 * r_2 * ... *            [RFC8230]
+                                                         r_(i-1))^(-1) mod r_i
+   4        k             -1    bstr                     Key Value                                               [RFC-ietf-cose-rfc8152bis-algs-12]
+   5        pub           -1    bstr                     Public key for HSS/LMS hash-based digital signature     [RFC8778]
+   6        N             -1    uint                     Group and Matrix (NxN) size                             [RFC9021]
+   6        q             -2    uint                     Finite field F_q                                        [RFC9021]
+   6        t-values      -3    array (of uint)          List of T-values, entries in F_q                        [RFC9021]
+   6        matrix 1      -4    array (of array of uint) NxN Matrix of entries in F_q in column-major form       [RFC9021]
+   6        permutation 1 -5    array (of uint)          Permutation associated with matrix 1                    [RFC9021]
+   6        matrix 2      -6    array (of array of uint) NxN Matrix of entries in F_q in column-major form       [RFC9021]
+
+COSE Key Types
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Göran Selander, Derek Atkins, Sean Turner
+
+   Reference
+           [RFC-ietf-cose-rfc8152bis-algs-12]
+
+   Available Formats
+           [IMG]
+           CSV
+
+     Name    Value                     Description                           Capabilities                        Reference
+   Reserved  0     This value is reserved                                                       [RFC-ietf-cose-rfc8152bis-algs-12]
+   OKP       1     Octet Key Pair                                      [kty(1), crv]            [RFC-ietf-cose-rfc8152bis-algs-12]
+   EC2       2     Elliptic Curve Keys w/ x- and y-coordinate pair     [kty(2), crv]            [RFC-ietf-cose-rfc8152bis-algs-12]
+   RSA       3     RSA Key                                             [kty(3)]                 [RFC8230][RFC-ietf-cose-rfc8152bis-algs-12]
+   Symmetric 4     Symmetric Keys                                      [kty(4)]                 [RFC-ietf-cose-rfc8152bis-algs-12]
+   HSS-LMS   5     Public key for HSS/LMS hash-based digital signature [kty(5), hash algorithm] [RFC8778][RFC-ietf-cose-rfc8152bis-algs-12]
+   WalnutDSA 6     WalnutDSA public key                                [kty(6)]                 [RFC9021]
+
+COSE Elliptic Curves
+
+   Expert(s)
+
+ Göran Selander, Derek Atkins, Sean Turner
+
+   Reference
+           [RFC-ietf-cose-rfc8152bis-algs-12]
+
+   Available Formats
+           [IMG]
+           CSV
+
+                 Range                     Registration Procedures
+   Integer values -65536 to -257     Specification Required
+   Integer values -256 to 255        Standards Action With Expert Review
+   Integer values 256 to 65535       Specification Required
+   Integer values greater than 65535 Expert Review
+
+           Name                Value        Key Type          Description          Change Controller             Reference              Recommended
+   Reserved for Private Integer values less                                                          [RFC-ietf-cose-rfc8152bis-algs-12] No
+   Use                  than -65536
+   Unassigned           -65536 to -1
+   Reserved             0                                                                            [RFC-ietf-cose-rfc8152bis-algs-12] No
+   P-256                1                   EC2      NIST P-256 also known as                        [RFC-ietf-cose-rfc8152bis-algs-12] Yes
+                                                     secp256r1
+   P-384                2                   EC2      NIST P-384 also known as                        [RFC-ietf-cose-rfc8152bis-algs-12] Yes
+                                                     secp384r1
+   P-521                3                   EC2      NIST P-521 also known as                        [RFC-ietf-cose-rfc8152bis-algs-12] Yes
+                                                     secp521r1
+   X25519               4                   OKP      X25519 for use w/ ECDH only                     [RFC-ietf-cose-rfc8152bis-algs-12] Yes
+   X448                 5                   OKP      X448 for use w/ ECDH only                       [RFC-ietf-cose-rfc8152bis-algs-12] Yes
+   Ed25519              6                   OKP      Ed25519 for use w/ EdDSA only                   [RFC-ietf-cose-rfc8152bis-algs-12] Yes
+   Ed448                7                   OKP      Ed448 for use w/ EdDSA only                     [RFC-ietf-cose-rfc8152bis-algs-12] Yes
+   secp256k1            8                   EC2      SECG secp256k1 curve          IESG              [RFC8812]                          No
