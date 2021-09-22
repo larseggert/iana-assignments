@@ -1,0 +1,222 @@
+Type name:  video
+
+Subtype name:  jxsv
+
+Clock rate:  90000
+
+Required parameters:
+
+  rate:  The RTP timestamp clock rate.  Applications using this
+     payload format SHALL use a value of 90000.
+
+  packetmode:  This parameter specifies the configured packetization
+     mode as defined by the pacKetization mode (K) bit in the
+     payload header of Section 4.3 of RFC-ietf-payload-rtp-jpegxs-18.  
+     This value SHALL be equal to the K bit value configured in the 
+     RTP stream (i.e. 0 for codestream or 1 for slice).
+
+Optional parameters:
+
+  transmode:  This parameter specifies the configured transmission
+     mode as defined by the Transmission mode (T) bit in the payload
+     header of Section 4.3 of RFC-ietf-payload-rtp-jpegxs-18.  If 
+     specified, this value SHALL be equal to the T bit value 
+     configured in the RTP stream (i.e. 0 for out-of-order-allowed 
+     or 1 for sequential-only).  If not specified, a value 1 
+     (sequential-only) SHALL be assumed and the T bit SHALL be set 
+     to 1.
+
+  profile:  The JPEG XS profile [ISO21122-2] in use.  Any white
+     space in the profile name SHALL be omitted.  Examples of valid
+     profile names are 'Main444.12' or 'High444.12'.
+
+  level:  The JPEG XS level [ISO21122-2] in use.  Any white space in
+     the level name SHALL be omitted.  Examples of valid levels are
+     '2k-1' or '4k-2'.
+
+  sublevel:  The JPEG XS sublevel [ISO21122-2] in use.  Any white
+     space in the sublevel name SHALL be omitted.  Examples of valid
+     sublevels are 'Sublev3bpp' or 'Sublev6bpp'.
+
+  depth:  Determines the number of bits per sample.  This is an
+     integer with typical values including 8, 10, 12, and 16.
+
+  width:  Determines the number of pixels per line.  This is an
+     integer between 1 and 32767 inclusive.
+
+  height:  Determines the number of lines per video frame.  This is
+     an integer between 1 and 32767 inclusive.
+
+  exactframerate:  Signals the video frame rate in frames per
+     second.  Integer frame rates SHALL be signaled as a single
+     decimal number (e.g. "25") whilst non-integer frame rates SHALL
+     be signaled as a ratio of two integer decimal numbers separated
+     by a "forward-slash" character (e.g. "30000/1001"), utilizing
+     the numerically smallest numerator value possible.
+
+  interlace:  If this parameter name is present, it indicates that
+     the video is interlaced, or that the video is Progressive
+     segmented Frame (PsF).  If this parameter name is not present,
+     the progressive video format SHALL be assumed.
+
+  segmented:  If this parameter name is present, and the interlace
+     parameter name is also present, then the video is a Progressive
+     segmented Frame (PsF).  Signaling of this parameter without the
+     interlace parameter is forbidden.
+
+  sampling:  Signals the color difference signal sub-sampling
+     structure.
+
+     Signals utilizing the non-constant luminance Y'C'B C'R signal
+     format of Recommendation ITU-R BT.601-7, Recommendation ITU-R
+     BT.709-6, Recommendation ITU-R BT.2020-2, or Recommendation
+     ITU-R BT.2100 SHALL use the appropriate one of the following
+     values for the Media Type Parameter "sampling":
+
+        YCbCr-4:4:4    (4:4:4 sampling)
+        YCbCr-4:2:2    (4:2:2 sampling)
+        YCbCr-4:2:0    (4:2:0 sampling)
+
+     Signals utilizing the Constant Luminance Y'C C'BC C'RC signal
+     format of Recommendation ITU-R BT.2020-2 SHALL use the
+     appropriate one of the following values for the Media Type
+     Parameter "sampling":
+
+        CLYCbCr-4:4:4  (4:4:4 sampling)
+        CLYCbCr-4:2:2  (4:2:2 sampling)
+        CLYCbCr-4:2:0  (4:2:0 sampling)
+
+     Signals utilizing the constant intensity I CT CP signal format
+     of Recommendation ITU-R BT.2100 SHALL use the appropriate one
+     of the following values for the Media Type Parameter
+     "sampling":
+
+        ICtCp-4:4:4    (4:4:4 sampling)
+        ICtCp-4:2:2    (4:2:2 sampling)
+        ICtCp-4:2:0    (4:2:0 sampling)
+
+     Signals utilizing the 4:4:4 R' G' B' or RGB signal format (such
+     as that of Recommendation ITU-R BT.601, Recommendation ITU-R
+     BT.709, Recommendation ITU-R BT.2020, Recommendation ITU-R
+     BT.2100, SMPTE ST 2065-1 or ST 2065-3) SHALL use the following
+     value for the Media Type Parameter sampling.
+
+        RGB            (RGB or R' G' B' samples)
+
+     Signals utilizing the 4:4:4 X' Y' Z' signal format (such as
+     defined in SMPTE ST 428-1) SHALL use the following value for
+     the Media Type Parameter sampling.
+
+        XYZ            (X' Y' Z' samples)
+
+     Key signals as defined in SMPTE RP 157 SHALL use the value key
+     for the Media Type Parameter sampling.  The Key signal is
+     represented as a single component.
+
+        KEY            (Samples of the key signal)
+
+     Signals utilizing a color sub-sampling other than what is
+     defined here SHALL use the following value for the Media Type
+     Parameter sampling.
+
+        UNSPECIFIED    (Sampling signaled by the payload.)
+
+  colorimetry:  Specifies the system colorimetry used by the image
+     samples.  Valid values and their specification are:
+
+        BT601-5      ITU-R Recommendation BT.601-5.
+        BT709-2      ITU-R Recommendation BT.709-2.
+        SMPTE240M    SMPTE ST 240M.
+        BT601        ITU-R Recommendation BT.601-7.
+        BT709        ITU-R Recommendation BT.709-6.
+        BT2020       ITU-R Recommendation BT.2020-2.
+        BT2100       ITU-R Recommendation BT.2100
+                     Table 2 titled "System colorimetry".
+        ST2065-1     SMPTE ST 2065-1 Academy Color Encoding
+                     Specification (ACES).
+        ST2065-3     SMPTE ST 2065-3 Academy Density Exchange
+                     Encoding (ADX).
+        XYZ          ISO/IEC 11664-1, section titled
+                     "1931 Observer".
+        UNSPECIFIED  Colorimetry is signaled in the payload by
+                     the color specification box of [ISO21122-3],
+                     or it must be manually coordinated between
+                     sender and receiver.
+
+     Signals utilizing the Recommendation ITU-R BT.2100 colorimetry
+     SHOULD also signal the representational range using the
+     optional parameter RANGE defined below.  Signals utilizing the
+     UNSPECIFIED colorimetry might require manual coordination
+     between the sender and the receiver.
+
+  TCS:  Transfer Characteristic System.  This parameter specifies
+     the transfer characteristic system of the image samples.  Valid
+     values and their specification are:
+
+        SDR          Standard Dynamic Range video streams that
+                     utilize the OETF of ITU-R Recommendation
+                     BT.709 or ITU-R Recommendation BT.2020. Such
+                     streams SHALL be assumed to target the EOTF
+                     specified in ITU-R Recommendation BT.1886.
+        PQ           High dynamic range video streams that utilize
+                     the Perceptual Quantization system of ITU-R
+                     Recommendation BT.2100.
+        HLG          High dynamic range video streams that utilize
+                     the Hybrid Log-Gamma system of ITU-R
+                     Recommendation BT.2100.
+        UNSPECIFIED  Video streams whose transfer characteristics
+                     are signaled by the payload as specified in
+                     [ISO21122-3], or must be manually
+                     coordinated between sender and receiver.
+
+  RANGE:  This parameter SHOULD be used to signal the encoding range
+     of the sample values within the stream.  When paired with ITU
+     Rec BT.2100 colorimetry, this parameter has two allowed values
+     NARROW and FULL, corresponding to the ranges specified in table
+     9 of ITU Rec BT.2100.  In any other context, this parameter has
+     three allowed values: NARROW, FULLPROTECT, and FULL, which
+     correspond to the ranges specified in SMPTE RP 2077.  In the
+     absence of this parameter, and for all but the UNSPECIFIED
+     colorimetry, NARROW SHALL be the assumed value.  When paired
+     with the UNSPECIFIED colorimetry, FULL SHALL be the default
+     assumed value.
+
+Encoding considerations:
+  This media type is framed in RTP and contains binary data; see
+  Section 4.8 in [RFC6838].
+
+Security considerations:
+  Please see the Security Considerations (Section 10) of RFC-ietf-payload-rtp-jpegxs-18.
+
+Interoperability considerations:
+  None.
+
+Published specification:
+  See RFC-ietf-payload-rtp-jpegxs-18 and its References section.
+
+Applications that use this media type:
+  Any application that transmits video over RTP (like SMPTE ST
+  2110).
+
+Fragment identifier considerations:
+  N/A.
+
+Additional information:
+  None.
+
+Person & email address to contact for further information:
+  S.  Lugan <rtp&intopix.com> and Th.  Richter <jpeg-xs-
+  techsupport&iis.fraunhofer.de>.
+
+Intended usage:
+  COMMON
+
+Restrictions on usage:
+  This media type depends on RTP framing, and hence is only defined
+  for transfer via RTP [RFC3550].
+
+Author:
+  See the Authors' Addresses section of RFC-ietf-payload-rtp-jpegxs-18.
+
+Change controller:
+  IETF Audio/Video Transport working group delegated from the IESG.
