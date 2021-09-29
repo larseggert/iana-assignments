@@ -1,0 +1,582 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl" href="acme.xsl"?>
+<?xml-model href="acme.rng" schematypens="http://relaxng.org/ns/structure/1.0" ?>
+<registry xmlns="http://www.iana.org/assignments" id="acme">
+  <title>Automated Certificate Management Environment (ACME) Protocol</title>
+  <created>2019-01-02</created>
+  <updated>2021-09-14</updated>
+
+
+  <registry id="acme-account-object-fields">
+    <title>ACME Account Object Fields</title>
+    <xref type="rfc" data="rfc8555"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Richard Barnes</expert>
+    <record date="2019-01-02">
+      <name>status</name>
+      <type>string</type>
+      <requests>new, account</requests>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>contact</name>
+      <type>array of string</type>
+      <requests>new, account</requests>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>externalAccountBinding</name>
+      <type>object</type>
+      <requests>new</requests>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>termsOfServiceAgreed</name>
+      <type>boolean</type>
+      <requests>new</requests>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-03-04">
+      <name>onlyReturnExisting</name>
+      <type>boolean</type>
+      <requests>new</requests>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>orders</name>
+      <type>string</type>
+      <requests>none</requests>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2021-06-21">
+      <name>delegations</name>
+      <type>string</type>
+      <requests>none</requests>
+      <xref type="draft" data="RFC-ietf-acme-star-delegation-09"/>
+    </record>
+  </registry>
+  
+  <registry id="acme-order-object-fields">
+    <title>ACME Order Object Fields</title>
+    <xref type="rfc" data="rfc8555"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Richard Barnes</expert>
+    <record date="2019-01-02">
+      <name>status</name>
+      <type>string</type>
+      <config>false</config>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>expires</name>
+      <type>string</type>
+      <config>false</config>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>identifiers</name>
+      <type>array of object</type>
+      <config>true</config>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>notBefore</name>
+      <type>string</type>
+      <config>true</config>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>notAfter</name>
+      <type>string</type>
+      <config>true</config>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-03-04">
+      <name>error</name>
+      <type>string</type>
+      <config>false</config>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>authorizations</name>
+      <type>array of string</type>
+      <config>false</config>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>finalize</name>
+      <type>string</type>
+      <config>false</config>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>certificate</name>
+      <type>string</type>
+      <config>false</config>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-10-25">
+      <name>auto-renewal</name>
+      <type>object</type>
+      <config>true</config>
+      <xref type="rfc" data="rfc8739"/>
+    </record>
+    <record date="2019-10-25">
+      <name>star-certificate</name>
+      <type>string</type>
+      <config>false</config>
+      <xref type="rfc" data="rfc8739"/>
+    </record>
+    <record date="2021-06-21">
+      <name>allow-certificate-get</name>
+      <type>boolean</type>
+      <config>true</config>
+      <xref type="draft" data="RFC-ietf-acme-star-delegation-09"/>
+    </record>
+    <record date="2021-06-21">
+      <name>delegation</name>
+      <type>string</type>
+      <config>true</config>
+      <xref type="draft" data="RFC-ietf-acme-star-delegation-09"/>
+    </record>
+  </registry>
+
+  <registry id="acme-authorization-object-fields">
+    <title>ACME Authorization Object Fields</title>
+    <xref type="rfc" data="rfc8555"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Richard Barnes</expert>
+    <record date="2019-01-02">
+      <name>identifier</name>
+      <type>object</type>
+      <config>true</config>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>status</name>
+      <type>string</type>
+      <config>false</config>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>expires</name>
+      <type>string</type>
+      <config>false</config>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>challenges</name>
+      <type>array of object</type>
+      <config>false</config>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>wildcard</name>
+      <type>boolean</type>
+      <config>false</config>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+  </registry>
+
+  <registry id="acme-error-types">
+    <title>ACME Error Types</title>
+    <xref type="rfc" data="rfc8555"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Richard Barnes</expert>
+    <record date="2019-01-02">
+      <type>accountDoesNotExist</type>
+      <description>The request specified an account that does not exist</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>alreadyRevoked</type>
+      <description>The request specified a certificate to be revoked that has already been revoked</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>badCSR</type>
+      <description>The CSR is unacceptable (e.g., due to a short key)</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>badNonce</type>
+      <description>The client sent an unacceptable anti-replay nonce</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-03-04">
+      <type>badPublicKey</type>
+      <description>The JWS was signed by a public key the server does not support</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>badRevocationReason</type>
+      <description>The revocation reason provided is not allowed by the server</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>badSignatureAlgorithm</type>
+      <description>The JWS was signed with an algorithm the server does not support</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>caa</type>
+      <description>Certification Authority Authorization (CAA) records forbid the CA from issuing a certificate</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>compound</type>
+      <description>Specific error conditions are indicated in the "subproblems" array</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>connection</type>
+      <description>The server could not connect to validation target</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>dns</type>
+      <description>There was a problem with a DNS query during identifier validation</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>externalAccountRequired</type>
+      <description>The request must include a value for the "externalAccountBinding" field</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>incorrectResponse</type>
+      <description>Response received didn't match the challenge's requirements</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>invalidContact</type>
+      <description>A contact URL for an account was invalid</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>malformed</type>
+      <description>The request message was malformed</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-03-04">
+      <type>orderNotReady</type>
+      <description>The request attempted to finalize an order that is not ready to be finalized</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>rateLimited</type>
+      <description>The request exceeds a rate limit</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>rejectedIdentifier</type>
+      <description>The server will not issue certificates for the identifier</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>serverInternal</type>
+      <description>The server experienced an internal error</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>tls</type>
+      <description>The server received a TLS error during validation</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>unauthorized</type>
+      <description>The client lacks sufficient authorization</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>unsupportedContact</type>
+      <description>A contact URL for an account used an unsupported protocol scheme</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>unsupportedIdentifier</type>
+      <description>An identifier is of an unsupported type</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <type>userActionRequired</type>
+      <description>Visit the "instance" URL and take actions specified there</description>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-10-25">
+      <type>autoRenewalCanceled</type>
+      <description>The short-term certificate is no longer available because the 
+        auto-renewal Order has been explicitly canceled by the IdO</description>
+      <xref type="rfc" data="rfc8739"/>
+    </record>
+    <record date="2019-10-25">
+      <type>autoRenewalExpired</type>
+      <description>The short-term certificate is no longer available because the 
+        auto-renewal Order has expired</description>
+      <xref type="rfc" data="rfc8739"/>
+    </record>
+    <record date="2019-10-25">
+      <type>autoRenewalCancellationInvalid</type>
+      <description>A request to cancel an auto-renewal Order that is not in 
+        state "valid" has been received</description>
+      <xref type="rfc" data="rfc8739"/>
+    </record>
+    <record date="2019-10-25">
+      <type>autoRenewalRevocationNotSupported</type>
+      <description>A request to revoke an auto-renewal Order has been received</description>
+      <xref type="rfc" data="rfc8739"/>
+    </record>
+    <record date="2021-06-21">
+      <type>unknownDelegation</type>
+      <description>An unknown configuration is 
+        listed in the "delegation" attribute of the order request
+      </description>
+      <xref type="draft" data="RFC-ietf-acme-star-delegation-09"/>
+    </record>
+  </registry>
+
+  <registry id="acme-resource-types">
+    <title>ACME Resource Types</title>
+    <xref type="rfc" data="rfc8555"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Richard Barnes</expert>
+    <record date="2019-01-02">
+      <name>newNonce</name>
+      <type>New nonce</type>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>newAccount</name>
+      <type>New account</type>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>newOrder</name>
+      <type>New order</type>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>newAuthz</name>
+      <type>New authorization</type>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>revokeCert</name>
+      <type>Revoke certificate</type>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>keyChange</name>
+      <type>Key change</type>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>meta</name>
+      <type>Metadata object</type>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+  </registry>
+
+  <registry id="acme-directory-metadata-fields">
+    <title>ACME Directory Metadata Fields</title>
+    <xref type="rfc" data="rfc8555"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Richard Barnes</expert>
+    <record date="2019-01-02">
+      <name>termsOfService</name>
+      <type>string</type>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>website</name>
+      <type>string</type>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>caaIdentities</name>
+      <type>array of string</type>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>externalAccountRequired</name>
+      <type>boolean</type>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-10-25">
+      <name>auto-renewal</name>
+      <type>object</type>
+      <xref type="rfc" data="rfc8739"/>
+    </record>
+    <record date="2021-06-21">
+      <name>delegation-enabled</name>
+      <type>boolean</type>
+      <xref type="draft" data="RFC-ietf-acme-star-delegation-09"/>
+    </record>
+    <record date="2021-06-21">
+      <name>allow-certificate-get</name>
+      <type>boolean</type>
+      <xref type="draft" data="RFC-ietf-acme-star-delegation-09"/>
+    </record>
+  </registry>
+  
+  <registry id="acme-identifier-types">
+    <title>ACME Identifier Types</title>
+    <xref type="rfc" data="rfc8555"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Richard Barnes</expert>
+    <record date="2019-01-02">
+      <name>dns</name>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-10-11">
+      <name>ip</name>
+      <xref type="rfc" data="rfc8738"/>
+    </record>
+    <record date="2021-02-17">
+      <name>email</name>
+    <xref type="rfc" data="rfc8823"/>
+	  <xref type="rfc" data="rfc5321"/>
+	  <xref type="rfc" data="rfc6531"/>
+    </record>
+  </registry>
+  
+  <registry id="acme-validation-methods">
+    <title>ACME Validation Methods</title>
+    <xref type="rfc" data="rfc8555"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Richard Barnes</expert>
+    <record date="2019-01-02">
+      <name>http-01</name>
+      <type>dns</type>
+      <challenge>Y</challenge>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>dns-01</name>
+      <type>dns</type>
+      <challenge>Y</challenge>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>tls-sni-01</name>
+      <type>RESERVED</type>
+      <challenge>N</challenge>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-01-02">
+      <name>tls-sni-02</name>
+      <type>RESERVED</type>
+      <challenge>N</challenge>
+      <xref type="rfc" data="rfc8555"/>
+    </record>
+    <record date="2019-10-11">
+      <name>http-01</name>
+      <type>ip</type>
+      <challenge>Y</challenge>
+      <xref type="rfc" data="rfc8738"/>
+    </record>
+    <record date="2019-10-11">
+      <name>tls-alpn-01</name>
+      <type>ip</type>
+      <challenge>Y</challenge>
+      <xref type="rfc" data="rfc8738"/>
+    </record>
+    <record date="2019-10-23">
+      <name>tls-alpn-01</name>
+      <type>dns</type>
+      <challenge>Y</challenge>
+      <xref type="rfc" data="rfc8737"/>
+    </record>
+    <record date="2021-02-17">
+      <name>email-reply-00</name>
+      <type>email</type>
+      <challenge>Y</challenge>
+      <xref type="rfc" data="rfc8823"/>
+    </record>
+  </registry>
+  
+  <registry id="acme-order-auto-renewal-fields">
+    <title>ACME Order Auto-Renewal Fields</title>
+    <xref type="rfc" data="rfc8739"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Unassigned</expert>
+    <record date="2019-10-25">
+      <name>start-date</name>
+      <type>string</type>
+      <config>true</config>
+      <xref type="rfc" data="rfc8739"/>
+    </record>
+    <record date="2019-10-25">
+      <name>end-date</name>
+      <type>string</type>
+      <config>true</config>
+      <xref type="rfc" data="rfc8739"/>
+    </record>
+    <record date="2019-10-25">
+      <name>lifetime</name>
+      <type>integer</type>
+      <config>true</config>
+      <xref type="rfc" data="rfc8739"/>
+    </record>
+    <record date="2019-10-25">
+      <name>lifetime-adjust</name>
+      <type>integer</type>
+      <config>true</config>
+      <xref type="rfc" data="rfc8739"/>
+    </record>
+    <record date="2019-10-25">
+      <name>allow-certificate-get</name>
+      <type>boolean</type>
+      <config>true</config>
+      <xref type="rfc" data="rfc8739"/>
+    </record>
+  </registry>
+  
+  <registry id="acme-directory-metadata-auto-renewal-fields">
+    <title>ACME Directory Metadata Auto-Renewal Fields</title>
+    <xref type="rfc" data="rfc8739"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Unassigned</expert>
+    <record date="2019-10-25">
+      <name>min-lifetime</name>
+      <type>integer</type>
+      <xref type="rfc" data="rfc8739"/>
+    </record>
+    <record date="2019-10-25">
+      <name>max-duration</name>
+      <type>integer</type>
+      <xref type="rfc" data="rfc8739"/>
+    </record>
+    <record date="2019-10-25">
+      <name>allow-certificate-get</name>
+      <type>boolean</type>
+      <xref type="rfc" data="rfc8739"/>
+    </record>
+  </registry>
+  
+  <registry id="acme-star-delegation-csr-template-extensions">
+    <title>STAR Delegation CSR Template Extensions</title>
+    <xref type="draft" data="RFC-ietf-acme-star-delegation-09"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Unassigned</expert>
+    <record date="2021-06-21">
+      <name>keyUsage</name>
+      <ext><xref type="draft" data="RFC-ietf-acme-star-delegation-09">RFC-ietf-acme-star-delegation-09, Appendix B</xref></ext>
+      <x509><xref type="rfc" data="rfc5280">RFC5280, Section 4.2.1.3</xref></x509>
+    </record>
+    <record date="2021-06-21">
+      <name>extendedKeyUsage</name>
+      <ext><xref type="draft" data="RFC-ietf-acme-star-delegation-09">RFC-ietf-acme-star-delegation-09, Appendix B</xref></ext>
+      <x509><xref type="rfc" data="rfc5280">RFC5280, Section 4.2.1.12</xref></x509>
+    </record>
+    <record date="2021-06-21">
+      <name>subjectAltName</name>
+      <ext><xref type="draft" data="RFC-ietf-acme-star-delegation-09">RFC-ietf-acme-star-delegation-09, Appendix B</xref></ext>
+      <x509><xref type="rfc" data="rfc5280">RFC5280, Section 4.2.1.6</xref> 
+        (note that only specific name formats are allowed: URI, DNS name, 
+        email address)</x509>
+    </record>
+  </registry>
+
+  <people/>
+</registry>
