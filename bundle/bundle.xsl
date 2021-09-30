@@ -53,12 +53,6 @@
       <xsl:when test="@id = 'bundle-uri-scheme'">
         <tr><th>Value</th><th>Description</th><th>BP Utilization Reference</th><th>URI Definition Reference</th></tr>
       </xsl:when>
-      <xsl:when test="@id = 'bpsec-bib-hmac-sha2-integrity-scope'">
-        <tr><th>Bit Position (right to left)</th><th>Description</th><th>Reference</th></tr>
-      </xsl:when>
-      <xsl:when test="@id = 'bpsec-bcb-aes-gcm-aad-scope'">
-        <tr><th>Bit Position (right to left)</th><th>Description</th><th>Reference</th></tr>
-      </xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
       </xsl:otherwise>

@@ -1,6 +1,6 @@
 /*
  * Copyright 2009, Viagénie Inc.
- * info@viagenie.ca
+ * info&viagenie.ca
  *
  * This software is provided AS IS with no warranty.
  *
