@@ -95,6 +95,7 @@
         <th>Method Name</th>
         <th>Reference</th>
         <th>Note</th>
+        <th>OK to Implement</th>
       </tr>
      </xsl:when>
      <xsl:when test="@id = 'ssh-parameters-17'">
@@ -227,6 +228,14 @@
       <tr>
        <td><xsl:value-of select="iana:value"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+     </xsl:when>
+     <xsl:when test="../@id = 'ssh-parameters-16'">
+      <tr>
+       <td><xsl:value-of select="iana:value"/></td>
+       <td><xsl:apply-templates select="iana:xref"/></td>
+       <td><xsl:value-of select="iana:note"/></td>
+       <td><xsl:value-of select="iana:implement"/></td>
       </tr>
      </xsl:when>
       <xsl:when test="../@id = 'ssh-parameters-19'">
