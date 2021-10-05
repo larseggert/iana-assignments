@@ -1,0 +1,142 @@
+MIME media type name : Application
+
+MIME subtype name : Vendor Tree - vnd.adobe.xfdf
+
+Required parameters : none
+
+Optional parameters :
+charset, with the recommended value being "UTF-8" (see RFC 2376)
+
+Encoding considerations :
+application/vnd.adobe.xfdf is used over HTTP, and no
+content-transfer-encoding is necessary (see RFC 2376)
+
+Security considerations :
+This format is used to carry forms data in both directions between a web
+client and a server. As such, its security implications are dependent on
+what use that data is put to at both the client and the server ends. At
+the
+client, that data is usually presented to an end user in some form. At the
+server, that data can be stored in databases, or fed to other
+applications.
+In all cases, it is important that this data is scrutinized to prevent
+malicious inputs from causing damage. See also RFC 2376 for additional
+considerations on the subject of security.
+
+Interoperability considerations :
+Since this is an XML-based format, it can be manipulated by any tool that
+understands XML
+
+Published specification :
+Included below:
+
+<schema targetNamespace="http://ns.adobe.com/xfdf/"
+        version="1.0"
+        xmlns:xfdf="http://ns.adobe.com/xfdf/"
+        xmlns="http://www.w3.org/TR/xmlschema-1">
+
+    <element name="xfdf" type="xfdf:xfdfType"/>
+
+    <type name="xfdfType">
+        <element name="fields" minOccurs="0" maxOccurs="1"
+type="xfdf:fields"/>
+        <element name="f" minOccurs="0" maxOccurs="1">
+            <type>
+                <attribute name="href" minOccurs="1" type="uri"/>
+            </type>
+        </element>
+        <attribute name="xmlns" minOccurs="1">
+            <datatype source="uri">
+                <enumeration value="http://ns.adobe.com/xfdf/"/>
+            </datatype>
+        </attribute>
+        <attribute name="xml:space" minOccurs="1">
+            <datatype source="string">
+                <enumeration value="preserve">
+                    <annotation>
+                        <info>Specially important for multi-line text
+field values, but declare it at the root for compactness, to
+take advantage of inheritance
+                        </info>
+                    </annotation>
+                </enumeration>
+            </datatype>
+        </attribute>
+    </type>
+
+    <type name="fields">
+        <element name="field" minOccurs="0" maxOccurs="*"
+type="xfdf:field"/>
+    </type>
+
+    <type name="field">
+        <element name="field" minOccurs="0" maxOccurs="*"
+type="xfdf:field"/>
+        <element name="value" minOccurs="0" maxOccurs="*" type="string">
+
+            <annotation>
+                <info>A null value is equivalent to not including a
+value tag at all
+            </annotation>
+        </element>
+        <attribute name="name" minOccurs="1">
+            <datatype source="string">
+                <pattern value="[^.]+">
+                    <annotation>
+                        <info>Field names may not contain periods</info>
+
+                    </annotation>
+                </pattern>
+            </datatype>
+        </attribute>
+    </type>
+
+</schema>
+
+
+A sample document instance:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<xfdf xmlns="http://ns.adobe.com/xfdf/" xml:space="preserve">
+    <fields>
+        <field name="essay">
+            <value>Once upon a time, there was a king.
+He had one daughter.</value>
+        </field>
+        <field name="phone">
+            <field name="work">
+                <value>408 536-6000</value>
+            </field>
+        </field>
+        <field name="hobbies">
+            <value>biking</value>
+            <value>hiking</value>
+            <value>gardening</value>
+        </field>
+        <field name="comments"/>
+    </fields>
+    <f href="http://foo.com/bar.pdf"/>
+</xfdf>
+
+Applications which use this media :
+Adobe Acrobat
+
+Additional information :
+
+1. Magic number(s) : none (see also RFC 2376)
+2. File extension(s) : .xfdf
+3. Macintosh file type code : "XFDF"
+
+
+Person to contact for further information :
+
+1. Name : Roberto Perelman
+2. E-mail : rperelma&adobe.com
+
+Intended usage : Common
+
+Author/Change controller :
+
+(created 22 Jan 2002)
+(originally created 03 Nov 2000)
+
