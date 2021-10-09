@@ -1,0 +1,55 @@
+(registered 2017-06-12, last updated 2017-06-12)
+
+Media type name: application
+
+Media subtype name: vnd.blink-idb-value-wrapper
+
+Required parameters: This type has no parameters
+
+Optional parameters: This type has no parameters
+
+Encoding considerations: binary
+This media type was designed to be transmitted exclusively over IPC channels, where binary data is the norm.
+
+Security considerations:
+The media type's data consists of references to other data (Blobs registered in the Chromium browser). Data should be decoded in the context of the user that is about to consume the resulting blobs, to ensure that the user does not gain access to other users' Blobs.
+
+This data is designed to be transferred across IPC boundaries, and stored in a database (such as LevelDB) backed by files in the user's home directory. Chromium assumes that the OS provides sufficient integrity and privacy guarantees to both IPC channels (via process isolation) and to the user's home directory (via access control and/or home directory encryption). Therefore, the data described here is expected to be transmitted without additional concerns for integrity or privacy.
+
+More details about the security model of the Chromium system can be found at https://www.chromium.org/chromium-os/chromiumos-design-docs/security-overview
+
+Published specification:
+The specification will live at https://cs.chromium.org/chromium/src/third_party/WebKit/Source/modules/indexeddb/IDBValueWrapping.h
+
+Applications which use this media:
+Applications that use the Blink rendering engine, most likely via Chromium's content module. The most prominent applications are currently the Google Chrome and Opera browsers, followed by Electron-based applications, such as Slack, Atom, and Visual Studio Code. A list of Electron-based applications can be found at https://electron.atom.io/apps/
+
+Fragment identifier considerations:
+This media type does not support any fragment identifiers
+
+Restrictions on usage:
+Data of this media type is intended to be consumed and produced solely by Blink, the rendering engine in Chromium's browser.
+
+Provisional registration? (standards tree only):
+N/A, this is a vendor tree application
+
+Additional information:
+
+1. Deprecated alias names for this type: None
+2. Magic number(s): None
+3. File extension(s): None
+4. Macintosh file type code: None
+5. Object Identifiers: None
+
+General Comments:
+
+
+Person to contact for further information:
+
+1. Name: Victor Costan
+2. Email: pwnall&chromium.org
+
+Intended usage: Limited Use
+Data of this media type is intended to be consumed and produced solely by Blink, the rendering engine in Chromium's browser. The data will be stored on disk and transferred between Chromium processes using Chromium's IPC mechanisms.
+
+Author/Change controller: Google Chrome's OWP Storage team - storage-dev&chromium.org
