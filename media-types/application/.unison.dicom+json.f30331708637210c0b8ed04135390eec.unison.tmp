@@ -1,0 +1,105 @@
+(registered 2016-09-19, last updated 2019-05-06)
+
+Media type name: application
+
+Media subtype name: dicom+json
+
+Required parameters: N/A
+
+Optional parameters:
+
+"transfer-syntax" defines the DICOM Transfer Syntax 
+[http://dicom.nema.org/medical/dicom/current/output/chtml/part05/chapter_10.html] 
+used to encode any inline binary data present in the JSON metadata 
+[http://dicom.nema.org/MEDICAL/Dicom/current/output/chtml/part18/sect_F.2.7.html]. 
+The parameter is constructed as a numeric form OSI Object Identifier 
+[ISO/IEC 8824].
+
+Encoding considerations: 8bit
+The 'application/dicom+json' media type is a JSON encoding of DICOM 
+Information Objects.
+Details of this encoding can be found in the DICOM Standard. Only 
+UTF-8 encoding is used, not UTF-16 or UTF-32, so 8bit encoding is 
+sufficient. 
+
+Security considerations:
+The DICOM JSON encoded data contains only bulk data (such as image 
+pixel data) and metadata. As such, it does not in itself create 
+security risks beyond the information disclosed on viewing the bulk 
+data or metadata. There is no means to induce any particular behavior
+by the recipient application. DICOM Information Objects encoded in 
+the 'application/dicom+json' media type contain medical information, 
+including personal information, so their transmission should be 
+restricted to secure networks or within a secure wrapper that 
+protects a person’s right to confidentiality. Mechanisms such as 
+HTTPS [RFC7230], Secured MIME (S/MIME) 
+[RFC8551] or similar might be appropriate.
+
+Since this media type employs JSON it inherits any security issues 
+associated with that format [RFC7159].
+
+Interoperability considerations:
+This media type is a means of encoding a DICOM object in JSON format,
+and identifying that a particular JSON model is used with a standard 
+content type. The media type has been designed to ease access by 
+generic applications that may not understand the traditional DICOM 
+binary encoding, even though the DICOM content is specific to the 
+medical (imaging) domain, such that a generic e-mail or HTTP 
+application may not be able to interpret it. 
+
+Published specification:
+The DICOM JSON encoding is defined in DICOM PS3.18 Web Services - 
+Annex F DICOM JSON Model 
+[http://dicom.nema.org/medical/dicom/current/output/chtml/part18/chapter_F.html]
+
+Applications which use this media:
+The DICOM JSON encoding is primarily used in the medical field, 
+particularly to encode metadata extracted from DICOM image objects 
+in a form that is familiar to non-medical developers and is suitable 
+for processing with conventional tools (such as JavaScript within a 
+web browser). It is highly desirable that such metadata be made 
+available using web services and identified with a standard media 
+type.
+
+Fragment identifier considerations:
+No media type specific fragment identifier or fragment semantics 
+are defined.
+
+Restrictions on usage:
+None.
+
+Provisional registration? (standards tree only):
+application/dicom+json
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): N/A
+3. File extension(s): .json
+4. Macintosh file type code: 'TEXT'
+5. Object Identifiers: N/A
+
+General Comments:
+The use of 'application/dicom+json' is not directly related to the 
+specification of application/dicom [RFC3240], other than that the 
+semantics (as opposed to the encoding) of the content is defined by 
+the same standard [DICOM]. In particular, the use of 
+'application/dicom+json' is fully specified in its own right, 
+without any dependence on RFC3240, and none of the specifications 
+of RFC3240 are inherited.
+
+Person to contact for further information:
+
+1. Name: David Clunie, DICOM Standards Committee
+2. Email: dclunie&dclunie.com, dicom&medicalimaging.org
+
+Intended usage: Common
+Biomedical imaging applications
+
+Author/Change controller: DICOM Standards Committee.
+
+References:
+
+[DICOM] DICOM Standards Committee, "Digital Imaging and 
+Communications in Medicine (DICOM)", 
+<http://dicom.nema.org/standard.html>.

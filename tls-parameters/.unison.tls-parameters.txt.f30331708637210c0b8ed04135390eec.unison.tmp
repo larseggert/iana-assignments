@@ -1,0 +1,1963 @@
+                                                      Transport Layer Security (TLS) Parameters
+
+   Created
+           2005-08-23
+
+   Last Updated
+           2021-09-27
+
+   Available Formats
+           [IMG]
+           XML [IMG]
+           HTML [IMG]
+           Plain text
+
+   Registries included below
+
+     * TLS ClientCertificateType Identifiers
+     * TLS Cipher Suites
+     * TLS ContentType
+     * TLS Alerts
+     * TLS HandshakeType
+     * TLS Supported Groups
+     * TLS EC Point Formats
+     * TLS EC Curve Types
+     * TLS Supplemental Data Formats (SupplementalDataType)
+     * TLS UserMappingType Values
+     * TLS SignatureAlgorithm
+     * TLS HashAlgorithm
+     * TLS Exporter Labels
+     * TLS Authorization Data Formats
+     * TLS Heartbeat Message Types
+     * TLS Heartbeat Modes
+     * TLS SignatureScheme
+     * TLS PskKeyExchangeMode
+
+TLS ClientCertificateType Identifiers
+
+   Expert(s)
+
+ Yoav Nir, Rich Salz, Nick Sullivan
+
+   Reference
+           [RFC5246][RFC8447]
+
+   Note
+
+ Requests for assignments from the registry's Specification
+ Required range should be sent to the mailing list described in
+ [RFC 8447, Section 17].
+
+
+   Note
+
+ The role of the designated expert is described in [RFC8447].
+ The designated expert [RFC8126] ensures that the specification is
+ publicly available.  It is sufficient to have an Internet-Draft
+ (that is posted and never published as an RFC) or a document from
+ another standards body, industry consortium, university site, etc.
+ The expert may provide more in-depth reviews, but their approval
+ should not be taken as an endorsement of the identifier.
+
+
+   Note
+
+ As specified in [RFC8126], assignments made in the Private Use
+ space are not generally useful for broad interoperability.  It is
+ the responsibility of those making use of the Private Use range to
+ ensure that no conflicts occur (within the intended scope of use).
+ For widespread experiments, temporary reservations are available.
+
+
+   Note
+
+ The values in this registry are only applicable to (D)TLS
+ protocol versions prior to 1.3.
+
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+   0-63    Standards Action
+   64-223  Specification Required
+   224-255 Reserved for Private Use
+
+    Value         Description        DTLS-OK              Reference
+      0    Unassigned
+      1    rsa_sign                  Y       [RFC5246]
+      2    dss_sign                  Y       [RFC5246]
+      3    rsa_fixed_dh              Y       [RFC5246]
+      4    dss_fixed_dh              Y       [RFC5246]
+      5    rsa_ephemeral_dh_RESERVED Y       [RFC5246]
+      6    dss_ephemeral_dh_RESERVED Y       [RFC5246]
+    7-19   Unassigned
+     20    fortezza_dms_RESERVED     Y       [RFC5246]
+    21-63  Unassigned
+     64    ecdsa_sign                Y       [RFC8422]
+     65    rsa_fixed_ecdh            Y       [RFC8422]
+     66    ecdsa_fixed_ecdh          Y       [RFC8422]
+     67    gost_sign256              Y       [draft-smyshlyaev-tls12-gost-suites]
+     68    gost_sign512              Y       [draft-smyshlyaev-tls12-gost-suites]
+   69-223  Unassigned
+   224-255 Reserved for Private Use          [RFC5246]
+
+TLS Cipher Suites
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Yoav Nir, Rich Salz, Nick Sullivan
+
+   Reference
+           [RFC8446][RFC8447][RFC-ietf-tls-dtls13-43]
+
+   Note
+
+ Registration requests should be sent to the mailing list
+ described in [RFC 8447, Section 17].
+
+
+   WARNING
+
+ Cryptographic algorithms and parameters will be broken or
+ weakened over time.  Blindly implementing cipher suites listed here
+ is not advised.  Implementers and users need to check that the
+ cryptographic algorithms listed continue to provide the expected
+ level of security.
+
+
+   Note
+
+ Although TLS 1.3 uses the same cipher suite space as previous
+ versions of TLS, TLS 1.3 cipher suites are defined differently,
+ only specifying the symmetric ciphers and hash function, and
+ cannot be used for TLS 1.2.  Similarly, TLS 1.2 and lower cipher
+ suite values cannot be used with TLS 1.3.
+
+
+   Note
+
+ CCM_8 cipher suites are not marked as "Recommended".  These
+ cipher suites have a significantly truncated authentication tag
+ that represents a security trade-off that may not be appropriate
+ for general environments.
+
+
+   Note
+
+ If an item is not marked as "Recommended", it does not
+ necessarily mean that it is flawed; rather, it indicates that
+ the item either has not been through the IETF consensus process,
+ has limited applicability, or is intended only for specific use
+ cases.
+
+
+   Note
+
+ The role of the designated expert is described in [RFC8447].
+ The designated expert [RFC8126] ensures that the specification is
+ publicly available.  It is sufficient to have an Internet-Draft
+ (that is posted and never published as an RFC) or a document from
+ another standards body, industry consortium, university site, etc.
+ The expert may provide more in-depth reviews, but their approval
+ should not be taken as an endorsement of the cipher suite.
+
+
+   Note
+
+ As specified in [RFC8126], assignments made in the Private Use
+ space are not generally useful for broad interoperability.  It is
+ the responsibility of those making use of the Private Use range to
+ ensure that no conflicts occur (within the intended scope of use).
+ For widespread experiments, temporary reservations are available.
+
+
+   Note
+
+ Any TLS cipher suite that is specified for use with DTLS MUST
+ define limits on the use of the associated AEAD function that
+ preserves margins for both confidentiality and integrity,
+ as specified in [RFC-ietf-tls-dtls13-43].
+
+
+   Available Formats
+           [IMG]
+           CSV
+
+      Value                             Description                          DTLS-OK Recommended                     Reference
+    0x00,0x00   TLS_NULL_WITH_NULL_NULL                                      Y       N           [RFC5246]
+    0x00,0x01   TLS_RSA_WITH_NULL_MD5                                        Y       N           [RFC5246]
+    0x00,0x02   TLS_RSA_WITH_NULL_SHA                                        Y       N           [RFC5246]
+    0x00,0x03   TLS_RSA_EXPORT_WITH_RC4_40_MD5                               N       N           [RFC4346][RFC6347]
+    0x00,0x04   TLS_RSA_WITH_RC4_128_MD5                                     N       N           [RFC5246][RFC6347]
+    0x00,0x05   TLS_RSA_WITH_RC4_128_SHA                                     N       N           [RFC5246][RFC6347]
+    0x00,0x06   TLS_RSA_EXPORT_WITH_RC2_CBC_40_MD5                           Y       N           [RFC4346]
+    0x00,0x07   TLS_RSA_WITH_IDEA_CBC_SHA                                    Y       N           [RFC5469][SC-tls-des-idea-ciphers-to-historic]
+    0x00,0x08   TLS_RSA_EXPORT_WITH_DES40_CBC_SHA                            Y       N           [RFC4346]
+    0x00,0x09   TLS_RSA_WITH_DES_CBC_SHA                                     Y       N           [RFC5469][SC-tls-des-idea-ciphers-to-historic]
+    0x00,0x0A   TLS_RSA_WITH_3DES_EDE_CBC_SHA                                Y       N           [RFC5246]
+    0x00,0x0B   TLS_DH_DSS_EXPORT_WITH_DES40_CBC_SHA                         Y       N           [RFC4346]
+    0x00,0x0C   TLS_DH_DSS_WITH_DES_CBC_SHA                                  Y       N           [RFC5469][SC-tls-des-idea-ciphers-to-historic]
+    0x00,0x0D   TLS_DH_DSS_WITH_3DES_EDE_CBC_SHA                             Y       N           [RFC5246]
+    0x00,0x0E   TLS_DH_RSA_EXPORT_WITH_DES40_CBC_SHA                         Y       N           [RFC4346]
+    0x00,0x0F   TLS_DH_RSA_WITH_DES_CBC_SHA                                  Y       N           [RFC5469][SC-tls-des-idea-ciphers-to-historic]
+    0x00,0x10   TLS_DH_RSA_WITH_3DES_EDE_CBC_SHA                             Y       N           [RFC5246]
+    0x00,0x11   TLS_DHE_DSS_EXPORT_WITH_DES40_CBC_SHA                        Y       N           [RFC4346]
+    0x00,0x12   TLS_DHE_DSS_WITH_DES_CBC_SHA                                 Y       N           [RFC5469][SC-tls-des-idea-ciphers-to-historic]
+    0x00,0x13   TLS_DHE_DSS_WITH_3DES_EDE_CBC_SHA                            Y       N           [RFC5246]
+    0x00,0x14   TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA                        Y       N           [RFC4346]
+    0x00,0x15   TLS_DHE_RSA_WITH_DES_CBC_SHA                                 Y       N           [RFC5469][SC-tls-des-idea-ciphers-to-historic]
+    0x00,0x16   TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA                            Y       N           [RFC5246]
+    0x00,0x17   TLS_DH_anon_EXPORT_WITH_RC4_40_MD5                           N       N           [RFC4346][RFC6347]
+    0x00,0x18   TLS_DH_anon_WITH_RC4_128_MD5                                 N       N           [RFC5246][RFC6347]
+    0x00,0x19   TLS_DH_anon_EXPORT_WITH_DES40_CBC_SHA                        Y       N           [RFC4346]
+    0x00,0x1A   TLS_DH_anon_WITH_DES_CBC_SHA                                 Y       N           [RFC5469][SC-tls-des-idea-ciphers-to-historic]
+    0x00,0x1B   TLS_DH_anon_WITH_3DES_EDE_CBC_SHA                            Y       N           [RFC5246]
+   0x00,0x1C-1D Reserved to avoid conflicts with SSLv3                                           [RFC5246]
+    0x00,0x1E   TLS_KRB5_WITH_DES_CBC_SHA                                    Y       N           [RFC2712]
+    0x00,0x1F   TLS_KRB5_WITH_3DES_EDE_CBC_SHA                               Y       N           [RFC2712]
+    0x00,0x20   TLS_KRB5_WITH_RC4_128_SHA                                    N       N           [RFC2712][RFC6347]
+    0x00,0x21   TLS_KRB5_WITH_IDEA_CBC_SHA                                   Y       N           [RFC2712]
+    0x00,0x22   TLS_KRB5_WITH_DES_CBC_MD5                                    Y       N           [RFC2712]
+    0x00,0x23   TLS_KRB5_WITH_3DES_EDE_CBC_MD5                               Y       N           [RFC2712]
+    0x00,0x24   TLS_KRB5_WITH_RC4_128_MD5                                    N       N           [RFC2712][RFC6347]
+    0x00,0x25   TLS_KRB5_WITH_IDEA_CBC_MD5                                   Y       N           [RFC2712]
+    0x00,0x26   TLS_KRB5_EXPORT_WITH_DES_CBC_40_SHA                          Y       N           [RFC2712]
+    0x00,0x27   TLS_KRB5_EXPORT_WITH_RC2_CBC_40_SHA                          Y       N           [RFC2712]
+    0x00,0x28   TLS_KRB5_EXPORT_WITH_RC4_40_SHA                              N       N           [RFC2712][RFC6347]
+    0x00,0x29   TLS_KRB5_EXPORT_WITH_DES_CBC_40_MD5                          Y       N           [RFC2712]
+    0x00,0x2A   TLS_KRB5_EXPORT_WITH_RC2_CBC_40_MD5                          Y       N           [RFC2712]
+    0x00,0x2B   TLS_KRB5_EXPORT_WITH_RC4_40_MD5                              N       N           [RFC2712][RFC6347]
+    0x00,0x2C   TLS_PSK_WITH_NULL_SHA                                        Y       N           [RFC4785]
+    0x00,0x2D   TLS_DHE_PSK_WITH_NULL_SHA                                    Y       N           [RFC4785]
+    0x00,0x2E   TLS_RSA_PSK_WITH_NULL_SHA                                    Y       N           [RFC4785]
+    0x00,0x2F   TLS_RSA_WITH_AES_128_CBC_SHA                                 Y       N           [RFC5246]
+    0x00,0x30   TLS_DH_DSS_WITH_AES_128_CBC_SHA                              Y       N           [RFC5246]
+    0x00,0x31   TLS_DH_RSA_WITH_AES_128_CBC_SHA                              Y       N           [RFC5246]
+    0x00,0x32   TLS_DHE_DSS_WITH_AES_128_CBC_SHA                             Y       N           [RFC5246]
+    0x00,0x33   TLS_DHE_RSA_WITH_AES_128_CBC_SHA                             Y       N           [RFC5246]
+    0x00,0x34   TLS_DH_anon_WITH_AES_128_CBC_SHA                             Y       N           [RFC5246]
+    0x00,0x35   TLS_RSA_WITH_AES_256_CBC_SHA                                 Y       N           [RFC5246]
+    0x00,0x36   TLS_DH_DSS_WITH_AES_256_CBC_SHA                              Y       N           [RFC5246]
+    0x00,0x37   TLS_DH_RSA_WITH_AES_256_CBC_SHA                              Y       N           [RFC5246]
+    0x00,0x38   TLS_DHE_DSS_WITH_AES_256_CBC_SHA                             Y       N           [RFC5246]
+    0x00,0x39   TLS_DHE_RSA_WITH_AES_256_CBC_SHA                             Y       N           [RFC5246]
+    0x00,0x3A   TLS_DH_anon_WITH_AES_256_CBC_SHA                             Y       N           [RFC5246]
+    0x00,0x3B   TLS_RSA_WITH_NULL_SHA256                                     Y       N           [RFC5246]
+    0x00,0x3C   TLS_RSA_WITH_AES_128_CBC_SHA256                              Y       N           [RFC5246]
+    0x00,0x3D   TLS_RSA_WITH_AES_256_CBC_SHA256                              Y       N           [RFC5246]
+    0x00,0x3E   TLS_DH_DSS_WITH_AES_128_CBC_SHA256                           Y       N           [RFC5246]
+    0x00,0x3F   TLS_DH_RSA_WITH_AES_128_CBC_SHA256                           Y       N           [RFC5246]
+    0x00,0x40   TLS_DHE_DSS_WITH_AES_128_CBC_SHA256                          Y       N           [RFC5246]
+    0x00,0x41   TLS_RSA_WITH_CAMELLIA_128_CBC_SHA                            Y       N           [RFC5932]
+    0x00,0x42   TLS_DH_DSS_WITH_CAMELLIA_128_CBC_SHA                         Y       N           [RFC5932]
+    0x00,0x43   TLS_DH_RSA_WITH_CAMELLIA_128_CBC_SHA                         Y       N           [RFC5932]
+    0x00,0x44   TLS_DHE_DSS_WITH_CAMELLIA_128_CBC_SHA                        Y       N           [RFC5932]
+    0x00,0x45   TLS_DHE_RSA_WITH_CAMELLIA_128_CBC_SHA                        Y       N           [RFC5932]
+    0x00,0x46   TLS_DH_anon_WITH_CAMELLIA_128_CBC_SHA                        Y       N           [RFC5932]
+   0x00,0x47-4F Reserved to avoid conflicts with deployed implementations                        [Pasi_Eronen]
+   0x00,0x50-58 Reserved to avoid conflicts                                                      [Pasi Eronen, <pasi.eronen&nokia.com>, 2008-04-04.
+                                                                                                 2008-04-04]
+   0x00,0x59-5C Reserved to avoid conflicts with deployed implementations                        [Pasi_Eronen]
+   0x00,0x5D-5F Unassigned
+   0x00,0x60-66 Reserved to avoid conflicts with widely deployed                                 [Pasi_Eronen]
+                implementations
+    0x00,0x67   TLS_DHE_RSA_WITH_AES_128_CBC_SHA256                          Y       N           [RFC5246]
+    0x00,0x68   TLS_DH_DSS_WITH_AES_256_CBC_SHA256                           Y       N           [RFC5246]
+    0x00,0x69   TLS_DH_RSA_WITH_AES_256_CBC_SHA256                           Y       N           [RFC5246]
+    0x00,0x6A   TLS_DHE_DSS_WITH_AES_256_CBC_SHA256                          Y       N           [RFC5246]
+    0x00,0x6B   TLS_DHE_RSA_WITH_AES_256_CBC_SHA256                          Y       N           [RFC5246]
+    0x00,0x6C   TLS_DH_anon_WITH_AES_128_CBC_SHA256                          Y       N           [RFC5246]
+    0x00,0x6D   TLS_DH_anon_WITH_AES_256_CBC_SHA256                          Y       N           [RFC5246]
+   0x00,0x6E-83 Unassigned
+    0x00,0x84   TLS_RSA_WITH_CAMELLIA_256_CBC_SHA                            Y       N           [RFC5932]
+    0x00,0x85   TLS_DH_DSS_WITH_CAMELLIA_256_CBC_SHA                         Y       N           [RFC5932]
+    0x00,0x86   TLS_DH_RSA_WITH_CAMELLIA_256_CBC_SHA                         Y       N           [RFC5932]
+    0x00,0x87   TLS_DHE_DSS_WITH_CAMELLIA_256_CBC_SHA                        Y       N           [RFC5932]
+    0x00,0x88   TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA                        Y       N           [RFC5932]
+    0x00,0x89   TLS_DH_anon_WITH_CAMELLIA_256_CBC_SHA                        Y       N           [RFC5932]
+    0x00,0x8A   TLS_PSK_WITH_RC4_128_SHA                                     N       N           [RFC4279][RFC6347]
+    0x00,0x8B   TLS_PSK_WITH_3DES_EDE_CBC_SHA                                Y       N           [RFC4279]
+    0x00,0x8C   TLS_PSK_WITH_AES_128_CBC_SHA                                 Y       N           [RFC4279]
+    0x00,0x8D   TLS_PSK_WITH_AES_256_CBC_SHA                                 Y       N           [RFC4279]
+    0x00,0x8E   TLS_DHE_PSK_WITH_RC4_128_SHA                                 N       N           [RFC4279][RFC6347]
+    0x00,0x8F   TLS_DHE_PSK_WITH_3DES_EDE_CBC_SHA                            Y       N           [RFC4279]
+    0x00,0x90   TLS_DHE_PSK_WITH_AES_128_CBC_SHA                             Y       N           [RFC4279]
+    0x00,0x91   TLS_DHE_PSK_WITH_AES_256_CBC_SHA                             Y       N           [RFC4279]
+    0x00,0x92   TLS_RSA_PSK_WITH_RC4_128_SHA                                 N       N           [RFC4279][RFC6347]
+    0x00,0x93   TLS_RSA_PSK_WITH_3DES_EDE_CBC_SHA                            Y       N           [RFC4279]
+    0x00,0x94   TLS_RSA_PSK_WITH_AES_128_CBC_SHA                             Y       N           [RFC4279]
+    0x00,0x95   TLS_RSA_PSK_WITH_AES_256_CBC_SHA                             Y       N           [RFC4279]
+    0x00,0x96   TLS_RSA_WITH_SEED_CBC_SHA                                    Y       N           [RFC4162]
+    0x00,0x97   TLS_DH_DSS_WITH_SEED_CBC_SHA                                 Y       N           [RFC4162]
+    0x00,0x98   TLS_DH_RSA_WITH_SEED_CBC_SHA                                 Y       N           [RFC4162]
+    0x00,0x99   TLS_DHE_DSS_WITH_SEED_CBC_SHA                                Y       N           [RFC4162]
+    0x00,0x9A   TLS_DHE_RSA_WITH_SEED_CBC_SHA                                Y       N           [RFC4162]
+    0x00,0x9B   TLS_DH_anon_WITH_SEED_CBC_SHA                                Y       N           [RFC4162]
+    0x00,0x9C   TLS_RSA_WITH_AES_128_GCM_SHA256                              Y       N           [RFC5288]
+    0x00,0x9D   TLS_RSA_WITH_AES_256_GCM_SHA384                              Y       N           [RFC5288]
+    0x00,0x9E   TLS_DHE_RSA_WITH_AES_128_GCM_SHA256                          Y       Y           [RFC5288]
+    0x00,0x9F   TLS_DHE_RSA_WITH_AES_256_GCM_SHA384                          Y       Y           [RFC5288]
+    0x00,0xA0   TLS_DH_RSA_WITH_AES_128_GCM_SHA256                           Y       N           [RFC5288]
+    0x00,0xA1   TLS_DH_RSA_WITH_AES_256_GCM_SHA384                           Y       N           [RFC5288]
+    0x00,0xA2   TLS_DHE_DSS_WITH_AES_128_GCM_SHA256                          Y       N           [RFC5288]
+    0x00,0xA3   TLS_DHE_DSS_WITH_AES_256_GCM_SHA384                          Y       N           [RFC5288]
+    0x00,0xA4   TLS_DH_DSS_WITH_AES_128_GCM_SHA256                           Y       N           [RFC5288]
+    0x00,0xA5   TLS_DH_DSS_WITH_AES_256_GCM_SHA384                           Y       N           [RFC5288]
+    0x00,0xA6   TLS_DH_anon_WITH_AES_128_GCM_SHA256                          Y       N           [RFC5288]
+    0x00,0xA7   TLS_DH_anon_WITH_AES_256_GCM_SHA384                          Y       N           [RFC5288]
+    0x00,0xA8   TLS_PSK_WITH_AES_128_GCM_SHA256                              Y       N           [RFC5487]
+    0x00,0xA9   TLS_PSK_WITH_AES_256_GCM_SHA384                              Y       N           [RFC5487]
+    0x00,0xAA   TLS_DHE_PSK_WITH_AES_128_GCM_SHA256                          Y       Y           [RFC5487]
+    0x00,0xAB   TLS_DHE_PSK_WITH_AES_256_GCM_SHA384                          Y       Y           [RFC5487]
+    0x00,0xAC   TLS_RSA_PSK_WITH_AES_128_GCM_SHA256                          Y       N           [RFC5487]
+    0x00,0xAD   TLS_RSA_PSK_WITH_AES_256_GCM_SHA384                          Y       N           [RFC5487]
+    0x00,0xAE   TLS_PSK_WITH_AES_128_CBC_SHA256                              Y       N           [RFC5487]
+    0x00,0xAF   TLS_PSK_WITH_AES_256_CBC_SHA384                              Y       N           [RFC5487]
+    0x00,0xB0   TLS_PSK_WITH_NULL_SHA256                                     Y       N           [RFC5487]
+    0x00,0xB1   TLS_PSK_WITH_NULL_SHA384                                     Y       N           [RFC5487]
+    0x00,0xB2   TLS_DHE_PSK_WITH_AES_128_CBC_SHA256                          Y       N           [RFC5487]
+    0x00,0xB3   TLS_DHE_PSK_WITH_AES_256_CBC_SHA384                          Y       N           [RFC5487]
+    0x00,0xB4   TLS_DHE_PSK_WITH_NULL_SHA256                                 Y       N           [RFC5487]
+    0x00,0xB5   TLS_DHE_PSK_WITH_NULL_SHA384                                 Y       N           [RFC5487]
+    0x00,0xB6   TLS_RSA_PSK_WITH_AES_128_CBC_SHA256                          Y       N           [RFC5487]
+    0x00,0xB7   TLS_RSA_PSK_WITH_AES_256_CBC_SHA384                          Y       N           [RFC5487]
+    0x00,0xB8   TLS_RSA_PSK_WITH_NULL_SHA256                                 Y       N           [RFC5487]
+    0x00,0xB9   TLS_RSA_PSK_WITH_NULL_SHA384                                 Y       N           [RFC5487]
+    0x00,0xBA   TLS_RSA_WITH_CAMELLIA_128_CBC_SHA256                         Y       N           [RFC5932]
+    0x00,0xBB   TLS_DH_DSS_WITH_CAMELLIA_128_CBC_SHA256                      Y       N           [RFC5932]
+    0x00,0xBC   TLS_DH_RSA_WITH_CAMELLIA_128_CBC_SHA256                      Y       N           [RFC5932]
+    0x00,0xBD   TLS_DHE_DSS_WITH_CAMELLIA_128_CBC_SHA256                     Y       N           [RFC5932]
+    0x00,0xBE   TLS_DHE_RSA_WITH_CAMELLIA_128_CBC_SHA256                     Y       N           [RFC5932]
+    0x00,0xBF   TLS_DH_anon_WITH_CAMELLIA_128_CBC_SHA256                     Y       N           [RFC5932]
+    0x00,0xC0   TLS_RSA_WITH_CAMELLIA_256_CBC_SHA256                         Y       N           [RFC5932]
+    0x00,0xC1   TLS_DH_DSS_WITH_CAMELLIA_256_CBC_SHA256                      Y       N           [RFC5932]
+    0x00,0xC2   TLS_DH_RSA_WITH_CAMELLIA_256_CBC_SHA256                      Y       N           [RFC5932]
+    0x00,0xC3   TLS_DHE_DSS_WITH_CAMELLIA_256_CBC_SHA256                     Y       N           [RFC5932]
+    0x00,0xC4   TLS_DHE_RSA_WITH_CAMELLIA_256_CBC_SHA256                     Y       N           [RFC5932]
+    0x00,0xC5   TLS_DH_anon_WITH_CAMELLIA_256_CBC_SHA256                     Y       N           [RFC5932]
+    0x00,0xC6   TLS_SM4_GCM_SM3                                              N       N           [RFC8998]
+    0x00,0xC7   TLS_SM4_CCM_SM3                                              N       N           [RFC8998]
+   0x00,0xC8-FE Unassigned
+    0x00,0xFF   TLS_EMPTY_RENEGOTIATION_INFO_SCSV                            Y       N           [RFC5746]
+    0x01-09,*   Unassigned
+   0x0A,0x00-09 Unassigned
+    0x0A,0x0A   Reserved                                                     Y       N           [RFC8701]
+   0x0A,0x0B-FF Unassigned
+    0x0B-12,*   Unassigned
+    0x13,0x00   Unassigned
+    0x13,0x01   TLS_AES_128_GCM_SHA256                                       Y       Y           [RFC8446]
+    0x13,0x02   TLS_AES_256_GCM_SHA384                                       Y       Y           [RFC8446]
+    0x13,0x03   TLS_CHACHA20_POLY1305_SHA256                                 Y       Y           [RFC8446]
+    0x13,0x04   TLS_AES_128_CCM_SHA256                                       Y       Y           [RFC8446]
+    0x13,0x05   TLS_AES_128_CCM_8_SHA256                                     Y       N           [RFC8446][IESG Action 2018-08-16]
+   0x13,0x06-FF Unassigned
+    0x14-19,*   Unassigned
+   0x1A,0x00-19 Unassigned
+    0x1A,0x1A   Reserved                                                     Y       N           [RFC8701]
+   0x1A,0x1B-FF Unassigned
+    0x1B-29,*   Unassigned
+   0x2A,0x00-29 Unassigned
+    0x2A,0x2A   Reserved                                                     Y       N           [RFC8701]
+   0x2A,0x2B-FF Unassigned
+    0x2B-39,*   Unassigned
+   0x3A,0x00-39 Unassigned
+    0x3A,0x3A   Reserved                                                     Y       N           [RFC8701]
+   0x3A,0x3B-FF Unassigned
+    0x3B-49,*   Unassigned
+   0x4A,0x00-49 Unassigned
+    0x4A,0x4A   Reserved                                                     Y       N           [RFC8701]
+   0x4A,0x4B-FF Unassigned
+    0x4B-55,*   Unassigned
+    0x56,0x00   TLS_FALLBACK_SCSV                                            Y       N           [RFC7507]
+   0x56,0x01-FF Unassigned
+    0x57-59,*   Unassigned
+   0x5A,0x00-59 Unassigned
+    0x5A,0x5A   Reserved                                                     Y       N           [RFC8701]
+   0x5A,0x5B-FF Unassigned
+    0x5B-69,*   Unassigned
+   0x6A,0x00-69 Unassigned
+    0x6A,0x6A   Reserved                                                     Y       N           [RFC8701]
+   0x6A,0x6B-FF Unassigned
+    0x6B-79,*   Unassigned
+   0x7A,0x00-79 Unassigned
+    0x7A,0x7A   Reserved                                                     Y       N           [RFC8701]
+   0x7A,0x7B-FF Unassigned
+    0x7B-89,*   Unassigned
+   0x8A,0x00-89 Unassigned
+    0x8A,0x8A   Reserved                                                     Y       N           [RFC8701]
+   0x8A,0x8B-FF Unassigned
+    0x8B-99,*   Unassigned
+   0x9A,0x00-99 Unassigned
+    0x9A,0x9A   Reserved                                                     Y       N           [RFC8701]
+   0x9A,0x9B-FF Unassigned
+    0x9B-A9,*   Unassigned
+   0xAA,0x00-A9 Unassigned
+    0xAA,0xAA   Reserved                                                     Y       N           [RFC8701]
+   0xAA,0xAB-FF Unassigned
+    0xAB-B9,*   Unassigned
+   0xBA,0x00-B9 Unassigned
+    0xBA,0xBA   Reserved                                                     Y       N           [RFC8701]
+   0xBA,0xBB-FF Unassigned
+    0xBB-BF,*   Unassigned
+    0xC0,0x00   Unassigned
+    0xC0,0x01   TLS_ECDH_ECDSA_WITH_NULL_SHA                                 Y       N           [RFC8422]
+    0xC0,0x02   TLS_ECDH_ECDSA_WITH_RC4_128_SHA                              N       N           [RFC8422][RFC6347]
+    0xC0,0x03   TLS_ECDH_ECDSA_WITH_3DES_EDE_CBC_SHA                         Y       N           [RFC8422]
+    0xC0,0x04   TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA                          Y       N           [RFC8422]
+    0xC0,0x05   TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA                          Y       N           [RFC8422]
+    0xC0,0x06   TLS_ECDHE_ECDSA_WITH_NULL_SHA                                Y       N           [RFC8422]
+    0xC0,0x07   TLS_ECDHE_ECDSA_WITH_RC4_128_SHA                             N       N           [RFC8422][RFC6347]
+    0xC0,0x08   TLS_ECDHE_ECDSA_WITH_3DES_EDE_CBC_SHA                        Y       N           [RFC8422]
+    0xC0,0x09   TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA                         Y       N           [RFC8422]
+    0xC0,0x0A   TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA                         Y       N           [RFC8422]
+    0xC0,0x0B   TLS_ECDH_RSA_WITH_NULL_SHA                                   Y       N           [RFC8422]
+    0xC0,0x0C   TLS_ECDH_RSA_WITH_RC4_128_SHA                                N       N           [RFC8422][RFC6347]
+    0xC0,0x0D   TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA                           Y       N           [RFC8422]
+    0xC0,0x0E   TLS_ECDH_RSA_WITH_AES_128_CBC_SHA                            Y       N           [RFC8422]
+    0xC0,0x0F   TLS_ECDH_RSA_WITH_AES_256_CBC_SHA                            Y       N           [RFC8422]
+    0xC0,0x10   TLS_ECDHE_RSA_WITH_NULL_SHA                                  Y       N           [RFC8422]
+    0xC0,0x11   TLS_ECDHE_RSA_WITH_RC4_128_SHA                               N       N           [RFC8422][RFC6347]
+    0xC0,0x12   TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA                          Y       N           [RFC8422]
+    0xC0,0x13   TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA                           Y       N           [RFC8422]
+    0xC0,0x14   TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA                           Y       N           [RFC8422]
+    0xC0,0x15   TLS_ECDH_anon_WITH_NULL_SHA                                  Y       N           [RFC8422]
+    0xC0,0x16   TLS_ECDH_anon_WITH_RC4_128_SHA                               N       N           [RFC8422][RFC6347]
+    0xC0,0x17   TLS_ECDH_anon_WITH_3DES_EDE_CBC_SHA                          Y       N           [RFC8422]
+    0xC0,0x18   TLS_ECDH_anon_WITH_AES_128_CBC_SHA                           Y       N           [RFC8422]
+    0xC0,0x19   TLS_ECDH_anon_WITH_AES_256_CBC_SHA                           Y       N           [RFC8422]
+    0xC0,0x1A   TLS_SRP_SHA_WITH_3DES_EDE_CBC_SHA                            Y       N           [RFC5054]
+    0xC0,0x1B   TLS_SRP_SHA_RSA_WITH_3DES_EDE_CBC_SHA                        Y       N           [RFC5054]
+    0xC0,0x1C   TLS_SRP_SHA_DSS_WITH_3DES_EDE_CBC_SHA                        Y       N           [RFC5054]
+    0xC0,0x1D   TLS_SRP_SHA_WITH_AES_128_CBC_SHA                             Y       N           [RFC5054]
+    0xC0,0x1E   TLS_SRP_SHA_RSA_WITH_AES_128_CBC_SHA                         Y       N           [RFC5054]
+    0xC0,0x1F   TLS_SRP_SHA_DSS_WITH_AES_128_CBC_SHA                         Y       N           [RFC5054]
+    0xC0,0x20   TLS_SRP_SHA_WITH_AES_256_CBC_SHA                             Y       N           [RFC5054]
+    0xC0,0x21   TLS_SRP_SHA_RSA_WITH_AES_256_CBC_SHA                         Y       N           [RFC5054]
+    0xC0,0x22   TLS_SRP_SHA_DSS_WITH_AES_256_CBC_SHA                         Y       N           [RFC5054]
+    0xC0,0x23   TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256                      Y       N           [RFC5289]
+    0xC0,0x24   TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384                      Y       N           [RFC5289]
+    0xC0,0x25   TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256                       Y       N           [RFC5289]
+    0xC0,0x26   TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384                       Y       N           [RFC5289]
+    0xC0,0x27   TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256                        Y       N           [RFC5289]
+    0xC0,0x28   TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384                        Y       N           [RFC5289]
+    0xC0,0x29   TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256                         Y       N           [RFC5289]
+    0xC0,0x2A   TLS_ECDH_RSA_WITH_AES_256_CBC_SHA384                         Y       N           [RFC5289]
+    0xC0,0x2B   TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256                      Y       Y           [RFC5289]
+    0xC0,0x2C   TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384                      Y       Y           [RFC5289]
+    0xC0,0x2D   TLS_ECDH_ECDSA_WITH_AES_128_GCM_SHA256                       Y       N           [RFC5289]
+    0xC0,0x2E   TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384                       Y       N           [RFC5289]
+    0xC0,0x2F   TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256                        Y       Y           [RFC5289]
+    0xC0,0x30   TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384                        Y       Y           [RFC5289]
+    0xC0,0x31   TLS_ECDH_RSA_WITH_AES_128_GCM_SHA256                         Y       N           [RFC5289]
+    0xC0,0x32   TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384                         Y       N           [RFC5289]
+    0xC0,0x33   TLS_ECDHE_PSK_WITH_RC4_128_SHA                               N       N           [RFC5489][RFC6347]
+    0xC0,0x34   TLS_ECDHE_PSK_WITH_3DES_EDE_CBC_SHA                          Y       N           [RFC5489]
+    0xC0,0x35   TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA                           Y       N           [RFC5489]
+    0xC0,0x36   TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA                           Y       N           [RFC5489]
+    0xC0,0x37   TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA256                        Y       N           [RFC5489]
+    0xC0,0x38   TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA384                        Y       N           [RFC5489]
+    0xC0,0x39   TLS_ECDHE_PSK_WITH_NULL_SHA                                  Y       N           [RFC5489]
+    0xC0,0x3A   TLS_ECDHE_PSK_WITH_NULL_SHA256                               Y       N           [RFC5489]
+    0xC0,0x3B   TLS_ECDHE_PSK_WITH_NULL_SHA384                               Y       N           [RFC5489]
+    0xC0,0x3C   TLS_RSA_WITH_ARIA_128_CBC_SHA256                             Y       N           [RFC6209]
+    0xC0,0x3D   TLS_RSA_WITH_ARIA_256_CBC_SHA384                             Y       N           [RFC6209]
+    0xC0,0x3E   TLS_DH_DSS_WITH_ARIA_128_CBC_SHA256                          Y       N           [RFC6209]
+    0xC0,0x3F   TLS_DH_DSS_WITH_ARIA_256_CBC_SHA384                          Y       N           [RFC6209]
+    0xC0,0x40   TLS_DH_RSA_WITH_ARIA_128_CBC_SHA256                          Y       N           [RFC6209]
+    0xC0,0x41   TLS_DH_RSA_WITH_ARIA_256_CBC_SHA384                          Y       N           [RFC6209]
+    0xC0,0x42   TLS_DHE_DSS_WITH_ARIA_128_CBC_SHA256                         Y       N           [RFC6209]
+    0xC0,0x43   TLS_DHE_DSS_WITH_ARIA_256_CBC_SHA384                         Y       N           [RFC6209]
+    0xC0,0x44   TLS_DHE_RSA_WITH_ARIA_128_CBC_SHA256                         Y       N           [RFC6209]
+    0xC0,0x45   TLS_DHE_RSA_WITH_ARIA_256_CBC_SHA384                         Y       N           [RFC6209]
+    0xC0,0x46   TLS_DH_anon_WITH_ARIA_128_CBC_SHA256                         Y       N           [RFC6209]
+    0xC0,0x47   TLS_DH_anon_WITH_ARIA_256_CBC_SHA384                         Y       N           [RFC6209]
+    0xC0,0x48   TLS_ECDHE_ECDSA_WITH_ARIA_128_CBC_SHA256                     Y       N           [RFC6209]
+    0xC0,0x49   TLS_ECDHE_ECDSA_WITH_ARIA_256_CBC_SHA384                     Y       N           [RFC6209]
+    0xC0,0x4A   TLS_ECDH_ECDSA_WITH_ARIA_128_CBC_SHA256                      Y       N           [RFC6209]
+    0xC0,0x4B   TLS_ECDH_ECDSA_WITH_ARIA_256_CBC_SHA384                      Y       N           [RFC6209]
+    0xC0,0x4C   TLS_ECDHE_RSA_WITH_ARIA_128_CBC_SHA256                       Y       N           [RFC6209]
+    0xC0,0x4D   TLS_ECDHE_RSA_WITH_ARIA_256_CBC_SHA384                       Y       N           [RFC6209]
+    0xC0,0x4E   TLS_ECDH_RSA_WITH_ARIA_128_CBC_SHA256                        Y       N           [RFC6209]
+    0xC0,0x4F   TLS_ECDH_RSA_WITH_ARIA_256_CBC_SHA384                        Y       N           [RFC6209]
+    0xC0,0x50   TLS_RSA_WITH_ARIA_128_GCM_SHA256                             Y       N           [RFC6209]
+    0xC0,0x51   TLS_RSA_WITH_ARIA_256_GCM_SHA384                             Y       N           [RFC6209]
+    0xC0,0x52   TLS_DHE_RSA_WITH_ARIA_128_GCM_SHA256                         Y       N           [RFC6209]
+    0xC0,0x53   TLS_DHE_RSA_WITH_ARIA_256_GCM_SHA384                         Y       N           [RFC6209]
+    0xC0,0x54   TLS_DH_RSA_WITH_ARIA_128_GCM_SHA256                          Y       N           [RFC6209]
+    0xC0,0x55   TLS_DH_RSA_WITH_ARIA_256_GCM_SHA384                          Y       N           [RFC6209]
+    0xC0,0x56   TLS_DHE_DSS_WITH_ARIA_128_GCM_SHA256                         Y       N           [RFC6209]
+    0xC0,0x57   TLS_DHE_DSS_WITH_ARIA_256_GCM_SHA384                         Y       N           [RFC6209]
+    0xC0,0x58   TLS_DH_DSS_WITH_ARIA_128_GCM_SHA256                          Y       N           [RFC6209]
+    0xC0,0x59   TLS_DH_DSS_WITH_ARIA_256_GCM_SHA384                          Y       N           [RFC6209]
+    0xC0,0x5A   TLS_DH_anon_WITH_ARIA_128_GCM_SHA256                         Y       N           [RFC6209]
+    0xC0,0x5B   TLS_DH_anon_WITH_ARIA_256_GCM_SHA384                         Y       N           [RFC6209]
+    0xC0,0x5C   TLS_ECDHE_ECDSA_WITH_ARIA_128_GCM_SHA256                     Y       N           [RFC6209]
+    0xC0,0x5D   TLS_ECDHE_ECDSA_WITH_ARIA_256_GCM_SHA384                     Y       N           [RFC6209]
+    0xC0,0x5E   TLS_ECDH_ECDSA_WITH_ARIA_128_GCM_SHA256                      Y       N           [RFC6209]
+    0xC0,0x5F   TLS_ECDH_ECDSA_WITH_ARIA_256_GCM_SHA384                      Y       N           [RFC6209]
+    0xC0,0x60   TLS_ECDHE_RSA_WITH_ARIA_128_GCM_SHA256                       Y       N           [RFC6209]
+    0xC0,0x61   TLS_ECDHE_RSA_WITH_ARIA_256_GCM_SHA384                       Y       N           [RFC6209]
+    0xC0,0x62   TLS_ECDH_RSA_WITH_ARIA_128_GCM_SHA256                        Y       N           [RFC6209]
+    0xC0,0x63   TLS_ECDH_RSA_WITH_ARIA_256_GCM_SHA384                        Y       N           [RFC6209]
+    0xC0,0x64   TLS_PSK_WITH_ARIA_128_CBC_SHA256                             Y       N           [RFC6209]
+    0xC0,0x65   TLS_PSK_WITH_ARIA_256_CBC_SHA384                             Y       N           [RFC6209]
+    0xC0,0x66   TLS_DHE_PSK_WITH_ARIA_128_CBC_SHA256                         Y       N           [RFC6209]
+    0xC0,0x67   TLS_DHE_PSK_WITH_ARIA_256_CBC_SHA384                         Y       N           [RFC6209]
+    0xC0,0x68   TLS_RSA_PSK_WITH_ARIA_128_CBC_SHA256                         Y       N           [RFC6209]
+    0xC0,0x69   TLS_RSA_PSK_WITH_ARIA_256_CBC_SHA384                         Y       N           [RFC6209]
+    0xC0,0x6A   TLS_PSK_WITH_ARIA_128_GCM_SHA256                             Y       N           [RFC6209]
+    0xC0,0x6B   TLS_PSK_WITH_ARIA_256_GCM_SHA384                             Y       N           [RFC6209]
+    0xC0,0x6C   TLS_DHE_PSK_WITH_ARIA_128_GCM_SHA256                         Y       N           [RFC6209]
+    0xC0,0x6D   TLS_DHE_PSK_WITH_ARIA_256_GCM_SHA384                         Y       N           [RFC6209]
+    0xC0,0x6E   TLS_RSA_PSK_WITH_ARIA_128_GCM_SHA256                         Y       N           [RFC6209]
+    0xC0,0x6F   TLS_RSA_PSK_WITH_ARIA_256_GCM_SHA384                         Y       N           [RFC6209]
+    0xC0,0x70   TLS_ECDHE_PSK_WITH_ARIA_128_CBC_SHA256                       Y       N           [RFC6209]
+    0xC0,0x71   TLS_ECDHE_PSK_WITH_ARIA_256_CBC_SHA384                       Y       N           [RFC6209]
+    0xC0,0x72   TLS_ECDHE_ECDSA_WITH_CAMELLIA_128_CBC_SHA256                 Y       N           [RFC6367]
+    0xC0,0x73   TLS_ECDHE_ECDSA_WITH_CAMELLIA_256_CBC_SHA384                 Y       N           [RFC6367]
+    0xC0,0x74   TLS_ECDH_ECDSA_WITH_CAMELLIA_128_CBC_SHA256                  Y       N           [RFC6367]
+    0xC0,0x75   TLS_ECDH_ECDSA_WITH_CAMELLIA_256_CBC_SHA384                  Y       N           [RFC6367]
+    0xC0,0x76   TLS_ECDHE_RSA_WITH_CAMELLIA_128_CBC_SHA256                   Y       N           [RFC6367]
+    0xC0,0x77   TLS_ECDHE_RSA_WITH_CAMELLIA_256_CBC_SHA384                   Y       N           [RFC6367]
+    0xC0,0x78   TLS_ECDH_RSA_WITH_CAMELLIA_128_CBC_SHA256                    Y       N           [RFC6367]
+    0xC0,0x79   TLS_ECDH_RSA_WITH_CAMELLIA_256_CBC_SHA384                    Y       N           [RFC6367]
+    0xC0,0x7A   TLS_RSA_WITH_CAMELLIA_128_GCM_SHA256                         Y       N           [RFC6367]
+    0xC0,0x7B   TLS_RSA_WITH_CAMELLIA_256_GCM_SHA384                         Y       N           [RFC6367]
+    0xC0,0x7C   TLS_DHE_RSA_WITH_CAMELLIA_128_GCM_SHA256                     Y       N           [RFC6367]
+    0xC0,0x7D   TLS_DHE_RSA_WITH_CAMELLIA_256_GCM_SHA384                     Y       N           [RFC6367]
+    0xC0,0x7E   TLS_DH_RSA_WITH_CAMELLIA_128_GCM_SHA256                      Y       N           [RFC6367]
+    0xC0,0x7F   TLS_DH_RSA_WITH_CAMELLIA_256_GCM_SHA384                      Y       N           [RFC6367]
+    0xC0,0x80   TLS_DHE_DSS_WITH_CAMELLIA_128_GCM_SHA256                     Y       N           [RFC6367]
+    0xC0,0x81   TLS_DHE_DSS_WITH_CAMELLIA_256_GCM_SHA384                     Y       N           [RFC6367]
+    0xC0,0x82   TLS_DH_DSS_WITH_CAMELLIA_128_GCM_SHA256                      Y       N           [RFC6367]
+    0xC0,0x83   TLS_DH_DSS_WITH_CAMELLIA_256_GCM_SHA384                      Y       N           [RFC6367]
+    0xC0,0x84   TLS_DH_anon_WITH_CAMELLIA_128_GCM_SHA256                     Y       N           [RFC6367]
+    0xC0,0x85   TLS_DH_anon_WITH_CAMELLIA_256_GCM_SHA384                     Y       N           [RFC6367]
+    0xC0,0x86   TLS_ECDHE_ECDSA_WITH_CAMELLIA_128_GCM_SHA256                 Y       N           [RFC6367]
+    0xC0,0x87   TLS_ECDHE_ECDSA_WITH_CAMELLIA_256_GCM_SHA384                 Y       N           [RFC6367]
+    0xC0,0x88   TLS_ECDH_ECDSA_WITH_CAMELLIA_128_GCM_SHA256                  Y       N           [RFC6367]
+    0xC0,0x89   TLS_ECDH_ECDSA_WITH_CAMELLIA_256_GCM_SHA384                  Y       N           [RFC6367]
+    0xC0,0x8A   TLS_ECDHE_RSA_WITH_CAMELLIA_128_GCM_SHA256                   Y       N           [RFC6367]
+    0xC0,0x8B   TLS_ECDHE_RSA_WITH_CAMELLIA_256_GCM_SHA384                   Y       N           [RFC6367]
+    0xC0,0x8C   TLS_ECDH_RSA_WITH_CAMELLIA_128_GCM_SHA256                    Y       N           [RFC6367]
+    0xC0,0x8D   TLS_ECDH_RSA_WITH_CAMELLIA_256_GCM_SHA384                    Y       N           [RFC6367]
+    0xC0,0x8E   TLS_PSK_WITH_CAMELLIA_128_GCM_SHA256                         Y       N           [RFC6367]
+    0xC0,0x8F   TLS_PSK_WITH_CAMELLIA_256_GCM_SHA384                         Y       N           [RFC6367]
+    0xC0,0x90   TLS_DHE_PSK_WITH_CAMELLIA_128_GCM_SHA256                     Y       N           [RFC6367]
+    0xC0,0x91   TLS_DHE_PSK_WITH_CAMELLIA_256_GCM_SHA384                     Y       N           [RFC6367]
+    0xC0,0x92   TLS_RSA_PSK_WITH_CAMELLIA_128_GCM_SHA256                     Y       N           [RFC6367]
+    0xC0,0x93   TLS_RSA_PSK_WITH_CAMELLIA_256_GCM_SHA384                     Y       N           [RFC6367]
+    0xC0,0x94   TLS_PSK_WITH_CAMELLIA_128_CBC_SHA256                         Y       N           [RFC6367]
+    0xC0,0x95   TLS_PSK_WITH_CAMELLIA_256_CBC_SHA384                         Y       N           [RFC6367]
+    0xC0,0x96   TLS_DHE_PSK_WITH_CAMELLIA_128_CBC_SHA256                     Y       N           [RFC6367]
+    0xC0,0x97   TLS_DHE_PSK_WITH_CAMELLIA_256_CBC_SHA384                     Y       N           [RFC6367]
+    0xC0,0x98   TLS_RSA_PSK_WITH_CAMELLIA_128_CBC_SHA256                     Y       N           [RFC6367]
+    0xC0,0x99   TLS_RSA_PSK_WITH_CAMELLIA_256_CBC_SHA384                     Y       N           [RFC6367]
+    0xC0,0x9A   TLS_ECDHE_PSK_WITH_CAMELLIA_128_CBC_SHA256                   Y       N           [RFC6367]
+    0xC0,0x9B   TLS_ECDHE_PSK_WITH_CAMELLIA_256_CBC_SHA384                   Y       N           [RFC6367]
+    0xC0,0x9C   TLS_RSA_WITH_AES_128_CCM                                     Y       N           [RFC6655]
+    0xC0,0x9D   TLS_RSA_WITH_AES_256_CCM                                     Y       N           [RFC6655]
+    0xC0,0x9E   TLS_DHE_RSA_WITH_AES_128_CCM                                 Y       Y           [RFC6655]
+    0xC0,0x9F   TLS_DHE_RSA_WITH_AES_256_CCM                                 Y       Y           [RFC6655]
+    0xC0,0xA0   TLS_RSA_WITH_AES_128_CCM_8                                   Y       N           [RFC6655]
+    0xC0,0xA1   TLS_RSA_WITH_AES_256_CCM_8                                   Y       N           [RFC6655]
+    0xC0,0xA2   TLS_DHE_RSA_WITH_AES_128_CCM_8                               Y       N           [RFC6655]
+    0xC0,0xA3   TLS_DHE_RSA_WITH_AES_256_CCM_8                               N       N           [RFC6655]
+    0xC0,0xA4   TLS_PSK_WITH_AES_128_CCM                                     Y       N           [RFC6655]
+    0xC0,0xA5   TLS_PSK_WITH_AES_256_CCM                                     Y       N           [RFC6655]
+    0xC0,0xA6   TLS_DHE_PSK_WITH_AES_128_CCM                                 Y       Y           [RFC6655]
+    0xC0,0xA7   TLS_DHE_PSK_WITH_AES_256_CCM                                 Y       Y           [RFC6655]
+    0xC0,0xA8   TLS_PSK_WITH_AES_128_CCM_8                                   Y       N           [RFC6655]
+    0xC0,0xA9   TLS_PSK_WITH_AES_256_CCM_8                                   Y       N           [RFC6655]
+    0xC0,0xAA   TLS_PSK_DHE_WITH_AES_128_CCM_8                               Y       N           [RFC6655]
+    0xC0,0xAB   TLS_PSK_DHE_WITH_AES_256_CCM_8                               Y       N           [RFC6655]
+    0xC0,0xAC   TLS_ECDHE_ECDSA_WITH_AES_128_CCM                             Y       N           [RFC7251]
+    0xC0,0xAD   TLS_ECDHE_ECDSA_WITH_AES_256_CCM                             Y       N           [RFC7251]
+    0xC0,0xAE   TLS_ECDHE_ECDSA_WITH_AES_128_CCM_8                           Y       N           [RFC7251]
+    0xC0,0xAF   TLS_ECDHE_ECDSA_WITH_AES_256_CCM_8                           Y       N           [RFC7251]
+    0xC0,0xB0   TLS_ECCPWD_WITH_AES_128_GCM_SHA256                           Y       N           [RFC8492]
+    0xC0,0xB1   TLS_ECCPWD_WITH_AES_256_GCM_SHA384                           Y       N           [RFC8492]
+    0xC0,0xB2   TLS_ECCPWD_WITH_AES_128_CCM_SHA256                           Y       N           [RFC8492]
+    0xC0,0xB3   TLS_ECCPWD_WITH_AES_256_CCM_SHA384                           Y       N           [RFC8492]
+    0xC0,0xB4   TLS_SHA256_SHA256                                            Y       N           [RFC-camwinget-tls-ts13-macciphersuites-12]
+    0xC0,0xB5   TLS_SHA384_SHA384                                            Y       N           [RFC-camwinget-tls-ts13-macciphersuites-12]
+   0xC0,0xB6-FF Unassigned
+    0xC1,0x00   TLS_GOSTR341112_256_WITH_KUZNYECHIK_CTR_OMAC                 N       N           [draft-smyshlyaev-tls12-gost-suites]
+    0xC1,0x01   TLS_GOSTR341112_256_WITH_MAGMA_CTR_OMAC                      N       N           [draft-smyshlyaev-tls12-gost-suites]
+    0xC1,0x02   TLS_GOSTR341112_256_WITH_28147_CNT_IMIT                      N       N           [draft-smyshlyaev-tls12-gost-suites]
+    0xC1,0x03   TLS_GOSTR341112_256_WITH_KUZNYECHIK_MGM_L                    N       N           [draft-smyshlyaev-tls13-gost-suites]
+    0xC1,0x04   TLS_GOSTR341112_256_WITH_MAGMA_MGM_L                         N       N           [draft-smyshlyaev-tls13-gost-suites]
+    0xC1,0x05   TLS_GOSTR341112_256_WITH_KUZNYECHIK_MGM_S                    N       N           [draft-smyshlyaev-tls13-gost-suites]
+    0xC1,0x06   TLS_GOSTR341112_256_WITH_MAGMA_MGM_S                         N       N           [draft-smyshlyaev-tls13-gost-suites]
+   0xC1,0x07-FF Unassigned
+    0xC2-C9,*   Unassigned
+   0xCA,0x00-C9 Unassigned
+    0xCA,0xCA   Reserved                                                     Y       N           [RFC8701]
+   0xCA,0xCB-FF Unassigned
+      0xCB,*    Unassigned
+   0xCC,0x00-A7 Unassigned
+    0xCC,0xA8   TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256                  Y       Y           [RFC7905]
+    0xCC,0xA9   TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256                Y       Y           [RFC7905]
+    0xCC,0xAA   TLS_DHE_RSA_WITH_CHACHA20_POLY1305_SHA256                    Y       Y           [RFC7905]
+    0xCC,0xAB   TLS_PSK_WITH_CHACHA20_POLY1305_SHA256                        Y       N           [RFC7905]
+    0xCC,0xAC   TLS_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256                  Y       Y           [RFC7905]
+    0xCC,0xAD   TLS_DHE_PSK_WITH_CHACHA20_POLY1305_SHA256                    Y       Y           [RFC7905]
+    0xCC,0xAE   TLS_RSA_PSK_WITH_CHACHA20_POLY1305_SHA256                    Y       N           [RFC7905]
+   0xCC,0xAF-FF Unassigned
+    0xCD-CF,*   Unassigned
+    0xD0,0x00   Unassigned
+    0xD0,0x01   TLS_ECDHE_PSK_WITH_AES_128_GCM_SHA256                        Y       Y           [RFC8442]
+    0xD0,0x02   TLS_ECDHE_PSK_WITH_AES_256_GCM_SHA384                        Y       Y           [RFC8442]
+    0xD0,0x03   TLS_ECDHE_PSK_WITH_AES_128_CCM_8_SHA256                      Y       N           [RFC8442]
+    0xD0,0x04   Unassigned
+    0xD0,0x05   TLS_ECDHE_PSK_WITH_AES_128_CCM_SHA256                        Y       Y           [RFC8442]
+   0xD0,0x06-FF Unassigned
+    0xD1-D9,*   Unassigned
+   0xDA,0x00-D9 Unassigned
+    0xDA,0xDA   Reserved                                                     Y       N           [RFC8701]
+   0xDA,0xDB-FF Unassigned
+    0xDB-E9,*   Unassigned
+   0xEA,0x00-E9 Unassigned
+    0xEA,0xEA   Reserved                                                     Y       N           [RFC8701]
+   0xEA,0xEB-FF Unassigned
+    0xEB-F9,*   Unassigned
+   0xFA,0x00-C9 Unassigned
+    0xFA,0xFA   Reserved                                                     Y       N           [RFC8701]
+   0xFA,0xFB-FF Unassigned
+    0xFB-FD,*   Unassigned
+   0xFE,0x00-FD Unassigned
+   0xFE,0xFE-FF Reserved to avoid conflicts with widely deployed                                 [Pasi_Eronen]
+                implementations
+   0xFF,0x00-FF Reserved for Private Use                                                         [RFC8446]
+
+TLS ContentType
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC8446][RFC7983]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Value                     Description                    DTLS-OK              Reference
+    0-19  Unassigned (Requires coordination; see [RFC7983])         [RFC5764][RFC7983]
+     20   change_cipher_spec                                Y       [RFC8446]
+     21   alert                                             Y       [RFC8446]
+     22   handshake                                         Y       [RFC8446]
+     23   application_data                                  Y       [RFC8446]
+     24   heartbeat                                         Y       [RFC6520]
+     25   tls12_cid                                         Y       [RFC-ietf-tls-dtls-connection-id-13]
+     26   ACK                                               Y       [RFC-ietf-tls-dtls13-43]
+   27-31  Unassigned
+   32-63  Reserved                                                  [RFC-ietf-tls-dtls13-43]
+   64-255 Unassigned (Requires coordination; see [RFC7983])         [RFC5764][RFC7983]
+
+TLS Alerts
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC8446]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Value              Description             DTLS-OK        Reference                          Comment
+      0    close_notify                        Y       [RFC8446]
+     1-9   Unassigned
+     10    unexpected_message                  Y       [RFC8446]
+    11-19  Unassigned
+     20    bad_record_mac                      Y       [RFC8446]
+     21    decryption_failed_RESERVED          Y       [RFC8446]                Used in TLS versions prior to 1.3.
+     22    record_overflow                     Y       [RFC8446]
+    23-29  Unassigned
+     30    decompression_failure_RESERVED      Y       [RFC8446]                Used in TLS versions prior to 1.3.
+    31-39  Unassigned
+     40    handshake_failure                   Y       [RFC8446]
+     41    no_certificate_RESERVED             Y       [RFC8446]                Used in SSLv3 but not in TLS.
+     42    bad_certificate                     Y       [RFC8446]
+     43    unsupported_certificate             Y       [RFC8446]
+     44    certificate_revoked                 Y       [RFC8446]
+     45    certificate_expired                 Y       [RFC8446]
+     46    certificate_unknown                 Y       [RFC8446]
+     47    illegal_parameter                   Y       [RFC8446]
+     48    unknown_ca                          Y       [RFC8446]
+     49    access_denied                       Y       [RFC8446]
+     50    decode_error                        Y       [RFC8446]
+     51    decrypt_error                       Y       [RFC8446]
+     52    the too_many_cids_requested         Y       [RFC-ietf-tls-dtls13-43]
+    53-59  Unassigned
+     60    export_restriction_RESERVED         Y       [RFC8446]                Used in TLS 1.0 but not TLS 1.1 or later.
+    61-69  Unassigned
+     70    protocol_version                    Y       [RFC8446]
+     71    insufficient_security               Y       [RFC8446]
+    72-79  Unassigned
+     80    internal_error                      Y       [RFC8446]
+    81-85  Unassigned
+     86    inappropriate_fallback              Y       [RFC7507]
+    87-89  Unassigned
+     90    user_canceled                       Y       [RFC8446]
+    91-99  Unassigned
+     100   no_renegotiation_RESERVED           Y       [RFC8446]                Used in TLS versions prior to 1.3.
+   101-108 Unassigned
+     109   missing_extension                   Y       [RFC8446]
+     110   unsupported_extension               Y       [RFC8446]
+     111   certificate_unobtainable_RESERVED   Y       [RFC6066][RFC8446]       Used in TLS versions prior to 1.3.
+     112   unrecognized_name                   Y       [RFC6066]
+     113   bad_certificate_status_response     Y       [RFC6066]
+     114   bad_certificate_hash_value_RESERVED Y       [RFC6066][RFC8446]       Used in TLS versions prior to 1.3.
+     115   unknown_psk_identity                Y       [RFC4279]
+     116   certificate_required                Y       [RFC8446]
+   117-119 Unassigned
+     120   no_application_protocol             Y       [RFC7301][RFC8447]
+   121-255 Unassigned
+
+TLS HandshakeType
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC8446]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Value                      Description                      DTLS-OK          Reference                              Comment
+     0    hello_request_RESERVED                               Y       [RFC8446]                   Used in TLS versions prior to 1.3.
+     1    client_hello                                         Y       [RFC8446]
+     2    server_hello                                         Y       [RFC8446]
+     3    hello_verify_request_RESERVED                        Y       [RFC6347][RFC8446]          Assigned for interim draft, but the
+                                                                                                   functionality was moved to a different message.
+     4    new_session_ticket (renamed from "NewSessionTicket") Y       [RFC4507][RFC8446][RFC8447]
+     5    end_of_early_data                                    Y       [RFC8446]
+     6    hello_retry_request_RESERVED                         Y       [RFC8446]                   Assigned for interim draft, but the
+                                                                                                   functionality was moved to an extension.
+     7    Unassigned
+     8    encrypted_extensions                                 Y       [RFC8446]
+     9    RequestConnectionId                                  Y       [RFC-ietf-tls-dtls13-43]
+     10   NewConnectionId                                      Y       [RFC-ietf-tls-dtls13-43]
+     11   certificate                                          Y       [RFC8446]
+     12   server_key_exchange_RESERVED                         Y       [RFC8446]                   Used in TLS versions prior to 1.3.
+     13   certificate_request                                  Y       [RFC8446]
+     14   server_hello_done_RESERVED                           Y       [RFC8446]                   Used in TLS versions prior to 1.3.
+     15   certificate_verify                                   Y       [RFC8446]
+     16   client_key_exchange_RESERVED                         Y       [RFC8446]                   Used in TLS versions prior to 1.3.
+   17-19  Unassigned
+     20   finished                                             Y       [RFC8446]
+     21   certificate_url_RESERVED                             Y       [RFC6066][RFC8446]          Used in TLS versions prior to 1.3.
+     22   certificate_status_RESERVED                          Y       [RFC6066][RFC8446]          Used in TLS versions prior to 1.3.
+     23   supplemental_data_RESERVED                           Y       [RFC4680][RFC8446]          Used in TLS versions prior to 1.3.
+     24   key_update                                           Y       [RFC8446]
+     25   compressed_certificate                               Y       [RFC8879]
+     26   ekt_key                                              Y       [RFC8870]
+   27-253 Unassigned
+    254   message_hash                                         Y       [RFC8446]
+    255   Unassigned
+
+TLS Supported Groups
+
+   Expert(s)
+
+ Yoav Nir, Rich Salz, Nick Sullivan
+
+   Reference
+           [RFC8422][RFC7919][RFC8446][RFC8447]
+
+   Note
+
+ Registration requests should be sent to the mailing list
+ described in [RFC 8447, Section 17].
+
+
+   Note
+
+ Renamed from "EC Named Curve Registry"
+
+
+   Note
+
+ If an item is not marked as "Recommended", it does not
+ necessarily mean that it is flawed; rather, it indicates that
+ the item either has not been through the IETF consensus process,
+ has limited applicability, or is intended only for specific use
+ cases.
+
+
+   Note
+
+ The role of the designated expert is described in [RFC8447].
+ The designated expert [RFC8126] ensures that the specification is
+ publicly available.  It is sufficient to have an Internet-Draft
+ (that is posted and never published as an RFC) or a document from
+ another standards body, industry consortium, university site, etc.
+ The expert may provide more in-depth reviews, but their approval
+ should not be taken as an endorsement of the supported group.
+
+
+   WARNING
+
+ Cryptographic algorithms and parameters will be broken or
+ weakened over time.  Blindly implementing supported groups
+ listed here is not advised.  Implementers and users need to check
+ that the cryptographic algorithms listed continue to provide the
+ expected level of security.
+
+
+   Available Formats
+           [IMG]
+           CSV
+
+        Range       Registration Procedures                Note
+   0-255, 512-65535 Specification Required  Elliptic curve groups
+   256-511          Specification Required  Finite Field Diffie-Hellman groups
+
+      Value              Description           DTLS-OK Recommended              Reference               Comment
+        0      Reserved                                            [RFC8447]
+        1      sect163k1                       Y       N           [RFC8422]
+        2      sect163r1                       Y       N           [RFC8422]
+        3      sect163r2                       Y       N           [RFC8422]
+        4      sect193r1                       Y       N           [RFC8422]
+        5      sect193r2                       Y       N           [RFC8422]
+        6      sect233k1                       Y       N           [RFC8422]
+        7      sect233r1                       Y       N           [RFC8422]
+        8      sect239k1                       Y       N           [RFC8422]
+        9      sect283k1                       Y       N           [RFC8422]
+       10      sect283r1                       Y       N           [RFC8422]
+       11      sect409k1                       Y       N           [RFC8422]
+       12      sect409r1                       Y       N           [RFC8422]
+       13      sect571k1                       Y       N           [RFC8422]
+       14      sect571r1                       Y       N           [RFC8422]
+       15      secp160k1                       Y       N           [RFC8422]
+       16      secp160r1                       Y       N           [RFC8422]
+       17      secp160r2                       Y       N           [RFC8422]
+       18      secp192k1                       Y       N           [RFC8422]
+       19      secp192r1                       Y       N           [RFC8422]
+       20      secp224k1                       Y       N           [RFC8422]
+       21      secp224r1                       Y       N           [RFC8422]
+       22      secp256k1                       Y       N           [RFC8422]
+       23      secp256r1                       Y       Y           [RFC8422]
+       24      secp384r1                       Y       Y           [RFC8422]
+       25      secp521r1                       Y       N           [RFC8422]
+       26      brainpoolP256r1                 Y       N           [RFC7027]
+       27      brainpoolP384r1                 Y       N           [RFC7027]
+       28      brainpoolP512r1                 Y       N           [RFC7027]
+       29      x25519                          Y       Y           [RFC8446][RFC8422]
+       30      x448                            Y       Y           [RFC8446][RFC8422]
+       31      brainpoolP256r1tls13            Y       N           [RFC8734]
+       32      brainpoolP384r1tls13            Y       N           [RFC8734]
+       33      brainpoolP512r1tls13            Y       N           [RFC8734]
+       34      GC256A                          Y       N           [draft-smyshlyaev-tls12-gost-suites]
+       35      GC256B                          Y       N           [draft-smyshlyaev-tls12-gost-suites]
+       36      GC256C                          Y       N           [draft-smyshlyaev-tls12-gost-suites]
+       37      GC256D                          Y       N           [draft-smyshlyaev-tls12-gost-suites]
+       38      GC512A                          Y       N           [draft-smyshlyaev-tls12-gost-suites]
+       39      GC512B                          Y       N           [draft-smyshlyaev-tls12-gost-suites]
+       40      GC512C                          Y       N           [draft-smyshlyaev-tls12-gost-suites]
+       41      curveSM2                        N       N           [RFC8998]
+     42-255    Unassigned
+       256     ffdhe2048                       Y       N           [RFC7919]
+       257     ffdhe3072                       Y       N           [RFC7919]
+       258     ffdhe4096                       Y       N           [RFC7919]
+       259     ffdhe6144                       Y       N           [RFC7919]
+       260     ffdhe8192                       Y       N           [RFC7919]
+     261-507   Unassigned
+     508-511   Reserved for Private Use                            [RFC7919]
+    512-2569   Unassigned
+      2570     Reserved                        Y       N           [RFC8701]
+    2571-6681  Unassigned
+      6682     Reserved                        Y       N           [RFC8701]
+   6683-10793  Unassigned
+      10794    Reserved                        Y       N           [RFC8701]
+   10795-14905 Unassigned
+      14906    Reserved                        Y       N           [RFC8701]
+   14907-19017 Unassigned
+      19018    Reserved                        Y       N           [RFC8701]
+   19019-23129 Unassigned
+      23130    Reserved                        Y       N           [RFC8701]
+   23131-27241 Unassigned
+      27242    Reserved                        Y       N           [RFC8701]
+   27243-31353 Unassigned
+      31354    Reserved                        Y       N           [RFC8701]
+   31355-35465 Unassigned
+      35466    Reserved                        Y       N           [RFC8701]
+   35467-39577 Unassigned
+      39578    Reserved                        Y       N           [RFC8701]
+   39579-43689 Unassigned
+      43690    Reserved                        Y       N           [RFC8701]
+   43691-47801 Unassigned
+      47802    Reserved                        Y       N           [RFC8701]
+   47803-51913 Unassigned
+      51914    Reserved                        Y       N           [RFC8701]
+   51915-56025 Unassigned
+      56026    Reserved                        Y       N           [RFC8701]
+   56027-60137 Unassigned
+      60138    Reserved                        Y       N           [RFC8701]
+   60139-64249 Unassigned
+      64250    Reserved                        Y       N           [RFC8701]
+   64251-65023 Unassigned
+   65024-65279 Reserved for Private Use                            [RFC8422]
+      65280    Unassigned
+      65281    arbitrary_explicit_prime_curves Y       N           [RFC8422]
+      65282    arbitrary_explicit_char2_curves Y       N           [RFC8422]
+   65283-65535 Unassigned
+
+TLS EC Point Formats
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Yoav Nir, Rich Salz, Nick Sullivan
+
+   Reference
+           [RFC8422]
+
+   Note
+
+ Registration requests should be sent to the mailing list
+ described in [RFC 8447, Section 17].
+
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Value         Description        DTLS-OK Reference
+      0    uncompressed              Y       [RFC8422]
+      1    ansiX962_compressed_prime Y       [RFC8422]
+      2    ansiX962_compressed_char2 Y       [RFC8422]
+    3-247  Unassigned
+   248-255 Reserved for Private Use          [RFC8422]
+
+TLS EC Curve Types
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Yoav Nir, Rich Salz, Nick Sullivan
+
+   Reference
+           [RFC8422]
+
+   Note
+
+ Registration requests should be sent to the mailing list
+ described in [RFC 8447, Section 17].
+
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Value        Description        DTLS-OK Reference
+      0    Unassigned
+      1    explicit_prime           Y       [RFC8422]
+      2    explicit_char2           Y       [RFC8422]
+      3    named_curve              Y       [RFC8422]
+    4-247  Unassigned
+   248-255 Reserved for Private Use         [RFC8422]
+
+TLS Supplemental Data Formats (SupplementalDataType)
+
+   Reference
+           [RFC4680][RFC8447]
+
+   Available Formats
+           [IMG]
+           CSV
+
+      Range    Registration Procedures
+   0-16385     Standards Action
+   16386-65279 IETF Review
+   65280-65535 Reserved for Private Use
+
+      Value          Description        DTLS-OK Reference
+        0      user_mapping_data        Y       [RFC4681]
+     1-16385   Unassigned
+      16386    authz_data               Y       [RFC5878]
+   16387-65279 Unassigned
+   65280-65535 Reserved for Private Use         [RFC4680]
+
+TLS UserMappingType Values
+
+   Expert(s)
+
+ Yoav Nir, Rich Salz, Nick Sullivan
+
+   Reference
+           [RFC4681]
+
+   Note
+
+ Requests for assignments from the registry's Specification
+ Required range should be sent to the mailing list described in
+ [RFC 8447, Section 17].
+
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+   0-63    Standards Action
+   64-223  Specification Required
+   224-255 Reserved for Private Use
+
+    Value        Description        DTLS-OK Reference
+    0-63   Unassigned
+     64    upn_domain_hint          Y       [RFC4681]
+   65-223  Unassigned
+   224-255 Reserved for Private Use         [RFC4681]
+
+TLS SignatureAlgorithm
+
+   Expert(s)
+
+ Yoav Nir, Rich Salz, Nick Sullivan
+
+   Reference
+           [RFC5246][RFC8447][RFC-ietf-tls-md5-sha1-deprecate-09]
+
+   Note
+
+ Requests for assignments from the registry's Specification
+ Required range should be sent to the mailing list described in
+ [RFC 8447, Section 17].
+
+
+   Note
+
+ The values in this registry are only applicable to (D)TLS
+ protocol versions prior to 1.3.  (D)TLS 1.3 and later versions'
+ values are registered in the TLS SignatureScheme registry.
+
+
+   WARNING
+
+ Cryptographic algorithms and parameters will be broken or
+ weakened over time.  Blindly implementing the cryptographic
+ algorithms listed here is not advised.  Implementers and users need
+ to check that the cryptographic algorithms listed continue to
+ provide the expected level of security.
+
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+   0-63    Standards Action
+   64-223  Specification Required
+   224-255 Reserved for Private Use
+
+    Value        Description        DTLS-OK              Reference
+      0    anonymous                Y       [RFC5246]
+      1    rsa                      Y       [RFC5246]
+      2    dsa                      Y       [RFC5246]
+      3    ecdsa                    Y       [RFC5246]
+     4-6   Reserved                         [RFC8447]
+      7    ed25519                  Y       [RFC8422]
+      8    ed448                    Y       [RFC8422]
+    9-63   Reserved                         [RFC8447]
+     64    gostr34102012_256        Y       [draft-smyshlyaev-tls12-gost-suites]
+     65    gostr34102012_512        Y       [draft-smyshlyaev-tls12-gost-suites]
+   66-223  Reserved                         [RFC8447]
+   224-255 Reserved for Private Use         [RFC5246]
+
+TLS HashAlgorithm
+
+   Expert(s)
+
+ Yoav Nir, Rich Salz, Nick Sullivan
+
+   Reference
+           [RFC5246][RFC8447][RFC-ietf-tls-md5-sha1-deprecate-09]
+
+   Note
+
+ Requests for assignments from the registry's Specification
+ Required range should be sent to the mailing list described in
+ [RFC 8447, Section 17].
+
+
+   Note
+
+ The values in this registry are only applicable to (D)TLS
+ protocol versions prior to 1.3.  (D)TLS 1.3 and later versions'
+ values are registered in the TLS SignatureScheme registry.
+
+
+   WARNING
+
+ Cryptographic algorithms and parameters will be broken or
+ weakened over time.  Blindly implementing the cryptographic
+ algorithms listed here is not advised.  Implementers and users need
+ to check that the cryptographic algorithms listed continue to
+ provide the expected level of security.
+
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+   0-63    Standards Action
+   64-223  Specification Required
+   224-255 Reserved for Private Use
+
+    Value        Description        DTLS-OK Reference
+      0    none                     Y       [RFC5246]
+      1    md5                      Y       [RFC5246]
+      2    sha1                     Y       [RFC5246]
+      3    sha224                   Y       [RFC5246]
+      4    sha256                   Y       [RFC5246]
+      5    sha384                   Y       [RFC5246]
+      6    sha512                   Y       [RFC5246]
+      7    Reserved                         [RFC8447]
+      8    Intrinsic                Y       [RFC8422]
+    9-223  Reserved                         [RFC8447]
+   224-255 Reserved for Private Use         [RFC5246]
+
+TLS Exporter Labels
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Yoav Nir, Rich Salz, Nick Sullivan
+
+   Reference
+           [RFC5705][RFC8447]
+
+   Note
+
+ Registration requests should be sent to the mailing list
+ described in [RFC 8447, Section 17].
+
+
+   Note
+
+ (1) These entries are reserved and MUST NOT be used for the
+ purpose described in [RFC5705], in order to avoid confusion
+ with similar, but distinct use in [RFC5246].
+
+
+   Note
+
+ [RFC5705] defines keying material exporters for TLS in terms
+ of the TLS PRF.  [RFC8446] replaced the PRF with HKDF,
+ thus requiring a new construction.  The exporter interface remains
+ the same; however, the value is computed differently.
+
+
+   Note
+
+ The role of the designated expert is described in [RFC8447].
+ The designated expert [RFC8126] ensures that the specification is
+ publicly available.  It is sufficient to have an Internet-Draft
+ (that is posted and never published as an RFC) or a document from
+ another standards body, industry consortium, university site, etc.
+ The expert may provide more in-depth reviews, but their approval
+ should not be taken as an endorsement of the exporter label.  The
+ expert also verifies that the label is a string consisting of
+ printable ASCII characters beginning with "EXPORTER".  IANA MUST
+ also verify that one label is not a prefix of any other label.
+ For example, labels "key" or "master secretary" are forbidden.
+
+
+   Note
+
+ If an item is not marked as "Recommended", it does not
+ necessarily mean that it is flawed; rather, it indicates that
+ the item either has not been through the IETF consensus process,
+ has limited applicability, or is intended only for specific use
+ cases.
+
+
+   Available Formats
+           [IMG]
+           CSV
+
+                Value               DTLS-OK Recommended                       Reference                        Note
+   client finished                  Y       Y           [RFC5246]                                              (1)
+   server finished                  Y       Y           [RFC5246]                                              (1)
+   master secret                    Y       Y           [RFC5246]                                              (1)
+   key expansion                    Y       Y           [RFC5246]                                              (1)
+   client EAP encryption            N       Y           [RFC5216][RFC6347]
+   ttls keying material             N       N           [RFC5281][RFC6347]
+   ttls challenge                   N       N           [RFC5281][RFC6347]
+   EXTRACTOR-dtls_srtp              Y       Y           [RFC5764]
+   EXPORTER_DTLS_OVER_SCTP          Y       Y           [RFC6083]
+   EXPORTER-ETSI-TC-M2M-Bootstrap   Y       N           [TS 102 921 v2.0.3][Miguel_Angel_Reina_Ortega]
+   EXPORTER-ETSI-TC-M2M-Connection  Y       N           [TS 102 921 v2.0.3][Miguel_Angel_Reina_Ortega]
+   TLS_MK_Extr                      Y       N           [TR 33.222][Silke_Holtmanns]
+   EXPORTER_GBA_Digest              Y       N           [TS 33.220 Annex M.6][Silke_Holtmanns]
+   EXPORTER: teap session key seed  N       Y           [RFC7170]
+   EXPORTER-oneM2M-Bootstrap        Y       N           [oneM2M Security Solutions][Miguel_Angel_Reina_Ortega]
+   EXPORTER-oneM2M-Connection       Y       N           [oneM2M Security Solutions][Miguel_Angel_Reina_Ortega]
+   EXPORTER-oneM2M-ESCertKE         Y       N           [oneM2M Security Solutions][Miguel_Angel_Reina_Ortega]
+   EXPORTER-Token-Binding           Y       Y           [RFC8471]
+   EXPORTER-BBF-Dying-Gasp          N       N           [TR-301 Issue 2 Amendment 1]
+   EXPORTER-network-time-security   Y       Y           [RFC8915, Section 4.3]
+   EXPORTER_3GPP_N32_MASTER         N       N           [3GPP TS 33.501]
+   EXPORTER-ACE-MQTT-Sign-Challenge N       N           [draft-ietf-ace-mqtt-tls-profile-10]
+
+TLS Authorization Data Formats
+
+   Expert(s)
+
+ Yoav Nir, Rich Salz, Nick Sullivan
+
+   Reference
+           [RFC5878][RFC8447]
+
+   Note
+
+ Requests for assignments from the registry's Specification
+ Required range should be sent to the mailing list described in
+ [RFC 8447, Section 17].
+
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Range  Registration Procedures
+   0-63    IETF Review
+   64-223  Specification Required
+   224-255 Reserved for Private Use
+
+    Value         Description         DTLS-OK Reference
+      0    x509_attr_cert             Y       [RFC5878]
+      1    saml_assertion             Y       [RFC5878]
+      2    x509_attr_cert_url         Y       [RFC5878]
+      3    saml_assertion_url         Y       [RFC5878]
+    4-63   Unassigned
+     64    keynote_assertion_list     Y       [RFC6042]
+     65    keynote_assertion_list_url Y       [RFC6042]
+     66    dtcp_authorization         Y       [RFC7562]
+   67-223  Unassigned
+   224-255 Reserved for Private Use           [RFC5878]
+
+TLS Heartbeat Message Types
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Yoav Nir, Rich Salz, Nick Sullivan
+
+   Reference
+           [RFC6520][RFC8447]
+
+   Note
+
+ Registration requests should be sent to the mailing list
+ described in [RFC 8447, Section 17].
+
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Value    Description     DTLS-OK Reference
+     0   Reserved                   [RFC6520]
+     1   heartbeat_request  Y       [RFC6520]
+     2   heartbeat_response Y       [RFC6520]
+   3-254 Unassigned
+    255  Reserved                   [RFC6520]
+
+TLS Heartbeat Modes
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Yoav Nir, Rich Salz, Nick Sullivan
+
+   Reference
+           [RFC6520][RFC8447]
+
+   Note
+
+ Registration requests should be sent to the mailing list
+ described in [RFC 8447, Section 17].
+
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Value       Description        DTLS-OK Reference
+     0   Reserved                         [RFC6520]
+     1   peer_allowed_to_send     Y       [RFC6520]
+     2   peer_not_allowed_to_send Y       [RFC6520]
+   3-254 Unassigned
+    255  Reserved                         [RFC6520]
+
+TLS SignatureScheme
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Yoav Nir, Rich Salz, Nick Sullivan
+
+   Reference
+           [RFC8446]
+
+   Note
+
+ Registration requests should be sent to the mailing list
+ described in [RFC 8447, Section 17].
+
+
+   WARNING
+
+ Cryptographic algorithms and parameters will be broken or
+ weakened over time.  Blindly implementing signature schemes
+ listed here is not advised.  Implementers and users need to check
+ that the cryptographic algorithms listed continue to provide the
+ expected level of security.
+
+
+   Note
+
+ As specified in [RFC8126], assignments made in the Private Use
+ space are not generally useful for broad interoperability.  It is
+ the responsibility of those making use of the Private Use range to
+ ensure that no conflicts occur (within the intended scope of use).
+ For widespread experiments, temporary reservations are available.
+
+
+   Available Formats
+           [IMG]
+           CSV
+
+       Value                 Description             Recommended                   Reference
+   0x0000-0x0200 Reserved for backward compatibility             [RFC8446]
+      0x0201     rsa_pkcs1_sha1                      N           [RFC8446][RFC-ietf-tls-md5-sha1-deprecate-09]
+      0x0202     Reserved for backward compatibility             [RFC8446]
+      0x0203     ecdsa_sha1                          N           [RFC8446][RFC-ietf-tls-md5-sha1-deprecate-09]
+   0x0204-0x0400 Reserved for backward compatibility             [RFC8446]
+      0x0401     rsa_pkcs1_sha256                    Y           [RFC8446]
+      0x0402     Reserved for backward compatibility             [RFC8446]
+      0x0403     ecdsa_secp256r1_sha256              Y           [RFC8446]
+   0x0404-0x041F Reserved for backward compatibility             [RFC8446]
+      0x0420     rsa_pkcs1_sha256_legacy             N           [draft-davidben-tls13-pkcs1-00]
+   0x0421-0x0500 Reserved for backward compatibility             [RFC8446]
+      0x0501     rsa_pkcs1_sha384                    Y           [RFC8446]
+      0x0502     Reserved for backward compatibility             [RFC8446]
+      0x0503     ecdsa_secp384r1_sha384              Y           [RFC8446]
+   0x0504-0x051F Reserved for backward compatibility             [RFC8446]
+      0x0520     rsa_pkcs1_sha384_legacy             N           [draft-davidben-tls13-pkcs1-00]
+   0x0521-0x0600 Reserved for backward compatibility             [RFC8446]
+      0x0601     rsa_pkcs1_sha512                    Y           [RFC8446]
+      0x0602     Reserved for backward compatibility             [RFC8446]
+      0x0603     ecdsa_secp521r1_sha512              Y           [RFC8446]
+   0x0604-0x061F Reserved for backward compatibility             [RFC8446]
+      0x0620     rsa_pkcs1_sha512_legacy             N           [draft-davidben-tls13-pkcs1-00]
+   0x0621-0x0703 Reserved for backward compatibility             [RFC8446]
+      0x0704     eccsi_sha256                        N           [draft-wang-tls-raw-public-key-with-ibc]
+      0x0705     iso_ibs1                            N           [draft-wang-tls-raw-public-key-with-ibc]
+      0x0706     iso_ibs2                            N           [draft-wang-tls-raw-public-key-with-ibc]
+      0x0707     iso_chinese_ibs                     N           [draft-wang-tls-raw-public-key-with-ibc]
+      0x0708     sm2sig_sm3                          N           [RFC8998]
+      0x0709     gostr34102012_256a                  N           [draft-smyshlyaev-tls13-gost-suites]
+      0x070A     gostr34102012_256b                  N           [draft-smyshlyaev-tls13-gost-suites]
+      0x070B     gostr34102012_256c                  N           [draft-smyshlyaev-tls13-gost-suites]
+      0x070C     gostr34102012_256d                  N           [draft-smyshlyaev-tls13-gost-suites]
+      0x070D     gostr34102012_512a                  N           [draft-smyshlyaev-tls13-gost-suites]
+      0x070E     gostr34102012_512b                  N           [draft-smyshlyaev-tls13-gost-suites]
+      0x070F     gostr34102012_512c                  N           [draft-smyshlyaev-tls13-gost-suites]
+   0x0710-0x07FF Unassigned
+   0x0800-0x0803 Reserved for backward compatibility             [RFC8446]
+      0x0804     rsa_pss_rsae_sha256                 Y           [RFC8446]
+      0x0805     rsa_pss_rsae_sha384                 Y           [RFC8446]
+      0x0806     rsa_pss_rsae_sha512                 Y           [RFC8446]
+      0x0807     ed25519                             Y           [RFC8446]
+      0x0808     ed448                               Y           [RFC8446]
+      0x0809     rsa_pss_pss_sha256                  Y           [RFC8446]
+      0x080A     rsa_pss_pss_sha384                  Y           [RFC8446]
+      0x080B     rsa_pss_pss_sha512                  Y           [RFC8446]
+   0x080C-0x0819 Unassigned
+      0x081A     ecdsa_brainpoolP256r1tls13_sha256   N           [RFC8734]
+      0x081B     ecdsa_brainpoolP384r1tls13_sha384   N           [RFC8734]
+      0x081C     ecdsa_brainpoolP512r1tls13_sha512   N           [RFC8734]
+   0x081D-0x08FF Unassigned
+   0x0900-0x0903 Reserved for backward compatibility             [RFC8446]
+   0x0904-0x09FF Unassigned
+   0x0A00-0x0A03 Reserved for backward compatibility             [RFC8446]
+   0x0A04-0x0AFF Unassigned
+   0x0B00-0x0B03 Reserved for backward compatibility             [RFC8446]
+   0x0B04-0x0BFF Unassigned
+   0x0C00-0x0C03 Reserved for backward compatibility             [RFC8446]
+   0x0C04-0x0CFF Unassigned
+   0x0D00-0x0D03 Reserved for backward compatibility             [RFC8446]
+   0x0D04-0x0DFF Unassigned
+   0x0E00-0x0E03 Reserved for backward compatibility             [RFC8446]
+   0x0E04-0x0EFF Unassigned
+   0x0F00-0x0F03 Reserved for backward compatibility             [RFC8446]
+   0x0F04-0x0FFF Unassigned
+   0x1000-0x1003 Reserved for backward compatibility             [RFC8446]
+   0x1004-0x10FF Unassigned
+   0x1100-0x1103 Reserved for backward compatibility             [RFC8446]
+   0x1104-0x11FF Unassigned
+   0x1200-0x1203 Reserved for backward compatibility             [RFC8446]
+   0x1204-0x12FF Unassigned
+   0x1300-0x1303 Reserved for backward compatibility             [RFC8446]
+   0x1304-0x13FF Unassigned
+   0x1400-0x1403 Reserved for backward compatibility             [RFC8446]
+   0x1404-0x14FF Unassigned
+   0x1500-0x1503 Reserved for backward compatibility             [RFC8446]
+   0x1504-0x15FF Unassigned
+   0x1600-0x1603 Reserved for backward compatibility             [RFC8446]
+   0x1604-0x16FF Unassigned
+   0x1700-0x1703 Reserved for backward compatibility             [RFC8446]
+   0x1704-0x17FF Unassigned
+   0x1800-0x1803 Reserved for backward compatibility             [RFC8446]
+   0x1804-0x18FF Unassigned
+   0x1900-0x1903 Reserved for backward compatibility             [RFC8446]
+   0x1904-0x19FF Unassigned
+   0x1A00-0x1A03 Reserved for backward compatibility             [RFC8446]
+   0x1A04-0x1AFF Unassigned
+   0x1B00-0x1B03 Reserved for backward compatibility             [RFC8446]
+   0x1B04-0x1BFF Unassigned
+   0x1C00-0x1C03 Reserved for backward compatibility             [RFC8446]
+   0x1C04-0x1CFF Unassigned
+   0x1D00-0x1D03 Reserved for backward compatibility             [RFC8446]
+   0x1D04-0x1DFF Unassigned
+   0x1E00-0x1E03 Reserved for backward compatibility             [RFC8446]
+   0x1E04-0x1EFF Unassigned
+   0x1F00-0x1F03 Reserved for backward compatibility             [RFC8446]
+   0x1F04-0x1FFF Unassigned
+   0x2000-0x2003 Reserved for backward compatibility             [RFC8446]
+   0x2004-0x20FF Unassigned
+   0x2100-0x2103 Reserved for backward compatibility             [RFC8446]
+   0x2104-0x21FF Unassigned
+   0x2200-0x2203 Reserved for backward compatibility             [RFC8446]
+   0x2204-0x22FF Unassigned
+   0x2300-0x2303 Reserved for backward compatibility             [RFC8446]
+   0x2304-0x23FF Unassigned
+   0x2400-0x2403 Reserved for backward compatibility             [RFC8446]
+   0x2404-0x24FF Unassigned
+   0x2500-0x2503 Reserved for backward compatibility             [RFC8446]
+   0x2504-0x25FF Unassigned
+   0x2600-0x2603 Reserved for backward compatibility             [RFC8446]
+   0x2604-0x26FF Unassigned
+   0x2700-0x2703 Reserved for backward compatibility             [RFC8446]
+   0x2704-0x27FF Unassigned
+   0x2800-0x2803 Reserved for backward compatibility             [RFC8446]
+   0x2804-0x28FF Unassigned
+   0x2900-0x2903 Reserved for backward compatibility             [RFC8446]
+   0x2904-0x29FF Unassigned
+   0x2A00-0x2A03 Reserved for backward compatibility             [RFC8446]
+   0x2A04-0x2AFF Unassigned
+   0x2B00-0x2B03 Reserved for backward compatibility             [RFC8446]
+   0x2B04-0x2BFF Unassigned
+   0x2C00-0x2C03 Reserved for backward compatibility             [RFC8446]
+   0x2C04-0x2CFF Unassigned
+   0x2D00-0x2D03 Reserved for backward compatibility             [RFC8446]
+   0x2D04-0x2DFF Unassigned
+   0x2E00-0x2E03 Reserved for backward compatibility             [RFC8446]
+   0x2E04-0x2EFF Unassigned
+   0x2F00-0x2F03 Reserved for backward compatibility             [RFC8446]
+   0x2F04-0x2FFF Unassigned
+   0x3000-0x3003 Reserved for backward compatibility             [RFC8446]
+   0x3004-0x30FF Unassigned
+   0x3100-0x3103 Reserved for backward compatibility             [RFC8446]
+   0x3104-0x31FF Unassigned
+   0x3200-0x3203 Reserved for backward compatibility             [RFC8446]
+   0x3204-0x32FF Unassigned
+   0x3300-0x3303 Reserved for backward compatibility             [RFC8446]
+   0x3304-0x33FF Unassigned
+   0x3400-0x3403 Reserved for backward compatibility             [RFC8446]
+   0x3404-0x34FF Unassigned
+   0x3500-0x3503 Reserved for backward compatibility             [RFC8446]
+   0x3504-0x35FF Unassigned
+   0x3600-0x3603 Reserved for backward compatibility             [RFC8446]
+   0x3604-0x36FF Unassigned
+   0x3700-0x3703 Reserved for backward compatibility             [RFC8446]
+   0x3704-0x37FF Unassigned
+   0x3800-0x3803 Reserved for backward compatibility             [RFC8446]
+   0x3804-0x38FF Unassigned
+   0x3900-0x3903 Reserved for backward compatibility             [RFC8446]
+   0x3904-0x39FF Unassigned
+   0x3A00-0x3A03 Reserved for backward compatibility             [RFC8446]
+   0x3A04-0x3AFF Unassigned
+   0x3B00-0x3B03 Reserved for backward compatibility             [RFC8446]
+   0x3B04-0x3BFF Unassigned
+   0x3C00-0x3C03 Reserved for backward compatibility             [RFC8446]
+   0x3C04-0x3CFF Unassigned
+   0x3D00-0x3D03 Reserved for backward compatibility             [RFC8446]
+   0x3D04-0x3DFF Unassigned
+   0x3E00-0x3E03 Reserved for backward compatibility             [RFC8446]
+   0x3E04-0x3EFF Unassigned
+   0x3F00-0x3F03 Reserved for backward compatibility             [RFC8446]
+   0x3F04-0x3FFF Unassigned
+   0x4000-0x4003 Reserved for backward compatibility             [RFC8446]
+   0x4004-0x40FF Unassigned
+   0x4100-0x4103 Reserved for backward compatibility             [RFC8446]
+   0x4104-0x41FF Unassigned
+   0x4200-0x4203 Reserved for backward compatibility             [RFC8446]
+   0x4204-0x42FF Unassigned
+   0x4300-0x4303 Reserved for backward compatibility             [RFC8446]
+   0x4304-0x43FF Unassigned
+   0x4400-0x4403 Reserved for backward compatibility             [RFC8446]
+   0x4404-0x44FF Unassigned
+   0x4500-0x4503 Reserved for backward compatibility             [RFC8446]
+   0x4504-0x45FF Unassigned
+   0x4600-0x4603 Reserved for backward compatibility             [RFC8446]
+   0x4604-0x46FF Unassigned
+   0x4700-0x4703 Reserved for backward compatibility             [RFC8446]
+   0x4704-0x47FF Unassigned
+   0x4800-0x4803 Reserved for backward compatibility             [RFC8446]
+   0x4804-0x48FF Unassigned
+   0x4900-0x4903 Reserved for backward compatibility             [RFC8446]
+   0x4904-0x49FF Unassigned
+   0x4A00-0x4A03 Reserved for backward compatibility             [RFC8446]
+   0x4A04-0x4AFF Unassigned
+   0x4B00-0x4B03 Reserved for backward compatibility             [RFC8446]
+   0x4B04-0x4BFF Unassigned
+   0x4C00-0x4C03 Reserved for backward compatibility             [RFC8446]
+   0x4C04-0x4CFF Unassigned
+   0x4D00-0x4D03 Reserved for backward compatibility             [RFC8446]
+   0x4D04-0x4DFF Unassigned
+   0x4E00-0x4E03 Reserved for backward compatibility             [RFC8446]
+   0x4E04-0x4EFF Unassigned
+   0x4F00-0x4F03 Reserved for backward compatibility             [RFC8446]
+   0x4F04-0x4FFF Unassigned
+   0x5000-0x5003 Reserved for backward compatibility             [RFC8446]
+   0x5004-0x50FF Unassigned
+   0x5100-0x5103 Reserved for backward compatibility             [RFC8446]
+   0x5104-0x51FF Unassigned
+   0x5200-0x5203 Reserved for backward compatibility             [RFC8446]
+   0x5204-0x52FF Unassigned
+   0x5300-0x5303 Reserved for backward compatibility             [RFC8446]
+   0x5304-0x53FF Unassigned
+   0x5400-0x5403 Reserved for backward compatibility             [RFC8446]
+   0x5404-0x54FF Unassigned
+   0x5500-0x5503 Reserved for backward compatibility             [RFC8446]
+   0x5504-0x55FF Unassigned
+   0x5600-0x5603 Reserved for backward compatibility             [RFC8446]
+   0x5604-0x56FF Unassigned
+   0x5700-0x5703 Reserved for backward compatibility             [RFC8446]
+   0x5704-0x57FF Unassigned
+   0x5800-0x5803 Reserved for backward compatibility             [RFC8446]
+   0x5804-0x58FF Unassigned
+   0x5900-0x5903 Reserved for backward compatibility             [RFC8446]
+   0x5904-0x59FF Unassigned
+   0x5A00-0x5A03 Reserved for backward compatibility             [RFC8446]
+   0x5A04-0x5AFF Unassigned
+   0x5B00-0x5B03 Reserved for backward compatibility             [RFC8446]
+   0x5B04-0x5BFF Unassigned
+   0x5C00-0x5C03 Reserved for backward compatibility             [RFC8446]
+   0x5C04-0x5CFF Unassigned
+   0x5D00-0x5D03 Reserved for backward compatibility             [RFC8446]
+   0x5D04-0x5DFF Unassigned
+   0x5E00-0x5E03 Reserved for backward compatibility             [RFC8446]
+   0x5E04-0x5EFF Unassigned
+   0x5F00-0x5F03 Reserved for backward compatibility             [RFC8446]
+   0x5F04-0x5FFF Unassigned
+   0x6000-0x6003 Reserved for backward compatibility             [RFC8446]
+   0x6004-0x60FF Unassigned
+   0x6100-0x6103 Reserved for backward compatibility             [RFC8446]
+   0x6104-0x61FF Unassigned
+   0x6200-0x6203 Reserved for backward compatibility             [RFC8446]
+   0x6204-0x62FF Unassigned
+   0x6300-0x6303 Reserved for backward compatibility             [RFC8446]
+   0x6304-0x63FF Unassigned
+   0x6400-0x6403 Reserved for backward compatibility             [RFC8446]
+   0x6404-0x64FF Unassigned
+   0x6500-0x6503 Reserved for backward compatibility             [RFC8446]
+   0x6504-0x65FF Unassigned
+   0x6600-0x6603 Reserved for backward compatibility             [RFC8446]
+   0x6604-0x66FF Unassigned
+   0x6700-0x6703 Reserved for backward compatibility             [RFC8446]
+   0x6704-0x67FF Unassigned
+   0x6800-0x6803 Reserved for backward compatibility             [RFC8446]
+   0x6804-0x68FF Unassigned
+   0x6900-0x6903 Reserved for backward compatibility             [RFC8446]
+   0x6904-0x69FF Unassigned
+   0x6A00-0x6A03 Reserved for backward compatibility             [RFC8446]
+   0x6A04-0x6AFF Unassigned
+   0x6B00-0x6B03 Reserved for backward compatibility             [RFC8446]
+   0x6B04-0x6BFF Unassigned
+   0x6C00-0x6C03 Reserved for backward compatibility             [RFC8446]
+   0x6C04-0x6CFF Unassigned
+   0x6D00-0x6D03 Reserved for backward compatibility             [RFC8446]
+   0x6D04-0x6DFF Unassigned
+   0x6E00-0x6E03 Reserved for backward compatibility             [RFC8446]
+   0x6E04-0x6EFF Unassigned
+   0x6F00-0x6F03 Reserved for backward compatibility             [RFC8446]
+   0x6F04-0x6FFF Unassigned
+   0x7000-0x7003 Reserved for backward compatibility             [RFC8446]
+   0x7004-0x70FF Unassigned
+   0x7100-0x7103 Reserved for backward compatibility             [RFC8446]
+   0x7104-0x71FF Unassigned
+   0x7200-0x7203 Reserved for backward compatibility             [RFC8446]
+   0x7204-0x72FF Unassigned
+   0x7300-0x7303 Reserved for backward compatibility             [RFC8446]
+   0x7304-0x73FF Unassigned
+   0x7400-0x7403 Reserved for backward compatibility             [RFC8446]
+   0x7404-0x74FF Unassigned
+   0x7500-0x7503 Reserved for backward compatibility             [RFC8446]
+   0x7504-0x75FF Unassigned
+   0x7600-0x7603 Reserved for backward compatibility             [RFC8446]
+   0x7604-0x76FF Unassigned
+   0x7700-0x7703 Reserved for backward compatibility             [RFC8446]
+   0x7704-0x77FF Unassigned
+   0x7800-0x7803 Reserved for backward compatibility             [RFC8446]
+   0x7804-0x78FF Unassigned
+   0x7900-0x7903 Reserved for backward compatibility             [RFC8446]
+   0x7904-0x79FF Unassigned
+   0x7A00-0x7A03 Reserved for backward compatibility             [RFC8446]
+   0x7A04-0x7AFF Unassigned
+   0x7B00-0x7B03 Reserved for backward compatibility             [RFC8446]
+   0x7B04-0x7BFF Unassigned
+   0x7C00-0x7C03 Reserved for backward compatibility             [RFC8446]
+   0x7C04-0x7CFF Unassigned
+   0x7D00-0x7D03 Reserved for backward compatibility             [RFC8446]
+   0x7D04-0x7DFF Unassigned
+   0x7E00-0x7E03 Reserved for backward compatibility             [RFC8446]
+   0x7E04-0x7EFF Unassigned
+   0x7F00-0x7F03 Reserved for backward compatibility             [RFC8446]
+   0x7F04-0x7FFF Unassigned
+   0x8000-0x8003 Reserved for backward compatibility             [RFC8446]
+   0x8004-0x80FF Unassigned
+   0x8100-0x8103 Reserved for backward compatibility             [RFC8446]
+   0x8104-0x81FF Unassigned
+   0x8200-0x8203 Reserved for backward compatibility             [RFC8446]
+   0x8204-0x82FF Unassigned
+   0x8300-0x8303 Reserved for backward compatibility             [RFC8446]
+   0x8304-0x83FF Unassigned
+   0x8400-0x8403 Reserved for backward compatibility             [RFC8446]
+   0x8404-0x84FF Unassigned
+   0x8500-0x8503 Reserved for backward compatibility             [RFC8446]
+   0x8504-0x85FF Unassigned
+   0x8600-0x8603 Reserved for backward compatibility             [RFC8446]
+   0x8604-0x86FF Unassigned
+   0x8700-0x8703 Reserved for backward compatibility             [RFC8446]
+   0x8704-0x87FF Unassigned
+   0x8800-0x8803 Reserved for backward compatibility             [RFC8446]
+   0x8804-0x88FF Unassigned
+   0x8900-0x8903 Reserved for backward compatibility             [RFC8446]
+   0x8904-0x89FF Unassigned
+   0x8A00-0x8A03 Reserved for backward compatibility             [RFC8446]
+   0x8A04-0x8AFF Unassigned
+   0x8B00-0x8B03 Reserved for backward compatibility             [RFC8446]
+   0x8B04-0x8BFF Unassigned
+   0x8C00-0x8C03 Reserved for backward compatibility             [RFC8446]
+   0x8C04-0x8CFF Unassigned
+   0x8D00-0x8D03 Reserved for backward compatibility             [RFC8446]
+   0x8D04-0x8DFF Unassigned
+   0x8E00-0x8E03 Reserved for backward compatibility             [RFC8446]
+   0x8E04-0x8EFF Unassigned
+   0x8F00-0x8F03 Reserved for backward compatibility             [RFC8446]
+   0x8F04-0x8FFF Unassigned
+   0x9000-0x9003 Reserved for backward compatibility             [RFC8446]
+   0x9004-0x90FF Unassigned
+   0x9100-0x9103 Reserved for backward compatibility             [RFC8446]
+   0x9104-0x91FF Unassigned
+   0x9200-0x9203 Reserved for backward compatibility             [RFC8446]
+   0x9204-0x92FF Unassigned
+   0x9300-0x9303 Reserved for backward compatibility             [RFC8446]
+   0x9304-0x93FF Unassigned
+   0x9400-0x9403 Reserved for backward compatibility             [RFC8446]
+   0x9404-0x94FF Unassigned
+   0x9500-0x9503 Reserved for backward compatibility             [RFC8446]
+   0x9504-0x95FF Unassigned
+   0x9600-0x9603 Reserved for backward compatibility             [RFC8446]
+   0x9604-0x96FF Unassigned
+   0x9700-0x9703 Reserved for backward compatibility             [RFC8446]
+   0x9704-0x97FF Unassigned
+   0x9800-0x9803 Reserved for backward compatibility             [RFC8446]
+   0x9804-0x98FF Unassigned
+   0x9900-0x9903 Reserved for backward compatibility             [RFC8446]
+   0x9904-0x99FF Unassigned
+   0x9A00-0x9A03 Reserved for backward compatibility             [RFC8446]
+   0x9A04-0x9AFF Unassigned
+   0x9B00-0x9B03 Reserved for backward compatibility             [RFC8446]
+   0x9B04-0x9BFF Unassigned
+   0x9C00-0x9C03 Reserved for backward compatibility             [RFC8446]
+   0x9C04-0x9CFF Unassigned
+   0x9D00-0x9D03 Reserved for backward compatibility             [RFC8446]
+   0x9D04-0x9DFF Unassigned
+   0x9E00-0x9E03 Reserved for backward compatibility             [RFC8446]
+   0x9E04-0x9EFF Unassigned
+   0x9F00-0x9F03 Reserved for backward compatibility             [RFC8446]
+   0x9F04-0x9FFF Unassigned
+   0xA000-0xA003 Reserved for backward compatibility             [RFC8446]
+   0xA004-0xA0FF Unassigned
+   0xA100-0xA103 Reserved for backward compatibility             [RFC8446]
+   0xA104-0xA1FF Unassigned
+   0xA200-0xA203 Reserved for backward compatibility             [RFC8446]
+   0xA204-0xA2FF Unassigned
+   0xA300-0xA303 Reserved for backward compatibility             [RFC8446]
+   0xA304-0xA3FF Unassigned
+   0xA400-0xA403 Reserved for backward compatibility             [RFC8446]
+   0xA404-0xA4FF Unassigned
+   0xA500-0xA503 Reserved for backward compatibility             [RFC8446]
+   0xA504-0xA5FF Unassigned
+   0xA600-0xA603 Reserved for backward compatibility             [RFC8446]
+   0xA604-0xA6FF Unassigned
+   0xA700-0xA703 Reserved for backward compatibility             [RFC8446]
+   0xA704-0xA7FF Unassigned
+   0xA800-0xA803 Reserved for backward compatibility             [RFC8446]
+   0xA804-0xA8FF Unassigned
+   0xA900-0xA903 Reserved for backward compatibility             [RFC8446]
+   0xA904-0xA9FF Unassigned
+   0xAA00-0xAA03 Reserved for backward compatibility             [RFC8446]
+   0xAA04-0xAAFF Unassigned
+   0xAB00-0xAB03 Reserved for backward compatibility             [RFC8446]
+   0xAB04-0xABFF Unassigned
+   0xAC00-0xAC03 Reserved for backward compatibility             [RFC8446]
+   0xAC04-0xACFF Unassigned
+   0xAD00-0xAD03 Reserved for backward compatibility             [RFC8446]
+   0xAD04-0xADFF Unassigned
+   0xAE00-0xAE03 Reserved for backward compatibility             [RFC8446]
+   0xAE04-0xAEFF Unassigned
+   0xAF00-0xAF03 Reserved for backward compatibility             [RFC8446]
+   0xAF04-0xAFFF Unassigned
+   0xB000-0xB003 Reserved for backward compatibility             [RFC8446]
+   0xB004-0xB0FF Unassigned
+   0xB100-0xB103 Reserved for backward compatibility             [RFC8446]
+   0xB104-0xB1FF Unassigned
+   0xB200-0xB203 Reserved for backward compatibility             [RFC8446]
+   0xB204-0xB2FF Unassigned
+   0xB300-0xB303 Reserved for backward compatibility             [RFC8446]
+   0xB304-0xB3FF Unassigned
+   0xB400-0xB403 Reserved for backward compatibility             [RFC8446]
+   0xB404-0xB4FF Unassigned
+   0xB500-0xB503 Reserved for backward compatibility             [RFC8446]
+   0xB504-0xB5FF Unassigned
+   0xB600-0xB603 Reserved for backward compatibility             [RFC8446]
+   0xB604-0xB6FF Unassigned
+   0xB700-0xB703 Reserved for backward compatibility             [RFC8446]
+   0xB704-0xB7FF Unassigned
+   0xB800-0xB803 Reserved for backward compatibility             [RFC8446]
+   0xB804-0xB8FF Unassigned
+   0xB900-0xB903 Reserved for backward compatibility             [RFC8446]
+   0xB904-0xB9FF Unassigned
+   0xBA00-0xBA03 Reserved for backward compatibility             [RFC8446]
+   0xBA04-0xBAFF Unassigned
+   0xBB00-0xBB03 Reserved for backward compatibility             [RFC8446]
+   0xBB04-0xBBFF Unassigned
+   0xBC00-0xBC03 Reserved for backward compatibility             [RFC8446]
+   0xBC04-0xBCFF Unassigned
+   0xBD00-0xBD03 Reserved for backward compatibility             [RFC8446]
+   0xBD04-0xBDFF Unassigned
+   0xBE00-0xBE03 Reserved for backward compatibility             [RFC8446]
+   0xBE04-0xBEFF Unassigned
+   0xBF00-0xBF03 Reserved for backward compatibility             [RFC8446]
+   0xBF04-0xBFFF Unassigned
+   0xC000-0xC003 Reserved for backward compatibility             [RFC8446]
+   0xC004-0xC0FF Unassigned
+   0xC100-0xC103 Reserved for backward compatibility             [RFC8446]
+   0xC104-0xC1FF Unassigned
+   0xC200-0xC203 Reserved for backward compatibility             [RFC8446]
+   0xC204-0xC2FF Unassigned
+   0xC300-0xC303 Reserved for backward compatibility             [RFC8446]
+   0xC304-0xC3FF Unassigned
+   0xC400-0xC403 Reserved for backward compatibility             [RFC8446]
+   0xC404-0xC4FF Unassigned
+   0xC500-0xC503 Reserved for backward compatibility             [RFC8446]
+   0xC504-0xC5FF Unassigned
+   0xC600-0xC603 Reserved for backward compatibility             [RFC8446]
+   0xC604-0xC6FF Unassigned
+   0xC700-0xC703 Reserved for backward compatibility             [RFC8446]
+   0xC704-0xC7FF Unassigned
+   0xC800-0xC803 Reserved for backward compatibility             [RFC8446]
+   0xC804-0xC8FF Unassigned
+   0xC900-0xC903 Reserved for backward compatibility             [RFC8446]
+   0xC904-0xC9FF Unassigned
+   0xCA00-0xCA03 Reserved for backward compatibility             [RFC8446]
+   0xCA04-0xCAFF Unassigned
+   0xCB00-0xCB03 Reserved for backward compatibility             [RFC8446]
+   0xCB04-0xCBFF Unassigned
+   0xCC00-0xCC03 Reserved for backward compatibility             [RFC8446]
+   0xCC04-0xCCFF Unassigned
+   0xCD00-0xCD03 Reserved for backward compatibility             [RFC8446]
+   0xCD04-0xCDFF Unassigned
+   0xCE00-0xCE03 Reserved for backward compatibility             [RFC8446]
+   0xCE04-0xCEFF Unassigned
+   0xCF00-0xCF03 Reserved for backward compatibility             [RFC8446]
+   0xCF04-0xCFFF Unassigned
+   0xD000-0xD003 Reserved for backward compatibility             [RFC8446]
+   0xD004-0xD0FF Unassigned
+   0xD100-0xD103 Reserved for backward compatibility             [RFC8446]
+   0xD104-0xD1FF Unassigned
+   0xD200-0xD203 Reserved for backward compatibility             [RFC8446]
+   0xD204-0xD2FF Unassigned
+   0xD300-0xD303 Reserved for backward compatibility             [RFC8446]
+   0xD304-0xD3FF Unassigned
+   0xD400-0xD403 Reserved for backward compatibility             [RFC8446]
+   0xD404-0xD4FF Unassigned
+   0xD500-0xD503 Reserved for backward compatibility             [RFC8446]
+   0xD504-0xD5FF Unassigned
+   0xD600-0xD603 Reserved for backward compatibility             [RFC8446]
+   0xD604-0xD6FF Unassigned
+   0xD700-0xD703 Reserved for backward compatibility             [RFC8446]
+   0xD704-0xD7FF Unassigned
+   0xD800-0xD803 Reserved for backward compatibility             [RFC8446]
+   0xD804-0xD8FF Unassigned
+   0xD900-0xD903 Reserved for backward compatibility             [RFC8446]
+   0xD904-0xD9FF Unassigned
+   0xDA00-0xDA03 Reserved for backward compatibility             [RFC8446]
+   0xDA04-0xDAFF Unassigned
+   0xDB00-0xDB03 Reserved for backward compatibility             [RFC8446]
+   0xDB04-0xDBFF Unassigned
+   0xDC00-0xDC03 Reserved for backward compatibility             [RFC8446]
+   0xDC04-0xDCFF Unassigned
+   0xDD00-0xDD03 Reserved for backward compatibility             [RFC8446]
+   0xDD04-0xDDFF Unassigned
+   0xDE00-0xDE03 Reserved for backward compatibility             [RFC8446]
+   0xDE04-0xDEFF Unassigned
+   0xDF00-0xDF03 Reserved for backward compatibility             [RFC8446]
+   0xDF04-0xDFFF Unassigned
+   0xE000-0xE003 Reserved for backward compatibility             [RFC8446]
+   0xE004-0xE0FF Unassigned
+   0xE100-0xE103 Reserved for backward compatibility             [RFC8446]
+   0xE104-0xE1FF Unassigned
+   0xE200-0xE203 Reserved for backward compatibility             [RFC8446]
+   0xE204-0xE2FF Unassigned
+   0xE300-0xE303 Reserved for backward compatibility             [RFC8446]
+   0xE304-0xE3FF Unassigned
+   0xE400-0xE403 Reserved for backward compatibility             [RFC8446]
+   0xE404-0xE4FF Unassigned
+   0xE500-0xE503 Reserved for backward compatibility             [RFC8446]
+   0xE504-0xE5FF Unassigned
+   0xE600-0xE603 Reserved for backward compatibility             [RFC8446]
+   0xE604-0xE6FF Unassigned
+   0xE700-0xE703 Reserved for backward compatibility             [RFC8446]
+   0xE704-0xE7FF Unassigned
+   0xE800-0xE803 Reserved for backward compatibility             [RFC8446]
+   0xE804-0xE8FF Unassigned
+   0xE900-0xE903 Reserved for backward compatibility             [RFC8446]
+   0xE904-0xE9FF Unassigned
+   0xEA00-0xEA03 Reserved for backward compatibility             [RFC8446]
+   0xEA04-0xEAFF Unassigned
+   0xEB00-0xEB03 Reserved for backward compatibility             [RFC8446]
+   0xEB04-0xEBFF Unassigned
+   0xEC00-0xEC03 Reserved for backward compatibility             [RFC8446]
+   0xEC04-0xECFF Unassigned
+   0xED00-0xED03 Reserved for backward compatibility             [RFC8446]
+   0xED04-0xEDFF Unassigned
+   0xEE00-0xEE03 Reserved for backward compatibility             [RFC8446]
+   0xEE04-0xEEFF Unassigned
+   0xEF00-0xEF03 Reserved for backward compatibility             [RFC8446]
+   0xEF04-0xEFFF Unassigned
+   0xF000-0xF003 Reserved for backward compatibility             [RFC8446]
+   0xF004-0xF0FF Unassigned
+   0xF100-0xF103 Reserved for backward compatibility             [RFC8446]
+   0xF104-0xF1FF Unassigned
+   0xF200-0xF203 Reserved for backward compatibility             [RFC8446]
+   0xF204-0xF2FF Unassigned
+   0xF300-0xF303 Reserved for backward compatibility             [RFC8446]
+   0xF304-0xF3FF Unassigned
+   0xF400-0xF403 Reserved for backward compatibility             [RFC8446]
+   0xF404-0xF4FF Unassigned
+   0xF500-0xF503 Reserved for backward compatibility             [RFC8446]
+   0xF504-0xF5FF Unassigned
+   0xF600-0xF603 Reserved for backward compatibility             [RFC8446]
+   0xF604-0xF6FF Unassigned
+   0xF700-0xF703 Reserved for backward compatibility             [RFC8446]
+   0xF704-0xF7FF Unassigned
+   0xF800-0xF803 Reserved for backward compatibility             [RFC8446]
+   0xF804-0xF8FF Unassigned
+   0xF900-0xF903 Reserved for backward compatibility             [RFC8446]
+   0xF904-0xF9FF Unassigned
+   0xFA00-0xFA03 Reserved for backward compatibility             [RFC8446]
+   0xFA04-0xFAFF Unassigned
+   0xFB00-0xFB03 Reserved for backward compatibility             [RFC8446]
+   0xFB04-0xFBFF Unassigned
+   0xFC00-0xFC03 Reserved for backward compatibility             [RFC8446]
+   0xFC04-0xFCFF Unassigned
+   0xFD00-0xFD03 Reserved for backward compatibility             [RFC8446]
+   0xFD04-0xFDFF Unassigned
+   0xFE00-0xFFFF Reserved for Private Use                        [RFC8446]
+
+TLS PskKeyExchangeMode
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Yoav Nir, Rich Salz, Nick Sullivan
+
+   Reference
+           [RFC8446]
+
+   Note
+
+ Registration requests should be sent to the mailing list
+ described in [RFC 8447, Section 17].
+
+
+   Note
+
+ If an item is not marked as "Recommended", it does not
+ necessarily mean that it is flawed; rather, it indicates that
+ the item either has not been through the IETF consensus process,
+ has limited applicability, or is intended only for specific use
+ cases.
+
+
+   Note
+
+ The role of the designated expert is described in [RFC8447].
+ The designated expert [RFC8126] ensures that the specification is
+ publicly available.  It is sufficient to have an Internet-Draft
+ (that is posted and never published as an RFC) or a document from
+ another standards body, industry consortium, university site, etc.
+ The expert may provide more in depth reviews, but their approval
+ should not be taken as an endorsement of the key exchange mode.
+
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Value        Description        Recommended Reference
+      0    psk_ke                   Y           [RFC8446]
+      1    psk_dhe_ke               Y           [RFC8446]
+    2-253  Unassigned
+   254-255 Reserved for Private Use             [RFC8446]
+
+                                                                 Contact Information
+
+               ID                        Name                          Contact URI               Last Updated
+   [Miguel_Angel_Reina_Ortega] Miguel Angel Reina Ortega mailto:MiguelAngel.ReinaOrtega&etsi.org 2018-02-16
+   [Pasi_Eronen]               Pasi Eronen               mailto:pasi.eronen&nokia.com            2008-04-04
+   [Silke_Holtmanns]           Silke Holtmanns           mailto:Silke.Holtmanns&nokia.com        2013-01-30
