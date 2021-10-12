@@ -8,10 +8,7 @@
 
   <xsl:template name="iana:record_header">
     <xsl:choose> 
-      <xsl:when test="@id = 'cont-disp-1'">
-        <tr><th>Value</th><th>Description</th><th>Allowed Values</th><th>Reference</th></tr>
-      </xsl:when>  
-    <xsl:when test="@id = 'cont-disp-3'">
+      <xsl:when test="@id = 'cont-disp-3'">
         <tr><th>Value</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'cont-disp-4'">
@@ -23,16 +20,8 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="iana:record">  
-  <xsl:choose>
-    <xsl:when test="../@id = 'cont-disp-1'">
-    <tr>
-      <td><xsl:value-of select="iana:name"/></td>
-      <td><xsl:apply-templates select="iana:description"/></td>
-      <td><xsl:apply-templates select="iana:allowedvalues"/></td>
-      <td><xsl:apply-templates select="iana:xref"/></td>
-    </tr>
-  </xsl:when>
+  <xsl:template match="iana:record">
+    <xsl:choose>
       <xsl:when test="../@id = 'cont-disp-3'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>

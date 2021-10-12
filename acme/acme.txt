@@ -4,7 +4,7 @@
            2019-01-02
 
    Last Updated
-           2021-09-29
+           2021-06-21
 
    Available Formats
            [IMG]
@@ -43,14 +43,14 @@ ACME Account Object Fields
            [IMG]
            CSV
 
-         Field Name         Field Type      Requests   Reference
+         Field Name         Field Type      Requests               Reference
    status                 string          new, account [RFC8555]
    contact                array of string new, account [RFC8555]
    externalAccountBinding object          new          [RFC8555]
    termsOfServiceAgreed   boolean         new          [RFC8555]
    onlyReturnExisting     boolean         new          [RFC8555]
    orders                 string          none         [RFC8555]
-   delegations            string          none         [RFC9115]
+   delegations            string          none         [RFC-ietf-acme-star-delegation-09]
 
 ACME Order Object Fields
 
@@ -69,7 +69,7 @@ ACME Order Object Fields
            [IMG]
            CSV
 
-        Field Name         Field Type    Configurable Reference
+        Field Name         Field Type    Configurable             Reference
    status                string          false        [RFC8555]
    expires               string          false        [RFC8555]
    identifiers           array of object true         [RFC8555]
@@ -81,8 +81,8 @@ ACME Order Object Fields
    certificate           string          false        [RFC8555]
    auto-renewal          object          true         [RFC8739]
    star-certificate      string          false        [RFC8739]
-   allow-certificate-get boolean         true         [RFC9115]
-   delegation            string          true         [RFC9115]
+   allow-certificate-get boolean         true         [RFC-ietf-acme-star-delegation-09]
+   delegation            string          true         [RFC-ietf-acme-star-delegation-09]
 
 ACME Authorization Object Fields
 
@@ -125,37 +125,43 @@ ACME Error Types
            [IMG]
            CSV
 
-                 Type                                                            Description                                              Reference
-   accountDoesNotExist               The request specified an account that does not exist                                                 [RFC8555]
-   alreadyRevoked                    The request specified a certificate to be revoked that has already been revoked                      [RFC8555]
-   badCSR                            The CSR is unacceptable (e.g., due to a short key)                                                   [RFC8555]
-   badNonce                          The client sent an unacceptable anti-replay nonce                                                    [RFC8555]
-   badPublicKey                      The JWS was signed by a public key the server does not support                                       [RFC8555]
-   badRevocationReason               The revocation reason provided is not allowed by the server                                          [RFC8555]
-   badSignatureAlgorithm             The JWS was signed with an algorithm the server does not support                                     [RFC8555]
-   caa                               Certification Authority Authorization (CAA) records forbid the CA from issuing a certificate         [RFC8555]
-   compound                          Specific error conditions are indicated in the "subproblems" array                                   [RFC8555]
-   connection                        The server could not connect to validation target                                                    [RFC8555]
-   dns                               There was a problem with a DNS query during identifier validation                                    [RFC8555]
-   externalAccountRequired           The request must include a value for the "externalAccountBinding" field                              [RFC8555]
-   incorrectResponse                 Response received didn't match the challenge's requirements                                          [RFC8555]
-   invalidContact                    A contact URL for an account was invalid                                                             [RFC8555]
-   malformed                         The request message was malformed                                                                    [RFC8555]
-   orderNotReady                     The request attempted to finalize an order that is not ready to be finalized                         [RFC8555]
-   rateLimited                       The request exceeds a rate limit                                                                     [RFC8555]
-   rejectedIdentifier                The server will not issue certificates for the identifier                                            [RFC8555]
-   serverInternal                    The server experienced an internal error                                                             [RFC8555]
-   tls                               The server received a TLS error during validation                                                    [RFC8555]
-   unauthorized                      The client lacks sufficient authorization                                                            [RFC8555]
-   unsupportedContact                A contact URL for an account used an unsupported protocol scheme                                     [RFC8555]
-   unsupportedIdentifier             An identifier is of an unsupported type                                                              [RFC8555]
-   userActionRequired                Visit the "instance" URL and take actions specified there                                            [RFC8555]
-   autoRenewalCanceled               The short-term certificate is no longer available because the auto-renewal Order has been explicitly [RFC8739]
-                                     canceled by the IdO
-   autoRenewalExpired                The short-term certificate is no longer available because the auto-renewal Order has expired         [RFC8739]
-   autoRenewalCancellationInvalid    A request to cancel an auto-renewal Order that is not in state "valid" has been received             [RFC8739]
-   autoRenewalRevocationNotSupported A request to revoke an auto-renewal Order has been received                                          [RFC8739]
-   unknownDelegation                 An unknown configuration is listed in the delegation attribute of the order request                  [RFC9115]
+                 Type                                                Description                                             Reference
+   accountDoesNotExist               The request specified an account that does not exist                        [RFC8555]
+   alreadyRevoked                    The request specified a certificate to be revoked that has already been     [RFC8555]
+                                     revoked
+   badCSR                            The CSR is unacceptable (e.g., due to a short key)                          [RFC8555]
+   badNonce                          The client sent an unacceptable anti-replay nonce                           [RFC8555]
+   badPublicKey                      The JWS was signed by a public key the server does not support              [RFC8555]
+   badRevocationReason               The revocation reason provided is not allowed by the server                 [RFC8555]
+   badSignatureAlgorithm             The JWS was signed with an algorithm the server does not support            [RFC8555]
+   caa                               Certification Authority Authorization (CAA) records forbid the CA from      [RFC8555]
+                                     issuing a certificate
+   compound                          Specific error conditions are indicated in the "subproblems" array          [RFC8555]
+   connection                        The server could not connect to validation target                           [RFC8555]
+   dns                               There was a problem with a DNS query during identifier validation           [RFC8555]
+   externalAccountRequired           The request must include a value for the "externalAccountBinding" field     [RFC8555]
+   incorrectResponse                 Response received didn't match the challenge's requirements                 [RFC8555]
+   invalidContact                    A contact URL for an account was invalid                                    [RFC8555]
+   malformed                         The request message was malformed                                           [RFC8555]
+   orderNotReady                     The request attempted to finalize an order that is not ready to be          [RFC8555]
+                                     finalized
+   rateLimited                       The request exceeds a rate limit                                            [RFC8555]
+   rejectedIdentifier                The server will not issue certificates for the identifier                   [RFC8555]
+   serverInternal                    The server experienced an internal error                                    [RFC8555]
+   tls                               The server received a TLS error during validation                           [RFC8555]
+   unauthorized                      The client lacks sufficient authorization                                   [RFC8555]
+   unsupportedContact                A contact URL for an account used an unsupported protocol scheme            [RFC8555]
+   unsupportedIdentifier             An identifier is of an unsupported type                                     [RFC8555]
+   userActionRequired                Visit the "instance" URL and take actions specified there                   [RFC8555]
+   autoRenewalCanceled               The short-term certificate is no longer available because the auto-renewal  [RFC8739]
+                                     Order has been explicitly canceled by the IdO
+   autoRenewalExpired                The short-term certificate is no longer available because the auto-renewal  [RFC8739]
+                                     Order has expired
+   autoRenewalCancellationInvalid    A request to cancel an auto-renewal Order that is not in state "valid" has  [RFC8739]
+                                     been received
+   autoRenewalRevocationNotSupported A request to revoke an auto-renewal Order has been received                 [RFC8739]
+   unknownDelegation                 An unknown configuration is listed in the "delegations" attribute of the    [RFC-ietf-acme-star-delegation-09]
+                                     request Order
 
 ACME Resource Types
 
@@ -200,14 +206,14 @@ ACME Directory Metadata Fields
            [IMG]
            CSV
 
-         Field Name          Field Type    Reference
+         Field Name          Field Type                Reference
    termsOfService          string          [RFC8555]
    website                 string          [RFC8555]
    caaIdentities           array of string [RFC8555]
    externalAccountRequired boolean         [RFC8555]
    auto-renewal            object          [RFC8739]
-   delegation-enabled      boolean         [RFC9115]
-   allow-certificate-get   boolean         [RFC9115]
+   delegation-enabled      boolean         [RFC-ietf-acme-star-delegation-09]
+   allow-certificate-get   boolean         [RFC-ietf-acme-star-delegation-09]
 
 ACME Identifier Types
 
@@ -315,14 +321,14 @@ STAR Delegation CSR Template Extensions
  Unassigned
 
    Reference
-           [RFC9115]
+           [RFC-ietf-acme-star-delegation-09]
 
    Available Formats
            [IMG]
            CSV
 
-    Extension Name  Extension Syntax and Reference                              Mapping to X.509 Certificate Extension
-   keyUsage         [RFC9115, Appendix A]          [RFC5280, Section 4.2.1.3]
-   extendedKeyUsage [RFC9115, Appendix A]          [RFC5280, Section 4.2.1.12]
-   subjectAltName   [RFC9115, Appendix A]          [RFC5280, Section 4.2.1.6] (note that only specific name formats are allowed: URI, DNS name,
-                                                   email address)
+    Extension Name          Extension Syntax and Reference                              Mapping to X.509 Certificate Extension
+   keyUsage         [RFC-ietf-acme-star-delegation-09, Appendix B] [RFC5280, Section 4.2.1.3]
+   extendedKeyUsage [RFC-ietf-acme-star-delegation-09, Appendix B] [RFC5280, Section 4.2.1.12]
+   subjectAltName   [RFC-ietf-acme-star-delegation-09, Appendix B] [RFC5280, Section 4.2.1.6] (note that only specific name formats are allowed:
+                                                                   URI, DNS name, email address)

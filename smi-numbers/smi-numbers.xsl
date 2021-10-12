@@ -75,7 +75,6 @@
                         @id = 'smi-numbers-1.3.6.1.5.5.7.4' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.5' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.5.1' or
-                        @id = 'smi-numbers-1.3.6.1.5.5.7.5.1.7' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.5.2' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.6' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.7' or
