@@ -4,7 +4,7 @@
            2016-04-14
 
    Last Updated
-           2020-11-30
+           2021-08-25
 
    Available Formats
            [IMG]
@@ -16,9 +16,10 @@
 
      * BMP Message Types
      * BMP Peer Types
-     * BMP Peer Flags
+     * BMP Peer Flags for Peer Types 0 through 2
+     * BMP Peer Flags for Loc-RIB Instance Peer Type 3
      * BMP Statistics Types
-     * BMP Initiation Message TLVs
+     * BMP Initiation and Peer Up Information TLVs
      * BMP Termination Message TLVs
      * BMP Termination Message Reason Codes
      * BMP Peer Down Reason Codes
@@ -71,36 +72,52 @@ BMP Peer Types
    0-127   Standards Action
    128-250 Specification Required
 
-   Peer Type                                             Description                                                         Reference
-   0         Global Instance Peer                                                                                [RFC7854]
-   1         RD Instance Peer                                                                                    [RFC7854]
-   2         Local Instance Peer                                                                                 [RFC7854]
-   3         Loc-RIB Instance Peer (TEMPORARY - registered 2018-12-13, extension registered 2020-11-06, expires  [draft-ietf-grow-bmp-local-rib-08]
-             2021-12-13)
+   Peer Type      Description                 Reference
+   0         Global Instance Peer  [RFC7854]
+   1         RD Instance Peer      [RFC7854]
+   2         Local Instance Peer   [RFC7854]
+   3         Loc-RIB Instance Peer [RFC-ietf-grow-bmp-local-rib-12]
    4-250     Unassigned
-   251-254   Experimental                                                                                        [RFC7854]
-   255       Reserved                                                                                            [RFC7854]
+   251-254   Experimental          [RFC7854]
+   255       Reserved              [RFC7854]
 
-BMP Peer Flags
+BMP Peer Flags for Peer Types 0 through 2
 
    Registration Procedure(s)
 
  Standards Action
 
    Reference
-           [RFC7854]
+           [RFC7854][RFC-ietf-grow-bmp-local-rib-12]
 
    Available Formats
            [IMG]
            CSV
 
-   Flag                                           Description                                                       Reference
-   0    V flag                                                                                          [RFC7854]
-   1    L flag                                                                                          [RFC7854]
-   2    A flag                                                                                          [RFC7854]
-   3    O flag                                                                                          [RFC8671]
-   4    F flag (TEMPORARY - registered 2018-12-13, extension registered 2020-11-06, expires 2021-12-13) [draft-ietf-grow-bmp-local-rib-08]
+   Flag     Description                Reference
+   0    V flag              [RFC7854]
+   1    L flag              [RFC7854]
+   2    A flag              [RFC7854]
+   3    O flag              [RFC8671]
+   4    F flag (DEPRECATED) [RFC-ietf-grow-bmp-local-rib-12]
    5-7  Unassigned
+
+BMP Peer Flags for Loc-RIB Instance Peer Type 3
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC-ietf-grow-bmp-local-rib-12]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Flag Description            Reference
+   0    F flag      [RFC-ietf-grow-bmp-local-rib-12]
+   1-7  Unassigned
 
 BMP Statistics Types
 
@@ -142,14 +159,14 @@ BMP Statistics Types
    65531-65534 Experimental                                                                             [RFC7854]
    65535       Reserved                                                                                 [RFC7854]
 
-BMP Initiation Message TLVs
+BMP Initiation and Peer Up Information TLVs
 
    Expert(s)
 
  John G. Scudder, Rex Fernando (rex), Stephen Stuart
 
    Reference
-           [RFC7854]
+           [RFC7854][RFC-ietf-grow-bmp-local-rib-12]
 
    Available Formats
            [IMG]
@@ -159,16 +176,15 @@ BMP Initiation Message TLVs
    0-32767     Standards Action
    32768-65530 Specification Required
 
-      Type                                                Description                                                        Reference
-   0           String                                                                                            [RFC7854]
-   1           sysDescr                                                                                          [RFC7854]
-   2           sysName                                                                                           [RFC7854]
-   3           VRF/Table Name (TEMPORARY - registered 2018-12-13, extension registered 2020-11-06, expires       [draft-ietf-grow-bmp-local-rib-08]
-               2021-12-13)
-   4           Admin Label                                                                                       [RFC8671]
+      Type      Description              Reference
+   0           String         [RFC7854]
+   1           sysDescr       [RFC7854]
+   2           sysName        [RFC7854]
+   3           VRF/Table Name [RFC-ietf-grow-bmp-local-rib-12]
+   4           Admin Label    [RFC8671]
    5-65530     Unassigned
-   65531-65534 Experimental                                                                                      [RFC7854]
-   65535       Reserved                                                                                          [RFC7854]
+   65531-65534 Experimental   [RFC7854]
+   65535       Reserved       [RFC7854]
 
 BMP Termination Message TLVs
 
@@ -238,17 +254,17 @@ BMP Peer Down Reason Codes
    0-32767     Standards Action
    32768-65530 Specification Required
 
-      Type                                              Description                                                      Reference
-   0           Reserved                                                                                      [RFC7854]
-   1           Local system closed, NOTIFICATION PDU follows                                                 [RFC7854]
-   2           Local system closed, FSM Event follows                                                        [RFC7854]
-   3           Remote system closed, NOTIFICATION PDU follows                                                [RFC7854]
-   4           Remote system closed, no data                                                                 [RFC7854]
-   5           Peer de-configured                                                                            [RFC7854]
-   6           Local system closed, TLV data follows (TEMPORARY - registered 2020-11-30, expires 2021-11-30) [draft-ietf-grow-bmp-local-rib-08]
+      Type                      Description                              Reference
+   0           Reserved                                       [RFC7854]
+   1           Local system closed, NOTIFICATION PDU follows  [RFC7854]
+   2           Local system closed, FSM Event follows         [RFC7854]
+   3           Remote system closed, NOTIFICATION PDU follows [RFC7854]
+   4           Remote system closed, no data                  [RFC7854]
+   5           Peer de-configured                             [RFC7854]
+   6           Local system closed, TLV data follows          [RFC-ietf-grow-bmp-local-rib-12]
    7-65530     Unassigned
-   65531-65534 Experimental                                                                                  [RFC7854]
-   65535       Reserved                                                                                      [RFC7854]
+   65531-65534 Experimental                                   [RFC7854]
+   65535       Reserved                                       [RFC7854]
 
 BMP Route Mirroring TLVs
 
