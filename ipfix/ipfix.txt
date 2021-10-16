@@ -4,7 +4,7 @@
            2007-05-10
 
    Last Updated
-           2021-07-07
+           2021-10-15
 
    Note
 
@@ -290,12 +290,9 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               Switching.
    44     sourceIPv4Prefix                       ipv4Address          default      current    IPv4 source address prefix.                                                                                                                                                    [RFC5102]                          0        2013-02-18
    45     destinationIPv4Prefix                  ipv4Address          default      current    IPv4 destination address prefix.                                                                                                                                               [RFC5102]                          0        2013-02-18
-                                                                                                                                                                                                               See [RFC3031] for the MPLS label structure. See [RFC4364] for
-                                                                                              This field identifies the control protocol that allocated the top-of-stack label. Values                         the association of MPLS labels with Virtual Private Networks
-   46     mplsTopLabelType                       unsigned8            identifier   current    for this field are listed in the MPLS label type registry. See                                                   (VPNs). See [RFC4271] for BGP and BGP routing. See [RFC5036]  [RFC5102]                          0        2013-02-18
-                                                                                              [http://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-mpls-label-type]                                        for Label Distribution Protocol (LDP). See the list of MPLS
-                                                                                                                                                                                                               label types assigned by IANA at
-                                                                                                                                                                                                               [http://www.iana.org/assignments/mpls-label-values].
+                                                                                              This field identifies the control protocol that allocated the top-of-stack label. Values                         See [RFC3031] for the MPLS label structure. See the list of
+   46     mplsTopLabelType                       unsigned8            identifier   current    for this field are listed in the MPLS label type registry. See                                                   MPLS label types assigned by IANA at                          [RFC5102]                          0        2013-02-18
+                                                                                              [http://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-mpls-label-type]                                        [http://www.iana.org/assignments/mpls-label-values].
    47     mplsTopLabelIPv4Address                ipv4Address          default      current    The IPv4 address of the system that the MPLS top label will cause this Flow to be                                See [RFC3031] for the association between MPLS labels and IP  [RFC5102]                          1        2014-02-03
                                                                                               forwarded to.                                                                                                    addresses.
    48     samplerId                              unsigned8            identifier   deprecated Deprecated in favor of 302 selectorId. The unique identifier associated with                                                                                                   [RFC7270]                          0        2014-04-04
@@ -2215,14 +2212,19 @@ ElementID                  Name                   Abstract Data Type   Data Type
            [IMG]
            CSV
 
-   Value                             Description                                          Reference
-     0   Unknown: The MPLS label type is not known.                           [RFC3954][ipfix-iana_at_cisco.com]
-     1   TE-MIDPT: Any TE tunnel mid-point or tail label                      [RFC5102]
-     2   Pseudowire: Any PWE3 or Cisco AToM based label                       [RFC5102]
-     3   VPN: Any label associated with VPN                                   [RFC5102]
-     4   BGP: Any label associated with BGP or BGP routing                    [RFC5102]
-     5   LDP: Any label associated with dynamically assigned labels using LDP [RFC5102]
-   6-255 Unassigned                                                           [RFC5102]
+   Value                              Description                                                    Reference
+     0    Unknown: The MPLS label type is not known.                           [RFC3954][ipfix-iana_at_cisco.com]
+     1    TE-MIDPT: Any TE tunnel mid-point or tail label                      [RFC5102]
+     2    Pseudowire: Any PWE3 or Cisco AToM based label                       [RFC5102]
+     3    VPN: Any label associated with VPN                                   [RFC5102][RFC4364]
+     4    BGP: Any label associated with BGP or BGP routing                    [RFC5102][RFC4271]
+     5    LDP: Any label associated with dynamically assigned labels using LDP [RFC5102][RFC5036]
+     6    Path Computation Element                                             [RFC-ietf-opsawg-ipfix-mpls-sr-label-type-11][RFC8664]
+     7    OSPFv2 Segment Routing                                               [RFC-ietf-opsawg-ipfix-mpls-sr-label-type-11][RFC8665]
+     8    OSPFv3 Segment Routing                                               [RFC-ietf-opsawg-ipfix-mpls-sr-label-type-11][RFC8666]
+     9    IS-IS Segment Routing                                                [RFC-ietf-opsawg-ipfix-mpls-sr-label-type-11][RFC8667]
+     10   BGP Segment Routing Prefix-SID                                       [RFC-ietf-opsawg-ipfix-mpls-sr-label-type-11][RFC8669]
+   11-255 Unassigned
 
   Forwarding Status (Value 89)
 
@@ -2959,7 +2961,7 @@ IPFIX Information Element Semantics
      6   list         [RFC6313]
      7   snmpCounter  [RFC8038]
      8   snmpGauge    [RFC8038]
-   9-255 Unassigned   [RFC5610]
+   9-255 Unassigned
 
 IPFIX Information Element Units
 
@@ -2995,7 +2997,7 @@ IPFIX Information Element Units
       13    frames        For example, Layer 2 frames                   [ipfix-iana_at_cisco.com]
       14    ports                                                       [RFC8045]
       15    inferred      The units of the inferred Information Element [RFC5477]
-   16-65535 Unassigned                                                  [RFC5610]
+   16-65535 Unassigned
 
 IPFIX Structured Data Types Semantics
 

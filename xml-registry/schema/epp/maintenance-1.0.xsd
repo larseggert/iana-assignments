@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <schema targetNamespace="urn:ietf:params:xml:ns:epp:
+    maintenance-1.0"
+    xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
+    xmlns:epp="urn:ietf:params:xml:ns:epp-1.0"
+    xmlns:maint="urn:ietf:params:xml:ns:epp:maintenance-1.0"
+    xmlns="https://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified">
+  <!--
+  Import common element types
+  -->
+  <import namespace="urn:ietf:params:xml:ns:eppcom-1.0"/>
+  <import namespace="urn:ietf:params:xml:ns:epp-1.0"/>
+  <annotation>
+    <documentation>
+      Extensible Provisioning Protocol v1.0
+      Registry Maintenance Notification Mapping Schema.
+    </documentation>
+  </annotation>
+  <!--
+  Child elements found in EPP commands.
+  -->
+  <element name="info" type="maint:infoType"/>
+  <!--
+   Child elements of the <info> command.
+  -->
+  <complexType name="infoType">
+    <sequence>
+      <choice>
+        <element name="list"/>
+        <element name="id" type="maint:idType"/>
+      </choice>
+    </sequence>
+  </complexType>
+  <!--
+  Human-readable text may describe the maintenance
+  -->
+  <complexType name="idType">
+    <simpleContent>
+      <extension base="token">
+        <attribute name="name" type="token"/>
+        <attribute name="lang" type="language" default="en"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  <!--
+   Info Response element
+  -->
+  <element name="infData" type="maint:infDataType"/>
+  <!--
+   <info> response elements.
+  -->
+  <complexType name="infDataType">
+    <choice>
+      <element name="list" type="maint:listDataType"/>
+      <element name="item" type="maint:maintDataType"/>
+    </choice>
+  </complexType>
+  <!--
+   Attributes associated with the list info response
+  -->
+  <complexType name="listDataType">
+    <sequence>
+      <element name="listItem" type="maint:maintItemType"
+       minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+  <!--
+   Attributes associated with the list item info response
+  -->
+  <complexType name="maintItemType">
+    <sequence>
+      <element name="id" type="maint:idType"/>
+      <element name="start" type="dateTime"/>
+      <element name="end" type="dateTime"/>
+      <element name="crDate" type="dateTime"/>
+      <element name="upDate" type="dateTime" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  <!--
+   Attributes associated with the maintenance info response
+  -->
+  <complexType name="maintDataType">
+    <sequence>
+      <element name="id" type="maint:idType"/>
+      <element name="type" type="maint:typeType" minOccurs="0"
+       maxOccurs="unbounded"/>
+      <element name="pollType" type="maint:pollType" minOccurs="0"/>
+      <element name="systems" type="maint:systemsType"/>
+      <element name="environment" type="maint:envType"/>
+      <element name="start" type="dateTime"/>
+      <element name="end" type="dateTime"/>
+      <element name="reason" type="maint:reasonEnum"/>
+      <element name="detail" type="anyURI" minOccurs="0"/>
+      <element name="description" type="maint:descriptionType"
+       minOccurs="0" maxOccurs="unbounded"/>
+      <element name="tlds" type="maint:tldsType" minOccurs="0"/>
+      <element name="intervention" type="maint:interventionType"
+       minOccurs="0"/>
+      <element name="crDate" type="dateTime"/>
+      <element name="upDate" type="dateTime" minOccurs="0"/>
+    </sequence>
+  </complexType>
+  <!--
+   systems element
+  -->
+  <complexType name="systemsType">
+    <sequence>
+      <element name="system" type="maint:systemType"
+       maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+  <!--
+   Enumerated list of poll types
+  -->
+  <simpleType name="pollType">
+    <restriction base="token">
+      <enumeration value="create"/>
+      <enumeration value="update"/>
+      <enumeration value="delete"/>
+      <enumeration value="courtesy"/>
+      <enumeration value="end"/>
+    </restriction>
+  </simpleType>
+  <!--
+   Enumerated list of impacts
+  -->
+  <simpleType name="impactEnum">
+    <restriction base="token">
+      <enumeration value="none"/>
+      <enumeration value="partial"/>
+      <enumeration value="full"/>
+    </restriction>
+  </simpleType>
+  <!--
+   description element
+  -->
+  <complexType name="descriptionType">
+    <simpleContent>
+      <extension base="string">
+        <attribute name="lang" type="language" default="en"/>
+        <attribute name="type" type="maint:descEnum" default="plain"
+        />
+      </extension>
+    </simpleContent>
+  </complexType>
+  <!--
+   Enumerated list of description mime types
+  -->
+  <simpleType name="descEnum">
+    <restriction base="token">
+      <enumeration value="plain"/>
+      <enumeration value="html"/>
+    </restriction>
+  </simpleType>
+  <!--
+   type element
+  -->
+  <complexType name="typeType">
+    <simpleContent>
+      <extension base="string">
+        <attribute name="lang" type="language" default="en"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  <!--
+   system element
+  -->
+  <complexType name="systemType">
+    <sequence>
+      <element name="name" type="token"/>
+      <element name="host" type="eppcom:labelType" minOccurs="0"/>
+      <element name="impact" type="maint:impactEnum"/>
+    </sequence>
+  </complexType>
+  <!--
+   Enumerated list of environments
+  -->
+  <simpleType name="envEnum">
+    <restriction base="token">
+      <enumeration value="production"/>
+      <enumeration value="ote"/>
+      <enumeration value="staging"/>
+      <enumeration value="dev"/>
+      <enumeration value="custom"/>
+    </restriction>
+  </simpleType>
+  <!--
+   environment element
+  -->
+  <complexType name="envType">
+    <simpleContent>
+      <extension base="token">
+        <attribute name="type" type="maint:envEnum" use="required"/>
+        <attribute name="name" type="token" use="optional"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+  <!--
+   Enumerated list of reasons
+  -->
+  <simpleType name="reasonEnum">
+    <restriction base="token">
+      <enumeration value="planned"/>
+      <enumeration value="emergency"/>
+    </restriction>
+  </simpleType>
+  <!--
+   tlds element
+  -->
+  <complexType name="tldsType">
+    <sequence>
+      <element name="tld" type="eppcom:labelType"
+       maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+  <!--
+   intervention element
+  -->
+  <complexType name="interventionType">
+    <sequence>
+      <element name="connection" type="boolean"/>
+      <element name="implementation" type="boolean"/>
+    </sequence>
+  </complexType>
+  <!--
+   End of schema.
+  -->
+  </schema>
