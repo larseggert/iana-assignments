@@ -1,0 +1,396 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl" href="http-proxy-status.xsl"?>
+<?xml-model href="http-proxy-status.rng" schematypens="http://relaxng.org/ns/structure/1.0" ?>
+<registry xmlns="http://www.iana.org/assignments" id="http-proxy-status">
+  <title>HTTP Proxy-Status</title>
+  <created>2021-10-22</created>
+  <updated>2021-10-22</updated>
+
+  <registry id="http-proxy-status-parameters">
+    <title>HTTP Proxy-Status Parameters</title>
+    <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+    <registration_rule>Expert Review</registration_rule>
+    <expert>Unassigned</expert>
+      <record date="2021-10-22">
+        <name>error</name>
+        <description>The error parameter's value is an sf-token that is a Proxy Error
+          Type.  When present, it indicates that the intermediary encountered
+          an issue when obtaining this response.</description>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>next-hop</name>
+        <description>The next-hop parameter's value is an sf-string or sf-token that
+          identifies the intermediary or origin server selected (and used, if
+          contacted) to obtain this response.  It might be a hostname, IP
+          address, or alias.</description>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>next-protocol</name>
+        <description>The next-protocol parameter's value indicates the ALPN protocol
+          identifier <xref type="rfc" data="rfc7301"/> of the protocol used by the intermediary to
+          connect to the next hop when obtaining this response.</description>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>received-status</name>
+        <description>The received-status parameter's value indicates the HTTP status code
+          that the intermediary received from the next hop server when
+          obtaining this response.</description>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>details</name>
+        <description>The details parameter's value is an sf-string containing additional
+          information not captured anywhere else.  This can include
+          implementation-specific or deployment-specific information.</description>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+    </registry>
+
+  <registry id="http-proxy-error-types">
+    <title>HTTP Proxy Error Types</title>
+    <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+    <registration_rule>Expert Review</registration_rule>
+    <expert>Unassigned</expert>
+      <record date="2021-10-22">
+        <name>dns_timeout</name>
+        <description>The intermediary encountered a timeout when trying to find 
+          an IP address for the next hop hostname.</description>
+        <extra>None</extra>
+        <code>504</code>
+        <response>true</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>dns_error</name>
+        <description>The intermediary encountered a DNS error when trying to 
+        find an IP address for the next hop hostname.</description>
+        <extra>
+        <paragraph>
+        -  rcode: A sf-string conveying the DNS RCODE that indicates the
+        error type.  See <xref type="rfc" data="rfc8499"/>, Section 3.
+        </paragraph>
+        <paragraph>
+        -  info-code: A sf-integer conveying the Extended DNS Error Code
+        info-code.  See <xref type="rfc" data="rfc8914"/>.
+        </paragraph>
+        </extra>
+        <code>502</code>
+        <response>true</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>destination_not_found</name>
+        <description>The intermediary cannot determine the appropriate next 
+        hop to use for this request; for example, it may not be
+        configured.  Note that this error is specific to gateways, which
+        typically require specific configuration to identify the "backend"
+        server; forward proxies use in-band information to identify the
+        origin server.</description>
+        <extra>None</extra>
+        <code>500</code>
+        <response>true</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>destination_unavailable</name>
+        <description>The intermediary considers the next hop to be unavailable; e.g., recent attempts to communicate with it may have
+        failed, or a health check may indicate that it is down.</description>
+        <extra>None</extra>
+        <code>503</code>
+        <response>true</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>destination_ip_prohibited</name>
+        <description>The intermediary is configured to prohibit connections to the next hop IP address.</description>
+        <extra>None</extra>
+        <code>502</code>
+        <response>true</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>destination_ip_unroutable</name>
+        <description>The intermediary cannot find a route to the next hop IP address.</description>
+        <extra>None</extra>
+        <code>502</code>
+        <response>true</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>connection_refused</name>
+        <description>The intermediary's connection to the next hop was refused.</description>
+        <extra>None</extra>
+        <code>502</code>
+        <response>true</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>connection_terminated</name>
+        <description>The intermediary's connection to the next hop was closed before complete response was received.</description>
+        <extra>None</extra>
+        <code>502</code>
+        <response>false</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>connection_timeout</name>
+        <description>The intermediary's attempt to open a connection to the next hop timed out.</description>
+        <extra>None</extra>
+        <code>504</code>
+        <response>true</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>connection_read_timeout</name>
+        <description>The intermediary was expecting data on a connection (e.g., part of a response), but did not receive any new data in a
+       configured time limit.</description>
+        <extra>None</extra>
+        <code>504</code>
+        <response>false</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>connection_write_timeout</name>
+        <description>The intermediary was attempting to write data to a connection, but was not able to (e.g., because its buffers were
+       full).</description>
+        <extra>None</extra>
+        <code>504</code>
+        <response>false</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>connection_limit_reached</name>
+        <description>The intermediary is configured to limit the number of connections it has to the next hop, and that limit has been
+       passed.</description>
+        <extra>None</extra>
+        <code>503</code>
+        <response>true</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>tls_protocol_error</name>
+        <description>The intermediary encountered a TLS error when communicating with the next hop, either during handshake or
+       afterwards.</description>
+        <extra>None</extra>
+        <code>502</code>
+        <response>false</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+        <notes>Not appropriate when a TLS alert is received; see
+          tls_alert_received</notes>
+      </record>
+      <record date="2021-10-22">
+        <name>tls_certificate_error</name>
+        <description>The intermediary encountered an error when verifying the certificate presented by the next hop.</description>
+        <extra>None</extra>
+        <code>502</code>
+        <response>true</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>tls_alert_received</name>
+        <description>The intermediary received a TLS alert from the next hop.</description>
+        <extra>
+        <paragraph>
+          -  alert-id: an sf-integer containing the applicable value from
+       the <xref type="uri" data="https://www.iana.org/assignments/tls-parameters">TLS Alerts registry</xref>.  See <xref type="rfc" data="rfc8446"/>.
+        </paragraph>
+        <paragraph>
+       -  alert-message: an sf-token or sf-string containing the
+       applicable description string from the <xref type="uri" data="https://www.iana.org/assignments/tls-parameters">TLS Alerts registry</xref>.
+       See <xref type="rfc" data="rfc8446"/>.
+        </paragraph>
+        </extra>
+        <code>502</code>
+        <response>false</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>http_request_error</name>
+        <description>The intermediary is generating a client (4xx) response on the origin's behalf.  Applicable status codes include
+       (but are not limited to) 400, 403, 405, 406, 408, 411, 413, 414,
+       415, 416, 417, 429.</description>
+        <extra>
+        <paragraph>
+            -  status-code: an sf-integer containing the generated status
+       code.
+        </paragraph>
+        <paragraph>
+       -  status-phrase: an sf-string containing the generated status
+       phrase.
+        </paragraph>
+        </extra>
+        <code>The applicable 4xx status code</code>
+        <response>true</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+        <notes>This type helps distinguish between responses generated by
+          intermediaries from those generated by the origin.</notes>
+      </record>
+      <record date="2021-10-22">
+        <name>http_request_denied</name>
+        <description>The intermediary rejected the HTTP request based on its configuration and/or policy settings.  The request wasn't
+       forwarded to the next hop.</description>
+        <extra>None</extra>
+        <code>403</code>
+        <response>true</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>http_response_incomplete</name>
+        <description>The intermediary received an incomplete response to the request from the next hop.</description>
+        <extra>None</extra>
+        <code>502</code>
+        <response>false</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>http_response_header_section_size</name>
+        <description>The intermediary received a response to the request whose header section was considered too large.</description>
+        <extra>- header-section-size: an sf-integer indicating how large the
+       headers received were.  Note that they might not be complete;
+       i.e., the intermediary may have discarded or refused additional
+       data.</extra>
+        <code>502</code>
+        <response>false</response>
+      <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>http_response_header_size</name>
+        <description>The intermediary received a response to the request containing an individual header field line that was considered too
+       large.</description>
+        <extra>
+        <paragraph>
+        -  header-name: an sf-string indicating the name of the header
+       field that triggered the error.
+       </paragraph>
+       <paragraph>
+       -  header-size: an sf-integer indicating the size of the header
+       field that triggered the error.
+        </paragraph>
+        </extra>
+        <code>502</code>
+        <response>false</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>http_response_body_size</name>
+        <description>The intermediary received a response to the request whose body was considered too large.</description>
+        <extra>-  body-size: an sf-integer indicating how large the body received
+       was.  Note that it may not have been complete; i.e., the
+       intermediary may have discarded or refused additional data.</extra>
+        <code>502</code>
+        <response>false</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>http_response_trailer_section_size</name>
+        <description>The intermediary received a response to the request whose trailer section was considered too large.</description>
+        <extra>-  trailer-section-size: an sf-integer indicating how large the
+       trailers received were.  Note that they might not be complete;
+       i.e., the intermediary may have discarded or refused additional
+       data.</extra>
+        <code>502</code>
+        <response>false</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>http_response_trailer_size</name>
+        <description>The intermediary received a response to the request containing an individual trailer field line that was considered
+       too large.</description>
+        <extra>
+        <paragraph>
+          -  trailer-name: an sf-string indicating the name of the trailer
+       field that triggered the error.
+      </paragraph>
+       <paragraph>
+       -  trailer-size: an sf-integer indicating the size of the trailer
+       field that triggered the error.
+        </paragraph>
+        </extra>
+        <code>502</code>
+        <response>false</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>http_response_transfer_coding</name>
+        <description>The intermediary encountered an error decoding the transfer-coding of the response.</description>
+        <extra>- coding: an sf-token containing the specific coding (from the
+       <xref type="uri" data="https://www.iana.org/assignments/http-parameters">HTTP Transfer Coding Registry</xref>) that caused the error.</extra>
+        <code>502</code>
+        <response>false</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>http_response_content_coding</name>
+        <description>The intermediary encountered an error decoding the content-coding of the response.</description>
+        <extra>-  coding: an sf-token containing the specific coding (from the
+          <xref type="uri" data="https://www.iana.org/assignments/http-parameters">HTTP Content Coding Registry</xref>) that caused the error.</extra>
+        <code>502</code>
+        <response>false</response>
+      <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>http_response_timeout</name>
+        <description>The intermediary reached a configured time limit waiting for the complete response.</description>
+        <extra>None</extra>
+        <code>504</code>
+        <response>false</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>http_upgrade_failed</name>
+        <description>The HTTP Upgrade between the intermediary and the next hop failed.</description>
+        <extra>None</extra>
+        <code>502</code>
+        <response>true</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>http_protocol_error</name>
+        <description>The intermediary encountered a HTTP protocol error when communicating with the next hop.  This error should only be
+       used when a more specific one is not defined.</description>
+        <extra>None</extra>
+        <code>502</code>
+        <response>false</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>proxy_internal_response</name>
+        <description>The intermediary generated the response locally, without attempting to connect to the next hop (e.g. in response to
+       a request to a debug endpoint terminated at the intermediary).</description>
+        <extra>None</extra>
+        <code>The most appropriate status code for the response</code>
+        <response>true</response>
+      <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>proxy_internal_error</name>
+        <description>The intermediary encountered an internal error unrelated to the origin.</description>
+        <extra>None</extra>
+        <code>500</code>
+        <response>true</response>
+      <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+        <name>proxy_configuration_error</name>
+        <description>The intermediary encountered an error regarding its configuration.</description>
+        <extra>None</extra>
+        <code>500</code>
+        <response>true</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>
+      <record date="2021-10-22">
+          <name>proxy_loop_detected</name>
+        <description>The intermediary tried to forward the request to itself, or a loop has been detected using different means (e.g.
+        <xref type="rfc" data="rfc8586"/>).</description>
+        <extra>None</extra>
+        <code>502</code>
+        <response>true</response>
+        <xref type="draft" data="RFC-ietf-httpbis-proxy-status-08"/>
+      </record>   
+  </registry>
+
+  <people/>
+</registry>
