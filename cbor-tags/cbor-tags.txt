@@ -4,7 +4,7 @@
            2013-09-19
 
    Last Updated
-           2021-09-03
+           2021-10-22
 
    Available Formats
            [IMG]
@@ -39,7 +39,7 @@ CBOR Tags
    24-32767                   Specification Required
    32768-18446744073709551615 First Come First Served
 
-              Tag                 Data Item             Semantics                                                               Reference                                                           Template
+              Tag                 Data Item             Semantics                                                                  Reference                                                             Template
 0                               text string   Standard date/time string;    [RFC8949]
                                               see Section 3.4.1
 1                               integer or    Epoch-based date/time; see    [RFC8949]
@@ -115,11 +115,11 @@ CBOR Tags
 47                              unsigned      YANG Schema Item iDentifier   [draft-ietf-core-yang-cbor]
                                 integer       (sid); see Section 3.2.
 48-51                           Unassigned
-52                              byte-string   An IPv4 address or IPv4       [draft-ietf-cbor-network-addresses-02]
-                                or array      prefix
+52                              byte string   IPv4, [prefixlen,IPv4],       [RFC-ietf-cbor-network-addresses-13]
+                                or array      [IPv4,prefixpart]
 53                              Unassigned
-54                              byte-string   An IPv6 address or IPv6       [draft-ietf-cbor-network-addresses-02]
-                                or array      prefix
+54                              byte string   IPv6, [prefixlen,IPv6],       [RFC-ietf-cbor-network-addresses-13]
+                                or array      [IPv6,prefixpart]
 55-60                           Unassigned
 61                              CBOR Web      CBOR Web Token (CWT)          [RFC8392][Michael_B._Jones]
                                 Token (CWT)
@@ -203,11 +203,15 @@ CBOR Tags
                                               Map datatype with key-value
 259                             map           operations (e.g.              [https://github.com/shanewholloway/js-cbor-codec/blob/master/docs/CBOR-259-spec--explicit-maps.md][Shane_Holloway]
                                               `.get()/.set()/.delete()`)
-260                             byte string   Network Address (IPv4 or IPv6 [http://www.employees.org/~ravir/cbor-network.txt][Ravi_Raju]
-                                              or MAC Address)
-                                map           Network Address Prefix (IPv4
-261                             (IPAddress +  or IPv6 Address + Mask        [https://github.com/toravir/CBOR-Tag-Specs/blob/master/networkPrefix.md][Ravi_Raju]
-                                Mask Length)  Length)
+                                              Network Address (IPv4 or IPv6
+260                             byte string   or MAC Address) (DEPRECATED   [http://www.employees.org/~ravir/cbor-network.txt][Ravi_Raju][RFC-ietf-cbor-network-addresses-13]
+                                              in favor of 52 and 54 for IP
+                                              addresses)
+                                              Network Address Prefix (IPv4
+                                map           or IPv6 Address + Mask
+261                             (IPAddress +  Length) (DEPRECATED in favor  [https://github.com/toravir/CBOR-Tag-Specs/blob/master/networkPrefix.md][Ravi_Raju][RFC-ietf-cbor-network-addresses-13]
+                                Mask Length)  of 52 and 54 for IP
+                                              addresses)
 262                             byte string   Embedded JSON Object          [https://github.com/toravir/CBOR-Tag-Specs/blob/master/embeddedJSON.md][Ravi_Raju]
 263                             byte string   Hexadecimal string            [https://github.com/toravir/CBOR-Tag-Specs/blob/master/hexString.md][Ravi_Raju]
 264                             array         Decimal fraction with         [http://peteroupc.github.io/CBOR/bigfrac.html][Peter_Occil]
@@ -277,7 +281,7 @@ CBOR Tags
 65535                           (none valid)  always invalid                [draft-bormann-cbor-notable-tags-02, Section 10.1]
 65536-1330664269                Unassigned
                                               A CBOR encoded Openswan
-1330664270                      byte-string   configuration file, as stored [Michael_Richardson][Samir_Hussain]                                                                                template/1330664270
+1330664270                      byte-string   configuration file, as stored [Michael_Richardson][Samir_Hussain]                                                                                     template/1330664270
                                               on disk for unit test cases.
 1330664271-15309735             Unassigned
 15309736                        map (major    RAINS Message                 [https://britram.github.io/rains-prototype][Brian_Trammell]
