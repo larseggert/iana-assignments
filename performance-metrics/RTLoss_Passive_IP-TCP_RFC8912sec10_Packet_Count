@@ -1,0 +1,294 @@
+RTLoss_Passive_IP-TCP_RFC8912sec10_Packet_Count
+All section numbers below refer to RFC 8912 
+
+10.1. Summary
+
+   This category includes multiple indexes to the Registry Entries: the
+   element ID and Metric Name.
+
+10.1.1. ID (Identifier)
+
+  26
+
+10.1.2. Name
+
+   RTLoss_Passive_IP-TCP_RFC8912sec10_Packet_Count
+
+10.1.3. URI
+
+   URL: https://www.iana.org/performance-metrics/RTLoss_Passive_IP-TCP_RFC8912sec10_Packet_Count
+
+10.1.4. Description
+
+   RTLoss:  This metric assesses the estimated loss count for TCP packets 
+   constituting a single connection, exchanged between two hosts. We consider 
+   the measurement of round-trip delay based on a single Observation Point (OP)  [RFC7011] somewhere 
+   in the network. The output is the estimated loss count for the measurement interval.
+
+10.1.5. Change Controller
+
+   IETF
+
+10.1.6. Version (of Registry Format)
+
+   1.0
+
+10.2. Metric Definition
+
+   This category includes columns to prompt the entry of all necessary
+   details related to the metric definition, including the RFC reference
+   and values of input factors, called "Fixed Parameters".
+
+10.2.1. Reference Definition
+
+   Almes, G., Kalidindi, S., and M.  Zekauskas, "A Round-trip Delay
+   Metric for IPPM", RFC 2681, DOI 10.17487/RFC2681, September 1999,
+   <https://www.rfc-editor.org/info/rfc2681>.  [RFC2681]
+
+   Although there is no RFC that describes Passive Measurement of round-
+   trip delay, the parallel definition for Active Measurement is
+   provided in [RFC2681].
+
+   This metric definition uses the terms "singleton" and "sample" as
+   defined in Section 11 of [RFC2330].  (Section 2.4 of [RFC2681]
+   provides the reference definition of the singleton (single value)
+   round-trip delay metric.  Section 3.4 of [RFC2681] provides the
+   reference definition expanded to cover a multi-singleton sample.)
+
+   With the OP [RFC7011] typically located between the hosts
+   participating in the TCP connection, the round-trip delay metric
+   requires two individual measurements between the OP and each host,
+   such that the Spatial Composition [RFC6049] of the measurements yields
+   a round-trip delay singleton (we are extending the composition of
+   one-way subpath delays to subpath round-trip delay).
+
+   Using the direction of TCP SYN transmission to anchor the
+   nomenclature, host A sends the SYN, and host B replies with SYN-ACK
+   during connection establishment.  The direction of SYN transfer is
+   considered the Forward direction of transmission, from A through the
+   OP to B (the Reverse direction is B through the OP to A).
+
+   Traffic Filters reduce the packet streams at the OP to a Qualified
+   bidirectional flow of packets.
+
+   In the definitions below, Corresponding Packets are transferred in
+   different directions and convey a common value in a TCP header field
+   that establishes correspondence (to the extent possible).  Examples
+   may be found in the TCP timestamp fields.
+
+The definition of round-trip loss count uses the nomenclature developed above, based on observation of the TCP header sequence numbers and storing the sequence number gaps observed. Packet losses can be inferred from:
+
+Out-of-order segments:
+    TCP segments are transmitted with monotonically increasing sequence numbers, but these segments may be received out of order. Section 3 of [RFC4737] describes the notion of "next expected" sequence numbers, which can be adapted to TCP segments (for the purpose of detecting reordered packets). Observation of out-of-order segments indicates loss on the path prior to the OP and creates a gap.
+
+Duplicate segments:
+    Section 2 of [RFC5560] defines identical packets and is suitable for evaluation of TCP packets to detect duplication. Observation of segment duplicates a segment previously observed (and thus no corresponding observed segment gap) indicates loss on the path following the OP (e.g., the segment overlaps part of the octet stream already observed at the OP).
+
+Each observation of an out-of-order or duplicate segment infers a singleton of loss, but the composition of round-trip loss counts will be conducted over a measurement interval that is synonymous with a single TCP connection.
+
+With the above observations in the Forward direction over a measurement interval, the count of out-of-order and duplicate segments is defined as RTL_fwd. Comparable observations in the Reverse direction are defined as RTL_rev.
+
+For a measurement interval (corresponding to a single TCP connection) T0 to Tf, the REQUIRED Composition Function for the two single-direction counts of inferred loss is:
+
+RTLoss = RTL_fwd + RTL_rev
+
+
+10.2.2. Fixed Parameters
+
+   Traffic Filters:
+      IPv4 header values:
+         DSCP:  Set to 0
+         Protocol:  Set to 06 (TCP)
+
+      IPv6 header values:
+         DSCP:  Set to 0
+         Hop Count:  Set to 255
+         Next Header:  Set to 6 (TCP)
+         Flow Label:  Set to 0
+         Extension Headers:  None
+
+      TCP header values:
+         Flags:  ACK, SYN, FIN, set as required
+         Timestamps Option (TSopt):  Set.  See Section 3.2 of [RFC7323]
+
+10.3. Method of Measurement
+
+   This category includes columns for references to relevant sections of
+   the RFC(s) and any supplemental information needed to ensure an
+   unambiguous method for implementations.
+
+10.3.1. Reference Methods
+
+   The foundational methodology for this metric is defined in Section 4
+   of [RFC7323] using the Timestamps option with modifications that
+   allow application at a mid-path OP [RFC7011].  Further details and
+   applicable heuristics were derived from [Strowes] and [Trammell-14].
+
+   The Traffic Filter at the OP is configured to observe a single TCP
+   connection.  
+
+   For payload-bearing packets,  each observation of an out-of-order or 
+   duplicate segment infers a loss count, but the composition of round-trip loss 
+   counts will be conducted over a measurement interval that is synonymous 
+   with a single TCP connection.
+   
+   Method for Inferring Loss:
+
+   *  The OP tracks sequence numbers and stores gaps for each direction
+      of transmission, as well as the next expected sequence number as
+      discussed in [Trammell-14] and [RFC4737].  Loss is inferred from
+      out-of-order segments and duplicate segments.
+
+   Loss Measurement Filtering Heuristics:
+
+   *  [Trammell-14] adds a window of evaluation based on the RTDelay.
+
+   *  Distinguish reordered packets from out-of-order segments due to
+      loss, because the sequence number gap is filled during the same
+      RTDelay window.  Segments detected as reordered according to
+      [RFC4737] MUST reduce the loss count inferred from out-of-order
+      segments.
+
+   *  Spurious (unneeded) retransmissions (observed as duplicates) can
+      also be reduced in this way, as described in [Trammell-14].
+
+  Sources of Error:
+
+   *  A key source of RTLoss error is observation loss, as described in
+      Section 3 of [Trammell-14].
+
+10.3.2. Packet Stream Generation
+
+   N/A
+
+10.3.3. Traffic Filtering (Observation) Details
+
+   The Fixed Parameters above give a portion of the Traffic Filter.
+   Other aspects will be supplied as Runtime Parameters (below).
+
+10.3.4. Sampling Distribution
+
+   This metric requires a complete sample of all packets that qualify
+   according to the Traffic Filter criteria.
+
+10.3.5. Runtime Parameters and Data Format
+
+   Runtime Parameters are input factors that must be determined,
+   configured into the measurement system, and reported with the results
+   for the context to be complete.
+
+   Src:  The IP address of the host in the host A Role (format
+      ipv4-address-no-zone value for IPv4 or ipv6-address-no-zone value
+      for IPv6; see Section 4 of [RFC6991]).
+
+   Dst:  The IP address of the host in the host B Role (format
+      ipv4-address-no-zone value for IPv4 or ipv6-address-no-zone value
+      for IPv6; see Section 4 of [RFC6991]).
+
+   T0:  A time, the start of a measurement interval (format "date-time"
+      as specified in Section 5.6 of [RFC3339]; see also "date-and-time"
+      in Section 3 of [RFC6991]).  The UTC Time Zone is required by
+      Section 6.1 of [RFC2330].  When T0 is "all-zeros", a start time is
+      unspecified and Tf is to be interpreted as the duration of the
+      measurement interval.  The start time is controlled through other
+      means.
+
+   Tf:  Optionally, the end of a measurement interval (format
+      "date-time" as specified in Section 5.6 of [RFC3339]; see also
+      "date-and-time" in Section 3 of [RFC6991]), or the duration (see
+      T0).  The UTC Time Zone is required by Section 6.1 of [RFC2330].
+      Alternatively, the end of the measurement interval MAY be
+      controlled by the measured connection, where the second pair of
+      FIN and ACK packets exchanged between host A and host B
+      effectively ends the interval.
+
+   TTL or Hop Limit:  Set at desired value.
+
+10.3.6. Roles
+
+   host A:  Launches the SYN packet to open the connection.  The Role of
+      "host A" is synonymous with the IP address used at host A.
+
+   host B:  Replies with the SYN-ACK packet to open the connection.  The
+      Role of "host B" is synonymous with the IP address used at host B.
+
+10.4. Output
+
+   This category specifies all details of the output of measurements
+   using the metric.
+
+10.4.1. Type
+
+   For RTLoss: The count of lost packets.
+
+10.4.2. Reference Definition
+
+   For all output types:
+
+   T0:  The start of a measurement interval (format "date-time" as
+      specified in Section 5.6 of [RFC3339]; see also "date-and-time" in
+      Section 3 of [RFC6991]).  The UTC Time Zone is required by
+      Section 6.1 of [RFC2330].
+
+   Tf:  The end of a measurement interval (format "date-time" as
+      specified in Section 5.6 of [RFC3339]; see also "date-and-time" in
+      Section 3 of [RFC6991]).  The UTC Time Zone is required by
+      Section 6.1 of [RFC2330].  The end of the measurement interval MAY
+      be controlled by the measured connection, where the second pair of
+      FIN and ACK packets exchanged between host A and host B
+      effectively ends the interval.
+
+   RTLoss_Passive_IP-TCP_RFC8912sec10_Packet_Count: The count of lost packets.
+
+   Observation of an out-of-order segment or duplicate segment infers a
+   loss count, after application of the Definitions of Section 10.2.1 and the Loss Measurement 
+   Filtering Heuristics of Section 10.3.1.  The composition of round-trip loss counts will
+   be conducted over a measurement interval that is synonymous with a
+   single TCP connection.
+
+   For a measurement interval (corresponding to a single TCP connection)
+   T0 to Tf, the REQUIRED Composition Function for the two single-
+   direction counts of inferred loss is:
+
+   RTLoss = RTL_fwd + RTL_rev
+
+   Packet count:  The numeric value of the result is expressed in units
+      of lost packets, as a positive value of type uint64 (represents
+      integer values between 0 and 18446744073709551615, inclusively
+      (see Section 9.2 of [RFC6020]). 
+
+10.4.3. Metric Units
+
+   The round-trip loss count is expressed as a number of packets.
+   
+10.4.4. Calibration
+
+   Passive Measurements at an OP could be calibrated against an Active
+   Measurement (with loss emulation) at host A or host B, where the
+   Active Measurement represents the ground truth.
+
+10.5. Administrative Items
+
+10.5.1. Status
+
+   Current
+
+10.5.2. Requester
+
+   RFC 8912
+
+10.5.3. Revision
+
+   1.0
+
+10.5.4. Revision Date
+
+   2021-11-17
+
+10.6. Comments and Remarks
+
+   None
+
+
+
+

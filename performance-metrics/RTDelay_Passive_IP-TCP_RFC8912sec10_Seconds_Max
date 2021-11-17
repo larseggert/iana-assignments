@@ -1,0 +1,344 @@
+RTDelay_Passive_IP-TCP_RFC8912sec10_Seconds_Max
+All section numbers below refer to RFC 8912 
+
+10.1. Summary
+
+   This category includes multiple indexes to the Registry Entries: the 
+   element ID and Metric Name.
+
+10.1.1. ID (Identifier)
+
+   24
+
+10.1.2. Name
+
+   RTDelay_Passive_IP-TCP_RFC8912sec10_Seconds_Max
+
+10.1.3. URI
+
+   URL: https://www.iana.org/performance-metrics/RTDelay_Passive_IP-TCP_RFC8912sec10_Seconds_Max
+
+10.1.4. Description
+
+   RTDelay:  This metric assesses the round-trip delay of TCP packets 
+   constituting a single connection, exchanged between two hosts. We consider 
+   the measurement of round-trip delay based on a single Observation Point 
+   (OP) [RFC7011] somewhere in the network. The output is the round-trip delay 
+   for all successfully exchanged packets expressed as the maximum of their 
+   conditional delay distribution.
+
+10.1.5. Change Controller
+
+   IETF
+
+10.1.6. Version (of Registry Format)
+
+   1.0
+
+10.2. Metric Definition
+
+   This category includes columns to prompt the entry of all necessary details 
+   related to the metric definition, including the RFC reference and values 
+   of input factors, called "Fixed Parameters".
+
+10.2.1. Reference Definition
+
+   Almes, G., Kalidindi, S., and M.  Zekauskas, "A Round-trip Delay
+   Metric for IPPM", RFC 2681, DOI 10.17487/RFC2681, September 1999,
+   <https://www.rfc-editor.org/info/rfc2681>.  [RFC2681]
+
+   Although there is no RFC that describes Passive Measurement of round-
+   trip delay, the parallel definition for Active Measurement is
+   provided in [RFC2681].
+
+   This metric definition uses the term “wire time” as defined in Section 10.2
+   of RFC [RFC2330], and the terms "singleton" and "sample" as
+   defined in Section 11 of [RFC2330].  (Section 2.4 of [RFC2681]
+   provides the reference definition of the singleton (single value)
+   round-trip delay metric.  Section 3.4 of [RFC2681] provides the
+   reference definition expanded to cover a multi-singleton sample.)
+
+   With the OP [RFC7011] typically located between the hosts
+   participating in the TCP connection, the round-trip delay metric
+   requires two individual measurements between the OP and each host,
+   such that the Spatial Composition [RFC6049] of the measurements yields
+   a round-trip delay singleton (we are extending the composition of
+   one-way subpath delays to subpath round-trip delay).
+
+   Using the direction of TCP SYN transmission to anchor the
+   nomenclature, host A sends the SYN, and host B replies with SYN-ACK
+   during connection establishment.  The direction of SYN transfer is
+   considered the Forward direction of transmission, from A through the
+   OP to B (the Reverse direction is B through the OP to A).
+
+   Traffic Filters reduce the packet streams at the OP to a Qualified
+   bidirectional flow of packets.
+
+   In the definitions below, Corresponding Packets are transferred in
+   different directions and convey a common value in a TCP header field
+   that establishes correspondence (to the extent possible).  Examples
+   may be found in the TCP timestamp fields.
+
+   For a real number, RTD_fwd, >> the round-trip delay in the Forward
+   direction from the OP to host B at time T' is RTD_fwd << it is
+   REQUIRED that the OP observed a Qualified Packet to host B at
+   wire time T', that host B received that packet and sent a
+   Corresponding Packet back to host A, and the OP observed the
+   Corresponding Packet at wire time T' + RTD_fwd.
+
+   For a real number, RTD_rev, >> the round-trip delay in the Reverse
+   direction from the OP to host A at time T'' is RTD_rev << it is
+   REQUIRED that the OP observed a Qualified Packet to host A at
+   wire time T'', that host A received that packet and sent a
+   Corresponding Packet back to host B, and that the OP observed the
+   Corresponding Packet at wire time T'' + RTD_rev.
+
+   Ideally, the packet sent from host B to host A in both definitions
+   above SHOULD be the same packet (or, when measuring RTD_rev first,
+   the packet from host A to host B in both definitions should be the
+   same).
+
+   The REQUIRED Composition Function for a singleton of round-trip delay
+   at time T (where T is the earliest of T' and T'' above) is:
+
+   RTDelay = RTD_fwd + RTD_rev
+
+   Note that when the OP is located at host A or host B, one of the
+   terms composing RTDelay will be zero or negligible.
+
+   Using the abbreviation HS to refer to the TCP handshake: when the Qualified and
+   Corresponding Packets are a TCP-SYN and a TCP-SYN-ACK, 
+   RTD_fwd == RTD_HS_fwd.
+
+   When the Qualified and Corresponding Packets are a TCP-SYN-ACK and a 
+   TCP-ACK, RTD_rev == RTD_HS_rev.
+
+ The REQUIRED Composition Function for a singleton of round-trip delay
+   for the connection handshake is:
+
+   RTDelay_HS = RTD_HS_fwd + RTD_HS_rev
+
+
+10.2.2. Fixed Parameters
+
+   Traffic Filters:
+      IPv4 header values:
+         DSCP:  Set to 0
+         Protocol:  Set to 06 (TCP)
+
+      IPv6 header values:
+         DSCP:  Set to 0
+         Hop Count:  Set to 255
+         Next Header:  Set to 6 (TCP)
+         Flow Label:  Set to 0
+         Extension Headers:  None
+
+      TCP header values:
+         Flags:  ACK, SYN, FIN, set as required
+         Timestamps Option (TSopt):  Set.  See Section 3.2 of [RFC7323]
+
+
+10.3. Method of Measurement
+
+   This category includes columns for references to relevant sections of
+   the RFC(s) and any supplemental information needed to ensure an
+   unambiguous method for implementations.
+
+10.3.1. Reference Methods
+
+   The foundational methodology for this metric is defined in Section 4
+   of [RFC7323] using the Timestamps option with modifications that
+   allow application at a mid-path OP [RFC7011].  Further details and
+   applicable heuristics were derived from [Strowes] and [Trammell-14].
+
+   The Traffic Filter at the OP is configured to observe a single TCP
+   connection.  When the SYN/SYN-ACK/ACK handshake occurs, it offers the
+   first opportunity to measure both RTD_fwd (on the SYN to SYN-ACK
+   pair) and RTD_rev (on the SYN-ACK to ACK pair).  Label this singleton
+   of RTDelay as RTDelay_HS (composed using the Forward and Reverse
+   measurement pair).  RTDelay_HS SHALL be treated separately from other
+   RTDelays on data-bearing packets and their ACKs.  The RTDelay_HS
+   value MAY be used as a consistency check on the composed values of RTDelay
+   for payload-bearing packets.
+
+   For payload-bearing packets, the OP measures the time interval
+   between observation of a packet with sequence number "s" and the
+   corresponding ACK with the same sequence number.  When the payload is
+   transferred from host A to host B, the observed interval is RTD_fwd.
+
+   Because many data transfers are unidirectional (say, in the Forward
+   direction from host A to host B), it is necessary to use pure ACK
+   packets with Timestamp (TSval) and packets with the Timestamp value
+   echo to perform a RTD_rev measurement.  The time interval between
+   observation of the ACK from B to A, and the Corresponding Packet with
+   a Timestamp Echo Reply (TSecr) field [RFC7323], is the RTD_rev.
+
+
+   Delay Measurement Filtering Heuristics:
+
+   *  If data payloads were transferred in both Forward and Reverse
+      directions, then the Round-Trip Time Measurement rule in
+      Section 4.1 of [RFC7323] could be applied.  This rule essentially
+      excludes any measurement using a packet unless it makes progress
+      in the transfer (advances the left edge of the send window,
+      consistent with [Strowes]).
+
+   *  A different heuristic from [Trammell-14] is to exclude any RTD_rev
+      that is larger than previously observed values.  This would tend
+      to exclude Reverse measurements taken when the application has no
+      data ready to send, because considerable time could be added to
+      RTD_rev from this source of error.
+
+   *  Note that the above heuristic assumes that host A is sending data.
+      Host A expecting a download would mean that this heuristic should
+      be applied to RTD_fwd.
+
+   *  The statistic calculations to summarize the delay (RTDelay) SHALL
+      be performed on the conditional distribution, conditioned on
+      successful Forward and Reverse measurements that follow the
+      heuristics.
+
+   Sources of Error:
+
+   *  The principal source of RTDelay error is the host processing time
+      to return a packet that defines the termination of a time
+      interval.  The heuristics above intend to mitigate these errors by
+      excluding measurements where host processing time is a significant
+      part of RTD_fwd or RTD_rev.
+
+10.3.2. Packet Stream Generation
+
+   N/A
+
+10.3.3. Traffic Filtering (Observation) Details
+
+   The Fixed Parameters above give a portion of the Traffic Filter. 
+   Other aspects will be supplied as Runtime Parameters (below).
+
+10.3.4. Sampling Distribution
+
+   This metric requires a complete sample of all packets that qualify 
+   according to the Traffic Filter criteria.
+
+10.3.5. Runtime Parameters and Data Format
+
+   Runtime Parameters are input factors that must be determined,
+   configured into the measurement system, and reported with the results
+   for the context to be complete.
+
+   Src:  The IP address of the host in the host A Role (format
+      ipv4-address-no-zone value for IPv4 or ipv6-address-no-zone value
+      for IPv6; see Section 4 of [RFC6991]).
+
+   Dst:  The IP address of the host in the host B Role (format
+      ipv4-address-no-zone value for IPv4 or ipv6-address-no-zone value
+      for IPv6; see Section 4 of [RFC6991]).
+
+   T0:  A time, the start of a measurement interval (format "date-time"
+      as specified in Section 5.6 of [RFC3339]; see also "date-and-time"
+      in Section 3 of [RFC6991]).  The UTC Time Zone is required by
+      Section 6.1 of [RFC2330].  When T0 is "all-zeros", a start time is
+      unspecified and Tf is to be interpreted as the duration of the
+      measurement interval.  The start time is controlled through other
+      means.
+
+   Tf:  Optionally, the end of a measurement interval (format
+      "date-time" as specified in Section 5.6 of [RFC3339]; see also
+      "date-and-time" in Section 3 of [RFC6991]), or the duration (see
+      T0).  The UTC Time Zone is required by Section 6.1 of [RFC2330].
+      Alternatively, the end of the measurement interval MAY be
+      controlled by the measured connection, where the second pair of
+      FIN and ACK packets exchanged between host A and host B
+      effectively ends the interval.
+
+   TTL or Hop Limit:  Set at desired value.
+
+10.3.6. Roles
+
+   host A:  Launches the SYN packet to open the connection.  The Role of
+      "host A" is synonymous with the IP address used at host A.
+
+   host B:  Replies with the SYN-ACK packet to open the connection.  The
+      Role of "host B" is synonymous with the IP address used at host B.
+
+10.4. Output
+
+   This category specifies all details of the output of measurements 
+   using the metric.
+
+10.4.1. Type
+
+   RTDelay Types are discussed in the subsections below.
+
+
+10.4.2. Reference Definition
+
+   For all output types:
+
+   T0:  The start of a measurement interval (format "date‑time" 
+      as specified in Section 5.6 of [RFC3339]; see also "date‑and‑time" in 
+      Section 3 of [RFC6991]). The UTC Time Zone is required by Section 6.1 
+      of [RFC2330].
+
+   Tf:  The end of a measurement interval (format "date‑time" as specified in 
+      Section 5.6 of [RFC3339]; see also "date‑and‑time" in Section 3 of [RFC6991]). 
+      The UTC Time Zone is required by Section 6.1 of [RFC2330]. The end of the 
+      measurement interval MAY be controlled by the measured connection, where the 
+      second pair of FIN and ACK packets exchanged between host A and host B 
+      effectively ends the interval.
+
+   The maximum SHALL be calculated using the conditional distribution of all 
+   packets with a finite value of round-trip delay (undefined delays are 
+   excluded) -- a single value, as follows:
+
+   See Section 4.1 of [RFC3393] for details on the conditional distribution 
+   to exclude undefined values of delay, and see Section 5 of [RFC6703] for 
+   background on this analysis choice.
+
+   See Section 4.3.2 of [RFC6049] for a closely related method for calculating 
+   this statistic; see also Section 4.3.3 of [RFC6049]. The formula is as follows:
+
+   	Max = (FiniteDelay[j])
+
+   such that for some index, j, where 1 <= j <= N FiniteDelay[j] >= FiniteDelay[n] 
+   for all n
+
+   Max:
+
+   The time value of the result is expressed in units of seconds, as a positive 
+   value of type decimal64 with fraction digits = 9 (see Section 9.3 of [RFC6020]) 
+   with a resolution of 0.000000001 seconds (1.0 ns), and with lossless conversion 
+   to/from the 64-bit NTP timestamp as per Section 6 of [RFC5905].
+
+10.4.3. Metric Units
+
+   The maximum of round-trip delay is expressed in seconds.
+
+10.4.4. Calibration
+
+   Passive Measurements at an OP could be calibrated against an Active
+   Measurement (with loss emulation) at host A or host B, where the
+   Active Measurement represents the ground truth.
+
+10.5. Administrative Items
+
+10.5.1. Status
+
+   Current
+
+10.5.2. Requester
+
+   RFC 8912
+
+10.5.3. Revision
+
+   1.0
+
+10.5.4. Revision Date
+
+   2021-11-17
+
+10.6. Comments and Remarks
+
+   None
+
