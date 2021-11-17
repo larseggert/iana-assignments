@@ -1,0 +1,363 @@
+RLDNS_Active_IP-UDP-Poisson_RFC8912sec6_Logical_Raw
+All section numbers below refer to RFC 8912
+
+6.1. Summary
+
+   This category includes multiple indexes to the Registry Entries: the 
+   element ID and Metric Name.
+
+6.1.1. ID (Identifier)
+
+   5
+
+6.1.2. Name
+
+   RLDNS_Active_IP-UDP-Poisson_RFC8912sec6_Logical_Raw
+
+6.1.3. URI
+
+   URL: https://www.iana.org/performance-metrics/RLDNS_Active_IP-UDP-Poisson_RFC8912sec6_Logical_Raw
+
+6.1.4. Description
+
+   This is a metric for DNS Response performance from a network user's 
+   perspective, for a specific named resource. The metric can be measured 
+   repeatedly using different resource names.
+
+   RLDNS:  This metric indicates that the response was deemed lost. In 
+   other words, the response time exceeded the maximum waiting time.
+
+6.1.5. Change Controller
+
+   IETF
+
+6.1.6. Version (of Registry Format)
+
+   1.0
+
+6.2. Metric Definition
+
+   This category includes columns to prompt the entry of all necessary 
+   details related to the metric definition, including the RFC reference 
+   and values of input factors, called "Fixed Parameters".
+
+6.2.1. Reference Definition
+
+   Mockapetris, P., "Domain names - implementation and specification", 
+   STD 13, RFC 1035, DOI 10.17487/RFC1035, November 1987, 
+   <https://www.rfc-editor.org/info/rfc1035> (and updates). [RFC1035]
+
+   Morton, A., "Round-Trip Packet Loss Metrics", RFC 6673, 
+   DOI 10.17487/RFC6673, August 2012, 
+   <https://www.rfc-editor.org/info/rfc6673>. [RFC6673]
+
+  For DNS Response Loss, the entities in [RFC1035] must be mapped 
+   to [RFC6673]. The Local Host with its User Program and Resolver 
+   take the Role of "Src", and the Foreign Name Server takes the Role 
+   of "Dst".
+
+   Both response time and Loss metrics employ a maximum waiting time 
+   for received responses, so the count of lost packets to total packets 
+   sent is the basis for the loss determination as per Section 4.3 of 
+   [RFC6673].
+
+6.2.2. Fixed Parameters
+
+   Type-P as defined in Section 13 of [RFC2330]:
+
+   IPv4 header values:
+
+      DSCP:  Set to 0
+      TTL:  Set to 255
+      Protocol:  Set to 17 (UDP)
+
+   IPv6 header values:
+
+      DSCP:  Set to 0
+      Hop Count:  Set to 255
+      Next Header:  Set to 17 (UDP)
+      Flow Label:  Set to 0
+      Extension Headers:  None
+
+   UDP header values:
+
+      Source port:  53
+      Destination port:  53
+      Checksum:  The checksum MUST be calculated and the non-zero 
+      checksum included in the header
+
+   Payload:
+      The payload contains a DNS message as defined in [RFC1035] 
+      with the following values:
+
+   The DNS header section contains:
+
+      Identification (see the Runtime column)
+      QR:  Set to 0 (Query)
+      OPCODE:  Set to 0 (standard query)
+      AA:  Not set
+      TC:  Not set
+      RD:  Set to 1 (recursion desired)
+      RA:  Not set
+      RCODE:  Not set
+      QDCOUNT:  Set to 1 (only one entry)
+      ANCOUNT:  Not set
+      NSCOUNT:  Not set
+      ARCOUNT:  Not set
+
+   The Question section contains:
+
+      QNAME:  The Fully Qualified Domain Name (FQDN) provided as input 
+      for the test; see the Runtime column
+
+      QTYPE:  The query type provided as input for the test; see the 
+      Runtime column
+
+      QCLASS:  Set to 1 for IN
+
+   The other sections do not contain any Resource Records (RRs).
+
+Other measurement Parameters:
+
+   Tmax:  A loss threshold waiting time (and to help disambiguate queries). 
+   The value is 5.0, expressed in units of seconds, as a positive value of type 
+   decimal64 with fraction digits = 4 (see Section 9.3 of [RFC6020]) and with 
+   a resolution of 0.0001 seconds (0.1 ms), with lossless conversion to/from 
+   the 32-bit NTP timestamp as per Section 6 of [RFC5905].
+
+Observation:  Reply packets will contain a DNS Response and may contain RRs.
+
+6.3. Method of Measurement
+
+   This category includes columns for references to relevant sections of 
+   the RFC(s) and any supplemental information needed to ensure an unambiguous 
+   method for implementations.
+
+6.3.1. Reference Methods
+
+   The methodology for this metric (equivalent to 
+   Type-P-Round-trip-Delay-Poisson-Stream) is defined as in Section 2.6 
+   of [RFC2681] (for singletons) and Section 3.6 of [RFC2681] (for samples) 
+   using the Type-P and Timeout defined in the Fixed Parameters column.
+
+   The reference method distinguishes between long-delayed packets and 
+   lost packets by implementing a maximum waiting time for packet arrival. 
+   Tmax is the waiting time used as the threshold to declare a response 
+   packet lost. Lost packets SHALL be designated as having undefined delay 
+   and counted for the RLDNS metric.
+
+   The calculations on the delay (RTT) SHALL be performed on the conditional 
+   distribution, conditioned on successful packet arrival within Tmax. Also, 
+   when all packet delays are stored, the process that calculates the RTT 
+   value MUST enforce the Tmax threshold on stored values before calculations. 
+   See Section 4.1 of [RFC3393] for details on the conditional distribution 
+   to exclude undefined values of delay, and see Section 5 of [RFC6703] for 
+   background on this analysis choice.
+
+   The reference method requires some way to distinguish between different 
+   packets in a stream to establish correspondence between sending times 
+   and receiving times for each successfully arriving reply.
+
+   DNS messages bearing queries provide for random ID Numbers in the 
+   Identification header field, so more than one query may be launched 
+   while a previous request is outstanding when the ID Number is used. 
+   Therefore, the ID Number MUST be retained at the Src and included with 
+   each response packet to disambiguate packet reordering if it occurs.
+
+   If a DNS Response does not arrive within Tmax, the response time RTDNS 
+   is undefined, and RLDNS = 1. The Message ID SHALL be used to disambiguate 
+   the successive queries that are otherwise identical.
+
+   Since the ID Number field is only 16 bits in length, it places a limit on 
+   the number of simultaneous outstanding DNS queries during a stress test 
+   from a single Src address.
+
+   Refer to Section 4.4 of [RFC6673] for an expanded discussion of the 
+   instruction to "send a Type-P packet back to the Src as quickly as possible" 
+   in Section 2.6 of [RFC2681]. However, the DNS server is expected to perform 
+   all required functions to prepare and send a response, so the response time 
+   will include processing time and network delay. Section 8 of [RFC6673] 
+   presents additional requirements that SHALL be included in the Method of 
+   Measurement for this metric.
+
+   In addition to operations described in [RFC2681], the Src MUST parse the 
+   DNS headers of the reply and prepare the query response information for 
+   subsequent reporting as a measured result, along with the round-trip delay.
+
+6.3.2. Packet Stream Generation
+
+   This section provides details regarding packet traffic, which is used as 
+   the basis for measurement. In IPPM Metrics, this is called the "stream"; this 
+   stream can easily be described by providing the list of stream Parameters.
+
+   Section 11.1.3 of [RFC2330] provides three methods to generate Poisson 
+   sampling intervals. The reciprocal of lambda is the average packet spacing; 
+   thus, the Runtime Parameter is Reciprocal_lambda = 1⁠/lambda, in seconds.
+
+   Method 3 SHALL be used. Where given a start time (Runtime Parameter), the 
+   subsequent send times are all computed prior to measurement by computing 
+   the pseudorandom distribution of inter-packet send times (truncating the 
+   distribution as specified in the Parameter Trunc), and the Src sends each 
+   packet at the computed times.
+
+   Note that Trunc is the upper limit on inter-packet times in the Poisson 
+   distribution. A random value greater than Trunc is set equal to Trunc 
+   instead.
+
+6.3.3. Traffic Filtering (Observation) Details
+
+   N/A
+
+6.3.4. Sampling Distribution
+
+   N/A
+
+6.3.5. Runtime Parameters and Data Format
+
+   Runtime Parameters are input factors that must be determined, configured 
+   into the measurement system, and reported with the results for the context 
+   to be complete.
+
+   Src:  The IP address of the host in the Src Role (format ipv4‑address-no-zone 
+   value for IPv4 or ipv6-address-no-zone value for IPv6; see Section 4 of 
+   [RFC6991]).
+
+   Dst:  The IP address of the host in the Dst Role (format ipv4‑address-no-zone 
+   value for IPv4 or ipv6-address-no-zone value for IPv6; see Section 4 of 
+   [RFC6991]).
+
+   T0:  A time, the start of a measurement interval (format "date‑time" as 
+   specified in Section 5.6 of [RFC3339]; see also "date‑and‑time" in Section 3 of
+   [RFC6991]). The UTC Time Zone is required by Section 6.1 of [RFC2330]. When 
+   T0 is "all-zeros", a start time is unspecified and Tf is to be interpreted 
+   as the duration of the measurement interval. The start time is controlled 
+   through other means.
+
+   Tf:  A time, the end of a measurement interval (format "date‑time" as 
+   specified in Section 5.6 of [RFC3339]; see also "date‑and‑time" in Section 3 of
+   [RFC6991]). The UTC Time Zone is required by Section 6.1 of [RFC2330]. When T0 
+   is "all-zeros", an ending time and date is ignored and Tf is interpreted as the
+   duration of the measurement interval.
+
+   Reciprocal_lambda:  Average packet interval for Poisson streams, expressed 
+   in units of seconds, as a positive value of type decimal64 with fraction 
+   digits = 4 (see Section 9.3 of [RFC6020]) with a resolution of 0.0001 
+   seconds (0.1 ms), and with lossless conversion to/from the 32-bit NTP 
+   timestamp as per Section 6 of [RFC5905].
+
+   Trunc:  Upper limit on Poisson distribution, expressed in units of seconds, 
+   as a positive value of type decimal64 with fraction digits = 4 (see Section 
+   9.3 of [RFC6020]) with a resolution of 0.0001 seconds (0.1 ms), and with 
+   lossless conversion to/from the 32-bit NTP timestamp as per Section 6 of 
+   [RFC5905] (values above this limit will be clipped and set to the limit value).
+
+   ID:  The 16-bit Identifier assigned by the program that generates the query. 
+   The ID value must vary in successive queries (a list of IDs is needed); see 
+   Section 4.1.1 of [RFC1035]. This Identifier is copied into the corresponding 
+   reply and can be used by the requester (Src) to match replies with any 
+   outstanding queries.
+
+   QNAME:  The domain name of the query, formatted as specified in Section 4 
+   of [RFC6991].
+
+   QTYPE:  The query type, which will correspond to the IP address family of 
+   the query (decimal 1 for IPv4 or 28 for IPv6), formatted as a uint16, as 
+   per Section 9.2 of [RFC6020].
+
+6.3.6. Roles
+
+   Src:  Launches each packet and waits for return transmissions from the Dst.
+
+   Dst:  Waits for each packet from the Src and sends a return packet to the Src.
+
+6.4. Output
+
+   This category specifies all details of the output of measurements using 
+   the metric.
+
+6.4.1. Type
+
+   Raw: For each DNS query packet sent, sets of values as defined in the 
+   next column, including the status of the response, only assigning delay 
+   values to successful query-response pairs.
+
+6.4.2. Reference Definition
+
+  For all outputs:
+
+   T:  The time the DNS query was sent during the measurement interval 
+   (format "date‑time" as specified in Section 5.6 of [RFC3339]; see also 
+   "date‑and‑time" in Section 3 of [RFC6991]). The UTC Time Zone is 
+   required by Section 6.1 of [RFC2330].
+
+   dT:  The time value of the round-trip delay to receive the DNS Response, 
+   expressed in units of seconds, as a positive value of type decimal64 with 
+   fraction digits = 9 (see Section 9.3 of [RFC6020]) with a resolution of 
+   0.000000001 seconds (1.0 ns), and with lossless conversion to/from the 
+   64-bit NTP timestamp as per Section 6 of [RFC5905]. This value is 
+   undefined when the response packet is not received at the Src within a 
+   waiting time of Tmax seconds.
+
+   RCODE:  The value of the RCODE field in the DNS Response header, expressed 
+   as a uint64 as specified in Section 9.2 of [RFC6020]. Non-zero values 
+   convey errors in the response, and such replies must be analyzed separately 
+   from successful requests.
+  
+  Logical:  The numeric value of the result is expressed as a Logical 
+  value, where 1 = Lost and 0 = Received, as a positive value of 
+  type uint8 (represents integer values between 0 and 255, inclusively
+  (see Section 9.2 of [RFC6020]). Note that for queries with outcome 1 = Lost,
+  dT and RCODE will be set to the maximum for decimal64 and uint64, respectively.
+
+
+6.4.3. Metric Units
+
+   RLDNS:  The Logical value, where 1 = Lost and 0 = Received.
+
+6.4.4. Calibration
+
+   Section 3.7.3 of [RFC7679] provides a means to quantify the systematic 
+   and random errors of a time measurement. Calibration in-situ could be 
+   enabled with an internal loopback at the Source host that includes as 
+   much of the measurement system as possible, performs address and payload 
+   manipulation as needed, and provides some form of isolation (e.g., 
+   deterministic delay) to avoid send-receive interface contention. Some 
+   portion of the random and systematic error can be characterized in this 
+   way.
+
+   When a measurement controller requests a calibration measurement, the 
+   loopback is applied and the result is output in the same format as a 
+   normal measurement, with an additional indication that it is a calibration 
+   result.
+
+   Both internal loopback calibration and clock synchronization can be used 
+   to estimate the available accuracy of the Output Metric Units. For example, 
+   repeated loopback delay measurements will reveal the portion of the output 
+   result resolution that is the result of system noise and is thus inaccurate.
+
+6.5. Administrative Items
+
+6.5.1. Status
+
+   Current
+
+6.5.2. Requester
+  
+   RFC 8912
+
+6.5.3. Revision
+
+   1.0
+
+6.5.4. Revision Date
+
+   2021-11-17
+
+6.6. Comments and Remarks
+
+   None
+
+
+
+
+

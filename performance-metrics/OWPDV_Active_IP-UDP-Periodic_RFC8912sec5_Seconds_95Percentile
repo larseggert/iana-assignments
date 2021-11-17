@@ -1,0 +1,317 @@
+OWPDV_Active_IP-UDP-Periodic_RFC8912sec5_Seconds_95Percentile
+All section numbers below refer to RFC 8912
+
+
+5.1. Summary
+
+   This category includes multiple indexes to the Registry Entry: the 
+   element ID and Metric Name.
+
+5.1.1. ID (Identifier)
+
+   3
+
+5.1.2. Name
+
+   OWPDV_Active_IP-UDP-Periodic_RFC8912sec5_Seconds_95Percentile
+
+5.1.3. URI
+
+   URL: https://www.iana.org/performance-metrics/OWPDV_Active_IP-UDP-Periodic_RFC8912sec5_Seconds_95Percentile
+
+5.1.4. Description
+
+   This metric assesses packet delay variation with respect to the 
+   minimum delay observed on the periodic stream. The output is 
+   expressed as the 95th percentile of the one-way packet delay 
+   variation distribution.
+
+5.1.5. Change Controller
+
+   IETF
+
+5.1.6. Version (of Registry Format)
+
+   1.0
+
+5.2. Metric Definition
+
+   This category includes columns to prompt the entry of all necessary 
+   details related to the metric definition, including the RFC reference 
+   and values of input factors, called "Fixed Parameters".
+
+5.2.1. Reference Definition
+
+   Paxson, V., Almes, G., Mahdavi, J., and M. Mathis, "Framework for IP 
+   Performance Metrics", RFC 2330, DOI 10.17487/RFC2330, May 1998, 
+   <https://www.rfc-editor.org/info/rfc2330>. [RFC2330]
+
+   Demichelis, C. and P. Chimento, "IP Packet Delay Variation Metric 
+   for IP Performance Metrics (IPPM)", RFC 3393, DOI 10.17487/RFC3393, 
+   November 2002, <https://www.rfc-editor.org/info/rfc3393>. [RFC3393]
+
+   Morton, A. and B. Claise, "Packet Delay Variation Applicability 
+   Statement", RFC 5481, DOI 10.17487/RFC5481, March 2009, 
+   <https://www.rfc-editor.org/info/rfc5481>. [RFC5481]
+
+   Mills, D., Martin, J., Ed., Burbank, J., and W. Kasch, "Network Time 
+   Protocol Version 4: Protocol and Algorithms Specification", RFC 5905, 
+   DOI 10.17487/RFC5905, June 2010, <https://www.rfc-editor.org/info/rfc5905>. 
+   [RFC5905]
+
+   See Sections 2.4 and 3.4 of [RFC3393]. The measured singleton delay 
+   differences are referred to by the variable name "ddT" (applicable to all 
+   forms of delay variation). However, this Metric Entry specifies the PDV 
+   form defined in Section 4.2 of [RFC5481], where the singleton PDV for 
+   packet i is referred to by the variable name "PDV(i)".
+
+5.2.2. Fixed Parameters
+
+   IPv4 header values:
+      DSCP: Set to 0
+      TTL: Set to 255
+      Protocol: Set to 17 (UDP)
+
+   IPv6 header values:
+      DSCP: Set to 0
+      Hop Count: Set to 255
+      Next Header: Set to 17 (UDP)
+      Flow Label: Set to 0
+      Extension Headers: None
+   
+   UDP header values:
+      Checksum: The checksum MUST be calculated and the non-zero 
+      checksum included in the header
+
+   UDP Payload:
+
+      Total of 200 bytes
+
+Other measurement Parameters:
+
+   Tmax: A loss threshold waiting time with value 3.0, expressed in units 
+   of seconds, as a positive value of type decimal64 with fraction digits 
+   = 4 (see Section 9.3 of [RFC6020]) and with a resolution of 0.0001 
+   seconds (0.1 ms), with lossless conversion to/from the 32-bit NTP 
+   timestamp as per Section 6 of [RFC5905].
+
+   F: A selection function unambiguously defining the packets from the 
+   stream selected for the metric. See Section 4.2 of [RFC5481] for the 
+   PDV form.
+
+   See the Packet Stream Generation section for two additional 
+   Fixed Parameters.
+
+5.3. Method of Measurement
+
+   This category includes columns for references to relevant sections of 
+   the RFC(s) and any supplemental information needed to ensure an unambiguous 
+   method for implementations.
+
+5.3.1. Reference Methods
+
+   See Sections 2.6 and 3.6 of [RFC3393] for general singleton element 
+   calculations. This Metric Entry requires implementation of the PDV 
+   form defined in Section 4.2 of [RFC5481]. Also see measurement 
+   considerations in Section 8 of [RFC5481].
+
+   The reference method distinguishes between long-delayed packets and 
+   lost packets by implementing a maximum waiting time for packet arrival. 
+   Tmax is the waiting time used as the threshold to declare a packet 
+   lost. Lost packets SHALL be designated as having undefined delay.
+
+   The calculations on the one-way delay SHALL be performed on the 
+   conditional distribution, conditioned on successful packet arrival 
+   within Tmax. Also, when all packet delays are stored, the process that 
+   calculates the one-way delay value MUST enforce the Tmax threshold 
+   on stored values before calculations. See Section 4.1 of [RFC3393] 
+   for details on the conditional distribution to exclude undefined 
+   values of delay, and see Section 5 of [RFC6703] for background on 
+   this analysis choice.
+
+   The reference method requires some way to distinguish between 
+   different packets in a stream to establish correspondence between 
+   sending times and receiving times for each successfully arriving 
+   packet. Sequence numbers or other send-order identification MUST be 
+   retained at the Src or included with each packet to disambiguate 
+   packet reordering if it occurs.
+
+   If a standard measurement protocol is employed, then the measurement 
+   process will determine the sequence numbers or timestamps applied to 
+   test packets after the Fixed and Runtime Parameters are passed to 
+   that process. The chosen measurement protocol will dictate the format 
+   of sequence numbers and timestamps, if they are conveyed in the 
+   packet payload.
+
+5.3.2. Packet Stream Generation
+
+   This section provides details regarding packet traffic, which is used 
+   as the basis for measurement. In IPPM Metrics, this is called the 
+   "stream"; this stream can easily be described by providing the list 
+   of stream Parameters.
+
+   Section 3 of [RFC3432] prescribes the method for generating Periodic
+   streams using associated Parameters.
+
+   incT: The nominal duration of the inter-packet interval, first bit to 
+   first bit, with value 0.0200, expressed in units of seconds, as a 
+   positive value of type decimal64 with fraction digits = 4 (see Section 
+   9.3 of [RFC6020]) and with a resolution of 0.0001 seconds (0.1 ms).
+
+   dT: The duration of the interval for allowed sample start times, with 
+   value 1.0, expressed in units of seconds, as a positive value of type 
+   decimal64 with fraction digits = 4 (see Section 9.3 of [RFC6020]) and 
+   with a resolution of 0.0001 seconds (0.1 ms).
+
+      Note: An initiation process with a number of control exchanges resulting 
+      in unpredictable start times (within a time interval) may be sufficient 
+      to avoid synchronization of periodic streams and is a valid replacement 
+      for selecting a start time at random from a fixed interval.
+
+   The T0 Parameter will be reported as a measured Parameter. Parameters incT 
+   and dT are Fixed Parameters.
+
+5.3.3. Traffic Filtering (Observation) Details
+
+   N/A
+
+5.3.4. Sampling Distribution
+
+   N/A
+
+5.3.5. Runtime Parameters and Data Format
+
+   Src: The IP address of the host in the Src Role (format 
+   ipv4‑address-no-zone value for IPv4 or ipv6-address-no-zone value for 
+   IPv6; see Section 4 of [RFC6991]).
+
+   Dst: The IP address of the host in the Dst Role (format 
+   ipv4‑address-no-zone value for IPv4 or ipv6-address-no-zone value for 
+   IPv6; see Section 4 of [RFC6991]).
+
+   T0: A time, the start of a measurement interval (format "date‑time" 
+   as specified in Section 5.6 of [RFC3339]; see also "date‑and‑time" in 
+   Section 3 of [RFC6991]). The UTC Time Zone is required by Section 6.1 
+   of [RFC2330]. When T0 is "all-zeros", a start time is unspecified and 
+   Tf is to be interpreted as the duration of the measurement interval. 
+   The start time is controlled through other means.
+
+   Tf: A time, the end of a measurement interval (format "date‑time" as 
+   specified in Section 5.6 of [RFC3339]; see also "date‑and‑time" in 
+   Section 3 of [RFC6991]). The UTC Time Zone is required by Section 6.1 
+   of [RFC2330]. When T0 is "all-zeros", an ending time and date is 
+   ignored and Tf is interpreted as the duration of the measurement 
+   interval.
+
+5.3.6. Roles
+
+   Src: Launches each packet and waits for return transmissions from the Dst.
+
+   Dst: Waits for each packet from the Src and sends a return packet to the 
+   Src (when required by the test protocol).
+
+5.4. Output
+
+   This category specifies all details of the output of measurements using 
+   the metric.
+
+5.4.1. Type
+
+   Percentile: For the conditional distribution of all packets with a valid 
+   value of one-way delay (undefined delays are excluded), this is a single 
+   value corresponding to the 95th percentile, as follows:
+
+   See Section 4.1 of [RFC3393] for details on the conditional distribution 
+   to exclude undefined values of delay, and see Section 5 of [RFC6703] for 
+   background on this analysis choice.
+
+   The percentile = 95, meaning that the reported delay, "95Percentile", is 
+   the smallest value of one-way PDV for which the Empirical Distribution 
+   Function, EDF(95Percentile), is greater than or equal to 95% of the 
+   singleton one-way PDV values in the conditional distribution. See 
+   Section 11.3 of [RFC2330] for the definition of the percentile statistic 
+   using the EDF.
+
+5.4.2. Reference Definition
+
+   T0: The start of a measurement interval (format "date‑time" as specified 
+   in Section 5.6 of [RFC3339]; see also "date‑and‑time" in Section 3 of 
+   [RFC6991]). The UTC Time Zone is required by Section 6.1 of [RFC2330].
+
+   Tf: The end of a measurement interval (format "date‑time" as specified 
+   in Section 5.6 of [RFC3339]; see also "date‑and‑time" in Section 3 of 
+   [RFC6991]). The UTC Time Zone is required by Section 6.1 of [RFC2330].
+
+   95Percentile: The time value of the result is expressed in units of 
+   seconds, as a positive value of type decimal64 with fraction 
+   digits = 9 (see Section 9.3 of [RFC6020]) with a resolution of 
+   0.000000001 seconds (1.0 ns), and with lossless conversion to/from the 
+   64-bit NTP timestamp as per Section 6 of [RFC5905].
+
+5.4.3. Metric Units
+
+   The 95th percentile of one-way PDV is expressed in seconds.
+
+5.4.4. Calibration
+
+   Section 3.7.3 of [RFC7679] provides a means to quantify the systematic 
+   and random errors of a time measurement. Calibration in-situ could be 
+   enabled with an internal loopback that includes as much of the 
+   measurement system as possible, performs address manipulation as needed, 
+   and provides some form of isolation (e.g., deterministic delay) to 
+   avoid send-receive interface contention. Some portion of the random and 
+   systematic error can be characterized in this way.
+
+   For one-way delay measurements, the error calibration must include an 
+   assessment of the internal clock synchronization with its external 
+   reference (this internal clock is supplying timestamps for measurement). 
+   In practice, the time offsets [RFC5905] of clocks at both the Source 
+   and Destination are needed to estimate the systematic error due to 
+   imperfect clock synchronization (the time offsets are smoothed; thus, 
+   the random variation is not usually represented in the results).
+
+   time_offset: The time value of the result is expressed in units of seconds, 
+   as a signed value of type decimal64 with fraction digits = 9 (see Section 
+   9.3 of [RFC6020]) with a resolution of 0.000000001 seconds (1.0 ns), and 
+   with lossless conversion to/from the 64-bit NTP timestamp as per 
+   Section 6 of [RFC5905].
+
+   When a measurement controller requests a calibration measurement, the 
+   loopback is applied and the result is output in the same format as a 
+   normal measurement, with an additional indication that it is a calibration 
+   result. In any measurement, the measurement function SHOULD report its 
+   current estimate of the time offset [RFC5905] as an indicator of the 
+   degree of synchronization.
+
+   Both internal loopback calibration and clock synchronization can be used 
+   to estimate the available accuracy of the Output Metric Units. For example, 
+   repeated loopback delay measurements will reveal the portion of the 
+   output result resolution that is the result of system noise and is thus 
+   inaccurate.
+
+5.5. Administrative Items
+
+5.5.1. Status
+
+   Current
+
+5.5.2. Requester
+
+   RFC 8912
+
+5.5.3. Revision
+
+   1.0
+
+5.5.4. Revision Date
+
+   2021-11-17
+
+5.6. Comments and Remarks
+
+   Lost packets represent a challenge for delay variation metrics. 
+   See Section 4.1 of [RFC3393] and the delay variation applicability 
+   statement [RFC5481] for extensive analysis and comparison of PDV 
+   and an alternate metric, IPDV (Inter-Packet Delay Variation).
+
+
