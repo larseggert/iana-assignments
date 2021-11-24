@@ -53,6 +53,7 @@
       <tr>
         <th>Type</th>
         <th>Description</th>
+        <th>27</th>
         <th>135</th>
         <th>235</th>
         <th>236</th>
@@ -73,7 +74,7 @@
       <tr>
         <th>Value</th>
         <th>Name</th>
-		<th>Reference</th>
+		    <th>Reference</th>
       </tr>
      </xsl:when>
      
@@ -100,7 +101,15 @@
         <th>Reference</th>
       </tr>
      </xsl:when>
-      
+    
+     <xsl:when test="@id = 'isis-sub-sub-tlv-srv6-capability'">
+     <tr>
+      <th>Value</th>
+      <th>Description</th>
+      <th>Reference</th>
+    </tr>
+    </xsl:when>
+
      <xsl:when test="@id = 'app-ids-251'">
       <tr>
        <th>ID Value</th>
@@ -119,6 +128,41 @@
       </xsl:when>
 	  
       <xsl:when test="@id = 'tlv-238'">
+       <tr>
+         <th>Value</th>
+         <th>Description</th>
+         <th>Reference</th>
+       </tr>
+      </xsl:when>
+
+      <xsl:when test="@id = 'isis-sub-sub-tlvs-srv6-sid-sub-tlvs'">
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+        <th>5</th>
+        <th>43</th>
+        <th>44</th>
+        <th>Reference</th>
+      </tr>
+     </xsl:when>
+
+     <xsl:when test="@id = 'isis-srv6-locator-tlv-flags'">
+       <tr>
+         <th>Value</th>
+         <th>Description</th>
+         <th>Reference</th>
+       </tr>
+      </xsl:when>
+
+      <xsl:when test="@id = 'isis-srv6-end-sid-sub-tlvs-flags'">
+        <tr>
+          <th>Value</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+       </xsl:when>
+
+      <xsl:when test="@id = 'isis-srv6-adjacency-sid-sub-tlvs-flags'">
        <tr>
          <th>Value</th>
          <th>Description</th>
@@ -181,17 +225,11 @@
       <tr>
        <td><xsl:value-of select="iana:value"/></td>
        <td><xsl:value-of select="iana:description"/></td>
+       <td><xsl:value-of select="iana:TLV_27"/></td>
        <td><xsl:value-of select="iana:TLV_135"/></td>
         <td><xsl:value-of select="iana:TLV_235"/></td>
        <td><xsl:value-of select="iana:TLV_236"/></td>
        <td><xsl:value-of select="iana:TLV_237"/></td>
-       <td><xsl:apply-templates select="iana:xref"/></td>
-      </tr>
-     </xsl:when>
-     <xsl:when test="../@id = 'isis-tlv-codepoints-242'">
-      <tr>
-       <td><xsl:value-of select="iana:value"/></td>
-       <td><xsl:value-of select="iana:description"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
      </xsl:when>
@@ -203,10 +241,13 @@
        <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
      </xsl:when>
-     <xsl:when test="../@id = 'isis-tlv-codepoints-238'">
+     <xsl:when test="../@id = 'isis-sub-sub-tlvs-srv6-sid-sub-tlvs'">
       <tr>
        <td><xsl:value-of select="iana:value"/></td>
        <td><xsl:value-of select="iana:description"/></td>
+       <td><xsl:value-of select="iana:sub-tlv-5"/></td>
+        <td><xsl:value-of select="iana:sub-tlv-43"/></td>
+        <td><xsl:value-of select="iana:sub-tlv-44"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
      </xsl:when>
