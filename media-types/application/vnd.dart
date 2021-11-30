@@ -1,20 +1,14 @@
 (last updated 2011-12-14)
 
-Name : Anders Sandholm
-
-Email : sandholm&google.com
-
 MIME media type name : Application
 
 MIME subtype name : Vendor Tree - vnd.dart
 
 Required parameters : none
 
-Optional parameters :
-none
+Optional parameters : none
 
 Encoding considerations : 8bit
-
 
 Security considerations :
 The media type doesn't provide any sort of internal integrity or
