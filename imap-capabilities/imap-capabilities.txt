@@ -1,7 +1,7 @@
                                             Internet Message Access Protocol (IMAP) Capabilities Registry
 
    Last Updated
-           2021-08-26
+           2021-12-09
 
    Available Formats
            [IMG]
@@ -9,9 +9,10 @@
            HTML [IMG]
            Plain text
 
-   Registry included below
+   Registries included below
 
      * IMAP Capabilities
+     * IMAP Quota Resource Types
 
 IMAP Capabilities
 
@@ -32,6 +33,12 @@ IMAP Capabilities
 
  Client implementations SHOULD NOT require any capability name other
  than "IMAP4rev1", and MUST ignore any unknown capability names.
+
+ The prefix "QUOTA=RES-" is reserved per
+ [RFC-ietf-extra-quota-10, Section 9.2].
+
+ All other capabilities starting with "QUOTA=" prefix are reserved
+ for future IETF Stream extensions to [RFC-ietf-extra-quota-10].
 
    Available Formats
            [IMG]
@@ -79,7 +86,8 @@ IMAP Capabilities
    OBJECTID               [RFC8474]
    PREVIEW                [RFC8970]
    QRESYNC                [RFC7162]
-   QUOTA                  [RFC2087]
+   QUOTA                  [RFC-ietf-extra-quota-10]
+   QUOTASET               [RFC-ietf-extra-quota-10]
    REPLACE                [RFC8508]
    RIGHTS=                [RFC4314]
    SASL-IR                [RFC4959]
@@ -104,3 +112,44 @@ IMAP Capabilities
    UTF8=ONLY              [RFC6855]
    UTF8=USER (OBSOLETE)   [RFC5738][RFC6855]
    WITHIN                 [RFC5032]
+
+IMAP Quota Resource Types
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-extra-quota-10]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Name of the Quota          Description          Extra required IMAP   Extra optional IMAP      Author         Change           Reference
+     Resource Type                                  commands/responses   commands/responses                    Controller
+                      The physical space          DELETED-STORAGE STATUS
+   STORAGE            estimate, in units of 1024  request data item and  N/A                 [Alexey_Melnikov] [IESG]     [RFC-ietf-extra-quota-10,
+                      octets, of the mailboxes    response data item                                                      Section 5.1]
+                      governed by the quota root.
+                      The number of messages      DELETED STATUS request                                                  [RFC-ietf-extra-quota-10,
+   MESSAGE            stored within the mailboxes data item and response N/A                 [Alexey_Melnikov] [IESG]     Section 5.2]
+                      governed by the quota root. data item
+   MAILBOX            The number of mailboxes     N/A                    N/A                 [Alexey_Melnikov] [IESG]     [RFC-ietf-extra-quota-10,
+                      governed by the quota root.                                                                         Section 5.3]
+                      The maximum size of all
+                      annotations [RFC5257], in
+   ANNOTATION-STORAGE units of 1024 octets,       N/A                    N/A                 [Alexey_Melnikov] [IESG]     [RFC-ietf-extra-quota-10,
+                      associated with all                                                                                 Section 5.4]
+                      messages in the mailboxes
+                      governed by the quota root.
+
+                                                                 Contact Information
+
+          ID              Name                 Contact URI            Last Updated
+   [Alexey_Melnikov] Alexey Melnikov mailto:alexey.melnikov&isode.com 2021-12-09
+   [IESG]            IESG            mailto:iesg&ietf.org             2021-12-09

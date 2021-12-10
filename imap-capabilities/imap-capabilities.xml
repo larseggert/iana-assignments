@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="imap-capabilities">
   <title>Internet Message Access Protocol (IMAP) Capabilities Registry</title>
   <category>Internet Message Access Protocol (IMAP) Capabilities</category>
-  <updated>2021-08-26</updated>
+  <updated>2021-12-09</updated>
   <registry id="imap-capabilities-1">
     <title>IMAP Capabilities</title>
     <xref type="rfc" data="rfc3501"/>
@@ -16,7 +16,14 @@ non-standard capability names, unless such names are prefixed
 with an "X".
 
 Client implementations SHOULD NOT require any capability name other
-than "IMAP4rev1", and MUST ignore any unknown capability names.</note>
+than "IMAP4rev1", and MUST ignore any unknown capability names.
+
+The prefix "QUOTA=RES-" is reserved per 
+<xref type="draft" data="RFC-ietf-extra-quota-10">RFC-ietf-extra-quota-10, Section 9.2</xref>.
+
+All other capabilities starting with "QUOTA=" prefix are reserved 
+for future IETF Stream extensions to <xref type="draft" data="RFC-ietf-extra-quota-10"/>.</note>
+
     <record>
       <name>ACL</name>
       <xref type="rfc" data="rfc4314"/>
@@ -183,9 +190,13 @@ than "IMAP4rev1", and MUST ignore any unknown capability names.</note>
       <name>QRESYNC</name>
       <xref type="rfc" data="rfc7162"/>
     </record>
-    <record>
+    <record updated="2021-12-09">
       <name>QUOTA</name>
-      <xref type="rfc" data="rfc2087"/>
+      <xref type="draft" data="RFC-ietf-extra-quota-10"/>
+    </record>
+    <record date="2021-12-09">
+      <name>QUOTASET</name>
+      <xref type="draft" data="RFC-ietf-extra-quota-10"/>
     </record>
     <record date="2018-10-29">
       <name>REPLACE</name>
@@ -286,5 +297,61 @@ than "IMAP4rev1", and MUST ignore any unknown capability names.</note>
       <xref type="rfc" data="rfc5032"/>
     </record>
   </registry>
-  <people/>
+
+  <registry id="imap-capabilities-2">
+    <title>IMAP Quota Resource Types</title>
+    <xref type="draft" data="RFC-ietf-extra-quota-10"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Unassigned</expert>
+    <record date="2021-12-09">
+      <name>STORAGE</name>
+      <description>The physical space estimate, in units of 1024 octets, of the mailboxes governed by the quota root.</description>
+      <required>DELETED-STORAGE STATUS request data item and response data item</required>
+      <optional>N/A</optional>
+      <author><xref type="person" data="Alexey_Melnikov"/></author>
+      <change><xref type="person" data="IESG"/></change>
+      <xref type="draft" data="RFC-ietf-extra-quota-10">RFC-ietf-extra-quota-10, Section 5.1</xref>
+    </record>
+    <record date="2021-12-09">
+      <name>MESSAGE</name>
+      <description>The number of messages stored within the mailboxes governed by the quota root.</description>
+      <required>DELETED STATUS request data item and response data item</required>
+      <optional>N/A</optional>
+      <author><xref type="person" data="Alexey_Melnikov"/></author>
+      <change><xref type="person" data="IESG"/></change>
+      <xref type="draft" data="RFC-ietf-extra-quota-10">RFC-ietf-extra-quota-10, Section 5.2</xref>
+    </record>
+    <record date="2021-12-09">
+      <name>MAILBOX</name>
+      <description>The number of mailboxes governed by the quota root.</description>
+      <required>N/A</required>
+      <optional>N/A</optional>
+      <author><xref type="person" data="Alexey_Melnikov"/></author>
+      <change><xref type="person" data="IESG"/></change>
+      <xref type="draft" data="RFC-ietf-extra-quota-10">RFC-ietf-extra-quota-10, Section 5.3</xref>
+    </record>
+    <record date="2021-12-09">
+      <name>ANNOTATION-STORAGE</name>
+      <description>The maximum size of all annotations <xref type="rfc" data="rfc5257"/>, in units of 1024 octets, 
+      associated with all messages in the mailboxes governed by the quota root.</description>
+      <required>N/A</required>
+      <optional>N/A</optional>
+      <author><xref type="person" data="Alexey_Melnikov"/></author>
+      <change><xref type="person" data="IESG"/></change>
+      <xref type="draft" data="RFC-ietf-extra-quota-10">RFC-ietf-extra-quota-10, Section 5.4</xref>
+    </record>
+  </registry>
+
+  <people>
+    <person id="Alexey_Melnikov">
+      <name>Alexey Melnikov</name>
+      <uri>mailto:alexey.melnikov&amp;isode.com</uri>
+      <updated>2021-12-09</updated>
+    </person>
+    <person id="IESG">
+      <name>IESG</name>
+      <uri>mailto:iesg&amp;ietf.org</uri>
+      <updated>2021-12-09</updated>
+    </person>
+  </people>
 </registry>
