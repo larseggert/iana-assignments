@@ -41,6 +41,12 @@
       <title><xsl:value-of select="iana:title" /></title>
     </head>
     <body>
+      <header>
+          <div>
+          <a href="/"><img src="https://www.iana.org/_img/2022/iana-logo-header.svg" alt="Internet Assigned Numbers Authority"/></a>
+          </div>
+      </header>
+      <article>
       <xsl:apply-templates select="iana:title" />
       <xsl:if
         test="iana:created|iana:updated|iana:registration_rule|iana:expert|iana:description|iana:note|iana:xref|iana:record">
@@ -82,6 +88,12 @@
       <xsl:apply-templates select="iana:registry" />
       <xsl:apply-templates select="iana:people"/>
       <xsl:call-template name="iana:footnotes"/>
+      </article>
+      <footer>
+          <div>
+          <a href="https://www.iana.org/help/licensing-terms">Licensing Terms</a>
+          </div>
+      </footer>
     </body>
   </xsl:template>
 
