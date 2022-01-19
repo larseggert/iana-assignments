@@ -6,7 +6,7 @@
            2002-07-15
 
    Last Updated
-           2021-10-14
+           2022-01-19
 
    Available Formats
            [IMG]
@@ -176,6 +176,8 @@ Document      detailed-status-messages                                          
 Status
 Document      document-access-errors                                                                                               1setOf text(MAX)            [PWG5100.5]
 Status
+Document      document-access-errors(deprecated)                                                                                   1setOf text(MAX)            [DEPURI]
+Status
 Document      document-charset                                                                                                     charset                     [PWG5100.5]
 Status
 Document      document-digital-signature(obsolete)                                                                                 type2 keyword               [PWG5100.5]
@@ -229,6 +231,8 @@ Status
 Document      document-state-reasons                                                                                               1setOf type2 keyword        [PWG5100.5]
 Status
 Document      document-uri                                                                                                         uri                         [PWG5100.5]
+Status
+Document      document-uri(deprecated)                                                                                             uri                         [DEPURI]
 Status
 Document      document-uuid                                                                                                        uri(45)                     [PWG5100.13]
 Status
@@ -698,6 +702,7 @@ Job Status    job-cover-back-actual(obsolete)                                   
 Job Status    job-cover-front-actual(obsolete)                                                                                     collection                  [PWG5100.7]
 Job Status    job-detailed-status-messages                                                                                         1setOf text(MAX)            [RFC8011]
 Job Status    job-document-access-errors                                                                                           1setOf text(MAX)            [RFC8011]
+Job Status    job-document-access-errors(deprecated)                                                                               1setOf text(MAX)            [DEPURI]
 Job Status    job-error-sheet-actual                                                                                               1setOf collection           [PWG5100.8]
                                                              <Member attributes are the same as the
 Job Status    job-error-sheet-actual                         "job-error-sheet" Job Template                                                                    [PWG5100.8]
@@ -1123,7 +1128,9 @@ Operation     document-access                                access-password    
 Operation     document-access                                access-pin                                                            text(MAX)                   [PWG5100.18]
 Operation     document-access                                access-user-name                                                      text(MAX)                   [PWG5100.18]
 Operation     document-access                                access-x509-certificate(obsolete)                                     1setOf octetString(MAX)     [IPPWG20180620]
+Operation     document-access(deprecated)                                                                                          collection | no-value       [DEPURI]
 Operation     document-access-error                                                                                                text(MAX)                   [RFC8011]
+Operation     document-access-error(deprecated)                                                                                    text(MAX)                   [DEPURI]
 Operation     document-charset                                                                                                     charset                     [PWG5100.7]
 Operation     document-data-get-interval                                                                                           integer(0:MAX)              [PWG5100.17]
 Operation     document-data-wait                                                                                                   boolean                     [PWG5100.17]
@@ -1158,6 +1165,8 @@ Operation     document-natural-language                                         
 Operation     document-number                                                                                                      integer(1:MAX)              [PWG5100.5]
 Operation     document-password                                                                                                    octetString(1023)           [PWG5100.13]
 Operation     document-preprocessed                                                                                                boolean                     [PWG5100.18]
+Operation     document-uri                                                                                                         uri                         [RFC8011]
+Operation     document-uri(deprecated)                                                                                             uri                         [DEPURI]
 Operation     fetch-status-code                                                                                                    type2 enum                  [PWG5100.18]
 Operation     fetch-status-message                                                                                                 text(MAX)                   [PWG5100.18]
 Operation     first-index                                                                                                          integer(1:MAX)              [PWG5100.13]
@@ -1343,6 +1352,8 @@ Description
 Printer       destination-uris-supported                                                                                           1setOf keyword              [PWG5100.15]
 Description
 Printer       document-access-supported                                                                                            1setOf keyword              [PWG5100.18]
+Description
+Printer       document-access-supported(deprecated)                                                                                1setOf keyword              [DEPURI]
 Description
 Printer       document-charset-default                                                                                             charset                     [PWG5100.7]
 Description
@@ -2106,6 +2117,8 @@ Description
 Printer       pwg-safe-gcode-supported                                                                                             1setOf text(MAX)            [PWGSAFEGCODE]
 Description
 Printer       reference-uri-schemes-supported                                                                                      1setOf uriScheme            [RFC8011]
+Description
+Printer       reference-uri-schemes-supported(deprecated)                                                                          1setOf uriScheme            [DEPURI]
 Description
 Printer       repertoire-supported                                                                                                 1setOf (keyword | name)     [PWG5101.2]
 Description
@@ -2931,6 +2944,8 @@ Keyword Attribute Values
    document-state-reasons                     digital-signature-wait                             1setOf type2           [PWG5100.5]
                                                                                                  keyword
    document-state-reasons                     document-access-error                              1setOf type2           [PWG5100.5]
+                                                                                                 keyword
+   document-state-reasons                     document-access-error(deprecated)                  1setOf type2           [DEPURI]
                                                                                                  keyword
    document-state-reasons                     document-fetchable                                 1setOf type2           [PWG5100.18]
                                                                                                  keyword
@@ -4062,6 +4077,8 @@ Keyword Attribute Values
    job-state-reasons                          digital-signature-type-not-supported(obsolete)     1setOf type2           [PWG5100.7]
                                                                                                  keyword
    job-state-reasons                          document-access-error                              1setOf type2           [RFC8011]
+                                                                                                 keyword
+   job-state-reasons                          document-access-error(deprecated)                  1setOf type2           [DEPURI]
                                                                                                  keyword
    job-state-reasons                          document-format-error                              1setOf type2           [RFC8011]
                                                                                                  keyword
@@ -5745,6 +5762,9 @@ Keyword Attribute Values
    media                                      oe_photo-10r_10x12in                               keyword |    size name [IPPWG20160229-2]
                                                                                                  name(MAX)
                                                                                                  type2
+   media                                      oe_photo-12r_12x15in                               keyword |    size name [HP20210302]
+                                                                                                 name(MAX)
+                                                                                                 type2
    media                                      oe_photo-14x18_14x18in                             keyword |    size name [HP20210302]
                                                                                                  name(MAX)
                                                                                                  type2
@@ -5760,7 +5780,13 @@ Keyword Attribute Values
    media                                      oe_photo-22x28_22x28in                             keyword |    size name [HP20210302]
                                                                                                  name(MAX)
                                                                                                  type2
+   media                                      oe_photo-24r_24x31.5in                             keyword |    size name [HP20210302]
+                                                                                                 name(MAX)
+                                                                                                 type2
    media                                      oe_photo-24x30_24x30in                             keyword |    size name [HP20210302]
+                                                                                                 name(MAX)
+                                                                                                 type2
+   media                                      oe_photo-30r_30x40in                               keyword |    size name [HP20210302]
                                                                                                  name(MAX)
                                                                                                  type2
    media                                      oe_photo-l_3.5x5in                                 keyword |    size name [PWG5101.1]
@@ -5770,15 +5796,6 @@ Keyword Attribute Values
                                                                                                  name(MAX)
                                                                                                  type2
    media                                      oe_photo-s10r_10x15in                              keyword |    size name [IPPWG20160229-2]
-                                                                                                 name(MAX)
-                                                                                                 type2
-   media                                      oe_photo-12r_12x15in                               keyword |    size name [HP20210302]
-                                                                                                 name(MAX)
-                                                                                                 type2
-   media                                      oe_photo-24r_24x31.5in                             keyword |    size name [HP20210302]
-                                                                                                 name(MAX)
-                                                                                                 type2
-   media                                      oe_photo-30r_30x40in                               keyword |    size name [HP20210302]
                                                                                                  name(MAX)
                                                                                                  type2
    media                                      oe_square-photo_4x4in                              keyword |    size name [CANON20180618]
@@ -9911,6 +9928,8 @@ Enum Attribute Values
                                                                                                                      enum
    operations-supported                  0x0003                                 Print-URI                            1setOf type2 [RFC8011]
                                                                                                                      enum
+   operations-supported                  0x0003(deprecated)                     Print-URI                            1setOf type2 [DEPURI]
+                                                                                                                     enum
    operations-supported                  0x0004                                 Validate-Job                         1setOf type2 [RFC8011]
                                                                                                                      enum
    operations-supported                  0x0005                                 Create-Job                           1setOf type2 [RFC8011]
@@ -9918,6 +9937,8 @@ Enum Attribute Values
    operations-supported                  0x0006                                 Send-Document                        1setOf type2 [RFC8011]
                                                                                                                      enum
    operations-supported                  0x0007                                 Send-URI                             1setOf type2 [RFC8011]
+                                                                                                                     enum
+   operations-supported                  0x0007(deprecated)                     Send-URI                             1setOf type2 [DEPURI]
                                                                                                                      enum
    operations-supported                  0x0008                                 Cancel-Job                           1setOf type2 [RFC8011]
                                                                                                                      enum
@@ -10506,6 +10527,7 @@ Operations
    Print-Job(extension)                    [PWG5100.16]
    Print-URI                               [RFC8011]
    Print-URI(Extension)                    [PWG5100.7]
+   Print-URI(deprecated)                   [DEPURI]
    Print-URI(extension)                    [PWG5100.18]
    Print-URI(extension)                    [RFC3995]
    Print-URI(extension)                    [PWG5100.5]
@@ -10547,6 +10569,7 @@ Operations
    Send-Resource-Data                      [PWG5100.22]
    Send-URI                                [RFC8011]
    Send-URI(Extension)                     [PWG5100.7]
+   Send-URI(deprecated)                    [DEPURI]
    Send-URI(extension)                     [PWG5100.18]
    Send-URI(extension)                     [PWG5100.5]
    Send-URI(extension)                     [PWG5100.13]
