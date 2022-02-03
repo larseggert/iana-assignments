@@ -36,7 +36,7 @@
           <td><xsl:apply-templates select="iana:file"/></td>
           <td><xsl:value-of select="iana:status"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
-          <td><xsl:value-of select="iana:comments"/></td>
+          <td><xsl:apply-templates select="iana:comments"/></td>
         </tr>
       </xsl:when>
       <xsl:otherwise>
