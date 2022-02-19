@@ -9,7 +9,11 @@
   <xsl:template name="iana:record_header">
     <xsl:choose> 
       <xsl:when test="@id = 'organizations'">
-        <tr><th>Organization</th><th>Registration Date</th></tr>
+        <tr>
+          <th>Organization</th>
+          <th>Registration Date</th>
+          <th>Reference</th>
+        </tr>
       </xsl:when>
     </xsl:choose>
   </xsl:template>
@@ -20,6 +24,7 @@
         <tr>
           <td><xsl:value-of select="iana:org"/></td>
           <td><xsl:value-of select="iana:date"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
     </xsl:choose>
