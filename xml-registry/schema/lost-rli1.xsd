@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+              xmlns:lost1="urn:ietf:params:xml:ns:lost1"
+              xmlns="urn:ietf:params:xml:ns:lost-rli1"
+              targetNamespace="urn:ietf:params:xml:ns:lost-rli1"
+              elementFormDefault="qualified">
+        <!-- Import base Lost -->
+        <xs:import namespace="urn:ietf:params:xml:ns:lost1"/>
+   <!-- extend findService by placing the following
+       at the extensionPoint
+       in the included commonRequestPattern: -->
+         <xs:attribute name="returnAdditionalLocation" use="optional">
+          <xs:simpleType>
+             <xs:restriction base="xs:token">
+               <xs:enumeration value="none"/>
+               <xs:enumeration value="similar"/>
+               <xs:enumeration value="complete"/>
+               <xs:enumeration value="any"/>
+             </xs:restriction>
+           </xs:simpleType>
+         </xs:attribute>
+
+
+         <!-- extend locationValidation by placing the following
+                  at the extensionPoint -->
+         <xs:group>
+           <xs:choice minOccurs="0">
+             <xs:element name="similarLocation"
+                       type="lost1:locationInformation"
+                       minOccurs="1" maxOccurs="unbounded" />
+             <xs:element name="completeLocation"
+                       type="lost1:locationInformation"/>
+           </xs:choice>
+         </xs:group>
+
+         <!-- and also at the locationValidation extensionPoint -->
+         <xs:attribute name="similarLocationsOmitted" use="optional">
+           <xs:simpleType>
+             <xs:restriction base="xs:integer">
+                 <xs:minInclusive value="1"/>
+                 </xs:restriction>
+           </xs:simpleType>
+         </xs:attribute>
+
+   </xs:schema>

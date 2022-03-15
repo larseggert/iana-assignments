@@ -64,7 +64,8 @@
         <tr>
           <th>Name</th>
           <th>Status</th>
-          <th>Reference</th>
+          <th>Multicast-Mail-Specific References</th>
+          <th>Non-Multicast-Specific References</th>
           <th>Note</th>
         </tr>
       </xsl:when>
@@ -111,6 +112,7 @@
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:status"/></td>
+          <td><xsl:apply-templates select="iana:multicast-ref"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:apply-templates select="iana:note"/></td>
         </tr>

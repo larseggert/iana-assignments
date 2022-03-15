@@ -23,6 +23,24 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'alto-entity-domain-type'">
+        <tr>
+          <th>Identifier</th>
+          <th>Entity Identifier Encoding</th>
+          <th>Hierarchy and Inheritance</th>
+          <th>Media Type of Defining Resource</th>
+          <th>Mapping to ALTO Address Type</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'alto-entity-property-type'">
+        <tr>
+          <th>Identifier</th>
+          <th>Intended Semantics</th>
+          <th>Media Type of Defining Resource</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:when test="@id = 'error-codes'">
         <tr><th>Error Code</th><th>Intended Usage</th><th>Reference</th></tr>
       </xsl:when>
@@ -44,6 +62,24 @@
           <td><xsl:apply-templates select="iana:address"/></td>
           <td><xsl:apply-templates select="iana:prefix"/></td>
           <td><xsl:apply-templates select="iana:mapping"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'alto-entity-domain-type'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:entity"/></td>
+          <td><xsl:apply-templates select="iana:hier-inher"/></td>
+          <td><xsl:apply-templates select="iana:mediatype"/></td>
+          <td><xsl:apply-templates select="iana:mapping"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'alto-entity-property-type'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:semantics"/></td>
+          <td><xsl:apply-templates select="iana:mediatype"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
