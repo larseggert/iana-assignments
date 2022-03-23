@@ -70,6 +70,12 @@
         <th>Reference</th>
         <th>Comment</th>
       </xsl:when>
+      <xsl:when test="@id = 'media-type-sub-parameters-18'">
+        <th>Parameter</th>
+        <th>Name</th>
+        <th>Description/Specification</th>
+        <th>Reference</th>
+      </xsl:when>
     </xsl:choose>
     </tr>
   </xsl:template>
@@ -90,6 +96,14 @@
         <td><xsl:apply-templates select="iana:media-type"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
         <td><xsl:apply-templates select="iana:comment"/></td>
+      </tr>  
+    </xsl:when>
+    <xsl:when test="../@id = 'media-type-sub-parameters-18'">
+      <tr>
+        <td><xsl:value-of select="iana:parameter"/></td>
+        <td><xsl:apply-templates select="iana:name"/></td>
+        <td><xsl:apply-templates select="iana:description"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>  
     </xsl:when>
     <xsl:otherwise>
