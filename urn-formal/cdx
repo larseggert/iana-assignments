@@ -1,0 +1,89 @@
+Namespace Registration for the OWASP CycloneDX project
+
+Namespace Identifier:  
+
+  cdx
+
+Version: 
+
+  1
+
+Date: 
+
+  2022-03-19
+
+Registrant: 
+
+  Patrick Dwyer, on behalf of the OWASP CycloneDX project.
+  Email: patrick.dwyer&owasp.org
+  The OWASP Foundation Inc.
+  401 Edgewater Place, Suite 600
+  Wakefield, MA 01880 USA
+  https://owasp.org/
+
+Purpose:
+
+  CycloneDX is a software bill of materials OWASP standard. CycloneDX
+  bill of materials documents (BOMs) are intended to be exchanged
+  between different parties of the software supply chain.
+
+  URNs in the "cdx" namespace are used as a means of persistently
+  identifying CycloneDX BOMs.
+
+  When creating a BOM, a CycloneDX URN can be used to reference an
+  upstream BOM for a component rather than embedding it inline. This may
+  be a consideration for performance reasons. Especially in resource
+  constrained environments such as embedded devices. It can also be used
+  when a software supplier does not have authority to share upstream BOM
+  content directly.
+
+  CycloneDX also supports "BOM refs". A BOM ref is a reference to a
+  particular element within a BOM. A "cdx" URN with an f-component is a
+  BOM ref, with the f-component specifying the location of the element
+  within the BOM identified by the URN.
+
+Syntax:
+
+  The syntax for a CycloneDX URN namestring is defined using the
+  Augmented Backus-Naur Form (ABNF) below. It uses "UUID" as defined in
+  [RFC4122] and "f-component" as defined in [RFC3986].
+
+    namestring             = assigned-name [ "#" f-component ]
+    assigned-name          = "urn:cdx:" NSS
+    NSS                    = bom-serial-number "/" bom-version
+    bom-serial-number-uuid = UUID
+    bom-version            = nonzero-digit *digit ; an integer >= 1
+    nonzero-digit          = %x31-39 ; 1-9
+
+Assignment:
+
+  CycloneDX URNs are assigned in a decentralised way, using the BOM
+  serial number. BOM serial numbers are version 4 UUIDs as defined in
+  [RFC4122]. Once assigned, BOM serial numbers are unique and
+  persistent.
+
+Security and Privacy:
+
+  As CycloneDX URNs are based on UUIDs they have the same security
+  considerations as UUID URNs as per [RFC4122].
+
+  Additionally, there are no specification limitations beyond [RFC3986]
+  on what can be included in an f-component. Given that f-components may
+  be published in CyclineDX URNs, producers of BOMs should avoid using
+  any value on which there are sharing restrictions. For producers of
+  BOMs who have high confidentiality requirements, it is recommended to
+  use UUIDs for f-components.
+
+Interoperability:
+
+  Although CycloneDX BOMs may use a UUID URN to identify a BOM via its
+  BOM serial number, the serial number isn’t sufficient when referencing
+  a BOM because a particular BOM may be revised over time. Even in the
+  case of legacy software that is not conceptualized as changing,
+  mistakes and omissions can be corrected over time causing changes in
+  the BOM. This is allowed for by successive "cdx" URNs in which the BOM
+  serial number is static and the version is incremented.
+  
+Documentation:
+
+  https://cyclonedx.org/specification/overview/
