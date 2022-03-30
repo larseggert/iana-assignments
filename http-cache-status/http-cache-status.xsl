@@ -7,12 +7,13 @@
   <xsl:import href="../_support/iana-registry.xsl" />
 
   <xsl:template name="iana:record_header">
-    <tr><th>Name</th><th>Description</th><th>Reference</th></tr>
+    <tr><th>Name</th><th>Type</th><th>Description</th><th>Reference</th></tr>
   </xsl:template>
 
   <xsl:template match="iana:record">
     <tr>
       <td><xsl:value-of select="iana:name"/></td>
+      <td><xsl:apply-templates select="iana:type"/></td>
       <td><xsl:apply-templates select="iana:description"/></td>
       <td><xsl:apply-templates select="iana:xref"/></td>
     </tr>
