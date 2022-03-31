@@ -14,6 +14,13 @@
           <th>Change Controller</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'bgp-role-value'">
+        <tr>
+          <th>Value</th>
+          <th>Role name (for the local AS)</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -26,6 +33,13 @@
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'bgp-role-value'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
     </xsl:choose>
