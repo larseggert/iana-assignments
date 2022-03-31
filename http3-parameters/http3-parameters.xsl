@@ -13,7 +13,7 @@
         <th>Value</th>
         <th>Frame Type</th>
         <th>Status</th>
-        <th>Specification</th>
+        <th>Reference</th>
         <th>Date</th>
         <th>Change Controller</th>
         <th>Contact</th>
@@ -26,7 +26,7 @@
         <th>Setting Name</th>
         <th>Default</th>
         <th>Status</th>
-        <th>Specification</th>
+        <th>Reference</th>
         <th>Date</th>
         <th>Change Controller</th>
         <th>Contact</th>
@@ -39,7 +39,7 @@
         <th>Name</th>
         <th>Description</th>
         <th>Status</th>
-        <th>Specification</th>
+        <th>Reference</th>
         <th>Date</th>
         <th>Change Controller</th>
         <th>Contact</th>
@@ -52,7 +52,7 @@
         <th>Stream Type</th>
         <th>Sender</th>
         <th>Status</th>
-        <th>Specification</th>
+        <th>Reference</th>
         <th>Date</th>
         <th>Change Controller</th>
         <th>Contact</th>
