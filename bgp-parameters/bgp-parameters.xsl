@@ -105,6 +105,30 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+
+      <xsl:when test="@id = 'srv6-service-sub-tlv-types'">
+        <tr>
+          <th>Value</th>
+          <th>Type</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+
+      <xsl:when test="@id = 'srv6-service-data-sub-sub-tlv-types'">
+        <tr>
+          <th>Value</th>
+          <th>Type</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+
+      <xsl:when test="@id = 'bgp-srv6-service-sid-flags'">
+        <tr>
+          <th>Bit Position</th>
+          <th>Name</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
 	  
       <xsl:otherwise>
         <tr><th>Value</th><th>Name</th><th>Reference</th></tr>
@@ -200,6 +224,27 @@
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'srv6-service-sub-tlv-types'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'srv6-service-data-sub-sub-tlv-types'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'bgp-srv6-service-sid-flags'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
