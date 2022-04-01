@@ -17,6 +17,13 @@
         <th>Change Controller</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'segment-types'">
+        <tr>
+        <th>Value</th>
+        <th>Description</th>
+        <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -29,6 +36,13 @@
         <td><xsl:apply-templates select="iana:description"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
         <td><xsl:apply-templates select="iana:controller"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'segment-types'">
+        <tr>
+        <td><xsl:value-of select="iana:value"/></td>
+        <td><xsl:apply-templates select="iana:description"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
     </xsl:choose>
