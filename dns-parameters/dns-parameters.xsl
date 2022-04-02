@@ -147,6 +147,17 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'dns-quic-error-codes'">
+        <tr>
+        <th>Value</th>
+        <th>Error</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Specification</th>
+        <th>Date</th>
+        <th>Contact</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -237,6 +248,17 @@
           <td><xsl:value-of select="iana:size"/></td>
           <td><xsl:value-of select="iana:method"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'dns-quic-error-codes'">
+        <tr>
+        <td><xsl:apply-templates select="iana:value"/></td>
+        <td><xsl:apply-templates select="iana:error"/></td>
+        <td><xsl:apply-templates select="iana:description"/></td>
+        <td><xsl:apply-templates select="iana:status"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
+        <td><xsl:apply-templates select="iana:date"/></td>
+        <td><xsl:apply-templates select="iana:contact"/></td>
         </tr>
       </xsl:when>
       <xsl:otherwise>

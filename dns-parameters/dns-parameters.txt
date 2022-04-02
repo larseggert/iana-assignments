@@ -3,7 +3,7 @@
                                                          Domain Name System (DNS) Parameters
 
    Last Updated
-           2022-02-11
+           2022-04-01
 
    Available Formats
            [IMG]
@@ -32,6 +32,7 @@
      * ZONEMD Schemes
      * ZONEMD Hash Algorithms
      * DNS Server Cookie Methods
+     * DNS over QUIC Error Codes
 
 DNS CLASSes
 
@@ -743,7 +744,8 @@ Extended DNS Error Codes
        23      Network Error                  [RFC8914, Section 4.24]
        24      Invalid Data                   [RFC8914, Section 4.25]
        25      Signature Expired before Valid [https://github.com/NLnetLabs/unbound/pull/604#discussion_r802678343][Willem_Toorop]
-    26-49151   Unassigned
+       26      Too Early                      [RFC-ietf-dprive-dnsoquic-11]
+    27-49151   Unassigned
    49152-65535 Reserved for Private Use       [RFC8914, Section 5.2]
 
 ZONEMD Schemes
@@ -829,11 +831,42 @@ DNS Server Cookie Methods
    240-254 8-32  Reserved for Private Use [RFC9018]
      255   8-32  Reserved                 [RFC9018]
 
+DNS over QUIC Error Codes
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-dprive-dnsoquic-11]
+
+   Available Formats
+           [IMG]
+           CSV
+
+                     Range                         Registration Procedures
+   provisional (greater than 0x3f)            Expert Review
+   provisional registration Date field update First Come First Served
+   permanent, 0x00-0x3f                       Standards Action or IESG Approval
+   permanent, greater than 0x3f               Specification Required
+
+     Value            Error                     Description              Status                 Specification                   Date      Contact
+   0x0        DOQ_NO_ERROR          No error                            permanent [RFC-ietf-dprive-dnsoquic-11, Section 5.3] 2022-04-01 [DPRIVE_WG]
+   0x1        DOQ_INTERNAL_ERROR    Implementation error                permanent [RFC-ietf-dprive-dnsoquic-11, Section 5.3] 2022-04-01 [DPRIVE_WG]
+   0x2        DOQ_PROTOCOL_ERROR    Generic protocol violation          permanent [RFC-ietf-dprive-dnsoquic-11, Section 5.3] 2022-04-01 [DPRIVE_WG]
+   0x3        DOQ_REQUEST_CANCELLED Request cancelled by client         permanent [RFC-ietf-dprive-dnsoquic-11, Section 5.3] 2022-04-01 [DPRIVE_WG]
+   0x4        DOQ_EXCESSIVE_LOAD    Closing a connection for excessive  permanent [RFC-ietf-dprive-dnsoquic-11, Section 5.3] 2022-04-01 [DPRIVE_WG]
+                                    load
+   0x5        DOQ_UNSPECIFIED_ERROR No error reason specified           permanent [RFC-ietf-dprive-dnsoquic-11, Section 5.3] 2022-04-01 [DPRIVE_WG]
+   0xd098ea5e DOQ_ERROR_RESERVED    Alternative error code used for     permanent [RFC-ietf-dprive-dnsoquic-11, Section 5.3] 2022-04-01 [DPRIVE_WG]
+                                    tests
+
                                                                  Contact Information
 
             ID                   Name                      Contact URI            Last Updated
    [Cisco_CIE_DNS_team] Cisco CIE DNS team      mailto:cie-eng.dns-team&cisco.com 2021-08-31
    [Donald_E_Eastlake]  Donald E. Eastlake, III mailto:d3e3e3&gmail.com           1997-11
+   [DPRIVE_WG]          DPRIVE working group    mailto:dns-privacy&ietf.org       2022-04-01
    [Jim_Reid]           Jim Reid                mailto:jim&telnic.org             2008-01-21
    [Michael_Patton]     Michael Patton          mailto:map&bbn.com                1995-06
    [Sam_Weiler]         Sam Weiler              mailto:weiler+iana&tislabs.com    2005-12
