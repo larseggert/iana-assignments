@@ -6,7 +6,7 @@
            2020-06-11
 
    Last Updated
-           2022-04-05
+           2022-04-07
 
    Available Formats
            [IMG]
@@ -36,31 +36,39 @@ WebAuthn Attestation Statement Format Identifiers
            [IMG]
            CSV
 
-      WebAuthn Attestation                      Description                          Reference                   Change Controller            Notes
-   Statement Format Identifier
-                               The "packed" attestation statement format is
-                               a WebAuthn-optimized format for attestation.  [Web Authentication]
-   packed                      It uses a very compact but still extensible   Section §8.2, Packed      [W3C_Web_Authentication_Working_Group]
-                               encoding method. This format is implementable Attestation Statement
-                               by authenticators with limited resources      Format
-                               (e.g., secure elements).
-                               The TPM attestation statement format returns  [Web Authentication]
-                               an attestation statement in the same format   Section §8.3, TPM
-   tpm                         as the packed attestation statement format,   Attestation Statement     [W3C_Web_Authentication_Working_Group]
-                               although the rawData and signature fields are Format
-                               computed differently.
-                               Platform-provided authenticators based on     [Web Authentication]
-   android-key                 versions "N", and later, may provide this     Section §8.4, Android Key [W3C_Web_Authentication_Working_Group]
-                               proprietary "hardware attestation" statement. Attestation Statement
+   WebAuthn Attestation
+     Statement Format                       Description                              Reference                   Change Controller            Notes
+        Identifier
+                        The "packed" attestation statement format is a       [Web Authentication]
+                        WebAuthn-optimized format for attestation. It uses a Section §8.2, Packed
+   packed               very compact but still extensible encoding method.   Attestation Statement     [W3C_Web_Authentication_Working_Group]
+                        This format is implementable by authenticators with  Format
+                        limited resources (e.g., secure elements).
+                        The TPM attestation statement format returns an      [Web Authentication]
+                        attestation statement in the same format as the      Section §8.3, TPM
+   tpm                  packed attestation statement format, although the    Attestation Statement     [W3C_Web_Authentication_Working_Group]
+                        rawData and signature fields are computed            Format
+                        differently.
+                        Platform authenticators on versions "N", and later,  [Web Authentication]
+   android-key          may provide this proprietary "hardware attestation"  Section §8.4, Android Key [W3C_Web_Authentication_Working_Group]
+                        statement.                                           Attestation Statement
                                                                              Format
-                               Android-based, platform-provided              [Web Authentication]
-   android-safetynet           authenticators MAY produce an attestation     Section §8.5, Android     [W3C_Web_Authentication_Working_Group]
-                               statement based on the Android SafetyNet API. SafetyNet Attestation
+                        Android-based platform authenticators MAY produce an [Web Authentication]
+   android-safetynet    attestation statement based on the Android SafetyNet Section §8.5, Android     [W3C_Web_Authentication_Working_Group]
+                        API.                                                 SafetyNet Attestation
                                                                              Statement Format
                                                                              [Web Authentication]
-   fido-u2f                    Used with FIDO U2F authenticators             Section §8.6, FIDO U2F    [W3C_Web_Authentication_Working_Group]
+   fido-u2f             Used with FIDO U2F authenticators                    Section §8.6, FIDO U2F    [W3C_Web_Authentication_Working_Group]
                                                                              Attestation Statement
                                                                              Format
+                                                                             [Web Authentication]
+   apple                Used with Apple devices' platform authenticators     Section §8.8, Apple       [W3C_Web_Authentication_Working_Group]
+                                                                             Anonymous Attestation
+                                                                             Statement Format
+                        Used to replace any authenticator-provided           [Web Authentication]
+   none                 attestation statement when a WebAuthn Relying Party  Section §8.7, None        [W3C_Web_Authentication_Working_Group]
+                        indicates it does not wish to receive attestation    Attestation Statement
+                        information.                                         Format
 
 WebAuthn Extension Identifiers
 
@@ -124,7 +132,7 @@ WebAuthn Extension Identifiers
                       location to the WebAuthn Relying Party, if supported   Extension (loc)
                       by the client platform and subject to user consent.
                       This registration extension and authentication         [Web Authentication]
-                      extension enables use of a user verification method.   Section §10.8, User
+                      extension enables use of a user verification method.   Section §10.3, User
    uvm                The user verification method extension returns to the  Verification Method       [W3C_Web_Authentication_Working_Group]
                       WebAuthn Relying Party which user verification methods Extension (uvm)
                       (factors) were used for the WebAuthn operation.
@@ -151,6 +159,18 @@ WebAuthn Extension Identifiers
    hmac-secret        extension enables the platform to retrieve a symmetric Protocol (CTAP)] Section  [W3C_Web_Authentication_Working_Group]
                       secret scoped to the credential from the               §12.5 HMAC Secret
                       authenticator.                                         Extension (hmac-secret)
+                      This registration extension allows WebAuthn Relying    [Web Authentication]
+   appidExclude       Parties to exclude authenticators that contain         Section §10.2, FIDO AppID [W3C_Web_Authentication_Working_Group]
+                      specified credentials that were created with the       Exclusion Extension
+                      legacy FIDO U2F JavaScript API [FIDOU2FJavaScriptAPI]. (appidExclude)
+                      This client registration extension enables reporting   [Web Authentication]
+   credProps          of a newly-created credential's properties, as         Section §10.4, Credential [W3C_Web_Authentication_Working_Group]
+                      determined by the client, to the calling WebAuthn      Properties Extension
+                      Relying Party's web application.                       (credProps)
+                      This client registration extension and authentication  [Web Authentication]
+   largeBlob          extension allows a Relying Party to store opaque data  Section §10.5, Large blob [W3C_Web_Authentication_Working_Group]
+                      associated with a credential.                          storage extension
+                                                                             (largeBlob)
 
                                                                  Contact Information
 
