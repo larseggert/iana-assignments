@@ -19,4 +19,5 @@
         <td><xsl:apply-templates select="iana:xref"/></td>
        </tr>
   </xsl:template>
+  <xsl:template name="iana:registryempty"/>
 </xsl:stylesheet>

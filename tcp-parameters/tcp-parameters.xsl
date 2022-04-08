@@ -35,6 +35,14 @@
       <xsl:when test="@id = 'mptcp-mp-tcprst-reason-codes'">
         <tr><th>Code</th><th>Meaning</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'tcp-header-flags'">
+        <tr>
+          <th>Bit Offset</th>
+          <th>Name</th>
+          <th>Reference</th>
+          <th>Assignment Notes</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -102,6 +110,14 @@
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'tcp-header-flags'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:note"/></td>
         </tr>
       </xsl:when>
     </xsl:choose>
