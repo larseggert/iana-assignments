@@ -8,6 +8,14 @@
 
   <xsl:template name="iana:record_header">
     <xsl:choose> 
+      <xsl:when test="@id = 'ace-authorization-server-request-creation-hints'">
+        <tr>
+          <th>Name</th>
+          <th>CBOR Key</th>
+          <th>Value Type</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when> 
       <xsl:when test="@id = 'oauth-error-code-cbor-mappings'">
         <tr>
           <th>Name</th>
@@ -73,6 +81,14 @@
 
   <xsl:template match="iana:record">
     <xsl:choose>
+      <xsl:when test="../@id = 'ace-authorization-server-request-creation-hints'">
+        <tr>
+          <td><xsl:apply-templates select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:type"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
       <xsl:when test="../@id = 'oauth-error-code-cbor-mappings'">
         <tr>
           <td><xsl:apply-templates select="iana:name"/></td>
