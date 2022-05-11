@@ -44,6 +44,20 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'forwarding-context-types'">
+        <tr>
+          <th>Value</th>
+          <th>Forwarding Context Header Types</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'flow-id-context-types'">
+        <tr>
+          <th>Value</th>
+          <th>Flow ID Context Header Types</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <th>Value</th>
