@@ -10,21 +10,24 @@
     <xsl:choose> 
       <xsl:when test="@id = 'option-type'">
         <tr>
-          <th>Value</th>
+          <th>Code Point</th>
+          <th>Name</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
       <xsl:when test="@id = 'pot-type'">
         <tr>
-          <th>Value</th>
+          <th>Code Point</th>
+          <th>Name</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
       <xsl:when test="@id = 'namespace-id'">
         <tr>
-          <th>Value</th>
+          <th>Code Point</th>
+          <th>Name</th>
           <th>Description</th>
           <th>Status</th>
           <th>Reference</th>
@@ -45,6 +48,7 @@
       <xsl:when test="../@id = 'option-type'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
@@ -52,6 +56,7 @@
       <xsl:when test="../@id = 'pot-type'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
@@ -59,6 +64,7 @@
       <xsl:when test="../@id = 'namespace-id'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:value-of select="iana:status"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
