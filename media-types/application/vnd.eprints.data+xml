@@ -1,101 +1,92 @@
 (last updated 2011-06-22)
 
-Name : Tim Brody
-
-Email : tdb2&ecs.soton.ac.uk
-
 MIME media type name : Application
 
 MIME subtype name : Vendor Tree - vnd.eprints.data+xml
 
 Required parameters : None
 
-Optional parameters :
-charset
+Optional parameters : charset
 
-Same as charset parameter of application/xml as specified in RFC 3023.
+   Same as charset parameter of application/xml as specified in RFC 
+   3023.
 
+   files
+   Indicates that file content has been embedded in the response XML. 
+   This is used during content-negotiation to allow the client to 
+   request file content be included. If the client does not have 
+   permission to access file content this parameter will be ignored.
 
-files
-
-Indicates that file content has been embedded in the response XML. This
-is used during content-negotiation to allow the client to request file
-content be included. If the client does not have permission to access
-file content this parameter will be ignored.
-
-"base64" is the only supported value and indicates that file content has
-been embedded using base64 encoding. If the parameter is empty or any
-other value the parameter meaning is undefined (in a response) or should
-be ignored (during content negotiation).
-
+   "base64" is the only supported value and indicates that file 
+   content has been embedded using base64 encoding. If the parameter 
+   is empty or any other value the parameter meaning is undefined (in 
+   a response) or should be ignored (during content negotiation).
 
 Encoding considerations : binary
 
+Security considerations : In addition to those of application/xml as 
+   specified in RFC 3023, section 10 the following considerations 
+   apply:
 
-Security considerations :
+   No executable or active content is defined.
 
-In addition to those of application/xml as specified in RFC 3023,
-section 10 the following considerations apply:
+   No integrity features are defined by the media type, with the 
+   exception that where files are embedded and checksums are provided 
+   the ingesting service should verify the decoded file content 
+   against its checksum before further processing those files.
 
-No executable or active content is defined.
+   No explicit privacy features are defined by the media type but
+   privacy-relevant metadata may be provided on an 
+   implementation-specific basis.
 
-No integrity features are defined by the media type, with the exception
-that where files are embedded and checksums are provided the ingesting
-service should verify the decoded file content against its checksum
-before further processing those files.
+   If files are embedded they may contain executable and/or malicious
+   content. If file content is decoded care should be taken before any
+   further processing or publication by for example applying a
+   virus-checker.
 
-No explicit privacy features are defined by the media type but
-privacy-relevant metadata may be provided on an implementation-specific
-basis.
+   Record identifiers may be included that either intentionally or
+   unintentionally conflict with existing identifiers in a consuming
+   system. Care must be taken that existing records are not
+   unintentionally overwritten. This can be achieved by assigning new 
+   identifiers on ingest or by ensuring the current user is the owner 
+   of the existing records.
 
-If files are embedded they may contain executable and/or malicious
-content. If file content is decoded care should be taken before any
-further processing or publication by for example applying a
-virus-checker.
-
-Record identifiers may be included that either intentionally or
-unintentionally conflict with existing identifiers in a consuming
-system. Care must be taken that existing records are not unintentionally
-overwritten. This can be achieved by assigning new identifiers on ingest
-or by ensuring the current user is the owner of the existing records.
-
-During ingest the system may choose to retrieve files included by-URL
-reference. If the file is located on the Web (http: or https:) the
-system should exercise caution to avoid being used by untrusted users as
-a means of circumventing host-based restrictions. URLs pointing to the
-local file-system must be ignored for any untrusted sources.
-
+   During ingest the system may choose to retrieve files included 
+   by-URL reference. If the file is located on the Web (http: or 
+   https:) the system should exercise caution to avoid being used by 
+   untrusted users as a means of circumventing host-based 
+   restrictions. URLs pointing to the local file-system must be 
+   ignored for any untrusted sources.
 
 Interoperability considerations :
 
-
 Published specification :
-http://wiki.eprints.org/EPData_XML_Representation
 
-Applications which use this media :
-EPrints http://www.eprints.org/
+   http://wiki.eprints.org/EPData_XML_Representation
+
+Applications which use this media : EPrints http://www.eprints.org/
 
 Additional information :
 
-1. Magic number(s) : None
-2. File extension(s) : .xml
-3. Macintosh file type code : "TEXT"
-4. Object Identifiers: None
-
-
+   1. Magic number(s) : None
+   2. File extension(s) : .xml
+   3. Macintosh file type code : "TEXT"
+   4. Object Identifiers: None
 
 Person to contact for further information :
 
-1. Name : Tim Brody
-2. Email : tdb2&ecs.soton.ac.uk
+   1. Name : Tim Brody
+   2. Email : tdb2&ecs.soton.ac.uk
 
 Intended usage : Limited Use
-XML serialisation of EPrints Data (or "EPData") for the import/export of
-the complete record. This is used e.g. for ingesting the results of XSL
-transforms from standardised XML formats. The mime-type is necessary to
-support correct content-type negotiation when using the EPrints REST
-interface although the client will require knowledge of the instance's
-database scheme.
+
+   XML serialisation of EPrints Data (or "EPData") for the 
+   import/export of the complete record. This is used e.g. for 
+   ingesting the results of XSL transforms from standardised XML 
+   formats. The mime-type is necessary to support correct 
+   content-type negotiation when using the EPrints REST interface 
+   although the client will require knowledge of the instance's
+   database scheme.
 
 Author/Change controller : EPrints.org http://www.eprints.org/
 
