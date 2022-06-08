@@ -7,8 +7,7 @@
   <xsl:import href="../_support/iana-registry.xsl" />
 
   <xsl:template name="iana:record_header">
-    <tr><th>Number</th><th>Description</th><th>WHOIS</th><th>RDAP</th><th>Reference</th><th>Registration
-        Date</th></tr>
+    <tr><th>Number</th><th>Description</th><th>WHOIS</th><th>RDAP</th><th>Reference</th><th>Registration Date</th></tr>
   </xsl:template>
 
   <xsl:template match="iana:record">
