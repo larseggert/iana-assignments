@@ -13,6 +13,14 @@
         <th>Reference</th>
       </tr>
      </xsl:when>
+     <xsl:when test="@id = 'igmp-mld-extension-types'">
+      <tr>
+        <th>Extension Type</th>
+        <th>Length</th>
+        <th>Name</th>
+        <th>Reference</th>
+      </tr>
+     </xsl:when>
      <xsl:otherwise>
       <tr>
         <th>Code</th>
@@ -26,6 +34,14 @@
      <xsl:when test="../@id = 'igmp-type-numbers-1'">
       <tr>
        <td align="center"><xsl:value-of select="iana:value"/></td>
+       <td><xsl:value-of select="iana:name"/></td>
+       <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+     </xsl:when>
+     <xsl:when test="../@id = 'igmp-mld-extension-types'">
+      <tr>
+       <td align="center"><xsl:value-of select="iana:value"/></td>
+       <td><xsl:value-of select="iana:length"/></td>
        <td><xsl:value-of select="iana:name"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
