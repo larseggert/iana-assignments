@@ -20,6 +20,9 @@
       <xsl:when test="@id = 'rpki-rtr-error'">
         <tr><th>Error Code</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'rpki-rtr-afi'">
+        <tr><th>Bit</th><th>Bit Name</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:when test="@id = 'bgpsec-capability'">
         <tr><th>Bits</th><th>Field</th><th>Reference</th></tr>
       </xsl:when>
