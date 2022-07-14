@@ -1,0 +1,89 @@
+(registered 2022-07-13, last updated 2022-07-13)
+
+Media type name: image
+
+Media subtype name: dpx
+
+Required parameters: N/A
+
+Optional parameters: standard – If specified, the parameter indicates 
+   the version of the SMPTE standard with which the file complies. At 
+   the time of IANA registration, the possible values are st268-1 
+   (for SMPTE ST 268-1) and st268-2 (for SMPTE ST 268-2).
+
+   If the standard parameter is absent, the file can comply with any 
+   version of the SMPTE standard.
+
+Encoding considerations: binary
+
+Security considerations: DPX files only encode images with      
+   corresponding metadata and do not employ executable content.
+   The header defines a "user-defined information" section that can 
+   contain arbitrary binary data. As such, a maliciously coded file 
+   could contain a binary blob comprising executable content. 
+   Therefore, the user-defined header must not contain executable 
+   content, and implementations that receive, display, or otherwise 
+   process images must preclude the execution of any executable 
+   content that might be received.
+
+   Some files also contain a “standards-based metadata” section that 
+   can include arbitrary XML. Such XML could include potentially 
+   harmful or malicious links to other resources.
+
+   Implementations will need to ensure that a received file can be 
+   handled within the available memory. DPX allows run-length 
+   encoding, so decoders will need suitable bounds checks to ensure 
+   that memory locations outside the allocated decoded image buffer 
+   cannot be altered.
+
+   DPX files do not have integral encryption or authentication. A 
+   32-bit “encryption key” field is defined in SMPTE ST 268-1, but 
+   the standard does not specify an encryption algorithm; therefore, 
+   utilizing the field for encrypting picture data will generally not 
+   be interoperable. Any file protection, privacy, or integrity 
+   requirements must be handled using an external mechanism.
+
+Interoperability considerations: SMPTE ST 268-1 has been very widely 
+   used since it was standardized (initially as SMPTE 268M:1994) but 
+   has experienced some interoperability issues in practice. These 
+   issues have occurred primarily due to conflicting interpretations 
+   relating specifically to how the pixel data is ordered, packed, 
+   and padded. SMPTE ST 268-2 has improved interoperability due to 
+   the inclusion of metadata that resolves ambiguities that are 
+   present in ST 268-1. However, ST 268-2 is a more recent standard, 
+   whereas ST 268-1 has been widely used for many years prior and is 
+   employed in voluminous archives.
+
+   Both ST 268-1 and ST 268-2 define core fields and values. Files 
+   must include all core fields, and reader or receiver 
+   implementations must interpret all core fields and values.
+
+Published specification: SMPTE ST 268-1; SMPTE ST 268-2 (which 
+   incorporates ST 268-1 by reference)
+
+Applications which use this media: DPX is derived from Kodak's Cineon 
+   format and is used primarily as a file format for digitization of 
+   camera-captured frames and as a digital intermediate file format.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: N/A
+
+Additional information:
+
+   1. Deprecated alias names for this type: N/A
+   2. Magic number(s): hex 53 44 50 58 (most-significant byte first
+      file) or 58 50
+   3. File extension(s): dpx
+   4. Macintosh file type code: N/A
+   5. Object Identifiers: N/A
+
+Person to contact for further information:
+
+   1. Name: Director of Standards Development
+   2. Email: standards-support&smpte.org
+
+Intended usage: COMMON
+
+Author/Change controller: Society of Motion Picture and Television 
+   Engineers ("SMPTE")
