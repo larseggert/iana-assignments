@@ -90,6 +90,43 @@
           <th>Reference</th>
         </tr>
 		</xsl:when>
+    <xsl:when test="@id = 'lisp-ecm-authentication-data-types'">
+        <tr>
+          <th>Number</th>
+          <th>Name</th>
+          <th>Reference</th>
+        </tr>
+		</xsl:when>
+    <xsl:when test="@id = 'map-reply-authentication-data-types'">
+        <tr>
+          <th>Number</th>
+          <th>Name</th>
+          <th>Reference</th>
+        </tr>
+		</xsl:when>
+    <xsl:when test="@id = 'lisp-sec-preferred-data-hmac-ids'">
+        <tr>
+          <th>Number</th>
+          <th>Name</th>
+          <th>Reference</th>
+        </tr>
+		</xsl:when>
+    <xsl:when test="@id = 'lisp-sec-authentication-data-key-wrap-ids'">
+        <tr>
+          <th>Number</th>
+          <th>Name</th>
+          <th>KEY WRAP</th>
+          <th>KDF</th>
+          <th>Reference</th>
+        </tr>
+		</xsl:when>
+    <xsl:when test="@id = 'lisp-sec-authentication-data-key-derivation-function-ids'">
+        <tr>
+          <th>Number</th>
+          <th>Name</th>
+          <th>Reference</th>
+        </tr>
+		</xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
       </xsl:otherwise>
@@ -178,11 +215,20 @@
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'lisp-parameters-lisp-control-plane-header-bits-rloc-record'">
+      <tr>
+        <td><xsl:value-of select="iana:spec-name"/></td>
+        <td><xsl:value-of select="iana:iana-name"/></td>
+        <td><xsl:value-of select="iana:bit"/></td>
+        <td><xsl:value-of select="iana:description"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+    </xsl:when>
+      <xsl:when test="../@id = 'lisp-sec-authentication-data-key-wrap-ids'">
         <tr>
-          <td><xsl:value-of select="iana:spec-name"/></td>
-          <td><xsl:value-of select="iana:iana-name"/></td>
-          <td><xsl:value-of select="iana:bit"/></td>
+          <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:keywrap"/></td>
+          <td><xsl:apply-templates select="iana:kdf"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
