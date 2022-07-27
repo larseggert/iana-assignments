@@ -6,7 +6,7 @@
            2018-03-22
 
    Last Updated
-           2022-04-19
+           2022-07-27
 
    Available Formats
            [IMG]
@@ -46,100 +46,179 @@ CBOR Web Token (CWT) Claims
    Strings of length 2                Specification Required
    Strings of length greater than 2   Expert Review
 
-       Claim Name         Claim Description     JWT Claim Name Claim Key Claim Value Type     Change Controller                Reference
-   Reserved for                                                less than                                             [RFC8392]
-   Private Use                                                 -65536
-   Unassigned                                                  -65536 to
-                                                               -261
-   hcert              Health Certificate        hcert          -260      map              [European_eHealth_Network] [Electronic Health Certificate
-                                                                                                                     Specification]
-   EUPHNonce          Challenge Nonce           EUPHNonce      -259      bstr             [FIDO_Alliance]            [FIDO Device Onboard
-                                                                                                                     Specification]
-                      Signing prefix for                                                                             [FIDO Device Onboard
-   EATMAROEPrefix     multi-app restricted      EATMAROEPrefix -258      bstr             [FIDO_Alliance]            Specification]
-                      operating environments
-                      EAT-FDO may contain                                                                            [FIDO Device Onboard
-   EAT-FDO            related to FIDO Device    EAT-FDO        -257      array            [FIDO_Alliance]            Specification]
-                      Onboarding
-   Unassigned                                                  -256 to
-                                                               -1
-   Reserved           This registration                        0                          [IESG]                     [RFC8392]
-                      reserves the key value 0
-   iss                Issuer                    iss            1         text string      [IESG]                     [RFC8392]
-   sub                Subject                   sub            2         text string      [IESG]                     [RFC8392]
-   aud                Audience                  aud            3         text string      [IESG]                     [RFC8392]
-                                                                         integer or
-   exp                Expiration Time           exp            4         floating-point   [IESG]                     [RFC8392]
-                                                                         number
-                                                                         integer or
-   nbf                Not Before                nbf            5         floating-point   [IESG]                     [RFC8392]
-                                                                         number
-                                                                         integer or
-   iat                Issued At                 iat            6         floating-point   [IESG]                     [RFC8392]
-                                                                         number
-   cti                CWT ID                    jti            7         byte string      [IESG]                     [RFC8392]
-   cnf                Confirmation              cnf            8         map              [IESG]                     [RFC8747]
-                      The scope of an access                             byte string or
-   scope              token, as defined in      scope          9         text string      [IESG]                     [RFC8693, Section 4.2]
-                      [RFC6749].
-                      Nonce (TEMPORARY -                                                                             [OpenID Connect Core
-   Nonce              registered 2022-03-23,    nonce          10        byte string      [IESG]                     1.0][draft-ietf-rats-eat-12]
-                      expires 2023-03-23)
-   Unassigned                                                  11 to 37
-                      The ACE profile a token                                                                        [RFC-ietf-ace-oauth-authz-46,
-   ace_profile        is supposed to be used    ace_profile    38        integer          [IETF]                     Section 5.10]
-                      with.
-                      The client-nonce sent to                                                                       [RFC-ietf-ace-oauth-authz-46,
-   cnonce             the AS by the RS via the  cnonce         39        byte string      [IETF]                     Section 5.10]
-                      client.
-                      The expiration time of a
-   exi                token measured from when  exi            40        unsigned integer [IETF]                     [RFC-ietf-ace-oauth-authz-46,
-                      it was received at the RS                                                                      Section 5.10.3]
-                      in seconds.
-   Unassigned                                                  41 to 255
-                      The Universal Entity ID
-   UEID               (TEMPORARY - registered   ueid           256       byte string      [IESG]                     [draft-ietf-rats-eat-12]
-                      2022-03-23, expires
-                      2023-03-23)
-                      Semi-permanent UEIDs
-   SUEIDs             (TEMPORARY - registered   sueids         257       map              [IESG]                     [draft-ietf-rats-eat-12]
-                      2022-03-23, expires
-                      2023-03-23)
-                      Hardware OEM ID
-   Hardware OEMID     (TEMPORARY - registered   oemid          258       byte string or   [IESG]                     [draft-ietf-rats-eat-12]
-                      2022-03-23, expires                                integer
-                      2023-03-23)
-                      Model identifier for
-   Hardware Model     hardware (TEMPORARY -     hwmodel        259       byte string      [IESG]                     [draft-ietf-rats-eat-12]
-                      registered 2022-03-23,
-                      expires 2023-03-23)
-                      Hardware Version
-   Hardware Version   Identifier (TEMPORARY -   hwversion      260       array            [IESG]                     [draft-ietf-rats-eat-12]
-                      registered 2022-03-23,
-                      expires 2023-03-23)
-   Unassigned                                                  261
-                      Indicate whether the boot
-   Secure Boot        was secure (TEMPORARY -   secboot        262       Boolean          [IESG]                     [draft-ietf-rats-eat-12]
-                      registered 2022-03-23,
-                      expires 2023-03-23)
-                      Indicate status of debug
-   Debug Status       facilities (TEMPORARY -   dbgstat        263       integer          [IESG]                     [draft-ietf-rats-eat-12]
-                      registered 2022-03-23,
-                      expires 2023-03-23)
-                      The geographic location
-   Location           (TEMPORARY - registered   location       264       map              [IESG]                     [draft-ietf-rats-eat-12]
-                      2022-03-23, expires
-                      2023-03-23)
-                      Indicates the EAT profile
-   Profile            followed (TEMPORARY -     eat_profile    265       URI or OID       [IESG]                     [draft-ietf-rats-eat-12]
-                      registered 2022-03-23,
-                      expires 2023-03-23)
-                      The section containing
-   Submodules Section submodules (TEMPORARY -   submods        266       map              [IESG]                     [draft-ietf-rats-eat-12]
-                      registered 2022-03-23,
-                      expires 2023-03-23)
-   Unassigned                                                  267 to
-                                                               65535
+            Claim Name                 Claim      JWT Claim Name Claim   Claim Value       Change Controller                   Reference
+                                    Description                   Key        Type
+                                                                 less
+Reserved for Private Use                                         than                                             [RFC8392]
+                                                                 -65536
+                                                                 -65536
+Unassigned                                                       to
+                                                                 -261
+hcert                              Health         hcert          -260   map            [European_eHealth_Network] [Electronic Health Certificate
+                                   Certificate                                                                    Specification]
+EUPHNonce                          Challenge      EUPHNonce      -259   bstr           [FIDO_Alliance]            [FIDO Device Onboard Specification]
+                                   Nonce
+                                   Signing prefix
+                                   for multi-app
+EATMAROEPrefix                     restricted     EATMAROEPrefix -258   bstr           [FIDO_Alliance]            [FIDO Device Onboard Specification]
+                                   operating
+                                   environments
+                                   EAT-FDO may
+                                   contain
+EAT-FDO                            related to     EAT-FDO        -257   array          [FIDO_Alliance]            [FIDO Device Onboard Specification]
+                                   FIDO Device
+                                   Onboarding
+Unassigned                                                       -256
+                                                                 to -1
+                                   This
+Reserved                           registration                  0                     [IESG]                     [RFC8392]
+                                   reserves the
+                                   key value 0
+iss                                Issuer         iss            1      text string    [IESG]                     [RFC8392]
+sub                                Subject        sub            2      text string    [IESG]                     [RFC8392]
+aud                                Audience       aud            3      text string    [IESG]                     [RFC8392]
+                                   Expiration                           integer or
+exp                                Time           exp            4      floating-point [IESG]                     [RFC8392]
+                                                                        number
+                                                                        integer or
+nbf                                Not Before     nbf            5      floating-point [IESG]                     [RFC8392]
+                                                                        number
+                                                                        integer or
+iat                                Issued At      iat            6      floating-point [IESG]                     [RFC8392]
+                                                                        number
+cti                                CWT ID         jti            7      byte string    [IESG]                     [RFC8392]
+cnf                                Confirmation   cnf            8      map            [IESG]                     [RFC8747]
+                                   The scope of
+                                   an access                            byte string or
+scope                              token, as      scope          9      text string    [IESG]                     [RFC8693, Section 4.2]
+                                   defined in
+                                   [RFC6749].
+                                   Nonce
+                                   (TEMPORARY -
+Nonce                              registered     nonce          10     byte string    [IESG]                     [OpenID Connect Core
+                                   2022-03-23,                                                                    1.0][draft-ietf-rats-eat-12]
+                                   expires
+                                   2023-03-23)
+Unassigned                                                       11 to
+                                                                 37
+                                   The ACE
+                                   profile a                                                                      [RFC-ietf-ace-oauth-authz-46,
+ace_profile                        token is       ace_profile    38     integer        [IETF]                     Section 5.10]
+                                   supposed to be
+                                   used with.
+                                   The
+                                   client-nonce                                                                   [RFC-ietf-ace-oauth-authz-46,
+cnonce                             sent to the AS cnonce         39     byte string    [IETF]                     Section 5.10]
+                                   by the RS via
+                                   the client.
+                                   The expiration
+                                   time of a
+                                   token measured                       unsigned                                  [RFC-ietf-ace-oauth-authz-46,
+exi                                from when it   exi            40     integer        [IETF]                     Section 5.10.3]
+                                   was received
+                                   at the RS in
+                                   seconds.
+Unassigned                                                       41 to
+                                                                 255
+                                   The Universal
+                                   Entity ID
+                                   (TEMPORARY -
+UEID                               registered     ueid           256    byte string    [IESG]                     [draft-ietf-rats-eat-12]
+                                   2022-03-23,
+                                   expires
+                                   2023-03-23)
+                                   Semi-permanent
+                                   UEIDs
+                                   (TEMPORARY -
+SUEIDs                             registered     sueids         257    map            [IESG]                     [draft-ietf-rats-eat-12]
+                                   2022-03-23,
+                                   expires
+                                   2023-03-23)
+                                   Hardware OEM
+                                   ID (TEMPORARY
+Hardware OEMID                     - registered   oemid          258    byte string or [IESG]                     [draft-ietf-rats-eat-12]
+                                   2022-03-23,                          integer
+                                   expires
+                                   2023-03-23)
+                                   Model
+                                   identifier for
+                                   hardware
+Hardware Model                     (TEMPORARY -   hwmodel        259    byte string    [IESG]                     [draft-ietf-rats-eat-12]
+                                   registered
+                                   2022-03-23,
+                                   expires
+                                   2023-03-23)
+                                   Hardware
+                                   Version
+                                   Identifier
+Hardware Version                   (TEMPORARY -   hwversion      260    array          [IESG]                     [draft-ietf-rats-eat-12]
+                                   registered
+                                   2022-03-23,
+                                   expires
+                                   2023-03-23)
+Unassigned                                                       261
+                                   Indicate
+                                   whether the
+                                   boot was
+                                   secure
+Secure Boot                        (TEMPORARY -   secboot        262    Boolean        [IESG]                     [draft-ietf-rats-eat-12]
+                                   registered
+                                   2022-03-23,
+                                   expires
+                                   2023-03-23)
+                                   Indicate
+                                   status of
+                                   debug
+                                   facilities
+Debug Status                       (TEMPORARY -   dbgstat        263    integer        [IESG]                     [draft-ietf-rats-eat-12]
+                                   registered
+                                   2022-03-23,
+                                   expires
+                                   2023-03-23)
+                                   The geographic
+                                   location
+                                   (TEMPORARY -
+Location                           registered     location       264    map            [IESG]                     [draft-ietf-rats-eat-12]
+                                   2022-03-23,
+                                   expires
+                                   2023-03-23)
+                                   Indicates the
+                                   EAT profile
+                                   followed
+Profile                            (TEMPORARY -   eat_profile    265    URI or OID     [IESG]                     [draft-ietf-rats-eat-12]
+                                   registered
+                                   2022-03-23,
+                                   expires
+                                   2023-03-23)
+                                   The section
+                                   containing
+                                   submodules
+Submodules Section                 (TEMPORARY -   submods        266    map            [IESG]                     [draft-ietf-rats-eat-12]
+                                   registered
+                                   2022-03-23,
+                                   expires
+                                   2023-03-23)
+Unassigned                                                       267 to
+                                                                 2393
+psa-client-id                      PSA Client ID  N/A            2394   signed integer [Hannes_Tschofenig]        [draft-tschofenig-rats-psa-token-09]
+psa-security-lifecycle             PSA Security   N/A            2395   unsigned       [Hannes_Tschofenig]        [draft-tschofenig-rats-psa-token-09]
+                                   Lifecycle                            integer
+                                   PSA
+psa-implementation-id              Implementation N/A            2396   byte string    [Hannes_Tschofenig]        [draft-tschofenig-rats-psa-token-09]
+                                   ID
+psa-boot-seed                      PSA Boot Seed  N/A            2397   byte string    [Hannes_Tschofenig]        [draft-tschofenig-rats-psa-token-09]
+                                   PSA
+psa-certification-reference        Certification  N/A            2398   text string    [Hannes_Tschofenig]        [draft-tschofenig-rats-psa-token-09]
+                                   Reference
+psa-software-components            PSA Software   N/A            2399   array          [Hannes_Tschofenig]        [draft-tschofenig-rats-psa-token-09]
+                                   Components
+                                   PSA
+psa-verification-service-indicator Verification   N/A            2400   array          [Hannes_Tschofenig]        [draft-tschofenig-rats-psa-token-09]
+                                   Service
+                                   Indicator
+                                                                 2401
+Unassigned                                                       to
+                                                                 65535
 
 CWT Confirmation Methods
 
@@ -187,6 +266,7 @@ CWT Confirmation Methods
                ID                       Name                       Contact URI              Last Updated
    [European_eHealth_Network] European eHealth Network mailto:jakob&kirei.se                2021-04-15
    [FIDO_Alliance]            FIDO Alliance            mailto:iana-request&fidoalliance.org 2021-03-05
+   [Hannes_Tschofenig]        Hannes Tschofenig        mailto:hannes.tschofenig&arm.com     2022-07-27
    [IESG]                     IESG                     mailto:iesg&ietf.org                 2018-05-04
    [IETF]                     IETF                     mailto:iesg&ietf.org
 
