@@ -22,7 +22,7 @@
       <xsl:when test="@id = 'link-ownership-values'">
         <tr>
           <th>Index</th>
-          <th>Role Name</th>
+          <th>Ownership Type Name</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
@@ -36,7 +36,7 @@
       <xsl:when test="@id = 'link-use-values'">
         <tr>
           <th>Index</th>
-          <th>Relationship Type Name</th>
+          <th>Link Use Type Name</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
