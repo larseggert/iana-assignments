@@ -6,7 +6,7 @@
            2002-07-15
 
    Last Updated
-           2022-01-19
+           2022-08-02
 
    Available Formats
            [IMG]
@@ -899,6 +899,7 @@ Job Template  finishings-col                                 stitching          
 Job Template  finishings-col                                 stitching                               stitching-angle               integer(0:359)              [PWG5100.1]
 Job Template  finishings-col                                 stitching                               stitching-locations           1setOf integer(0:MAX)       [PWG5100.1]
 Job Template  finishings-col                                 stitching                               stitching-method              type2 keyword               [PWG5100.1]
+Job Template  finishings-col                                 stitching                               stitching-method(extension)   type2 keyword]              [PWG5100.1]
 Job Template  finishings-col                                 stitching                               stitching-offset              integer(0:MAX)              [PWG5100.1]
 Job Template  finishings-col                                 stitching                               stitching-reference-edge      type2 keyword               [PWG5100.1]
 Job Template  finishings-col                                 trimming                                                              1setOf collection           [PWG5100.1]
@@ -906,6 +907,8 @@ Job Template  finishings-col                                 trimming           
 Job Template  finishings-col                                 trimming                                trimming-reference-edge       type1 keyword               [PWG5100.1]
 Job Template  finishings-col                                 trimming                                trimming-type                 type2 keyword | name(MAX)   [PWG5100.1]
 Job Template  finishings-col                                 trimming                                trimming-when                 type2 keyword               [PWG5100.1]
+Job Template  finishings-col(extension)                                                                                            no-value | 1setOf           [PWG5100.1]
+                                                                                                                                   collection
 Job Template  font-name-requested                                                                                                  name(MAX)                   [PWG5100.11]
 Job Template  font-size-requested                                                                                                  integer(1:MAX)              [PWG5100.11]
 Job Template  force-front-side                                                                                                     1setOf integer(1:MAX)       [PWG5100.3]
@@ -1017,8 +1020,8 @@ Job Template  media-col                                      media-pre-printed  
 Job Template  media-col                                      media-recycled                                                        type2 keyword | name(MAX)   [PWG5100.7]
 Job Template  media-col                                      media-right-margin                                                    integer(0:MAX)              [PWG5100.7]
 Job Template  media-col                                      media-size                                                            collection                  [PWG5100.7]
-Job Template  media-col                                      media-size                              x-dimension                   integer(0:MAX)              [PWG5100.7]
-Job Template  media-col                                      media-size                              y-dimension                   integer(0:MAX)              [PWG5100.7]
+Job Template  media-col                                      media-size                              x-dimension                   integer(1:MAX)              [PWG5100.7]
+Job Template  media-col                                      media-size                              y-dimension                   integer(1:MAX)              [PWG5100.7]
 Job Template  media-col                                      media-size-name                                                       type2 keyword | name(MAX)   [PWG5100.7]
 Job Template  media-col                                      media-source                                                          type2 keyword | name(MAX)   [PWG5100.7]
 Job Template  media-col                                      media-thickness                                                       integer(1:MAX)              [PWG5100.7]
@@ -1741,6 +1744,12 @@ Printer       media-col-database                                                
 Description
 Printer       media-col-database                             <Member attributes are the same as the                                                            [PWG5100.7]
 Description                                                  "media-col" Job Template attribute>
+Printer       media-col-database                             media-size                                                            collection                  [PWG5100.7]
+Description
+Printer       media-col-database                             media-size                              x-dimension                   integer(1:MAX) |            [PWG5100.7]
+Description                                                                                                                        rangeOfInteger(1:MAX)
+Printer       media-col-database                             media-size                              y-dimension                   integer(1:MAX) |            [PWG5100.7]
+Description                                                                                                                        rangeOfInteger(1:MAX)
 Printer       media-col-database                             media-source-properties                                               collection                  [PWG5100.7]
 Description
 Printer       media-col-database                             media-source-properties                 media-source-feed-direction   type2 keyword               [PWG5100.7]
@@ -1755,6 +1764,12 @@ Printer       media-col-ready                                                   
 Description
 Printer       media-col-ready                                <Member attributes are the same as the                                                            [PWG5100.7]
 Description                                                  "media-col" Job Template attribute>
+Printer       media-col-ready                                media-size                                                            collection                  [PWG5100.7]
+Description
+Printer       media-col-ready                                media-size                              x-dimension                   integer(1:MAX) |            [PWG5100.7]
+Description                                                                                                                        rangeOfInteger(1:MAX)
+Printer       media-col-ready                                media-size                              y-dimension                   integer(0:MAX) |            [PWG5100.7]
+Description                                                                                                                        rangeOfInteger(1:MAX)
 Printer       media-col-ready                                media-source-properties                                               collection                  [PWG5100.7]
 Description
 Printer       media-col-ready                                media-source-properties                 media-source-feed-direction   type2 keyword               [PWG5100.7]
@@ -2032,6 +2047,14 @@ Printer       printer-fax-modem-name                                            
 Description
 Printer       printer-fax-modem-number                                                                                             1setOf uri                  [PWG5100.15]
 Description
+Printer       printer-finisher                                                                                                     1setOf octetString(MAX)     [PWG5100.1]
+Description
+Printer       printer-finisher-description                                                                                         1setOf text(MAX)            [PWG5100.1]
+Description
+Printer       printer-finisher-supplies                                                                                            1setOf octetString(MAX)     [PWG5100.1]
+Description
+Printer       printer-finisher-supplies-description                                                                                1setOf text(MAX)            [PWG5100.1]
+Description
 Printer       printer-geo-location                                                                                                 uri                         [PWG5100.13]
 Description
 Printer       printer-get-attributes-supported                                                                                     1setOf keyword              [PWG5100.13]
@@ -2178,6 +2201,8 @@ Description                                                                     
 Printer       stitching-locations-supported                                                                                        1setOf (integer(0:MAX) |    [PWG5100.1]
 Description                                                                                                                        rangeOfInteger(0:MAX))
 Printer       stitching-method-supported                                                                                           1setOf type2 keyword        [PWG5100.1]
+Description
+Printer       stitching-method-supported(extension)                                                                                1setOf (type2 keyword)      [PWG5100.1]
 Description
 Printer       stitching-offset-supported                                                                                           1setOf (integer(0:MAX) |    [PWG5100.1]
 Description                                                                                                                        rangeOfInteger(0:MAX))
@@ -2698,6 +2723,10 @@ Keyword Attribute Values
                                                                                                  keyword |
                                                                                                  name(MAX))
                                                                                                  1setOf
+   baling-type-supported                      < all baling-type values >                         (type2                 [PWG5100.1]
+                                                                                                 keyword |
+                                                                                                 name(MAX))
+                                                                                                 1setOf
    baling-type-supported                      <Any "baling-type" value>                          (type2                 [PWG5100.1]
                                                                                                  keyword |
                                                                                                  name(MAX))
@@ -2708,6 +2737,8 @@ Keyword Attribute Values
    baling-when                                after-sets                                         type2                  [PWG5100.1]
                                                                                                  keyword
    baling-when-supported                                                                         1setOf type2           [PWG5100.1]
+                                                                                                 keyword
+   baling-when-supported                      < all baling-when values >                         1setOf type2           [PWG5100.1]
                                                                                                  keyword
    baling-when-supported                      <Any "baling-when" value>                          1setOf type2           [PWG5100.1]
                                                                                                  keyword
@@ -2722,6 +2753,8 @@ Keyword Attribute Values
    binding-reference-edge                     top                                                type1                  [PWG5100.1]
                                                                                                  keyword
    binding-reference-edge-supported                                                              1setOf type1           [PWG5100.1]
+                                                                                                 keyword
+   binding-reference-edge-supported           < all binding-reference-edge values >              1setOf type1           [PWG5100.1]
                                                                                                  keyword
    binding-reference-edge-supported           <Any "binding-reference-edge" value>               1setOf type1           [PWG5100.1]
                                                                                                  keyword
@@ -2757,6 +2790,10 @@ Keyword Attribute Values
                                                                                                  keyword |
                                                                                                  name(MAX))
                                                                                                  (1setOf
+   binding-type-supported                     < all binding-type values >                        type2                  [PWG5100.1]
+                                                                                                 keyword |
+                                                                                                 name(MAX))
+                                                                                                 (1setOf
    binding-type-supported                     <Any "binding-type" value>                         type2                  [PWG5100.1]
                                                                                                  keyword |
                                                                                                  name(MAX))
@@ -2769,6 +2806,8 @@ Keyword Attribute Values
    coating-sides                              front                                              type1                  [PWG5100.1]
                                                                                                  keyword
    coating-sides-supported                                                                       1setOf type1           [PWG5100.1]
+                                                                                                 keyword
+   coating-sides-supported                    < all coating-sides values >                       1setOf type1           [PWG5100.1]
                                                                                                  keyword
    coating-sides-supported                    <Any "coating-sides" value>                        1setOf type1           [PWG5100.1]
                                                                                                  keyword
@@ -2805,8 +2844,15 @@ Keyword Attribute Values
                                                                                                  type2
    coating-type                               translucent                                        keyword |              [PWG5100.1]
                                                                                                  name(MAX)
+                                                                                                 type2
+   coating-type                               water-resistant                                    keyword |              [PWG5100.1]
+                                                                                                 name(MAX)
                                                                                                  (1setOf
    coating-type-supported                                                                        type2                  [PWG5100.1]
+                                                                                                 keyword |
+                                                                                                 name(MAX))
+                                                                                                 (1setOf
+   coating-type-supported                     < all coating-type values >                        type2                  [PWG5100.1]
                                                                                                  keyword |
                                                                                                  name(MAX))
                                                                                                  (1setOf
@@ -2857,6 +2903,10 @@ Keyword Attribute Values
                                                                                                  name(MAX)
                                                                                                  1setOf
    covering-name-supported                                                                       (type2                 [PWG5100.1]
+                                                                                                 keyword |
+                                                                                                 name(MAX))
+                                                                                                 1setOf
+   covering-name-supported                    < all covering-name values >                       (type2                 [PWG5100.1]
                                                                                                  keyword |
                                                                                                  name(MAX))
                                                                                                  1setOf
@@ -3488,6 +3538,10 @@ Keyword Attribute Values
                                                                                                  keyword |
                                                                                                  name(MAX))
                                                                                                  1setOf
+   finishing-template-supported               < any finishing-template value >                   (type2                 [PWG5100.1]
+                                                                                                 keyword |
+                                                                                                 name(MAX))
+                                                                                                 1setOf
    finishing-template-supported               <Any "finishing-template" value>                   (type2                 [PWG5100.1]
                                                                                                  keyword |
                                                                                                  name(MAX))
@@ -3498,6 +3552,8 @@ Keyword Attribute Values
    folding-direction                          outward                                            type1                  [PWG5100.1]
                                                                                                  keyword
    folding-direction-supported                                                                   1setOf type1           [PWG5100.1]
+                                                                                                 keyword
+   folding-direction-supported                < all folding-direction values >                   1setOf type1           [PWG5100.1]
                                                                                                  keyword
    folding-direction-supported                <Any "folding-direction" value>                    1setOf type1           [PWG5100.1]
                                                                                                  keyword
@@ -3512,6 +3568,8 @@ Keyword Attribute Values
    folding-reference-edge                     top                                                type1                  [PWG5100.1]
                                                                                                  keyword
    folding-reference-edge-supported                                                              1setOf type1           [PWG5100.1]
+                                                                                                 keyword
+   folding-reference-edge-supported           < all folding-reference-edge values >              1setOf type1           [PWG5100.1]
                                                                                                  keyword
    folding-reference-edge-supported           <Any "folding-reference-edge" value>               1setOf type1           [PWG5100.1]
                                                                                                  keyword
@@ -4250,6 +4308,8 @@ Keyword Attribute Values
                                                                                                  keyword
    laminating-sides-supported                                                                    1setOf type1           [PWG5100.1]
                                                                                                  keyword
+   laminating-sides-supported                 < all laminating-sides values >                    1setOf type1           [PWG5100.1]
+                                                                                                 keyword
    laminating-sides-supported                 <All "laminating-sides" value>                     1setOf type1           [PWG5100.1]
                                                                                                  keyword
                                                                                                  type2
@@ -4257,6 +4317,15 @@ Keyword Attribute Values
                                                                                                  name(MAX)
                                                                                                  type2
    laminating-type                            archival                                           keyword |              [PWG5100.1]
+                                                                                                 name(MAX)
+                                                                                                 type2
+   laminating-type                            archival-glossy                                    keyword |              [PWG5100.1]
+                                                                                                 name(MAX)
+                                                                                                 type2
+   laminating-type                            archival-matte                                     keyword |              [PWG5100.1]
+                                                                                                 name(MAX)
+                                                                                                 type2
+   laminating-type                            archival-semi-gloss                                keyword |              [PWG5100.1]
                                                                                                  name(MAX)
                                                                                                  type2
    laminating-type                            glossy                                             keyword |              [PWG5100.1]
@@ -4273,8 +4342,15 @@ Keyword Attribute Values
                                                                                                  type2
    laminating-type                            translucent                                        keyword |              [PWG5100.1]
                                                                                                  name(MAX)
+                                                                                                 type2
+   laminating-type                            water-resistant                                    keyword |              [PWG5100.1]
+                                                                                                 name(MAX)
                                                                                                  (1setOf
    laminating-type-supported                                                                     type2                  [PWG5100.1]
+                                                                                                 keyword |
+                                                                                                 name(MAX))
+                                                                                                 (1setOf
+   laminating-type-supported                  < all laminating-type values >                     type2                  [PWG5100.1]
                                                                                                  keyword |
                                                                                                  name(MAX))
                                                                                                  (1setOf
@@ -9206,6 +9282,8 @@ Keyword Attribute Values
                                                                                                  keyword
    punching-reference-edge-supported                                                             1setOf type1           [PWG5100.1]
                                                                                                  keyword
+   punching-reference-edge-supported          < all punching-reference-edge values >             1setOf type1           [PWG5100.1]
+                                                                                                 keyword
    punching-reference-edge-supported          <Any "punching-reference-edge" value>              1setOf type1           [PWG5100.1]
                                                                                                  keyword
    pwg-raster-document-sheet-back                                                                type2                  [PWG5102.4]
@@ -9446,6 +9524,8 @@ Keyword Attribute Values
                                                                                                  keyword
    stitching-method-supported                                                                    1setOf type2           [PWG5100.1]
                                                                                                  keyword
+   stitching-method-supported                 < all stitching-method values >                    1setOf type2           [PWG5100.1]
+                                                                                                 keyword
    stitching-method-supported                 <Any "stitching-method" value>                     1setOf type2           [PWG5100.1]
                                                                                                  keyword
    stitching-reference-edge                                                                      type2                  [PWG5100.3]
@@ -9533,6 +9613,8 @@ Keyword Attribute Values
                                                                                                  keyword
    trimming-reference-edge-supported                                                             1setOf type1           [PWG5100.1]
                                                                                                  keyword
+   trimming-reference-edge-supported          < all trimming-reference-edge values >             1setOf type1           [PWG5100.1]
+                                                                                                 keyword
    trimming-reference-edge-supported          <Any "trimming-reference-edge" value>              1setOf type1           [PWG5100.1]
                                                                                                  keyword
                                                                                                  type2
@@ -9558,6 +9640,8 @@ Keyword Attribute Values
                                                                                                  name(MAX)
    trimming-type-supported                                                                       1setOf type2           [PWG5100.1]
                                                                                                  keyword
+   trimming-type-supported                    < all trimming-type values >                       1setOf type2           [PWG5100.1]
+                                                                                                 keyword
    trimming-type-supported                    <Any "trimming-type value>                         1setOf type2           [PWG5100.1]
                                                                                                  keyword
    trimming-when                                                                                 type2                  [PWG5100.1]
@@ -9571,6 +9655,8 @@ Keyword Attribute Values
    trimming-when                              after-sheets                                       type2                  [PWG5100.1]
                                                                                                  keyword
    trimming-when-supported                                                                       1setOf type2           [PWG5100.1]
+                                                                                                 keyword
+   trimming-when-supported                    < all trimming-when values >                       1setOf type2           [PWG5100.1]
                                                                                                  keyword
    trimming-when-supported                    <Any "trimming-when" value>                        1setOf type2           [PWG5100.1]
                                                                                                  keyword
@@ -10010,9 +10096,9 @@ Enum Attribute Values
                                                                                                                      enum
    operations-supported                  0x0027                                 Deactivate-Printer(deprecated)       1setOf type2 [APPLE20150505-3]
                                                                                                                      enum
-   operations-supported                  0x0028                                 Activate-Printer                     1setOf type2 [RFC3998]
-                                                                                                                     enum
    operations-supported                  0x0028                                 Activate-Printer(deprecated)         1setOf type2 [APPLE20150505-3]
+                                                                                                                     enum
+   operations-supported                  0x0028                                 Activate-Printer                     1setOf type2 [RFC3998]
                                                                                                                      enum
    operations-supported                  0x0029                                 Restart-Printer                      1setOf type2 [RFC3998]
                                                                                                                      enum
