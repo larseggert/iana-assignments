@@ -6,7 +6,7 @@
            2005-01-18
 
    Last Updated
-           2022-06-01
+           2022-08-10
 
    Available Formats
            [IMG]
@@ -60,7 +60,7 @@ IKEv2 Exchange Types
            [IMG]
            CSV
 
-    Value    Exchange Type          Reference
+    Value    Exchange Type                    Reference
     0-33   Reserved           [RFC7296]
      34    IKE_SA_INIT        [RFC7296]
      35    IKE_AUTH           [RFC7296]
@@ -72,7 +72,8 @@ IKEv2 Exchange Types
      41    GSA_REKEY          [draft-yeung-g-ikev2]
      42    Unassigned
      43    IKE_INTERMEDIATE   [RFC9242]
-   44-239  Unassigned
+     44    IKE_FOLLOWUP_KE    [draft-ietf-ipsecme-ikev2-multiple-ke-06]
+   45-239  Unassigned
    240-255 Private use        [RFC7296]
 
 IKEv2 Payload Types
@@ -137,14 +138,21 @@ Transform Type Values
            [IMG]
            CSV
 
-    Type             Description                     Used In           Reference
+    Type             Description                     Used In                           Reference
       0    Reserved                                                    [RFC7296]
       1    Encryption Algorithm (ENCR)     (IKE and ESP)               [RFC7296]
       2    Pseudo-random Function (PRF)    (IKE)                       [RFC7296]
       3    Integrity Algorithm (INTEG)     (IKE, AH, optional in ESP)  [RFC7296]
       4    Diffie-Hellman Group (D-H)      (IKE, optional in AH & ESP) [RFC7296]
       5    Extended Sequence Numbers (ESN) (AH and ESP)                [RFC7296]
-    6-240  Unassigned
+      6    Additional Key Exchange 1       (optional in IKE, AH, ESP)  [draft-ietf-ipsecme-ikev2-multiple-ke-06]
+      7    Additional Key Exchange 2       (optional in IKE, AH, ESP)  [draft-ietf-ipsecme-ikev2-multiple-ke-06]
+      8    Additional Key Exchange 3       (optional in IKE, AH, ESP)  [draft-ietf-ipsecme-ikev2-multiple-ke-06]
+      9    Additional Key Exchange 4       (optional in IKE, AH, ESP)  [draft-ietf-ipsecme-ikev2-multiple-ke-06]
+     10    Additional Key Exchange 5       (optional in IKE, AH, ESP)  [draft-ietf-ipsecme-ikev2-multiple-ke-06]
+     11    Additional Key Exchange 6       (optional in IKE, AH, ESP)  [draft-ietf-ipsecme-ikev2-multiple-ke-06]
+     12    Additional Key Exchange 7       (optional in IKE, AH, ESP)  [draft-ietf-ipsecme-ikev2-multiple-ke-06]
+   13-240  Unassigned
    241-255 Private use                                                 [RFC7296]
 
   IKEv2 Transform Attribute Types
@@ -513,7 +521,7 @@ IKEv2 Notify Message Types - Error Types
    0-8191     Expert Review
    8192-16383 Private use
 
-     Value    NOTIFY MESSAGES - ERROR TYPES       Reference
+     Value    NOTIFY MESSAGES - ERROR TYPES                 Reference
        0      Reserved                      [RFC7296]
        1      UNSUPPORTED_CRITICAL_PAYLOAD  [RFC7296]
       2-3     Reserved                      [RFC7296]
@@ -545,7 +553,8 @@ IKEv2 Notify Message Types - Error Types
        44     CHILD_SA_NOT_FOUND            [RFC7296]
        45     INVALID_GROUP_ID              [draft-yeung-g-ikev2]
        46     AUTHORIZATION_FAILED          [draft-yeung-g-ikev2]
-    47-8191   Unassigned
+       47     STATE_NOT_FOUND               [draft-ietf-ipsecme-ikev2-multiple-ke-06]
+    48-8191   Unassigned
    8192-16383 Private use                   [RFC7296]
 
 IKEv2 Notify Message Types - Status Types
@@ -623,7 +632,8 @@ IKEv2 Notify Message Types - Status Types
       16438    INTERMEDIATE_EXCHANGE_SUPPORTED     [RFC9242]
       16439    IP4_ALLOWED                         [RFC8983]
       16440    IP6_ALLOWED                         [RFC8983]
-   16441-40959 Unassigned
+      16441    ADDITIONAL_KEY_EXCHANGE             [draft-ietf-ipsecme-ikev2-multiple-ke-06]
+   16442-40959 Unassigned
    40960-65535 Private use                         [RFC7296]
 
 IKEv2 Notification IPCOMP Transform IDs (Value 16387)
