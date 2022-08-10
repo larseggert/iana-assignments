@@ -8,7 +8,7 @@ IANA-MAU-MIB DEFINITIONS ::= BEGIN
        ;
 
      ianaMauMIB MODULE-IDENTITY
-       LAST-UPDATED "202001300000Z" -- January 30, 2020
+       LAST-UPDATED "202208100000Z" -- August 10, 2022
        ORGANIZATION "IANA"
        CONTACT-INFO "        Internet Assigned Numbers Authority
 
@@ -52,6 +52,9 @@ IANA-MAU-MIB DEFINITIONS ::= BEGIN
          RFC 4836; for full legal notices see the RFC itself.
          Supplementary information may be available at:
          http://www.ietf.org/copyrights/ianamib.html"
+
+       REVISION     "202208100000Z"  -- August 10, 2022
+       DESCRIPTION  "Added MAU types specified in IEEE Std 802.3cu-2021"
 
        REVISION     "202001300000Z"  -- January 30, 2020
        DESCRIPTION  "Added MAU types and associated AutoNeg
@@ -265,7 +268,11 @@ IANA-MAU-MIB DEFINITIONS ::= BEGIN
               b10baseT1L(141), -- 10BASE-T1L
               b10baseT1SHD(142), -- 10BASE-T1S half duplex mode
               b10baseT1SMD(143), -- 10BASE-T1S multidrop mode
-              b10baseT1SFD(144) -- 10BASE-T1S full duplex mode
+              b10baseT1SFD(144), -- 10BASE-T1S full duplex mode
+              b100GbaseFR1(145), -- 100GBASE-FR1
+              b100GbaseLR1(146), -- 100GBASE-LR1
+              b400GbaseFR4(147), -- 400GBASE-FR4
+              b400GbaseLR46(148) -- 400GBASE-LR4-6
          }
 
      IANAifMauMediaAvailable ::= TEXTUAL-CONVENTION
@@ -1488,6 +1495,30 @@ IANA-MAU-MIB DEFINITIONS ::= BEGIN
          DESCRIPTION "10BASE-T1S Single balanced pair PHY, full duplex mode"
          REFERENCE "IEEE Std 802.3, Clause 147"
          ::= { dot3MauType 144 }
+
+       dot3MauType100GbaseFR1 OBJECT-IDENTITY 
+         STATUS current
+         DESCRIPTION "100GBASE-R PCS/PMA over single-mode fiber PMD with reach up to at least 2 km"
+         REFERENCE "IEEE Std 802.3, Clause 140"
+         ::= { dot3MauType 145 }
+
+       dot3MauType100GbaseLR1 OBJECT-IDENTITY 
+         STATUS current
+         DESCRIPTION "100GBASE-R PCS/PMA over single-mode fiber PMD with reach up to at least 10 km"
+         REFERENCE "IEEE Std 802.3, Clause 140"
+         ::= { dot3MauType 146 }
+
+       dot3MauType400GbaseFR4 OBJECT-IDENTITY 
+         STATUS current
+         DESCRIPTION "400GBASE-R PCS/PMA over 4 WDM lane single-mode fiber PMD with reach up to at least 2 km"
+         REFERENCE "IEEE Std 802.3, Clause 151"
+         ::= { dot3MauType 147 }
+
+       dot3MauType400GbaseLR46 OBJECT-IDENTITY 
+         STATUS current
+         DESCRIPTION "400GBASE-R PCS/PMA over 4 WDM lane single-mode fiber PMD with reach up to at least 6 km"
+         REFERENCE "IEEE Std 802.3, Clause 151"
+         ::= { dot3MauType 148 }
 
 END
 
