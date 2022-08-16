@@ -3,7 +3,7 @@
                                                   Border Gateway Protocol (BGP) Tunnel Encapsulation
 
    Last Updated
-           2022-07-15
+           2022-08-15
 
    Available Formats
            [IMG]
@@ -59,7 +59,8 @@ BGP Tunnel Encapsulation Attribute Tunnel Types
       22    Dynamic Path Selection (DPS) Tunnel Encapsulation        [Venkit_Kasiviswanathan]
       23    Originating PE (OPE)                                     [draft-heitz-bess-evpn-option-b-01]
       24    Dynamic Path Selection (DPS) Policy                      [https://eos.arista.com/eos-4-26-2f/dps-vpn-scaling-using-bgp][Sarah_Chen]
-   25-65535 Unassigned
+      25    SDWAN-Hybrid                                             [draft-ietf-idr-sdwan-edge-discovery-04]
+   26-65535 Unassigned
 
 BGP Tunnel Encapsulation Attribute Sub-TLVs
 
@@ -86,51 +87,59 @@ BGP Tunnel Encapsulation Attribute Sub-TLVs
    192-252 First Come First Served
    253-254 Experimental Use
 
-    Value                                         Description                                                           Reference
-      0    Reserved                                                                                   [RFC9012]
-      1    Encapsulation                                                                              [RFC9012]
-      2    Protocol Type                                                                              [RFC9012]
-      3    IPsec Tunnel Authenticator (DEPRECATED)                                                    [RFC9012]
-      4    Color                                                                                      [RFC9012]
-      5    Load-Balancing Block                                                                       [RFC5640]
-      6    Tunnel Egress Endpoint                                                                     [RFC9012]
-      7    DS Field                                                                                   [RFC9012]
-      8    UDP Destination Port                                                                       [RFC9012]
-      9    Embedded Label Handling                                                                    [RFC9012]
-     10    MPLS Label Stack                                                                           [RFC9012]
-     11    Prefix-SID                                                                                 [RFC9012]
-     12    Preference sub-TLV (TEMPORARY - registered 2017-10-12, extension registered 2021-09-23,    [draft-ietf-idr-segment-routing-te-policy]
-           expires 2022-10-12)
-     13    Binding SID sub-TLV (TEMPORARY - registered 2017-10-12, extension registered 2021-09-23,   [draft-ietf-idr-segment-routing-te-policy]
-           expires 2022-10-12)
-     14    ENLP sub-TLV (TEMPORARY - registered 2019-08-29, extension registered 2022-07-15, expires  [draft-ietf-idr-segment-routing-te-policy-18]
-           2023-08-29)
-     15    Priority sub-TLV (TEMPORARY - registered 2019-08-29, extension registered 2022-07-15,      [draft-ietf-idr-segment-routing-te-policy-18]
+    Value                                     Description                                                           Reference
+      0    Reserved                                                                           [RFC9012]
+      1    Encapsulation                                                                      [RFC9012]
+      2    Protocol Type                                                                      [RFC9012]
+      3    IPsec Tunnel Authenticator (DEPRECATED)                                            [RFC9012]
+      4    Color                                                                              [RFC9012]
+      5    Load-Balancing Block                                                               [RFC5640]
+      6    Tunnel Egress Endpoint                                                             [RFC9012]
+      7    DS Field                                                                           [RFC9012]
+      8    UDP Destination Port                                                               [RFC9012]
+      9    Embedded Label Handling                                                            [RFC9012]
+     10    MPLS Label Stack                                                                   [RFC9012]
+     11    Prefix-SID                                                                         [RFC9012]
+     12    Preference sub-TLV (TEMPORARY - registered 2017-10-12, extension registered        [draft-ietf-idr-segment-routing-te-policy]
+           2021-09-23, expires 2022-10-12)
+     13    Binding SID sub-TLV (TEMPORARY - registered 2017-10-12, extension registered       [draft-ietf-idr-segment-routing-te-policy]
+           2021-09-23, expires 2022-10-12)
+     14    ENLP sub-TLV (TEMPORARY - registered 2019-08-29, extension registered 2022-07-15,  [draft-ietf-idr-segment-routing-te-policy-18]
            expires 2023-08-29)
-     16    SPI/SI Representation Sub-TLV                                                              [RFC9015]
-    17-19  Unassigned
-     20    SRv6 Binding SID sub-TLV (TEMPORARY - registered 2021-05-25, extension registered          [draft-ietf-idr-segment-routing-te-policy-12]
-           2022-04-25, expires 2023-05-25)
-   21-122  Unassigned
-     123   VTN                                                                                        [draft-dong-idr-sr-policy-vtn-00]
-     124   RPF                                                                                        [draft-ietf-bess-bgp-multicast-controller-06]
-     125   Tree Label Stack                                                                           [draft-ietf-bess-bgp-multicast-controller-06]
-   126-127 Reserved for Experimental Use                                                              [RFC9012]
-     128   Segment List sub-TLV (TEMPORARY - registered 2017-10-12, extension registered 2020-09-23,  [draft-ietf-idr-segment-routing-te-policy]
-           expires 2022-10-12)
-     129   Policy CP Name sub-TLV (TEMPORARY - registered 2019-08-29, extension registered            [draft-ietf-idr-segment-routing-te-policy-18]
+     15    Priority sub-TLV (TEMPORARY - registered 2019-08-29, extension registered          [draft-ietf-idr-segment-routing-te-policy-18]
            2022-07-15, expires 2023-08-29)
-     130   Policy Name sub-TLV (TEMPORARY - registered 2021-05-25, extension registered 2022-04-25,   [draft-ietf-idr-segment-routing-te-policy-12]
-           expires 2023-05-25)
+     16    SPI/SI Representation Sub-TLV                                                      [RFC9015]
+    17-19  Unassigned
+     20    SRv6 Binding SID sub-TLV (TEMPORARY - registered 2021-05-25, extension registered  [draft-ietf-idr-segment-routing-te-policy-12]
+           2022-04-25, expires 2023-05-25)
+    21-63  Unassigned
+     64    IPSEC-SA-ID                                                                        [draft-ietf-idr-sdwan-edge-discovery-04, Section 6.3]
+     65    Extended Port Property                                                             [draft-ietf-idr-sdwan-edge-discovery-04, Section 6.4]
+     66    Underlay ISP Properties                                                            [draft-ietf-idr-sdwan-edge-discovery-04, Section 6.5]
+     67    IPsec SA Nonce                                                                     [draft-ietf-idr-sdwan-edge-discovery-04, Section 7.1]
+     68    IPsec Public Key                                                                   [draft-ietf-idr-sdwan-edge-discovery-04, Section 7.2]
+     69    IPsec SA Proposal                                                                  [draft-ietf-idr-sdwan-edge-discovery-04, Section 7.3]
+     70    Simplified IPsec SA                                                                [draft-ietf-idr-sdwan-edge-discovery-04, Section 7.4]
+   71-122  Unassigned
+     123   VTN                                                                                [draft-dong-idr-sr-policy-vtn-00]
+     124   RPF                                                                                [draft-ietf-bess-bgp-multicast-controller-06]
+     125   Tree Label Stack                                                                   [draft-ietf-bess-bgp-multicast-controller-06]
+   126-127 Reserved for Experimental Use                                                      [RFC9012]
+     128   Segment List sub-TLV (TEMPORARY - registered 2017-10-12, extension registered      [draft-ietf-idr-segment-routing-te-policy]
+           2020-09-23, expires 2022-10-12)
+     129   Policy CP Name sub-TLV (TEMPORARY - registered 2019-08-29, extension registered    [draft-ietf-idr-segment-routing-te-policy-18]
+           2022-07-15, expires 2023-08-29)
+     130   Policy Name sub-TLV (TEMPORARY - registered 2021-05-25, extension registered       [draft-ietf-idr-segment-routing-te-policy-12]
+           2022-04-25, expires 2023-05-25)
    131-191 Unassigned
-     192   The WAN ID Sub-TLV                                                                         [Venkit_Kasiviswanathan]
-     193   The Bytes Sub-TLV                                                                          [Venkit_Kasiviswanathan]
-     194   IPSEC DIM sub-TLV                                                                          [Venkit_Kasiviswanathan]
-     195   IPSEC Key Exchange sub-TLV                                                                 [Venkit_Kasiviswanathan]
-     196   IPSEC SA Proposals sub-TLV                                                                 [Venkit_Kasiviswanathan]
+     192   The WAN ID Sub-TLV                                                                 [Venkit_Kasiviswanathan]
+     193   The Bytes Sub-TLV                                                                  [Venkit_Kasiviswanathan]
+     194   IPSEC DIM sub-TLV                                                                  [Venkit_Kasiviswanathan]
+     195   IPSEC Key Exchange sub-TLV                                                         [Venkit_Kasiviswanathan]
+     196   IPSEC SA Proposals sub-TLV                                                         [Venkit_Kasiviswanathan]
    197-252 Unassigned
-   253-254 Reserved for Experimental Use                                                              [RFC9012]
-     255   Reserved                                                                                   [RFC9012]
+   253-254 Reserved for Experimental Use                                                      [RFC9012]
+     255   Reserved                                                                           [RFC9012]
 
 Flags Field of VXLAN Encapsulation Sub-TLVs
 
