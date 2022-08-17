@@ -60,6 +60,7 @@
           <th>Name</th>
           <th>CDDL Type</th>
           <th>Brief Description</th>
+          <th>Change Controller</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
@@ -69,6 +70,7 @@
           <th>Key Value</th>
           <th>Name</th>
           <th>Brief Description</th>
+          <th>Change Controller</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
@@ -182,6 +184,7 @@
         <td><xsl:value-of select="iana:name"/></td>
         <td><xsl:apply-templates select="iana:type"/></td>
         <td><xsl:apply-templates select="iana:description"/></td>
+        <td><xsl:apply-templates select="iana:controller"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
     </xsl:when>
@@ -191,6 +194,7 @@
         <td><xsl:value-of select="iana:value"/></td>
         <td><xsl:value-of select="iana:name"/></td>
         <td><xsl:apply-templates select="iana:description"/></td>
+        <td><xsl:apply-templates select="iana:controller"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
     </xsl:when>
