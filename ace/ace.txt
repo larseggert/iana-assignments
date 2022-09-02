@@ -153,7 +153,7 @@ ACE Profiles
    coap_dtls                Constrained Environments by establishing a Datagram Transport Layer 1                [RFC9202]
                             Security (DTLS) channel between resource-constrained nodes.
                             Profile for using OSCORE to secure communication between
-   coap_oscore              constrained nodes using the Authentication and Authorization for    2                [RFC-ietf-ace-oscore-profile-19]
+   coap_oscore              constrained nodes using the Authentication and Authorization for    2                [RFC9203]
                             Constrained Environments framework.
                             Profile for delegating Client authentication and authorization
                             using MQTT for the Client and Broker (RS) interactions, and HTTP
@@ -179,35 +179,35 @@ OAuth Parameters CBOR Mappings
    less than -65536  Private Use
    -65536 or greater Expert Review
 
-             Name               CBOR Key         Value Type                 Reference             Original Specification
+             Name               CBOR Key         Value Type            Reference        Original Specification
    Reserved for Private Use less than -65536                     [RFC9200]
-   access_token             1                byte string         [RFC9200]                        [RFC6749]
-   expires_in               2                unsigned integer    [RFC9200]                        [RFC6749]
-   req_cnf                  4                map                 [RFC9201, Section 3.1]           [RFC9201]
-   audience                 5                text string         [RFC9200]                        [RFC8693]
-   cnf                      8                map                 [RFC9201, Section 3.2]           [RFC9201]
-   scope                    9                text or byte string [RFC9200]                        [RFC6749]
-   client_id                24               text string         [RFC9200]                        [RFC6749]
-   client_secret            25               byte string         [RFC9200]                        [RFC6749]
-   response_type            26               text string         [RFC9200]                        [RFC6749]
-   redirect_uri             27               text string         [RFC9200]                        [RFC6749]
-   state                    28               text string         [RFC9200]                        [RFC6749]
-   code                     29               byte string         [RFC9200]                        [RFC6749]
-   error                    30               integer             [RFC9200]                        [RFC6749]
-   error_description        31               text string         [RFC9200]                        [RFC6749]
-   error_uri                32               text string         [RFC9200]                        [RFC6749]
-   grant_type               33               unsigned integer    [RFC9200]                        [RFC6749]
-   token_type               34               integer             [RFC9200]                        [RFC6749]
-   username                 35               text string         [RFC9200]                        [RFC6749]
-   password                 36               text string         [RFC9200]                        [RFC6749]
-   refresh_token            37               byte string         [RFC9200]                        [RFC6749]
-   ace_profile              38               integer             [RFC9200]                        [RFC9200]
-   cnonce                   39               byte string         [RFC9200]                        [RFC9200]
-   nonce1                   40               bstr                [RFC-ietf-ace-oscore-profile-19]
-   rs_cnf                   41               map                 [RFC9201, Section 3.2]           [RFC9201]
-   nonce2                   42               bstr                [RFC-ietf-ace-oscore-profile-19]
-   ace_client_recipientid   43               bstr                [RFC-ietf-ace-oscore-profile-19]
-   ace_server_recipientid   44               bstr                [RFC-ietf-ace-oscore-profile-19]
+   access_token             1                byte string         [RFC9200]              [RFC6749]
+   expires_in               2                unsigned integer    [RFC9200]              [RFC6749]
+   req_cnf                  4                map                 [RFC9201, Section 3.1] [RFC9201]
+   audience                 5                text string         [RFC9200]              [RFC8693]
+   cnf                      8                map                 [RFC9201, Section 3.2] [RFC9201]
+   scope                    9                text or byte string [RFC9200]              [RFC6749]
+   client_id                24               text string         [RFC9200]              [RFC6749]
+   client_secret            25               byte string         [RFC9200]              [RFC6749]
+   response_type            26               text string         [RFC9200]              [RFC6749]
+   redirect_uri             27               text string         [RFC9200]              [RFC6749]
+   state                    28               text string         [RFC9200]              [RFC6749]
+   code                     29               byte string         [RFC9200]              [RFC6749]
+   error                    30               integer             [RFC9200]              [RFC6749]
+   error_description        31               text string         [RFC9200]              [RFC6749]
+   error_uri                32               text string         [RFC9200]              [RFC6749]
+   grant_type               33               unsigned integer    [RFC9200]              [RFC6749]
+   token_type               34               integer             [RFC9200]              [RFC6749]
+   username                 35               text string         [RFC9200]              [RFC6749]
+   password                 36               text string         [RFC9200]              [RFC6749]
+   refresh_token            37               byte string         [RFC9200]              [RFC6749]
+   ace_profile              38               integer             [RFC9200]              [RFC9200]
+   cnonce                   39               byte string         [RFC9200]              [RFC9200]
+   nonce1                   40               bstr                [RFC9203]
+   rs_cnf                   41               map                 [RFC9201, Section 3.2] [RFC9201]
+   nonce2                   42               bstr                [RFC9203]
+   ace_client_recipientid   43               bstr                [RFC9203]
+   ace_server_recipientid   44               bstr                [RFC9203]
 
 OAuth Token Introspection Response CBOR Mappings
 
@@ -257,7 +257,7 @@ OSCORE Security Context Parameters
  Unassigned
 
    Reference
-           [RFC-ietf-ace-oscore-profile-19]
+           [RFC9203]
 
    Available Formats
            [IMG]
@@ -273,20 +273,15 @@ OSCORE Security Context Parameters
    Strings of length 2              Specification Required
    Strings of length greater than 2 Expert Review
 
-           Name            CBOR Label       CBOR Type                Registry                   Description                   Reference
-   Reserved for Private less than -65536                                                                           [RFC-ietf-ace-oscore-profile-19]
-   Use
-   id                   0                byte string                                     OSCORE Input Material     [RFC-ietf-ace-oscore-profile-19]
-                                                                                         Identifier
-   version              1                unsigned integer                                OSCORE Version            [RFC-ietf-ace-oscore-profile-19]
-   ms                   2                byte string                                     OSCORE Master Secret      [RFC-ietf-ace-oscore-profile-19]
-                                                                                         value
-   hkdf                 3                text string /    [COSE Algorithms] Values       OSCORE HKDF value         [RFC-ietf-ace-oscore-profile-19]
-                                         integer          (HMAC-based)
-   alg                  4                text string /    [COSE Algorithms] Values       OSCORE AEAD Algorithm     [RFC-ietf-ace-oscore-profile-19]
-                                         integer          (AEAD)                         value
-   salt                 5                byte string                                     an input to OSCORE Master [RFC-ietf-ace-oscore-profile-19]
-                                                                                         Salt value
-   contextId            6                byte string                                     OSCORE ID Context value   [RFC-ietf-ace-oscore-profile-19]
+             Name              CBOR Label          CBOR Type                     Registry                          Description            Reference
+   Reserved for Private Use less than -65536                                                                                              [RFC9203]
+   id                       0                byte string                                                 OSCORE Input Material Identifier [RFC9203]
+   version                  1                unsigned integer                                            OSCORE Version                   [RFC9203]
+   ms                       2                byte string                                                 OSCORE Master Secret value       [RFC9203]
+   hkdf                     3                text string / integer [COSE Algorithms] Values (HMAC-based) OSCORE HKDF value                [RFC9203]
+   alg                      4                text string / integer [COSE Algorithms] Values (AEAD)       OSCORE AEAD Algorithm value      [RFC9203]
+   salt                     5                byte string                                                 an input to OSCORE Master Salt   [RFC9203]
+                                                                                                         value
+   contextId                6                byte string                                                 OSCORE ID Context value          [RFC9203]
 
    Licensing Terms
