@@ -6,7 +6,7 @@
            2012-04-25
 
    Last Updated
-           2022-07-20
+           2022-09-29
 
    Available Formats
            [IMG]
@@ -49,17 +49,16 @@ LISP ACT Values
            [IMG]
            CSV
 
-   Value           Action                                             Description                                             Reference
-   0     No-Action                   The map-cache is kept alive and no packet encapsulation occurs.               [RFC-draft-ietf-lisp-rfc6833bis]
-   1     Natively-Forward            The packet is not encapsulated or dropped but natively forwarded.             [RFC-draft-ietf-lisp-rfc6833bis]
-   2     Send-Map-Request            The packet invokes sending a Map-Request.                                     [RFC-draft-ietf-lisp-rfc6833bis]
-   3     Drop/No-Reason              A packet that matches this map-cache entry is dropped. An ICMP Unreachable    [RFC-draft-ietf-lisp-rfc6833bis]
-                                     message SHOULD be sent.
-   4     Drop/Policy-Denied          A packet matching this Map-Cache entry is dropped because the target EWID is  [RFC-draft-ietf-lisp-rfc6833bis]
-                                     policy-denied by the xTR of the mapping system.
-                                     Packet matching the Map-Cache entry is dropped because the Map-Request for
-   5     Drop/Authentication-Failure the target EID fails an authentication check by the xTR or the mapping        [RFC-draft-ietf-lisp-rfc6833bis]
-                                     system.
+   Value       Action                                            Description                                                  Reference
+   0     No-Action          The map-cache is kept alive and no packet encapsulation occurs.                        [RFC-draft-ietf-lisp-rfc6833bis]
+   1     Natively-Forward   The packet is not encapsulated or dropped but natively forwarded.                      [RFC-draft-ietf-lisp-rfc6833bis]
+   2     Send-Map-Request   The packet invokes sending a Map-Request.                                              [RFC-draft-ietf-lisp-rfc6833bis]
+   3     Drop/No-Reason     A packet that matches this map-cache entry is dropped. An ICMP Unreachable message     [RFC-draft-ietf-lisp-rfc6833bis]
+                            SHOULD be sent.
+   4     Drop/Policy-Denied A packet matching this Map-Cache entry is dropped because the target EID is            [RFC-draft-ietf-lisp-rfc6833bis]
+                            policy-denied by the xTR or the Mapping System.
+   5     Drop/Auth-Failure  A packet matching this Map-Cache entry is dropped because the Map-Request for the      [RFC-draft-ietf-lisp-rfc6833bis]
+                            target EID fails an authentication check by the xTR or the Mapping System.
    6-7   Unassigned
 
 LISP Address Type Codes (CLOSED)
@@ -215,11 +214,11 @@ LISP-GPE Next Protocol
            CSV
 
    Next Protocol                Description                       Reference
-   0x0           Reserved                                   [RFC-ietf-lisp-gpe-19]
-   0x1           IPv4                                       [RFC-ietf-lisp-gpe-19]
-   0x2           IPv6                                       [RFC-ietf-lisp-gpe-19]
-   0x3           Ethernet                                   [RFC-ietf-lisp-gpe-19]
-   0x4           NSH                                        [RFC-ietf-lisp-gpe-19]
+   0x00          Reserved                                   [RFC-ietf-lisp-gpe-19]
+   0x01          IPv4                                       [RFC-ietf-lisp-gpe-19]
+   0x02          IPv6                                       [RFC-ietf-lisp-gpe-19]
+   0x03          Ethernet                                   [RFC-ietf-lisp-gpe-19]
+   0x04          NSH                                        [RFC-ietf-lisp-gpe-19]
    0x05-0x7D     Unassigned
    0x7E-0x7F     Experimentation and testing                [RFC-ietf-lisp-gpe-19]
    0x80-0xFD     Unassigned (shim headers)
@@ -271,7 +270,7 @@ LISP Control Plane Header Bits: Map-Reply
 
    Spec Name  IANA Name  BIT Position      Description                  Reference
    P         map-reply-P 4            RLOC-Probe Bit         [RFC-draft-ietf-lisp-rfc6833bis]
-   E         map-reply-E 5            Echo Nonce Capable Bit [RFC-draft-ietf-lisp-rfc6833bis]
+   E         map-reply-E 5            Echo-Nonce Capable Bit [RFC-draft-ietf-lisp-rfc6833bis]
    S         map-reply-S 6            Security Bit           [RFC-draft-ietf-lisp-rfc6833bis]
 
 LISP Control Plane Header Bits: Map-Register
@@ -294,7 +293,7 @@ LISP Control Plane Header Bits: Map-Register
    Spec Name   IANA Name    BIT Position     Description                 Reference
    P         map-register-P 4            Proxy Map-Reply Bit  [RFC-draft-ietf-lisp-rfc6833bis]
    S         map-register-S 5            LISP-SEC Capable Bit [RFC-draft-ietf-lisp-rfc6833bis]
-   I         map-register-I 6            xTR-ID present flag  [RFC-draft-ietf-lisp-rfc6833bis]
+   I         map-register-I 6            xTR-ID Present Bit   [RFC-draft-ietf-lisp-rfc6833bis]
 
 LISP Control Plane Header Bits: Encapsulated Control Message (ECM)
 
@@ -358,8 +357,8 @@ LISP Control Plane Header Bits: RLOC-Record
 
    Spec Name   IANA Name   BIT Position     Description                 Reference
    L         rloc-record-L 13           Local RLOC Bit       [RFC-draft-ietf-lisp-rfc6833bis]
-   p         rloc-record-p 19           RLOC-Probe Reply Bit [RFC-draft-ietf-lisp-rfc6833bis]
-   R         rloc-record-R 19           RLOC Reachable Bit   [RFC-draft-ietf-lisp-rfc6833bis]
+   p         rloc-record-p 14           RLOC-Probe Reply Bit [RFC-draft-ietf-lisp-rfc6833bis]
+   R         rloc-record-R 15           RLOC Reachable Bit   [RFC-draft-ietf-lisp-rfc6833bis]
 
 LISP ECM Authentication Data Types
 
