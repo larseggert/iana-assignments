@@ -1,0 +1,88 @@
+(registered 2022-10-04, last updated 2022-10-04)
+
+Media type name: application
+
+Media subtype name: vnd.gentoo.manifest
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: 8bit
+
+   Always encoded as UTF-8, the format technically permits encoding 
+   all Unicode characters as 7-bit escape codes.
+
+Security considerations: The Manifest files are text files that are 
+   transmitted as part of larger file sets in order to provide 
+   integrity and authenticity verification for other files. They are 
+   primarily intended to be processed locally to verify transferred 
+   files.
+
+   The format does not provide support for executable content. It does
+   provide support for specifying arbitrary filenames to verify. 
+   Symbolic links are followed when opening files. The tools are 
+   explicitly required to be secured against attempting to read 
+   non-regular files. No other dangers were identified from the 
+   ability to verify arbitrary file checksums locally (GLEP 74 § 3.3).
+
+   The initial Manifest file to be processed must not be compressed.
+   It can contain an inline OpenPGP signature to provide authenticity
+   verification. Every Manifest file can reference subsequent Manifest
+   files to be processed. Subsequent Manifest files can be compressed.
+   The tools are required to verify the integrity (and authenticity,
+   if provided) of subsequent Manifest files prior to decompressing 
+   them (GLEP 74 § 3.2 / 3.12).
+
+   The Manifest files have no special privacy considerations. The same
+   privacy considerations as for the files covered by the Manifest 
+   apply.
+
+Interoperability considerations: The format is using UTF-8 encoding 
+   for best interoperability. Platforms using non-UTF-8 filesystem 
+   encoding need to be able to recode filenames to UTF-8. The format 
+   does not provide support for using raw filenames with unknown 
+   encoding.
+
+   The format uses Unix newline encoding convention (i.e. LF). It
+   recommends treating CR as whitespace and ignoring it, if present.
+
+   The format specifies the use of forward slash as a path separator.
+   Platforms using a different character need to convert paths
+   appropriately.
+
+Published specification: GLEP 74: Full-tree verification using 
+   Manifest files
+   https://www.gentoo.org/glep/glep-0074.html
+
+Applications which use this media: The reference implementation for 
+   the format is provided by the gemato tool [1]. A subset of the 
+   format is also directly supported by Gentoo package managers, e.g. 
+   Portage [2] and pkgcore [3]. This list is not exhaustive.
+
+   [1] https://github.com/projg2/gemato
+   [2] https://wiki.gentoo.org/wiki/Project:Portage
+   [3] https://github.com/pkgcore/pkgcore
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: N/A
+
+Additional information:
+
+   1. Deprecated alias names for this type: N/A.
+   2. Magic number(s): N/A.
+   3. File extension(s): none but the file is commonly named 
+      "Manifest"
+   4. Macintosh file type code: N/A.
+   5. Object Identifiers: N/A.
+
+Person to contact for further information:
+
+   1. Name: Michał Górny
+   2. Email: mgorny&gentoo.org
+
+Intended usage: COMMON
+
+Author/Change controller: Gentoo Council <council&gentoo.org>
+   (https://wiki.gentoo.org/wiki/Project:Council)
