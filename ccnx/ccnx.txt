@@ -6,7 +6,7 @@
            2019-02-11
 
    Last Updated
-           2019-07-12
+           2022-10-13
 
    Available Formats
            [IMG]
@@ -26,6 +26,7 @@
      * CCNx Validation Algorithm Types
      * CCNx Validation-Dependent Data Types
      * CCNx Hash Function Types
+     * CCNx Reply Types
 
 CCNx Packet Types
 
@@ -40,11 +41,13 @@ CCNx Packet Types
            [IMG]
            CSV
 
-     Type       Name           Reference
-   0x00      PT_INTEREST [RFC8609, Section 3.2]
-   0x01      PT_CONTENT  [RFC8609, Section 3.2]
-   0x02      PT_RETURN   [RFC8609, Section 3.2]
-   0x03-0xFF Unassigned
+     Type           Name                 Reference
+   0x00      PT_INTEREST        [RFC8609, Section 3.2]
+   0x01      PT_CONTENT         [RFC8609, Section 3.2]
+   0x02      PT_RETURN          [RFC8609, Section 3.2]
+   0x03      PT_CCNINFO_REQUEST [RFC-irtf-icnrg-ccninfo-13]
+   0x04      PT_CCNINFO_REPLY   [RFC-irtf-icnrg-ccninfo-13]
+   0x05-0xFF Unassigned
 
 CCNx Interest Return Code Types
 
@@ -89,13 +92,15 @@ CCNx Hop-by-Hop Types
            [IMG]
            CSV
 
-       Type                  Name                     Reference
+       Type                  Name                       Reference
    0x0000        Reserved                      [RFC8609]
    0x0001        T_INTLIFE                     [RFC8609, Section 3.4]
    0x0002        T_CACHETIME                   [RFC8609, Section 3.4]
    0x0003        T_MSGHASH                     [RFC8609, Section 3.4]
    0x0004-0x0007 Reserved                      [RFC8609]
-   0x0008-0x0FFD Unassigned
+   0x0008        T_DISC_REQHDR                 [RFC-irtf-icnrg-ccninfo-13]
+   0x0009        T_DISC_REPORT                 [RFC-irtf-icnrg-ccninfo-13]
+   0x000A-0x0FFD Unassigned
    0x0FFE        T_PAD                         [RFC8609, Section 3.3.1]
    0x0FFF        T_ORG                         [RFC8609, Section 3.3.2]
    0x1000-0x1FFF Reserved for Experimental Use [RFC8609, Section 3]
@@ -114,13 +119,14 @@ CCNx Top-Level Types
            [IMG]
            CSV
 
-       Type              Name               Reference
+       Type              Name                  Reference
    0x0000        Reserved             [RFC8609]
    0x0001        T_INTEREST           [RFC8609, Section 3.5]
    0x0002        T_OBJECT             [RFC8609, Section 3.5]
    0x0003        T_VALIDATION_ALG     [RFC8609, Section 3.5]
    0x0004        T_VALIDATION_PAYLOAD [RFC8609, Section 3.5]
-   0x0005-0xFFFF Unassigned
+   0x0005        T_DISCOVERY          [RFC-irtf-icnrg-ccninfo-13]
+   0x0006-0xFFFF Unassigned
 
 CCNx Name Segment Types
 
@@ -163,7 +169,7 @@ CCNx Message Types
            [IMG]
            CSV
 
-       Type                  Name                      Reference
+       Type                  Name                       Reference
    0x0000        T_NAME                        [RFC8609, Section 3.6]
    0x0001        T_PAYLOAD                     [RFC8609, Section 3.6]
    0x0002        T_KEYIDRESTR                  [RFC8609, Section 3.6]
@@ -172,7 +178,9 @@ CCNx Message Types
    0x0005        T_PAYLDTYPE                   [RFC8609, Section 3.6.2.2]
    0x0006        T_EXPIRY                      [RFC8609, Section 3.6.2.2]
    0x0007-0x000C Reserved                      [RFC8609]
-   0x000D-0x0FFD Unassigned
+   0x000D        T_DISC_REQ                    [RFC-irtf-icnrg-ccninfo-13]
+   0x000E        T_DISC_REPLY                  [RFC-irtf-icnrg-ccninfo-13]
+   0x000F-0x0FFD Unassigned
    0x0FFE        T_PAD                         [RFC8609, Section 3.3.1]
    0x0FFF        T_ORG                         [RFC8609, Section 3.3.2]
    0x1000-0x1FFF Reserved for Experimental Use [RFC8609, Section 3]
@@ -285,6 +293,27 @@ CCNx Hash Function Types
    0x0003-0x0FFE Unassigned
    0x0FFF        T_ORG                         [RFC8609, Section 3.3.2]
    0x1000-0x1FFF Reserved for Experimental Use [RFC8609, Section 3]
+   0x2000-0xFFFF Unassigned
+
+CCNx Reply Types
+
+   Registration Procedure(s)
+
+ RFC Required
+
+   Reference
+           [RFC-irtf-icnrg-ccninfo-13]
+
+   Available Formats
+           [IMG]
+           CSV
+
+       Type                  Name                       Reference
+   0x0000        T_DISC_CONTENT                [RFC-irtf-icnrg-ccninfo-13]
+   0x0001        T_DISC_CONTENT_PUBLISHER      [RFC-irtf-icnrg-ccninfo-13]
+   0x0002-0x0FFE Unassigned
+   0x0FFF        T_ORG                         [RFC-irtf-icnrg-ccninfo-13]
+   0x1000-0x1FFF Reserved for Experimental Use [RFC-irtf-icnrg-ccninfo-13]
    0x2000-0xFFFF Unassigned
 
    Licensing Terms
