@@ -29,6 +29,20 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'igp-metric-type'">
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'igp-flexible-algorithm-definition-flags'">
+        <tr>
+          <th>Bit</th>
+          <th>Name</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
   
@@ -50,6 +64,20 @@
         </tr>
       </xsl:when>
     <xsl:when test="../@id = 'link-attribute-application-identifiers'">
+      <tr>
+        <td><xsl:value-of select="iana:value"/></td>
+        <td><xsl:apply-templates select="iana:description"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+    </xsl:when>
+    <xsl:when test="../@id = 'igp-metric-type'">
+      <tr>
+        <td><xsl:value-of select="iana:value"/></td>
+        <td><xsl:apply-templates select="iana:description"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+    </xsl:when>
+    <xsl:when test="../@id = 'igp-flexible-algorithm-definition-flags'">
       <tr>
         <td><xsl:value-of select="iana:value"/></td>
         <td><xsl:apply-templates select="iana:description"/></td>

@@ -18,6 +18,12 @@
       <xsl:when test="@id = 'tunnel-parameter-tlv'">
         <tr><th>Value</th><th>TLV Name</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'flex-algorithm-prefix-metric-bits'">
+        <tr><th>Bit Number</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'flexible-algorithm-definition-tlv-sub-tlvs'">
+        <tr><th>Bit Number</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 

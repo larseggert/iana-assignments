@@ -6,7 +6,7 @@
            2017-12-18
 
    Last Updated
-           2022-06-02
+           2022-10-14
 
    Available Formats
            [IMG]
@@ -19,6 +19,8 @@
      * IGP Algorithm Types
      * IGP MSD-Types
      * Link Attribute Application Identifiers
+     * IGP Metric-Type
+     * IGP Flexible Algorithm Definition Flags
 
 IGP Algorithm Types
 
@@ -33,16 +35,15 @@ IGP Algorithm Types
            [IMG]
            CSV
 
-    Value                                                 Description                                                           Reference
+    Value                                                  Description                                                           Reference
            Shortest Path First (SPF) algorithm based on link metric. This is the standard shortest path algorithm as
-   0       computed by the IGP protocol. Consistent with the deployed practice for link-state protocols, Algorithm 0  [RFC8665]
+   0       computed by the IGP protocol. Consistent with the deployed practice for link-state protocols, Algorithm 0    [RFC8665]
            permits any node to overwrite the SPF path with a different path based on its local policy.
            Strict Shortest Path First (SPF) algorithm based on link metric. The algorithm is identical to Algorithm 0
-   1       but Algorithm 1 requires that all nodes along the path will honor the SPF routing decision. Local policy   [RFC8665]
-           at the node claiming support for Algorithm 1 MUST NOT alter the SPF paths computed by Algorithm 1.
+   1       but Algorithm 1 requires that all nodes along the path will honor the SPF routing decision. Local policy at  [RFC8665]
+           the node claiming support for Algorithm 1 MUST NOT alter the SPF paths computed by Algorithm 1.
    2-127   Unassigned
-   128-255 Flexible Algorithms (TEMPORARY - registered 2018-06-06, extension registered 2022-06-02, expires           [draft-ietf-lsr-flex-algo-14]
-           2023-06-06)
+   128-255 Flexible Algorithms                                                                                          [RFC-ietf-lsr-flex-algo-25]
 
 IGP MSD-Types
 
@@ -92,10 +93,47 @@ Link Attribute Application Identifiers
            [IMG]
            CSV
 
-   Bit               Name              Reference
+   Bit               Name                             Reference
    0    RSVP-TE (R-bit)                [RFC8919]
    1    Segment Routing Policy (S-bit) [RFC8919]
    2    Loop Free Alternate (F-bit)    [RFC8919]
-   3-63 Unassigned
+   3    Flexible Algorithm (X-bit)     [RFC-ietf-lsr-flex-algo-25, Section 12]
+   4-63 Unassigned
+
+IGP Metric-Type
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC-ietf-lsr-flex-algo-25]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Type                                             Description                                                           Reference
+   0     IGP metric                                                                                        [RFC-ietf-lsr-flex-algo-25, Section 5.1]
+   1     Min Unidirectional Link Delay as defined in [RFC8570, Section 4.2], and [RFC7471, Section 4.2]    [RFC-ietf-lsr-flex-algo-25, Section 5.1]
+   2     Traffic Engineering Default Metric as defined in [RFC5305, Section 3.7], and [RFC3630, Section    [RFC-ietf-lsr-flex-algo-25, Section 5.1]
+         2.5.5]
+   3-255 Unassigned
+
+IGP Flexible Algorithm Definition Flags
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+           [RFC-ietf-lsr-flex-algo-25]
+
+   Available Formats
+           [IMG]
+           CSV
+
+   Bit            Name                                   Reference
+   0   Prefix Metric Flag (M-flag) [RFC-ietf-lsr-flex-algo-25, Section 6.4, Section 7.4]
 
    Licensing Terms
