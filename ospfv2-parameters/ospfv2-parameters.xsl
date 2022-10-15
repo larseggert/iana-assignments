@@ -12,6 +12,9 @@
       <xsl:when test="@id = 'instance-ids'">
         <tr><th>Value</th><th>Designation</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'extended-link-tlv-sub-tlvs'">
+        <tr><th>Value</th><th>Designation</th><th>L2BM</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
       </xsl:otherwise>
@@ -24,6 +27,14 @@
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'extended-link-tlv-sub-tlvs'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:value-of select="iana:l2bm"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
