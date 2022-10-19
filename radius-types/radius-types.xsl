@@ -5,11 +5,6 @@
   <xsl:template name="iana:record_header">
     <xsl:choose>
       
-      <xsl:when test="@id = 'radius-types-3'">
-        <tr>
-          <th>Value</th>
-        </tr>
-      </xsl:when>
       <xsl:when test="@id = 'radius-types-2'
         or @id = 'softwire46-configuration-multicast-attributes'">
         <tr>
@@ -83,11 +78,6 @@
   <xsl:template match="iana:record">
     <xsl:choose>
       
-      <xsl:when test="../@id = 'radius-types-3'">
-        <tr>
-          <td><xsl:value-of select="iana:value"/></td>
-        </tr>
-      </xsl:when>
       <xsl:when test="../@id = 'radius-types-2'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
