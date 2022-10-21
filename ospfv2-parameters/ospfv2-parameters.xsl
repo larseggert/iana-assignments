@@ -49,4 +49,7 @@
     </xsl:choose>
   </xsl:template>
 
+  <xsl:template name="iana:registryempty">
+  </xsl:template>
+  
 </xsl:stylesheet>
