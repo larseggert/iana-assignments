@@ -265,6 +265,13 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'lsp-extended-flag-tlv-flags'">
+        <tr>
+          <th>Bit</th>
+          <th>Capability Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <th>Value</th>
