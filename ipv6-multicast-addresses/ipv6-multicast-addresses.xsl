@@ -33,14 +33,14 @@
   <xsl:when test="../@id = 'ipv6-scope'">
   <tr>
     <td><xsl:value-of select="iana:value"/></td>
-    <td><xsl:value-of select="iana:description"/></td>
+    <td><xsl:apply-templates select="iana:description"/></td>
     <td><xsl:apply-templates select="iana:xref"/></td>
   </tr>
   </xsl:when>
   <xsl:otherwise>
     <tr>
       <td style="font-family:monospace"><xsl:value-of select="iana:addr"/></td>
-      <td><xsl:value-of select="iana:description"/></td>
+      <td><xsl:apply-templates select="iana:description"/></td>
       <td><xsl:apply-templates select="iana:xref"/></td>
       <td><xsl:apply-templates select="iana:controller"/></td>
       <td><xsl:value-of select="@date"/></td>
