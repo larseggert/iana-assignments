@@ -1,9 +1,5 @@
 (registered 2022-11-07, last updated 2022-11-07)
 
-Name: Michał Górny
-
-Email: mgorny&gentoo.org
-
 Media type name: application
 
 Media subtype name: vnd.gentoo.eclass
