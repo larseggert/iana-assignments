@@ -1,0 +1,92 @@
+(registered 2022-11-28, last updated 2022-11-28)
+
+Media type name: application
+
+Media subtype name: vnd.gentoo.xpak
+
+Required parameters: N/A.
+
+Optional parameters: N/A.
+
+Encoding considerations: binary
+
+Security considerations: XPAK is the first binary package format 
+   supported by Gentoo's Portage package manager. Binary packages 
+   include executable code that is executed with superuser privileges 
+   during the installation. The packages may also contain executable 
+   files that are installed onto the user's system.
+
+   It is paramount that only binary packages obtained from a trusted 
+   source are used. The XPAK format itself does not provide any means
+   of verifying the package's authenticity. Furthermore, transferring
+   binary packages over insecure media may pose a privacy risk, or 
+   even a security risk through exposing information about software 
+   that is being installed on the system. Both of these concerns can 
+   be addressed by using a secure transport such as HTTPS or SSH.
+
+   The XPAK format consists of a compressed .tar archive concatenated
+   with a custom XPAK trailer. The archive comprising the first part
+   can be compressed using one of the standard file compression tools
+   such as bzip2, xz or zstd. Implementations detect the compressed 
+   file format via inspecting the file for the appropriate magic 
+   bytes.
+
+   It is possible to use external archiving tools to inspect the 
+   contents of the binary package. However, when using them on 
+   untrusted packages one needs to account for attacks vectors 
+   present in compression and archive formats, such as compression 
+   bomb attacks or improper path sanitization when extracting files.
+
+   Interoperability considerations: The binary package format does 
+   not specify the exact .tar archive format or the directory of 
+   supported compression tools. The former usually depends on the 
+   tar(1) implementation found on the system and its defaults. The 
+   ability to extract and install the binary package depends on 
+   availability of compatible tools.
+
+   The encoding of filenames in the .tar archive is unspecified. While
+   the majority of binary packages use ASCII filenames only, use of 
+   non-ASCII filenames would require recoding.
+
+   The portability of individual binary packages is limited by their
+   contents. In general, the installed programs will only work 
+   correctly on platforms using a matching architecture, ABI of 
+   dynamically linked libraries, etc.
+
+   Published specification: xpak(5) manpage of Portage
+      https://gitweb.gentoo.org/proj/portage.git/tree/man/xpak.5
+
+Applications which use this media: The primary implementation of XPAK 
+   format is found in the Portage package manager [1]. Additionally, 
+   the third-party portage-utils [2] package provides standalone 
+   tools to manipulate XPAK archives and the XPAK trailer. This list 
+   is not exhaustive.
+
+   [1] https://wiki.gentoo.org/wiki/Project:Portage
+   [2] https://wiki.gentoo.org/wiki/Portage-utils
+
+Fragment identifier considerations: N/A.
+
+Restrictions on usage: N/A.
+
+Additional information:
+
+   1. Deprecated alias names for this type: N/A.
+   2. Magic number(s): N/A.
+   3. File extension(s): .tbz2, .xpak
+   4. Macintosh file type code: N/A.
+   5. Object Identifiers: N/A.
+
+General Comments: Originally posted for review at: 
+
+   https://mailarchive.ietf.org/arch/msg/media-types/EBHrIzQrknmv0ivRlVZ0ag7cpbQ/
+
+Person to contact for further information:
+
+   1. Name: Portage project
+   2. Email: dev-portage&gentoo.org
+
+Intended usage: COMMON
+
+Author/Change controller: Gentoo Council <council&gentoo.org>
+   (https://wiki.gentoo.org/wiki/Project:Council)
