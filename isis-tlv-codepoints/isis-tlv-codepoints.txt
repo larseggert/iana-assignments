@@ -6,7 +6,7 @@
            2003-05-06
 
    Last Updated
-           2022-10-14
+           2022-12-13
 
    Note
 
@@ -46,6 +46,7 @@
      * IS-IS SRv6 End SID Sub-TLV Flags
      * IS-IS SRv6 Adjacency SID Sub-TLVs Flags
      * IS-IS Sub-Sub-TLVs for Flexible Algorithm Definition Sub-TLV
+     * IS-IS Sub-sub TLVs for Flood Reflection Discovery sub-TLV
 
 IS-IS Top-Level TLV Codepoints
 
@@ -194,10 +195,7 @@ IS-IS Top-Level TLV Codepoints
    150       Multi-Topology Segment Identifier / Label n   y   n   n     [RFC8667]
              Binding
    151-160   Unassigned
-             Flood Reflection (TEMPORARY - registered
-   161       2020-08-05, extension registered          y   n   n   n     [draft-ietf-lsr-isis-flood-reflection-01]
-             2021-06-18, document sent to IESG
-             Evaluation 2022-01-20)
+   161       Flood Reflection                          y   n   n   n     [RFC-ietf-lsr-isis-flood-reflection-12]
    162-175   Unassigned
    176       Nortel Proprietary                        n   y   n   n
    177       Nortel Proprietary                        n   y   n   n
@@ -336,55 +334,53 @@ IS-IS Sub-TLVs for TLVs Advertising Neighbor Information
            [IMG]
            CSV
 
-    Type                            Description                          22 23  25  141 222 223                      Reference
+    Type                      Description                    22 23  25  141 222 223                      Reference
    0-2     Unassigned
-   3       Administrative group (color)                                  y  y  y(s) y   y   y   [RFC5305]
-   4       Link Local/Remote Identifiers                                 y  y  y(s) y   y   y   [RFC5307]
+   3       Administrative group (color)                      y  y  y(s) y   y   y   [RFC5305]
+   4       Link Local/Remote Identifiers                     y  y  y(s) y   y   y   [RFC5307]
    5       Unassigned
-   6       IPv4 interface address                                        y  y  y(s) y   y   y   [RFC5305]
+   6       IPv4 interface address                            y  y  y(s) y   y   y   [RFC5305]
    7       Unassigned
-   8       IPv4 neighbor address                                         y  y  y(s) y   y   y   [RFC5305]
-   9       Maximum link bandwidth                                        y  y  y(s) y   y   y   [RFC5305]
-   10      Maximum reservable link bandwidth                             y  y  y(s) y   y   y   [RFC5305]
-   11      Unreserved bandwidth                                          y  y  y(s) y   y   y   [RFC5305]
-   12      IPv6 Interface Address                                        y  y  y(s) y   y   y   [RFC6119]
-   13      IPv6 Neighbor Address                                         y  y  y(s) y   y   y   [RFC6119]
-   14      Extended Administrative Group                                 y  y  y(s) y   y   y   [RFC7308]
-   15      Link MSD                                                      y  y  y    y   y   y   [RFC8491]
-   16      Application-Specific Link Attributes                          y  y  y(s) y   y   y   [RFC8919]
+   8       IPv4 neighbor address                             y  y  y(s) y   y   y   [RFC5305]
+   9       Maximum link bandwidth                            y  y  y(s) y   y   y   [RFC5305]
+   10      Maximum reservable link bandwidth                 y  y  y(s) y   y   y   [RFC5305]
+   11      Unreserved bandwidth                              y  y  y(s) y   y   y   [RFC5305]
+   12      IPv6 Interface Address                            y  y  y(s) y   y   y   [RFC6119]
+   13      IPv6 Neighbor Address                             y  y  y(s) y   y   y   [RFC6119]
+   14      Extended Administrative Group                     y  y  y(s) y   y   y   [RFC7308]
+   15      Link MSD                                          y  y  y    y   y   y   [RFC8491]
+   16      Application-Specific Link Attributes              y  y  y(s) y   y   y   [RFC8919]
    17      Unassigned
-   18      TE Default metric                                             y  y  y(s) y   y   y   [RFC5305]
-   19      Link-attributes                                               y  y  y(s) y   y   y   [RFC5029]
-   20      Link Protection Type                                          y  y  y(s) y   y   y   [RFC5307]
-   21      Interface Switching Capability Descriptor                     y  y  y(s) y   y   y   [RFC5307]
-   22      Bandwidth Constraints                                         y  y  y(s) y   y   y   [RFC4124]
-   23      Unconstrained TE LSP Count (sub-)TLV                          y  y  y(s) y   y   y   [RFC5330]
-   24      remote AS number                                              n  n  n    y   n   n   [RFC-ietf-lsr-isis-rfc5316bis-07]
-   25      IPv4 remote ASBR identifier                                   n  n  n    y   n   n   [RFC-ietf-lsr-isis-rfc5316bis-07]
-   26      IPv6 remote ASBR identifier                                   n  n  n    y   n   n   [RFC-ietf-lsr-isis-rfc5316bis-07]
-   27      Interface Adjustment Capability Descriptor (IACD)             y  y  y(s) y   y   y   [RFC6001]
-   28      MTU                                                           y  y  n    n   y   y   [RFC7176]
-   29      SPB-Metric                                                    y  y  y(s) n   y   y   [RFC6329]
-   30      SPB-A-OALG                                                    y  y  y(s) n   y   y   [RFC6329]
-   31      Adjacency Segment Identifier                                  y  y  n    y   y   y   [RFC8667]
-   32      LAN Adjacency Segment Identifier                              y  y  n    y   y   y   [RFC8667]
-   33      Unidirectional Link Delay                                     y  y  y    y   y   y   [RFC8570]
-   34      Min/Max Unidirectional Link Delay                             y  y  y    y   y   y   [RFC8570]
-   35      Unidirectional Delay Variation                                y  y  y    y   y   y   [RFC8570]
-   36      Unidirectional Link Loss                                      y  y  y    y   y   y   [RFC8570]
-   37      Unidirectional Residual Bandwidth                             y  y  y    y   y   y   [RFC8570]
-   38      Unidirectional Available Bandwidth                            y  y  y    y   y   y   [RFC8570]
-   39      Unidirectional Utilized Bandwidth                             y  y  y    y   y   y   [RFC8570]
-   40      RTM Capability                                                y  y  n    n   y   y   [RFC8169]
-   41      L2 Bundle Member Adj-SID                                      n  n  y    n   n   n   [RFC8668]
-   42      L2 Bundle Member LAN Adj-SID                                  n  n  y    n   n   n   [RFC8668]
-   43      SRv6 End.X SID                                                y  y  y    y   y   y   [RFC-ietf-lsr-isis-srv6-extensions-18, Section 8.1]
-   44      SRv6 LAN End.X SID                                            y  y  y    y   y   y   [RFC-ietf-lsr-isis-srv6-extensions-18, Section 8.2]
-   45      IPv6 local ASBR identifier                                    n  n  n    y   n   n   [RFC-ietf-lsr-isis-rfc5316bis-07]
+   18      TE Default metric                                 y  y  y(s) y   y   y   [RFC5305]
+   19      Link-attributes                                   y  y  y(s) y   y   y   [RFC5029]
+   20      Link Protection Type                              y  y  y(s) y   y   y   [RFC5307]
+   21      Interface Switching Capability Descriptor         y  y  y(s) y   y   y   [RFC5307]
+   22      Bandwidth Constraints                             y  y  y(s) y   y   y   [RFC4124]
+   23      Unconstrained TE LSP Count (sub-)TLV              y  y  y(s) y   y   y   [RFC5330]
+   24      remote AS number                                  n  n  n    y   n   n   [RFC-ietf-lsr-isis-rfc5316bis-07]
+   25      IPv4 remote ASBR identifier                       n  n  n    y   n   n   [RFC-ietf-lsr-isis-rfc5316bis-07]
+   26      IPv6 remote ASBR identifier                       n  n  n    y   n   n   [RFC-ietf-lsr-isis-rfc5316bis-07]
+   27      Interface Adjustment Capability Descriptor (IACD) y  y  y(s) y   y   y   [RFC6001]
+   28      MTU                                               y  y  n    n   y   y   [RFC7176]
+   29      SPB-Metric                                        y  y  y(s) n   y   y   [RFC6329]
+   30      SPB-A-OALG                                        y  y  y(s) n   y   y   [RFC6329]
+   31      Adjacency Segment Identifier                      y  y  n    y   y   y   [RFC8667]
+   32      LAN Adjacency Segment Identifier                  y  y  n    y   y   y   [RFC8667]
+   33      Unidirectional Link Delay                         y  y  y    y   y   y   [RFC8570]
+   34      Min/Max Unidirectional Link Delay                 y  y  y    y   y   y   [RFC8570]
+   35      Unidirectional Delay Variation                    y  y  y    y   y   y   [RFC8570]
+   36      Unidirectional Link Loss                          y  y  y    y   y   y   [RFC8570]
+   37      Unidirectional Residual Bandwidth                 y  y  y    y   y   y   [RFC8570]
+   38      Unidirectional Available Bandwidth                y  y  y    y   y   y   [RFC8570]
+   39      Unidirectional Utilized Bandwidth                 y  y  y    y   y   y   [RFC8570]
+   40      RTM Capability                                    y  y  n    n   y   y   [RFC8169]
+   41      L2 Bundle Member Adj-SID                          n  n  y    n   n   n   [RFC8668]
+   42      L2 Bundle Member LAN Adj-SID                      n  n  y    n   n   n   [RFC8668]
+   43      SRv6 End.X SID                                    y  y  y    y   y   y   [RFC-ietf-lsr-isis-srv6-extensions-18, Section 8.1]
+   44      SRv6 LAN End.X SID                                y  y  y    y   y   y   [RFC-ietf-lsr-isis-srv6-extensions-18, Section 8.2]
+   45      IPv6 local ASBR identifier                        n  n  n    y   n   n   [RFC-ietf-lsr-isis-rfc5316bis-07]
    46-160  Unassigned
-           Flood Reflector Adjacency (TEMPORARY - registered 2020-08-05,
-   161     extension registered 2021-06-18, document sent to IESG        y  y  n    y   y   y   [draft-ietf-lsr-isis-flood-reflection-01]
-           Evaluation 2022-01-20)
+   161     Flood Reflector Adjacency                         y  y  n    y   y   y   [RFC-ietf-lsr-isis-flood-reflection-12]
    162-249 Unassigned
    250-254 Reserved for Cisco-specific extensions
    255     Reserved for future expansion
@@ -674,8 +670,7 @@ IS-IS Sub-TLVs for IS-IS Router CAPABILITY TLV
    29      IP Algorithm Sub-TLV (TEMPORARY - registered 2021-04-27, extension registered          [draft-ietf-lsr-ip-flexalgo-01]
            2022-03-25, expires 2023-04-27)
    30-160  Unassigned
-   161     Flood Reflection Discovery (TEMPORARY - registered 2020-08-05, extension registered    [draft-ietf-lsr-isis-flood-reflection-01]
-           2021-06-18, document sent to IESG Evaluation 2022-01-20)
+   161     Flood Reflection Discovery                                                             [RFC-ietf-lsr-isis-flood-reflection-12]
    162-255 Unassigned
 
 IS-IS Sub-Sub-TLVs for SRv6 Capability Sub-TLV
@@ -1064,5 +1059,27 @@ IS-IS Sub-Sub-TLVs for Flexible Algorithm Definition Sub-TLV
    4     Flexible Algorithm Definition Flags        [RFC-ietf-lsr-flex-algo-25, Section 6.4]
    5     Flexible Algorithm Exclude SRLG            [RFC-ietf-lsr-flex-algo-25, Section 6.5]
    6-255 Unassigned
+
+IS-IS Sub-sub TLVs for Flood Reflection Discovery sub-TLV
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+           [RFC-ietf-lsr-isis-flood-reflection-12]
+
+   Available Formats
+           [IMG]
+           CSV
+
+    Type                          Description                                       Reference
+   0-160   Unassigned
+   161     Flood Reflection Discovery Tunnel Encapsulation Attribute [RFC-ietf-lsr-isis-flood-reflection-12]
+   162-255 Unassigned
 
    Licensing Terms
