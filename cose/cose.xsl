@@ -90,7 +90,7 @@
           <td><xsl:value-of select="iana:label"/></td>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:reg"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
