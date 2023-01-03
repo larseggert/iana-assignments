@@ -40,16 +40,17 @@
       <tr>
         <th>Number</th>
         <th>Name</th>
+        <th>Status</th>
         <th>ESP Reference</th>
         <th>IKEv2 Reference</th>
       </tr>
      </xsl:when>
      <xsl:when test="@id = 'ikev2-parameters-6' or
-                     @id = 'ikev2-parameters-7' or
-                     @id = 'ikev2-parameters-9'">
+                     @id = 'ikev2-parameters-7'">
       <tr>
         <th>Number</th>
         <th>Name</th>
+        <th>Status</th>
         <th>Reference</th>
       </tr>
      </xsl:when>
@@ -57,7 +58,15 @@
       <tr>
         <th>Number</th>
         <th>Name</th>
+        <th>Status</th>
         <th>Recipient Tests</th>
+        <th>Reference</th>
+      </tr>
+     </xsl:when>
+     <xsl:when test="@id = 'ikev2-parameters-9'">
+      <tr>
+        <th>Number</th>
+        <th>Name</th>
         <th>Reference</th>
       </tr>
      </xsl:when>
@@ -202,14 +211,24 @@
       <tr>
        <td align="center"><xsl:value-of select="iana:value"/></td>
        <td><xsl:value-of select="iana:description"/></td>
+       <td><xsl:apply-templates select="iana:status"/></td>
        <td><xsl:apply-templates select="iana:esp"/></td>
        <td><xsl:apply-templates select="iana:ikev2"/></td>
       </tr>
+     </xsl:when>
+     <xsl:when test="../@id = 'ikev2-parameters-6' or ../@id = 'ikev2-parameters-7'">
+     <tr>
+      <td align="center"><xsl:value-of select="iana:value"/></td>
+      <td><xsl:value-of select="iana:description"/></td>
+      <td><xsl:apply-templates select="iana:status"/></td>
+      <td><xsl:apply-templates select="iana:xref"/></td>
+    </tr>
      </xsl:when>
      <xsl:when test="../@id = 'ikev2-parameters-8'">
       <tr>
        <td align="center"><xsl:value-of select="iana:value"/></td>
        <td><xsl:value-of select="iana:description"/></td>
+       <td><xsl:apply-templates select="iana:status"/></td>
        <td><xsl:apply-templates select="iana:recipient"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
