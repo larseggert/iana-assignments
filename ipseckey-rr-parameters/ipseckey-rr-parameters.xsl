@@ -7,15 +7,34 @@
   <xsl:import href="../_support/iana-registry.xsl" />
 
   <xsl:template name="iana:record_header">
-    <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
+    <xsl:choose> 
+      <xsl:when test="@id = 'ipseckey-rr-parameters-1'">
+        <tr><th>Bit</th><th>Description</th><th>Format Description</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:otherwise>
+        <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="iana:record">
-    <tr>
-      <td align="center"><xsl:value-of select="iana:value"/></td>
-      <td><xsl:apply-templates select="iana:description"/></td>
-      <td><xsl:apply-templates select="iana:xref"/></td>
-    </tr>
+    <xsl:choose>
+      <xsl:when test="../@id = 'ipseckey-rr-parameters-1'">
+        <tr>
+        <td><xsl:value-of select="iana:value"/></td>
+        <td><xsl:apply-templates select="iana:description"/></td>
+        <td><xsl:apply-templates select="iana:format"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'ipseckey-rr-parameters-2'">
+        <tr>
+        <td align="center"><xsl:value-of select="iana:value"/></td>
+        <td><xsl:apply-templates select="iana:description"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+    </xsl:choose>
   </xsl:template>
 
 </xsl:stylesheet>
