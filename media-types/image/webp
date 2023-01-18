@@ -1,122 +1,56 @@
 Type name: image
 
-Subtype name: wmf
+Subtype name: webp
 
-Required parameters: None.
+Required parameters: N/A
 
-Optional parameters:
+Optional parameters: N/A
 
-   DEFAULT_CHARSET: The character set intended when the CharacterSet
-      enumeration (see the WMF specification) specifies
-      DEFAULT_CHARSET.  The value of this parameter is a charset from
-      the IANA "Character Sets" registry
-      <http://www.iana.org/assignments/character-sets>.  When this
-      parameter is not specified, DEFAULT_CHARSET has the following
-      meaning in the WMF specification: "a character set based on the
-      current system locale; for example, when the system locale is
-      United States English, the default character set is
-      ANSI_CHARSET" (which is Windows-1252, more or less).  That is,
-      when not specified, the default character set is system
-      dependent.  This optional parameter is new to this registration
-      and may not enjoy widespread support for some time.  Therefore,
-      EMF instead of WMF (or if necessary under the circumstances,
-      embedded EMF within WMF) is a more sensible choice when text is
-      present.
+Encoding considerations: Binary. The Base64 encoding [RFC4648] should be used on transports that cannot accommodate binary data directly.
 
-Encoding considerations: Binary.
+Security considerations: See Section 4.
 
-Security considerations:
+Interoperability considerations: See Section 5.
 
-   The Windows Metafile format's security history is punctuated in
-   2005-2006 with the disclosure of the Metafile Image Code Execution
-   ("MICE") vulnerability.  MICE won the 2007 Pwnie Award for "Mass
-   0wnage" and "Breaking the Internet".  The official Microsoft
-   security bulletin describes that the flaw occurs because Windows
-   Metafiles can set the SETABORTPROC value of the MetafileEscapes
-   enumeration (accessible via the META_ESCAPE record), allowing for
-   arbitrary code execution, i.e., "active content".
+Published specification: RFC-zern-webp-12
 
-   Windows Metafiles can contain Enhanced Metafiles using the
-   META_ESCAPE_ENHANCED_METAFILE record; thus, the security
-   considerations of EMF apply to WMF.
+Applications that use this media type: Applications that are used to display and process images, especially when smaller image file sizes are important.
 
-   Windows Metafiles are historically very buggy.  As the original
-   intent was to replicate Windows GDI calls, flaws in GDI, or in a
-   display or printer driver implementing the backend to GDI, could
-   be exploitable.  WMF implementations not backed by Windows GDI
-   have different risks: namely, while a malicious WMF author may not
-   consider the non-Windows GDI implementation as a primary target,
-   WMF has many "corner case" records for which an implementation's
-   processing may not have received the same level of scrutiny as the
-   Windows implementation.  "Fuzzing" the implementation is
-   appropriate.
-
-   As a "basic" image format, the image/wmf media type does not
-   employ executable content and provides no facilities for privacy
-   or integrity.
-
-Interoperability considerations:
-
-   Windows Metafile is the original 16-bit metafile format; it was
-   released in 1990 at what some computer historians might consider
-   the "zenith" of the desktop publishing revolution.  Accordingly,
-   there is a large body of free and commercially available clip art
-   that is still in use, either independently or embedded in
-   productivity documents (word processing documents, desktop
-   publishing documents, slideshows, presentations, spreadsheets, and
-   workbooks).  For example, references to WMF content appear (non-
-   normatively) in Office Open XML.  To say that support for this
-   format is necessary for interoperability would not be an
-   understatement.
-
-   Accommodations for comments or arbitrary data storage in Windows
-   Metafiles are virtually non-existent.  However, Windows Metafiles
-   can contain Enhanced Metafiles using the
-   META_ESCAPE_ENHANCED_METAFILE record, so an implementation that
-   handles Windows Metafiles is also expected to handle enhanced
-   metafile content.  Windows Metafiles can store and output text
-   strings (see META_TEXTOUT and META_EXTTEXTOUT records), but the
-   encodings of the strings may be ambiguous.  Unicode encodings are
-   not possible without the DEFAULT_CHARSET parameter defined in this
-   registration.
-
-   The previously unregistered type image/x-wmf is also in wide use.
-   Accordingly, it is registered as a deprecated alias.
-
-Published specification:
-
-   WMF: Microsoft Corporation, "[MS-WMF]: Windows Metafile Format",
-   v20160714 (Rev 13.1), July 2016,
-   <http://msdn.microsoft.com/library/cc250370>.
-
-Applications that use this media type:
-
-   Office productivity applications; clip art applications; desktop
-   publishing applications; some web browsers (e.g., Internet
-   Explorer).
-
-Fragment identifier considerations: None.
+Fragment identifier considerations: N/A
 
 Additional information:
 
-   Deprecated alias names for this type: image/x-wmf
+Deprecated alias names for this type: N/A
 
-   Magic number(s): D7 CD C6 9A (little-endian DWORD 0x9AC6CDD7)
+Magic number(s): The first 4 bytes are 0x52, 0x49, 0x46, 0x46 ('RIFF'), followed by 4 bytes for the RIFF chunk size. The next 7 bytes are 0x57, 0x45, 0x42, 0x50, 0x56, 0x50, 0x38 ('WEBPVP8').
 
-   File extension(s): .wmf
+File extension(s): webp
 
-   Macintosh file type code(s):
-      None.  A uniform type identifier (UTI) of "com.microsoft.wmf"
-      is suggested.
+Apple Uniform Type Identifier: org.webmproject.webp conforms to public.image
+
+Object Identifiers: N/A
 
 Person & email address to contact for further information:
 
-   Sean Leonard <dev+ietf&seantek.com>
-
-Restrictions on usage: None.
-
-Author/Change controller: Sean Leonard <dev+ietf&seantek.com>
+Name: James Zern
+Email: jzern&google.com
 
 Intended usage: COMMON
 
-Provisional registration? No
+Restrictions on usage: N/A
+
+Author:
+
+Name: James Zern
+Email: jzern&google.com
+
+Change controller:
+
+Name: James Zern
+Email: jzern&google.com
+
+Name: Pascal Massimino
+Email: pascal.massimino&gmail.com
+
+Name: WebM Project
+Email: webmaster&webmproject.org
