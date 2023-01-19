@@ -31,7 +31,7 @@
       </xsl:when>
       
       <xsl:when test="@id = 'content-formats'">
-        <tr><th>Media Type</th><th>Encoding</th><th>ID</th><th>Reference</th></tr>
+        <tr><th>Content Type</th><th>Content Coding</th><th>ID</th><th>Reference</th></tr>
       </xsl:when>
       
       <xsl:when test="@id = 'signaling-codes'">
@@ -133,8 +133,8 @@
 
       <xsl:when test="../@id = 'content-formats'">
         <tr>
-          <td><xsl:value-of select="iana:mediatype"/></td>
-          <td><xsl:value-of select="iana:encoding"/></td>
+          <td><xsl:value-of select="iana:contenttype"/></td>
+          <td><xsl:value-of select="iana:contentcoding"/></td>
           <td><xsl:value-of select="iana:id"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
