@@ -1,0 +1,63 @@
+(registered 2021-05-17, updated 2023-01-20)
+
+Scheme name: mt
+
+Status: Permanent
+
+Description: Matter protocol on-boarding payloads that are encoded for use in QR Codes and/or NFC Tags.
+
+Applications/protocols that use this scheme name: Applications and/or devices implementing the Matter Protocol
+
+Contact: Aron Rosenberg https://buildwithmatter.com/
+
+Change controller: Connectivity Standards Alliance https://csa-iot.org/, Matter Protocol Technical Sub Group
+
+Technical Details:
+The mt uri consists of one or more binary payloads encoded using a custom Base38 alphabet suitable for
+being the contents of a QR code and/or NFC tag. The binary payload definition is found in the Matter
+specification [1] and is not meant to be deconstructed while parsing mt uri's for validity
+
+The ABNF [2] for the uri parsing is as follows.
+mt-uri = "MT:" base-38-content *( "*" base-38-content )
+base-38-content = 1*(DIGIT / A-Z / "-" / ".")
+A-Z = %x41-5A
+
+References:
+[1] Matter Specification: https://csa-iot.org/developer-resource/specifications-download-request/
+[2] ABNF: https://www.rfc-editor.org/rfc/rfc5234
+
+URI scheme reviewer note:
+
+For limited use, not suitable as a global identifier on the World Wide Web.
+
+Being a URI scheme facilitates use of existing QR/NFC frameworks, such as those
+commonly available on smartphones, to activate the appropriate Matter Protocol
+software to initiate a device on-boarding process. There is no expectation that
+this scheme will be used by general purpose web software. The use of a short
+scheme name is justified here by a need to use low-capacity QR codes that can be
+imprinted on small devices.
+
+An MT: URI identifies a type of device physically connected to the local
+network, or advertising in the local RF environment, using a base38 encoding of
+vendor ID, product ID, and other parameters that may direct the onboarding
+process. These parameters allow Matter Protocol software to initiate
+communication with a device of that type. Further details can be found in the
+Matter Protocol specification [r1,r2], section 5.1.3.1 (in copy retrieved
+2023-01-11). The Matter Protocol specification does not formally define a URI
+scheme, but describes a QR code payload that conforms to URI generic syntax [r3].
+
+The Matter Protocol spec is made publicly available at no cost by the
+Connectivity Standards Alliance (CSA) [r4], but does require registration and
+agreement with a CSA licence.
+
+[r1] https://csa-iot.org/developer-resource/specifications-download-request/
+(Select “Matter 1.0 Core Specification”, requires registration and license
+agreement)
+
+[r2]
+https://csa-iot.org/wp-content/uploads/2022/11/22-27349-001_Matter-1.0-Core-Specification.pdf
+(retrieved 2023-01-11).
+
+[r3] https://www.rfc-editor.org/info/rfc3986
+
+[r4] https://csa-iot.org/
