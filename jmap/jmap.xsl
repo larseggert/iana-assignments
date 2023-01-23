@@ -26,6 +26,15 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'jmap-data-types'">
+        <tr>
+          <th>Type Name</th>
+          <th>Can Reference Blobs</th>
+          <th>Can Use for State Change</th>
+          <th>Capability</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -46,6 +55,15 @@
           <td><xsl:apply-templates select="iana:use"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'jmap-data-types'">
+        <tr>
+          <td><xsl:apply-templates select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:refblobs"/></td>
+          <td><xsl:apply-templates select="iana:statechange"/></td>
+          <td><xsl:apply-templates select="iana:capability"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
