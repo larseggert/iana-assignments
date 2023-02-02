@@ -58,6 +58,14 @@
       <xsl:when test="@id = 'option-codes-s46-priority-option'">
         <tr><th>Option Code</th><th>S46 Mechanism</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'supported-transport'">
+        <tr>
+          <th>Bit Position (L to R)</th>
+          <th>Transport Protocol Description</th>
+          <th>Mnemonic</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -69,6 +77,14 @@
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:value-of select="iana:oro"/></td>
           <td><xsl:apply-templates select="iana:singleton"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'supported-transport'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:menemonic"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
