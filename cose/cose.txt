@@ -6,7 +6,7 @@
            2017-01-11
 
    Last Updated
-           2022-12-14
+           2023-02-17
 
    Available Formats
            [IMG]
@@ -46,48 +46,48 @@ COSE Header Parameters
    Strings of length 2                      Specification Required
    Strings of length greater than 2         Expert Review
 
-             Name              Label           Value Type             Value Registry                Description                    Reference
-   Reserved for Private Use  less than                                                                                      [RFC9052]
-                             -65536
-   delegated to the COSE     -65536 to
-   Header Algorithm          -1
+              Name               Label             Value Type              Value Registry                Description                Reference
+   Reserved for Private Use   less than                                                                                        [RFC9052]
+                              -65536
+   delegated to the COSE
+   Header Algorithm           -65536 to -1
    Parameters registry
-   Reserved                  0                                                                                              [RFC9052]
-   alg                       1         int / tstr                 COSE Algorithms        Cryptographic algorithm to use     [RFC9052]
-                                                                  registry
-   crit                      2         [+ label]                  COSE Header Parameters Critical headers to be understood  [RFC9052]
-                                                                  registry
-                                                                  [COAP Content-Formats]
-   content type              3         tstr / uint                or [Media Types]       Content type of the payload        [RFC9052]
-                                                                  registry
-   kid                       4         bstr                                              Key identifier                     [RFC9052]
-   IV                        5         bstr                                              Full Initialization Vector         [RFC9052]
-   Partial IV                6         bstr                                              Partial Initialization Vector      [RFC9052]
-   counter signature         7         COSE_Signature / [+                               CBOR-encoded signature structure   [RFC8152]
-                                       COSE_Signature ]                                  (Deprecated by [RFC9338])
-   Unassigned                8
-                                                                                         Counter signature with implied
-   CounterSignature0         9         bstr                                              signer and headers (Deprecated by  [RFC8152]
-                                                                                         [RFC9338])
-   kid context               10        bstr                                              Identifies the context for the key [RFC8613, Section 5.1]
-                                                                                         identifier
-   Countersignature version  11        COSE_Countersignature / [+                        V2 countersignature attribute      [RFC9338]
-   2                                   COSE_Countersignature]
-   Countersignature0 version 12        COSE_Countersignature0                            V2 Abbreviated Countersignature    [RFC9338]
+   Reserved                   0                                                                                                [RFC9052]
+   alg                        1            int / tstr                 COSE Algorithms registry Cryptographic algorithm to use  [RFC9052]
+   crit                       2            [+ label]                  COSE Header Parameters   Critical headers to be          [RFC9052]
+                                                                      registry                 understood
+                                                                      [COAP Content-Formats]
+   content type               3            tstr / uint                or [Media Types]         Content type of the payload     [RFC9052]
+                                                                      registry
+   kid                        4            bstr                                                Key identifier                  [RFC9052]
+   IV                         5            bstr                                                Full Initialization Vector      [RFC9052]
+   Partial IV                 6            bstr                                                Partial Initialization Vector   [RFC9052]
+                                           COSE_Signature / [+                                 CBOR-encoded signature
+   counter signature          7            COSE_Signature ]                                    structure (Deprecated by        [RFC8152]
+                                                                                               [RFC9338])
+   Unassigned                 8
+                                                                                               Counter signature with implied
+   CounterSignature0          9            bstr                                                signer and headers (Deprecated  [RFC8152]
+                                                                                               by [RFC9338])
+   kid context                10           bstr                                                Identifies the context for the  [RFC8613, Section
+                                                                                               key identifier                  5.1]
+   Countersignature version 2 11           COSE_Countersignature / [+                          V2 countersignature attribute   [RFC9338]
+                                           COSE_Countersignature]
+   Countersignature0 version  12           COSE_Countersignature0                              V2 Abbreviated Countersignature [RFC9338]
    2
-   Unassigned                13-31
-   x5bag                     32        COSE_X509                                         An unordered bag of X.509          [RFC-ietf-cose-x509-09]
-                                                                                         certificates
-   x5chain                   33        COSE_X509                                         An ordered chain of X.509          [RFC-ietf-cose-x509-09]
-                                                                                         certificates
-   x5t                       34        COSE_CertHash                                     Hash of an X.509 certificate       [RFC-ietf-cose-x509-09]
-   x5u                       35        uri                                               URI pointing to an X.509           [RFC-ietf-cose-x509-09]
-                                                                                         certificate
-   Unassigned                36-255
-   CUPHNonce                 256       bstr                                              Challenge Nonce                    [FIDO Device Onboard
-                                                                                                                            Specification]
-   CUPHOwnerPubKey           257       array                                             Public Key                         [FIDO Device Onboard
-                                                                                                                            Specification]
+   Unassigned                 13-31
+   x5bag                      32           COSE_X509                                           An unordered bag of X.509       [RFC9360]
+                                                                                               certificates
+   x5chain                    33           COSE_X509                                           An ordered chain of X.509       [RFC9360]
+                                                                                               certificates
+   x5t                        34           COSE_CertHash                                       Hash of an X.509 certificate    [RFC9360]
+   x5u                        35           uri                                                 URI pointing to an X.509        [RFC9360]
+                                                                                               certificate
+   Unassigned                 36-255
+   CUPHNonce                  256          bstr                                                Challenge Nonce                 [FIDO Device Onboard
+                                                                                                                               Specification]
+   CUPHOwnerPubKey            257          array                                               Public Key                      [FIDO Device Onboard
+                                                                                                                               Specification]
 
 COSE Header Algorithm Parameters
 
@@ -106,65 +106,56 @@ COSE Header Algorithm Parameters
            [IMG]
            CSV
 
-        Name                             Algorithm                           Label         Type           Description              Reference
-   Unassigned                                                            -65536 to -30
-   x5chain-sender  ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-SS+A128KW,   -29           COSE_X509     static key X.509       [RFC-ietf-cose-x509-09]
-                   ECDH-SS+A192KW, ECDH-SS+A256KW                                                    certificate chain
-   x5u-sender      ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-SS+A128KW,   -28           uri           URI for the sender's   [RFC-ietf-cose-x509-09]
-                   ECDH-SS+A192KW, ECDH-SS+A256KW                                                    X.509 certificate
-                   ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-SS+A128KW,                               Thumbprint for the
-   x5t-sender      ECDH-SS+A192KW, ECDH-SS+A256KW                        -27           COSE_CertHash sender's X.509         [RFC-ietf-cose-x509-09]
-                                                                                                     certificate
-                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
-                   direct+HKDF-AES-128, direct+HKDF-AES-256,
-   PartyV other    ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, ECDH-SS+HKDF-256, -26           bstr          Party V other provided [RFC9053]
-                   ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW,                                 information
-                   ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW,
-                   ECDH-SS+A256KW
-                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
-                   direct+HKDF-AES-128, direct+HKDF-AES-256,
-   PartyV nonce    ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, ECDH-SS+HKDF-256, -25           bstr / int    Party V provided nonce [RFC9053]
-                   ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW,
-                   ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW,
-                   ECDH-SS+A256KW
-                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
-                   direct+HKDF-AES-128, direct+HKDF-AES-256,
-   PartyV identity ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, ECDH-SS+HKDF-256, -24           bstr          Party V identity       [RFC9053]
-                   ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW,                                 information
-                   ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW,
-                   ECDH-SS+A256KW
-                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
-                   direct+HKDF-AES-128, direct+HKDF-AES-256,
-   PartyU other    ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, ECDH-SS+HKDF-256, -23           bstr          Party U other provided [RFC9053]
-                   ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW,                                 information
-                   ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW,
-                   ECDH-SS+A256KW
-                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
-                   direct+HKDF-AES-128, direct+HKDF-AES-256,
-   PartyU nonce    ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, ECDH-SS+HKDF-256, -22           bstr / int    Party U provided nonce [RFC9053]
-                   ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW,
-                   ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW,
-                   ECDH-SS+A256KW
-                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
-                   direct+HKDF-AES-128, direct+HKDF-AES-256,
-   PartyU identity ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, ECDH-SS+HKDF-256, -21           bstr          Party U identity       [RFC9053]
-                   ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW,                                 information
-                   ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW,
-                   ECDH-SS+A256KW
-                   direct+HKDF-SHA-256, direct+HKDF-SHA-512,
-                   direct+HKDF-AES-128, direct+HKDF-AES-256,
-   salt            ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, ECDH-SS+HKDF-256, -20           bstr          Random salt            [RFC9053]
-                   ECDH-SS+HKDF-512, ECDH-ES+A128KW, ECDH-ES+A192KW,
-                   ECDH-ES+A256KW, ECDH-SS+A128KW, ECDH-SS+A192KW,
-                   ECDH-SS+A256KW
-   Unassigned                                                            -19 to -4
-                   ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-SS+A128KW,                               Static public key
-   static key id   ECDH-SS+A192KW, ECDH-SS+A256KW                        -3            bstr          identifier for the     [RFC9053]
-                                                                                                     sender
-   static key      ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-SS+A128KW,   -2            COSE_Key      Static public key for  [RFC9053]
-                   ECDH-SS+A192KW, ECDH-SS+A256KW                                                    the sender
-   ephemeral key   ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, ECDH-ES+A128KW,   -1            COSE_Key      Ephemeral public key   [RFC9053]
-                   ECDH-ES+A192KW, ECDH-ES+A256KW                                                    for the sender
+        Name                                 Algorithm                                Label         Type              Description         Reference
+   Unassigned                                                                     -65536 to -30
+   x5chain-sender  ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-SS+A128KW,            -29           COSE_X509     static key X.509            [RFC9360]
+                   ECDH-SS+A192KW, ECDH-SS+A256KW                                                             certificate chain
+   x5u-sender      ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-SS+A128KW,            -28           uri           URI for the sender's X.509  [RFC9360]
+                   ECDH-SS+A192KW, ECDH-SS+A256KW                                                             certificate
+   x5t-sender      ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-SS+A128KW,            -27           COSE_CertHash Thumbprint for the sender's [RFC9360]
+                   ECDH-SS+A192KW, ECDH-SS+A256KW                                                             X.509 certificate
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512, direct+HKDF-AES-128,
+                   direct+HKDF-AES-256, ECDH-ES+HKDF-256, ECDH-ES+HKDF-512,                                   Party V other provided
+   PartyV other    ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-ES+A128KW,            -26           bstr          information                 [RFC9053]
+                   ECDH-ES+A192KW, ECDH-ES+A256KW, ECDH-SS+A128KW,
+                   ECDH-SS+A192KW, ECDH-SS+A256KW
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512, direct+HKDF-AES-128,
+                   direct+HKDF-AES-256, ECDH-ES+HKDF-256, ECDH-ES+HKDF-512,
+   PartyV nonce    ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-ES+A128KW,            -25           bstr / int    Party V provided nonce      [RFC9053]
+                   ECDH-ES+A192KW, ECDH-ES+A256KW, ECDH-SS+A128KW,
+                   ECDH-SS+A192KW, ECDH-SS+A256KW
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512, direct+HKDF-AES-128,
+                   direct+HKDF-AES-256, ECDH-ES+HKDF-256, ECDH-ES+HKDF-512,                                   Party V identity
+   PartyV identity ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-ES+A128KW,            -24           bstr          information                 [RFC9053]
+                   ECDH-ES+A192KW, ECDH-ES+A256KW, ECDH-SS+A128KW,
+                   ECDH-SS+A192KW, ECDH-SS+A256KW
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512, direct+HKDF-AES-128,
+                   direct+HKDF-AES-256, ECDH-ES+HKDF-256, ECDH-ES+HKDF-512,                                   Party U other provided
+   PartyU other    ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-ES+A128KW,            -23           bstr          information                 [RFC9053]
+                   ECDH-ES+A192KW, ECDH-ES+A256KW, ECDH-SS+A128KW,
+                   ECDH-SS+A192KW, ECDH-SS+A256KW
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512, direct+HKDF-AES-128,
+                   direct+HKDF-AES-256, ECDH-ES+HKDF-256, ECDH-ES+HKDF-512,
+   PartyU nonce    ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-ES+A128KW,            -22           bstr / int    Party U provided nonce      [RFC9053]
+                   ECDH-ES+A192KW, ECDH-ES+A256KW, ECDH-SS+A128KW,
+                   ECDH-SS+A192KW, ECDH-SS+A256KW
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512, direct+HKDF-AES-128,
+                   direct+HKDF-AES-256, ECDH-ES+HKDF-256, ECDH-ES+HKDF-512,                                   Party U identity
+   PartyU identity ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-ES+A128KW,            -21           bstr          information                 [RFC9053]
+                   ECDH-ES+A192KW, ECDH-ES+A256KW, ECDH-SS+A128KW,
+                   ECDH-SS+A192KW, ECDH-SS+A256KW
+                   direct+HKDF-SHA-256, direct+HKDF-SHA-512, direct+HKDF-AES-128,
+                   direct+HKDF-AES-256, ECDH-ES+HKDF-256, ECDH-ES+HKDF-512,
+   salt            ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-ES+A128KW,            -20           bstr          Random salt                 [RFC9053]
+                   ECDH-ES+A192KW, ECDH-ES+A256KW, ECDH-SS+A128KW,
+                   ECDH-SS+A192KW, ECDH-SS+A256KW
+   Unassigned                                                                     -19 to -4
+   static key id   ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-SS+A128KW,            -3            bstr          Static public key           [RFC9053]
+                   ECDH-SS+A192KW, ECDH-SS+A256KW                                                             identifier for the sender
+   static key      ECDH-SS+HKDF-256, ECDH-SS+HKDF-512, ECDH-SS+A128KW,            -2            COSE_Key      Static public key for the   [RFC9053]
+                   ECDH-SS+A192KW, ECDH-SS+A256KW                                                             sender
+   ephemeral key   ECDH-ES+HKDF-256, ECDH-ES+HKDF-512, ECDH-ES+A128KW,            -1            COSE_Key      Ephemeral public key for    [RFC9053]
+                   ECDH-ES+A192KW, ECDH-ES+A256KW                                                             the sender
 
 COSE Algorithms
 
