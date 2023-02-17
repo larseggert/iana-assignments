@@ -84,7 +84,7 @@
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
-          <td><xsl:apply-templates select="iana:menemonic"/></td>
+          <td><xsl:apply-templates select="iana:mnemonic"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
