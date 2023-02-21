@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+   <schema targetNamespace="urn:ietf:params:xml:ns:tmNotice-1.0"
+     xmlns:tmNotice="urn:ietf:params:xml:ns:tmNotice-1.0"
+     xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
+     xmlns="http://www.w3.org/2001/XMLSchema"
+     elementFormDefault="qualified">
+
+     <annotation>
+       <documentation>
+         Schema for representing a Trademark Claim Notice.
+       </documentation>
+     </annotation>
+     <import namespace="urn:ietf:params:xml:ns:mark-1.0"/>
+     <element name="notice" type="tmNotice:noticeType"/>
+     <complexType name="holderType">
+       <sequence>
+         <element name="name" type="token" minOccurs="0"/>
+         <element name="org" type="token" minOccurs="0"/>
+         <element name="addr" type="tmNotice:addrType"/>
+         <element name="voice" type="mark:e164Type" minOccurs="0"/>
+         <element name="fax" type="mark:e164Type" minOccurs="0"/>
+         <element name="email" type="mark:minTokenType" minOccurs="0"/>
+       </sequence>
+       <attribute name="entitlement" type="mark:entitlementType"/>
+     </complexType>
+     <complexType name="noticeType">
+       <sequence>
+         <element name="id" type="tmNotice:idType"/>
+         <element name="notBefore" type="dateTime"/>
+         <element name="notAfter" type="dateTime"/>
+         <element name="label" type="mark:labelType"/>
+         <element name="claim" type="tmNotice:claimType" minOccurs="0"
+           maxOccurs="unbounded"/>
+       </sequence>
+     </complexType>
+     <complexType name="claimType">
+       <sequence>
+         <element name="markName" type="token"/>
+         <element name="holder" type="tmNotice:holderType"
+           maxOccurs="unbounded"/>
+         <element name="contact" type="tmNotice:contactType" minOccurs="0"
+           maxOccurs="unbounded"/>
+         <element name="jurDesc" type="tmNotice:jurDescType"/>
+         <element name="classDesc" type="tmNotice:classDescType"
+           minOccurs="0" maxOccurs="unbounded"/>
+         <element name="goodsAndServices" type="token"/>
+         <element name="notExactMatch" type="tmNotice:noExactMatchType"
+           minOccurs="0"/>
+       </sequence>
+     </complexType>
+     <complexType name="jurDescType">
+       <simpleContent>
+         <extension base="token">
+           <attribute name="jurCC" type="mark:ccType" use="required"/>
+         </extension>
+       </simpleContent>
+     </complexType>
+     <complexType name="classDescType">
+       <simpleContent>
+         <extension base="token">
+           <attribute name="classNum" type="integer" use="required"/>
+         </extension>
+       </simpleContent>
+     </complexType>
+     <complexType name="noExactMatchType">
+       <choice maxOccurs="unbounded">
+         <element name="udrp" type="tmNotice:udrpType"/>
+         <element name="court" type="tmNotice:courtType"/>
+       </choice>
+     </complexType>
+     <complexType name="udrpType">
+       <sequence>
+         <element name="caseNo" type="token"/>
+         <element name="udrpProvider" type="token"/>
+       </sequence>
+     </complexType>
+     <complexType name="courtType">
+       <sequence>
+         <element name="refNum" type="token"/>
+         <element name="cc" type="mark:ccType"/>
+         <element name="region" type="token" minOccurs="0"
+           maxOccurs="unbounded"/>
+         <element name="courtName" type="token"/>
+       </sequence>
+     </complexType>
+     <complexType name="addrType">
+       <sequence>
+         <element name="street" type="token" minOccurs="1" maxOccurs="3"/>
+         <element name="city" type="token"/>
+         <element name="sp" type="token" minOccurs="0"/>
+         <element name="pc" type="mark:pcType" minOccurs="0"/>
+         <element name="cc" type="mark:ccType"/>
+       </sequence>
+     </complexType>
+     <complexType name="contactType">
+       <sequence>
+         <element name="name" type="token"/>
+         <element name="org" type="token" minOccurs="0"/>
+         <element name="addr" type="tmNotice:addrType"/>
+         <element name="voice" type="mark:e164Type"/>
+         <element name="fax" type="mark:e164Type" minOccurs="0"/>
+         <element name="email" type="mark:minTokenType"/>
+       </sequence>
+       <attribute name="type" type="mark:contactTypeType"/>
+     </complexType>
+     <simpleType name="idType">
+       <restriction base="token">
+         <pattern value="[a-fA-F0-9]{8}\d{1,19}"/>
+       </restriction>
+     </simpleType>
+   </schema>
