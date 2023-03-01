@@ -158,6 +158,14 @@
         <th>Contact</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'dns-catalog-zones'">
+        <tr>
+        <th>Property Prefix</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -259,6 +267,14 @@
         <td><xsl:apply-templates select="iana:xref"/></td>
         <td><xsl:apply-templates select="iana:date"/></td>
         <td><xsl:apply-templates select="iana:contact"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'dns-catalog-zones'">
+        <tr>
+        <td><xsl:apply-templates select="iana:prefix"/></td>
+        <td><xsl:apply-templates select="iana:description"/></td>
+        <td><xsl:apply-templates select="iana:status"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
       <xsl:otherwise>
