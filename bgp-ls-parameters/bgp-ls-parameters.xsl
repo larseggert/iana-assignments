@@ -34,12 +34,35 @@
         <tr>
           <th>TLV Code Point</th>
           <th>Description</th>
-          <th>IS-IS TLV/Sub-TLV</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
 
       <xsl:when test="@id = 'srv6-bgp-epe-sid'">
+        <tr>
+          <th>Bit</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+
+      <xsl:when test="@id = 'bgp-ls-node-flags'">
+        <tr>
+          <th>Bit</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+
+      <xsl:when test="@id = 'bgp-ls-mpls-protocol-mask'">
+        <tr>
+          <th>Bit</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+
+      <xsl:when test="@id = 'bgp-ls-igp-prefix-flags'">
         <tr>
           <th>Bit</th>
           <th>Description</th>
@@ -66,7 +89,6 @@
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
-          <td><xsl:value-of select="iana:tlv-sub-tlv"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>   
