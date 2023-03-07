@@ -1,0 +1,116 @@
+(registered 2023-03-06, last updated 2023-03-06)
+
+Media type name: application
+
+Media subtype name: vnd.mdl
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: 8bit
+
+   MDL files are utf8 encoded per specification
+
+Security considerations: MDL modules contain programming source code 
+   meant to be compiled into active content on the target site.
+   The active content is typically executed as function calls and as 
+   part of a host application “renderer” to evaluate the material 
+   properties of an “object”.
+
+   The MDL language has two distinct parts: a declarative part for 
+   the light transport, which refers to pre-implemented functionality 
+   of the host application, and a C-like procedural programming 
+   language to define functions that compute parameters for the 
+   host-implemented light transport.
+
+   MDL functions are by design pure, treating the read-only access to 
+   the render state as implicit function inputs, and therefore 
+   side-effect free. There are no pointers, no references, and no 
+   direct nor dynamic memory allocation mechanisms in the language. 
+   Functions have very limited read access to outside data:
+
+   -to the rendering “state” and
+   -to data passed through the function parameters.
+
+   The only means to pass data out of the function is through the 
+   return value and the optional debug module.
+
+   MDL modules might reference other module files or resource files 
+   (images, light profiles, bsdf measurements) locally or possibly on 
+   the internet and expect them to be found and loaded.
+
+   Except for textures, there is no direct read access to resources 
+   in the language. Out-of-bounds access to textures is defined to 
+   always return zero.
+
+   Out-of-bounds access to arrays is defined to always return zero 
+   beginning with MDL 1.8, and undefined behavior for lower versions, 
+   which might pose a risk on unsuspecting integrations.
+
+   MDL does include facilities to loop, cause computationally complex 
+   operations, or consume large amounts of memory. This can result in 
+   denial of service, which implementations MUST protect against.
+
+   MDL does not allow recursion nor dynamic memory allocation, such 
+   that an implementation can determine the memory needs of a 
+   function with a static analysis.
+
+   Implementations are required to support the UTF-8 character 
+   encoding scheme. The security considerations of [RFC3629] apply.
+
+   MDL does not facilitate means to inquire about the execution 
+   environment, however execution performance of the system or 
+   differences in the mathematical precision could be used for 
+   fingerprinting.
+
+   MDL modules do not have confidentiality or integrity verification 
+   built in.
+
+   In addition, bugs in the runtime environment (compiler, SDK, host 
+   application or driver) may lead to additional security risks or 
+   undefined behavior not discussed here.
+
+Interoperability considerations: MDL is strictly versioned using 
+   semantic versioning. MDL is fully backwards compatible for minor 
+   versions and the MDL SDK allows mixing and matching of modules of 
+   all versions up to the one it supports. MDL modules can be 
+   upgraded to the newest MDL version without loss of fidelity, 
+   automatically.
+
+Published specification: 
+
+   https://github.com/NVIDIA/MDL-SDK/tree/master/doc/specification
+
+Applications which use this media: NVIDIA® Material Definition 
+   Language (MDL) is a domain-specific language that describes the 
+   appearance of scene elements for a physically based rendering 
+   process. It allows sharing physically based appearances between 
+   supporting applications, for example, Adobe® Substance , Chaos 
+   Software EOOD V-Ray®, NVIDIA Omniverse™ and many others. An open 
+   source SDK is available to add MDL to custom applications. MDL can 
+   be used with USD and an extension is under development to use MDL 
+   as an alternative high quality material model within glTF.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: N/A
+
+Additional information:
+
+   1. Deprecated alias names for this type: N/A
+   2. Magic number(s): N/A
+   3. File extension(s): .mdl
+   4. Macintosh file type code: "TEXT"
+   5. Object Identifiers: N/A
+
+Person to contact for further information:
+
+   1. Name: Lutz Kettner
+   2. Email: lkettner&nvidia.com
+
+Intended usage: COMMON
+
+Author/Change controller: MDL is specified by the MDL specification 
+   group at NVIDIA Corporation, led by Lutz Kettner. NVIDIA has 
+   control over the MDL specification
