@@ -13,7 +13,7 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'hierarchical-hit-suite-id'">
+      <xsl:when test="@id = 'hierarchical-hit-suite-ids'">
         <tr>
           <th>HHIT Suite</th>
           <th>Value</th>
