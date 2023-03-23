@@ -1,0 +1,152 @@
+(registered 2023-03-23, last updated 2023-03-23)
+
+Media type name: model
+
+Media subtype name: vnd.bary
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+Security considerations: This media type does not contain active or 
+   executable content.
+
+   The information contained in the media type does not need privacy 
+   or integrity services. No integrity validation is available in 
+   BARY's standard properties; if you require this for your 
+   application, consider using BARY's extension mechanisms to add a 
+   new property containing the required data.
+
+   Always validate BARY data before reading it if it is not already 
+   known to be valid.
+
+   When accessing BARY byte ranges, check that the start and end of 
+   the range are within the bounds of the BARY file.
+
+   When overwriting a BARY file with new or modified data, the file 
+   truncation flag (if available) should be used when creating the 
+   file, to ensure any previous data is overwritten.
+
+   When adding padding to align buffers, ensure padding is 
+   initialized (for instance, set each octet in the padding to 0). 
+   Uninitialized data can contain information from prior allocations 
+   and should be overwritten.
+
+   When decompressing supercompressed data in BARY files, check that 
+   the uncompressed data size (stored with supercompression 
+   information) is within reasonable limits to avoid resource 
+   exhaustion.
+
+   If you are developing a new BARY reader or writer, consider 
+   fuzz-testing it with a tool such as libFuzzer. An example read and 
+   write fuzzer target is available as part of the NVIDIA® BARY 
+   library.
+
+   Non-standard (custom) BARY properties may have additional security 
+   considerations, as the standard implementation of the validation 
+   would not cover them.
+
+Interoperability considerations: BARY is cross-platform and stores 
+   integers using little-endian.
+
+   The BARY file format is versioned using semantic versioning. The 
+   version of the file format is stored in the 16-octet version 
+   identifier that starts BARY data. For more information, please see 
+   Other Information and Comments below.
+
+Published specification: The BARY reference implementation and 
+   pattern file is available at
+   https://github.com/NVIDIAGameWorks/Displacement-MicroMap-BaryFile
+
+   No formal specification is available as of this writing.
+
+Applications which use this media: BARY is used in the NVIDIA® 
+   Displacement Micro-Map Toolkit, NVIDIA Omniverse™, and the 
+   Simplygon™ SDK to store data for micro-meshes. An open-source SDK 
+   is available to add BARY to custom applications. Additionally, 
+   BARY can be used with the NV_micromap glTF extension and the USD 
+   BarycentricFileAPI schema.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: N/A
+
+Additional information:
+
+   1. Deprecated alias names for this type: N/A
+   2. Magic number(s): 6 octets { 0xAB 0x42 0x41 0x52 0x59 0x20 }
+   3. File extension(s): .bary
+   4. Macintosh file type code: N/A
+   5. Object Identifiers: N/A
+
+General Comments: BARY data starts with a 16-octet version 
+   identifier. This consists of BARY's 6-octet magic number (octets 
+   0xAB 0x42 0x41 0x52 0x59 0x20), followed by five octets 
+   representing ASCII digits, followed by the five octets 0xBB 0x0D 
+   0x0A 0x1A 0x0A.
+
+   These five ASCII digits, when interpreted as a 5-digit integer, 
+   store the version of the BARY format in 100*major + minor format 
+   (0 <= minor < 100). For instance, the five ASCII digits 00100 
+   ({0x30 0x30 0x31 0x30 0x30}) indicate BARY version 1.0. A version 
+   identifier where the five digits were 12345 ({0x31 0x32 0x33 0x34 
+   0x35}) would indicate BARY format version 123.45.
+
+   The values in this version identifier were chosen for the 
+   following properties, based on the KTX version 2 file identifier:
+
+   Octet 0 is a non-ASCII value, which reduces the chance of BARY 
+   files being interpreted as text. It also catches data transfers 
+   that may clear bit 7.
+
+   Octets 1 through and including 5 are the ASCII values for the 
+   string "BARY ", including a trailing space. As a result, this part 
+   of the version identifier combined with the five ASCII digits for 
+   BARY 1.0 reads "BARY 00100".
+
+   Octet 11 is for aesthetic balance with octet 1; they are a 
+   matching pair of double-angle quotation marks when interpreted as 
+   UTF-8 code points.
+
+   Octets 12 and 13 form a CR-LF sequence, which captures data 
+   transfers that alter newline sequences.
+
+   Octet 14 is a control-Z character, which stops file display under 
+   MS-DOS.
+
+   Octet 15 is a final line feed, which checks for data transfers 
+   that turn line feeds without carriage returns into CR-LF sequences.
+
+Person to contact for further information:
+
+   1. Name: Displaced Micro-Mesh SDK Support
+   2. Email: DisplacedMicroMesh-SDK-support&nvidia.com
+
+Intended usage: COMMON
+
+   BARY is a format designed for data sampled with barycentric 
+   coordinates over meshes. For instance, it can be used as a 
+   micro-map format: to store micro-triangle opacity for Opacity 
+   Micro-Meshes, micro-vertex displacements for Displaced 
+   Micro-Meshes, or other attributes such as micro-vertex colors.
+
+   In addition to a set of standard properties (which are 128-bit 
+   identifiers together with a byte range to binary data and 
+   supercompression information), BARY files can be extended to add 
+   custom properties.
+
+   Although BARY can optionally store base mesh positions using the 
+   eMeshPositions and eMeshTriangleIndices standard properties, the 
+   eMeshPositions and eMeshTriangleIndices properties are not 
+   intended as a standalone format for base meshes. They are intended 
+   to provide a way to determine which BARY file(s) a mesh uses if 
+   the correspondence between the two is lost. They can also be 
+   useful for debugging.
+
+Author/Change controller: 
+
+   NVIDIA Corporation
+   Christoph Kubisch (ckubisch&nvidia.com)
+   Neil Bickford (nbickford&nvidia.com)
