@@ -3,26 +3,26 @@
                                                    Protocol Independent Multicast (PIM) Parameters
 
    Last Updated
-           2022-01-31
+   2023-03-28
 
    Available Formats
-           [IMG]
-           XML [IMG]
-           HTML [IMG]
-           Plain text
+   [IMG]
+   XML [IMG]
+   HTML [IMG]
+   Plain text
 
    Registries included below
 
-     * PIM-Hello Options
-     * PIM Join Attribute Types
-     * PIM Address Family
-     * PIM Address Encoding Types
-     * PIM Message Types
-     * PORT Message Types
-     * PORT Option Types
-     * PIM Join/Prune Transport Types
-     * PIM Flooding Mechanism Message Types
-     * PIM Designated Router Load-Balancing Hash Algorithms
+     • PIM-Hello Options
+     • PIM Join Attribute Types
+     • PIM Address Family
+     • PIM Address Encoding Types
+     • PIM Message Types
+     • PORT Message Types
+     • PORT Option Types
+     • PIM Join/Prune Transport Types
+     • PIM Flooding Mechanism Message Types
+     • PIM Designated Router Load-Balancing Hash Algorithms
 
 PIM-Hello Options
 
@@ -35,11 +35,11 @@ PIM-Hello Options
  Stig Venaas and Jeffrey (Zhaohui) Zhang
 
    Reference
-           [RFC7761][RFC3973]
+   [RFC7761][RFC3973]
 
    Available Formats
-           [IMG]
-           CSV
+   [IMG]
+   CSV
 
       Value     Length                   Name                               Reference
         0               Reserved                                [RFC3973]
@@ -69,7 +69,8 @@ PIM-Hello Options
        37      variable DR Address Option                       [draft-ietf-pim-dr-improvement-10]
        38      variable BDR Address Option                      [draft-ietf-pim-dr-improvement-10]
        39         4     BFD Discriminator Option                [RFC9186]
-    40-65000      -     Unassigned
+       40         0     Packed Assert Capability                [RFC-ietf-pim-assert-packing-11]
+    41-65000      -     Unassigned
    65001-65535    -     Reserved (Private Use)
 
 PIM Join Attribute Types
@@ -79,11 +80,11 @@ PIM Join Attribute Types
  IETF Review
 
    Reference
-           [RFC5384]
+   [RFC5384]
 
    Available Formats
-           [IMG]
-           CSV
+   [IMG]
+   CSV
 
    Value          Name           Reference
      0   RPF Vector TLV          [RFC5496]
@@ -102,11 +103,11 @@ PIM Address Family
  IESG Approval
 
    Reference
-           [RFC3973][RFC7761]
+   [RFC3973][RFC7761]
 
    Available Formats
-           [IMG]
-           CSV
+   [IMG]
+   CSV
 
     Value                                             Description                                             Reference
     0-127  Same meaning as Address Family Numbers. See http://www.iana.org/assignments/address-family-numbers
@@ -120,11 +121,11 @@ PIM Address Encoding Types
  IETF Review
 
    Reference
-           [RFC5384][RFC7761][RFC7887]
+   [RFC5384][RFC7761][RFC7887]
 
    Available Formats
-           [IMG]
-           CSV
+   [IMG]
+   CSV
 
    Value                                       Description                                                Reference
      0   native encoding for the address family                                                   [RFC7761]
@@ -138,30 +139,35 @@ PIM Message Types
  IETF Review
 
    Reference
-           [RFC8736]
+   [RFC8736]
 
    Available Formats
-           [IMG]
-           CSV
+   [IMG]
+   CSV
 
-      Type               Name               Flag Bits        Reference
-       0      Hello                      0-7: Reserved   [RFC3973][RFC7761]
-       1      Register                   0-7: Reserved   [RFC7761]
-       2      Register Stop              0-7: Reserved   [RFC7761]
-       3      Join/Prune                 0-7: Reserved   [RFC3973][RFC7761]
-       4      Bootstrap                  0-6: Reserved   [RFC5059][RFC7761]
-                                         7: No-Forward   [RFC5059]
-       5      Assert                     0-7: Reserved   [RFC3973][RFC7761]
-       6      Graft                      0-7: Reserved   [RFC3973]
-       7      Graft-Ack                  0-7: Reserved   [RFC3973]
-       8      Candidate RP Advertisement 0-7: Reserved   [RFC7761]
-       9      State Refresh              0-7: Reserved   [RFC3973]
-       10     DF Election                0-3: Reserved   [RFC5015]
-                                         4-7: Subtype    [RFC5015]
-       11     ECMP Redirect              0-7: Reserved   [RFC6754]
-       12     PIM Flooding Mechanism     0-6: Reserved   [RFC8364]
-                                         7: No-Forward   [RFC8364]
-   13.0-15.15 Unassigned                 0-3: Unassigned
+      Type               Name                  Flag Bits                      Reference
+       0      Hello                      0-7: Reserved         [RFC3973][RFC7761]
+       1      Register                   0-7: Reserved         [RFC7761]
+       2      Register Stop              0: Packing Capability [RFC-ietf-pim-null-register-packing-16]
+                                         1-7: Reserved         [RFC7761]
+       3      Join/Prune                 0-7: Reserved         [RFC3973][RFC7761]
+       4      Bootstrap                  0-6: Reserved         [RFC5059][RFC7761]
+                                         7: No-Forward         [RFC5059]
+       5      Assert                     0: Packed             [RFC-ietf-pim-assert-packing-11]
+                                         1: Aggregated         [RFC-ietf-pim-assert-packing-11]
+                                         2-7: Unassigned       [RFC3973][RFC7761]
+       6      Graft                      0-7: Reserved         [RFC3973]
+       7      Graft-Ack                  0-7: Reserved         [RFC3973]
+       8      Candidate RP Advertisement 0-7: Reserved         [RFC7761]
+       9      State Refresh              0-7: Reserved         [RFC3973]
+       10     DF Election                0-3: Reserved         [RFC5015]
+                                         4-7: Subtype          [RFC5015]
+       11     ECMP Redirect              0-7: Reserved         [RFC6754]
+       12     PIM Flooding Mechanism     0-6: Reserved         [RFC8364]
+                                         7: No-Forward         [RFC8364]
+      13.0    PIM Packed Null-Register   0-3: Unassigned       [RFC-ietf-pim-null-register-packing-16]
+      13.1    PIM Packed Register-Stop   0-3: Unassigned       [RFC-ietf-pim-null-register-packing-16]
+   13.2-15.15 Unassigned                 0-3: Unassigned       [RFC8736]
 
 PORT Message Types
 
@@ -170,11 +176,11 @@ PORT Message Types
  RFC Required
 
    Reference
-           [RFC6559]
+   [RFC6559]
 
    Available Formats
-           [IMG]
-           CSV
+   [IMG]
+   CSV
 
       Type         Name     Reference
         0      Reserved     [RFC6559]
@@ -190,11 +196,11 @@ PORT Option Types
  RFC Required
 
    Reference
-           [RFC6559]
+   [RFC6559]
 
    Available Formats
-           [IMG]
-           CSV
+   [IMG]
+   CSV
 
       Type                  Name               Reference
         0      Reserved                        [RFC6559]
@@ -212,11 +218,11 @@ PIM Join/Prune Transport Types
  IETF Review
 
    Reference
-           [RFC8059]
+   [RFC8059]
 
    Available Formats
-           [IMG]
-           CSV
+   [IMG]
+   CSV
 
    Value Description Reference
      0   multicast   [RFC8059]
@@ -230,11 +236,11 @@ PIM Flooding Mechanism Message Types
  IETF Review
 
    Reference
-           [RFC8364]
+   [RFC8364]
 
    Available Formats
-           [IMG]
-           CSV
+   [IMG]
+   CSV
 
     Type           Name          Reference
       0    Reserved              [RFC8364]
@@ -248,11 +254,11 @@ PIM Designated Router Load-Balancing Hash Algorithms
  IETF Review
 
    Reference
-           [RFC8775]
+   [RFC8775]
 
    Available Formats
-           [IMG]
-           CSV
+   [IMG]
+   CSV
 
    Type     Name    Reference
      0   Modulo     [RFC8775]
