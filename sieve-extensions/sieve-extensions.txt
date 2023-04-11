@@ -3,30 +3,31 @@
                                                                    Sieve Extensions
 
    Created
-           2000-11
+   2000-11
 
    Last Updated
-           2021-11-02
+   2023-04-11
 
    Available Formats
-           [IMG]
-           XML [IMG]
-           HTML [IMG]
-           Plain text
+   [IMG]
+   XML [IMG]
+   HTML [IMG]
+   Plain text
 
    Registries included below
 
-     * Sieve Extensions
-     * Sieve URN Parameters
+     • Sieve Extensions
+     • Sieve URN Parameters
+     • Sieve Actions
 
 Sieve Extensions
 
    Reference
-           [RFC5228]
+   [RFC5228]
 
    Available Formats
-           [IMG]
-           CSV
+   [IMG]
+   CSV
 
                       Range                                 Registration Procedures
    vendor-controlled (name begins with "vnd.") First Come First Served
@@ -222,14 +223,160 @@ Sieve URN Parameters
  Unassigned
 
    Reference
-           [RFC6134]
+   [RFC6134]
 
    Available Formats
-           [IMG]
-           CSV
+   [IMG]
+   CSV
 
    URN Parameter Name       Reference
    addrbook           [RFC6134], section 2.6
+
+Sieve Actions
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-extra-sieve-action-registry-06]
+
+   Available Formats
+   [IMG]
+   CSV
+
+                                                                                                                          Cancels  Can Use
+       Name      Description                         References                           Capabilities         Action     Implicit  With   Comments
+                                                                                                            Interactions   Keep?    IMAP
+                                                                                                                                   Events?
+                                                                                                            All
+                Add a header                                                                                subsequent
+                field to the                                                                                tests and
+   addheader    existing       [RFC5293]                                              "editheader"          actions apply No       Yes
+                message header                                                                              to the
+                                                                                                            altered
+                                                                                                            message
+                Add IMAP flags
+                to a list of
+                IMAP flags
+   addflag      that would be  [RFC5232][RFC5229]                                     "imap4flags",                       No       Yes
+                set on the                                                            "variables"
+                message if it
+                gets delivered
+                to a mailbox
+                                                                                                            All
+                Convert body                                                                                subsequent
+                parts from one                                                                              tests and
+   convert      MIME type to   [RFC6558]                                              "convert"             actions apply No       Yes
+                another                                                                                     to the
+                                                                                                            altered
+                                                                                                            message
+                                                                                                            All
+                Remove a                                                                                    subsequent
+                header field                                                                                tests and
+   deleteheader from the       [RFC5293]                                              "editheader"          actions apply No       Yes
+                existing                                                                                    to the
+                message header                                                                              altered
+                                                                                                            message
+                Silently throw
+   discard      away the       [RFC5228]                                                                                  Yes      Yes
+                message
+                                                                                                            All
+                                                                                                            subsequent
+                Enclose a                                                                                   tests and
+                message as an                                                                               actions,
+   enclose      attachment to  [RFC5703]                                              "enclose"             except        No       Yes
+                a new message                                                                               "redirect"
+                                                                                                            apply to the
+                                                                                                            altered
+                                                                                                            message
+                                                                                                            Incompatible
+                                                                                                            with
+                                                                                                            "vacation"
+                                                                                                            action.
+                                                                                                            Typically is
+                                                                                                            not permitted
+                Refuse                                                                                      with actions
+   ereject      delivery of    [RFC5429]                                              "ereject"             that cause    Yes      No
+                the message                                                                                 mail
+                                                                                                            delivery,
+                                                                                                            such as
+                                                                                                            "keep",
+                                                                                                            "fileinto",
+                                                                                                            and
+                                                                                                            "redirect".
+                Store text of
+   extracttext  a MIME part    [RFC5703][RFC5229]                                     "extracttext",                      No       Yes
+                into a                                                                "variables"
+                variable
+                Deliver the                                                           "fileinto", "copy",   Use of :copy
+                message into                                                          "imap4flags",         suppresses
+   fileinto     the specified  [RFC5228][RFC3894][RFC5232][RFC5490][RFC9042][RFC8579] "mailbox",            cancelation   Yes      Yes
+                mailbox                                                               "mailboxid",          of implicit
+                                                                                      "special-use"         keep
+                File message
+   keep         into the       [RFC5228][RFC5232]                                     "imap4flags"                        Yes      Yes
+                user's main
+                mailbox
+                Send a
+   notify       notification   [RFC5435][RFC8580]                                     "enotify", "fcc"                    No       Yes
+                to a user
+                                                                                      "copy",               Use of :copy
+                Send (forward)                                                        "redirect-dsn",       suppresses
+   redirect     the message to [RFC5228][RFC3894][RFC6009][RFC6134]                   "redirect-deliverby", cancelation   Yes      Yes
+                another user                                                          "extlists"            of implicit
+                                                                                                            keep
+                                                                                                            Incompatible
+                                                                                                            with
+                                                                                                            "vacation"
+                                                                                                            action.
+                                                                                                            Typically is
+                                                                                                            not permitted
+                Refuse                                                                                      with actions
+   reject       delivery of    [RFC5429]                                              "reject"              that cause    Yes      No
+                the message                                                                                 mail
+                                                                                                            delivery,
+                                                                                                            such as
+                                                                                                            "keep",
+                                                                                                            "fileinto",
+                                                                                                            and
+                                                                                                            "redirect".
+                Remove IMAP
+                flags from a
+                list of IMAP
+                flags that                                                            "imap4flags",
+   removeflag   would be set   [RFC5232][RFC5229]                                     "variables"                         No       Yes
+                on the message
+                if it gets
+                delivered to a
+                mailbox
+                                                                                                            All
+                                                                                                            subsequent
+                                                                                                            tests and
+                Replace a MIME                                                                              actions,
+   replace      part           [RFC5703]                                              "replace"             except        No       Yes
+                                                                                                            "redirect"
+                                                                                                            apply to the
+                                                                                                            altered
+                                                                                                            message
+   set          Store a value  [RFC5229]                                              "variables"                         No       Yes
+                in a variable
+                Set IMAP
+                system flags
+                or keywords
+   setflag      that would be  [RFC5232][RFC5229]                                     "imap4flags",                       No       Yes
+                set on the                                                            "variables"
+                message if it
+                gets delivered
+                to a mailbox
+                                                                                      "vacation",           Incompatible
+   vacation     Vacation       [RFC5230][RFC6131][RFC8580]                            "vacation-seconds",   with "reject" No       No
+                autoresponder                                                         "fcc"                 and "ereject"
+                                                                                                            actions.
 
                                                                  Contact Information
 

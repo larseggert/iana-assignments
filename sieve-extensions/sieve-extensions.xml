@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="sieve-extensions">
   <title>Sieve Extensions</title>
   <created>2000-11</created>
-  <updated>2021-11-02</updated>
+  <updated>2023-04-11</updated>
   <category>Sieve Extensions</category>
   
   <registry id="sieve-extensions-2">
@@ -18,7 +18,7 @@
       <value>IETF-controlled (no "vnd." prefix)</value>
       <registration_rule>Standards track or IESG-approved experimental RFC</registration_rule>
     </range>
-    
+ 
     <record>
       <name>body</name>
       <description>Provides a test for matching against the
@@ -525,9 +525,211 @@ the Dovecot Secure IMAP server (<xref type="uri" data="http://www.dovecot.org"/>
       <name>addrbook</name>
       <rfc><xref type="rfc" data="rfc6134"/>, section 2.6</rfc>
     </record>
-    </registry>
+  </registry>
   
-  
+  <registry id="sieve-actions">
+    <title>Sieve Actions</title>
+    <xref type="draft" data="RFC-ietf-extra-sieve-action-registry-06"/>
+    <registration_rule>Expert Review</registration_rule>
+    <expert>Unassigned</expert>
+    <record date="2023-04-11">
+      <name>addheader</name>
+      <description>Add a header field to the existing message header</description>
+      <xref type="rfc" data="rfc5293"/>
+      <capabilities>"editheader"</capabilities>
+      <action>All subsequent tests and actions apply to the altered message</action>
+      <cancels>No</cancels>
+      <imap>Yes</imap>
+      <comments/>
+    </record>
+    <record date="2023-04-11">
+      <name>addflag</name>
+      <description>Add IMAP flags to a list of IMAP flags that would be set on the message if it gets delivered to a mailbox</description>
+      <xref type="rfc" data="rfc5232"/>
+      <xref type="rfc" data="rfc5229"/>
+      <capabilities>"imap4flags", "variables"</capabilities>
+      <action/>
+      <cancels>No</cancels>
+      <imap>Yes</imap>
+      <comments/>
+    </record>
+    <record date="2023-04-11">
+      <name>convert</name>
+      <description>Convert body parts from one MIME type to another</description>
+      <xref type="rfc" data="rfc6558"/>
+      <capabilities>"convert"</capabilities>
+      <action>All subsequent tests and actions apply to the altered message</action>
+      <cancels>No</cancels>
+      <imap>Yes</imap>
+      <comments/>
+    </record>
+    <record date="2023-04-11">
+      <name>deleteheader</name>
+      <description>Remove a header field from the existing message header</description>
+      <xref type="rfc" data="rfc5293"/>
+      <capabilities>"editheader"</capabilities>
+      <action>All subsequent tests and actions apply to the altered message</action>
+      <cancels>No</cancels>
+      <imap>Yes</imap>
+      <comments/>
+    </record>
+    <record date="2023-04-11">
+      <name>discard</name>
+      <description>Silently throw away the message</description>
+      <xref type="rfc" data="rfc5228"/>
+      <capabilities/>
+      <action/>
+      <cancels>Yes</cancels>
+      <imap>Yes</imap>
+      <comments/>
+    </record>
+    <record date="2023-04-11">
+      <name>enclose</name>
+      <description>Enclose a message as an attachment to a new message</description>
+      <xref type="rfc" data="rfc5703"/>
+      <capabilities>"enclose"</capabilities>
+      <action>All subsequent tests and actions, except "redirect" apply to the altered message</action>
+      <cancels>No</cancels>
+      <imap>Yes</imap>
+      <comments/>
+    </record>
+    <record date="2023-04-11">
+      <name>ereject</name>
+      <description>Refuse delivery of the message</description>
+      <xref type="rfc" data="rfc5429"/>
+      <capabilities>"ereject"</capabilities>
+      <action>Incompatible with "vacation" action. Typically is not permitted with actions that cause mail delivery, such as "keep", "fileinto", and "redirect".</action>
+      <cancels>Yes</cancels>
+      <imap>No</imap>
+      <comments/>
+    </record>
+    <record date="2023-04-11">
+      <name>extracttext</name>
+      <description>Store text of a MIME part into a variable</description>
+      <xref type="rfc" data="rfc5703"/>
+      <xref type="rfc" data="rfc5229"/>
+      <capabilities>"extracttext", "variables"</capabilities>
+      <action/>
+      <cancels>No</cancels>
+      <imap>Yes</imap>
+      <comments/>
+    </record>
+    <record date="2023-04-11">
+      <name>fileinto</name>
+      <description>Deliver the message into the specified mailbox</description>
+      <xref type="rfc" data="rfc5228"/>
+      <xref type="rfc" data="rfc3894"/>
+      <xref type="rfc" data="rfc5232"/>
+      <xref type="rfc" data="rfc5490"/>
+      <xref type="rfc" data="rfc9042"/>
+      <xref type="rfc" data="rfc8579"/>
+      <capabilities>"fileinto", "copy", "imap4flags", "mailbox", "mailboxid", "special-use"</capabilities>
+      <action>Use of :copy suppresses cancelation of implicit keep</action>
+      <cancels>Yes</cancels>
+      <imap>Yes</imap>
+      <comments/>
+    </record>
+    <record date="2023-04-11">
+      <name>keep</name>
+      <description>File message into the user's main mailbox</description>
+      <xref type="rfc" data="rfc5228"/>
+      <xref type="rfc" data="rfc5232"/>
+      <capabilities>"imap4flags"</capabilities>
+      <action/>
+      <cancels>Yes</cancels>
+      <imap>Yes</imap>
+      <comments/>
+    </record>
+    <record date="2023-04-11">
+      <name>notify</name>
+      <description>Send a notification to a user</description>
+      <xref type="rfc" data="rfc5435"/>
+      <xref type="rfc" data="rfc8580"/>
+      <capabilities>"enotify", "fcc"</capabilities>
+      <action/>
+      <cancels>No</cancels>
+      <imap>Yes</imap>
+      <comments/>
+    </record>
+    <record date="2023-04-11">
+      <name>redirect</name>
+      <description>Send (forward) the message to another user</description>
+      <xref type="rfc" data="rfc5228"/>
+      <xref type="rfc" data="rfc3894"/>
+      <xref type="rfc" data="rfc6009"/>
+      <xref type="rfc" data="rfc6134"/>
+      <capabilities>"copy", "redirect-dsn", "redirect-deliverby", "extlists"</capabilities>
+      <action>Use of :copy suppresses cancelation of implicit keep</action>
+      <cancels>Yes</cancels>
+      <imap>Yes</imap>
+      <comments/>
+    </record>
+    <record date="2023-04-11">
+      <name>reject</name>
+      <description>Refuse delivery of the message</description>
+      <xref type="rfc" data="rfc5429"/>
+      <capabilities>"reject"</capabilities>
+      <action>Incompatible with "vacation" action. Typically is not permitted with actions that cause mail delivery, such as "keep", "fileinto", and "redirect".</action>
+      <cancels>Yes</cancels>
+      <imap>No</imap>
+      <comments/>
+    </record>
+    <record date="2023-04-11">
+      <name>removeflag</name>
+      <description>Remove IMAP flags from a list of IMAP flags that would be set on the message if it gets delivered to a mailbox</description>
+      <xref type="rfc" data="rfc5232"/>
+      <xref type="rfc" data="rfc5229"/>
+      <capabilities>"imap4flags", "variables"</capabilities>
+      <action/>
+      <cancels>No</cancels>
+      <imap>Yes</imap>
+      <comments/>
+    </record>
+    <record date="2023-04-11">
+      <name>replace</name>
+      <description>Replace a MIME part</description>
+      <xref type="rfc" data="rfc5703"/>
+      <capabilities>"replace"</capabilities>
+      <action>All subsequent tests and actions, except "redirect" apply to the altered message</action>
+      <cancels>No</cancels>
+      <imap>Yes</imap>
+      <comments/>
+    </record>
+    <record date="2023-04-11">
+      <name>set</name>
+      <description>Store a value in a variable</description>
+      <xref type="rfc" data="rfc5229"/>
+      <capabilities>"variables"</capabilities>
+      <action/>
+      <cancels>No</cancels>
+      <imap>Yes</imap>
+      <comments/>
+    </record>
+    <record date="2023-04-11">
+      <name>setflag</name>
+      <description>Set IMAP system flags or keywords that would be set on the message if it gets delivered to a mailbox</description>
+      <xref type="rfc" data="rfc5232"/>
+      <xref type="rfc" data="rfc5229"/>
+      <capabilities>"imap4flags", "variables"</capabilities>
+      <action/>
+      <cancels>No</cancels>
+      <imap>Yes</imap>
+      <comments/>
+    </record>
+    <record date="2023-04-11">
+      <name>vacation</name>
+      <description>Vacation autoresponder</description>
+      <xref type="rfc" data="rfc5230"/>
+      <xref type="rfc" data="rfc6131"/>
+      <xref type="rfc" data="rfc8580"/>
+      <capabilities>"vacation", "vacation-seconds", "fcc"</capabilities>
+      <action>Incompatible with "reject" and "ereject" actions.</action>
+      <cancels>No</cancels>
+      <imap>No</imap>
+      <comments/>
+    </record>
+  </registry>
+
   <people>
   <person id="EXTRA_discussion_list">
       <name>EXTRA discussion list</name>

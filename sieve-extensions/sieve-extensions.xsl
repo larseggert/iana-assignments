@@ -20,8 +20,21 @@
        <th>Reference</th>
       </tr>
      </xsl:when>
+     <xsl:when test="@id = 'sieve-actions'">
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>References</th>
+        <th>Capabilities</th>
+        <th>Action Interactions</th>
+        <th>Cancels Implicit Keep?</th>
+        <th>Can Use With IMAP Events?</th>
+        <th>Comments</th>
+      </tr>
+     </xsl:when>
     </xsl:choose>
   </xsl:template>
+
   <xsl:template match="iana:record">
     <xsl:choose>
      
@@ -38,6 +51,18 @@
       <tr>
        <td><xsl:value-of select="iana:name"/></td>
        <td><xsl:apply-templates select="iana:rfc"/></td>
+      </tr>
+     </xsl:when>
+     <xsl:when test="../@id = 'sieve-actions'">
+      <tr>
+       <td><xsl:value-of select="iana:name"/></td>
+       <td><xsl:apply-templates select="iana:description"/></td>
+       <td><xsl:apply-templates select="iana:xref"/></td>
+       <td><xsl:apply-templates select="iana:capabilities"/></td>
+       <td><xsl:apply-templates select="iana:action"/></td>
+       <td><xsl:apply-templates select="iana:cancels"/></td>
+       <td><xsl:apply-templates select="iana:imap"/></td>
+       <td><xsl:apply-templates select="iana:comments"/></td>
       </tr>
      </xsl:when>
     </xsl:choose>
