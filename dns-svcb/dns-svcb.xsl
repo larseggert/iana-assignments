@@ -10,8 +10,9 @@
           <th>Number</th>
           <th>Name</th>
           <th>Meaning</th>
-          <th>Reference</th>
+          <th>Format Reference</th>
           <th>Change Controller</th>
+          <th>Reference</th>
         </tr>
       </xsl:when>
     </xsl:choose>
@@ -24,8 +25,9 @@
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:format"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
     </xsl:choose>
