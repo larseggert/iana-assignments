@@ -27,7 +27,7 @@
       <xsl:when test="../@id = 'rolie-information-types'">
         <tr>
           <td><xsl:value-of select="iana:name"/></td>
-          <td align="center"><xsl:value-of select="index"/></td>       
+          <td><xsl:value-of select="iana:index"/></td>       
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
