@@ -66,6 +66,13 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'dhcpv6-options-attribute'">
+        <tr>
+          <th>Value</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 

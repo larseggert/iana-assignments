@@ -63,6 +63,12 @@
       <xsl:when test="@id = 'vss-type'">
         <tr><th>Type</th><th>Name</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'radius-attributes-sub-option'">
+        <tr><th>Type Code</th><th>Attribute</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'dhcpv4-options-atrribute'">
+        <tr><th>Tag</th><th>Name</th><th>Reference</th></tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
