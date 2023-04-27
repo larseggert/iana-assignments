@@ -6,7 +6,7 @@
    2013-09-19
 
    Last Updated
-   2023-03-14
+   2023-04-26
 
    Available Formats
    [IMG]
@@ -41,343 +41,229 @@ CBOR Tags
    24-32767                   Specification Required
    32768-18446744073709551615 First Come First Served
 
-              Tag                     Data Item                 Semantics                                                               Reference                                                           Template
-0                               text string           Standard date/time string;    [RFC8949]
-                                                      see Section 3.4.1
-1                               integer or float      Epoch-based date/time; see    [RFC8949]
-                                                      Section 3.4.2
-2                               byte string           Positive bignum; see Section  [RFC8949]
-                                                      3.4.3
-3                               byte string           Negative bignum; see Section  [RFC8949]
-                                                      3.4.3
-4                               array                 Decimal fraction; see Section [RFC8949]
-                                                      3.4.4
-5                               array                 Bigfloat; see Section 3.4.4   [RFC8949]
+              Tag                     Data Item                                       Semantics                                                                                     Reference                                                            Template
+0                               text string           Standard date/time string; see Section 3.4.1                              [RFC8949]
+1                               integer or float      Epoch-based date/time; see Section 3.4.2                                  [RFC8949]
+2                               byte string           Positive bignum; see Section 3.4.3                                        [RFC8949]
+3                               byte string           Negative bignum; see Section 3.4.3                                        [RFC8949]
+4                               array                 Decimal fraction; see Section 3.4.4                                       [RFC8949]
+5                               array                 Bigfloat; see Section 3.4.4                                               [RFC8949]
 6-15                            Unassigned
-16                              COSE_Encrypt0         COSE Single Recipient         [RFC9052]
-                                                      Encrypted Data Object
-17                              COSE_Mac0             COSE Mac w/o Recipients       [RFC9052]
-                                                      Object
-18                              COSE_Sign1            COSE Single Signer Data       [RFC9052]
-                                                      Object
-19                              COSE_Countersignature COSE standalone V2            [RFC9338]
-                                                      countersignature
+16                              COSE_Encrypt0         COSE Single Recipient Encrypted Data Object                               [RFC9052]
+17                              COSE_Mac0             COSE Mac w/o Recipients Object                                            [RFC9052]
+18                              COSE_Sign1            COSE Single Signer Data Object                                            [RFC9052]
+19                              COSE_Countersignature COSE standalone V2 countersignature                                       [RFC9338]
 20                              Unassigned
-                                                      Expected conversion to
-21                              (any)                 base64url encoding; see       [RFC8949]
-                                                      Section 3.4.5.2
-22                              (any)                 Expected conversion to base64 [RFC8949]
-                                                      encoding; see Section 3.4.5.2
-23                              (any)                 Expected conversion to base16 [RFC8949]
-                                                      encoding; see Section 3.4.5.2
-24                              byte string           Encoded CBOR data item; see   [RFC8949]
-                                                      Section 3.4.5.1
-25                              unsigned integer      reference the nth previously  [http://cbor.schmorp.de/stringref][Marc_A._Lehmann]
-                                                      seen string
-                                                      Serialised Perl object with
-26                              array                 classname and constructor     [http://cbor.schmorp.de/perl-object][Marc_A._Lehmann]
+21                              (any)                 Expected conversion to base64url encoding; see Section 3.4.5.2            [RFC8949]
+22                              (any)                 Expected conversion to base64 encoding; see Section 3.4.5.2               [RFC8949]
+23                              (any)                 Expected conversion to base16 encoding; see Section 3.4.5.2               [RFC8949]
+24                              byte string           Encoded CBOR data item; see Section 3.4.5.1                               [RFC8949]
+25                              unsigned integer      reference the nth previously seen string                                  [http://cbor.schmorp.de/stringref][Marc_A._Lehmann]
+26                              array                 Serialised Perl object with classname and constructor arguments           [http://cbor.schmorp.de/perl-object][Marc_A._Lehmann]
+27                              array                 Serialised language-independent object with type name and constructor     [http://cbor.schmorp.de/generic-object][Marc_A._Lehmann]
                                                       arguments
-                                                      Serialised
-27                              array                 language-independent object   [http://cbor.schmorp.de/generic-object][Marc_A._Lehmann]
-                                                      with type name and
-                                                      constructor arguments
-28                              multiple              mark value as (potentially)   [http://cbor.schmorp.de/value-sharing][Marc_A._Lehmann]
-                                                      shared
-29                              unsigned integer      reference nth marked value    [http://cbor.schmorp.de/value-sharing][Marc_A._Lehmann]
-30                              array                 Rational number               [http://peteroupc.github.io/CBOR/rational.html][Peter_Occil]
-31                              Undefined (0xf7)      Absent value in a CBOR Array  [https://github.com/svaarala/cbor-specs/blob/master/cbor-absent-tag.rst][Sami_Vaarala]
-32                              text string           URI; see Section 3.4.5.3      [RFC8949]
-33                              text string           base64url; see Section        [RFC8949]
-                                                      3.4.5.3
-34                              text string           base64; see Section 3.4.5.3   [RFC8949]
-35                              UTF-8 string          Regular expression; see       [RFC7049]
-                                                      Section 2.4.4.3
-36                              text string           MIME message; see Section     [RFC8949]
-                                                      3.4.5.3
-37                              byte string           Binary UUID ([RFC4122,        [https://github.com/lucas-clemente/cbor-specs/blob/master/uuid.md][Lucas_Clemente]
-                                                      Section 4.1.2])
-38                              array                 Language-tagged string        [RFC9290, Appendix A]
-39                              multiple              Identifier                    [https://github.com/lucas-clemente/cbor-specs/blob/master/id.md][Lucas_Clemente]
-40                              array of two arrays   Multi-dimensional Array,      [RFC8746]
-                                [1]                   row-major order
-41                              array                 Homogeneous Array             [RFC8746]
-42                              byte string           IPLD content identifier       [https://github.com/ipld/cid-cbor/][Volker_Mische]
-43                              text string           YANG bits datatype; see       [RFC9254]
-                                                      Section 6.7.
-44                              text string           YANG enumeration datatype;    [RFC9254]
-                                                      see Section 6.6.
-45                              unsigned integer or   YANG identityref datatype;    [RFC9254]
-                                text string           see Section 6.10.
-46                              unsigned integer or   YANG instance-identifier      [RFC9254]
-                                text string or array  datatype; see Section 6.13.
-47                              unsigned integer      YANG Schema Item iDentifier   [RFC9254]
-                                                      (sid); see Section 3.2.
+28                              multiple              mark value as (potentially) shared                                        [http://cbor.schmorp.de/value-sharing][Marc_A._Lehmann]
+29                              unsigned integer      reference nth marked value                                                [http://cbor.schmorp.de/value-sharing][Marc_A._Lehmann]
+30                              array                 Rational number                                                           [http://peteroupc.github.io/CBOR/rational.html][Peter_Occil]
+31                              Undefined (0xf7)      Absent value in a CBOR Array                                              [https://github.com/svaarala/cbor-specs/blob/master/cbor-absent-tag.rst][Sami_Vaarala]
+32                              text string           URI; see Section 3.4.5.3                                                  [RFC8949]
+33                              text string           base64url; see Section 3.4.5.3                                            [RFC8949]
+34                              text string           base64; see Section 3.4.5.3                                               [RFC8949]
+35                              UTF-8 string          Regular expression; see Section 2.4.4.3                                   [RFC7049]
+36                              text string           MIME message; see Section 3.4.5.3                                         [RFC8949]
+37                              byte string           Binary UUID ([RFC4122, Section 4.1.2])                                    [https://github.com/lucas-clemente/cbor-specs/blob/master/uuid.md][Lucas_Clemente]
+38                              array                 Language-tagged string                                                    [RFC9290, Appendix A]
+39                              multiple              Identifier                                                                [https://github.com/lucas-clemente/cbor-specs/blob/master/id.md][Lucas_Clemente]
+40                              array of two arrays   Multi-dimensional Array, row-major order                                  [RFC8746]
+                                [1]
+41                              array                 Homogeneous Array                                                         [RFC8746]
+42                              byte string           IPLD content identifier                                                   [https://github.com/ipld/cid-cbor/][Volker_Mische]
+43                              text string           YANG bits datatype; see Section 6.7.                                      [RFC9254]
+44                              text string           YANG enumeration datatype; see Section 6.6.                               [RFC9254]
+45                              unsigned integer or   YANG identityref datatype; see Section 6.10.                              [RFC9254]
+                                text string
+46                              unsigned integer or   YANG instance-identifier datatype; see Section 6.13.                      [RFC9254]
+                                text string or array
+47                              unsigned integer      YANG Schema Item iDentifier (sid); see Section 3.2.                       [RFC9254]
 48-51                           Unassigned
-52                              byte string or array  IPv4, [prefixlen,IPv4],       [RFC9164]
-                                                      [IPv4,prefixpart]
+52                              byte string or array  IPv4, [prefixlen,IPv4], [IPv4,prefixpart]                                 [RFC9164]
 53                              Unassigned
-54                              byte string or array  IPv6, [prefixlen,IPv6],       [RFC9164]
-                                                      [IPv6,prefixpart]
+54                              byte string or array  IPv6, [prefixlen,IPv6], [IPv6,prefixpart]                                 [RFC9164]
 55-60                           Unassigned
-61                              CBOR Web Token (CWT)  CBOR Web Token (CWT)          [RFC8392][Michael_B._Jones]
+61                              CBOR Web Token (CWT)  CBOR Web Token (CWT)                                                      [RFC8392][Michael_B._Jones]
 62                              Unassigned
-63                              byte string           Encoded CBOR Sequence         [draft-bormann-cbor-notable-tags-02, Section 2.1]
-                                                      [RFC8742]
-64                              byte string           uint8 Typed Array             [RFC8746]
-65                              byte string           uint16, big endian, Typed     [RFC8746]
-                                                      Array
-66                              byte string           uint32, big endian, Typed     [RFC8746]
-                                                      Array
-67                              byte string           uint64, big endian, Typed     [RFC8746]
-                                                      Array
-68                              byte string           uint8 Typed Array, clamped    [RFC8746]
-                                                      arithmetic
-69                              byte string           uint16, little endian, Typed  [RFC8746]
-                                                      Array
-70                              byte string           uint32, little endian, Typed  [RFC8746]
-                                                      Array
-71                              byte string           uint64, little endian, Typed  [RFC8746]
-                                                      Array
-72                              byte string           sint8 Typed Array             [RFC8746]
-73                              byte string           sint16, big endian, Typed     [RFC8746]
-                                                      Array
-74                              byte string           sint32, big endian, Typed     [RFC8746]
-                                                      Array
-75                              byte string           sint64, big endian, Typed     [RFC8746]
-                                                      Array
-76                              byte string           (reserved)                    [RFC8746]
-77                              byte string           sint16, little endian, Typed  [RFC8746]
-                                                      Array
-78                              byte string           sint32, little endian, Typed  [RFC8746]
-                                                      Array
-79                              byte string           sint64, little endian, Typed  [RFC8746]
-                                                      Array
-80                              byte string           IEEE 754 binary16, big        [RFC8746]
-                                                      endian, Typed Array
-81                              byte string           IEEE 754 binary32, big        [RFC8746]
-                                                      endian, Typed Array
-82                              byte string           IEEE 754 binary64, big        [RFC8746]
-                                                      endian, Typed Array
-83                              byte string           IEEE 754 binary128, big       [RFC8746]
-                                                      endian, Typed Array
-84                              byte string           IEEE 754 binary16, little     [RFC8746]
-                                                      endian, Typed Array
-85                              byte string           IEEE 754 binary32, little     [RFC8746]
-                                                      endian, Typed Array
-86                              byte string           IEEE 754 binary64, little     [RFC8746]
-                                                      endian, Typed Array
-87                              byte string           IEEE 754 binary128, little    [RFC8746]
-                                                      endian, Typed Array
+63                              byte string           Encoded CBOR Sequence [RFC8742]                                           [draft-bormann-cbor-notable-tags-02, Section 2.1]
+64                              byte string           uint8 Typed Array                                                         [RFC8746]
+65                              byte string           uint16, big endian, Typed Array                                           [RFC8746]
+66                              byte string           uint32, big endian, Typed Array                                           [RFC8746]
+67                              byte string           uint64, big endian, Typed Array                                           [RFC8746]
+68                              byte string           uint8 Typed Array, clamped arithmetic                                     [RFC8746]
+69                              byte string           uint16, little endian, Typed Array                                        [RFC8746]
+70                              byte string           uint32, little endian, Typed Array                                        [RFC8746]
+71                              byte string           uint64, little endian, Typed Array                                        [RFC8746]
+72                              byte string           sint8 Typed Array                                                         [RFC8746]
+73                              byte string           sint16, big endian, Typed Array                                           [RFC8746]
+74                              byte string           sint32, big endian, Typed Array                                           [RFC8746]
+75                              byte string           sint64, big endian, Typed Array                                           [RFC8746]
+76                              byte string           (reserved)                                                                [RFC8746]
+77                              byte string           sint16, little endian, Typed Array                                        [RFC8746]
+78                              byte string           sint32, little endian, Typed Array                                        [RFC8746]
+79                              byte string           sint64, little endian, Typed Array                                        [RFC8746]
+80                              byte string           IEEE 754 binary16, big endian, Typed Array                                [RFC8746]
+81                              byte string           IEEE 754 binary32, big endian, Typed Array                                [RFC8746]
+82                              byte string           IEEE 754 binary64, big endian, Typed Array                                [RFC8746]
+83                              byte string           IEEE 754 binary128, big endian, Typed Array                               [RFC8746]
+84                              byte string           IEEE 754 binary16, little endian, Typed Array                             [RFC8746]
+85                              byte string           IEEE 754 binary32, little endian, Typed Array                             [RFC8746]
+86                              byte string           IEEE 754 binary64, little endian, Typed Array                             [RFC8746]
+87                              byte string           IEEE 754 binary128, little endian, Typed Array                            [RFC8746]
 88-95                           Unassigned
-96                              COSE_Encrypt          COSE Encrypted Data Object    [RFC9052]
-97                              COSE_Mac              COSE MACed Data Object        [RFC9052]
-98                              COSE_Sign             COSE Signed Data Object       [RFC9052]
+96                              COSE_Encrypt          COSE Encrypted Data Object                                                [RFC9052]
+97                              COSE_Mac              COSE MACed Data Object                                                    [RFC9052]
+98                              COSE_Sign             COSE Signed Data Object                                                   [RFC9052]
 99                              Unassigned
-100                             Unsigned or negative  Number of days since the      [RFC8943]
-                                integer               epoch date 1970-01-01
-101                             array [uint, any]     alternatives as given by the  [draft-bormann-cbor-notable-tags-07]
-                                                      uint + 128; see Section 9.1
+100                             Unsigned or negative  Number of days since the epoch date 1970-01-01                            [RFC8943]
+                                integer
+101                             array [uint, any]     alternatives as given by the uint + 128; see Section 9.1                  [draft-bormann-cbor-notable-tags-07]
 102                             Unassigned
-103                             array                 Geographic Coordinates        [https://github.com/allthingstalk/cbor/blob/master/CBOR-Tag103-Geographic-Coordinates.md][Danilo_Vidovic]
-                                                      Geographic Coordinate
-104                             multiple              Reference System WKT or EPSG  [draft-clarke-cbor-crs]
-                                                      number
+103                             array                 Geographic Coordinates                                                    [https://github.com/allthingstalk/cbor/blob/master/CBOR-Tag103-Geographic-Coordinates.md][Danilo_Vidovic]
+104                             multiple              Geographic Coordinate Reference System WKT or EPSG number                 [draft-clarke-cbor-crs]
 105-109                         Unassigned
-                                byte string, array,   relative object identifier
-110                             or map                (BER encoding); SDNV          [RFC9090]
-                                                      [RFC6256] sequence
-111                             byte string, array,   object identifier (BER        [RFC9090]
-                                or map                encoding)
-                                byte string, array,   object identifier (BER
-112                             or map                encoding), relative to        [RFC9090]
-                                                      1.3.6.1.4.1
+110                             byte string, array,   relative object identifier (BER encoding); SDNV [RFC6256] sequence        [RFC9090]
+                                or map
+111                             byte string, array,   object identifier (BER encoding)                                          [RFC9090]
+                                or map
+112                             byte string, array,   object identifier (BER encoding), relative to 1.3.6.1.4.1                 [RFC9090]
+                                or map
 113-119                         Unassigned
-120                             multiple              Internet of Things Data Point [https://github.com/allthingstalk/cbor/blob/master/CBOR-Tag120-Internet-of-Things-Data-Points.md][Danilo_Vidovic]
-121-127                         any                   alternatives 0..6, 1+1        [draft-bormann-cbor-notable-tags-07]
-                                                      encoding; see Section 9.1
+120                             multiple              Internet of Things Data Point                                             [https://github.com/allthingstalk/cbor/blob/master/CBOR-Tag120-Internet-of-Things-Data-Points.md][Danilo_Vidovic]
+121-127                         any                   alternatives 0..6, 1+1 encoding; see Section 9.1                          [draft-bormann-cbor-notable-tags-07]
 128-255                         Unassigned
-256                             multiple              mark value as having string   [http://cbor.schmorp.de/stringref][Marc_A._Lehmann]
-                                                      references
-257                             byte string           Binary MIME message           [http://peteroupc.github.io/CBOR/binarymime.html][Peter_Occil]
-258                             array                 Mathematical finite set       [https://github.com/input-output-hk/cbor-sets-spec/blob/master/CBOR_SETS.md][Alfredo_Di_Napoli]
-                                                      Map datatype with key-value
-259                             map                   operations (e.g.              [https://github.com/shanewholloway/js-cbor-codec/blob/master/docs/CBOR-259-spec--explicit-maps.md][Shane_Holloway]
-                                                      `.get()/.set()/.delete()`)
-                                                      Network Address (IPv4 or IPv6
-260                             byte string           or MAC Address) (DEPRECATED   [http://www.employees.org/~ravir/cbor-network.txt][Ravi_Raju][RFC9164]
-                                                      in favor of 52 and 54 for IP
-                                                      addresses)
-                                                      Network Address Prefix (IPv4
-                                map (IPAddress + Mask or IPv6 Address + Mask
-261                             Length)               Length) (DEPRECATED in favor  [https://github.com/toravir/CBOR-Tag-Specs/blob/master/networkPrefix.md][Ravi_Raju][RFC9164]
-                                                      of 52 and 54 for IP
-                                                      addresses)
-262                             byte string           Embedded JSON Object          [https://github.com/toravir/CBOR-Tag-Specs/blob/master/embeddedJSON.md][Ravi_Raju]
-263                             byte string           Hexadecimal string            [https://github.com/toravir/CBOR-Tag-Specs/blob/master/hexString.md][Ravi_Raju]
-264                             array                 Decimal fraction with         [http://peteroupc.github.io/CBOR/bigfrac.html][Peter_Occil]
-                                                      arbitrary exponent
-265                             array                 Bigfloat with arbitrary       [http://peteroupc.github.io/CBOR/bigfrac.html][Peter_Occil]
-                                                      exponent
-266                             text string           Internationalized resource    [https://peteroupc.github.io/CBOR/iri.html][Peter_Occil]
-                                                      identifier (IRI)
-                                                      Internationalized resource
-267                             text string           identifier reference (IRI     [https://peteroupc.github.io/CBOR/iri.html][Peter_Occil]
-                                                      reference)
-268                             array                 Extended decimal fraction     [https://peteroupc.github.io/CBOR/extended.html][Peter_Occil]
-269                             array                 Extended bigfloat             [https://peteroupc.github.io/CBOR/extended.html][Peter_Occil]
-270                             array                 Extended rational number      [https://peteroupc.github.io/CBOR/extended.html][Peter_Occil]
-                                DDoS Open Threat      DDoS Open Threat Signaling
-271                             Signaling (DOTS)      (DOTS) signal channel object, [RFC9132]
-                                signal channel object as defined in [RFC9132]
-272                             byte string           Non-UTF-8 CESU-8 string       [https://github.com/svaarala/cbor-specs/blob/master/cbor-nonutf8-string-tags.rst][Sami_Vaarala]
-273                             byte string           Non-UTF-8 WTF-8 string        [https://github.com/svaarala/cbor-specs/blob/master/cbor-nonutf8-string-tags.rst][Sami_Vaarala]
-274                             byte string           Non-UTF-8 MUTF-8 string       [https://github.com/svaarala/cbor-specs/blob/master/cbor-nonutf8-string-tags.rst][Sami_Vaarala]
-                                                      Map contains only keys that
-275                             map (major type 5)    are of type Text String       [https://github.com/ecorm/cbor-tag-text-key-map][Emile_Cormier]
-                                                      (major type 3)
-276                             byte string           ERIS binary read capability   [http://purl.org/eris]
-                                                      Universal Geographical Area
-277                             byte string           Description (GAD) shape; see  [TS 23.032][Mathew_Meins]
-                                                      Section 5
-                                                      Universal Geographical Area
-278                             byte string           Description (GAD) description [TS 23.032][Mathew_Meins]
-                                                      of velocity; see Section 8
+256                             multiple              mark value as having string references                                    [http://cbor.schmorp.de/stringref][Marc_A._Lehmann]
+257                             byte string           Binary MIME message                                                       [http://peteroupc.github.io/CBOR/binarymime.html][Peter_Occil]
+258                             array                 Mathematical finite set                                                   [https://github.com/input-output-hk/cbor-sets-spec/blob/master/CBOR_SETS.md][Alfredo_Di_Napoli]
+259                             map                   Map datatype with key-value operations (e.g. `.get()/.set()/.delete()`)   [https://github.com/shanewholloway/js-cbor-codec/blob/master/docs/CBOR-259-spec--explicit-maps.md][Shane_Holloway]
+260                             byte string           Network Address (IPv4 or IPv6 or MAC Address) (DEPRECATED in favor of 52  [http://www.employees.org/~ravir/cbor-network.txt][Ravi_Raju][RFC9164]
+                                                      and 54 for IP addresses)
+261                             map (IPAddress + Mask Network Address Prefix (IPv4 or IPv6 Address + Mask Length) (DEPRECATED   [https://github.com/toravir/CBOR-Tag-Specs/blob/master/networkPrefix.md][Ravi_Raju][RFC9164]
+                                Length)               in favor of 52 and 54 for IP addresses)
+262                             byte string           Embedded JSON Object                                                      [https://github.com/toravir/CBOR-Tag-Specs/blob/master/embeddedJSON.md][Ravi_Raju]
+263                             byte string           Hexadecimal string                                                        [https://github.com/toravir/CBOR-Tag-Specs/blob/master/hexString.md][Ravi_Raju]
+264                             array                 Decimal fraction with arbitrary exponent                                  [http://peteroupc.github.io/CBOR/bigfrac.html][Peter_Occil]
+265                             array                 Bigfloat with arbitrary exponent                                          [http://peteroupc.github.io/CBOR/bigfrac.html][Peter_Occil]
+266                             text string           Internationalized resource identifier (IRI)                               [https://peteroupc.github.io/CBOR/iri.html][Peter_Occil]
+267                             text string           Internationalized resource identifier reference (IRI reference)           [https://peteroupc.github.io/CBOR/iri.html][Peter_Occil]
+268                             array                 Extended decimal fraction                                                 [https://peteroupc.github.io/CBOR/extended.html][Peter_Occil]
+269                             array                 Extended bigfloat                                                         [https://peteroupc.github.io/CBOR/extended.html][Peter_Occil]
+270                             array                 Extended rational number                                                  [https://peteroupc.github.io/CBOR/extended.html][Peter_Occil]
+                                DDoS Open Threat      DDoS Open Threat Signaling (DOTS) signal channel object, as defined in
+271                             Signaling (DOTS)      [RFC9132]                                                                 [RFC9132]
+                                signal channel object
+272                             byte string           Non-UTF-8 CESU-8 string                                                   [https://github.com/svaarala/cbor-specs/blob/master/cbor-nonutf8-string-tags.rst][Sami_Vaarala]
+273                             byte string           Non-UTF-8 WTF-8 string                                                    [https://github.com/svaarala/cbor-specs/blob/master/cbor-nonutf8-string-tags.rst][Sami_Vaarala]
+274                             byte string           Non-UTF-8 MUTF-8 string                                                   [https://github.com/svaarala/cbor-specs/blob/master/cbor-nonutf8-string-tags.rst][Sami_Vaarala]
+275                             map (major type 5)    Map contains only keys that are of type Text String (major type 3)        [https://github.com/ecorm/cbor-tag-text-key-map][Emile_Cormier]
+276                             byte string           ERIS binary read capability                                               [http://purl.org/eris]
+277                             byte string           Universal Geographical Area Description (GAD) shape; see Section 5        [TS 23.032][Mathew_Meins]
+278                             byte string           Universal Geographical Area Description (GAD) description of velocity;    [TS 23.032][Mathew_Meins]
+                                                      see Section 8
 279-1000                        Unassigned
-1001                            map                   extended time                 [draft-bormann-cbor-time-tag-01]
-1002                            map                   duration                      [draft-bormann-cbor-time-tag-01]
-1003                            map                   period                        [draft-bormann-cbor-time-tag-01]
-1004                            UTF-8 text string     [RFC3339] full-date string    [RFC8943]
+1001                            map                   extended time                                                             [draft-bormann-cbor-time-tag-01]
+1002                            map                   duration                                                                  [draft-bormann-cbor-time-tag-01]
+1003                            map                   period                                                                    [draft-bormann-cbor-time-tag-01]
+1004                            UTF-8 text string     [RFC3339] full-date string                                                [RFC8943]
 1005-1009                       Unassigned
-1010                            array: [id: text      Object type identifier        [draft-rundgren-cotx-04]
+1010                            array: [id: text      Object type identifier                                                    [draft-rundgren-cotx-04]
                                 string, obj: any]
 1011-1039                       Unassigned
-1040                            array of two arrays   Multi-dimensional Array,      [RFC8746]
-                                [1]                   column-major order
+1040                            array of two arrays   Multi-dimensional Array, column-major order                               [RFC8746]
+                                [1]
 1041-1279                       Unassigned
-1280-1400                       any                   alternatives 7..127, 1+2      [draft-bormann-cbor-notable-tags-07]
-                                                      encoding; see Section 9.1
+1280-1400                       any                   alternatives 7..127, 1+2 encoding; see Section 9.1                        [draft-bormann-cbor-notable-tags-07]
 1401-22097                      Unassigned
-                                                      hint that indicates an
-22098                           multiple              additional level of           [http://cbor.schmorp.de/indirection][Marc_A._Lehmann]
-                                                      indirection
+22098                           multiple              hint that indicates an additional level of indirection                    [http://cbor.schmorp.de/indirection][Marc_A._Lehmann]
 22099-25440                     Unassigned
                                 Array containing at
-25441                           most one array        Capture [3]                   [https://github.com/japhb/cbor-specs/blob/main/capture.md][Geoffrey_Broadwell]
+25441                           most one array        Capture [3]                                                               [https://github.com/japhb/cbor-specs/blob/main/capture.md][Geoffrey_Broadwell]
                                 followed by at most
                                 one map
 25442-32767                     Unassigned
-32768                           unsigned integer      Identifier for a FHIR         [Stefan_Genchev]                                                                                                   template/32768
-                                                      constant
-32769                           multiple              External reference            [https://gitlab.com/Hawk777/cbor-specs/-/blob/main/external-reference.md][Christopher_Head]
+32768                           unsigned integer      Identifier for a FHIR constant                                            [Stefan_Genchev]                                                                                                   template/32768
+32769                           multiple              External reference                                                        [https://gitlab.com/Hawk777/cbor-specs/-/blob/main/external-reference.md][Christopher_Head]
 32770-42599                     Unassigned
-                                                      A confidentiality clearance.
-42600                           map                   The key value pairs of the    [Aidan_Murdock]                                                                                                    template/42600
-                                                      map are defined in
-                                                      ADatP-4774.4
-                                                      A metadata binding. The
-                                                      elements of the array are
-                                                      defined in AdatP-4778.5. The
-42601                           array                 tag is also used as part of   [Aidan_Murdock]                                                                                                    template/42601
-                                                      the magic number in on-disk
-                                                      detached and encapsulating
-                                                      bindings.
-                                                      A collection of NCMS metadata
-42602                           map                   elements. The key value pairs [Aidan_Murdock]                                                                                                    template/42602
-                                                      of the map are defined in
-                                                      AdatP-5636.4
+42600                           map                   A confidentiality clearance. The key value pairs of the map are defined   [Aidan_Murdock]                                                                                                    template/42600
+                                                      in ADatP-4774.4
+                                                      A metadata binding. The elements of the array are defined in
+42601                           array                 AdatP-4778.5. The tag is also used as part of the magic number in on-disk [Aidan_Murdock]                                                                                                    template/42601
+                                                      detached and encapsulating bindings.
+42602                           map                   A collection of NCMS metadata elements. The key value pairs of the map    [Aidan_Murdock]                                                                                                    template/42602
+                                                      are defined in AdatP-5636.4
 42603-42999                     Unassigned
-                                                      Single complex number: array
-43000                           array                 elements are real (I) and     [Saajan_Chana]                                                                                                     template/43000
-                                                      imaginary (Q) components
-                                                      Array of complex numbers in
-                                                      interleaved form: complex
-43001                           array                 value k is stored with real   [Saajan_Chana]                                                                                                     template/43001
-                                                      (I) part at array index 2k
-                                                      and imaginary (Q) part at
-                                                      index (2k + 1)
+43000                           array                 Single complex number: array elements are real (I) and imaginary (Q)      [Saajan_Chana]                                                                                                     template/43000
+                                                      components
+                                                      Array of complex numbers in interleaved form: complex value k is stored
+43001                           array                 with real (I) part at array index 2k and imaginary (Q) part at index (2k  [Saajan_Chana]                                                                                                     template/43001
+                                                      + 1)
 43002-49999                     Unassigned
-50000                           integer               PlatformV_IS_ID               [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
-50001                           text string           PlatformV_IS_NAME             [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
-50002                           any                   PlatformV_IS_VALUE            [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
-50003                           array                 PlatformV_HAS_COMPOSITE_VALUE [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
-50004                           array                 PlatformV_HAS_MAPPED_VALUE    [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
-50005                           array                 PlatformV_HAS_OBJ_ID          [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
-50006                           array                 PlatformV_HAS_OBJ_TAG         [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
-50007                           array                 PlatformV_HAS_CHILD           [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
-50008                           array                 PlatformV_HAS_PROPERTY        [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
-50009                           array                 PlatformV_HAS_META            [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
-50010                           array                 PlatformV_HAS_EVENT           [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
-50011                           array                 PlatformV_HAS_ACTION          [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
-50012                           integer               PlatformV_IS_TYPE             [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
+50000                           integer               PlatformV_IS_ID                                                           [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
+50001                           text string           PlatformV_IS_NAME                                                         [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
+50002                           any                   PlatformV_IS_VALUE                                                        [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
+50003                           array                 PlatformV_HAS_COMPOSITE_VALUE                                             [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
+50004                           array                 PlatformV_HAS_MAPPED_VALUE                                                [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
+50005                           array                 PlatformV_HAS_OBJ_ID                                                      [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
+50006                           array                 PlatformV_HAS_OBJ_TAG                                                     [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
+50007                           array                 PlatformV_HAS_CHILD                                                       [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
+50008                           array                 PlatformV_HAS_PROPERTY                                                    [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
+50009                           array                 PlatformV_HAS_META                                                        [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
+50010                           array                 PlatformV_HAS_EVENT                                                       [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
+50011                           array                 PlatformV_HAS_ACTION                                                      [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
+50012                           integer               PlatformV_IS_TYPE                                                         [https://github.com/arthurwangtz/platformv-cbor][Wang_Tongzhou]
 50013-55798                     Unassigned
-55799                           (any)                 Self-described CBOR; see      [RFC8949]
-                                                      Section 3.4.6
-55800                           tagged byte string    indicates that the file       [RFC9277]
-                                                      contains CBOR Sequences
-                                                      indicates that the file
-55801                           tagged byte string    starts with a CBOR-Labeled    [RFC9277]
-                                                      Non-CBOR Data label.
+55799                           (any)                 Self-described CBOR; see Section 3.4.6                                    [RFC8949]
+55800                           tagged byte string    indicates that the file contains CBOR Sequences                           [RFC9277]
+55801                           tagged byte string    indicates that the file starts with a CBOR-Labeled Non-CBOR Data label.   [RFC9277]
 55802-56499                     Unassigned
-56500                           array (major type 4)  Compressed byte string        [https://github.com/dectris/documentation/blob/main/cbor/dectris-compression-tag.md][Kal_Conley]
+56500                           array (major type 4)  Compressed byte string                                                    [https://github.com/dectris/documentation/blob/main/cbor/dectris-compression-tag.md][Kal_Conley]
 56501-57341                     Unassigned
-                                                      Identify and define a set of
-                                                      record structures (each a
-                                                      sequence of property names)
-57342                           array                 that can be referenced as     [https://github.com/kriszyp/cbor-records][Kris_Zyp]
-                                                      tags in the included value
-                                                      (and the scope for the record
-                                                      tag definitions)
-                                                      Identify and define a record
-                                                      structure (a sequence of
-57343                           array                 property names), and use that [https://github.com/kriszyp/cbor-records][Kris_Zyp]
-                                                      record structure definition
-                                                      to interpret the included
+                                                      Identify and define a set of record structures (each a sequence of
+57342                           array                 property names) that can be referenced as tags in the included value (and [https://github.com/kriszyp/cbor-records][Kris_Zyp]
+                                                      the scope for the record tag definitions)
+                                                      Identify and define a record structure (a sequence of property names),
+57343                           array                 and use that record structure definition to interpret the included        [https://github.com/kriszyp/cbor-records][Kris_Zyp]
                                                       values.
-                                                      References a defined record
-                                                      structure, using that
-57344-57599                     array                 referenced record definition  [https://github.com/kriszyp/cbor-records][Kris_Zyp]
-                                                      to interpret the included
-                                                      values.
+57344-57599                     array                 References a defined record structure, using that referenced record       [https://github.com/kriszyp/cbor-records][Kris_Zyp]
+                                                      definition to interpret the included values.
 57600-59999                     Unassigned
-                                                      The tagged CBOR array
-60000                           array                 contains attestation evidence [Shanwei_Cen]                                                                                                      template/60000
-                                                      data with an Intel TEE quote.
-                                                      The tagged CBOR array
-60001                           array                 contains attestation evidence [Shanwei_Cen]                                                                                                      template/60001
-                                                      data with an Intel TEE
-                                                      report.
-                                                      The tagged CBOR array
-60002                           array                 contains attestation evidence [Shanwei_Cen]                                                                                                      template/60002
-                                                      data with an Intel SGX
-                                                      report.
+60000                           array                 The tagged CBOR array contains attestation evidence data with an Intel    [Shanwei_Cen]                                                                                                      template/60000
+                                                      TEE quote.
+60001                           array                 The tagged CBOR array contains attestation evidence data with an Intel    [Shanwei_Cen]                                                                                                      template/60001
+                                                      TEE report.
+60002                           array                 The tagged CBOR array contains attestation evidence data with an Intel    [Shanwei_Cen]                                                                                                      template/60002
+                                                      SGX report.
 60003-65534                     Unassigned
-65535                           (none valid)          always invalid; see Section   [draft-bormann-cbor-notable-tags-02]
-                                                      10.1
-65536-15309735                  Unassigned
-15309736                        map (major type 5)    RAINS Message                 [https://britram.github.io/rains-prototype][Brian_Trammell]
+65535                           (none valid)          always invalid; see Section 10.1                                          [draft-bormann-cbor-notable-tags-02]
+65536-79999                     Unassigned
+80000-80099                     byte string, array or Private tags as suggested in                                              [Tony_Putman]                                                                                                      template/80000-80099
+                                map                   [https://mailarchive.ietf.org/arch/msg/cbor/NJlskB63pjXFt5a6S37tiwJBbCM].
+80100-15309735                  Unassigned
+15309736                        map (major type 5)    RAINS Message                                                             [https://britram.github.io/rains-prototype][Brian_Trammell]
 15309737-1330664269             Unassigned
-                                                      A CBOR encoded Openswan
-1330664270                      byte-string           configuration file, as stored [Michael_Richardson][Samir_Hussain]                                                                                template/1330664270
-                                                      on disk for unit test cases.
+1330664270                      byte-string           A CBOR encoded Openswan configuration file, as stored on disk for unit    [Michael_Richardson][Samir_Hussain]                                                                                template/1330664270
+                                                      test cases.
 1330664271-1398229315           Unassigned
-1398229316                      map                   Concise Software Identifier   [RFC-ietf-sacm-coswid-24]
-                                                      (CoSWID)
+1398229316                      map                   Concise Software Identifier (CoSWID)                                      [RFC-ietf-sacm-coswid-24]
 1398229317-1668546816           Unassigned
-                                byte string or any    the representation of
-                                CBOR data item (see   content-format ct < 65025 is
-1668546817-1668612095           Appendix B of         indicated by tag number       [RFC9277]
-                                [RFC9277])            TN(ct) = 0x63740101 + (ct /
-                                                      255) * 256 + ct % 255
+                                byte string or any
+1668546817-1668612095           CBOR data item (see   the representation of content-format ct < 65025 is indicated by tag       [RFC9277]
+                                Appendix B of         number TN(ct) = 0x63740101 + (ct / 255) * 256 + ct % 255
+                                [RFC9277])
 1668612096-1701996914           Unassigned
-                                                      Array of content-addressed
-1701996915                      array                 blocks and ERIS read          [Endo_Renberg]                                                                                                     template/1701996915
-                                                      capabilities
+1701996915                      array                 Array of content-addressed blocks and ERIS read capabilities              [Endo_Renberg]                                                                                                     template/1701996915
 1701996916-4294967294           Unassigned
-4294967295                      (none valid)          always invalid; see Section   [draft-bormann-cbor-notable-tags-02]
-                                                      10.1
-4294967296                      map                   Intel FPGA SPDM Manifest      [Andrew_Draper]                                                                                                    template/4294967296
+4294967295                      (none valid)          always invalid; see Section 10.1                                          [draft-bormann-cbor-notable-tags-02]
+4294967296                      map                   Intel FPGA SPDM Manifest                                                  [Andrew_Draper]                                                                                                    template/4294967296
 4294967297-18446744073709551614 Unassigned
-18446744073709551615            (none valid)          always invalid; Section 10.1  [draft-bormann-cbor-notable-tags-02]
+18446744073709551615            (none valid)          always invalid; Section 10.1                                              [draft-bormann-cbor-notable-tags-02]
 
                                                                  Contact Information
 
@@ -406,6 +292,7 @@ CBOR Tags
    [Shane_Holloway]     Shane Holloway     mailto:shane.holloway&ieee.org               2018-10-25
    [Shanwei_Cen]        Shanwei Cen        mailto:shanwei.cen&intel.com                 2023-01-12
    [Stefan_Genchev]     Stefan Genchev     mailto:stefan.genchev&tum.de                 2022-12-09
+   [Tony_Putman]        Tony Putman        mailto:anthony.putman&dyson.com              2023-04-26
    [Volker_Mische]      Volker Mische      mailto:volker&protocol.ai                    2019-08-23
    [Wang_Tongzhou]      Wang Tongzhou      mailto:tongzhou.wang&siemens.com             2022-10-20
 
