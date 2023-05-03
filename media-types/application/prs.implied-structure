@@ -1,0 +1,91 @@
+(registered 2023-05-02, last updated 2023-05-02)
+
+Media type name: application
+
+Media subtype name: prs.implied-structure
+
+Required parameters: 
+
+   signature: A non-empty case-sensitive sequence of arbitrary ASCII 
+      characters located at "offset" in the file.
+
+Optional parameters: 
+
+   offset: A decimal-encoded integer that specifies where the 
+      "signature" appears in the file. If not present, it MUST be 
+      treated as 0. Negative values identify offsets from the end of 
+      the file, such as -1 for the position of the last byte, -2 for 
+      second to last, and so forth.
+
+Encoding considerations: binary
+
+Security considerations: The content of the media type is completely 
+   arbitrary with the exception of the presence of "signature" at 
+   "offset". Therefore, any such file may contain executable or 
+   active content or code, and the file itself may be executable if 
+   "signature" is a sequence commonly used for executable files. When 
+   processing this type, applications MUST ensure that the structure 
+   of the file matches "signature" and "offset", and if they intend 
+   to assign a more concrete media type to the file, they SHOULD 
+   verify that it is valid. Applications MUST NOT open files coming 
+   from untrusted sources if it could lead to arbitrary code 
+   execution.
+
+Interoperability considerations: Applications that accept or produce 
+   this type should not be assumed to have knowledge of more than the 
+   signature. It is not guaranteed that an application offering this 
+   type will produce a file in a format that is most commonly 
+   associated with the signature, and it is not guaranteed that an 
+   application accepting this type will be able to process it any of 
+   the formats associated with the signature.
+
+Published specification: N/A
+
+Applications which use this media: This media type is intended for 
+   applications that have to guess the media type of a file, but do 
+   not contain heuristics that allow to pick a more concrete media 
+   type with acceptable confidence.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: N/A
+
+Additional information:
+
+   1. Deprecated alias names for this type: N/A
+   2. Magic number(s): As indicated by "signature"
+   3. File extension(s): N/A
+   4. Macintosh file type code: N/A
+   5. Object Identifiers: N/A
+
+General Comments: This media type identifies a meta-format that 
+   encompasses all formats which require "signature" at "offset". It 
+   it intended for use in applications that describe files using 
+   media types, but do not have sufficient heuristics to output a 
+   more specific media type. In such a case, an arbitrary number of 
+   printable ASCII characters can be taken from the beginning of the 
+   file and stored in the "signature" parameter.
+
+   Examples:
+
+   application/prs.implied-structure;signature=GIF87a - Any file 
+   starting with "GIF87a", such the 1987 version of GIF.
+
+   application/prs.implied-structure;signature=ID3;offset=-128 - Any 
+   file having "ID3" at position 128 from the end, such as files 
+   storing ID3v1 metadata.
+
+Person to contact for further information:
+
+   1. Name: Marek Čermák
+   2. Email: cermmarek&gmail.com
+
+Intended usage: LIMITED USE
+
+   It is not recommended to use this media type when a more concrete 
+   type is known. Its use beyond automated archival, content 
+   negotiation and other purposes in general file hosting is limited. 
+   Applications should not advocate themselves as accepting this 
+   media type if they require more specific structure or format.
+
+Author/Change controller: Marek Čermák <cermmarek&gmail.com>

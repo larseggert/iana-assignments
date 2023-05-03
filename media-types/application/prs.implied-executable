@@ -1,0 +1,90 @@
+(registered 2023-05-02, last updated 2023-05-02)
+
+Media type name: application
+
+Media subtype name: prs.implied-executable
+
+Required parameters: 
+
+   interpreter: The name of the application or command indicated by 
+      the file to open or execute it in.
+
+Optional parameters: 
+
+   args: An arbitrary character sequence used as arguments when 
+      executing "interpreter", if present.
+
+   charset: If provided, the character set used by the file, with the 
+      same syntax and semantics as for text/plain [RFC 2046]. If 
+      omitted, the file MUST NOT be treated as being in any 
+      particular character set.
+
+Encoding considerations: binary
+
+Security considerations: The media type denotes content that may 
+   represent executables in various scripting languages, as indicated 
+   by "interpreter". When processing this type, applications MUST 
+   ensure that "interpreter" matches the information stored in the 
+   file, and if they intend to assign a more concrete media type to 
+   the file, they SHOULD verify that it is valid. Applications MUST 
+   NOT execute files coming from untrusted sources since it may lead 
+   to arbitrary code execution.
+
+Interoperability considerations: Applications that accept or produce 
+   this type should not be assumed to have knowledge of the 
+   particular syntax used by the file. It is not guaranteed that an 
+   application offering this type will produce a file in a code that 
+   is most commonly associated with the interpreter name, and it is 
+   not guaranteed that an application accepting this type will be 
+   able to execute it using the specified interpreter or that the 
+   interpreter will be able to open the file.
+
+Published specification: N/A
+
+Applications which use this media: This media type is intended for 
+   applications that have to guess the media type of a file, but do 
+   not contain heuristics that allow to pick a more concrete media 
+   type with acceptable confidence.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: N/A
+
+Additional information:
+
+   1. Deprecated alias names for this type: N/A
+   2. Magic number(s): N/A
+   3. File extension(s): N/A
+   4. Macintosh file type code: N/A
+   5. Object Identifiers: N/A
+
+General Comments: This media type identifies a meta-format that 
+   encompasses all formats which expose or allow a way to identify 
+   the interpreter used to open them, such as via the shebang 
+   sequence "#!" on Unix systems. It it intended for use in 
+   applications that describe files using media types, but do not 
+   have sufficient heuristics to output a more specific media type. 
+   In such a case, the application may look for an instruction to use 
+   a particular interpreter, and store this information in the 
+   "interpreter" and "args" parameters.
+
+   Examples:
+
+   application/prs.implied-executable;interpreter=sh;args=-r - An 
+   executable file using the "sh -r" command to interpret it, such as 
+   shell scripts using the shebang sequence.
+
+Person to contact for further information:
+
+   1. Name: Marek Čermák
+   2. Email: cermmarek&gmail.com
+
+Intended usage: LIMITED USE
+
+   It is not recommended to use this media type when a more concrete 
+   type is known. Its use beyond automated archival, content 
+   negotiation and other purposes in general file hosting is limited. 
+   Applications should not advocate themselves as accepting this 
+   media type if they require more specific structure or format.
+
+Author/Change controller: Marek Čermák <cermmarek&gmail.com>
