@@ -69,6 +69,13 @@
           <th>Mapping to X.509 Certificate Extension</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'acme-authority-token-challenge-types'">
+        <tr>
+          <th>Label</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -127,6 +134,13 @@
           <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:ext"/></td>
           <td><xsl:apply-templates select="iana:x509"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'acme-authority-token-challenge-types'">
+        <tr>
+          <td><xsl:apply-templates select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
     </xsl:choose>
