@@ -26,7 +26,7 @@
       <td><xsl:value-of select="iana:status"/></td>
       <td><xsl:apply-templates select="iana:well-known"/></td>
       <td><xsl:apply-templates select="iana:xref"/></td>
-      <td><xsl:value-of select="iana:notes"/></td>
+      <td><xsl:apply-templates select="iana:notes"/></td>
     </tr>
   </xsl:template>
 </xsl:stylesheet>
