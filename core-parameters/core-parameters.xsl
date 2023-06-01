@@ -134,7 +134,7 @@
       <xsl:when test="../@id = 'content-formats'">
         <tr>
           <td><xsl:value-of select="iana:contenttype"/></td>
-          <td><xsl:value-of select="iana:contentcoding"/></td>
+          <td><xsl:apply-templates select="iana:contentcoding"/></td>
           <td><xsl:value-of select="iana:id"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
