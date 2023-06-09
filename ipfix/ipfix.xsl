@@ -76,6 +76,9 @@
       <xsl:when test="@id = 'ipfix-nat-threshold-event'">
         <tr><th>Value</th><th>Threshold Exceeded Event Name</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'ipfix-ipv6-srh-segment-type'">
+        <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:when test="@id = 'ipfix-version-numbers'">
         <tr><th>Value</th><th>Version</th><th>Reference</th></tr>
       </xsl:when>

@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="ipfix">
 <title>IP Flow Information Export (IPFIX) Entities</title>
 <created>2007-05-10</created>
-<updated>2022-08-19</updated>
+<updated>2023-06-08</updated>
 
 <note><xref type="rfc" data="rfc7012"/> has obsoleted <xref type="rfc" data="rfc5102"/>. However, references to <xref type="rfc" data="rfc5102"/>
 remain as part of the historical record.</note>
@@ -11562,10 +11562,268 @@ of this field is limited to 10 characters, UTF-8 encoded.
 <revision>0</revision>
 <date>2019-01-18</date>
 </record>
-  
+
+<record date="2023-06-08">
+<name>srhFlagsIPv6</name>
+<dataType>unsigned8</dataType>
+<dataTypeSemantics>flags</dataTypeSemantics>
+<elementId>492</elementId>
+<status>current</status>
+<description>
+  <paragraph>
+    The 8-bit flags defined in the SRH (Section 2 of 
+    <xref type="rfc" data="rfc8754"/>). Assigned flags and 
+    their meanings are provided in the <xref type="uri" data="https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml#segment-routing-header-flags">"Segment Routing Header 
+    Flags"</xref> IANA registry.
+  </paragraph>
+</description>
+<references>
+  <paragraph>
+  See the assignments in the "Segment Routing Header Flags" IANA 
+  registry at <xref type="uri" data="https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml#segment-routing-header-flags"/>. See also <xref type="rfc" data="rfc8754"/> for the SRH specification.
+  </paragraph>
+</references>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-srv6-srh-14"/>
+<revision>0</revision>
+<date>2023-06-08</date>
+</record>
+
+<record date="2023-06-08">
+<name>srhTagIPv6</name>
+<dataType>unsigned16</dataType>
+<dataTypeSemantics>identifier</dataTypeSemantics>
+<elementId>493</elementId>
+<status>current</status>
+<description>
+  <paragraph>
+    The 16-bit tag field defined in the SRH (Section 2 of 
+    <xref type="rfc" data="rfc8754"/>). A tag is used to mark a 
+    packet as part of a class or group of packets sharing the 
+    same set of properties.
+  </paragraph>
+</description>
+<references>
+  <paragraph>
+  See Section 2 of <xref type="rfc" data="rfc8754"/> for more details about the tag.
+  </paragraph>
+</references>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-srv6-srh-14"/>
+<revision>0</revision>
+<date>2023-06-08</date>
+</record>
+
+<record date="2023-06-08">
+<name>srhSegmentIPv6</name>
+<dataType>ipv6Address</dataType>
+<dataTypeSemantics>default</dataTypeSemantics>
+<elementId>494</elementId>
+<status>current</status>
+<description>
+  <paragraph>
+    The 128-bit IPv6 address that represents a SRv6 segment.
+  </paragraph>
+</description>
+<references>
+  <paragraph>
+  Specified in Section 1 of <xref type="rfc" data="rfc8402"/> and mentioned in "Segment List" 
+  in Section 2 of <xref type="rfc" data="rfc8754"/>.
+  </paragraph>
+</references>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-srv6-srh-14"/>
+<revision>0</revision>
+<date>2023-06-08</date>
+</record>
+
+<record date="2023-06-08">
+<name>srhActiveSegmentIPv6</name>
+<dataType>ipv6Address</dataType>
+<dataTypeSemantics>default</dataTypeSemantics>
+<elementId>495</elementId>
+<status>current</status>
+<description>
+  <paragraph>
+    The 128-bit IPv6 address that represents the active SRv6 segment.
+  </paragraph>
+</description>
+<references>
+  <paragraph>
+  See Section 2 of <xref type="rfc" data="rfc8402"/> for the definition of active segment.
+  </paragraph>
+</references>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-srv6-srh-14"/>
+<revision>0</revision>
+<date>2023-06-08</date>
+</record>
+
+<record date="2023-06-08">
+<name>srhSegmentIPv6BasicList</name>
+<dataType>basicList</dataType>
+<dataTypeSemantics>list</dataTypeSemantics>
+<elementId>496</elementId>
+<status>current</status>
+<description>
+  <paragraph>
+  The Ordered basicList <xref type="rfc" data="rfc6313"/> of zero or more 
+  128-bit IPv6 addresses in the SRH that represents the SRv6 Segment List. 
+  As specified in Section 2 of <xref type="rfc" data="rfc8754"/>, the Segment List is encoded 
+  starting from the last segment of the SR Policy. That is, the first 
+  element of the Segment List (Segment List[0]) contains the last segment 
+  of the SR Policy, the second element contains the penultimate segment 
+  of the SR Policy, and so on.
+  </paragraph>
+</description>
+<references>
+  <paragraph>
+  See Section 2 of <xref type="rfc" data="rfc8754"/> for more details about the SRv6 Segment List.
+  </paragraph>
+</references>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-srv6-srh-14"/>
+<revision>0</revision>
+<date>2023-06-08</date>
+</record>
+
+<record date="2023-06-08">
+<name>srhSegmentIPv6ListSection</name>
+<dataType>octetArray</dataType>
+<dataTypeSemantics>default</dataTypeSemantics>
+<elementId>497</elementId>
+<status>current</status>
+<description>
+  <paragraph>
+  The SRH Segment List as defined in Section 2 of <xref type="rfc" data="rfc8754"/> as a series of octets in IPFIX.
+  </paragraph>
+</description>
+<references>
+  <paragraph>
+  See Section 2 of <xref type="rfc" data="rfc8754"/> for more details about the SRv6 Segment List.
+  </paragraph>
+</references>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-srv6-srh-14"/>
+<revision>0</revision>
+<date>2023-06-08</date>
+</record>
+
+<record date="2023-06-08">
+<name>srhSegmentsIPv6Left</name>
+<dataType>unsigned8</dataType>
+<dataTypeSemantics>quantity</dataTypeSemantics>
+<elementId>498</elementId>
+<status>current</status>
+<description>
+  <paragraph>
+  8-bit unsigned integer defining the number of segments remaining to reach 
+  the end of the Segment List in the SRH.
+  </paragraph>
+</description>
+<references>
+  <paragraph>
+  Specified by the "Segments Left" field in Section 4.4 of <xref type="rfc" data="rfc8200"/> 
+  and mentioned in Section 2 of <xref type="rfc" data="rfc8754"/>).
+  </paragraph>
+</references>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-srv6-srh-14"/>
+<revision>0</revision>
+<date>2023-06-08</date>
+</record>
+
+<record date="2023-06-08">
+<name>srhIPv6Section</name>
+<dataType>octetArray</dataType>
+<dataTypeSemantics>default</dataTypeSemantics>
+<elementId>499</elementId>
+<status>current</status>
+<description>
+  <paragraph>
+  The SRH and its TLVs as defined in Section 2 of <xref type="rfc" data="rfc8754"/> 
+  as a series of octets in IPFIX.
+  </paragraph>
+</description>
+<references>
+  <paragraph>
+  See Section 2 of <xref type="rfc" data="rfc8754"/> for more details about the 
+  structure of an SRH.
+  </paragraph>
+</references>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-srv6-srh-14"/>
+<revision>0</revision>
+<date>2023-06-08</date>
+</record>
+
+<record date="2023-06-08">
+<name>srhIPv6ActiveSegmentType</name>
+<dataType>unsigned8</dataType>
+<dataTypeSemantics>identifier</dataTypeSemantics>
+<elementId>500</elementId>
+<status>current</status>
+<description>
+  <paragraph>
+  The designator of the routing protocol or PCEP extension from where the active 
+  SRv6 segment has been learned from. Values for this Information Element are listed 
+  in the "IPFIX IPv6 SRH Segment type" subregistry. 
+  See <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-ipv6-srh-segment-type"/>.
+  </paragraph>
+</description>
+<references>
+  <paragraph>
+  See the assigned types in <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-ipv6-srh-segment-type"/>.
+  </paragraph>
+</references>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-srv6-srh-14"/>
+<revision>0</revision>
+<date>2023-06-08</date>
+</record>
+
+<record date="2023-06-08">
+<name>srhSegmentIPv6LocatorLength</name>
+<dataType>unsigned8</dataType>
+<dataTypeSemantics>default</dataTypeSemantics>
+<elementId>501</elementId>
+<status>current</status>
+<description>
+  <paragraph>
+  The SRH segment IPv6 locator length specified as the number of significant bits. 
+  Together with srhSegmentIPv6 it enables the calculation of the SRv6 Locator.
+  </paragraph>
+</description>
+<references>
+  <paragraph>
+  See Section 3.1 of <xref type="rfc" data="rfc8986"/> for more details about the SID format.
+  </paragraph>
+</references>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-srv6-srh-14"/>
+<revision>0</revision>
+<date>2023-06-08</date>
+</record>
+
+<record date="2023-06-08">
+<name>srhSegmentIPv6EndpointBehavior</name>
+<dataType>unsigned16</dataType>
+<dataTypeSemantics>identifier</dataTypeSemantics>
+<elementId>502</elementId>
+<status>current</status>
+<description>
+  <paragraph>
+  The 16-bit unsigned integer that represents a SRv6 Endpoint behavior as per Section 4 of 
+  <xref type="rfc" data="rfc8986"/>. Assigned values and their meanings are provided in the 
+  <xref type="uri" data="https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml#segment-routing-header-flags">"SRV6 Endpoint Behavior"</xref> registry.
+  </paragraph>
+</description>
+<references>
+  <paragraph>
+  See the assigned behaviors at the "SRv6 Endpoint Behavior" registry available at 
+  <xref type="uri" data="https://www.iana.org/assignments/segment-routing/segment-routing.xhtml#srv6-endpoint-behaviors"/>. 
+  See Section 4 of <xref type="rfc" data="rfc8986"/> for more details about the endpoint 
+  behaviors processing.
+  </paragraph>
+</references>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-srv6-srh-14"/>
+<revision>0</revision>
+<date>2023-06-08</date>
+</record>
+
 <record>
 <name>Unassigned</name>
-<elementId>492-32767</elementId>
+<elementId>503-32767</elementId>
 </record>
 
 
@@ -13059,6 +13317,60 @@ hashSelectedRangeMax, hashOutputRangeMin, hashOutputRangeMax</parameters>
 
 </registry>
 
+
+<registry id="ipfix-ipv6-srh-segment-type">
+<title>IPFIX IPv6 SRH Segment Type (Value 500)</title>
+<registration_rule>Expert Review</registration_rule>
+<expert>Unassigned</expert>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-srv6-srh-14"/>
+
+<record date="2023-06-08">
+<value>0</value>
+<description>Unknown</description>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-srv6-srh-14"/>
+</record>
+
+<record date="2023-06-08">
+<value>1</value>
+<description>Segment Routing Policy</description>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-srv6-srh-14"/>
+<xref type="rfc" data="rfc9256"/>
+</record>
+
+<record date="2023-06-08">
+<value>2</value>
+<description>Path Computation Element</description>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-srv6-srh-14"/>
+<xref type="draft" data="draft-ietf-pce-segment-routing-ipv6-16"/>
+</record>
+
+<record date="2023-06-08">
+<value>3</value>
+<description>OSPFv3 Segment Routing</description>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-srv6-srh-14"/>
+<xref type="draft" data="draft-ietf-lsr-ospfv3-srv6-extensions-14"/>
+</record>
+
+<record date="2023-06-08">
+<value>4</value>
+<description>IS-IS Segment Routing</description>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-srv6-srh-14"/>
+<xref type="rfc" data="rfc9352"/>
+</record>
+
+<record date="2023-06-08">
+<value>5</value>
+<description>BGP Segment Routing Prefix-SID</description>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-srv6-srh-14"/>
+<xref type="rfc" data="rfc8669"/>
+</record>
+
+<record>
+<value>6-255</value>
+<description>Unassigned</description>
+</record>
+
+</registry>
 
 
 </registry>
