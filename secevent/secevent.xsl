@@ -16,12 +16,28 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'secevent-identifier-formats'">
+        <tr>
+          <th>Format Name</th>
+          <th>Format Description</th>
+          <th>Change Controller</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
   <xsl:template match="iana:record">
     <xsl:choose>
       <xsl:when test="../@id = 'secevent-error-codes'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'secevent-identifier-formats'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
