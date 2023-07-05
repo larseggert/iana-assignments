@@ -35,46 +35,25 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="'ac-lsa'">
+      <xsl:when test="../@id = 'ac-lsa'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="'extended-lsa-tlvs'">
+      <xsl:when test="../@id = 'extended-lsa-tlvs'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="'extended-lsa-sub-tlvs'">
+      <xsl:when test="../@id = 'extended-lsa-sub-tlvs'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:value-of select="iana:l2bm"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
-        </tr>
-      </xsl:when>
-      <xsl:when test="'srv6-capabilities'">
-        <tr>
-          <td align="center"><xsl:value-of select="iana:value"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
-        </tr>
-      </xsl:when>
-      <xsl:when test="'srv6-end-sid'">
-        <tr>
-          <td align="center"><xsl:value-of select="iana:value"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
-        </tr>
-      </xsl:when>
-      <xsl:when test="'srv6-adjacency-sid'">
-        <tr>
-          <td align="center"><xsl:value-of select="iana:value"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
