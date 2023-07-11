@@ -15,6 +15,9 @@
       <xsl:when test="@id = 'extended-link-tlv-sub-tlvs'">
         <tr><th>Value</th><th>Designation</th><th>L2BM</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'ip-algorithm-prefix-reachability-sub-tlv-flags'">
+        <tr><th>Bit</th><th>Name</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
       </xsl:otherwise>

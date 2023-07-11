@@ -54,6 +54,8 @@
         <th>Type</th>
         <th>Description</th>
         <th>27</th>
+        <th>126</th>
+        <th>127</th>
         <th>135</th>
         <th>235</th>
         <th>236</th>
@@ -226,8 +228,10 @@
        <td><xsl:value-of select="iana:value"/></td>
        <td><xsl:value-of select="iana:description"/></td>
        <td><xsl:value-of select="iana:TLV_27"/></td>
+       <td><xsl:value-of select="iana:TLV_126"/></td>
+       <td><xsl:value-of select="iana:TLV_127"/></td>
        <td><xsl:value-of select="iana:TLV_135"/></td>
-        <td><xsl:value-of select="iana:TLV_235"/></td>
+       <td><xsl:value-of select="iana:TLV_235"/></td>
        <td><xsl:value-of select="iana:TLV_236"/></td>
        <td><xsl:value-of select="iana:TLV_237"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>

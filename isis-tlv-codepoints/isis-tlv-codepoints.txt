@@ -6,7 +6,7 @@
    2003-05-06
 
    Last Updated
-   2023-06-21
+   2023-07-10
 
    Note
 
@@ -159,14 +159,8 @@ IS-IS Top-Level TLV Codepoints
    43-65     Unassigned
    66        Lucent Proprietary                         n   y   n   n
    67-125    Unassigned
-             IPv4 Algorithm Prefix Reachability TLV
-   126       (TEMPORARY - registered 2021-04-27,        n   y   n   n     [draft-ietf-lsr-ip-flexalgo-01]
-             extension registered 2023-03-15, expires
-             2024-04-27)
-             IPv6 Algorithm Prefix Reachability TLV
-   127       (TEMPORARY - registered 2021-04-27,        n   y   n   n     [draft-ietf-lsr-ip-flexalgo-01]
-             extension registered 2023-03-15, expires
-             2024-04-27)
+   126       IPv4 Algorithm Prefix Reachability         n   y   n   n     [RFC-ietf-lsr-ip-flexalgo-16, Section 6.1]
+   127       IPv6 Algorithm Prefix Reachability         n   y   n   n     [RFC-ietf-lsr-ip-flexalgo-16, Section 6.2]
    128       IP Int. Reach                              n   y   n   n     [RFC1195][RFC5302]
    129       Prot. Supported                            y   y   n   n     [RFC1195]
    130       IP Ext. Address                            n   y   n   n     [RFC1195][RFC5302]
@@ -425,6 +419,8 @@ IS-IS Sub-TLVs for TLVs Advertising Prefix Reachability
  The list of TLVs includes:
 
  SRv6 Locator (27)
+ IPv4 Algorithm Prefix Reachability TLV (126)
+ IPv6 Algorithm Prefix Reachability TLV (127)
  Extended IP reachability (135)
  MT IP Reach (235)
  IPv6 IP Reach (236)
@@ -444,19 +440,19 @@ IS-IS Sub-TLVs for TLVs Advertising Prefix Reachability
    [IMG]
    CSV
 
-    Type                Description               27 135 235 236 237       Reference
+    Type                Description               27 126 127 135 235 236 237       Reference
    0      Unassigned
-   1      32-bit Administrative Tag Sub-TLV       y  y   y   y   y   [RFC5130]
-   2      64-bit Administrative Tag Sub-TLV       y  y   y   y   y   [RFC5130]
-   3      Prefix Segment Identifier               n  y   y   y   y   [RFC8667]
-   4      Prefix Attribute Flags                  y  y   y   y   y   [RFC7794]
-   5      SRv6 End SID                            y  n   n   n   n   [RFC9352, Section 7.2]
-   6      Flexible Algorithm Prefix Metric (FAPM) n  y   y   y   y   [RFC9350, Section 8]
+   1      32-bit Administrative Tag Sub-TLV       y  y   y   y   y   y   y   [RFC5130]
+   2      64-bit Administrative Tag Sub-TLV       y  y   y   y   y   y   y   [RFC5130]
+   3      Prefix Segment Identifier               n  n   n   y   y   y   y   [RFC8667]
+   4      Prefix Attribute Flags                  y  y   y   y   y   y   y   [RFC7794]
+   5      SRv6 End SID                            y  n   n   n   n   n   n   [RFC9352, Section 7.2]
+   6      Flexible Algorithm Prefix Metric (FAPM) n  n   n   y   y   y   y   [RFC9350, Section 8]
    7-10   Unassigned
-   11     IPv4 Source Router ID                   y  y   y   y   y   [RFC7794]
-   12     IPv6 Source Router ID                   y  y   y   y   y   [RFC7794]
+   11     IPv4 Source Router ID                   y  y   y   y   y   y   y   [RFC7794]
+   12     IPv6 Source Router ID                   y  y   y   y   y   y   y   [RFC7794]
    13-31  Unassigned
-   32     BIER Info                               n  y   y   y   y   [RFC8401]
+   32     BIER Info                               n  n   n   y   y   y   y   [RFC8401]
    33-255 Unassigned
 
 IS-IS Bit Values for Prefix Attribute Flags Sub-TLV
@@ -633,42 +629,41 @@ IS-IS Sub-TLVs for IS-IS Router CAPABILITY TLV
    [IMG]
    CSV
 
-    Value                                               Description                                                           Reference
+    Value                                           Description                                                          Reference
    0       Reserved
-   1       TE Node Capability Descriptor                                                                          [RFC5073]
-   2       Segment Routing Capability                                                                             [RFC8667]
-   3       TE-MESH-GROUP TLV (IPv4)                                                                               [RFC4972]
-   4       TE-MESH-GROUP TLV (IPv6)                                                                               [RFC4972]
-   5       PCED sub-TLV                                                                                           [RFC5089]
-   6       NICKNAME                                                                                               [RFC7176]
-   7       TREES                                                                                                  [RFC7176]
-   8       TREE-RT-IDs                                                                                            [RFC7176]
-   9       TREE-USE-IDs                                                                                           [RFC7176]
-   10      INT-VLAN                                                                                               [RFC7176]
-   11      IPv4 TE Router ID                                                                                      [RFC9346]
-   12      IPv6 TE Router ID                                                                                      [RFC9346]
-   13      TRILL-VER                                                                                              [RFC7176]
-   14      VLAN-GROUP                                                                                             [RFC7176]
-   15      INT-LABEL                                                                                              [RFC7176]
-   16      RBCHANNELS                                                                                             [RFC7176]
-   17      AFFINITY                                                                                               [RFC7176]
-   18      LABEL-GROUP                                                                                            [RFC7176]
-   19      Segment Routing Algorithm                                                                              [RFC8667]
-   20      S-BFD Discriminators                                                                                   [RFC7883]
-   21      Node-Admin-Tag                                                                                         [RFC7917]
-   22      Segment Routing Local Block (SRLB)                                                                     [RFC8667]
-   23      Node MSD                                                                                               [RFC8491]
-   24      Segment Routing Mapping Server Preference (SRMS Preference)                                            [RFC8667]
-   25      SRv6 Capabilities                                                                                      [RFC9352, Section 2]
-   26      Flexible Algorithm Definition (FAD)                                                                    [RFC9350, Section 5.1]
-   27      IS-IS Area Leader Sub-TLV (TEMPORARY - registered 2019-08-08, extension registered 2023-06-21, expires [draft-ietf-lsr-dynamic-flooding]
-           2024-08-08)
-   28      IS-IS Dynamic Flooding Sub-TLV (TEMPORARY - registered 2019-08-08, extension registered 2023-06-21,    [draft-ietf-lsr-dynamic-flooding]
-           expires 2024-08-08)
-   29      IP Algorithm Sub-TLV (TEMPORARY - registered 2021-04-27, extension registered 2023-03-15, expires      [draft-ietf-lsr-ip-flexalgo-01]
-           2024-04-27)
+   1       TE Node Capability Descriptor                                                                 [RFC5073]
+   2       Segment Routing Capability                                                                    [RFC8667]
+   3       TE-MESH-GROUP TLV (IPv4)                                                                      [RFC4972]
+   4       TE-MESH-GROUP TLV (IPv6)                                                                      [RFC4972]
+   5       PCED sub-TLV                                                                                  [RFC5089]
+   6       NICKNAME                                                                                      [RFC7176]
+   7       TREES                                                                                         [RFC7176]
+   8       TREE-RT-IDs                                                                                   [RFC7176]
+   9       TREE-USE-IDs                                                                                  [RFC7176]
+   10      INT-VLAN                                                                                      [RFC7176]
+   11      IPv4 TE Router ID                                                                             [RFC9346]
+   12      IPv6 TE Router ID                                                                             [RFC9346]
+   13      TRILL-VER                                                                                     [RFC7176]
+   14      VLAN-GROUP                                                                                    [RFC7176]
+   15      INT-LABEL                                                                                     [RFC7176]
+   16      RBCHANNELS                                                                                    [RFC7176]
+   17      AFFINITY                                                                                      [RFC7176]
+   18      LABEL-GROUP                                                                                   [RFC7176]
+   19      Segment Routing Algorithm                                                                     [RFC8667]
+   20      S-BFD Discriminators                                                                          [RFC7883]
+   21      Node-Admin-Tag                                                                                [RFC7917]
+   22      Segment Routing Local Block (SRLB)                                                            [RFC8667]
+   23      Node MSD                                                                                      [RFC8491]
+   24      Segment Routing Mapping Server Preference (SRMS Preference)                                   [RFC8667]
+   25      SRv6 Capabilities                                                                             [RFC9352, Section 2]
+   26      Flexible Algorithm Definition (FAD)                                                           [RFC9350, Section 5.1]
+   27      IS-IS Area Leader Sub-TLV (TEMPORARY - registered 2019-08-08, extension registered            [draft-ietf-lsr-dynamic-flooding]
+           2023-06-21, expires 2024-08-08)
+   28      IS-IS Dynamic Flooding Sub-TLV (TEMPORARY - registered 2019-08-08, extension registered       [draft-ietf-lsr-dynamic-flooding]
+           2023-06-21, expires 2024-08-08)
+   29      IP Algorithm                                                                                  [RFC-ietf-lsr-ip-flexalgo-16, Section 5.1]
    30-160  Unassigned
-   161     Flood Reflection Discovery                                                                             [RFC9377]
+   161     Flood Reflection Discovery                                                                    [RFC9377]
    162-255 Unassigned
 
 IS-IS Sub-Sub-TLVs for SRv6 Capabilities Sub-TLV
