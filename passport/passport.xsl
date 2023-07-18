@@ -21,6 +21,12 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <th>Name</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:otherwise>
       
     </xsl:choose>
   </xsl:template>
