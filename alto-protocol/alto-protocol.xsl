@@ -18,7 +18,7 @@
       <xsl:when test="@id = 'cost-metrics'">
         <tr><th>Identifier</th><th>Intended Semantics</th><th>Reference</th></tr>
       </xsl:when>
-      <xsl:when test="@id = 'cost-source'">
+      <xsl:when test="@id = 'cost-source-types'">
         <tr><th>Identifier</th><th>Intended Semantics</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'endpoint-property-types'">
