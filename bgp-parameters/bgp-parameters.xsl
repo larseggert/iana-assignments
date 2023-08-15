@@ -129,6 +129,15 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+
+      <xsl:when test="@id = 'long-lived-graceful-restart-flags-for-address-family'">
+        <tr>
+          <th>Bit Position</th>
+          <th>Name</th>
+          <th>Short Name</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
 	  
       <xsl:otherwise>
         <tr><th>Value</th><th>Name</th><th>Reference</th></tr>
@@ -245,6 +254,14 @@
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'long-lived-graceful-restart-flags-for-address-family'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:value-of select="iana:shortname"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
