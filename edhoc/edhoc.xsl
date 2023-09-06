@@ -8,10 +8,11 @@
 
   <xsl:template name="iana:record_header">
     <xsl:choose>
-      <xsl:when test="@id = 'edhoc-exporter-label'">
+      <xsl:when test="@id = 'edhoc-exporter-labels'">
         <tr>
           <th>Label</th>
           <th>Description</th>
+          <th>Change Controller</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
@@ -23,7 +24,7 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'edhoc-method-type'">
+      <xsl:when test="@id = 'edhoc-method-types'">
         <tr>
           <th>Value</th>
           <th>Intiator Authentication Key</th>
@@ -36,6 +37,7 @@
           <th>ERR_CODE</th>
           <th>ERR_INFO Type</th>
           <th>Description</th>
+          <th>Change Controller</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
@@ -59,6 +61,14 @@
 
   <xsl:template match="iana:record">
     <xsl:choose>
+      <xsl:when test="../@id = 'edhoc-exporter-labels'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
       <xsl:when test="../@id = 'edhoc-cipher-suites'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
@@ -67,7 +77,7 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'edhoc-method-type'">
+      <xsl:when test="../@id = 'edhoc-method-types'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:initiator"/></td>
@@ -80,6 +90,7 @@
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:type"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
