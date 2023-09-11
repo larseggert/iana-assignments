@@ -1,0 +1,74 @@
+(registered 2023-09-11, last updated 2023-09-11)
+
+Media type name: application
+
+Media subtype name: vnd.relpipe
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+Security considerations: This media type contains no executable 
+   content, just data. Because it may contain any data (generic 
+   format), it may also contain sensitive data. It is up to the user 
+   to secure the message on the protocol or container level (TLS, 
+   S/MIME, GPG etc.) when needed.
+
+Primary use of this format is IPC (inter-process communication) on a 
+   local machine, between two processes, mostly owned by the same 
+   user. However data in this format may be transferred also over 
+   e.g. HTTP(S) or e-mail, so having a Media type is desired.
+
+   Regarding DoS: data in this binary format contain length-prefixed 
+   values, thus corrupted/malicious data + buggy implementation can 
+   lead to attempt to allocate huge amounts of memory. However this 
+   caveat is common for almost any binary format.
+
+Interoperability considerations: Data in this format have same 
+   representation regardless platform operating system, default 
+   encoding, endianness, CPU architecture etc. Text attributes are 
+   serialized in UTF-8 regardless local default encoding. Integer 
+   numbers are serialized as LEB128. Booleans are simply 0x00/0x01. 
+   Other data types will be also strictly machine-readable and 
+   platform independent.
+
+Published specification: 
+
+   https://relational-pipes.globalcode.info/v_0/specification.xhtml
+   (not final yet)
+
+Applications which use this media: 
+
+   - IPC (inter-process communication) between two processes running 
+     on a single machine or over network e.g. piped through SSH 
+     (Media type is not needed in this case)
+   - HTTP request and response bodies
+   - MIME e-mail attachments
+   - extended attributes (xattr) file metadata on a file system
+   - storage in a container format or a database that records also 
+     Media type of stored data
+
+Fragment identifier considerations: currently no defined syntax, 
+   reserved for further use
+
+Restrictions on usage: not explicitly intended for limited use
+
+Additional information:
+
+   1. Deprecated alias names for this type: N/A
+   2. Magic number(s): 2b0601040182c65d0804
+   3. File extension(s): rp
+   4. Macintosh file type code: N/A
+   5. Object Identifiers: 1.3.6.1.4.1.41821.8.4
+
+Person to contact for further information:
+
+   1. Name: Frantisek Kucera
+   2. Email: iana-contact&frantovo.cz
+
+Intended usage: COMMON
+
+Author/Change controller: Frantisek Kucera, Frantovo.cz, 
+   GlobalCode.info
