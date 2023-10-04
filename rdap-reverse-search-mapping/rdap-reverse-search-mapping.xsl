@@ -10,7 +10,6 @@
     <tr>
       <th>Property</th>
       <th>Property Path</th>
-      <th>Description</th>
       <th>Searchable Resource Type</th>
       <th>Related Resource Type</th>
       <th>Registrant</th>
@@ -22,7 +21,6 @@
     <tr>
       <td><xsl:apply-templates select="iana:property"/></td>
       <td><xsl:apply-templates select="iana:path"/></td>
-      <td><xsl:apply-templates select="iana:description"/></td>
       <td><xsl:apply-templates select="iana:searchable"/></td>
       <td><xsl:apply-templates select="iana:related"/></td>
       <td><xsl:apply-templates select="iana:registrant"/></td>
