@@ -74,6 +74,14 @@
         <th>Name</th>
         <th>Reference</th>
         <th>Change Controller</th>
+        <th>Date</th>
+      </xsl:when>
+      <xsl:when test="@id = 'context-specific-label-space-id-type'">
+        <th>Type Value</th>
+        <th>Name</th>
+        <th>Reference</th>
+        <th>Change Controller</th>
+        <th>Date</th>
       </xsl:when>
       <xsl:otherwise>
         <th>Type Value</th>
@@ -117,11 +125,13 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:value-of select="@date"/></td>
         </xsl:when>
-        <xsl:when test="../@id = 'multicast-flags'">
+        <xsl:when test="../@id = 'multicast-flags'
+           or ../@id = 'context-specific-label-space-id-type'">
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
+          <td><xsl:value-of select="@date"/></td>
         </xsl:when>
         <xsl:otherwise>
           <td align="center"><xsl:value-of select="iana:value"/></td>
