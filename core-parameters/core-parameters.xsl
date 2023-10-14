@@ -74,6 +74,15 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+
+      <xsl:when test="@id = 'target-attributes'">
+        <tr>
+          <th>Attribute Name</th>
+          <th>Brief Description</th>
+          <th>Change Controller</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
            
     </xsl:choose>
   </xsl:template>
@@ -192,6 +201,15 @@
     <xsl:when test="../@id = 'core-custom-problem-detail-keys'">
       <tr>
         <td><xsl:value-of select="iana:value"/></td>
+        <td><xsl:value-of select="iana:name"/></td>
+        <td><xsl:apply-templates select="iana:description"/></td>
+        <td><xsl:apply-templates select="iana:controller"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+    </xsl:when>
+
+    <xsl:when test="../@id = 'target-attributes'">
+      <tr>
         <td><xsl:value-of select="iana:name"/></td>
         <td><xsl:apply-templates select="iana:description"/></td>
         <td><xsl:apply-templates select="iana:controller"/></td>
