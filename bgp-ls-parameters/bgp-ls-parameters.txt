@@ -6,7 +6,7 @@
    2015-11-03
 
    Last Updated
-   2023-10-24
+   2023-10-27
 
    Available Formats
    [IMG]
@@ -42,18 +42,18 @@ BGP-LS NLRI Types
    1-64999     Expert Review
    65000-65535 Private Use
 
-      Type             NLRI Type                        Reference
-        0      Reserved                  [RFC-ietf-idr-rfc7752bis-16]
-        1      Node NLRI                 [RFC-ietf-idr-rfc7752bis-16]
-        2      Link NLRI                 [RFC-ietf-idr-rfc7752bis-16]
-        3      IPv4 Topology Prefix NLRI [RFC-ietf-idr-rfc7752bis-16]
-        4      IPv6 Topology Prefix NLRI [RFC-ietf-idr-rfc7752bis-16]
-        5      TE Policy NLRI type       [draft-ietf-idr-te-lsp-distribution-17]
-        6      SRv6 SID NLRI             [RFC-ietf-idr-bgpls-srv6-ext-14]
+      Type               NLRI Type                        Reference
+        0      Reserved                      [RFC-ietf-idr-rfc7752bis-16]
+        1      Node NLRI                     [RFC-ietf-idr-rfc7752bis-16]
+        2      Link NLRI                     [RFC-ietf-idr-rfc7752bis-16]
+        3      IPv4 Topology Prefix NLRI     [RFC-ietf-idr-rfc7752bis-16]
+        4      IPv6 Topology Prefix NLRI     [RFC-ietf-idr-rfc7752bis-16]
+        5      SR Policy Candidate Path NLRI [draft-ietf-idr-bgp-ls-sr-policy-02]
+        6      SRv6 SID NLRI                 [RFC-ietf-idr-bgpls-srv6-ext-14]
      7-1100    Unassigned
       1101     Not to be allocated
    1102-64999  Unassigned
-   65000-65535 Private Use               [RFC-ietf-idr-rfc7752bis-16]
+   65000-65535 Private Use                   [RFC-ietf-idr-rfc7752bis-16]
 
 BGP-LS Protocol-IDs
 
@@ -72,7 +72,7 @@ BGP-LS Protocol-IDs
    1-199   Expert Review
    200-255 Private Use
 
-   Protocol-ID NLRI information source protocol                Reference
+   Protocol-ID NLRI information source protocol              Reference
         0      Reserved                         [RFC-ietf-idr-rfc7752bis-16]
         1      IS-IS Level 1                    [RFC-ietf-idr-rfc7752bis-16]
         2      IS-IS Level 2                    [RFC-ietf-idr-rfc7752bis-16]
@@ -81,8 +81,8 @@ BGP-LS Protocol-IDs
         5      Static configuration             [RFC-ietf-idr-rfc7752bis-16]
         6      OSPFv3                           [RFC-ietf-idr-rfc7752bis-16]
         7      BGP                              [RFC9086]
-        8      RSVP-TE                          [draft-ietf-idr-te-lsp-distribution-17]
-        9      Segment Routing                  [draft-ietf-idr-te-lsp-distribution-17]
+        8      RSVP-TE                          [draft-ietf-idr-bgp-ls-te-path-01]
+        9      Segment Routing                  [draft-ietf-idr-bgp-ls-sr-policy-02]
      10-199    Unassigned
      200-255   Private Use                      [RFC-ietf-idr-rfc7752bis-16]
 
@@ -145,14 +145,14 @@ BGP-LS NLRI and Attribute TLVs
         517       BGP Confederation Member                [RFC9086]
         518       SRv6 SID Information                    [RFC-ietf-idr-bgpls-srv6-ext-14]
       519-549     Unassigned
-        550       Tunnel ID TLV                           [draft-ietf-idr-te-lsp-distribution-17]
-        551       LSP ID TLV                              [draft-ietf-idr-te-lsp-distribution-17]
-        552       IPv4/6 Tunnel Head-end address TLV      [draft-ietf-idr-te-lsp-distribution-17]
-        553       IPv4/6 Tunnel Tail-end address TLV      [draft-ietf-idr-te-lsp-distribution-17]
-        554       SR Policy CP Descriptor TLV             [draft-ietf-idr-te-lsp-distribution-17]
-        555       MPLS Local Cross Connect TLV            [draft-ietf-idr-te-lsp-distribution-17]
-        556       MPLS Cross Connect Interface TLV        [draft-ietf-idr-te-lsp-distribution-17]
-        557       MPLS Cross Connect FEC TLV              [draft-ietf-idr-te-lsp-distribution-17]
+        550       Tunnel ID                               [draft-ietf-idr-bgp-ls-te-path-01]
+        551       LSP ID                                  [draft-ietf-idr-bgp-ls-te-path-01]
+        552       IPv4/6 Tunnel Head-end address          [draft-ietf-idr-bgp-ls-te-path-01]
+        553       IPv4/6 Tunnel Tail-end address          [draft-ietf-idr-bgp-ls-te-path-01]
+        554       SR Policy CP Descriptor                 [draft-ietf-idr-bgp-ls-sr-policy-02]
+        555       MPLS Local Cross Connect                [draft-ietf-idr-bgp-ls-te-path-01]
+        556       MPLS Cross Connect Interface            [draft-ietf-idr-bgp-ls-te-path-01]
+        557       MPLS Cross Connect FEC                  [draft-ietf-idr-bgp-ls-te-path-01]
       558-1023    Unassigned
         1024      Node Flag Bits                          [RFC-ietf-idr-rfc7752bis-16, Section 5.3.1.1]
         1025      Opaque Node Attribute                   [RFC-ietf-idr-rfc7752bis-16, Section 5.3.1.5]
@@ -234,20 +234,20 @@ BGP-LS NLRI and Attribute TLVs
         1183      IPv6 Link Prefix Length                 [draft-ietf-lsvr-bgp-spf-20]
         1184      SPF Status                              [draft-ietf-lsvr-bgp-spf-20]
      1185-1199    Unassigned
-        1200      MPLS-TE Policy State TLV                [draft-ietf-idr-te-lsp-distribution-17]
-        1201      SR BSID TLV                             [draft-ietf-idr-te-lsp-distribution-17]
-        1202      SR CP State TLV                         [draft-ietf-idr-te-lsp-distribution-17]
-        1203      SR CP Name TLV                          [draft-ietf-idr-te-lsp-distribution-17]
-        1204      SR CP Constraints TLV                   [draft-ietf-idr-te-lsp-distribution-17]
-        1205      SR Segment List TLV                     [draft-ietf-idr-te-lsp-distribution-17]
-        1206      SR Segment sub-TLV                      [draft-ietf-idr-te-lsp-distribution-17]
-        1207      SR Segment List Metric sub-TLV          [draft-ietf-idr-te-lsp-distribution-17]
-        1208      SR Affinity Constraint sub-TLV          [draft-ietf-idr-te-lsp-distribution-17]
-        1209      SR SRLG Constraint sub-TLV              [draft-ietf-idr-te-lsp-distribution-17]
-        1210      SR Bandwidth Constraint sub-TLV         [draft-ietf-idr-te-lsp-distribution-17]
-        1211      SR Disjoint Group Constraint sub-TLV    [draft-ietf-idr-te-lsp-distribution-17]
-        1212      SRv6 BSID TLV                           [draft-ietf-idr-te-lsp-distribution-17]
-        1213      SR Policy Name TLV                      [draft-ietf-idr-te-lsp-distribution-17]
+        1200      MPLS-TE Path State                      [draft-ietf-idr-bgp-ls-te-path-01]
+        1201      SR Binding SID                          [draft-ietf-idr-bgp-ls-sr-policy-02]
+        1202      SR CP State                             [draft-ietf-idr-bgp-ls-sr-policy-02]
+        1203      SR CP Name                              [draft-ietf-idr-bgp-ls-sr-policy-02]
+        1204      SR CP Constraints                       [draft-ietf-idr-bgp-ls-sr-policy-02]
+        1205      SR Segment List                         [draft-ietf-idr-bgp-ls-sr-policy-02]
+        1206      SR Segment                              [draft-ietf-idr-bgp-ls-sr-policy-02]
+        1207      SR Segment List Metric                  [draft-ietf-idr-bgp-ls-sr-policy-02]
+        1208      SR Affinity Constraint                  [draft-ietf-idr-bgp-ls-sr-policy-02]
+        1209      SR SRLG Constraint                      [draft-ietf-idr-bgp-ls-sr-policy-02]
+        1210      SR Bandwidth Constraint                 [draft-ietf-idr-bgp-ls-sr-policy-02]
+        1211      SR Disjoint Group Constraint            [draft-ietf-idr-bgp-ls-sr-policy-02]
+        1212      SRv6 Binding SID                        [draft-ietf-idr-bgp-ls-sr-policy-02]
+        1213      SR Policy Name                          [draft-ietf-idr-bgp-ls-sr-policy-02]
         1214      SR Bidirectional Group Constraint       [draft-ietf-idr-bgp-ls-sr-policy-02]
         1215      SR Metric Constraint                    [draft-ietf-idr-bgp-ls-sr-policy-02]
         1216      SR Segment List Bandwidth               [draft-ietf-idr-bgp-ls-sr-policy-02]
