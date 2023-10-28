@@ -6,7 +6,7 @@
    2021-02-11
 
    Last Updated
-   2023-07-26
+   2023-10-27
 
    Available Formats
    [IMG]
@@ -71,7 +71,7 @@ QUIC Transport Parameters
    first unassigned codepoint                   Standards Action
    values 31 * N + 27 (for integer values of N) Reserved
 
-      Value                  Parameter Name              Status                               Specification                               Date         Change          Contact           Notes
+      Value                  Parameter Name              Status                               Specification                               Date         Change           Contact           Notes
                                                                                                                                                      Controller
 0x00               original_destination_connection_id  permanent   [RFC9000, Section 18.2]                                             2021-02-11 IETF             [QUIC_WG]
 0x01               max_idle_timeout                    permanent   [RFC9000, Section 18.2]                                             2021-02-11 IETF             [QUIC_WG]
@@ -92,27 +92,28 @@ QUIC Transport Parameters
 0x10               retry_source_connection_id          permanent   [RFC9000, Section 18.2]                                             2021-02-11 IETF             [QUIC_WG]
 0x11               version_information                 permanent   [RFC9368]                                                           2022-12-16 IETF             [QUIC_WG]
 0x20               max_datagram_frame_size             permanent   [RFC9221]                                                           2021-10-20 IETF             [QUIC_WG]
-                                                                                                                                                                                    Receiver
-0x173e             discard                             provisional [https://github.com/quicwg/base-drafts/wiki/Quantum-Readiness-test] 2022-06-02 [David_Schinazi] [David_Schinazi] silently
-                                                                                                                                                                                    discards.
-                                                                                                                                                                                    Used to carry
-0x26ab             google handshake message            provisional                                                                     2022-11-01 Google           [Google]         Google internal
-                                                                                                                                                                                    handshake
-                                                                                                                                                                                    message
+                                                                                                                                                                                     Receiver
+0x173e             discard                             provisional [https://github.com/quicwg/base-drafts/wiki/Quantum-Readiness-test] 2022-06-02 [David_Schinazi] [David_Schinazi]  silently
+                                                                                                                                                                                     discards.
+                                                                                                                                                                                     Used to carry
+0x26ab             google handshake message            provisional                                                                     2022-11-01 Google           [Google]          Google internal
+                                                                                                                                                                                     handshake
+                                                                                                                                                                                     message
 0x2ab2             grease_quic_bit                     permanent   [RFC9287]                                                           2022-07-13 IETF             [QUIC_WG]
-0x3127             initial_rtt                         provisional                                                                     2021-10-20 Google           [Google]         Initial RTT in
-                                                                                                                                                                                    microseconds
-                                                                                                                                                                                    Google
-0x3128             google_connection_options           provisional                                                                     2021-10-20 Google           [Google]         connection
-                                                                                                                                                                                    options for
-                                                                                                                                                                                    experimentation
-                                                                                                                                                                                    User agent
-0x3129             user_agent                          provisional                                                                     2021-10-20 Google           [Google]         string
-                                                                                                                                                                                    (deprecated)
-                                                                                                                                                                                    Google QUIC
-0x4752             google_version                      provisional                                                                     2021-10-20 Google           [Google]         version
-                                                                                                                                                                                    downgrade
-                                                                                                                                                                                    prevention
+0x3127             initial_rtt                         provisional                                                                     2021-10-20 Google           [Google]          Initial RTT in
+                                                                                                                                                                                     microseconds
+                                                                                                                                                                                     Google
+0x3128             google_connection_options           provisional                                                                     2021-10-20 Google           [Google]          connection
+                                                                                                                                                                                     options for
+                                                                                                                                                                                     experimentation
+                                                                                                                                                                                     User agent
+0x3129             user_agent                          provisional                                                                     2021-10-20 Google           [Google]          string
+                                                                                                                                                                                     (deprecated)
+                                                                                                                                                                                     Google QUIC
+0x4752             google_version                      provisional                                                                     2021-10-20 Google           [Google]          version
+                                                                                                                                                                                     downgrade
+                                                                                                                                                                                     prevention
+0xff04de1b         min_ack_delay                       provisional [draft-ietf-quic-ack-frequency-07]                                  2023-10-27 Mirja Kühlewind  [Mirja_Kuhlewind]
 0x0f739bbc1b666d05 enable_multipath                    provisional [draft-ietf-quic-multipath-05, Section 3]                           2023-07-26 Yanmei Liu       [Yanmei_Liu]
 
 QUIC Frame Types
@@ -135,35 +136,36 @@ QUIC Frame Types
    permanent, greater than 0x3f               Specification Required
    first unassigned codepoint                 Standards Action
 
-           Value           Frame Type Name      Status                  Specification                   Date         Change        Contact    Notes
-                                                                                                                   Controller
-   0x00                  PADDING              permanent   [RFC9000, Section 19.1]                    2021-02-11 IETF             [QUIC_WG]
-   0x01                  PING                 permanent   [RFC9000, Section 19.2]                    2021-02-11 IETF             [QUIC_WG]
-   0x02-0x03             ACK                  permanent   [RFC9000, Section 19.3]                    2021-02-11 IETF             [QUIC_WG]
-   0x04                  RESET_STREAM         permanent   [RFC9000, Section 19.4]                    2021-02-11 IETF             [QUIC_WG]
-   0x05                  STOP_SENDING         permanent   [RFC9000, Section 19.5]                    2021-02-11 IETF             [QUIC_WG]
-   0x06                  CRYPTO               permanent   [RFC9000, Section 19.6]                    2021-02-11 IETF             [QUIC_WG]
-   0x07                  NEW_TOKEN            permanent   [RFC9000, Section 19.7]                    2021-02-11 IETF             [QUIC_WG]
-   0x08-0x0f             STREAM               permanent   [RFC9000, Section 19.8]                    2021-02-11 IETF             [QUIC_WG]
-   0x10                  MAX_DATA             permanent   [RFC9000, Section 19.9]                    2021-02-11 IETF             [QUIC_WG]
-   0x11                  MAX_STREAM_DATA      permanent   [RFC9000, Section 19.10]                   2021-02-11 IETF             [QUIC_WG]
-   0x12-0x13             MAX_STREAMS          permanent   [RFC9000, Section 19.11]                   2021-02-11 IETF             [QUIC_WG]
-   0x14                  DATA_BLOCKED         permanent   [RFC9000, Section 19.12]                   2021-02-11 IETF             [QUIC_WG]
-   0x15                  STREAM_DATA_BLOCKED  permanent   [RFC9000, Section 19.13]                   2021-02-11 IETF             [QUIC_WG]
-   0x16-0x17             STREAMS_BLOCKED      permanent   [RFC9000, Section 19.14]                   2021-02-11 IETF             [QUIC_WG]
-   0x18                  NEW_CONNECTION_ID    permanent   [RFC9000, Section 19.15]                   2021-02-11 IETF             [QUIC_WG]
-   0x19                  RETIRE_CONNECTION_ID permanent   [RFC9000, Section 19.16]                   2021-02-11 IETF             [QUIC_WG]
-   0x1a                  PATH_CHALLENGE       permanent   [RFC9000, Section 19.17]                   2021-02-11 IETF             [QUIC_WG]
-   0x1b                  PATH_RESPONSE        permanent   [RFC9000, Section 19.18]                   2021-02-11 IETF             [QUIC_WG]
-   0x1c-0x1d             CONNECTION_CLOSE     permanent   [RFC9000, Section 19.19]                   2021-02-11 IETF             [QUIC_WG]
-   0x1e                  HANDSHAKE_DONE       permanent   [RFC9000, Section 19.20]                   2021-02-11 IETF             [QUIC_WG]
-   0x30-0x31             DATAGRAM             permanent   [RFC9221]                                  2021-10-20 IETF             [QUIC_WG]
-   0x15228c00-0x15228c01 ACK_MP               provisional [draft-ietf-quic-multipath-05, Section     2023-07-26 Yanmei Liu       [Yanmei_Liu]
-                                                          8.1]
-   0x15228c05            PATH_ABANDON         provisional [draft-ietf-quic-multipath-05, Section     2023-07-26 Yanmei Liu       [Yanmei_Liu]
-                                                          8.2]
-   0x15228c06            PATH_STATUS          provisional [draft-ietf-quic-multipath-05, Section     2023-07-26 Yanmei Liu       [Yanmei_Liu]
-                                                          8.3]
+           Value           Frame Type Name      Status                   Specification                   Date      Change        Contact      Notes
+                                                                                                                 Controller
+   0x00                  PADDING              permanent   [RFC9000, Section 19.1]                     2021-02-11 IETF       [QUIC_WG]
+   0x01                  PING                 permanent   [RFC9000, Section 19.2]                     2021-02-11 IETF       [QUIC_WG]
+   0x02-0x03             ACK                  permanent   [RFC9000, Section 19.3]                     2021-02-11 IETF       [QUIC_WG]
+   0x04                  RESET_STREAM         permanent   [RFC9000, Section 19.4]                     2021-02-11 IETF       [QUIC_WG]
+   0x05                  STOP_SENDING         permanent   [RFC9000, Section 19.5]                     2021-02-11 IETF       [QUIC_WG]
+   0x06                  CRYPTO               permanent   [RFC9000, Section 19.6]                     2021-02-11 IETF       [QUIC_WG]
+   0x07                  NEW_TOKEN            permanent   [RFC9000, Section 19.7]                     2021-02-11 IETF       [QUIC_WG]
+   0x08-0x0f             STREAM               permanent   [RFC9000, Section 19.8]                     2021-02-11 IETF       [QUIC_WG]
+   0x10                  MAX_DATA             permanent   [RFC9000, Section 19.9]                     2021-02-11 IETF       [QUIC_WG]
+   0x11                  MAX_STREAM_DATA      permanent   [RFC9000, Section 19.10]                    2021-02-11 IETF       [QUIC_WG]
+   0x12-0x13             MAX_STREAMS          permanent   [RFC9000, Section 19.11]                    2021-02-11 IETF       [QUIC_WG]
+   0x14                  DATA_BLOCKED         permanent   [RFC9000, Section 19.12]                    2021-02-11 IETF       [QUIC_WG]
+   0x15                  STREAM_DATA_BLOCKED  permanent   [RFC9000, Section 19.13]                    2021-02-11 IETF       [QUIC_WG]
+   0x16-0x17             STREAMS_BLOCKED      permanent   [RFC9000, Section 19.14]                    2021-02-11 IETF       [QUIC_WG]
+   0x18                  NEW_CONNECTION_ID    permanent   [RFC9000, Section 19.15]                    2021-02-11 IETF       [QUIC_WG]
+   0x19                  RETIRE_CONNECTION_ID permanent   [RFC9000, Section 19.16]                    2021-02-11 IETF       [QUIC_WG]
+   0x1a                  PATH_CHALLENGE       permanent   [RFC9000, Section 19.17]                    2021-02-11 IETF       [QUIC_WG]
+   0x1b                  PATH_RESPONSE        permanent   [RFC9000, Section 19.18]                    2021-02-11 IETF       [QUIC_WG]
+   0x1c-0x1d             CONNECTION_CLOSE     permanent   [RFC9000, Section 19.19]                    2021-02-11 IETF       [QUIC_WG]
+   0x1e                  HANDSHAKE_DONE       permanent   [RFC9000, Section 19.20]                    2021-02-11 IETF       [QUIC_WG]
+   0x1f                  IMMEDIATE_ACK        provisional [draft-ietf-quic-ack-frequency-07]          2023-10-27 Mirja      [Mirja_Kuhlewind]
+                                                                                                                 Kühlewind
+   0x30-0x31             DATAGRAM             permanent   [RFC9221]                                   2021-10-20 IETF       [QUIC_WG]
+   0xaf                  ACK_FREQUENCY        provisional [draft-ietf-quic-ack-frequency-07]          2023-10-27 Mirja      [Mirja_Kuhlewind]
+                                                                                                                 Kühlewind
+   0x15228c00-0x15228c01 ACK_MP               provisional [draft-ietf-quic-multipath-05, Section 8.1] 2023-07-26 Yanmei Liu [Yanmei_Liu]
+   0x15228c05            PATH_ABANDON         provisional [draft-ietf-quic-multipath-05, Section 8.2] 2023-07-26 Yanmei Liu [Yanmei_Liu]
+   0x15228c06            PATH_STATUS          provisional [draft-ietf-quic-multipath-05, Section 8.3] 2023-07-26 Yanmei Liu [Yanmei_Liu]
 
 QUIC Transport Error Codes
 
@@ -238,10 +240,11 @@ QUIC Transport Error Codes
 
                                                                  Contact Information
 
-          ID               Name                   Contact URI            Last Updated
-   [David_Schinazi] David Schinazi     mailto:dschinazi.ietf&gmail.com   2022-06-02
-   [Google]         Google             mailto:quic-iana&google.com       2022-11-01
-   [QUIC_WG]        QUIC working group mailto:quic&ietf.org
-   [Yanmei_Liu]     Yanmei Liu         mailto:miaoji.lym&alibaba-inc.com 2023-07-26
+          ID                Name                   Contact URI            Last Updated
+   [David_Schinazi]  David Schinazi     mailto:dschinazi.ietf&gmail.com   2022-06-02
+   [Google]          Google             mailto:quic-iana&google.com       2022-11-01
+   [Mirja_Kuhlewind] Mirja Kühlewind    mailto:ietf&kuehlewind.net        2023-10-27
+   [QUIC_WG]         QUIC working group mailto:quic&ietf.org
+   [Yanmei_Liu]      Yanmei Liu         mailto:miaoji.lym&alibaba-inc.com 2023-07-26
 
    Licensing Terms
