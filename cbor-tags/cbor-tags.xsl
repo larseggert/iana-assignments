@@ -14,6 +14,21 @@
     <th>Template</th>
     </tr>
     </xsl:when>
+    <xsl:when test="@id = 'timescales'">
+    <tr>
+    <th>Timescale</th>
+    <th>Value</th>
+    <th>Semantics</th>
+    <th>Reference</th>
+    </tr>
+    </xsl:when>
+    <xsl:when test="@id = 'time-tag-map-keys'">
+    <tr>
+    <th>Value</th>
+    <th>Semantics</th>
+    <th>Reference</th>
+    </tr>
+    </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -26,6 +41,21 @@
        <td><xsl:apply-templates select="iana:semantics"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
        <td><xsl:apply-templates select="iana:file"/></td>
+     </tr>
+    </xsl:when>
+    <xsl:when test="../@id = 'timescales'">
+     <tr>
+       <td><xsl:apply-templates select="iana:timescale"/></td>
+       <td><xsl:value-of select="iana:value"/></td>     
+       <td><xsl:apply-templates select="iana:semantics"/></td>
+       <td><xsl:apply-templates select="iana:xref"/></td>
+     </tr>
+    </xsl:when>
+    <xsl:when test="../@id = 'time-tag-map-keys'">
+     <tr>
+       <td><xsl:value-of select="iana:value"/></td>     
+       <td><xsl:apply-templates select="iana:semantics"/></td>
+       <td><xsl:apply-templates select="iana:xref"/></td>
      </tr>
     </xsl:when>
     </xsl:choose>
