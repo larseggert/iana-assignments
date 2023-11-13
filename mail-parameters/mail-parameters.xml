@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="mail-parameters">
   <title>MAIL Parameters</title>
   <category>Mail Parameters</category>
-  <updated>2022-02-28</updated>
+  <updated>2023-11-13</updated>
   
 
   
@@ -217,6 +217,12 @@ MIME content</description>
       <value>REQUIRETLS</value>
       <description>Require TLS</description>
       <xref type="rfc" data="rfc8689"/>
+    </record>
+    <record date="2023-11-13">
+      <value>LIMITS</value>
+      <description>Server limits</description>
+      <xref type="draft" data="RFC-freed-smtp-limits-07"/>
+      <note>See "SMTP Server Limits Regisry" below.</note>
     </record>
     
     <registry id="mail-parameters-3">
@@ -630,6 +636,52 @@ SMTP Service Extensions above for the list for more general use.
       <note/>
     </record>
   </registry>
-  
+
+  <registry id="smtp-service-extensions">
+    <title>SMTP Server Limits</title>
+    <xref type="draft" data="RFC-freed-smtp-limits-07"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Unassigned</expert>
+
+    <record date="2023-11-13">
+      <value>MAILMAX</value>
+      <syntax>%x31-39 0*5DIGIT ; 0 not allowed, 6 digit maximum</syntax>
+      <description>MAILMAX specifies the maximum number of transactions 
+        (MAIL FROM commands) the server will accept in a single session. 
+        The count includes all MAIL FROM commands, regardless of whether 
+        they succeed or fail.</description>
+      <restriction>None</restriction>
+      <security>See <xref type="draft" data="RFC-freed-smtp-limits-07">RFC-freed-smtp-limits-07, Section 6</xref></security>
+      <xref type="draft" data="RFC-freed-smtp-limits-07"/>
+    </record>
+
+    <record date="2023-11-13">
+      <value>RCPTMAX</value>
+      <syntax>%x31-39 0*5DIGIT ; 0 not allowed, 6 digit maximum</syntax>
+      <description>RCPTMAX specifies the maximum number of RCPT TO commands 
+        the server will accept in a single transaction. It is not a limit on 
+        the actual number of recipients the message ends up being sent to; a 
+        single RCPT TO command may produce multiple recipients or, in the 
+        event of an error, none.</description>
+      <restriction>None</restriction>
+      <security>See <xref type="draft" data="RFC-freed-smtp-limits-07">RFC-freed-smtp-limits-07, Section 6</xref></security>
+      <xref type="draft" data="RFC-freed-smtp-limits-07"/>
+    </record>
+
+    <record date="2023-11-13">
+      <value>RCPTDOMAINMAX</value>
+      <syntax>%x31-39 0*5DIGIT ; 0 not allowed, 6 digit maximum</syntax>
+      <description>RCPTDOMAINMAX specifies the maximum number of different 
+        domains that can appear in a recipient (RCPT TO) address within a 
+        single session. This limit is imposed by some servers that bind to 
+        a specific internal delivery mechanism on receipt of the first RCPT 
+        TO command.</description>
+      <restriction>None</restriction>
+      <security>See <xref type="draft" data="RFC-freed-smtp-limits-07">RFC-freed-smtp-limits-07, Section 6</xref></security>
+      <xref type="draft" data="RFC-freed-smtp-limits-07"/>
+    </record>
+    
+  </registry>
+
   <people/>
 </registry>

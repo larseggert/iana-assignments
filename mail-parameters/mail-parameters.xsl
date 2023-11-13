@@ -69,6 +69,16 @@
           <th>Note</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'smtp-service-extensions'">
+        <tr>
+          <th>Name</th>
+          <th>Value syntax</th>
+          <th>Description</th>
+          <th>Restrictions</th>
+          <th>Security Considerations</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -115,6 +125,16 @@
           <td><xsl:apply-templates select="iana:multicast-ref"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:apply-templates select="iana:note"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'smtp-service-extensions'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:syntax"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:restriction"/></td>
+          <td><xsl:apply-templates select="iana:security"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
     </xsl:choose>
