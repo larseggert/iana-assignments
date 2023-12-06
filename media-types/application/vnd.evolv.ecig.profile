@@ -1,8 +1,5 @@
 (registered 2017-07-18, last updated 2017-07-18)
 
-Name: James Bellinger
-Email: james&dimensionengineering.com
-
 Media type name: application
 Media subtype name: vnd.evolv.ecig.profile
 
@@ -12,7 +9,6 @@ Optional parameters:
 None.
 
 Encoding considerations: binary
-
 
 Security considerations:
 This format contains no executable code. The format uses Zip compression 
