@@ -8,9 +8,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          ls -l
           rsync -avzH --del --exclude .git --exclude README.md --exclude .github rsync.iana.org::assignments .
           git status
-          git add -A
-          git commit -a -m "$(date -u)" --dry-run
-          # git push
+          git add -A && git commit -a -m "$(date -u)" && git push || true
