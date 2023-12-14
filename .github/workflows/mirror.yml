@@ -1,0 +1,15 @@
+on:
+  schedule:
+  - cron: "0 * * * *"
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          rsync -avzH --del --exclude .git --exclude README.md rsync.iana.org::assignments .
+          git status
+          git add -A
+          git commit -a -m "$(date -u)" --dry-run
+          # git push
