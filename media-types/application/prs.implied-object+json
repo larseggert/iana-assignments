@@ -1,0 +1,60 @@
+(registered 2024-01-11, last updated 2024-01-11)
+
+Media type name: application
+
+Media subtype name: prs.implied-object+json
+
+Required parameters: N/A.
+
+Optional parameters: Any parameter whose name matches the ABNF rule `(ALPHA / "_") *(ALPHA / DIGIT / "_" / "." / "-")` is valid. The value of such a parameter MUST be one of "object", "array", "number", "string", or "boolean". This indicates the required members of any encoded JSON object that is identified by this media type, and their types.
+
+Note that the set of allowed parameter names includes "charset", which does not indicate encoding and MUST NOT be interpreted in any special way when present.
+
+Encoding considerations: binary
+
+Same as for application/json [RFC 8259], as defined for +json by Section 3.1 of [RFC 6839].
+
+Security considerations: Same as for application/json [RFC 8259]. When processing this type, applications MUST ensure that the structure of the file matches the member-defining parameters (that the corresponding members are present and have the correct types), and if they intend to assign a more concrete media type to the file, they SHOULD verify that it is valid. Applications MUST NOT open files coming from untrusted sources if it could lead to arbitrary code execution.
+
+Interoperability considerations: Applications that accept or produce this type should not be assumed to have knowledge of more than the top-level JSON members of the encoded object. It is not guaranteed that an application offering this type will produce a file in a format that is most commonly associated with the members, and it is not guaranteed that an application accepting this type will be able to process it any of the formats associated with the members.
+
+Published specification: N/A
+
+Applications which use this media: This media type is intended for applications that have to guess the media type of a file, but do not contain heuristics that allow to pick a more concrete media type with acceptable confidence.
+
+Fragment identifier considerations: Same as for application/json [RFC 8259], as defined for +json by Section 3.1 of [RFC 6839].
+
+Restrictions on usage: N/A
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): N/A
+3. File extension(s): N/A
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+General Comments: This media type identifies a meta-format that encompasses all JSON-based formats that encode a JSON object whose members have specific names and types. It is intended for use in applications that describe files using media types, but do not have sufficient heuristics to output a more specific media type. In such a case, the application may parse the JSON and analyze the existing top-level members to populate the parameters.
+
+There are a few details to be noted:
+* The set of allowed parameter names is more restricted compared to what is permitted by the general syntax in [RFC 2045], Section 5.1. While JSON member names may contain any Unicode characters, arbitrary Unicode strings seldom denote any useful structure in JSON documents, and thus this set is limited further to cover only names that can be commonly used as identifiers in programming languages (specifically, it is aligned with the NCName production in XML). This also causes common metadata member names, such as those beginning on "$" in JSON Schema or "@" in JSON-LD, to be excluded.
+* Media type parameter names are case-insensitive, while JSON does not mandate any particular case sensitivity rules. For this reason, any members with duplicate names (when compared case-insensitively) MUST be ignored if they have different types when populating the media type parameters, and when validating JSON objects against this media type, any member whose name case-insensitively matches the parameter is sufficient to validate that parameter if the types correspond. This process may lead to an application/prs.implied-object+json object with no parameters, which is valid and denotes any JSON object (empty or non-empty).
+* Media type parameters are generally unordered, and while this aligns with common JSON implementations, some situations may require a particular order of members or consider objects differing in the member order alone to be different. When validating the members, no particular order should be required, and when populating the parameters, it is recommended to sort them alphabetically in a case-insensitive manner (i.e. converted to uppercase and sorted lexicographically according to the ASCII values of individual characters) to simplify comparisons or indexing.
+* The member types are determined in accordance with the JSON grammar, indicated by `value` in Section 3, [RFC 8259]. The types "object", "array", "number", and "string" correspond to the grammar rules directly, while "boolean" is determined by the literal values "true" and "false". As an exception, "null" is removed from this set and null-valued members are impossible to express, with the assumption that any such member may have valid values other than "null" which would otherwise lead to completely incompatible media types. Null-valued members are however taken into account for the duplicate members case described above, and cause other-valued members with an equivalent name to be ignored.
+
+Examples:
+
+application/prs.implied-object+json;aliases=array;links=array;properties=object;subject=string - The media type that may represent any JSON object with these members, such as a fully-utilized application/jdr+json object.
+
+application/prs.implied-object+json;subject=string - Likewise, but only with the required members, such as any application/jdr+json object but also all other objects with this member.
+
+Person to contact for further information:
+
+1. Name: Marek Čermák
+2. Email: cermmarek&gmail.com
+
+Intended usage: LIMITED USE
+
+It is not recommended to use this media type when a more concrete type is known. Its use beyond automated archival, content negotiation and other purposes in general file hosting is limited. Applications should not advocate themselves as accepting this media type if they require more specific structure or format.
+
+Author/Change controller: Marek Čermák <cermmarek&gmail.com>
