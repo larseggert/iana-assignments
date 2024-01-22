@@ -60,7 +60,7 @@
       </xsl:when>
       <xsl:when test="@id = 'supported-transport'">
         <tr>
-          <th>Bit Position (L to R)</th>
+          <th>Bit Position (least to most significant)</th>
           <th>Transport Protocol Description</th>
           <th>Mnemonic</th>
           <th>Reference</th>
