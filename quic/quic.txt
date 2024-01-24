@@ -6,7 +6,7 @@
    2021-02-11
 
    Last Updated
-   2023-11-03
+   2024-01-24
 
    Available Formats
    [IMG]
@@ -116,6 +116,7 @@ QUIC Transport Parameters
 0xff04de1b         min_ack_delay                       provisional [draft-ietf-quic-ack-frequency-07]                                  2023-10-27 Mirja Kühlewind  [Mirja_Kuhlewind]
 0x0f739bbc1b666d05 enable_multipath                    provisional [draft-ietf-quic-multipath-05, Section 3]                           2023-07-26 Yanmei Liu       [Yanmei_Liu]
 0x0f739bbc1b666d06 enable_multipath(-06)               provisional [draft-ietf-quic-multipath-06, Section 3]                           2023-11-03 Yanmei Liu       [Yanmei_Liu]
+0x4143414213370002 bdp_frame                           provisional [draft-misell-quic-bdp-token-02]                                    2024-01-24 Q Misell         [Q_Misell]
 
 QUIC Frame Types
 
@@ -190,56 +191,61 @@ QUIC Transport Error Codes
    permanent, greater than 0x3f               Specification Required
    first unassigned codepoint                 Standards Action
 
-         Value                  Code              Description     Status            Specification             Date      Change     Contact    Notes
-                                                                                                                      Controller
-   0x00               NO_ERROR                  No error        permanent   [RFC9000, Section 20]          2021-02-11 IETF       [QUIC_WG]
-   0x01               INTERNAL_ERROR            Implementation  permanent   [RFC9000, Section 20]          2021-02-11 IETF       [QUIC_WG]
+         Value                  Code             Description     Status             Specification              Date      Change     Contact    Notes
+                                                                                                                       Controller
+   0x00               NO_ERROR                  No error       permanent   [RFC9000, Section 20]            2021-02-11 IETF       [QUIC_WG]
+   0x01               INTERNAL_ERROR            Implementation permanent   [RFC9000, Section 20]            2021-02-11 IETF       [QUIC_WG]
                                                 error
-   0x02               CONNECTION_REFUSED        Server refuses  permanent   [RFC9000, Section 20]          2021-02-11 IETF       [QUIC_WG]
+   0x02               CONNECTION_REFUSED        Server refuses permanent   [RFC9000, Section 20]            2021-02-11 IETF       [QUIC_WG]
                                                 a connection
-   0x03               FLOW_CONTROL_ERROR        Flow control    permanent   [RFC9000, Section 20]          2021-02-11 IETF       [QUIC_WG]
+   0x03               FLOW_CONTROL_ERROR        Flow control   permanent   [RFC9000, Section 20]            2021-02-11 IETF       [QUIC_WG]
                                                 error
-   0x04               STREAM_LIMIT_ERROR        Too many        permanent   [RFC9000, Section 20]          2021-02-11 IETF       [QUIC_WG]
+   0x04               STREAM_LIMIT_ERROR        Too many       permanent   [RFC9000, Section 20]            2021-02-11 IETF       [QUIC_WG]
                                                 streams opened
                                                 Frame received
-   0x05               STREAM_STATE_ERROR        in invalid      permanent   [RFC9000, Section 20]          2021-02-11 IETF       [QUIC_WG]
+   0x05               STREAM_STATE_ERROR        in invalid     permanent   [RFC9000, Section 20]            2021-02-11 IETF       [QUIC_WG]
                                                 stream state
-   0x06               FINAL_SIZE_ERROR          Change to final permanent   [RFC9000, Section 20]          2021-02-11 IETF       [QUIC_WG]
-                                                size
-   0x07               FRAME_ENCODING_ERROR      Frame encoding  permanent   [RFC9000, Section 20]          2021-02-11 IETF       [QUIC_WG]
+   0x06               FINAL_SIZE_ERROR          Change to      permanent   [RFC9000, Section 20]            2021-02-11 IETF       [QUIC_WG]
+                                                final size
+   0x07               FRAME_ENCODING_ERROR      Frame encoding permanent   [RFC9000, Section 20]            2021-02-11 IETF       [QUIC_WG]
                                                 error
                                                 Error in
-   0x08               TRANSPORT_PARAMETER_ERROR transport       permanent   [RFC9000, Section 20]          2021-02-11 IETF       [QUIC_WG]
+   0x08               TRANSPORT_PARAMETER_ERROR transport      permanent   [RFC9000, Section 20]            2021-02-11 IETF       [QUIC_WG]
                                                 parameters
                                                 Too many
-   0x09               CONNECTION_ID_LIMIT_ERROR connection IDs  permanent   [RFC9000, Section 20]          2021-02-11 IETF       [QUIC_WG]
+   0x09               CONNECTION_ID_LIMIT_ERROR connection IDs permanent   [RFC9000, Section 20]            2021-02-11 IETF       [QUIC_WG]
                                                 received
                                                 Generic
-   0x0a               PROTOCOL_VIOLATION        protocol        permanent   [RFC9000, Section 20]          2021-02-11 IETF       [QUIC_WG]
+   0x0a               PROTOCOL_VIOLATION        protocol       permanent   [RFC9000, Section 20]            2021-02-11 IETF       [QUIC_WG]
                                                 violation
-   0x0b               INVALID_TOKEN             Invalid Token   permanent   [RFC9000, Section 20]          2021-02-11 IETF       [QUIC_WG]
+   0x0b               INVALID_TOKEN             Invalid Token  permanent   [RFC9000, Section 20]            2021-02-11 IETF       [QUIC_WG]
                                                 received
-   0x0c               APPLICATION_ERROR         Application     permanent   [RFC9000, Section 20]          2021-02-11 IETF       [QUIC_WG]
+   0x0c               APPLICATION_ERROR         Application    permanent   [RFC9000, Section 20]            2021-02-11 IETF       [QUIC_WG]
                                                 error
                                                 CRYPTO data
-   0x0d               CRYPTO_BUFFER_EXCEEDED    buffer          permanent   [RFC9000, Section 20]          2021-02-11 IETF       [QUIC_WG]
+   0x0d               CRYPTO_BUFFER_EXCEEDED    buffer         permanent   [RFC9000, Section 20]            2021-02-11 IETF       [QUIC_WG]
                                                 overflowed
                                                 Invalid packet
-   0x0e               KEY_UPDATE_ERROR          protection      permanent   [RFC9000, Section 20]          2021-02-11 IETF       [QUIC_WG]
+   0x0e               KEY_UPDATE_ERROR          protection     permanent   [RFC9000, Section 20]            2021-02-11 IETF       [QUIC_WG]
                                                 update
                                                 Excessive use
-   0x0f               AEAD_LIMIT_REACHED        of packet       permanent   [RFC9000, Section 20]          2021-02-11 IETF       [QUIC_WG]
-                                                protection keys
+   0x0f               AEAD_LIMIT_REACHED        of packet      permanent   [RFC9000, Section 20]            2021-02-11 IETF       [QUIC_WG]
+                                                protection
+                                                keys
                                                 No viable
-   0x10               NO_VIABLE_PATH            network path    permanent   [RFC9000, Section 20]          2021-02-11 IETF       [QUIC_WG]
+   0x10               NO_VIABLE_PATH            network path   permanent   [RFC9000, Section 20]            2021-02-11 IETF       [QUIC_WG]
                                                 exists
                                                 Error
-   0x11               VERSION_NEGOTIATION_ERROR negotiating     permanent   [RFC9368]                      2022-12-16 IETF       [QUIC_WG]
+   0x11               VERSION_NEGOTIATION_ERROR negotiating    permanent   [RFC9368]                        2022-12-16 IETF       [QUIC_WG]
                                                 version
-   0x0100-0x01ff      CRYPTO_ERROR              TLS alert code  permanent   [RFC9000, Section 20]          2021-05-18 IETF       [QUIC_WG]
-                                                Multipath                   [draft-ietf-quic-multipath-05,
-   0x1001d76d3ded42f3 MP_PROTOCOL_VIOLATION     protocol        provisional Section 9]                     2023-07-26 Yanmei Liu [Yanmei_Liu]
+   0x0100-0x01ff      CRYPTO_ERROR              TLS alert code permanent   [RFC9000, Section 20]            2021-05-18 IETF       [QUIC_WG]
+                                                Multipath                  [draft-ietf-quic-multipath-05,
+   0x1001d76d3ded42f3 MP_PROTOCOL_VIOLATION     protocol       provisional Section 9]                       2023-07-26 Yanmei Liu [Yanmei_Liu]
                                                 violation
+                                                The BDP token
+   0x4143414213370002 BDP_TOKEN_ERROR           received from  provisional [draft-misell-quic-bdp-token-02] 2024-01-24 Q Misell   [Q_Misell]
+                                                the client is
+                                                invalid
 
                                                                  Contact Information
 
@@ -247,6 +253,7 @@ QUIC Transport Error Codes
    [David_Schinazi]  David Schinazi     mailto:dschinazi.ietf&gmail.com   2022-06-02
    [Google]          Google             mailto:quic-iana&google.com       2022-11-01
    [Mirja_Kuhlewind] Mirja Kühlewind    mailto:ietf&kuehlewind.net        2023-10-27
+   [Q_Misell]        Q Misell           mailto:q&as207960.net             2024-01-24
    [QUIC_WG]         QUIC working group mailto:quic&ietf.org
    [Yanmei_Liu]      Yanmei Liu         mailto:miaoji.lym&alibaba-inc.com 2023-11-03
 
