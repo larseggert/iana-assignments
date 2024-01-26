@@ -372,6 +372,10 @@
                       <th>Decimal</th>
 	              <th>Hex</th>
                    </xsl:when>
+                   <xsl:when test="iana:range/iana:entry_size">
+                     <th>Entry Point</th>
+                     <th>Size</th>
+                  </xsl:when>
                    <xsl:otherwise>
                       <th>Range</th>
                    </xsl:otherwise>
@@ -392,6 +396,9 @@
                    <xsl:if test="../iana:range/iana:hex">
                       <td><xsl:apply-templates select="iana:hex"/></td>
                    </xsl:if>
+                   <xsl:if test="../iana:range/iana:entry_size">
+                      <td><xsl:apply-templates select="iana:entry_size"/></td>
+                  </xsl:if>
                    <td><xsl:apply-templates select="iana:registration_rule"/></td>
                    <xsl:if test="../iana:range/iana:note">
                       <td><xsl:apply-templates select="iana:note"/></td>
