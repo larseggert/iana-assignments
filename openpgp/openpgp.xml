@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="openpgp">
   <title>OpenPGP</title>
   <created>2024-01-19</created>
-  <updated>2024-01-19</updated>
+  <updated>2024-01-26</updated>
 
   <registry id="openpgp-s2k-types">
     <title>OpenPGP String-to-Key (S2K) Types</title>
@@ -46,7 +46,7 @@
       <generate>Yes</generate>
       <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13">RFC-ietf-openpgp-crypto-refresh-13, Section 3.7.1.4</xref>
     </record>
-    <record date="2024-01-19">
+    <record>
       <value>5-99</value>
       <description>Unassigned</description>
       <size/>
@@ -58,6 +58,12 @@
       <size/>
       <generate>As appropriate</generate>
       <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
+    </record>
+    <record>
+      <value>111-255</value>
+      <description>Unassigned</description>
+      <size/>
+      <generate/>
     </record>
   </registry>
 
@@ -237,12 +243,17 @@
     <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
     <registration_rule>Specification Required</registration_rule>
     <expert>Unassigned</expert>
+    <record date="2024-01-26">
+      <value>0</value>
+      <description>Reserved</description>
+      <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
+    </record>
     <record date="2024-01-19">
       <value>1</value>
       <description>Image Attribute Subpacket</description>
       <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13">RFC-ietf-openpgp-crypto-refresh-13, Section 5.12.1</xref>
     </record>
-    <record date="2024-01-19">
+    <record>
       <value>2-99</value>
       <description>Unassigned</description>
     </record>
@@ -251,6 +262,10 @@
       <description>Private/Experimental Use</description>
       <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
     </record>
+    <record>
+      <value>111-255</value>
+      <description>Unassigned</description>
+    </record>
   </registry>
 
   <registry id="openpgp-image-attribute-encoding-format">
@@ -258,6 +273,11 @@
     <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
     <registration_rule>Specification Required</registration_rule>
     <expert>Unassigned</expert>
+    <record date="2024-01-26">
+      <value>0</value>
+      <description>Reserved</description>
+      <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
+    </record>
     <record updated="2024-01-19">
       <value>1</value>
       <description>JPEG</description>
@@ -271,6 +291,10 @@
       <value>100-110</value>
       <description>Experimental or Private Use</description>
       <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
+    </record>
+    <record>
+      <value>111-255</value>
+      <description>Unassigned</description>
     </record>
   </registry>
 
@@ -454,10 +478,18 @@
       <description>Preferred AEAD Ciphersuites</description>
       <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13">RFC-ietf-openpgp-crypto-refresh-13, Section 5.2.3.15</xref>
     </record>
+    <record>
+      <value>40-99</value>
+      <description>Unassigned</description>
+    </record>
     <record date="2024-01-19">
       <value>100-110</value>
       <description>Private or experimental</description>
       <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
+    </record>
+    <record>
+      <value>111-127</value>
+      <description>Unassigned</description>
     </record>
   </registry>
 
@@ -527,6 +559,8 @@
     <title>OpenPGP Features Flags</title>
     <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
     <registration_rule>Specification Required</registration_rule>
+    <note>This is a variable length bit field.
+    </note>
     <expert>Unassigned</expert>
     <record date="2024-01-19">
       <value>0x01...</value>
@@ -551,7 +585,7 @@
   </registry>
 
   <registry id="openpgp-new-packet-versions">
-    <title>New Packet Versions (OBSOLETE)</title>
+    <title>OpenPGP New Packet Versions (OBSOLETE)</title>
     <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
     <registration_rule>Registry closed</registration_rule>
     <note>Those wishing to use the removed "New Packet Versions" registry 
@@ -567,27 +601,7 @@ registries.
     <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
     <registration_rule>Specification Required</registration_rule>
     <expert>Unassigned</expert>
-    <note>The flags in this packet may appear in self-signatures or in
-certification signatures. They mean different things depending on
-who is making the statement -- for example, a certification
-signature that has the "sign data" flag is stating that the
-certification is for that use. On the other hand, the
-"communications encryption" flag in a self-signature is stating a
-preference that a given key be used for communications. Note
-however, that it is a thorny issue to determine what is
-"communications" and what is "storage." This decision is left wholly
-up to the implementation; the authors of this document do not claim
-any special wisdom on the issue and realize that accepted opinion
-may change.
-
-The "split key" (0x10) and "group key" (0x80) flags are placed on a
-self-signature only; they are meaningless on a certification
-signature. They SHOULD be placed only on a direct key signature
-(type ID 0x1F) or a subkey signature (type ID 0x18), one that refers 
-to the key the flag applies to.
-
-When an implementation generates this subpacket, it SHOULD be marked 
-as critical.
+    <note>This is a variable length bit field.
     </note>
     <record date="2024-01-19">
       <value>0x01...</value>
@@ -689,7 +703,7 @@ possession of more than one person.</description>
     </record>
     <record date="2024-01-19">
       <value>16</value>
-      <description>Elgamal (Encrypt-Only) <xref type="uri" data="https://ieeexplore.ieee.org/document/1057074">ELGAMAL</xref></description>
+      <description>Elgamal (Encrypt-Only) <xref type="uri" data="https://doi.org/10.1109/tit.1985.1057074">ELGAMAL</xref></description>
       <public>MPI(p), MPI(g), MPI(y) <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13">RFC-ietf-openpgp-crypto-refresh-13, Section 5.5.5.3</xref></public>
       <secret>MPI(x)</secret>
       <signature>N/A</signature>
@@ -820,6 +834,14 @@ possession of more than one person.</description>
       <signature/>
       <pkesk/>
     </record>
+    <record>
+      <value>111-255</value>
+      <description>Unassigned</description>
+      <public/>
+      <secret/>
+      <signature/>
+      <pkesk/>
+    </record>
   </registry>
  
   <registry id="openpgp-symmetric-key-algorithms">
@@ -827,6 +849,18 @@ possession of more than one person.</description>
     <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
     <registration_rule>Specification Required</registration_rule>
     <expert>Unassigned</expert>
+    <note>When registering a new symmetric cipher with a block size of 64 or
+128 bits and a key size that is a multiple of 64 bits, no new
+considerations are needed.
+
+If the new cipher has a different block size, there needs to be
+additional documentation describing how to use the cipher in CFB
+mode.
+
+If the new cipher has an unusual key size, then padding needs to be
+considered for X25519 and X448 keywrap, which currently needs no
+padding.
+    </note>
     <record date="2024-01-19">
       <value>0</value>
       <description>Plaintext or unencrypted data</description>
@@ -917,7 +951,9 @@ key derived from 192)</description>
     </record>
     <record date="2024-01-19">
       <value>253-255</value>
-      <description>Reserved to avoid collision with Secret Key Encryption (see <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13">RFC-ietf-openpgp-crypto-refresh-13, Table 2 and Section 5.5.3</xref>)</description>
+      <description>Reserved to avoid collision with Secret Key Encryption 
+        (see the "OpenPGP Secret Key Encryption (S2K Usage Octet)" registry and 
+        <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13">RFC-ietf-openpgp-crypto-refresh-13, Section 5.5.3</xref>)</description>
       <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
     </record>
   </registry>
@@ -927,6 +963,18 @@ key derived from 192)</description>
     <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
     <registration_rule>Specification Required</registration_rule>
     <expert>Unassigned</expert>
+    <note>When registering a new hash algorithm, if the algorithm is also to
+be used with RSA signing schemes, it must also have an entry in the
+"OpenPGP Hash Algorithm Identifiers for RSA Signatures use of
+EMSA-PKCS1-v1_5 Padding" registry.
+    </note>
+    <record date="2024-01-26">
+      <value>0</value>
+      <description>Reserved</description>
+      <name/>
+      <salt/>
+      <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
+    </record>
     <record date="2024-01-19">
       <value>1</value>
       <description>MD5</description>
@@ -947,7 +995,7 @@ key derived from 192)</description>
       <description>RIPEMD-160</description>
       <name>"RIPEMD160"</name>
       <salt>N/A</salt>
-      <xref type="uri" data="https://www.iso.org/standard/25428.html">RIPEMD-160</xref>
+      <xref type="uri" data="https://www.iso.org/standard/67116.html">RIPEMD-160</xref>
     </record>
     <record date="2024-01-19">
       <value>4-7</value>
@@ -1018,6 +1066,12 @@ key derived from 192)</description>
       <salt/>
       <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
     </record>
+    <record>
+      <value>111-255</value>
+      <description>Unassigned</description>
+      <name/>
+      <salt/>
+    </record>
   </registry>
 
   <registry id="openpgp-compression-algorithms">
@@ -1055,6 +1109,11 @@ key derived from 192)</description>
       <description>Private/Experimental algorithm</description>
       <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
     </record>
+    <record>
+      <value>111-255</value>
+      <description>Unassigned</description>
+      <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
+    </record>
   </registry>
 
   <registry id="openpgp-secret-key-encryption">
@@ -1072,7 +1131,8 @@ key derived from 192)</description>
       <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
     </record>
     <record date="2024-01-19">
-      <value>nown symmetric cipher algo ID (see <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13">RFC-ietf-openpgp-crypto-refresh-13, Section 9.3</xref>)</value>
+      <value>Known symmetric cipher algo ID (see "OpenPGP Symmetric Key
+        Algorithms" registry)</value>
       <description>LegacyCFB</description>
       <encparam>IV</encparam>
       <enc>CFB(MD5(passphrase), secrets || check(secrets))</enc>
@@ -1240,15 +1300,14 @@ key derived from 192)</description>
   <registry id="openpgp-signature-notation-data-subpacket-types">
     <title>OpenPGP Signature Notation Data Subpacket Types</title>
     <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
-    <registration_rule>Signature Required</registration_rule>
+    <registration_rule>Specification Required</registration_rule>
     <expert>Unassigned</expert>
-    <note>Notation names are arbitrary strings encoded in
-UTF-8. They reside two name spaces: The IETF name
-space and the user name space.
+    <note>Notation names are arbitrary Unicode strings encoded in UTF-8. They
+reside in two namespaces: The IETF namespace and the user namespace.
 
-The IETF name space is registered with IANA. These
-names MUST NOT contain the "@" character (0x40).
-This is a tag for the user name space.
+This registry documents the IETF namespace. The names in this
+registry MUST NOT contain the "@" character (0x40), since the
+presence of that character indicates the user namespace.
     </note>
   </registry>
 
@@ -1256,6 +1315,9 @@ This is a tag for the user name space.
     <title>OpenPGP Key ID and Fingerprint</title>
     <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
     <registration_rule>RFC Required</registration_rule>
+    <note>When a new key version is defined, the "OpenPGP Key and Signature
+Versions" registry should also be updated.
+    </note>
     <record date="2024-01-19">
       <value>3</value>
       <description>MD5(MPIs without length octets)</description>
@@ -1349,6 +1411,11 @@ This is a tag for the user name space.
     <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
     <registration_rule>Specification Required</registration_rule>
     <expert>Unassigned</expert>
+    <note>When a new elliptic curve is registered for use with OpenPGP, it
+should also be added to the "OpenPGP ECC Curve-specific Wire
+Formats" registry. If it is used for ECDH, also add it to the
+"OpenPGP ECDH KDF and KEK Parameters" registry.
+    </note>
     <record date="2024-01-19">
       <value>1.2.840.10045.3.1.7</value>
       <len>8</len>
@@ -1568,6 +1635,13 @@ This is a tag for the user name space.
     <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
     <registration_rule>Specification Required</registration_rule>
     <expert>Unassigned</expert>
+    <record date="2024-01-26">
+      <value>0</value>
+      <description>Reserved</description>
+      <nonce/>
+      <auth/>
+      <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
+    </record>
     <record date="2024-01-19">
       <value>1</value>
       <description>EAX</description>
@@ -1587,7 +1661,7 @@ This is a tag for the user name space.
       <description>GCM</description>
       <nonce>12</nonce>
       <auth>16</auth>
-      <xref type="uri" data="https://csrc.nist.gov/pubs/sp/800/38/d/final">SP800-38D</xref>
+      <xref type="uri" data="https://doi.org/10.6028/nist.sp.800-38d">SP800-38D</xref>
     </record>
     <record>
       <value>4-99</value>
@@ -1602,13 +1676,22 @@ This is a tag for the user name space.
       <auth/>
       <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
     </record>
+    <record>
+      <value>111-255</value>
+      <description>Unassigned</description>
+      <nonce/>
+      <auth/>
+    </record>
   </registry>
 
   <registry id="openpgp-encrypted-message-packet-versions">
     <title>OpenPGP Encrypted Message Packet Versions</title>
     <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
     <registration_rule>RFC Required</registration_rule>
-    
+    <note>When a new version of SEIPD, PKESK, or SKESK are defined, consider
+also adding a corresponding flag to the "OpenPGP Features Flags"
+registry.
+    </note>
     <record date="2024-01-19">
       <encrypted>SED <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13">RFC-ietf-openpgp-crypto-refresh-13, Section 5.7</xref></encrypted>
       <symmetric>-</symmetric>
@@ -1643,7 +1726,9 @@ This is a tag for the user name space.
     <title>OpenPGP Key and Signature Versions</title>
     <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13"/>
     <registration_rule>RFC Required</registration_rule>
-    
+    <note>When a new key version is defined, the "OpenPGP Key ID and
+Fingerprint" registry should also be updated.
+    </note>
     <record date="2024-01-19">
       <signing>3 <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13">RFC-ietf-openpgp-crypto-refresh-13, Section 5.5.2.1</xref></signing>
       <sig>3 <xref type="draft" data="RFC-ietf-openpgp-crypto-refresh-13">RFC-ietf-openpgp-crypto-refresh-13, Section 5.2.2</xref></sig>

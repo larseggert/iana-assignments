@@ -60,9 +60,6 @@
       <xsl:when test="@id = 'openpgp-features-flags'">
         <tr><th>Feature</th><th>Definition</th><th>Reference</th></tr>
       </xsl:when>
-      <xsl:when test="@id = 'openpgp-new-packet-versions'">
-        <tr><th>Name</th><th>Type</th><th>Allowed Values</th><th>Reference</th></tr>
-      </xsl:when>
       <xsl:when test="@id = 'openpgp-key-flags'">
         <tr><th>Flag</th><th>Definition</th><th>Reference</th></tr>
       </xsl:when>
@@ -257,14 +254,6 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'openpgp-new-packet-versions'">
-        <tr>
-          <td align="center"><xsl:value-of select="iana:value"/></td>
-          <td><xsl:value-of select="iana:name"/></td>
-          <td><xsl:value-of select="iana:type"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
-        </tr>
-      </xsl:when>
       <xsl:when test="../@id = 'openpgp-public-key-algorithms'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
@@ -407,5 +396,4 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  <xsl:template name="iana:registryempty"/>
 </xsl:stylesheet>

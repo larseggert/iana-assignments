@@ -6,7 +6,7 @@
    2024-01-19
 
    Last Updated
-   2024-01-19
+   2024-01-26
 
    Available Formats
    [IMG]
@@ -24,7 +24,7 @@
      • OpenPGP Key Server Preference Flags
      • OpenPGP Reason for Revocation Code
      • OpenPGP Features Flags
-     • New Packet Versions (OBSOLETE)
+     • OpenPGP New Packet Versions (OBSOLETE)
      • OpenPGP Key Flags
      • OpenPGP Public Key Algorithms
      • OpenPGP Symmetric Key Algorithms
@@ -73,6 +73,7 @@ OpenPGP String-to-Key (S2K) Types
       4    Argon2                   20                      Yes                              [RFC-ietf-openpgp-crypto-refresh-13, Section 3.7.1.4]
     5-99   Unassigned
    100-110 Private/Experimental S2K                         As appropriate                   [RFC-ietf-openpgp-crypto-refresh-13]
+   111-255 Unassigned
 
 OpenPGP Packet Types
 
@@ -131,9 +132,11 @@ OpenPGP User Attribute Subpacket Types
    CSV
 
      ID       Attribute Subpacket                         Reference
+      0    Reserved                  [RFC-ietf-openpgp-crypto-refresh-13]
       1    Image Attribute Subpacket [RFC-ietf-openpgp-crypto-refresh-13, Section 5.12.1]
     2-99   Unassigned
    100-110 Private/Experimental Use  [RFC-ietf-openpgp-crypto-refresh-13]
+   111-255 Unassigned
 
 OpenPGP Image Attribute Encoding Format
 
@@ -153,9 +156,11 @@ OpenPGP Image Attribute Encoding Format
    CSV
 
      ID             Encoding                        Reference
+      0    Reserved                    [RFC-ietf-openpgp-crypto-refresh-13]
       1    JPEG                        [JPEG File Interchange Format]
     2-99   Unassigned
    100-110 Experimental or Private Use [RFC-ietf-openpgp-crypto-refresh-13]
+   111-255 Unassigned
 
 OpenPGP Signature Subpacket Types
 
@@ -210,7 +215,9 @@ OpenPGP Signature Subpacket Types
      37    Reserved (Attested Certifications)       [RFC-ietf-openpgp-crypto-refresh-13]
      38    Reserved (Key Block)                     [RFC-ietf-openpgp-crypto-refresh-13]
      39    Preferred AEAD Ciphersuites              [RFC-ietf-openpgp-crypto-refresh-13, Section 5.2.3.15]
+    40-99  Unassigned
    100-110 Private or experimental                  [RFC-ietf-openpgp-crypto-refresh-13]
+   111-127 Unassigned
 
 OpenPGP Key Server Preference Flags
 
@@ -278,6 +285,11 @@ OpenPGP Features Flags
    Reference
    [RFC-ietf-openpgp-crypto-refresh-13]
 
+   Note
+
+ This is a variable length bit field.
+
+
    Available Formats
    [IMG]
    CSV
@@ -288,7 +300,7 @@ OpenPGP Features Flags
    0x04... Reserved                                                          [RFC-ietf-openpgp-crypto-refresh-13]
    0x08... Symmetrically Encrypted Integrity Protected Data packet version 2 [RFC-ietf-openpgp-crypto-refresh-13, Section 5.13.2]
 
-New Packet Versions (OBSOLETE)
+OpenPGP New Packet Versions (OBSOLETE)
 
    Registration Procedure(s)
 
@@ -306,6 +318,8 @@ New Packet Versions (OBSOLETE)
  registries.
 
 
+   No registrations at this time.
+
 OpenPGP Key Flags
 
    Registration Procedure(s)
@@ -321,27 +335,7 @@ OpenPGP Key Flags
 
    Note
 
- The flags in this packet may appear in self-signatures or in
- certification signatures. They mean different things depending on
- who is making the statement -- for example, a certification
- signature that has the "sign data" flag is stating that the
- certification is for that use. On the other hand, the
- "communications encryption" flag in a self-signature is stating a
- preference that a given key be used for communications. Note
- however, that it is a thorny issue to determine what is
- "communications" and what is "storage." This decision is left wholly
- up to the implementation; the authors of this document do not claim
- any special wisdom on the issue and realize that accepted opinion
- may change.
-
- The "split key" (0x10) and "group key" (0x80) flags are placed on a
- self-signature only; they are meaningless on a certification
- signature. They SHOULD be placed only on a direct key signature
- (type ID 0x1F) or a subkey signature (type ID 0x18), one that refers
- to the key the flag applies to.
-
- When an implementation generates this subpacket, it SHOULD be marked
- as critical.
+ This is a variable length bit field.
 
 
    Available Formats
@@ -433,6 +427,7 @@ OpenPGP Public Key Algorithms
  29-99  Unassigned
 100-110 Private/Experimental
         algorithm
+111-255 Unassigned
 
 OpenPGP Symmetric Key Algorithms
 
@@ -447,35 +442,49 @@ OpenPGP Symmetric Key Algorithms
    Reference
    [RFC-ietf-openpgp-crypto-refresh-13]
 
+   Note
+
+ When registering a new symmetric cipher with a block size of 64 or
+ 128 bits and a key size that is a multiple of 64 bits, no new
+ considerations are needed.
+
+ If the new cipher has a different block size, there needs to be
+ additional documentation describing how to use the cipher in CFB
+ mode.
+
+ If the new cipher has an unusual key size, then padding needs to be
+ considered for X25519 and X448 keywrap, which currently needs no
+ padding.
+
+
    Available Formats
    [IMG]
    CSV
 
-     ID                             Algorithm                                                           Reference
-      0    Plaintext or unencrypted data                               [RFC-ietf-openpgp-crypto-refresh-13]
-                                                                       [Lai, X., "On the design and security of block ciphers", ETH Series in
-      1    IDEA                                                        Information Processing, J.L. Massey (editor), Vol. 1, Hartung-Gorre Verlag
-                                                                       Knostanz, Technische Hochschule (Zurich),
-                                                                       1992][RFC-ietf-openpgp-crypto-refresh-13]
-      2    TripleDES (DES-EDE, [SP800-67] - 168 bit key derived from   [RFC-ietf-openpgp-crypto-refresh-13]
-           192)
-      3    CAST5 (128 bit key, as per [RFC2144])                       [RFC-ietf-openpgp-crypto-refresh-13]
-      4    Blowfish (128 bit key, 16 rounds)                           [BLOWFISH]
-      5    Reserved                                                    [RFC-ietf-openpgp-crypto-refresh-13]
-      6    Reserved                                                    [RFC-ietf-openpgp-crypto-refresh-13]
-      7    AES with 128-bit key                                        [AES]
-      8    AES with 192-bit key                                        [RFC-ietf-openpgp-crypto-refresh-13]
-      9    AES with 256-bit key                                        [RFC-ietf-openpgp-crypto-refresh-13]
-     10    Twofish with 256-bit key                                    [TWOFISH]
-     11    Camellia with 128-bit key                                   [RFC3713]
-     12    Camellia with 192-bit key                                   [RFC-ietf-openpgp-crypto-refresh-13]
-     13    Camellia with 256-bit key                                   [RFC-ietf-openpgp-crypto-refresh-13]
+     ID                              Algorithm                                                            Reference
+      0    Plaintext or unencrypted data                                  [RFC-ietf-openpgp-crypto-refresh-13]
+                                                                          [Lai, X., "On the design and security of block ciphers", ETH Series in
+      1    IDEA                                                           Information Processing, J.L. Massey (editor), Vol. 1, Hartung-Gorre
+                                                                          Verlag Knostanz, Technische Hochschule (Zurich),
+                                                                          1992][RFC-ietf-openpgp-crypto-refresh-13]
+      2    TripleDES (DES-EDE, [SP800-67] - 168 bit key derived from 192) [RFC-ietf-openpgp-crypto-refresh-13]
+      3    CAST5 (128 bit key, as per [RFC2144])                          [RFC-ietf-openpgp-crypto-refresh-13]
+      4    Blowfish (128 bit key, 16 rounds)                              [BLOWFISH]
+      5    Reserved                                                       [RFC-ietf-openpgp-crypto-refresh-13]
+      6    Reserved                                                       [RFC-ietf-openpgp-crypto-refresh-13]
+      7    AES with 128-bit key                                           [AES]
+      8    AES with 192-bit key                                           [RFC-ietf-openpgp-crypto-refresh-13]
+      9    AES with 256-bit key                                           [RFC-ietf-openpgp-crypto-refresh-13]
+     10    Twofish with 256-bit key                                       [TWOFISH]
+     11    Camellia with 128-bit key                                      [RFC3713]
+     12    Camellia with 192-bit key                                      [RFC-ietf-openpgp-crypto-refresh-13]
+     13    Camellia with 256-bit key                                      [RFC-ietf-openpgp-crypto-refresh-13]
     14-99  Unassigned
-   100-110 Private/Experimental algorithm                              [RFC-ietf-openpgp-crypto-refresh-13]
+   100-110 Private/Experimental algorithm                                 [RFC-ietf-openpgp-crypto-refresh-13]
    111-252 Unassigned
            Reserved to avoid collision with Secret Key Encryption (see
-   253-255 [RFC-ietf-openpgp-crypto-refresh-13, Table 2 and Section    [RFC-ietf-openpgp-crypto-refresh-13]
-           5.5.3])
+   253-255 the "OpenPGP Secret Key Encryption (S2K Usage Octet)" registry [RFC-ietf-openpgp-crypto-refresh-13]
+           and [RFC-ietf-openpgp-crypto-refresh-13, Section 5.5.3])
 
 OpenPGP Hash Algorithms
 
@@ -490,11 +499,20 @@ OpenPGP Hash Algorithms
    Reference
    [RFC-ietf-openpgp-crypto-refresh-13]
 
+   Note
+
+ When registering a new hash algorithm, if the algorithm is also to
+ be used with RSA signing schemes, it must also have an entry in the
+ "OpenPGP Hash Algorithm Identifiers for RSA Signatures use of
+ EMSA-PKCS1-v1_5 Padding" registry.
+
+
    Available Formats
    [IMG]
    CSV
 
      ID              Algorithm             Text Name  V6 Signature Salt Size                          Reference
+      0    Reserved                                                          [RFC-ietf-openpgp-crypto-refresh-13]
       1    MD5                            "MD5"       N/A                    [RFC1321]
       2    SHA-1                          "SHA1"      N/A                    [FIPS180][RFC-ietf-openpgp-crypto-refresh-13, Section 13.1]
       3    RIPEMD-160                     "RIPEMD160" N/A                    [RIPEMD-160]
@@ -508,6 +526,7 @@ OpenPGP Hash Algorithms
      14    SHA3-512                       "SHA3-512"  32                     [FIPS202]
     15-99  Unassigned
    100-110 Private/Experimental algorithm                                    [RFC-ietf-openpgp-crypto-refresh-13]
+   111-255 Unassigned
 
 OpenPGP Compression Algorithms
 
@@ -533,6 +552,7 @@ OpenPGP Compression Algorithms
       3    BZip2                          [BZ2]
     4-99   Unassigned                     [RFC-ietf-openpgp-crypto-refresh-13]
    100-110 Private/Experimental algorithm [RFC-ietf-openpgp-crypto-refresh-13]
+   111-255 Unassigned                     [RFC-ietf-openpgp-crypto-refresh-13]
 
 OpenPGP Secret Key Encryption (S2K Usage Octet)
 
@@ -551,30 +571,26 @@ OpenPGP Secret Key Encryption (S2K Usage Octet)
    [IMG]
    CSV
 
-             S2K Usage Octet             Shorthand   Encryption Parameter         Encryption         Generate?              Reference
-                                                            Fields
-                                                                          v3 or v4 keys: [cleartext
-   0                                    Unprotected  -                    secrets || check(secrets)] Yes       [RFC-ietf-openpgp-crypto-refresh-13]
-                                                                          v6 keys: [cleartext
-                                                                          secrets]
-   nown symmetric cipher algo ID (see                                     CFB(MD5(passphrase),
-   [RFC-ietf-openpgp-crypto-refresh-13, LegacyCFB    IV                   secrets || check(secrets)) No        [RFC-ietf-openpgp-crypto-refresh-13]
-   Section 9.3])
-                                                     params-length
-                                                     (v6-only),
-                                                     cipher-algo,         AEAD(HKDF(S2K(passphrase),
-   253                                  AEAD         AEAD-mode,           info), secrets,            Yes       [RFC-ietf-openpgp-crypto-refresh-13]
-                                                     S2K-specifier-length packetprefix)
-                                                     (v6-only),
-                                                     S2K-specifier, nonce
-                                                     params-length
-                                                     (v6-only),
-   254                                  CFB          cipher-algo,         CFB(S2K(passphrase),       Yes       [RFC-ietf-openpgp-crypto-refresh-13]
-                                                     S2K-specifier-length secrets || SHA1(secrets))
-                                                     (v6-only),
-                                                     S2K-specifier, IV
-   255                                  MalleableCFB cipher-algo,         CFB(S2K(passphrase),       No        [RFC-ietf-openpgp-crypto-refresh-13]
-                                                     S2K-specifier, IV    secrets || check(secrets))
+     S2K Usage Octet    Shorthand    Encryption Parameter Fields              Encryption             Generate?              Reference
+                                                                   v3 or v4 keys: [cleartext secrets
+   0                   Unprotected  -                              || check(secrets)] v6 keys:       Yes       [RFC-ietf-openpgp-crypto-refresh-13]
+                                                                   [cleartext secrets]
+   Known symmetric
+   cipher algo ID (see                                             CFB(MD5(passphrase), secrets ||
+   "OpenPGP Symmetric  LegacyCFB    IV                             check(secrets))                   No        [RFC-ietf-openpgp-crypto-refresh-13]
+   Key Algorithms"
+   registry)
+                                    params-length (v6-only),
+                                    cipher-algo, AEAD-mode,        AEAD(HKDF(S2K(passphrase), info),
+   253                 AEAD         S2K-specifier-length           secrets, packetprefix)            Yes       [RFC-ietf-openpgp-crypto-refresh-13]
+                                    (v6-only), S2K-specifier,
+                                    nonce
+                                    params-length (v6-only),
+   254                 CFB          cipher-algo,                   CFB(S2K(passphrase), secrets ||   Yes       [RFC-ietf-openpgp-crypto-refresh-13]
+                                    S2K-specifier-length           SHA1(secrets))
+                                    (v6-only), S2K-specifier, IV
+   255                 MalleableCFB cipher-algo, S2K-specifier, IV CFB(S2K(passphrase), secrets ||   No        [RFC-ietf-openpgp-crypto-refresh-13]
+                                                                   check(secrets))
 
 OpenPGP Signature Types
 
@@ -643,7 +659,7 @@ OpenPGP Signature Notation Data Subpacket Types
 
    Registration Procedure(s)
 
- Signature Required
+ Specification Required
 
    Expert(s)
 
@@ -654,14 +670,16 @@ OpenPGP Signature Notation Data Subpacket Types
 
    Note
 
- Notation names are arbitrary strings encoded in
- UTF-8. They reside two name spaces: The IETF name
- space and the user name space.
+ Notation names are arbitrary Unicode strings encoded in UTF-8. They
+ reside in two namespaces: The IETF namespace and the user namespace.
 
- The IETF name space is registered with IANA. These
- names MUST NOT contain the "@" character (0x40).
- This is a tag for the user name space.
+ This registry documents the IETF namespace. The names in this
+ registry MUST NOT contain the "@" character (0x40), since the
+ presence of that character indicates the user namespace.
 
+
+   Notation Name Data Type Allowed Values Reference
+   No registrations at this time.
 
 OpenPGP Key ID and Fingerprint
 
@@ -671,6 +689,12 @@ OpenPGP Key ID and Fingerprint
 
    Reference
    [RFC-ietf-openpgp-crypto-refresh-13]
+
+   Note
+
+ When a new key version is defined, the "OpenPGP Key and Signature
+ Versions" registry should also be updated.
+
 
    Available Formats
    [IMG]
@@ -764,6 +788,14 @@ OpenPGP ECC Curve OID and Usage
 
    Reference
    [RFC-ietf-openpgp-crypto-refresh-13]
+
+   Note
+
+ When a new elliptic curve is registered for use with OpenPGP, it
+ should also be added to the "OpenPGP ECC Curve-specific Wire
+ Formats" registry. If it is used for ECDH, also add it to the
+ "OpenPGP ECDH KDF and KEK Parameters" registry.
+
 
    Available Formats
    [IMG]
@@ -869,11 +901,13 @@ OpenPGP AEAD Algorithms
    CSV
 
      ID                 Name              Nonce Length (Octets) Authentication Tag Length (Octets)              Reference
+   0       Reserved                                                                                [RFC-ietf-openpgp-crypto-refresh-13]
    1       EAX                            16                    16                                 [EAX]
    2       OCB                            15                    16                                 [RFC7253]
    3       GCM                            12                    16                                 [SP800-38D]
    4-99    Unassigned
    100-110 Private/Experimental algorithm                                                          [RFC-ietf-openpgp-crypto-refresh-13]
+   111-255 Unassigned
 
 OpenPGP Encrypted Message Packet Versions
 
@@ -883,6 +917,13 @@ OpenPGP Encrypted Message Packet Versions
 
    Reference
    [RFC-ietf-openpgp-crypto-refresh-13]
+
+   Note
+
+ When a new version of SEIPD, PKESK, or SKESK are defined, consider
+ also adding a corresponding flag to the "OpenPGP Features Flags"
+ registry.
+
 
    Available Formats
    [IMG]
@@ -911,6 +952,12 @@ OpenPGP Key and Signature Versions
 
    Reference
    [RFC-ietf-openpgp-crypto-refresh-13]
+
+   Note
+
+ When a new key version is defined, the "OpenPGP Key ID and
+ Fingerprint" registry should also be updated.
+
 
    Available Formats
    [IMG]
