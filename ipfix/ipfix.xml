@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="ipfix">
 <title>IP Flow Information Export (IPFIX) Entities</title>
 <created>2007-05-10</created>
-<updated>2024-01-22</updated>
+<updated>2024-01-29</updated>
 
 <note><xref type="rfc" data="rfc7012"/> has obsoleted <xref type="rfc" data="rfc5102"/>. However, references to <xref type="rfc" data="rfc5102"/>
 remain as part of the historical record.</note>
@@ -163,91 +163,68 @@ Traffic Class field.
 <status>current</status>
 <description>
 <paragraph>
-TCP control bits observed for the packets of this Flow.
-This information is encoded as a bit field; for each TCP control
-bit, there is a bit in this set.  The bit is set to 1 if any
-observed packet of this Flow has the corresponding TCP control bit
-set to 1.  The bit is cleared to 0 otherwise.
+  TCP control bits observed for the packets of this Flow. This information is 
+  encoded as a bit field; each TCP control bit has a corresponding bit in that 
+  field. A bit is set to 1 if any observed packet of this Flow has the 
+  corresponding TCP control bit set to 1. The bit is cleared to 0 otherwise.
 </paragraph>
 <paragraph>
-The values of each bit are shown below, per the definition of the
-bits in the TCP header <xref type="rfc" data="rfc9293"/><xref type="rfc" data="rfc3168"/>:
-</paragraph>
-<artwork>
- MSb                                                         LSb
-  0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
-+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-|               |           | N | C | E | U | A | P | R | S | F |
-|     Zero      |   Future  | S | W | C | R | C | S | S | Y | I |
-| (Data Offset) |    Use    |   | R | E | G | K | H | T | N | N |
-+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
-
-bit    flag
-value  name  description
-------+-----+-------------------------------------
-0x8000       Zero (see tcpHeaderLength)
-0x4000       Zero (see tcpHeaderLength)
-0x2000       Zero (see tcpHeaderLength)
-0x1000       Zero (see tcpHeaderLength)
-0x0800       Future Use
-0x0400       Future Use
-0x0200       Future Use
-0x0100   NS  ECN Nonce Sum
-0x0080  CWR  Congestion Window Reduced
-0x0040  ECE  ECN Echo
-0x0020  URG  Urgent Pointer field significant
-0x0010  ACK  Acknowledgment field significant
-0x0008  PSH  Push Function
-0x0004  RST  Reset the connection
-0x0002  SYN  Synchronize sequence numbers
-0x0001  FIN  No more data from sender
-</artwork>
-<paragraph>
-As the most significant 4 bits of octets 12 and 13 (counting from
-zero) of the TCP header <xref type="rfc" data="rfc9293"/> are used to encode the TCP data
-offset (header length), the corresponding bits in this Information
-Element MUST be exported as zero and MUST be ignored by the
-collector.  Use the tcpHeaderLength Information Element to encode
-this value.
+  As per <xref type="rfc" data="rfc9293"/>, the assignment of the TCP control 
+  bits is managed by IANA from the "TCP Header Flags" registry at 
+  <xref type="uri" data="https://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml#tcp-header-flags"/>. 
+  That registry is authoritative to retrieve the most recent TCP control bits.
 </paragraph>
 <paragraph>
-Each of the 3 bits (0x800, 0x400, and 0x200), which are reserved
-for future use in <xref type="rfc" data="rfc9293"/>, SHOULD be exported as observed in the
-TCP headers of the packets of this Flow.
+  As the most significant 4 bits of octets 12 and 13 (counting from zero) of the 
+  TCP header <xref type="rfc" data="rfc9293"/> are used to encode the TCP data 
+  offset (header length), the corresponding bits in this Information Element 
+  MUST be reported by the Exporter with a value of zero and MUST be ignored by the 
+  Collector. Use the tcpHeaderLength Information Element to encode this value.
 </paragraph>
 <paragraph>
-If exported as a single octet with reduced-size encoding, this
-Information Element covers the low-order octet of this field (i.e,
-bits 0x80 to 0x01), omitting the ECN Nonce Sum and the three
-Future Use bits.  A collector receiving this Information Element
-with reduced-size encoding must not assume anything about the
-content of these four bits.
+  All TCP control bits (including those unassigned) MUST be exported as observed 
+  in the TCP headers of the packets of this Flow.
 </paragraph>
 <paragraph>
-Exporting Processes exporting this Information Element on behalf
-of a Metering Process that is not capable of observing any of the
-ECN Nonce Sum or Future Use bits SHOULD use reduced-size encoding,
-and only export the least significant 8 bits of this Information
-Element.
+  If exported as a single octet with reduced-size encoding (Section 6.2 of 
+  <xref type="rfc" data="rfc7011"/>), this Information Element covers the 
+  low-order octet of this field (i.e., bit offset positions 8 to 15) 
+  <xref type="uri" data="https://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml#tcp-header-flags"/>. 
+  A Collector receiving this Information Element with reduced-size encoding must 
+  not assume anything about the content of the four bits with bit offset positions 
+  4 to 7.
 </paragraph>
 <paragraph>
-Note that previous revisions of this Information Element's
-definition specified that the CWR and ECE bits must be exported as
-zero, even if observed.  Collectors should therefore not assume
-that a value of zero for these bits in this Information Element
-indicates the bits were never set in the observed traffic,
-especially if these bits are zero in every Flow Record sent by a
-given exporter.
+  Exporting Processes exporting this Information Element on behalf of a Metering 
+  Process that is not capable of observing any of the flags with bit offset 
+  positions 4 to 7 SHOULD use reduced-size encoding, and only export the least 
+  significant 8 bits of this Information Element.
+</paragraph>
+<paragraph>
+  Note that previous revisions of this Information Element's definition specified 
+  that flags with bit offset positions 8 and 9 must be exported as zero, even if 
+  observed. Collectors should therefore not assume that a value of zero for these 
+  bits in this Information Element indicates the bits were never set in the observed 
+  traffic, especially if these bits are zero in every Flow Record sent by a given 
+  Exporter.
+</paragraph>
+<paragraph>
+  Note also that the "TCP Header Flags" registry
+  <xref type="uri" data="https://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml#tcp-header-flags"/> 
+  indexes the bit offset from the most-significant bit of octet 12 to the 
+  least-significant bit of octet 13 in the TCP header, but the tcpControlBits is 
+  encoded as a regular unsigned 16 bit integer.
 </paragraph>
 </description>
 <references>
-<paragraph>
-<xref type="rfc" data="rfc9293"/><xref type="rfc" data="rfc3168"/>
-</paragraph>
+ <paragraph>See the assigned TCP control bits in the "TCP Header Flags" registry
+  <xref type="uri" data="https://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml#tcp-header-flags"/>.
+</paragraph>  
 </references>
-<xref type="rfc" data="rfc7125"/>
-<revision>1</revision>
-<date>2014-01-03</date>
+<xref type="rfc" data="rfc9293"/>
+<xref type="draft" data="RFC-ietf-opsawg-rfc7125-update-07"/>
+<revision>2</revision>
+<date>2024-01-29</date>
 </record>
 
 <record>
