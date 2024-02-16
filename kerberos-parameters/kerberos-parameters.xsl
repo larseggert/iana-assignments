@@ -33,6 +33,20 @@
       <xsl:when test="@id = 'transport-type'">
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'second-factor-types'">
+        <tr><th>ID Number</th><th>Name</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'spake-groups'">
+        <tr><th>ID Number</th>
+        <th>Name</th>
+        <th>Serialization</th>
+        <th>Multiplier Length</th>
+        <th>Multiplier Conversion</th>
+        <th>SPAKE M Constant</th>
+        <th>SPAKE N Constant</th>
+        <th>Hash Function</th>
+        <th>Reference</th></tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -101,6 +115,26 @@
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'second-factor-types'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'spake-groups'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:serial"/></td>
+          <td><xsl:value-of select="iana:length"/></td> 
+          <td><xsl:apply-templates select="iana:conv"/></td> 
+          <td><xsl:value-of select="iana:spakem"/></td>
+          <td><xsl:value-of select="iana:spaken"/></td>
+          <td><xsl:apply-templates select="iana:hash"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>  
         </tr>
       </xsl:when>
     </xsl:choose>

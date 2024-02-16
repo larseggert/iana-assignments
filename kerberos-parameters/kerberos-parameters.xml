@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="kerberos-parameters">
   <title>Kerberos Parameters</title>
   <created>2004-06-29</created>
-  <updated>2023-03-29</updated>
+  <updated>2024-02-16</updated>
   <registry id="kerberos-parameters-1">
     <title>Kerberos Encryption Type Numbers</title>
     <xref type="rfc" data="rfc3961"/>
@@ -699,7 +699,7 @@ should use these values.  Zero is reserved and may not be assigned.
     <record date="2018-01-24">
       <value>151</value>
       <description>PA-SPAKE</description>
-      <xref type="draft" data="draft-ietf-kitten-krb-spake-preauth"/>
+      <xref type="draft" data="RFC-ietf-kitten-krb-spake-preauth-13"/>
     </record>
     <record date="2021-11-29">
       <value>152</value>
@@ -829,6 +829,113 @@ should use these values.  Zero is reserved and may not be assigned.
     </record>
   </registry>
   
+  <registry id="second-factor-types">
+    <title>Kerberos Second Factor Types</title>
+    <xref type="draft" data="RFC-ietf-kitten-krb-spake-preauth-13"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Unassigned</expert>
+    <note>Registration requests should be sent to the mailing list described 
+in <xref type="draft" data="RFC-ietf-kitten-krb-spake-preauth-13"/>. If approved, designated 
+experts should notify IANA within three weeks. For assistance, 
+please contact iana@iana.org.
+    </note>
+    <note>These are signed integers ranging from -2147483648 to 2147483647,
+inclusive. Positive values must be assigned only for algorithms 
+specified in accordance with these rules for use with Kerberos 
+and related protocols. Negative values should be used for private 
+and experimental algorithms only. Zero is reserved and must not 
+be assigned. Values should be assigned in increasing order.
+    </note>
+    <record date="2024-02-16">
+      <value>0</value>
+      <description>Reserved</description>
+      <xref type="draft" data="RFC-ietf-kitten-krb-spake-preauth-13"/>
+    </record>
+    <record date="2024-02-16">
+      <value>1</value>
+      <description>SF-NONE</description>
+      <xref type="draft" data="RFC-ietf-kitten-krb-spake-preauth-13"/>
+    </record>
+  </registry>
+
+  <registry id="spake-groups">
+    <title>Kerberos SPAKE Groups</title>
+    <xref type="draft" data="RFC-ietf-kitten-krb-spake-preauth-13"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Unassigned</expert>
+    <note>Registration requests should be sent to the mailing list described 
+in <xref type="draft" data="RFC-ietf-kitten-krb-spake-preauth-13"/>. If approved, designated 
+experts should notify IANA within three weeks. For assistance, 
+please contact iana@iana.org.
+    </note>
+    <note>These are signed integers ranging from -2147483648 to 2147483647,
+inclusive. Positive values must be assigned only for algorithms 
+specified in accordance with these rules for use with Kerberos 
+and related protocols. Negative values should be used for private 
+and experimental algorithms only. Zero is reserved and must not 
+be assigned. Values should be assigned in increasing order.
+    </note>
+    <record>
+      <value>0</value>
+      <name>Reserved</name>
+      <serial/>
+      <length/>
+      <conv/>
+      <spakem/>
+      <spaken/>
+      <hash/>
+      <xref type="draft" data="RFC-ietf-kitten-krb-spake-preauth-13"/>
+    </record>
+    <record>
+      <value>1</value>
+      <name>edwards25519</name>
+      <serial><xref type="rfc" data="rfc8032">RFC8032, Section 3.1</xref></serial>
+      <length>32</length>
+      <conv><xref type="rfc" data="rfc8032">RFC8032, Section 3.1</xref></conv>
+      <spakem>d048032c6ea0b6d697ddc2e86bda85a33adac920f1bf18e1b0c6d166a5cecdaf</spakem>
+      <spaken>d3bfb518f44f3430f29d0c92af503865a1ed3281dc69b35dd868ba85f886c4ab</spaken>
+      <hash>SHA-256 <xref type="rfc" data="rfc6234"/></hash>
+      <xref type="rfc" data="rfc7748">RFC7748, Section 4.1</xref>
+      <xref type="text">(edwards25519)</xref>
+    </record>
+    <record>
+      <value>2</value>
+      <name>P-256</name>
+      <serial><xref type="uri" data="https://www.secg.org/sec1-v2.pdf">SECG-SEC1, Section 2.3.3</xref>
+      <xref type="text">(compressed format)</xref></serial>
+      <length>32</length>
+      <conv><xref type="uri" data="https://www.secg.org/sec1-v2.pdf">SECG-SEC1, Section 2.3.8</xref></conv>
+      <spakem>02886e2f97ace46e55ba9dd7242579f2993b64e16ef3dcab95afd497333d8fa12f</spakem>
+      <spaken>03d8bbd6c639c62937b04d997f38c3770719c629d7014d49a24b4f98baa1292b49</spaken>
+      <hash>SHA-256 <xref type="rfc" data="rfc6234"/></hash>
+      <xref type="uri" data="http://www.secg.org/sec2-v2.pdf">SECG-SEC2, Section 2.4.2</xref>
+    </record>
+    <record>
+      <value>3</value>
+      <name>P-384</name>
+      <serial><xref type="uri" data="https://www.secg.org/sec1-v2.pdf">SECG-SEC1, Section 2.3.3</xref>
+      <xref type="text">(compressed format)</xref></serial>
+      <length>48</length>
+      <conv><xref type="uri" data="https://www.secg.org/sec1-v2.pdf">SECG-SEC1, Section 2.3.8</xref></conv>
+      <spakem>030ff0895ae5ebf6187080a82d82b42e2765e3b2f8749c7e05eba366434b363d3dc36f15314739074d2eb8613fceec2853</spakem>
+      <spaken>02c72cf2e390853a1c1c4ad816a62fd15824f56078918f43f922ca21518f9c543bb252c5490214cf9aa3f0baab4b665c10</spaken>
+      <hash>SHA-384 <xref type="rfc" data="rfc6234"/></hash>
+      <xref type="uri" data="http://www.secg.org/sec2-v2.pdf">SECG-SEC2, Section 2.5.1</xref>
+    </record>
+    <record>
+      <value>4</value>
+      <name>P-521</name>
+      <serial><xref type="uri" data="https://www.secg.org/sec1-v2.pdf">SECG-SEC1, Section 2.3.3</xref>
+      <xref type="text">(compressed format)</xref></serial>
+      <length>48</length>
+      <conv><xref type="uri" data="https://www.secg.org/sec1-v2.pdf">SECG-SEC1, Section 2.3.8</xref></conv>
+      <spakem>02003f06f38131b2ba2600791e82488e8d20ab889af753a41806c5db18d37d85608cfae06b82e4a72cd744c719193562a653ea1f119eef9356907edc9b56979962d7aa</spakem>
+      <spaken>0200c7924b9ec017f3094562894336a53c50167ba8c5963876880542bc669e494b2532d76c5b53dfb349fdf69154b9e0048c58a42e8ed04cef052a3bc349d95575cd25</spaken>
+      <hash>SHA-512 <xref type="rfc" data="rfc6234"/></hash>
+      <xref type="uri" data="http://www.secg.org/sec2-v2.pdf">SECG-SEC2, Section 2.6.1</xref>
+    </record>
+  </registry>
+
   <people>
     <person id="Pavel_Březina">
       <name>Pavel Březina</name>
