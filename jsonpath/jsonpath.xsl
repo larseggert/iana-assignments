@@ -11,7 +11,7 @@
       <xsl:when test="@id = 'function-extensions'">
         <tr>
           <th>Function Name</th>
-          <th>Description</th>
+          <th>Brief Description</th>
           <th>Parameters</th>
           <th>Result</th>
           <th>Change Controller</th>
