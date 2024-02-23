@@ -20,6 +20,22 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'drip-sam-types'">
+        <tr>
+          <th>SAM Type</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'drip-frame-types'">
+        <tr>
+          <th>Frame Type</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -30,6 +46,22 @@
           <td><xsl:apply-templates select="iana:hhit"/></td>
           <td><xsl:apply-templates select="iana:bits"/></td>
           <td><xsl:apply-templates select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'drip-sam-types'">
+        <tr>
+          <td><xsl:apply-templates select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'drip-frame-types'">
+        <tr>
+          <td><xsl:apply-templates select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
