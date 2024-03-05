@@ -6,7 +6,7 @@
    2007-05-10
 
    Last Updated
-   2024-02-05
+   2024-03-05
 
    Note
 
@@ -105,10 +105,11 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               if any observed packet of this Flow has the corresponding TCP control bit set to 1. The
                                                                                               bit is cleared to 0 otherwise.
 
-                                                                                              As per [RFC9293], the assignment of the TCP control bits is managed by IANA from the "TCP
-                                                                                              Header Flags" registry at
+                                                                                              Per [RFC9293], the assignment of TCP control bits is managed by IANA via the "TCP Header
+                                                                                              Flags" registry
                                                                                               [https://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml#tcp-header-flags].
-                                                                                              That registry is authoritative to retrieve the most recent TCP control bits.
+                                                                                              Implementers can retrieve the current TCP control bits from that registry, which is
+                                                                                              authoritative for them.
 
                                                                                               As the most significant 4 bits of octets 12 and 13 (counting from zero) of the TCP header
                                                                                               [RFC9293] are used to encode the TCP data offset (header length), the corresponding bits
@@ -119,9 +120,9 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               All TCP control bits (including those unassigned) MUST be exported as observed in the TCP
                                                                                               headers of the packets of this Flow.
 
-                                                                                              If exported as a single octet with reduced-size encoding (Section 6.2 of [RFC7011]), this
-    6     tcpControlBits                         unsigned16           flags        current    Information Element covers the low-order octet of this field (i.e., bit offset positions                          See the assigned TCP control bits in the "TCP Header Flags" registry                                   [RFC9293][RFC-ietf-opsawg-rfc7125-update-07] 2        2024-01-29
-                                                                                              8 to 15)                                                                                                          [https://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml#tcp-header-flags].
+                                                                                              If exported as a single octet with reduced-size encoding (Section 6.2 of [RFC7011]), this                         See the assigned TCP control bits in the "TCP Header Flags" registry
+    6     tcpControlBits                         unsigned16           flags        current    Information Element covers the low-order octet of this field (i.e., bit offset positions                          [https://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml#tcp-header-flags].               [RFC9293][RFC-ietf-opsawg-rfc7125-update-07] 2        2024-01-29
+                                                                                              8 to 15)
                                                                                               [https://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml#tcp-header-flags].
                                                                                               A Collector receiving this Information Element with reduced-size encoding must not assume
                                                                                               anything about the content of the four bits with bit offset positions 4 to 7.
@@ -139,9 +140,9 @@ ElementID                  Name                   Abstract Data Type   Data Type
 
                                                                                               Note also that the "TCP Header Flags" registry
                                                                                               [https://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml#tcp-header-flags]
-                                                                                              indexes the bit offset from the most-significant bit of octet 12 to the least-significant
+                                                                                              indexes the bit offset from the most significant bit of octet 12 to the least significant
                                                                                               bit of octet 13 in the TCP header, but the tcpControlBits is encoded as a regular
-                                                                                              unsigned 16 bit integer.
+                                                                                              unsigned 16-bit integer.
                                                                                                                                                                                                                 See [RFC768] for the definition of the UDP source port field. See [RFC9293] for the definition of the
                                                                                               The source port identifier in the transport header. For the transport protocols UDP, TCP,                         TCP source port field. See [RFC9260] for the definition of SCTP.
     7     sourceTransportPort                    unsigned16           identifier   current    and SCTP, this is the source port number given in the respective header. This field MAY                                                                                                                                  [RFC5102]                                    0        2013-02-18
