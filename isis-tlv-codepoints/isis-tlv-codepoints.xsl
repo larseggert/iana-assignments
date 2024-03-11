@@ -171,6 +171,14 @@
          <th>Reference</th>
        </tr>
       </xsl:when>
+
+      <xsl:when test="@id = 'isis-sub-tlvs-for-the-area-proxy-tlv'">
+       <tr>
+         <th>Value</th>
+         <th>Name</th>
+         <th>Reference</th>
+       </tr>
+      </xsl:when>
       
       <xsl:otherwise>
        <tr>
