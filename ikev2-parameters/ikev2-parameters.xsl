@@ -94,14 +94,14 @@
      <xsl:when test="@id = 'ikev2-parameters-14'">
       <tr>
         <th>Value</th>
-        <th>NOTIFY MESSAGES - ERROR TYPES</th>
+        <th>Notify Message Error Type</th>
         <th>Reference</th>
       </tr>
      </xsl:when>
      <xsl:when test="@id = 'ikev2-parameters-16'">
       <tr>
         <th>Value</th>
-        <th>NOTIFY MESSAGES - STATUS TYPES</th>
+        <th>Notify Message Status Type</th>
         <th>Reference</th>
       </tr>
      </xsl:when>
