@@ -6,7 +6,7 @@
    2007-05-10
 
    Last Updated
-   2024-03-13
+   2024-03-27
 
    Note
 
@@ -2146,7 +2146,32 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               The 16-bit unsigned integer that represents an SRv6 Endpoint behavior as per Section 4 of                         See the assigned behaviors in the "SRv6 Endpoint Behaviors" registry at
    502    srhSegmentIPv6EndpointBehavior         unsigned16           identifier   current    [RFC8986]. Assigned values and their meanings are provided in the ["SRV6 Endpoint                                 [https://www.iana.org/assignments/segment-routing/segment-routing.xhtml#srv6-endpoint-behaviors]. See  [RFC9487]                          0        2023-06-08
                                                                                               Behaviors"] registry.                                                                                             Section 4 of [RFC8986] for more details about the processing of endpoint behaviors.
-503-32767 Unassigned
+                                                                                              The checksum in the transport header. For the transport protocols UDP and TCP, this is                            See [RFC768] for the definition of the UDP checksum field. See [RFC9293] for the definition of the TCP
+   503    transportChecksum                      unsigned16           default      current    the checksum given in the respective header. This field MAY also be used for future                               checksum field.                                                                                        [ipfix-iana_at_cisco.com]          0        2024-03-27
+                                                                                              transport protocols that have 16-bit checksum values.
+                                                                                              This Information Element carries a series of n octets from the ICMP header of a sampled
+                                                                                              packet, starting sectionOffset octets into the ICMP header.
+
+                                                                                              However, if no sectionOffset field corresponding to this Information Element is present,
+                                                                                              then a sectionOffset of zero applies, and the octets MUST be from the start of the ICMP
+                                                                                              header.
+
+                                                                                              With sufficient length, this element also reports octets from the ICMP payload. However,
+                                                                                              full packet capture of arbitrary packet streams is explicitly out of scope per the
+                                                                                              Security Considerations sections of [RFC5477] and [RFC2804].
+   504    icmpHeaderPacketSection                octetArray           default      current                                                                                                                      See [RFC792] for the definition of the IPv4 ICMP header. See [RFC4443] for the definition of the IPv6  [ipfix-iana_at_cisco.com]          0        2024-03-27
+                                                                                              The sectionExportedOctets expresses how much data was exported, while the remainder is                            ICMP header.
+                                                                                              padding.
+
+                                                                                              When the sectionExportedOctets field corresponding to this Information Element exists,
+                                                                                              this Information Element MAY have a fixed length and MAY be padded, or it MAY have a
+                                                                                              variable length.
+
+                                                                                              When the sectionExportedOctets field corresponding to this Information Element does not
+                                                                                              exist, this Information Element SHOULD have a variable length and MUST NOT be padded. In
+                                                                                              this case, the size of the exported section may be constrained due to limitations in the
+                                                                                              IPFIX protocol.
+505-32767 Unassigned
 
   IPFIX MPLS label type (Value 46)
 

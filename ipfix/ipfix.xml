@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="ipfix">
 <title>IP Flow Information Export (IPFIX) Entities</title>
 <created>2007-05-10</created>
-<updated>2024-03-13</updated>
+<updated>2024-03-27</updated>
 
 <note><xref type="rfc" data="rfc7012"/> has obsoleted <xref type="rfc" data="rfc5102"/>. However, references to <xref type="rfc" data="rfc5102"/>
 remain as part of the historical record.</note>
@@ -11801,10 +11801,78 @@ of this field is limited to 10 characters, UTF-8 encoded.
 <date>2023-06-08</date>
 </record>
 
+<record date="2024-03-27">
+  <name>transportChecksum</name>
+  <dataType>unsigned16</dataType>
+  <dataTypeSemantics>default</dataTypeSemantics>
+  <elementId>503</elementId>
+  <status>current</status>
+  <description>
+    <paragraph>
+      The checksum in the transport header. For the transport protocols UDP and TCP, this is the 
+      checksum given in the respective header. This field MAY also be used for future transport 
+      protocols that have 16-bit checksum values.
+    </paragraph>
+  </description>
+  <references>
+    <paragraph>
+      See <xref type="rfc" data="rfc768"/> for the definition of the UDP checksum field.
+      See <xref type="rfc" data="rfc9293"/>  for the definition of the TCP checksum field.
+    </paragraph>
+  </references>
+  <xref type="person" data="ipfix-iana_at_cisco.com"/>
+  <revision>0</revision>
+  <date>2024-03-27</date>
+  </record>
+
+  <record date="2024-03-27">
+    <name>icmpHeaderPacketSection</name>
+    <dataType>octetArray</dataType>
+    <dataTypeSemantics>default</dataTypeSemantics>
+    <elementId>504</elementId>
+    <status>current</status>
+    <description>
+      <paragraph>
+        This Information Element carries a series of n octets from the ICMP header of a sampled 
+        packet, starting sectionOffset octets into the ICMP header.
+      </paragraph>
+      <paragraph>
+        However, if no sectionOffset field corresponding to this Information Element is present, 
+        then a sectionOffset of zero applies, and the octets MUST be from the start of the ICMP header.
+      </paragraph>
+      <paragraph>
+        With sufficient length, this element also reports octets from the ICMP payload. However, 
+        full packet capture of arbitrary packet streams is explicitly out of scope per 
+        the Security Considerations sections of <xref type="rfc" data="rfc5477"/> and <xref type="rfc" data="rfc2804"/>.
+      </paragraph>
+      <paragraph>
+        The sectionExportedOctets expresses how much data was exported, while the remainder is padding.
+      </paragraph>
+      <paragraph>
+        When the sectionExportedOctets field corresponding to this Information Element exists,
+        this Information Element MAY have a fixed length and MAY be padded, or it MAY have a variable length.
+      </paragraph>
+      <paragraph>
+        When the sectionExportedOctets field corresponding to this Information Element does not exist, 
+        this Information Element SHOULD have a variable length and MUST NOT be padded. In this case, 
+        the size of the exported section may be constrained due to limitations in the IPFIX protocol.
+      </paragraph>
+    </description>
+    <references>
+      <paragraph>
+        See <xref type="rfc" data="rfc792"/> for the definition of the IPv4 ICMP header. 
+        See <xref type="rfc" data="rfc4443"/> for the definition of the IPv6 ICMP header.
+      </paragraph>
+    </references>
+    <xref type="person" data="ipfix-iana_at_cisco.com"/>
+    <revision>0</revision>
+    <date>2024-03-27</date>
+    </record>
+
 <record>
-<name>Unassigned</name>
-<elementId>503-32767</elementId>
-</record>
+  <name>Unassigned</name>
+  <elementId>505-32767</elementId>
+  </record>
 
 
 
