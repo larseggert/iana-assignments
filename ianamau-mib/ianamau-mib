@@ -8,7 +8,7 @@ IANA-MAU-MIB DEFINITIONS ::= BEGIN
        ;
 
      ianaMauMIB MODULE-IDENTITY
-       LAST-UPDATED "202309070000Z" -- September 7, 2023
+       LAST-UPDATED "202404020000Z" -- April 2, 2024
        ORGANIZATION "IANA"
        CONTACT-INFO "        Internet Assigned Numbers Authority
 
@@ -52,6 +52,11 @@ IANA-MAU-MIB DEFINITIONS ::= BEGIN
          RFC 4836; for full legal notices see the RFC itself.
          Supplementary information may be available at:
          http://www.ietf.org/copyrights/ianamib.html"
+
+       REVISION     "202404020000Z" -- April 2, 2024
+       DESCRIPTION  "Added support for IEEE Std 802.3df-2024 (400GBASE-DR4-2, 
+                    800GBASE-CR8, 800GBASE-DR8, 800GBASE-DR8-2, 800GBASE-KR8, 
+                    800GBASE-R, 800GBASE-SR8, and 800GBASE-VR8PHYs)."
 
        REVISION     "202309070000Z"  -- September 7, 2023
        DESCRIPTION  "Added support for IEEE Std 802.3cy-2023 (25GBASE-T1 PHYs)."
@@ -356,7 +361,15 @@ IANA-MAU-MIB DEFINITIONS ::= BEGIN
               b10GbaseAU(215), -- 10GBASE-AU
               b25GbaseAU(216), -- 25GBASE-AU
               b50GbaseAU(217), -- 50GBASE-AU
-              b25GbaseT1(218) -- 25GBASE-T1
+              b25GbaseT1(218), -- 25GBASE-T1
+              b400GbaseDR42(219), -- 400GBASE-DR4-2
+              b800GbaseCR8(220), -- 800GBASE-CR8
+              b800GbaseDR8(221), -- 800GBASE-DR8
+              b800GbaseDR82(222), -- 800GBASE-DR8-2
+              b800GbaseKR8(223), -- 800GBASE-KR8
+              b800GbaseR(224), -- 800GBASE-R
+              b800GbaseSR8(225), -- 800GBASE-SR8
+              b800GbaseVR8(226) -- 800GBASE-VR8
          }
 
      IANAifMauMediaAvailable ::= TEXTUAL-CONVENTION
@@ -1957,4 +1970,51 @@ IANA-MAU-MIB DEFINITIONS ::= BEGIN
          STATUS current
          DESCRIPTION "Single balanced pair of conductors PHY as specified in Clause 165"
          ::= { dot3MauType 218 }
+
+       dot3MauType400GbaseDR42 OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "400GBASE-R PCS/PMA over 4 single-mode fibers in each direction
+                      PMD with reach up to at least 2 km as specified in Clause 124"
+         ::= { dot3MauType 219 }
+
+       dot3MauType800GbaseCR8 OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "800GBASE-R PCS/PMA over 8-lane shielded balanced copper cable
+                      PMD as specified in Clause 162"
+         ::= { dot3MauType 220 }
+
+       dot3MauType800GbaseDR8 OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "800GBASE-R PCS/PMA over 8 single-mode fibers in each direction
+                      PMD with reach up to at least 500 m as specified in Clause 124"
+         ::= { dot3MauType 221 }
+
+       dot3MauType800GbaseDR82 OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "800GBASE-R PCS/PMA over 8 single-mode fibers in each direction
+                      PMD with reach up to at least 2 km as specified in Clause 124"
+         ::= { dot3MauType 222 }
+
+       dot3MauType800GbaseKR8 OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "800GBASE-R PCS/PMA over an electrical backplane PMD as specified
+                     in Clause 163"
+         ::= { dot3MauType 223 }
+
+       dot3MauType800GbaseR OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "Multi-lane PCS as specified in Clause 172 over undefined PMA/PMD"
+         ::= { dot3MauType 224 }
+
+       dot3MauType800GbaseSR8 OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "800GBASE-R PCS/PMA over 8 multimode fibers in each direction
+                      PMD with reach up to at least 100 m as specified in Clause 167"
+         ::= { dot3MauType 225 }
+
+       dot3MauType800GbaseVR8 OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "800GBASE-R PCS/PMA over 8 multimode fibers in each direction
+                      PMD with reach up to at least 50 m as specified in Clause 167"
+         ::= { dot3MauType 226 }
 END
