@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="ipfix">
 <title>IP Flow Information Export (IPFIX) Entities</title>
 <created>2007-05-10</created>
-<updated>2024-04-09</updated>
+<updated>2024-04-12</updated>
 
 <note><xref type="rfc" data="rfc7012"/> has obsoleted <xref type="rfc" data="rfc5102"/>. However, references to <xref type="rfc" data="rfc5102"/>
 remain as part of the historical record.</note>
@@ -11869,9 +11869,185 @@ of this field is limited to 10 characters, UTF-8 encoded.
     <date>2024-03-27</date>
     </record>
 
+    <record date="2024-04-12">
+      <name>gtpuFlags</name>
+      <dataType>unsigned8</dataType>
+      <dataTypeSemantics>flags</dataTypeSemantics>
+      <elementId>505</elementId>
+      <status>current</status>
+      <description>
+        <paragraph>
+          8-bit flags field indicating the version of GTP-U protocol, protocol type and 
+          presence of extension header, sequence number and N-PDU number defined in 
+          Section 5.1 of the 3GPP specification <xref type="uri" data="http://www.3gpp.org/DynaReport/29281.htm">TS.29281</xref>.
+        </paragraph>
+      </description>
+      <references>
+        <paragraph>
+          Refer to section 5.1 of the 3GPP specification <xref type="uri" data="http://www.3gpp.org/DynaReport/29281.htm">TS.29281</xref>.
+        </paragraph>
+      </references>
+      <xref type="draft" data="draft-voyersriram-opsawg-ipfix-gtpu-05"/>
+      <revision>0</revision>
+      <date>2024-04-12</date>
+      </record>
+
+      <record date="2024-04-12">
+        <name>gtpuMsgType</name>
+        <dataType>unsigned8</dataType>
+        <dataTypeSemantics>identifier</dataTypeSemantics>
+        <elementId>506</elementId>
+        <status>current</status>
+        <description>
+          <paragraph>
+            8-bit Message type field indicating the type of GTP-U message 
+      defined in section 5.1 of the 3GPP specification <xref type="uri" data="http://www.3gpp.org/DynaReport/29281.htm">TS.29281</xref>.
+          </paragraph>
+        </description>
+        <references>
+          <paragraph>
+            Refer to section 5.1 of the 3GPP specification <xref type="uri" data="http://www.3gpp.org/DynaReport/29281.htm">TS.29281</xref>.
+          </paragraph>
+        </references>
+        <xref type="draft" data="draft-voyersriram-opsawg-ipfix-gtpu-05"/>
+        <revision>0</revision>
+        <date>2024-04-12</date>
+        </record>
+
+        <record date="2024-04-12">
+          <name>gtpuTEid</name>
+          <dataType>unsigned32</dataType>
+          <dataTypeSemantics>identifier</dataTypeSemantics>
+          <elementId>507</elementId>
+          <status>current</status>
+          <description>
+            <paragraph>
+              32-bit tunnel endpoint identifier field defined in
+              section 5.1 of the 3GPP specification <xref type="uri" data="http://www.3gpp.org/DynaReport/29281.htm">TS.29281</xref>. This field
+              unambiguously identifies a tunnel endpoint in the receiving GTP-U
+              protocol entity for a given UDP/IP endpoint.  The receiving side
+              of a GTP tunnel locally assigns the TEID value the transmitting
+              side has to use.  The TEID values are exchanged between tunnel
+              endpoints using control plane messages.
+            </paragraph>
+          </description>
+          <references>
+            <paragraph>
+              Refer to section 5.1 of the 3GPP specification <xref type="uri" data="http://www.3gpp.org/DynaReport/29281.htm">TS.29281</xref>.
+            </paragraph>
+          </references>
+          <xref type="draft" data="draft-voyersriram-opsawg-ipfix-gtpu-05"/>
+          <revision>0</revision>
+          <date>2024-04-12</date>
+          </record>
+
+          <record date="2024-04-12">
+            <name>gtpuSequenceNum</name>
+            <dataType>unsigned16</dataType>
+            <dataTypeSemantics>identifier</dataTypeSemantics>
+            <elementId>508</elementId>
+            <status>current</status>
+            <description>
+              <paragraph>
+                16-bit sequence number field defined in section 5.1 (Optional Fields) 
+                of the 3GPP specification  <xref type="uri" data="http://www.3gpp.org/DynaReport/29281.htm">TS.29281</xref>.
+              </paragraph>
+            </description>
+            <references>
+              <paragraph>
+                Refer to section 5.1 of the 3GPP specification <xref type="uri" data="http://www.3gpp.org/DynaReport/29281.htm">TS.29281</xref>.
+              </paragraph>
+            </references>
+            <xref type="draft" data="draft-voyersriram-opsawg-ipfix-gtpu-05"/>
+            <revision>0</revision>
+            <date>2024-04-12</date>
+            </record>
+
+            <record date="2024-04-12">
+              <name>gtpuQFI</name>
+              <dataType>unsigned8</dataType>
+              <dataTypeSemantics>identifier</dataTypeSemantics>
+              <elementId>509</elementId>
+              <status>current</status>
+              <description>
+                <paragraph>
+                  6-bit QoS flow identifier field defined in PDU Session
+                  Container extension header of GTP-U.  This is defined in section
+                  5.5.3.3 of the 3GPP specification <xref type="uri" data="http://www.3gpp.org/DynaReport/38415.htm">TS.38415</xref>. This is used to
+                  determine the QoS flow and QoS profile which are associated with
+                  the received packet.
+                </paragraph>
+                <paragraph>
+                  The basic encoding is 8 bits.  The layout of basic encoding is as
+                  follows:
+                </paragraph>
+                <artwork>
+MSB -   0     1    2    3    4    5    6    7   - LSB
+      +----+----+----+----+----+----+----+----+
+      |Reserved |       6 bit QFI value       |
+      +----+----+----+----+----+----+----+----+
+
+Examples:
+value : 0x08
+binary: 00001000
+decode: 001000 - QFI value
+value : 0x3e
+binary: 00111110
+decode: 111110 - QFI value
+                </artwork>
+              </description>
+              <references>
+                <paragraph>
+                  Refer to section 5.5.3.3 of the 3GPP specification <xref type="uri" data="http://www.3gpp.org/DynaReport/38415.htm">TS.38415</xref> 
+                  and section 5.7.1.1 from 3GPP specification <xref type="uri" data="http://www.3gpp.org/DynaReport/23501.htm">TS.23501</xref> for additional details.
+                </paragraph>
+              </references>
+              <xref type="draft" data="draft-voyersriram-opsawg-ipfix-gtpu-05"/>
+              <revision>0</revision>
+              <date>2024-04-12</date>
+              </record>
+
+              <record date="2024-04-12">
+                <name>gtpuPduType</name>
+                <dataType>unsigned8</dataType>
+                <dataTypeSemantics>identifier</dataTypeSemantics>
+                <elementId>510</elementId>
+                <status>current</status>
+                <description>
+                  <paragraph>
+                    4-bit PDU type field defined in PDU Session Container
+                    extension header of GTP-U.  This is defined in section 5.5.3 of
+                    the 3GPP specification <xref type="uri" data="http://www.3gpp.org/DynaReport/38415.htm">TS.38415</xref>. This field 
+                    indicates the structure of the PDU session user plane frame.
+                  </paragraph>
+                  <paragraph>
+                    The basic encoding is 8 bits. The layout of basic encoding is as
+                    follows:
+                  </paragraph>
+                  <artwork>
+MSB -   0     1    2    3    4    5    6    7   - LSB
+      +----+----+----+----+----+----+----+----+
+      |     Reserved      |  4 bit PDU Type   |
+      +----+----+----+----+----+----+----+----+
+Examples:
+value : 0x01
+binary: 00000001
+decode: 0001 - PDU Type value
+                  </artwork>
+                </description>
+                <references>
+                  <paragraph>
+                    Refer to section 5.5.3 of the 3GPP specification <xref type="uri" data="http://www.3gpp.org/DynaReport/38415.htm">TS.38415</xref>.
+                  </paragraph>
+                </references>
+                <xref type="draft" data="draft-voyersriram-opsawg-ipfix-gtpu-05"/>
+                <revision>0</revision>
+                <date>2024-04-12</date>
+                </record>
+
 <record>
   <name>Unassigned</name>
-  <elementId>505-32767</elementId>
+  <elementId>511-32767</elementId>
   </record>
 
 
