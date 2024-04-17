@@ -6,7 +6,7 @@
    2008-12-19
 
    Last Updated
-   2024-02-23
+   2024-04-16
 
    Available Formats
    [IMG]
@@ -81,6 +81,9 @@
      • TE-PATH-BINDING TLV Flag Field
      • LSP-EXTENDED-FLAG TLV Flag Field
      • LSP Exclusion Subobject Flag Field
+     • PCEP SRv6-ERO NAI Types
+     • SRv6-ERO Flag Field
+     • SRv6 Capability Flag Field
 
 PCEP Messages
 
@@ -741,25 +744,26 @@ PCEP-ERROR Object Error Types and Values
                                                31: Missing GMPLS-CAPABILITY TLV                       [RFC8779]
                                                32: Incompatible OF code                               [RFC8800]
                                                33: Missing PCECC Capability sub-TLV                   [RFC9050]
-                                               34: Missing PCE-SRv6-CAPABILITY sub-TLV (TEMPORARY -
-                                               registered 2022-01-12, extension registered            [draft-ietf-pce-segment-routing-ipv6-13]
-                                               2023-12-14, expires 2025-01-12)
-                                               35: Both SID and NAI are absent in SRv6-RRO subobject
-                                               (TEMPORARY - registered 2022-01-12, extension          [draft-ietf-pce-segment-routing-ipv6-13]
-                                               registered 2023-12-14, expires 2025-01-12)
-                                               36: RRO mixes SRv6-RRO subobjects with other subobject
-                                               types (TEMPORARY - registered 2022-01-12, extension    [draft-ietf-pce-segment-routing-ipv6-13]
-                                               registered 2023-12-14, expires 2025-01-12)
-                                               37: Invalid SRv6 SID Structure (TEMPORARY - registered
-                                               2022-01-12, extension registered 2023-12-14, expires   [draft-ietf-pce-segment-routing-ipv6-13]
-                                               2025-01-12)
+                                               34: Missing PCE-SRv6-CAPABILITY sub-TLV                [RFC-ietf-pce-segment-routing-ipv6-25]
+                                               35: Both SID and NAI are absent in SRv6-RRO subobject  [RFC-ietf-pce-segment-routing-ipv6-25]
+                                               36: RRO mixes SRv6-RRO subobjects with other subobject [RFC-ietf-pce-segment-routing-ipv6-25]
+                                               types
+                                               37: Invalid SRv6 SID Structure                         [RFC-ietf-pce-segment-routing-ipv6-25]
                                                38: Conflicting Path ID (TEMPORARY - registered
                                                2022-05-09, extension registered 2023-04-04, expires   [draft-ietf-pce-multipath-07]
                                                2024-05-09)
                                                39: PCECC NATIVE-IP-TE-CAPABILITY bit is not set
                                                (TEMPORARY - registered 2023-08-14, expires            [draft-ietf-pce-pcep-extension-native-ip-24]
                                                2024-08-14)
-                                               40-255: Unassigned
+                                               40: Unsupported number of SRv6-ERO subobjects          [RFC-ietf-pce-segment-routing-ipv6-25]
+                                               41: Unsupported NAI Type in the SRv6-ERO/SRv6-RRO      [RFC-ietf-pce-segment-routing-ipv6-25]
+                                               subobject
+                                               42: Both SID and NAI are absent in the SRv6-ERO        [RFC-ietf-pce-segment-routing-ipv6-25]
+                                               subobject
+                                               43: ERO mixes SRv6-ERO subobjects with other subobject [RFC-ietf-pce-segment-routing-ipv6-25]
+                                               types
+                                               44: Unsupported number of SRv6-ERO subobjects          [RFC-ietf-pce-segment-routing-ipv6-25]
+                                               45-255: Unassigned
        11     Unrecognized EXRS subobject      0-255: Unassigned                                      [RFC5521]
        12     Diffserv-aware TE error          0: Unassigned                                          [RFC5455]
                                                1: Unsupported class-type                              [RFC5455]
@@ -829,9 +833,8 @@ PCEP-ERROR Object Error Types and Values
                                                was not advertised
                                                17: Stateful PCE capability was not advertised         [RFC9050]
                                                18: Unknown Label                                      [RFC9050]
-                                               19: Attempted SRv6 when the capability was not
-                                               advertised (TEMPORARY - registered 2022-01-12,         [draft-ietf-pce-segment-routing-ipv6-13]
-                                               extension registered 2023-12-14, expires 2025-01-12)
+                                               19: Attempted SRv6 when the capability was not         [RFC-ietf-pce-segment-routing-ipv6-25]
+                                               advertised
                                                20: Not supported path backup (TEMPORARY - registered
                                                2022-05-09, extension registered 2023-04-04, expires   [draft-ietf-pce-multipath-07]
                                                2024-05-09)
@@ -1485,7 +1488,7 @@ LSP-ERROR-CODE TLV Error Code Field
    [IMG]
    CSV
 
-    Value                                    Meaning                                            Reference
+    Value                                    Meaning                                                Reference
       0     Reserved                                                                  [RFC8231]
       1     Unknown reason                                                            [RFC8231]
       2     Limit reached for PCE-controlled LSPs                                     [RFC8231]
@@ -1496,7 +1499,8 @@ LSP-ERROR-CODE TLV Error Code Field
       7     LSP preempted                                                             [RFC8231]
       8     RSVP signaling error                                                      [RFC8231]
       9     Unsupported Color (TEMPORARY - registered 2023-10-30, expires 2024-10-30) [draft-ietf-pce-pcep-color-02]
-   10-65535 Unassigned
+      10    SID Verification fails                                                    [RFC-ietf-pce-segment-routing-ipv6-25]
+   11-65535 Unassigned
 
 SRP Object Flag Field
 
@@ -1529,13 +1533,12 @@ PCEP Path Setup Types
    [IMG]
    CSV
 
-   Value                                          Description                                                           Reference
-     0   Path is set up using the RSVP-TE signaling protocol                                           [RFC8408]
-     1   Traffic-engineering path is set up using Segment Routing.                                     [RFC8664]
-     2   Traffic engineering path is set up using PCECC mode                                           [RFC9050]
-     3   Traffic engineering path is set up using SRv6. (TEMPORARY - registered 2022-01-12, extension  [draft-ietf-pce-segment-routing-ipv6-13]
-         registered 2023-12-14, expires 2025-01-12)
-     4   Native IP TE Path (TEMPORARY - registered 2023-08-14, expires 2024-08-14)                     [draft-ietf-pce-pcep-extension-native-ip-24]
+   Value                                Description                                                 Reference
+     0   Path is set up using the RSVP-TE signaling protocol                       [RFC8408]
+     1   Traffic-engineering path is set up using Segment Routing.                 [RFC8664]
+     2   Traffic engineering path is set up using PCECC mode                       [RFC9050]
+     3   Traffic engineering path is set up using SRv6.                            [RFC-ietf-pce-segment-routing-ipv6-25]
+     4   Native IP TE Path (TEMPORARY - registered 2023-08-14, expires 2024-08-14) [draft-ietf-pce-pcep-extension-native-ip-24]
    5-255 Unassigned
 
 PCEP SR-ERO NAI Types
@@ -1595,13 +1598,12 @@ PATH-SETUP-TYPE-CAPABILITY Sub-TLV Type Indicators
    [IMG]
    CSV
 
-    Value                                              Meaning                                                            Reference
-      0     Reserved                                                                                       [RFC8664]
-      1     PCECC-CAPABILITY                                                                               [RFC9050]
+    Value         Meaning                     Reference
+      0     Reserved            [RFC8664]
+      1     PCECC-CAPABILITY    [RFC9050]
      2-25   Unassigned
-      26    SR-PCE-CAPABILITY                                                                              [RFC8664]
-      27    SRv6-PCE-CAPABILITY (TEMPORARY - registered 2022-01-12, extension registered 2023-12-14,       [draft-ietf-pce-segment-routing-ipv6-13]
-            expires 2025-01-12)
+      26    SR-PCE-CAPABILITY   [RFC8664]
+      27    SRv6-PCE-CAPABILITY [RFC-ietf-pce-segment-routing-ipv6-25]
    28-65535 Unassigned
 
 SR Capability Flag Field
@@ -2130,5 +2132,66 @@ LSP Exclusion Subobject Flag Field
 
    Bit Description Reference
    0-7 Unassigned
+
+PCEP SRv6-ERO NAI Types
+
+   Registration Procedure(s)
+
+ IETF Review
+
+   Reference
+   [RFC-ietf-pce-segment-routing-ipv6-25]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Value                       Description                                      Reference
+     0   NAI is absent.                                           [RFC-ietf-pce-segment-routing-ipv6-25]
+     1   Unassigned
+     2   NAI is an IPv6 node ID.                                  [RFC-ietf-pce-segment-routing-ipv6-25]
+     3   Unassigned
+     4   NAI is an IPv6 adjacency with global IPv6 addresses.     [RFC-ietf-pce-segment-routing-ipv6-25]
+     5   Unassigned
+     6   NAI is an IPv6 adjacency with link-local IPv6 addresses. [RFC-ietf-pce-segment-routing-ipv6-25]
+   7-15  Unassigned
+
+SRv6-ERO Flag Field
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+   [RFC-ietf-pce-segment-routing-ipv6-25]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Bit         Description                        Reference
+   0-7 Unassigned
+    8  SID Verification (V)         [RFC-ietf-pce-segment-routing-ipv6-25]
+    9  SID Structure is present (T) [RFC-ietf-pce-segment-routing-ipv6-25]
+   10  NAI is absent (F)            [RFC-ietf-pce-segment-routing-ipv6-25]
+   11  SID is absent (S)            [RFC-ietf-pce-segment-routing-ipv6-25]
+
+SRv6 Capability Flag Field
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+   [RFC-ietf-pce-segment-routing-ipv6-25]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Bit                      Description                                   Reference
+   0-13 Unassigned
+    14  Node or Adjacency Identifier (NAI) is supported (N) [RFC-ietf-pce-segment-routing-ipv6-25]
+    15  Unassigned
 
    Licensing Terms

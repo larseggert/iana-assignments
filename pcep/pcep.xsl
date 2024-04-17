@@ -279,6 +279,20 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'srv6-ero-flag-field'">
+        <tr>
+          <th>Bit</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'srv6-capability-flag-field'">
+        <tr>
+          <th>Bit</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <th>Value</th>
