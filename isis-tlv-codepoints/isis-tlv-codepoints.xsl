@@ -76,6 +76,7 @@
       <tr>
         <th>Value</th>
         <th>Name</th>
+        <th>L2BM</th>
 		    <th>Reference</th>
       </tr>
      </xsl:when>
@@ -228,6 +229,7 @@
       <tr>
        <td><xsl:value-of select="iana:value"/></td>
        <td><xsl:value-of select="iana:name"/></td>
+       <td><xsl:value-of select="iana:l2bm"/></td>
 	   <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
      </xsl:when>

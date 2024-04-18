@@ -57,6 +57,13 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'algorithm-type-computing-flooding-topology'">
+        <tr>
+          <th>Value</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
   
@@ -106,6 +113,13 @@
       </tr>
     </xsl:when>
     <xsl:when test="../@id = 'pced-sub-tlv-type-indicators'">
+      <tr>
+        <td><xsl:value-of select="iana:value"/></td>
+        <td><xsl:apply-templates select="iana:description"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+    </xsl:when>
+    <xsl:when test="../@id = 'algorithm-type-computing-flooding-topology'">
       <tr>
         <td><xsl:value-of select="iana:value"/></td>
         <td><xsl:apply-templates select="iana:description"/></td>
