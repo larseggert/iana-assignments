@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="ace">
   <title>Authentication and Authorization for Constrained Environments (ACE)</title>
   <created>2021-07-27</created>
-  <updated>2023-07-19</updated>
+  <updated>2024-04-22</updated>
 
   <registry id="ace-authorization-server-request-creation-hints">
     <title>ACE Authorization Server Request Creation Hints</title>
@@ -481,6 +481,20 @@
       <xref type="rfc" data="rfc9203"/>
       <original/>
     </record>
+    <record date="2024-04-16">
+      <name>sign_info</name>
+      <value>45</value>
+      <type>Simple value "null" / array</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+      <original/>
+    </record>
+    <record date="2024-04-16">
+      <name>kdcchallenge</name>
+      <value>46</value>
+      <type>Byte string</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+      <original/>
+    </record>
   </registry>
 
   <registry id="oauth-token-instrospection-response-cbor-mappings">
@@ -750,6 +764,533 @@
       <reg/>
       <description>OSCORE ID Context value</description>
       <xref type="rfc" data="rfc9203"/>
+    </record>
+  </registry>
+
+  <registry id="ace-groupcomm-parameters">
+    <title>ACE Groupcomm Parameters</title>
+    <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    <range>
+      <value>less than -65536</value>
+      <registration_rule>Private Use</registration_rule>
+    </range>
+    <range>
+      <value>-65536 to -257</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>-256 to 255</value>
+      <registration_rule>Standards Action With Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>256 to 65535</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>greater than 65535</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Strings of length 1</value>
+      <registration_rule>Standards Action With Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Strings of length 2</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>Strings of length greater than 2</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-04-22">
+      <name>Reserved for Private Use</name>
+      <key>less than -65536</key>
+      <type/>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>gid</name>
+      <key>0</key>
+      <type>array</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>gname</name>
+      <key>1</key>
+      <type>array of tstr</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>guri</name>
+      <key>2</key>
+      <type>array of tstr</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>scope</name>
+      <key>3</key>
+      <type>bstr</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>get_creds</name>
+      <key>4</key>
+      <type>array / Simple value "null"</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>client_cred</name>
+      <key>5</key>
+      <type>bstr</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>cnonce</name>
+      <key>6</key>
+      <type>bstr</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>gkty</name>
+      <key>7</key>
+      <type>int / tstr</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>key</name>
+      <key>8</key>
+      <type>See the <xref type="registry" data="ace">ACE Groupcomm Key Types</xref> registry</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>num</name>
+      <key>9</key>
+      <type>int</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>ace_groupcomm_profile</name>
+      <key>10</key>
+      <type>int</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>exp</name>
+      <key>11</key>
+      <type>uint</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>exi</name>
+      <key>12</key>
+      <type>uint</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>creds</name>
+      <key>13</key>
+      <type>array</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>peer_roles</name>
+      <key>14</key>
+      <type>array</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>peer_identifiers</name>
+      <key>15</key>
+      <type>array</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>group_policies</name>
+      <key>16</key>
+      <type>map</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>kdc_cred</name>
+      <key>17</key>
+      <type>bstr</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>kdc_nonce</name>
+      <key>18</key>
+      <type>bstr</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>kdc_cred_verify</name>
+      <key>19</key>
+      <type>bstr</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>rekeying_scheme</name>
+      <key>20</key>
+      <type>int</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>client_cred_verify</name>
+      <key>24</key>
+      <type>bstr</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>creds_repo</name>
+      <key>25</key>
+      <type>tstr</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>control_uri</name>
+      <key>26</key>
+      <type>tstr</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>mgt_key_material</name>
+      <key>27</key>
+      <type>bstr</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>control_group_uri</name>
+      <key>28</key>
+      <type>tstr</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>sign_info</name>
+      <key>29</key>
+      <type>array / Simple value "null"</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>kdcchallenge</name>
+      <key>30</key>
+      <type>bstr</type>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+  </registry>
+
+  <registry id="ace-groupcomm-key-types">
+    <title>ACE Groupcomm Key Types</title>
+    <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    <range>
+      <value>less than -65536</value>
+      <registration_rule>Private Use</registration_rule>
+    </range>
+    <range>
+      <value>-65536 to -257</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>-256 to 255</value>
+      <registration_rule>Standards Action With Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>256 to 65535</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>greater than 65535</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Strings of length 1</value>
+      <registration_rule>Standards Action With Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Strings of length 2</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>Strings of length greater than 2</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-04-22">
+      <name>Reserved for Private Use</name>
+      <key>less than -65536</key>
+      <profile/>
+      <description/>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>Reserved</name>
+      <key>0</key>
+      <profile/>
+      <description>This value is reserved</description>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+  </registry>
+
+  <registry id="ace-groupcomm-profiles">
+    <title>ACE Groupcomm Profiles</title>
+    <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    <range>
+      <value>less than -65536</value>
+      <registration_rule>Private Use</registration_rule>
+    </range>
+    <range>
+      <value>-65536 to -257</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>-256 to 255</value>
+      <registration_rule>Standards Action With Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>256 to 65535</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>greater than 65535</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-04-22">
+      <name>Reserved for Private Use</name>
+      <description>less than -65536</description>
+      <cbor/>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>Reserved</name>
+      <description>This value is reserved</description>
+      <cbor>0</cbor>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+  </registry>
+
+  <registry id="ace-groupcomm-policies">
+    <title>ACE Groupcomm Policies</title>
+    <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    <range>
+      <value>less than -65536</value>
+      <registration_rule>Private Use</registration_rule>
+    </range>
+    <range>
+      <value>-65536 to -257</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>-256 to 255</value>
+      <registration_rule>Standards Action With Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>256 to 65535</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>greater than 65535</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Strings of length 1</value>
+      <registration_rule>Standards Action With Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Strings of length 2</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>Strings of length greater than 2</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-04-22">
+      <name>Reserved for Private Use</name>
+      <label>less than -65536</label>
+      <type/>
+      <description/>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>Sequence Number Synchronization Method</name>
+      <label>0</label>
+      <type>tstr/int</type>
+      <description>Method for recipient group members to synchronize with
+        sequence numbers of sender group members. Its value is taken from
+        the 'Value' column of the Sequence Number Synchronization 
+        Method registry
+      </description>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>Key Update Check Interval</name>
+      <label>1</label>
+      <type>int</type>
+      <description>Polling interval in seconds, for group members to check at
+        the KDC if the latest group keying material is the one that they store
+      </description>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <name>Expiration Delta</name>
+      <label>2</label>
+      <type>uint</type>
+      <description>Number of seconds from 'exp' until a UTC date/time, after
+        which group members MUST stop using the group keying material that they
+        store to decrypt incoming messages
+      </description>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+  </registry>
+
+  <registry id="sequence-number-synchronization-methods">
+    <title>Sequence Number Synchronization Methods</title>
+    <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    <range>
+      <value>less than -65536</value>
+      <registration_rule>Private Use</registration_rule>
+    </range>
+    <range>
+      <value>-65536 to -257</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>-256 to 255</value>
+      <registration_rule>Standards Action With Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>256 to 65535</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>greater than 65535</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Strings of length 1</value>
+      <registration_rule>Standards Action With Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Strings of length 2</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>Strings of length greater than 2</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-04-22">
+      <name>Reserved for Private Use</name>
+      <value>less than -65536</value>
+      <description/>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+  </registry>
+
+  <registry id="ace-groupcomm-errors">
+    <title>ACE Groupcomm Errors</title>
+    <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    <range>
+      <value>less than -65536</value>
+      <registration_rule>Private Use</registration_rule>
+    </range>
+    <range>
+      <value>-65536 to -257</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>-256 to 255</value>
+      <registration_rule>Standards Action With Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>256 to 65535</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>greater than 65535</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-04-22">
+      <value>less than -65536</value>
+      <description>Reserved for Private Use</description>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <value>0</value>
+      <description>Operation permitted only to group members</description>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <value>1</value>
+      <description>Request inconsistent with the current roles</description>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <value>2</value>
+      <description>Authentication credential incompatible with the group configuration</description>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <value>3</value>
+      <description>Invalid proof-of-possession evidence</description>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <value>4</value>
+      <description>No available node identifiers</description>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <value>5</value>
+      <description>Group membership terminated</description>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <value>6</value>
+      <description>Group deleted</description>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+  </registry>
+
+  <registry id="ace-groupcomm-rekeying-schemes">
+    <title>ACE Groupcomm Rekeying Schemes</title>
+    <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    <range>
+      <value>less than -65536</value>
+      <registration_rule>Private Use</registration_rule>
+    </range>
+    <range>
+      <value>-65536 to -257</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>-256 to 255</value>
+      <registration_rule>Standards Action With Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>256 to 65535</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>greater than 65535</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-04-22">
+      <value>Reserved for Private Use</value>
+      <name>less than -65536</name>
+      <description/>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
+    </record>
+    <record date="2024-04-22">
+      <value>0</value>
+      <name>Point-to-Point</name>
+      <description>The KDC individually targets each node to rekey, using the
+        pairwise secure communication association with that node
+      </description>
+      <xref type="draft" data="RFC-ietf-ace-key-groupcomm-18"/>
     </record>
   </registry>
 
