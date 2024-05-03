@@ -16,7 +16,7 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'secevent-identifier-formats'">
+      <xsl:when test="@id = 'subject-identifier-formats'">
         <tr>
           <th>Format Name</th>
           <th>Format Description</th>
@@ -37,7 +37,7 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'secevent-identifier-formats'">
+      <xsl:when test="../@id = 'subject-identifier-formats'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
