@@ -180,6 +180,14 @@
          <th>Reference</th>
        </tr>
       </xsl:when>
+
+      <xsl:when test="@id = 'isis-sub-tlvs-for-flooding-parameters-flags'">
+       <tr>
+         <th>Bit #</th>
+         <th>Description</th>
+         <th>Reference</th>
+       </tr>
+      </xsl:when>
       
       <xsl:otherwise>
        <tr>
@@ -262,6 +270,13 @@
        <td><xsl:value-of select="iana:sub-tlv-5"/></td>
         <td><xsl:value-of select="iana:sub-tlv-43"/></td>
         <td><xsl:value-of select="iana:sub-tlv-44"/></td>
+       <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+     </xsl:when>
+     <xsl:when test="../@id = 'isis-sub-tlvs-for-flooding-parameters-flags'">
+      <tr>
+       <td><xsl:value-of select="iana:bit"/></td>
+       <td><xsl:value-of select="iana:description"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
      </xsl:when>
