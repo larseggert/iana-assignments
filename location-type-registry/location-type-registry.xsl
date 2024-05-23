@@ -9,7 +9,11 @@
   <xsl:template name="iana:record_header">
     <xsl:choose> 
       <xsl:when test="@id = 'location-type-registry-1'">
-        <tr><th>Token</th><th>Description</th></tr>
+        <tr>
+          <th>Token</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
       </xsl:when>
     </xsl:choose>
   </xsl:template>
@@ -20,6 +24,7 @@
         <tr>
           <td align="center"><xsl:value-of select="iana:token"/></td>
           <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
     </xsl:choose>
