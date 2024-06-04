@@ -60,6 +60,8 @@
      • Address Registration Option I-Field
      • PvD Option Flags
      • Crypto-Types
+     • P-Field Values
+     • EDAR Message Flags
 
 ICMPv6 "type" Numbers
 
@@ -668,7 +670,7 @@ IPv6 Neighbor Discovery Option Formats
    [IMG]
    CSV
 
-    Type                   Description                      Reference
+    Type                   Description                                 Reference
       1    Source Link-layer Address                    [RFC4861]
       2    Target Link-layer Address                    [RFC4861]
       3    Prefix Information                           [RFC4861]
@@ -710,7 +712,8 @@ IPv6 Neighbor Discovery Option Formats
      39    Crypto-ID Parameters Option (CIPO)           [RFC8928]
      40    NDP Signature Option (NDPSO)                 [RFC8928]
      41    Resource Directory Address Option            [RFC9176]
-   42-137  Unassigned
+     42    Consistent Uptime Option                     [RFC-ietf-6lo-multicast-registration-19]
+   43-137  Unassigned
      138   CARD Request option                          [RFC4065]
      139   CARD Reply option                            [RFC4065]
    140-143 Unassigned
@@ -858,7 +861,7 @@ Address Registration Option Status Values
    [IMG]
    CSV
 
-   Value                Description                 Reference
+   Value                Description                                Reference
      0   Success                                    [RFC6775]
      1   Duplicate Address                          [RFC6775]
      2   Neighbor Cache Full                        [RFC6775]
@@ -870,7 +873,9 @@ Address Registration Option Status Values
      8   Registered Address Topologically Incorrect [RFC8505]
      9   6LBR Registry Saturated                    [RFC8505]
     10   Validation Failed                          [RFC8505]
-   11-63 Unassigned                                 [RFC9010]
+    11   Registration Refresh Request               [RFC-ietf-6lo-multicast-registration-19]
+    12   Invalid Registration                       [RFC-ietf-6lo-multicast-registration-19]
+   13-63 Unassigned                                 [RFC9010]
 
 6LoWPAN Capability Bits
 
@@ -885,16 +890,16 @@ Address Registration Option Status Values
    [IMG]
    CSV
 
-    Bit           Description          Reference
-    0-7  Reserved for Experimental Use [RFC7400]
-     8   Unassigned
-     9   AP-ND Enabled (1 bit)         [RFC8928]
-    10   EDA Support (D bit)           [RFC8505]
-    11   6LR capable (L bit)           [RFC8505]
-    12   6LBR capable (B bit)          [RFC8505]
-    13   Routing Registrar (P bit)     [RFC8505]
-    14   EARO support (E bit)          [RFC8505]
-    15   GHC capable bit (G bit)       [RFC7400]
+    Bit                                  Description                                                 Reference
+    0-7  Reserved for Experimental Use                                                [RFC7400]
+     8   X flag: Registration for Unicast, Multicast, and Anycast Addresses Supported [RFC-ietf-6lo-multicast-registration-19]
+     9   AP-ND Enabled (1 bit)                                                        [RFC8928]
+    10   EDA Support (D bit)                                                          [RFC8505]
+    11   6LR capable (L bit)                                                          [RFC8505]
+    12   6LBR capable (B bit)                                                         [RFC8505]
+    13   Routing Registrar (P bit)                                                    [RFC8505]
+    14   EARO support (E bit)                                                         [RFC8505]
+    15   GHC capable bit (G bit)                                                      [RFC7400]
    16-47 Unassigned
 
 IPv6 Neighbor Discovery Prefix Information Option Flags
@@ -929,10 +934,12 @@ Address Registration Option Flags
    [IMG]
    CSV
 
-   Bit Number Description Reference
-      0-5     Unassigned
-       6      R Flag      [RFC8505]
-       7      T Flag      [RFC8505]
+   Bit Number   Description                          Reference
+      0-1     Unassigned
+      2-3     P-Field (2 bits) [RFC-ietf-6lo-multicast-registration-19, Section 14.1]
+       4      Unassigned
+       6      R Flag           [RFC8505]
+       7      T Flag           [RFC8505]
 
 Address Registration Option I-Field
 
@@ -996,6 +1003,42 @@ Crypto-Types
    2           Curve25519  SHA-256   ECDSA       Weierstrass, (un)compressed, MSB/msb-order,          33/65 bytes               64 bytes  [RFC8928]
                [RFC7748]   [RFC6234] [FIPS186-4] [draft-ietf-lwig-curve-representations-13]           (compressed/uncompressed)
    3-255
+
+P-Field Values
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+   [RFC-ietf-6lo-multicast-registration-19]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Value  Registered Address Type Indicator                  Reference
+     0   Registration for a Unicast Address   [RFC-ietf-6lo-multicast-registration-19]
+     1   Registration for a Multicast Address [RFC-ietf-6lo-multicast-registration-19]
+     2   Registration for an Anycast Address  [RFC-ietf-6lo-multicast-registration-19]
+     3   Unassigned
+
+EDAR Message Flags
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+   [RFC-ietf-6lo-multicast-registration-19]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Bit Number     Meaning                            Reference
+      0-1     P-Field (2 bits) [RFC-ietf-6lo-multicast-registration-19, Section 14.1]
+      2-7     Unassigned
 
                                                                        Footnote
 
