@@ -166,6 +166,13 @@
         <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'dns-resolver-information-keys'">
+        <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -274,6 +281,13 @@
         <td><xsl:apply-templates select="iana:prefix"/></td>
         <td><xsl:apply-templates select="iana:description"/></td>
         <td><xsl:apply-templates select="iana:status"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'dns-resolver-information-keys'">
+        <tr>
+        <td><xsl:apply-templates select="iana:value"/></td>
+        <td><xsl:apply-templates select="iana:description"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
