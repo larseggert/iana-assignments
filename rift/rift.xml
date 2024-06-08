@@ -1,0 +1,2268 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl" href="rift.xsl"?>
+<?xml-model href="rift.rng" schematypens="http://relaxng.org/ns/structure/1.0" ?>
+<registry xmlns="http://www.iana.org/assignments" id="rift">
+  <title>Routing in Fat Trees (RIFT)</title>
+  <created>2024-06-07</created>
+  <updated>2024-06-07</updated>
+  
+  <registry id="rift-security-algorithms">
+    <title>RIFT Security Algorithms</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <registration_rule>Specification Required</registration_rule>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <value>HMAC-SHA256</value>
+      <description>Simplest way to ensure integrity of transmissions across 
+        adjacencies when used as outer key and integrity of TIEs when used 
+        as inner keys. Recommended for most interoperable security protection.</description>
+      <xref type="uri" data="https://csrc.nist.gov/files/pubs/fips/180-3/final/docs/fips180-3_final.pdf">SHA-2</xref>
+      <xref type="rfc" data="rfc2104"/>
+    </record>
+    <record date="2024-06-07">
+      <value>HMAC-SHA512</value>
+      <description>Same as HMAC-SHA256 with stronger protection.</description>
+      <xref type="uri" data="https://csrc.nist.gov/files/pubs/fips/180-3/final/docs/fips180-3_final.pdf">SHA-2</xref>
+      <xref type="rfc" data="rfc2104"/>
+    </record>
+    <record date="2024-06-07">
+      <value>SHA256-RSASSA-PKCS1-v1_5</value>
+      <description>Recommended for high security applications where private keys are 
+        protected by according nodes. Recommended as well in case not only integrity 
+        but origin validation is necessary for TIEs. Recommended when adjacencies must 
+        be protected without disclosing the secrets on both sides of the adjacency.</description>
+      <xref type="rfc" data="rfc8017">RFC8017, Section 8.2</xref>
+    </record>
+    <record date="2024-06-07">
+      <value>SHA512-RSASSA-PKCS1-v1_5</value>
+      <description>Same as SHA256-RSASSA-PKCS1-v1_5 with stronger protection.</description>
+      <xref type="rfc" data="rfc8017"/>
+    </record>
+  </registry>
+
+  <registry id="rift-versions">
+    <title>RIFT Versions</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <value>8.0</value>
+      <xref type="draft" data="RFC-ietf-rift-rift-24">RFC-ietf-rift-rift-24, Section 7</xref>
+    </record>
+  </registry>
+
+  <registry id="rift-common-addressfamilytype">
+    <title>RIFTCommonAddressFamilyType</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Illegal</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>AddressFamilyMinValue</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>IPv4</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>IPv6</name>
+      <value>3</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>AddressFamilyMaxValue</name>
+      <value>4</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>5-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>
+  </registry>
+  
+  <registry id="rift-common-hierarchyindications">
+    <title>RIFTCommonHierarchyIndications</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>leaf_only</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>leaf_only_and_leaf_2_leaf_procedures</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>top_of_fabric</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>3-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>
+  </registry>
+
+  <registry id="rift-common-ieee802_1astimestamptype">
+    <title>RIFTCommonIEEE8021ASTimeStampType</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>AS_sec</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>AS_nsec</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>3-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>
+  </registry>
+
+  <registry id="rift-common-ipaddresstype">
+    <title>RIFTCommonIPAddressType</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>ipv4address</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Content is ipv4</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>ipv6address</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Content is ipv6</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>3-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>
+  </registry>
+
+  <registry id="rift-common-ipprefixtype">
+    <title>RIFTCommonIPPrefixType</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>ipv4prefix</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>ipv6prefix</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>3-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>  
+  </registry>
+
+  <registry id="rift-common-ipv4prefixtype">
+    <title>RIFTCommonIPv4PrefixType</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>address</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>prefixlen</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>3-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+  </registry>
+
+  <registry id="rift-common-ipv6prefixtype">
+    <title>RIFTCommonIPv6PrefixType</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>address</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>prefixlen</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>3-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>     
+  </registry>
+
+  <registry id="rift-common-kvtypes">
+    <title>RIFTCommonKVTypes</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Experimental</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>WellKnown</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>OUI</name>
+      <value>3</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>4-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>  
+  </registry>
+
+  <registry id="rift-common-prefixsequencetype">
+    <title>RIFTCommonPrefixSequenceType</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>timestamp</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>transactionid</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Transaction id set by client in e.g. in 6lowpan.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>3-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>    
+  </registry>
+
+  <registry id="rift-common-routetype">
+    <title>RIFTCommonRouteType</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Illegal</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>RouteTypeMinValue</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>Discard</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>LocalPrefix</name>
+      <value>3</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>SouthPGPPrefix</name>
+      <value>4</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>NorthPGPPrefix</name>
+      <value>5</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>NorthPrefix</name>
+      <value>6</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>NorthExternalPrefix</name>
+      <value>7</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>SouthPrefix</name>
+      <value>8</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>SouthExternalPrefix</name>
+      <value>9</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>NegativeSouthPrefix</name>
+      <value>10</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>RouteTypeMaxValue</name>
+      <value>11</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>12-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>    
+  </registry>
+
+  <registry id="rift-common-tietypetype">
+    <title>RIFTCommonTIETypeType</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Illegal</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>TIETypeMinValue</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>NodeTIEType</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>PrefixTIEType</name>
+      <value>3</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>PositiveDisaggregationPrefixTIEType</name>
+      <value>4</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>NegativeDisaggregationPrefixTIEType</name>
+      <value>5</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>PGPrefixTIEType</name>
+      <value>6</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>KeyValueTIEType</name>
+      <value>7</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>ExternalPrefixTIEType</name>
+      <value>8</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>PositiveExternalDisaggregationPrefixTIEType</name>
+      <value>9</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>TIETypeMaxValue</name>
+      <value>10</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>11-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>     
+  </registry>
+
+  <registry id="rift-common-tiedirectiontype">
+    <title>RIFTCommonTieDirectionType</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Illegal</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>South</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>North</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>DirectionMaxValue</name>
+      <value>3</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>4-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>   
+  </registry>
+
+  <registry id="rift-encoding-community">
+    <title>RIFTEncodingCommunity</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>top</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Higher order bits</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>bottom</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Lower order bits</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>3-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>   
+  </registry>
+
+  <registry id="rift-encoding-keyvaluetieelement">
+    <title>RIFTEncodingKeyValueTIEElement</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>keyvalues</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>2-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>   
+  </registry>
+
+  <registry id="rift-encoding-keyvaluetieelementcontent">
+    <title>RIFTEncodingKeyValueTIEElementContent</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>targets</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>value</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>3-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>  
+  </registry>
+
+  <registry id="rift-encoding-liepacket">
+    <title>RIFTEncodingLIEPacket</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>name</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Node or adjacency name.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>local_id</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Local link id.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>flood_port</name>
+      <value>3</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Udp port to which we can receive flooded ties.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>link_mtu_size</name>
+      <value>4</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Layer 2 mtu, used to discover mismatch.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>link_bandwidth</name>
+      <value>5</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Local link bandwidth on the interface.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>neighbor</name>
+      <value>6</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Reflects the neighbor once received to provide 3-way connectivity.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>pod</name>
+      <value>7</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Node's pod.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>8-9</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+    <record date="2024-06-07">
+      <name>node_capabilities</name>
+      <value>10</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Node capabilities supported.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>link_capabilities</name>
+      <value>11</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Capabilities of this link.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>holdtime</name>
+      <value>12</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Required holdtime of the adjacency, i.e. for how long a period should adjacency be kept up without valid lie reception.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>label</name>
+      <value>13</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Optional, unsolicited, downstream assigned locally significant label value for the adjacency.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>14-20</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+    <record date="2024-06-07">
+      <name>not_a_ztp_offer</name>
+      <value>21</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Indicates that the level on the lie must not be used to derive a ztp level by the receiving node.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>you_are_flood_repeater</name>
+      <value>22</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Indicates to northbound neighbor that it should be reflooding ties received from this node to achieve flood reduction and balancing for northbound flooding.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>you_are_sending_too_quickly</name>
+      <value>23</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Indicates to neighbor to flood node ties only and slow down all other ties. ignored when received from southbound neighbor.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>instance_name</name>
+      <value>24</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Instance name in case multiple rift instances running on same interface.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>25-34</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+    <record date="2024-06-07">
+      <name>fabric_id</name>
+      <value>35</value>
+      <min>8.0</min>
+      <max/>
+      <comment>It provides the optional id of the fabric configured. this must match the information advertised on the node element.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>36-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+  </registry>
+
+  <registry id="rift-encoding-linkcapabilities">
+    <title>RIFTEncodingLinkCapabilities</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>bfd</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Indicates that the link is supporting bfd.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>ipv4_forwarding_capable</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Indicates whether the interface will support ipv4 forwarding.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>3-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+  </registry>
+
+  <registry id="rift-encoding-linkidpair">
+    <title>RIFTEncodingLinkIDPair</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>local_id</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Node-wide unique value for the local link.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>remote_id</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Received remote link id for this link.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>3-9</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+    <record date="2024-06-07">
+      <name>platform_interface_index</name>
+      <value>10</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Describes the local interface index of the link.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>platform_interface_name</name>
+      <value>11</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Describes the local interface name.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>trusted_outer_security_key</name>
+      <value>12</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Indicates whether the link is secured, i.e. protected by outer key, absence of this element means no indication, undefined outer key means not secured.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>bfd_up</name>
+      <value>13</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Indicates whether the link is protected by established bfd session.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>address_families</name>
+      <value>14</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Optional indication which address families are up on the interface.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>15-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+  </registry>
+
+  <registry id="rift-encoding-neighbor">
+    <title>RIFTEncodingNeighbor</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>originator</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment>System id of the originator.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>remote_id</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Id of remote side of the link.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>3-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>  
+  </registry>
+
+  <registry id="rift-encoding-nodecapabilities">
+    <title>RIFTEncodingNodeCapabilities</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>protocol_minor_version</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Must advertise supported minor version dialect that way.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>flood_reduction</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Indicates that node supports flood reduction.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>hierarchy_indications</name>
+      <value>3</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Indicates place in hierarchy, i.e. top-of-fabric or leaf only (in ztp) or support for leaf-2-leaf procedures.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>4-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>   
+  </registry>
+
+  <registry id="rift-encoding-nodeflags">
+    <title>RIFTEncodingNodeFlags</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>overload</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Indicates that node is in overload, do not transit traffic through it.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>2-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>     
+  </registry>
+
+  <registry id="rift-encoding-nodeneighborstieelement">
+    <title>RIFTEncodingNodeNeighborsTIEElement</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>level</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Level of neighbor.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>2</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+    <record date="2024-06-07">
+      <name>cost</name>
+      <value>3</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Cost to neighbor. ignore anything equal or larger than `infinite_distance` and equal to `invalid_distance`.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>link_ids</name>
+      <value>4</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Carries description of multiple parallel links in a tie.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>bandwidth</name>
+      <value>5</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Total bandwith to neighbor as sum of all parallel links.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>6-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>  
+  </registry>
+
+  <registry id="rift-encoding-nodetieelement">
+    <title>RIFTEncodingNodeTIEElement</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>level</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Level of the node.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>neighbors</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Node's neighbors. multiple node ties can carry disjoint sets of neighbors.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>capabilities</name>
+      <value>3</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Capabilities of the node.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>flags</name>
+      <value>4</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Flags of the node.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>name</name>
+      <value>5</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Optional node name for easier operations.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>pod</name>
+      <value>6</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Pod to which the node belongs.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>startup_time</name>
+      <value>7</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Optional startup time of the node</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>8-9</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+    <record date="2024-06-07">
+      <name>miscabled_links</name>
+      <value>10</value>
+      <min>8.0</min>
+      <max/>
+      <comment>If any local links are miscabled, this indication is flooded.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>11</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+    <record date="2024-06-07">
+      <name>same_plane_tofs</name>
+      <value>12</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Tofs in the same plane. only carried by tof. multiple node ties can carry disjoint sets of tofs which must be joined to form a single set.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>13-19</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+    <record date="2024-06-07">
+      <name>fabric_id</name>
+      <value>20</value>
+      <min>8.0</min>
+      <max/>
+      <comment>It provides the optional id of the fabric configured</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>21-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+  </registry>
+
+  <registry id="rift-encoding-packetcontent">
+    <title>RIFTEncodingPacketContent</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>lie</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>tide</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>tire</name>
+      <value>3</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>tie</name>
+      <value>4</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>5-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>   
+  </registry>
+
+  <registry id="rift-encoding-packetheader">
+    <title>RIFTEncodingPacketHeader</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>major_version</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Major version of protocol.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>minor_version</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Minor version of protocol.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>sender</name>
+      <value>3</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Node sending the packet, in case of lie/tire/tide also the originator of it.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>level</name>
+      <value>4</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Level of the node sending the packet, required on everything except lies. lack of presence on lies indicates undefined_level and is used in ztp procedures.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>5-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>  
+  </registry>
+
+  <registry id="rift-encoding-prefixattributes">
+    <title>RIFTEncodingPrefixAttributes</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>1</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+    <record date="2024-06-07">
+      <name>metric</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Distance of the prefix.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>tags</name>
+      <value>3</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Generic unordered set of route tags, can be redistributed to other protocols or use within the context of real time analytics.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>monotonic_clock</name>
+      <value>4</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Monotonic clock for mobile addresses.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>loopback</name>
+      <value>6</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Indicates if the prefix is a node loopback.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>directly_attached</name>
+      <value>7</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Indicates that the prefix is directly attached.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>8-9</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+    <record date="2024-06-07">
+      <name>from_link</name>
+      <value>10</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Link to which the address belongs to.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>11</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+    <record date="2024-06-07">
+      <name>label</name>
+      <value>12</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Optional, per prefix significant label.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>13-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>    
+  </registry>
+
+  <registry id="rift-encoding-prefixtieelement">
+    <title>RIFTEncodingPrefixTIEElement</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>prefixes</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Prefixes with the associated attributes.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>2-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>  
+  </registry>
+
+  <registry id="rift-encoding-protocolpacket">
+    <title>RIFTEncodingProtocolPacket</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>header</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>content</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>3-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>  
+  </registry>
+
+  <registry id="rift-encoding-tidepacket">
+    <title>RIFTEncodingTIDEPacket</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>start_range</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment>First tie header in the tide packet.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>end_range</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Last tie header in the tide packet.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>headers</name>
+      <value>3</value>
+      <min>8.0</min>
+      <max/>
+      <comment>_sorted_ list of headers.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>4-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>    
+  </registry>
+
+  <registry id="rift-encoding-tieelement">
+    <title>RIFTEncodingTIEElement</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>node</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Used in case of enum common.tietypetype.nodetietype.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>prefixes</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Used in case of enum common.tietypetype.prefixtietype.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>positive_disaggregation_prefixes</name>
+      <value>3</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Positive prefixes (always southbound).</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>4</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+    <record date="2024-06-07">
+      <name>negative_disaggregation_prefixes</name>
+      <value>5</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Transitive, negative prefixes (always southbound)</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>external_prefixes</name>
+      <value>6</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Externally reimported prefixes.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>positive_external_disaggregation_prefixes</name>
+      <value>7</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Positive external disaggregated prefixes (always southbound).</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>8</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+    <record date="2024-06-07">
+      <name>keyvalues</name>
+      <value>9</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Key-value store elements.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>10-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>  
+  </registry>
+
+  <registry id="rift-encoding-tieheader">
+    <title>RIFTEncodingTIEHeader</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>1</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+    <record date="2024-06-07">
+      <name>tieid</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Id of tie.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>seq_nr</name>
+      <value>3</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Sequence number of tie.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>4-9</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+    <record date="2024-06-07">
+      <name>origination_time</name>
+      <value>10</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Absolute timestamp when tie was generated.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>11</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+    <record date="2024-06-07">
+      <name>origination_lifetime</name>
+      <value>12</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Original lifetime when tie was generated.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>13-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record> 
+  </registry>
+
+  <registry id="rift-encoding-tieheaderwithlifetime">
+    <title>RIFTEncodingTIEHeaderWithLifeTime</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>header</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>remaining_lifetime</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Remaining lifetime.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record><record>
+      <name>Unassigned</name>
+      <value>3-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>    
+  </registry>
+
+  <registry id="rift-encoding-tieid">
+    <title>RIFTEncodingTIEID</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>direction</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Direction of tie.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>originator</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Indicates originator of tie.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>tietype</name>
+      <value>3</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Type of tie.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>tie_nr</name>
+      <value>4</value>
+      <min>8.0</min>
+      <max/>
+      <comment>Number of tie.</comment>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>5-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>    
+  </registry>
+
+  <registry id="rift-encoding-tiepacket">
+    <title>RIFTEncodingTIEPacket</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>header</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>element</name>
+      <value>2</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>3-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>  
+  </registry>
+
+  <registry id="rift-encoding-tirepacket">
+    <title>RIFTEncodingTIREPacket</title>
+    <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    <range>
+      <value>Major or minor change per RFC-ietf-rift-rift-24, Section 7</value>
+      <registration_rule>Expert Review</registration_rule>
+    </range>
+    <range>
+      <value>Any other allocation</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-06-07">
+      <name>Reserved</name>
+      <value>0</value>
+      <min>8.0</min>
+      <max>All Versions</max>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record date="2024-06-07">
+      <name>headers</name>
+      <value>1</value>
+      <min>8.0</min>
+      <max/>
+      <comment/>
+      <xref type="draft" data="RFC-ietf-rift-rift-24"/>
+    </record>
+    <record>
+      <name>Unassigned</name>
+      <value>2-65535</value>
+      <min/>
+      <max/>
+      <comment/>
+    </record>    
+  </registry>
+
+  <people/>
+</registry>
