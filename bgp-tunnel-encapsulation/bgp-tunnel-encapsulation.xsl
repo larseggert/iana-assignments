@@ -10,6 +10,15 @@
         <th>Value</th>
         <th>Description</th>
         <th>Reference</th>
+        <th>Change Controller</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'tunnel-sub-tlvs'">
+        <tr>
+        <th>Value</th>
+        <th>Description</th>
+        <th>Reference</th>
+        <th>Change Controller</th>
         </tr>
       </xsl:when>
       <xsl:when test="@id = 'flags-field-vxlan-encapsulation-tlv'">
@@ -48,6 +57,15 @@
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'tunnel-sub-tlvs'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
         </tr>
       </xsl:when>
       <xsl:otherwise>
