@@ -1,0 +1,97 @@
+A. Submission Date:
+2024-06-20
+
+B.1 Submission Type: [✔] New RRTYPE [ ] Modification to RRTYPE
+B.2 Kind of RR: [✔] Data RR [ ] Meta-RR
+
+C. Contact Information for submitter (will be publicly posted):
+
+Name: Paul Hoffman
+Email Address: paul.hoffman&icann.org
+
+D. Motivation for the new RRTYPE application.
+
+Many people have a strong desire to associate the address of their
+cryptocurrency wallets with a human-memorable name like a domain
+name. Evidence of this desire is the popularity of alternative
+name systems whose primary resolution is to wallet addresses.
+This proposed RRtype would allow them to include their wallet
+addresses in names in the global DNS.
+
+E. Description of the proposed RR type.
+
+The octets in the RDATA for this type are 0x20 through 0x7e,
+inclusive, which are the printable ASCII characters plus the
+ASCII space characters.
+The wire format of the RDATA is:
+<currency_abbrev> <space> <display_value_of_address>
+The display format for this RRtype is identical to the wire format
+because the wire format can unambiguously also be he display
+format.
+
+The first field are the commonly-used abbreviation for the type of
+cryptocurrency held in the wallet. There is no standard registry for the
+names or abbreviations for those names, and they appear to be chosen
+informally on a first-come-first-served basis in the industry. The
+abbreviations so far all use uppercase ASCII characters and hyphens,
+never spaces. Some common abbreviations include "BTC" for Bitcoin, "ETH"
+for Ethereum, and "MATIC" for Polygon.
+
+The space character is an ASCII space, U+0020.
+
+The display value is a string of ASCII characters representing a wallet
+address, which is a human-readable version of a representation of a
+public key. The format for this is defined by the community that
+typically uses that cryptocurrency. There is no single standard for this
+representation, even within a single cryptocurrency; that is, some
+cryptocurrencies have more than one representation. For example, some
+cryptocurrencies use hex encoding of part of a hash, some use variants
+of Base64, and yet others have made up their own representation.
+It is likely that this value will be pasted by users from other
+programs such as digital wallets.
+
+None of the characters in either the <currency_abbrev> or
+<display_value_of_address> are special. For example, a backslash
+character (U+005C) does not act as an escape character of any sort.
+
+F. What existing RRTYPE or RRTYPEs come closest to filling that need
+and why are they unsatisfactory?
+
+TXT records are currently being used, but without any agreement
+on how to indicate that a particular text record is for a particular
+cryptocurrency wallet type. This new RRtype would help relieve the
+overloading of TXT records.
+
+G. What mnemonic is requested for the new RRTYPE (optional)?
+
+WALLET would be preferred. It matches the common usage among
+cryptocurrency users, and is not similar to any currently-assigned
+RRTYPE.
+
+H. Does the requested RRTYPE make use of any existing IANA registry
+or require the creation of a new IANA subregistry in DNS
+Parameters?
+
+No. There is no need for an IANA registry of cryptocurrency names or
+abbreviations for this RRtype because the cryptocurrency community
+already has an informal agreement on these (although there is no
+IANA-like registry for the names or abbreviations in that community.)
+Similarly, there is no need for an IANA registry for display formats
+because there is agreement without standardization within the community
+that uses them.
+
+I. Does the proposal require/expect any changes in DNS
+servers/resolvers that prevent the new type from being processed
+as an unknown RRTYPE (see [RFC3597])?
+
+No.
+
+J. Comments:
+
+This application is for a fairly trivial new RRTYPE that might or might
+not become popular, but would certainly be used at least in the short
+term.
+
+There is no mention of the need for DNSSEC in the application because
+the trust model for using wallet addresses in unsigned zones is the same
+as for using wallet addresses in untrusted blockchain applications.
