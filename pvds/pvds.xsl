@@ -24,6 +24,15 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'pvd-split-dns-claims'">
+        <tr>
+          <th>JSON key</th>
+          <th>Description</th>
+          <th>Type</th>
+          <th>Example</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -45,6 +54,15 @@
         <td><xsl:apply-templates select="iana:xref"/></td>
        </tr>
       </xsl:when>
+  <xsl:when test="../@id = 'pvd-split-dns-claims'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:type"/></td>
+          <td><xsl:apply-templates select="iana:example"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+       </xsl:when>
     </xsl:choose>
   </xsl:template>
 

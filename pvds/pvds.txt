@@ -3,21 +3,22 @@
                                                              Provisioning Domains (PvDs)
 
    Created
-           2020-02-18
+   2020-02-18
 
    Last Updated
-           2020-08-13
+   2024-06-27
 
    Available Formats
-           [IMG]
-           XML [IMG]
-           HTML [IMG]
-           Plain text
+   [IMG]
+   XML [IMG]
+   HTML [IMG]
+   Plain text
 
    Registries included below
 
-     * Additional Information PvD Keys
-     * PvD Option Flags
+     • Additional Information PvD Keys
+     • PvD Option Flags
+     • PvD Split DNS Claims
 
 Additional Information PvD Keys
 
@@ -30,18 +31,27 @@ Additional Information PvD Keys
  Tommy Pauly, David Schinazi
 
    Reference
-           [RFC8801]
+   [RFC8801]
 
    Available Formats
-           [IMG]
-           CSV
+   [IMG]
+   CSV
 
-    JSON key                       Description                             Type                      Example                 Reference
-   identifier PvD ID FQDN                                            String           "pvd.example.com."                     [RFC8801]
-   expires    Date after which this object is no longer valid        [RFC3339] Date   "2020-05-23T06:00:00Z"                 [RFC8801]
-   prefixes   Array of IPv6 prefixes valid for this PvD              Array of strings ["2001:db8:1::/48", "2001:db8:4::/48"] [RFC8801]
-   dnsZones   DNS zones searchable and accessible                    Array of strings ["example.com", "sub.example.com"]     [RFC8801]
-   noInternet No Internet; set to "true" when the PvD is restricted. Boolean          true                                   [RFC8801]
+      JSON key           Description              Type                         Example                                    Reference
+   identifier     PvD ID FQDN               String           "pvd.example.com."                           [RFC8801]
+   expires        Date after which this     [RFC3339] Date   "2020-05-23T06:00:00Z"                       [RFC8801]
+                  object is no longer valid
+   prefixes       Array of IPv6 prefixes    Array of strings ["2001:db8:1::/48", "2001:db8:4::/48"]       [RFC8801]
+                  valid for this PvD
+   dnsZones       DNS zones searchable and  Array of strings ["example.com", "sub.example.com"]           [RFC8801]
+                  accessible
+                  No Internet; set to
+   noInternet     "true" when the PvD is    Boolean          true                                         [RFC8801]
+                  restricted.
+                                                             [{ "resolver": "dns.example.net", "parent":
+   splitDnsClaims Verifiable locally served Array of Objects "example.com", "subdomains": ["sub"],        [RFC-ietf-add-split-horizon-authority-14]
+                  domains                                    "algorithm": "SHA384", "salt": "abc...123"
+                                                             }]
 
 PvD Option Flags
 
@@ -50,11 +60,35 @@ PvD Option Flags
  Standards Action
 
    Reference
-           [RFC8801]
+   [RFC8801]
 
    Note
 
  See [https://www.iana.org/assignments/icmpv6-parameters].
 
+
+PvD Split DNS Claims
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-add-split-horizon-authority-14]
+
+   Available Formats
+   [IMG]
+   CSV
+
+    JSON key                 Description                       Type            Example                      Reference
+   resolver   The Authentication Domain Name             String           "dns.example.net" [RFC-ietf-add-split-horizon-authority-14]
+   parent     The parent zone name                       String           "example.com"     [RFC-ietf-add-split-horizon-authority-14]
+   subdomains An array containing the claimed subdomains Array of Strings ["sub"]           [RFC-ietf-add-split-horizon-authority-14]
+   algorithm  The hash algorithm                         String           "SHA384"          [RFC-ietf-add-split-horizon-authority-14]
+   salt       The salt (base64url)                       String           "abc...123"       [RFC-ietf-add-split-horizon-authority-14]
 
    Licensing Terms
