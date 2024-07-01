@@ -1,7 +1,7 @@
 A. Submission Date:
-2024-06-20
+2024-06-24
 
-B.1 Submission Type: [✔] New RRTYPE [ ] Modification to RRTYPE
+B.1 Submission Type: [ ] New RRTYPE [✔] Modification to RRTYPE
 B.2 Kind of RR: [✔] Data RR [ ] Meta-RR
 
 C. Contact Information for submitter (will be publicly posted):
@@ -20,39 +20,28 @@ addresses in names in the global DNS.
 
 E. Description of the proposed RR type.
 
-The octets in the RDATA for this type are 0x20 through 0x7e,
-inclusive, which are the printable ASCII characters plus the
-ASCII space characters.
-The wire format of the RDATA is:
-<currency_abbrev> <space> <display_value_of_address>
-The display format for this RRtype is identical to the wire format
-because the wire format can unambiguously also be he display
-format.
+The wire format of this RRTYPE is one or more <character-string>s and is
+identical to TXT records as defined in RFC 1035. Applications that make
+use of this RRTYPE expect to find two strings, where the first is the
+abbreviation of the currency and the second is the display value of the
+address.
 
-The first field are the commonly-used abbreviation for the type of
+The first string is the commonly-used abbreviation for the type of
 cryptocurrency held in the wallet. There is no standard registry for the
 names or abbreviations for those names, and they appear to be chosen
-informally on a first-come-first-served basis in the industry. The
-abbreviations so far all use uppercase ASCII characters and hyphens,
-never spaces. Some common abbreviations include "BTC" for Bitcoin, "ETH"
-for Ethereum, and "MATIC" for Polygon.
+informally on a first-come-first-served basis in the industry. Some
+common abbreviations include "BTC" for Bitcoin, "ETH" for Ethereum, and
+"MATIC" for Polygon.
 
-The space character is an ASCII space, U+0020.
-
-The display value is a string of ASCII characters representing a wallet
-address, which is a human-readable version of a representation of a
-public key. The format for this is defined by the community that
-typically uses that cryptocurrency. There is no single standard for this
-representation, even within a single cryptocurrency; that is, some
-cryptocurrencies have more than one representation. For example, some
-cryptocurrencies use hex encoding of part of a hash, some use variants
-of Base64, and yet others have made up their own representation.
-It is likely that this value will be pasted by users from other
-programs such as digital wallets.
-
-None of the characters in either the <currency_abbrev> or
-<display_value_of_address> are special. For example, a backslash
-character (U+005C) does not act as an escape character of any sort.
+The second string represents the display form of a wallet address, which
+is a human-readable version of a representation of a public key. The
+format for this is defined by the community that typically uses that
+cryptocurrency. There is no single standard for this representation,
+even within a single cryptocurrency; that is, some cryptocurrencies have
+more than one representation. For example, some cryptocurrencies use hex
+encoding of part of a hash, some use variants of Base64, and yet others
+have made up their own representation. It is likely that this value will
+be pasted by users from other programs such as digital wallets.
 
 F. What existing RRTYPE or RRTYPEs come closest to filling that need
 and why are they unsatisfactory?
