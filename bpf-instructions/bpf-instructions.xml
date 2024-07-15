@@ -1,0 +1,1789 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl" href="bpf-instructions.xsl"?>
+<?xml-model href="bpf-instructions.rng" schematypens="http://relaxng.org/ns/structure/1.0" ?>
+<registry xmlns="http://www.iana.org/assignments" id="bpf-instructions">
+  <title>BPF Instructions</title>
+  <created>2024-07-12</created>
+  <updated>2024-07-15</updated>
+
+  <registry id="bpf-instruction-conformance-groups">
+    <title>BPF Instruction Conformance Groups</title>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04"/>
+    <range>
+      <value>Permanent</value>
+      <registration_rule>Standards Action or IESG Approval</registration_rule>
+    </range>
+    <range>
+      <value>Provisional</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>Historical</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+    <record date="2024-07-12">
+      <value>atomic32</value>
+      <description>32-bit atomic instructions</description>
+      <inc>-</inc>
+      <exc>-</exc>
+      <status>Permanent</status>
+      <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+      <controller>IETF</controller>
+    </record>
+    <record date="2024-07-12">
+      <value>atomic64</value>
+      <description>64-bit atomic instructions</description>
+      <inc>atomic32</inc>
+      <exc>-</exc>
+      <status>Permanent</status>
+      <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+      <controller>IETF</controller>
+    </record>
+    <record date="2024-07-12">
+      <value>base32</value>
+      <description>32-bit base instructions</description>
+      <inc>-</inc>
+      <exc>-</exc>
+      <status>Permanent</status>
+      <xref type="draft" data="RFC-ietf-bpf-isa-04"/>
+      <controller>IETF</controller>
+    </record>
+    <record date="2024-07-12">
+      <value>base64</value>
+      <description>64-bit base instructions</description>
+      <inc>base32</inc>
+      <exc>-</exc>
+      <status>Permanent</status>
+      <xref type="draft" data="RFC-ietf-bpf-isa-04"/>
+      <controller>IETF</controller>
+    </record>
+    <record date="2024-07-12">
+      <value>divmul32</value>
+      <description>32-bit division and modulo</description>
+      <inc>-</inc>
+      <exc>-</exc>
+      <status>Permanent</status>
+      <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+      <controller>IETF</controller>
+    </record>
+    <record date="2024-07-12">
+      <value>divmul64</value>
+      <description>64-bit division and modulo</description>
+      <inc>divmul32</inc>
+      <exc>-</exc>
+      <status>Permanent</status>
+      <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+      <controller>IETF</controller>
+    </record>
+    <record date="2024-07-12">
+      <value>packet</value>
+      <description>Legacy packet instructions</description>
+      <inc>-</inc>
+      <exc>-</exc>
+      <status>Historical</status>
+      <xref type="draft" data="RFC-ietf-bpf-isa-04">Legacy BPF Packet Access Instructions (Section 5.5)</xref>
+      <controller>IETF</controller>
+    </record>
+  </registry>
+
+  <registry id="bpf-instruction-set">
+  <title> BPF Instruction Set</title>
+  <xref type="draft" data="RFC-ietf-bpf-isa-04"/>
+    <range>
+      <value>Permanent</value>
+      <registration_rule>Standards Action or IESG Approval</registration_rule>
+    </range>
+    <range>
+      <value>Provisional</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <range>
+      <value>Historical</value>
+      <registration_rule>Specification Required</registration_rule>
+    </range>
+    <expert>Unassigned</expert>
+  <record date="2024-07-12">
+    <opcode>0x00</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>(additional immediate value)</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">64-bit Immediate Instructions (Section 5.4)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x04</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = (u32)((u32)dst + (u32)imm)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x05</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x06</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>goto +imm</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x07</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst += imm</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x0c</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst = (u32)((u32)dst + (u32)src)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x0f</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst += src</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x14</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = (u32)((u32)dst - (u32)imm)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x15</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if dst == imm goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x16</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if (u32)dst == imm goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x17</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst -= imm</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x18</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = (next_imm &lt;&lt; 32) | imm</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">64-bit Immediate Instructions (Section 5.4)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x18</opcode>
+    <src_reg>0x1</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = map_by_fd(imm)</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">64-bit Immediate Instructions (Section 5.4)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x18</opcode>
+    <src_reg>0x2</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = map_val(map_by_fd(imm)) + next_imm</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">64-bit Immediate Instructions (Section 5.4)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x18</opcode>
+    <src_reg>0x3</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = var_addr(imm)</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">64-bit Immediate Instructions (Section 5.4)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x18</opcode>
+    <src_reg>0x4</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = code_addr(imm)</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">64-bit Immediate Instructions (Section 5.4)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x18</opcode>
+    <src_reg>0x5</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = map_by_idx(imm)</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">64-bit Immediate Instructions (Section 5.4)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x18</opcode>
+    <src_reg>0x6</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = map_val(map_by_idx(imm)) + next_imm</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">64-bit Immediate Instructions (Section 5.4)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x1c</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst = (u32)((u32)dst - (u32)src)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x1d</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if dst == src goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x1e</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if (u32)dst == (u32)src goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x1f</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst -= src</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x20</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>(deprecated, implementation-specific)</description>
+    <groups>packet</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Legacy BPF Packet Access Instructions (Section 5.5)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x24</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = (u32)(dst * imm)</description>
+    <groups>divmul32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x25</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if dst &gt; imm goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x26</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if (u32)dst &gt; imm goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x27</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst *= imm</description>
+    <groups>divmul64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x28</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>(deprecated, implementation-specific)</description>
+    <groups>packet</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Legacy BPF Packet Access Instructions (Section 5.5)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x2c</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst = (u32)(dst * src)</description>
+    <groups>divmul32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x2d</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if dst &gt; src goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x2e</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if (u32)dst &gt; (u32)src goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x2f</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst *= src</description>
+    <groups>divmul64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x30</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>(deprecated, implementation-specific)</description>
+    <groups>packet</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Legacy BPF Packet Access Instructions (Section 5.5)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x34</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = (u32)((imm != 0) ? ((u32)dst / (u32)imm) : 0)</description>
+    <groups>divmul32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x34</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>1</offset>
+    <imm>any</imm>
+    <description>dst = (u32)((imm != 0) ? ((s32)dst s/ imm) : 0)</description>
+    <groups>divmul32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x35</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if dst &gt;= imm goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x36</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if (u32)dst &gt;= imm goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x37</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = (imm != 0) ? (dst / (u32)imm) : 0</description>
+    <groups>divmul64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x37</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>1</offset>
+    <imm>any</imm>
+    <description>dst = (imm != 0) ? (dst s/ imm) : 0</description>
+    <groups>divmul64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x3c</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst = (u32)((src != 0) ? ((u32)dst / (u32)src) : 0)</description>
+    <groups>divmul32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x3c</opcode>
+    <src_reg>any</src_reg>
+    <offset>1</offset>
+    <imm>0x00</imm>
+    <description>dst = (u32)((src != 0) ? ((s32)dst s/(s32)src) : 0)</description>
+    <groups>divmul32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x3d</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if dst &gt;= src goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x3e</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if (u32)dst &gt;= (u32)src goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x3f</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst = (src != 0) ? (dst / src) : 0</description>
+    <groups>divmul64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x3f</opcode>
+    <src_reg>any</src_reg>
+    <offset>1</offset>
+    <imm>0x00</imm>
+    <description>dst = (src != 0) ? (dst s/ src) : 0</description>
+    <groups>divmul64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x40</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>(deprecated, implementation-specific)</description>
+    <groups>packet</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Legacy BPF Packet Access Instructions (Section 5.5)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x44</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = (u32)(dst | imm)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x45</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if dst &amp; imm goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x46</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if (u32)dst &amp; imm goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x47</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst |= imm</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x48</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>(deprecated, implementation-specific)</description>
+    <groups>packet</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Legacy BPF Packet Access Instructions (Section 5.5)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x4c</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst = (u32)(dst | src)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x4d</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if dst &amp; src goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x4e</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if (u32)dst &amp; (u32)src goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x4f</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst |= src</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x50</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>(deprecated, implementation-specific)</description>
+    <groups>packet</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Legacy BPF Packet Access Instructions (Section 5.5)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x54</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = (u32)(dst &amp; imm)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x55</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if dst != imm goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x56</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if (u32)dst != imm goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x57</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst &amp;= imm</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x5c</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst = (u32)(dst &amp; src)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x5d</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if dst != src goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x5e</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if (u32)dst != (u32)src goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x5f</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst &amp;= src</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x61</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>dst = *(u32 *)(src + offset)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Load and Store Instructions (Section 5)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x62</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>*(u32 *)(dst + offset) = imm</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Load and Store Instructions (Section 5)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x63</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>*(u32 *)(dst + offset) = src</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Load and Store Instructions (Section 5)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x64</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = (u32)(dst &lt;&lt; imm)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x65</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if dst s&gt; imm goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x66</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if (s32)dst s&gt; (s32)imm goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x67</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst &lt;&lt;= imm</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x69</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>dst = *(u16 *)(src + offset)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Load and Store Instructions (Section 5)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x6a</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>*(u16 *)(dst + offset) = imm</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Load and Store Instructions (Section 5)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x6b</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>*(u16 *)(dst + offset) = src</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Load and Store Instructions (Section 5)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x6c</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst = (u32)(dst &lt;&lt; src)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x6d</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if dst s&gt; src goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x6e</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if (s32)dst s&gt; (s32)src goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x6f</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst &lt;&lt;= src</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x71</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>dst = *(u8 *)(src + offset)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Load and Store Instructions (Section 5)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x72</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>*(u8 *)(dst + offset) = imm</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Load and Store Instructions (Section 5)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x73</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>*(u8 *)(dst + offset) = src</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Load and Store Instructions (Section 5)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x74</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = (u32)(dst &gt;&gt; imm)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x75</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if dst s&gt;= imm goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x76</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if (s32)dst s&gt;= (s32)imm goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x77</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst &gt;&gt;= imm</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x79</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>dst = *(u64 *)(src + offset)</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Load and Store Instructions (Section 5)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x7a</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>*(u64 *)(dst + offset) = imm</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Load and Store Instructions (Section 5)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x7b</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>*(u64 *)(dst + offset) = src</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Load and Store Instructions (Section 5)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x7c</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst = (u32)(dst &gt;&gt; src)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x7d</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if dst s&gt;= src goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x7e</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if (s32)dst s&gt;= (s32)src goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x7f</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst &gt;&gt;= src</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x84</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst = (u32)-dst</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x85</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>call helper function by static ID</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Helper Functions (Section 4.3.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x85</opcode>
+    <src_reg>0x1</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>call PC += imm</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Program-local functions</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x85</opcode>
+    <src_reg>0x2</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>call helper function by BTF ID</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Helper Functions (Section 4.3.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x87</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst = -dst</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x94</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = (u32)((imm != 0)?((u32)dst % (u32)imm) : dst)</description>
+    <groups>divmul32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x94</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>1</offset>
+    <imm>any</imm>
+    <description>dst = (u32)((imm != 0) ? ((s32)dst s% imm) : dst)</description>
+    <groups>divmul32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x95</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>return</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x97</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = (imm != 0) ? (dst % (u32)imm) : dst</description>
+    <groups>divmul64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x97</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>1</offset>
+    <imm>any</imm>
+    <description>dst = (imm != 0) ? (dst s% imm) : dst</description>
+    <groups>divmul64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x9c</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst = (u32)((src != 0)?((u32)dst % (u32)src) : dst)</description>
+    <groups>divmul32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x9c</opcode>
+    <src_reg>any</src_reg>
+    <offset>1</offset>
+    <imm>0x00</imm>
+    <description>dst = (u32)((src != 0)?((s32)dst s% (s32)src) :dst)</description>
+    <groups>divmul32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x9f</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst = (src != 0) ? (dst % src) : dst</description>
+    <groups>divmul64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0x9f</opcode>
+    <src_reg>any</src_reg>
+    <offset>1</offset>
+    <imm>0x00</imm>
+    <description>dst = (src != 0) ? (dst s% src) : dst</description>
+    <groups>divmul64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xa4</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = (u32)(dst ^ imm)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xa5</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if dst &lt; imm goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xa6</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if (u32)dst &lt; imm goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xa7</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst ^= imm</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xac</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst = (u32)(dst ^ src)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xad</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if dst &lt; src goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xae</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if (u32)dst &lt; (u32)src goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xaf</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst ^= src</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xb4</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = (u32) imm</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xb5</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if dst &lt;= imm goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xb6</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if (u32)dst &lt;= imm goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xb7</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = imm</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xbc</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst = (u32) src</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xbc</opcode>
+    <src_reg>any</src_reg>
+    <offset>8</offset>
+    <imm>0x00</imm>
+    <description>dst = (u32) (s32) (s8) src</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xbc</opcode>
+    <src_reg>any</src_reg>
+    <offset>16</offset>
+    <imm>0x00</imm>
+    <description>dst = (u32) (s32) (s16) src</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xbd</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if dst &lt;= src goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xbe</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if (u32)dst &lt;= (u32)src goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xbf</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst = src</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xbf</opcode>
+    <src_reg>any</src_reg>
+    <offset>8</offset>
+    <imm>0x00</imm>
+    <description>dst = (s64) (s8) src</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xbf</opcode>
+    <src_reg>any</src_reg>
+    <offset>16</offset>
+    <imm>0x00</imm>
+    <description>dst = (s64) (s16) src</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xbf</opcode>
+    <src_reg>any</src_reg>
+    <offset>32</offset>
+    <imm>0x00</imm>
+    <description>dst = (s64) (s32) src</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xc3</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>lock *(u32 *)(dst + offset) += src</description>
+    <groups>atomic32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xc3</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x01</imm>
+    <description>src = atomic_fetch_add_32((u32 *)(dst + offset), src)</description>
+    <groups>atomic32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xc3</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x40</imm>
+    <description>lock *(u32 *)(dst + offset) |= src</description>
+    <groups>atomic32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xc3</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x41</imm>
+    <description>src = atomic_fetch_or_32((u32 *)(dst + offset), src)</description>
+    <groups>atomic32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xc3</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x50</imm>
+    <description>lock *(u32 *)(dst + offset) &amp;= src</description>
+    <groups>atomic32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xc3</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x51</imm>
+    <description>src = atomic_fetch_and_32((u32 *)(dst + offset), src)</description>
+    <groups>atomic32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xc3</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0xa0</imm>
+    <description>lock *(u32 *)(dst + offset) ^= src</description>
+    <groups>atomic32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xc3</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0xa1</imm>
+    <description>src = atomic_fetch_xor_32((u32 *)(dst + offset), src)</description>
+    <groups>atomic32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xc3</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0xe1</imm>
+    <description>src = xchg_32((u32 *)(dst + offset), src)</description>
+    <groups>atomic32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xc3</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0xf1</imm>
+    <description>r0 = cmpxchg_32((u32 *)(dst + offset), r0, src)</description>
+    <groups>atomic32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xc4</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst = (u32)(dst s&gt;&gt; imm)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xc5</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if dst s&lt; imm goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xc6</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if (s32)dst s&lt; (s32)imm goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xc7</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>any</imm>
+    <description>dst s&gt;&gt;= imm</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xcc</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst = (u32)(dst s&gt;&gt; src)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xcd</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if dst s&lt; src goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xce</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if (s32)dst s&lt; (s32)src goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xcf</opcode>
+    <src_reg>any</src_reg>
+    <offset>0</offset>
+    <imm>0x00</imm>
+    <description>dst s&gt;&gt;= src</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Arithmetic Instructions (Section 4.1)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xd4</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>0x10</imm>
+    <description>dst = htole16(dst)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Byte Swap Instructions (Section 4.2)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xd4</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>0x20</imm>
+    <description>dst = htole32(dst)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Byte Swap Instructions (Section 4.2)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xd4</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>0x40</imm>
+    <description>dst = htole64(dst)</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Byte Swap Instructions (Section 4.2)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xd5</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if dst s&lt;= imm goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xd6</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>any</offset>
+    <imm>any</imm>
+    <description>if (s32)dst s&lt;= (s32)imm goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xd7</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>0x10</imm>
+    <description>dst = bswap16(dst)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Byte Swap Instructions (Section 4.2)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xd7</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>0x20</imm>
+    <description>dst = bswap32(dst)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Byte Swap Instructions (Section 4.2)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xd7</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>0x40</imm>
+    <description>dst = bswap64(dst)</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Byte Swap Instructions (Section 4.2)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xdb</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>lock *(u64 *)(dst + offset) += src</description>
+    <groups>atomic64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xdb</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x01</imm>
+    <description>src = atomic_fetch_add_64((u64 *)(dst + offset), src)</description>
+    <groups>atomic64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xdb</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x40</imm>
+    <description>lock *(u64 *)(dst + offset) |= src</description>
+    <groups>atomic64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xdb</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x41</imm>
+    <description>src = atomic_fetch_or_64((u64 *)(dst + offset), src)</description>
+    <groups>atomic64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xdb</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x50</imm>
+    <description>lock *(u64 *)(dst + offset) &amp;= src</description>
+    <groups>atomic64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xdb</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x51</imm>
+    <description>src = atomic_fetch_and_64((u64 *)(dst + offset), src)</description>
+    <groups>atomic64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xdb</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0xa0</imm>
+    <description>lock *(u64 *)(dst + offset) ^= src</description>
+    <groups>atomic64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xdb</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0xa1</imm>
+    <description>src = atomic_fetch_xor_64((u64 *)(dst + offset), src)</description>
+    <groups>atomic64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xdb</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0xe1</imm>
+    <description>src = xchg_64((u64 *)(dst + offset), src)</description>
+    <groups>atomic64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xdb</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0xf1</imm>
+    <description>r0 = cmpxchg_64((u64 *)(dst + offset), r0, src)</description>
+    <groups>atomic64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Atomic Operations (Section 5.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xdc</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>0x10</imm>
+    <description>dst = htobe16(dst)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Byte Swap Instructions (Section 4.2)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xdc</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>0x20</imm>
+    <description>dst = htobe32(dst)</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Byte Swap Instructions (Section 4.2)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xdc</opcode>
+    <src_reg>0x0</src_reg>
+    <offset>0</offset>
+    <imm>0x40</imm>
+    <description>dst = htobe64(dst)</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Byte Swap Instructions (Section 4.2)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xdd</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if dst s&lt;= src goto +offset</description>
+    <groups>base64</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  <record date="2024-07-12">
+    <opcode>0xde</opcode>
+    <src_reg>any</src_reg>
+    <offset>any</offset>
+    <imm>0x00</imm>
+    <description>if (s32)dst s&lt;= (s32)src goto +offset</description>
+    <groups>base32</groups>
+    <xref type="draft" data="RFC-ietf-bpf-isa-04">Jump Instructions (Section 4.3)</xref>
+    <controller>IETF</controller>
+  </record>
+  </registry>
+
+  <people/>
+</registry>
