@@ -1,0 +1,102 @@
+              DNS RRTYPE PARAMETER ALLOCATION TEMPLATE
+
+When ready for formal consideration, this template is to be submitted
+to IANA for processing by emailing the template to dns-rrtype-applications&ietf.org
+
+A. Submission Date:
+   2024-07-03
+
+B.1 Submission Type:  [x] New RRTYPE  [ ] Modification to RRTYPE
+B.2 Kind of RR:  [ ] Data RR  [x] Meta-RR
+
+C. Contact Information for submitter (will be publicly posted):
+   Name: Shumon Huque             Email Address: shuque&gmail.com
+   International telephone number: +1 (888) 726-7835
+   Other contact handles:
+
+D. Motivation for the new RRTYPE application.
+   Please keep this part at a high level to inform the Expert and
+   reviewers about uses of the RRTYPE.  Most reviewers will be DNS
+   experts that may have limited knowledge of your application space.
+
+   Meta/Pseudo RR type to indicate an NXDOMAIN response in the
+   NSEC type bitmap field of Compact Denial of Existence.
+
+   For details, see:
+   https://datatracker.ietf.org/doc/draft-ietf-dnsop-compact-denial-of-existence/
+
+   This protocol has already been deployed in the field with
+   private RR types. A formal early allocation is now requested,
+   as the specification is stable, and other planned implementers
+   are awaiting an official allocation of the codepoint.
+
+E. Description of the proposed RR type.
+   This description can be provided in-line in the template, as an
+   attachment, or with a publicly available URL.
+
+   From the above mentioned draft:
+
+	This document defines the use of a synthetic Resource Record type to
+	signal the presence of a non-existent name.  The mnemonic for this RR
+	type is "NXNAME", chosen to clearly distinguish it from the response
+	code mnemonic NXDOMAIN.
+
+	      Type    Value  Meaning
+	      NXNAME  128  NXDOMAIN indicator for Compact Denial of Existence
+
+	This RR type is added to the NSEC type bitmap for responses to non-
+	existent names (in addition to the required RRSIG and NSEC types).
+	It is a "Meta-Type", as defined in [RFC6895], stores no data in a DNS
+	zone, and cannot be usefully queried.
+
+   From the IANA considerations section of the draft:
+
+	IANA is requested to do the following:
+
+	Allocate a new DNS Resource Record type code for NXNAME in the DNS
+	parameters registry, from the meta type range.  Specifically, the
+	lowest available number (currently 128) in the meta range is
+	requested to be allocated.  A lower number lowers the size of the
+	type bitmap, which reduces the size of the DNS response message.
+
+	      Type    Value  Meaning
+	      NXNAME  128  NXDOMAIN indicator for Compact Denial of Existence
+
+F. What existing RRTYPE or RRTYPEs come closest to filling that need
+   and why are they unsatisfactory?
+
+   None.
+
+G. What mnemonic is requested for the new RRTYPE (optional)?
+
+   Note: If a mnemonic is not supplied, not allowed, or duplicates an
+   existing RRTYPE or CLASS mnemonic, the Expert will assign a
+   mnemonic.
+
+   NXNAME
+
+   Quoting from the draft:
+
+	"The mnemonic for this RR
+	type is "NXNAME", chosen to clearly distinguish it from the response
+	code mnemonic NXDOMAIN."
+
+H. Does the requested RRTYPE make use of any existing IANA registry
+   or require the creation of a new IANA subregistry in DNS
+   Parameters?  If so, please indicate which registry is to be used
+   or created.  If a new subregistry is needed, specify the
+   allocation policy for it and its initial contents.  Also include
+   what the modification procedures will be.
+
+   No.
+
+I. Does the proposal require/expect any changes in DNS
+   servers/resolvers that prevent the new type from being processed
+   as an unknown RRTYPE (see [RFC3597])?
+
+   No, or not relevant.
+   This is a meta-type that stores no data in the DNS.
+
+J. Comments:
+
+   None. 
