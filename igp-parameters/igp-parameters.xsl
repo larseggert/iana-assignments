@@ -19,6 +19,7 @@
         <tr>
           <th>Value</th>
           <th>Name</th>
+          <th>Data-Plane</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
@@ -77,13 +78,14 @@
         <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
     </xsl:when>
-      <xsl:when test="../@id = 'igp-msd-types'">
-        <tr>
-          <td><xsl:value-of select="iana:value"/></td>
-          <td><xsl:apply-templates select="iana:description"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
-        </tr>
-      </xsl:when>
+    <xsl:when test="../@id = 'igp-msd-types'">
+      <tr>
+        <td><xsl:value-of select="iana:value"/></td>
+        <td><xsl:apply-templates select="iana:description"/></td>
+        <td><xsl:apply-templates select="iana:data-plane"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+    </xsl:when>
     <xsl:when test="../@id = 'link-attribute-application-identifiers'">
       <tr>
         <td><xsl:value-of select="iana:value"/></td>
