@@ -111,7 +111,7 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'openpgp-key-id-fingerprints'">
+      <xsl:when test="@id = 'openpgp-key-ids-fingerprints'">
         <tr>
           <th>Key Version</th>
           <th>Fingerprint</th>
@@ -293,7 +293,7 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'openpgp-key-id-fingerprints'">
+      <xsl:when test="../@id = 'openpgp-key-ids-fingerprints'">
         <tr>
           <td><xsl:apply-templates select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
