@@ -54,7 +54,7 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'openpgp-reason-revocation-code'">
+      <xsl:when test="@id = 'openpgp-reason-revocation-revocation-octet'">
         <tr><th>Code</th><th>Reason</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'openpgp-features-flags'">
@@ -111,7 +111,7 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'openpgp-key-id-fingerprint'">
+      <xsl:when test="@id = 'openpgp-key-id-fingerprints'">
         <tr>
           <th>Key Version</th>
           <th>Fingerprint</th>
@@ -120,24 +120,24 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'openpgp-image-attribute-version'">
+      <xsl:when test="@id = 'openpgp-image-attribute-versions'">
         <tr><th>Version</th><th>Reference</th></tr>
       </xsl:when>
-      <xsl:when test="@id = 'openpgp-armor-header-line'">
+      <xsl:when test="@id = 'openpgp-armor-header-lines'">
         <tr>
           <th>Armor Header</th>
           <th>Use</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'openpgp-armor-header-key'">
+      <xsl:when test="@id = 'openpgp-armor-header-keys'">
         <tr>
           <th>Key</th>
           <th>Summary</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'openpgp-ecc-curve-oid-usage'">
+      <xsl:when test="@id = 'openpgp-ecc-curve-oids-usage'">
         <tr>
           <th>ASN.1 Object Identifier</th>
           <th>OID Len</th>
@@ -179,8 +179,8 @@
       <xsl:when test="@id = 'openpgp-encrypted-message-packet-versions'">
         <tr>
           <th>Version of Encrypted Data Payload</th>
-          <th>Version of Preceding Symmetric-Key ESK (If Any)</th>
-          <th>Version of Preceding Public-Key ESK (If Any)</th>
+          <th>Version of Preceding Symmetric Key ESK (If Any)</th>
+          <th>Version of Preceding Public Key ESK (If Any)</th>
           <th>Generate?</th>
           <th>Reference</th>
         </tr>
@@ -293,7 +293,7 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'openpgp-key-id-fingerprint'">
+      <xsl:when test="../@id = 'openpgp-key-id-fingerprints'">
         <tr>
           <td><xsl:apply-templates select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
@@ -302,27 +302,27 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'openpgp-image-attribute-version'">
+      <xsl:when test="../@id = 'openpgp-image-attribute-versions'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'openpgp-armor-header-line'">
+      <xsl:when test="../@id = 'openpgp-armor-header-lines'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'openpgp-armor-header-key'">
+      <xsl:when test="../@id = 'openpgp-armor-header-keys'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'openpgp-ecc-curve-oid-usage'">
+      <xsl:when test="../@id = 'openpgp-ecc-curve-oids-usage'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:len"/></td>
