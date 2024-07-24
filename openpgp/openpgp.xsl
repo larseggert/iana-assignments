@@ -355,7 +355,7 @@
       <xsl:when test="../@id = 'openpgp-aead-algorithms'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:nonce"/></td>
           <td><xsl:apply-templates select="iana:auth"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
