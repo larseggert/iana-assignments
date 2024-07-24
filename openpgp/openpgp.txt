@@ -111,8 +111,8 @@ OpenPGP Packet Types
     19   Yes      Reserved (formerly Modification Detection Code Packet)                [RFC-ietf-openpgp-crypto-refresh-13, Section 5.13.1]
     20   Yes      Reserved                                                              [RFC-ietf-openpgp-crypto-refresh-13]
     21   Yes      Padding Packet                                              PADDING   [RFC-ietf-openpgp-crypto-refresh-13, Section 5.14]
-   22-39 Yes      Unassigned Critical Packet
-   40-59 No       Unassigned Non-Critical Packet
+   22-39 Yes      Unassigned Critical Packets
+   40-59 No       Unassigned Non-Critical Packets
    60-63 No       Private or Experimental Use                                           [RFC-ietf-openpgp-crypto-refresh-13]
 
 OpenPGP User Attribute Subpacket Types
@@ -158,7 +158,7 @@ OpenPGP Image Attribute Encoding Format
 
      ID             Encoding                        Reference
       0    Reserved                    [RFC-ietf-openpgp-crypto-refresh-13]
-      1    JPEG                        [JPEG File Interchange Format]
+      1    JPEG [JFIF]                 [RFC-ietf-openpgp-crypto-refresh-13]
     2-99   Unassigned
    100-110 Private or Experimental Use [RFC-ietf-openpgp-crypto-refresh-13]
    111-255 Unassigned
@@ -264,7 +264,7 @@ OpenPGP Reason for Revocation (Revocation Octet)
    CSV
 
     Code                                      Reason                                                 Reference
-      0    No reason specified (Key Revocation or Certificate Revocation signatures)    [RFC-ietf-openpgp-crypto-refresh-13]
+      0    No reason specified (Key Revocation or Certification Revocation signatures)  [RFC-ietf-openpgp-crypto-refresh-13]
       1    Key is superseded (Key Revocation signatures)                                [RFC-ietf-openpgp-crypto-refresh-13]
       2    Key material has been compromised (Key Revocation signatures)                [RFC-ietf-openpgp-crypto-refresh-13]
       3    Key is retired and no longer used (Key Revocation signatures)                [RFC-ietf-openpgp-crypto-refresh-13]
@@ -315,7 +315,7 @@ OpenPGP New Packet Versions (OBSOLETE)
  Those wishing to use the removed "New Packet Versions" registry
  should instead register new versions of the relevant packets in the
  "OpenPGP Key and Signature Versions", "OpenPGP Key IDs and
- Fingerprints" and "OpenPGP Encrypted Message Packet Versions"
+ Fingerprints", and "OpenPGP Encrypted Message Packet Versions"
  registries.
 
 
@@ -344,8 +344,8 @@ OpenPGP Key Flags
    CSV
 
      Flag                                               Definition                                                          Reference
-    0x01...  This key may be used to make User ID certifications (signature type IDs 0x10-0x13) or direct key  [RFC-ietf-openpgp-crypto-refresh-13]
-             signatures (signature type ID 0x1F) over other keys.
+    0x01...  This key may be used to make User ID certifications (Signature Type IDs 0x10-0x13) or Direct Key  [RFC-ietf-openpgp-crypto-refresh-13]
+             signatures (Signature Type ID 0x1F) over other keys.
     0x02...  This key may be used to sign data.                                                                [RFC-ietf-openpgp-crypto-refresh-13]
     0x04...  This key may be used to encrypt communications.                                                   [RFC-ietf-openpgp-crypto-refresh-13]
     0x08...  This key may be used to encrypt storage.                                                          [RFC-ietf-openpgp-crypto-refresh-13]
@@ -372,63 +372,62 @@ OpenPGP Public Key Algorithms
    [IMG]
    CSV
 
-  ID      Algorithm              Public Key Format                     Secret Key Format                     Signature Format                        PKESK Format                           Reference
-   0    Reserved                                                                                                                                                               [RFC-ietf-openpgp-crypto-refresh-13]
-        RSA (Encrypt   MPI(n), MPI(e)                                                              MPI(m^d mod n)                        MPI(m^e mod n)
-   1    or Sign)       [RFC-ietf-openpgp-crypto-refresh-13,  MPI(d), MPI(p), MPI(q), MPI(u)        [RFC-ietf-openpgp-crypto-refresh-13,  [RFC-ietf-openpgp-crypto-refresh-13,  [RFC-ietf-openpgp-crypto-refresh-13]
-        [FIPS186]      Section 5.5.5.1]                                                            Section 5.2.3.1]                      Section 5.1.3]
-        RSA            MPI(n), MPI(e)                                                                                                    MPI(m^e mod n)
-   2    Encrypt-Only   [RFC-ietf-openpgp-crypto-refresh-13,  MPI(d), MPI(p), MPI(q), MPI(u)        N/A                                   [RFC-ietf-openpgp-crypto-refresh-13,  [RFC-ietf-openpgp-crypto-refresh-13]
-        [FIPS186]      Section 5.5.5.1]                                                                                                  Section 5.1.3]
-        RSA Sign-Only  MPI(n), MPI(e)                                                              MPI(m^d mod n)
-   3    [FIPS186]      [RFC-ietf-openpgp-crypto-refresh-13,  MPI(d), MPI(p), MPI(q), MPI(u)        [RFC-ietf-openpgp-crypto-refresh-13,  N/A                                   [RFC-ietf-openpgp-crypto-refresh-13]
-                       Section 5.5.5.1]                                                            Section 5.2.3.1]
+  ID      Algorithm             Public Key Format                    Secret Key Format                     Signature Format                       PKESK Format                          Reference
+   0    Reserved                                                                                                                                                           [RFC-ietf-openpgp-crypto-refresh-13]
+        RSA (Encrypt   MPI(n), MPI(e)                                                            MPI(m^d mod n)                       MPI(m^e mod n)
+   1    or Sign)       [RFC-ietf-openpgp-crypto-refresh-13, MPI(d), MPI(p), MPI(q), MPI(u)       [RFC-ietf-openpgp-crypto-refresh-13, [RFC-ietf-openpgp-crypto-refresh-13, [RFC-ietf-openpgp-crypto-refresh-13]
+        [FIPS186]      Section 5.5.5.1]                                                          Section 5.2.3.1]                     Section 5.1.3]
+        RSA            MPI(n), MPI(e)                                                                                                 MPI(m^e mod n)
+   2    Encrypt-Only   [RFC-ietf-openpgp-crypto-refresh-13, MPI(d), MPI(p), MPI(q), MPI(u)       N/A                                  [RFC-ietf-openpgp-crypto-refresh-13, [RFC-ietf-openpgp-crypto-refresh-13]
+        [FIPS186]      Section 5.5.5.1]                                                                                               Section 5.1.3]
+        RSA Sign-Only  MPI(n), MPI(e)                                                            MPI(m^d mod n)
+   3    [FIPS186]      [RFC-ietf-openpgp-crypto-refresh-13, MPI(d), MPI(p), MPI(q), MPI(u)       [RFC-ietf-openpgp-crypto-refresh-13, N/A                                  [RFC-ietf-openpgp-crypto-refresh-13]
+                       Section 5.5.5.1]                                                          Section 5.2.3.1]
  4-15   Unassigned
-        Elgamal        MPI(p), MPI(g), MPI(y)                                                                                            MPI(g^k mod p), MPI(m * y^k mod p)
-  16    (Encrypt-Only) [RFC-ietf-openpgp-crypto-refresh-13,  MPI(x)                                N/A                                   [RFC-ietf-openpgp-crypto-refresh-13,  [RFC-ietf-openpgp-crypto-refresh-13]
-        [ELGAMAL]      Section 5.5.5.3]                                                                                                  Section 5.1.4]
-        DSA (Digital   MPI(p), MPI(q), MPI(g), MPI(y)                                              MPI(r), MPI(s)
-  17    Signature      [RFC-ietf-openpgp-crypto-refresh-13,  MPI(x)                                [RFC-ietf-openpgp-crypto-refresh-13,  N/A                                   [RFC-ietf-openpgp-crypto-refresh-13]
-        Algorithm)     Section 5.5.5.2]                                                            Section 5.2.3.2]
+        Elgamal        MPI(p), MPI(g), MPI(y)                                                                                         MPI(g^k mod p), MPI(m * y^k mod p)
+  16    (Encrypt-Only) [RFC-ietf-openpgp-crypto-refresh-13, MPI(x)                               N/A                                  [RFC-ietf-openpgp-crypto-refresh-13, [RFC-ietf-openpgp-crypto-refresh-13]
+        [ELGAMAL]      Section 5.5.5.3]                                                                                               Section 5.1.4]
+        DSA (Digital   MPI(p), MPI(q), MPI(g), MPI(y)                                            MPI(r), MPI(s)
+  17    Signature      [RFC-ietf-openpgp-crypto-refresh-13, MPI(x)                               [RFC-ietf-openpgp-crypto-refresh-13, N/A                                  [RFC-ietf-openpgp-crypto-refresh-13]
+        Algorithm)     Section 5.5.5.2]                                                          Section 5.2.3.2]
         [FIPS186]
-                       OID, MPI(point in curve-specific      MPI(value in curve-specific format)                                         MPI(point in curve-specific point
-  18    ECDH public    point format), KDFParams              [RFC-ietf-openpgp-crypto-refresh-13,  N/A                                   format), size octet, encoded key      [RFC-ietf-openpgp-crypto-refresh-13]
-        key algorithm  [RFC-ietf-openpgp-crypto-refresh-13,  Section 9.2.1]                                                              [RFC-ietf-openpgp-crypto-refresh-13,
-                       Sections 9.2.1 and 5.5.5.6]                                                                                       Sections 9.2.1, 5.1.5, and 11.5]
-        ECDSA public   OID, MPI(point in SEC1 format)                                              MPI(r), MPI(s)
-  19    key algorithm  [RFC-ietf-openpgp-crypto-refresh-13,  MPI(value)                            [RFC-ietf-openpgp-crypto-refresh-13,  N/A                                   [RFC-ietf-openpgp-crypto-refresh-13]
-        [FIPS186]      Section 5.5.5.4]                                                            Section 5.2.3.2]
+                       OID, MPI(point in curve-specific     MPI(value in curve-specific format)                                       MPI(point in curve-specific point
+  18    ECDH public    point format), KDFParams             [RFC-ietf-openpgp-crypto-refresh-13, N/A                                  format), size octet, encoded key     [RFC-ietf-openpgp-crypto-refresh-13]
+        key algorithm  [RFC-ietf-openpgp-crypto-refresh-13, Section 9.2.1]                                                            [RFC-ietf-openpgp-crypto-refresh-13,
+                       Sections 9.2.1 and 5.5.5.6]                                                                                    Sections 9.2.1, 5.1.5, and 11.5]
+        ECDSA public   OID, MPI(point in SEC1 format)                                            MPI(r), MPI(s)
+  19    key algorithm  [RFC-ietf-openpgp-crypto-refresh-13, MPI(value)                           [RFC-ietf-openpgp-crypto-refresh-13, N/A                                  [RFC-ietf-openpgp-crypto-refresh-13]
+        [FIPS186]      Section 5.5.5.4]                                                          Section 5.2.3.2]
         Reserved
         (formerly
-  20    Elgamal                                                                                                                                                                [RFC-ietf-openpgp-crypto-refresh-13]
+  20    Elgamal                                                                                                                                                            [RFC-ietf-openpgp-crypto-refresh-13]
         Encrypt or
         Sign)
         Reserved for
         Diffie-Hellman
-  21    (X9.42, as                                                                                                                                                             [RFC-ietf-openpgp-crypto-refresh-13]
+  21    (X9.42, as                                                                                                                                                         [RFC-ietf-openpgp-crypto-refresh-13]
         defined for
         IETF-S/MIME)
-                       OOID, MPI(point in prefixed native    MPI(value in curve-specific format)   MPI, MPI
-  22    EdDSALegacy    format)                               [[RFC-ietf-openpgp-crypto-refresh-13, [[RFC-ietf-openpgp-crypto-refresh-13, N/A                                   [RFC-ietf-openpgp-crypto-refresh-13]
-        (deprecated)   [[RFC-ietf-openpgp-crypto-refresh-13, Section 9.2.1]]                       Sections 9.2.1 and 5.2.3.3]]
-                       Sections 11.2.2 and 5.5.5.5]]
-  23    Reserved                                                                                                                                                               [RFC-ietf-openpgp-crypto-refresh-13]
+                       OID, MPI(point in prefixed native    MPI(value in curve-specific format)  MPI, MPI
+  22    EdDSALegacy    format)                              [RFC-ietf-openpgp-crypto-refresh-13, [RFC-ietf-openpgp-crypto-refresh-13, N/A                                  [RFC-ietf-openpgp-crypto-refresh-13]
+        (deprecated)   [RFC-ietf-openpgp-crypto-refresh-13, Section 9.2.1]                       Sections 9.2.1 and 5.2.3.3]
+                       Sections 11.2.2 and 5.5.5.5]
+  23    Reserved                                                                                                                                                           [RFC-ietf-openpgp-crypto-refresh-13]
         (AEDH)
-  24    Reserved                                                                                                                                                               [RFC-ietf-openpgp-crypto-refresh-13]
+  24    Reserved                                                                                                                                                           [RFC-ietf-openpgp-crypto-refresh-13]
         (AEDSA)
-                       32 octets                                                                                                         32 octets, size octet, encoded key
-  25    X25519         [[RFC-ietf-openpgp-crypto-refresh-13, 32 octets                             N/A                                   [[RFC-ietf-openpgp-crypto-refresh-13, [RFC-ietf-openpgp-crypto-refresh-13]
-                       Section 5.5.5.7]]                                                                                                 Section 5.1.6]]
-                       56 octets [see                                                                                                    56 octets, size octet, encoded key
-  26    X448           [RFC-ietf-openpgp-crypto-refresh-13,  56 octets                             N/A                                   [see                                  [RFC-ietf-openpgp-crypto-refresh-13]
-                       Section 5.5.5.8]]                                                                                                 [RFC-ietf-openpgp-crypto-refresh-13,
-                                                                                                                                         Section 5.1.7]]
-                       32 octets [see                                                              64 octets [see
-  27    Ed25519        [RFC-ietf-openpgp-crypto-refresh-13,  32 octets                             [RFC-ietf-openpgp-crypto-refresh-13,                                        [RFC-ietf-openpgp-crypto-refresh-13]
-                       Section 5.5.5.9]]                                                           Section 5.2.3.4]]
-                       57 octets                                                                   114 octets
-  28    Ed448          [[RFC-ietf-openpgp-crypto-refresh-13, 57 octets                             [[RFC-ietf-openpgp-crypto-refresh-13,                                       [RFC-ietf-openpgp-crypto-refresh-13]
-                       Section 5.5.5.10]]                                                          Section 5.2.3.5]]
+                       32 octets                                                                                                      32 octets, size octet, encoded key
+  25    X25519         [RFC-ietf-openpgp-crypto-refresh-13, 32 octets                            N/A                                  [RFC-ietf-openpgp-crypto-refresh-13, [RFC-ietf-openpgp-crypto-refresh-13]
+                       Section 5.5.5.7]                                                                                               Section 5.1.6]
+                       56 octets                                                                                                      56 octets, size octet, encoded key
+  26    X448           [RFC-ietf-openpgp-crypto-refresh-13, 56 octets                            N/A                                  [RFC-ietf-openpgp-crypto-refresh-13, [RFC-ietf-openpgp-crypto-refresh-13]
+                       Section 5.5.5.8]                                                                                               Section 5.1.7]
+                       32 octets                                                                 64 octets
+  27    Ed25519        [RFC-ietf-openpgp-crypto-refresh-13, 32 octets                            [RFC-ietf-openpgp-crypto-refresh-13,                                      [RFC-ietf-openpgp-crypto-refresh-13]
+                       Section 5.5.5.9]                                                          Section 5.2.3.4]
+                       57 octets                                                                 114 octets
+  28    Ed448          [RFC-ietf-openpgp-crypto-refresh-13, 57 octets                            [RFC-ietf-openpgp-crypto-refresh-13,                                      [RFC-ietf-openpgp-crypto-refresh-13]
+                       Section 5.5.5.10]                                                         Section 5.2.3.5]
  29-99  Unassigned
         Private or
 100-110 Experimental
@@ -467,31 +466,26 @@ OpenPGP Symmetric Key Algorithms
    [IMG]
    CSV
 
-     ID                             Algorithm                                                           Reference
-      0    Plaintext or unencrypted data                               [RFC-ietf-openpgp-crypto-refresh-13]
-                                                                       [Lai, X., "On the design and security of block ciphers", ETH Series in
-      1    IDEA                                                        Information Processing, J.L. Massey (editor), Vol. 1, Hartung-Gorre Verlag
-                                                                       Knostanz, Technische Hochschule (Zurich),
-                                                                       1992][RFC-ietf-openpgp-crypto-refresh-13]
-      2    TripleDES (or DES-EDE) [SP800-67] with 168 bit key derived  [RFC-ietf-openpgp-crypto-refresh-13]
-           from 192
-      3    CAST5 with 128-bit key                                      [RFC2144]
-      4    Blowfish with 128-bit key, 16 rounds                        [BLOWFISH]
-      5    Reserved                                                    [RFC-ietf-openpgp-crypto-refresh-13]
-      6    Reserved                                                    [RFC-ietf-openpgp-crypto-refresh-13]
-      7    AES with 128-bit key                                        [AES]
-      8    AES with 192-bit key                                        [RFC-ietf-openpgp-crypto-refresh-13]
-      9    AES with 256-bit key                                        [RFC-ietf-openpgp-crypto-refresh-13]
-     10    Twofish with 256-bit key                                    [TWOFISH]
-     11    Camellia with 128-bit key                                   [RFC3713]
-     12    Camellia with 192-bit key                                   [RFC-ietf-openpgp-crypto-refresh-13]
-     13    Camellia with 256-bit key                                   [RFC-ietf-openpgp-crypto-refresh-13]
+     ID                                                 Algorithm                                                           Reference
+      0    Plaintext or unencrypted data                                                                       [RFC-ietf-openpgp-crypto-refresh-13]
+      1    IDEA [IDEA]                                                                                         [RFC-ietf-openpgp-crypto-refresh-13]
+      2    TripleDES (or DES-EDE) [SP800-67] with 168-bit key derived from 192                                 [RFC-ietf-openpgp-crypto-refresh-13]
+      3    CAST5 with 128-bit key [RFC2144]                                                                    [RFC-ietf-openpgp-crypto-refresh-13]
+      4    Blowfish with 128-bit key, 16 rounds [BLOWFISH]                                                     [RFC-ietf-openpgp-crypto-refresh-13]
+      5    Reserved                                                                                            [RFC-ietf-openpgp-crypto-refresh-13]
+      6    Reserved                                                                                            [RFC-ietf-openpgp-crypto-refresh-13]
+      7    AES with 128-bit key [AES]                                                                          [RFC-ietf-openpgp-crypto-refresh-13]
+      8    AES with 192-bit key                                                                                [RFC-ietf-openpgp-crypto-refresh-13]
+      9    AES with 256-bit key                                                                                [RFC-ietf-openpgp-crypto-refresh-13]
+     10    Twofish with 256-bit key [TWOFISH]                                                                  [RFC-ietf-openpgp-crypto-refresh-13]
+     11    Camellia with 128-bit key [RFC3713]                                                                 [RFC-ietf-openpgp-crypto-refresh-13]
+     12    Camellia with 192-bit key                                                                           [RFC-ietf-openpgp-crypto-refresh-13]
+     13    Camellia with 256-bit key                                                                           [RFC-ietf-openpgp-crypto-refresh-13]
     14-99  Unassigned
-   100-110 Private or Experimental Use                                 [RFC-ietf-openpgp-crypto-refresh-13]
+   100-110 Private or Experimental Use                                                                         [RFC-ietf-openpgp-crypto-refresh-13]
    111-252 Unassigned
-           Reserved to avoid collision with Secret Key Encryption (See
-   253-255 [RFC-ietf-openpgp-crypto-refresh-13, Table 2 and Section    [RFC-ietf-openpgp-crypto-refresh-13]
-           5.5.3])
+   253-255 Reserved to avoid collision with Secret Key Encryption (see the “OpenPGP Secret Key Encryption (S2K [RFC-ietf-openpgp-crypto-refresh-13]
+           Usage Octet)” registry and [RFC-ietf-openpgp-crypto-refresh-13, Section 5.5.3])
 
 OpenPGP Hash Algorithms
 
@@ -520,17 +514,17 @@ OpenPGP Hash Algorithms
 
      ID                Algorithm              Text Name  V6 Signature Salt Size              Reference
       0    Reserved                                                             [RFC-ietf-openpgp-crypto-refresh-13]
-      1    MD5                               "MD5"       N/A                    [RFC1321]
-      2    SHA-1                             "SHA1"      N/A                    [FIPS180]
-      3    RIPEMD-160                        "RIPEMD160" N/A                    [RIPEMD-160]
+      1    MD5 [RFC1321]                     "MD5"       N/A                    [RFC-ietf-openpgp-crypto-refresh-13]
+      2    SHA-1 [FIPS180]                   "SHA1"      N/A                    [RFC-ietf-openpgp-crypto-refresh-13]
+      3    RIPEMD-160 [RIPEMD-160]           "RIPEMD160" N/A                    [RFC-ietf-openpgp-crypto-refresh-13]
      4-7   Reserved                                                             [RFC-ietf-openpgp-crypto-refresh-13]
-      8    SHA2-256                          "SHA256"    16                     [FIPS180]
-      9    SHA2-384                          "SHA384"    24                     [FIPS180]
-     10    SHA2-512                          "SHA512"    32                     [FIPS180]
-     11    SHA2-224                          "SHA224"    16                     [FIPS180]
-     12    SHA3-256                          "SHA3-256"  16                     [FIPS202]
+      8    SHA2-256 [FIPS180]                "SHA256"    16                     [RFC-ietf-openpgp-crypto-refresh-13]
+      9    SHA2-384 [FIPS180]                "SHA384"    24                     [RFC-ietf-openpgp-crypto-refresh-13]
+     10    SHA2-512 [FIPS180]                "SHA512"    32                     [RFC-ietf-openpgp-crypto-refresh-13]
+     11    SHA2-224 [FIPS180]                "SHA224"    16                     [RFC-ietf-openpgp-crypto-refresh-13]
+     12    SHA3-256 [FIPS202]                "SHA3-256"  16                     [RFC-ietf-openpgp-crypto-refresh-13]
      13    Reserved                                                             [RFC-ietf-openpgp-crypto-refresh-13]
-     14    SHA3-512                          "SHA3-512"  32                     [FIPS202]
+     14    SHA3-512 [FIPS202]                "SHA3-512"  32                     [RFC-ietf-openpgp-crypto-refresh-13]
     15-99  Unassigned
    100-110 Private or Experimental algorithm                                    [RFC-ietf-openpgp-crypto-refresh-13]
    111-255 Unassigned
@@ -552,11 +546,11 @@ OpenPGP Compression Algorithms
    [IMG]
    CSV
 
-     ID             Algorithm                       Reference
+     ID             Algorithm                            Reference
       0    Uncompressed                [RFC-ietf-openpgp-crypto-refresh-13]
-      1    ZIP                         [RFC1951]
-      2    ZLIB                        [RFC1950]
-      3    BZip2                       [BZ2]
+      1    ZIP                         [RFC1951][RFC-ietf-openpgp-crypto-refresh-13]
+      2    ZLIB                        [RFC1950][RFC-ietf-openpgp-crypto-refresh-13]
+      3    BZip2                       [BZ2][RFC-ietf-openpgp-crypto-refresh-13]
     4-99   Unassigned                  [RFC-ietf-openpgp-crypto-refresh-13]
    100-110 Private or Experimental Use [RFC-ietf-openpgp-crypto-refresh-13]
    111-255 Unassigned                  [RFC-ietf-openpgp-crypto-refresh-13]
@@ -840,22 +834,20 @@ OpenPGP ECC Curve-Specific Wire Formats
    [IMG]
    CSV
 
-                    ECDH Point                                                EdDSA     EdDSA        EdDSA
-        Curve         Format                ECDH Secret Key MPI              Secret   Signature    Signature                Reference
-                                                                             Key MPI  first MPI    second MPI
-   NIST P-256       SEC1       integer                                       N/A     N/A          N/A          [RFC-ietf-openpgp-crypto-refresh-13]
-   NIST P-384       SEC1       integer                                       N/A     N/A          N/A          [RFC-ietf-openpgp-crypto-refresh-13]
-   NIST P-521       SEC1       integer                                       N/A     N/A          N/A          [RFC-ietf-openpgp-crypto-refresh-13]
-   brainpoolP256r1  SEC1       integer                                       N/A     N/A          N/A          [RFC-ietf-openpgp-crypto-refresh-13]
-   brainpoolP384r1  SEC1       integer                                       N/A     N/A          N/A          [RFC-ietf-openpgp-crypto-refresh-13]
-   brainpoolP512r1  SEC1       integer                                       N/A     N/A          N/A          [RFC-ietf-openpgp-crypto-refresh-13]
-                                                                             32
-   Ed25519Legacy    N/A        N/A                                           octets  32 octets of 32 octets of [RFC-ietf-openpgp-crypto-refresh-13]
-                                                                             of      R            S
-                                                                             secret
-                    prefixed   integer (see
-   Curve25519Legacy native     [RFC-ietf-openpgp-crypto-refresh-13, Section  N/A     N/A          N/A          [RFC-ietf-openpgp-crypto-refresh-13]
-                               5.5.5.6.1.1])
+                    ECDH Point                                               EdDSA      EdDSA        EdDSA
+        Curve         Format               ECDH Secret Key MPI              Secret    Signature    Signature                Reference
+                                                                            Key MPI   first MPI    second MPI
+   NIST P-256       SEC1       integer                                     N/A       N/A          N/A          [RFC-ietf-openpgp-crypto-refresh-13]
+   NIST P-384       SEC1       integer                                     N/A       N/A          N/A          [RFC-ietf-openpgp-crypto-refresh-13]
+   NIST P-521       SEC1       integer                                     N/A       N/A          N/A          [RFC-ietf-openpgp-crypto-refresh-13]
+   brainpoolP256r1  SEC1       integer                                     N/A       N/A          N/A          [RFC-ietf-openpgp-crypto-refresh-13]
+   brainpoolP384r1  SEC1       integer                                     N/A       N/A          N/A          [RFC-ietf-openpgp-crypto-refresh-13]
+   brainpoolP512r1  SEC1       integer                                     N/A       N/A          N/A          [RFC-ietf-openpgp-crypto-refresh-13]
+   Ed25519Legacy    N/A        N/A                                         32 octets 32 octets of 32 octets of [RFC-ietf-openpgp-crypto-refresh-13]
+                                                                           of secret R            S
+                    prefixed   integer
+   Curve25519Legacy native     [RFC-ietf-openpgp-crypto-refresh-13,        N/A       N/A          N/A          [RFC-ietf-openpgp-crypto-refresh-13]
+                               Section 5.5.5.6.1.1]
 
 OpenPGP Hash Algorithm Identifiers for RSA Signatures' Use of EMSA-PKCS1-v1_5 Padding
 
@@ -913,9 +905,9 @@ OpenPGP AEAD Algorithms
 
      ID               Name             Nonce Length (Octets) Authentication Tag Length (Octets)              Reference
    0       Reserved                                                                             [RFC-ietf-openpgp-crypto-refresh-13]
-   1       EAX                         16                    16                                 [EAX]
-   2       OCB                         15                    16                                 [RFC7253]
-   3       GCM                         12                    16                                 [SP800-38D]
+   1       EAX EAX                     16                    16                                 [RFC-ietf-openpgp-crypto-refresh-13]
+   2       OCB                         15                    16                                 [RFC-ietf-openpgp-crypto-refresh-13]
+   3       GCM SP800-38D               12                    16                                 [RFC-ietf-openpgp-crypto-refresh-13]
    4-99    Unassigned
    100-110 Private or Experimental Use                                                          [RFC-ietf-openpgp-crypto-refresh-13]
    111-255 Unassigned
