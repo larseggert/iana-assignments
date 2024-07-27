@@ -67,6 +67,11 @@
        <th>Description</th>
        <th>Reference</th>
       </xsl:when>
+      <xsl:when test="@id = 'sctp-error-detection-methods'">
+       <th>ID Value</th>
+       <th>Error Detection Method</th>
+       <th>Reference</th>
+      </xsl:when>
     </xsl:choose>
     </tr>
   </xsl:template>
@@ -111,11 +116,11 @@
        <td><xsl:apply-templates select="iana:xref"/></td>
        <td><xsl:value-of select="@date"/></td>
       </xsl:when>
-      <xsl:when test="../@id = 'sctp-parameters-27'">
+      <xsl:otherwise>
        <td><xsl:value-of select="iana:value"/></td>
        <td><xsl:value-of select="iana:description"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
-      </xsl:when>
+      </xsl:otherwise>
     </xsl:choose>
      </tr>
   </xsl:template>
