@@ -173,6 +173,13 @@
         <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'zoneversion-type-values'">
+        <tr>
+        <th>ZONEVERSION TYPE</th>
+        <th>Mnemonic</th>
+        <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -293,7 +300,7 @@
       </xsl:when>
       <xsl:otherwise>
         <tr>
-          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
