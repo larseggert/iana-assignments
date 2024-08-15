@@ -92,6 +92,13 @@
           <th>Reference</th>
           <th>Notes</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'segment-id-sub-tlv-flags'">
+        <tr>
+          <th>Bit Number</th>
+          <th>Name</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <th>Value</th>
