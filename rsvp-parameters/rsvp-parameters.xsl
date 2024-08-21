@@ -81,6 +81,14 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'conditions-object-flags'">
+        <tr>
+          <th>Bit Number</th>
+          <th>32-Bit Value</th>
+          <th>Name</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <th>Value</th>
@@ -96,7 +104,7 @@
     <xsl:choose>
       
       
-      <xsl:when test="../@id = 'rsvp-parameters-117' or ../@id = 'rsvp-parameters-119'">
+      <xsl:when test="../@id = 'rsvp-parameters-117' or ../@id = 'rsvp-parameters-119' or ../@id = 'conditions-object-flags'">
         <td align="center"><xsl:value-of select="iana:value"/></td>
         <td align="center"><xsl:value-of select="iana:hex"/></td>
         <td><xsl:value-of select="iana:description"/></td>
