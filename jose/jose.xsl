@@ -118,7 +118,7 @@
       <xsl:when test="../@id = 'web-key-parameters'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
-          <td><xsl:value-of select="iana:description"/></td>          
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:value-of select="iana:usage"/></td>
           <td><xsl:value-of select="iana:class"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
