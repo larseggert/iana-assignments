@@ -11,9 +11,9 @@
       <xsl:when test="@id = 'well-known-uris-1'">
         <tr>
           <th>URI Suffix</th>
-          <th>Change Controller</th>
           <th>Reference</th>
           <th>Status</th>
+          <th>Change Controller</th>
           <th>Related Information</th>
           <th>Date Registered</th>
           <th>Date Modified</th>
@@ -27,9 +27,9 @@
       <xsl:when test="../@id = 'well-known-uris-1'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
-          <td><xsl:apply-templates select="iana:controller"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:apply-templates select="iana:status"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
           <td><xsl:apply-templates select="iana:related"/></td>
           <td><xsl:value-of select="@date"/></td>
           <td><xsl:value-of select="iana:reviewed"/></td>
