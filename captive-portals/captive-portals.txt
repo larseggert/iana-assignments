@@ -3,20 +3,20 @@
                                                                    Captive Portals
 
    Created
-           2020-07-07
+   2020-07-07
 
    Last Updated
-           2020-09-28
+   2024-08-28
 
    Available Formats
-           [IMG]
-           XML [IMG]
-           HTML [IMG]
-           Plain text
+   [IMG]
+   XML [IMG]
+   HTML [IMG]
+   Plain text
 
    Registry included below
 
-     * Captive Portal API Keys
+     • Captive Portal API Keys
 
 Captive Portal API Keys
 
@@ -29,32 +29,52 @@ Captive Portal API Keys
  Tommy Pauly, Darshak Thakore, Martin Thomson
 
    Reference
-           [RFC8908]
+   [RFC8908]
 
    Available Formats
-           [IMG]
-           CSV
+   [IMG]
+   CSV
 
-          Key          Type                                                   Description                                                 Reference
-                              Indicates whether the client is in a state of captivity, i.e it has not satisfied the conditions to access
-   captive            boolean the external network. If the client is captive (i.e. captive=true), it will still be allowed enough access  [RFC8908]
-                              for it to perform server authentication [RFC8908, Section 4.1].
-   user-portal-url    string  Provides the URL of a web portal that MUST be accessed over TLS with which a user can interact.             [RFC8908]
-                              Provides the URL of a webpage or site that SHOULD be accessed over TLS on which the operator of the network
-   venue-info-url     string  has information that it wishes to share with the user (e.g., store info, maps, flight status, or            [RFC8908]
-                              entertainment).
-                              Indicates that the URL specified as "user-portal-url" allows the user to extend a session once the client
-   can-extend-session boolean is no longer in a state of captivity. This provides a hint that a client system can suggest accessing the   [RFC8908]
-                              portal URL to the user when the session is near its limit in terms of time or bytes.
-                              An integer that indicates the number of seconds remaining, after which the client will be placed into a
-   seconds-remaining  number  captive state. The API server SHOULD include this value if the client is not captive (i.e. captive=false)   [RFC8908]
-                              and the client session is time-limited, and SHOULD omit this value for captive clients (i.e. captive=true)
-                              or when the session is not time-limited.
-                              An integer that indicates the number of bytes remaining, after which the client will be in placed into a
-                              captive state. The byte count represents the sum of the total number of IP packet (layer 3) bytes sent and
-   bytes-remaining    number  received by the client, including IP headers. Captive portal systems might not count traffic to whitelisted [RFC8908]
-                              servers, such as the API server, but clients cannot rely on such behavior. The API server SHOULD include
-                              this value if the client is not captive (i.e. captive=false) and the client session is byte-limited, and
-                              SHOULD omit this value for captive clients (i.e. captive=true) or when the session is not byte-limited.
+              Key             Type                            Description                                              Reference
+                                     Indicates whether the client is in a state of captivity, i.e
+                                     it has not satisfied the conditions to access the external
+   captive                   boolean network. If the client is captive (i.e. captive=true), it will [RFC8908]
+                                     still be allowed enough access for it to perform server
+                                     authentication [RFC8908, Section 4.1].
+   user-portal-url           string  Provides the URL of a web portal that MUST be accessed over    [RFC8908]
+                                     TLS with which a user can interact.
+                                     Provides the URL of a webpage or site that SHOULD be accessed
+   venue-info-url            string  over TLS on which the operator of the network has information  [RFC8908]
+                                     that it wishes to share with the user (e.g., store info, maps,
+                                     flight status, or entertainment).
+                                     Indicates that the URL specified as "user-portal-url" allows
+                                     the user to extend a session once the client is no longer in a
+   can-extend-session        boolean state of captivity. This provides a hint that a client system  [RFC8908]
+                                     can suggest accessing the portal URL to the user when the
+                                     session is near its limit in terms of time or bytes.
+                                     An integer that indicates the number of seconds remaining,
+                                     after which the client will be placed into a captive state.
+   seconds-remaining         number  The API server SHOULD include this value if the client is not  [RFC8908]
+                                     captive (i.e. captive=false) and the client session is
+                                     time-limited, and SHOULD omit this value for captive clients
+                                     (i.e. captive=true) or when the session is not time-limited.
+                                     An integer that indicates the number of bytes remaining, after
+                                     which the client will be in placed into a captive state. The
+                                     byte count represents the sum of the total number of IP packet
+                                     (layer 3) bytes sent and received by the client, including IP
+                                     headers. Captive portal systems might not count traffic to
+   bytes-remaining           number  whitelisted servers, such as the API server, but clients       [RFC8908]
+                                     cannot rely on such behavior. The API server SHOULD include
+                                     this value if the client is not captive (i.e. captive=false)
+                                     and the client session is byte-limited, and SHOULD omit this
+                                     value for captive clients (i.e. captive=true) or when the
+                                     session is not byte-limited.
+                                     Provides the URL of the authentication server that MUST be
+                                     accessed over TLS with which the client is authenticated
+                                     without user interaction. Authentication Server authenticates
+   client-authentication-url string  clients using the HTTP authentication framework specified in   [draft-sawant-capport-api-state-enhancement-02]
+                                     [RFC9110]. The server MUST NOT require user interaction on the
+                                     client device. The client MUST have a credential to perform
+                                     the authentication without user interaction.
 
    Licensing Terms
