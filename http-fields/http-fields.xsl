@@ -13,7 +13,6 @@
           <th>Field Name</th>
           <th>Status</th>
           <th>Structured Type</th>
-          <th>Template</th>
           <th>Reference</th>
           <th>Comments</th>
         </tr>
@@ -36,7 +35,6 @@
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:status"/></td>
           <td><xsl:value-of select="iana:structured"/></td>
-          <td><xsl:apply-templates select="iana:file"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:apply-templates select="iana:comments"/></td>
         </tr>
