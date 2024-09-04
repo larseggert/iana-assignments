@@ -111,7 +111,7 @@
           <td><xsl:value-of select="iana:dtls"/></td>
           <td><xsl:value-of select="iana:rec"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
-          <td><xsl:value-of select="iana:comment"/></td>
+          <td><xsl:apply-templates select="iana:comment"/></td>
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'exporter-labels'">
