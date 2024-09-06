@@ -21,6 +21,22 @@
         <th>Reference</th>
       </tr>
      </xsl:when>
+     <xsl:when test="@id = 'igmp-mld-query-message-flags'">
+      <tr>
+        <th>Flags Bit</th>
+        <th>Short Name</th>
+        <th>Description</th>
+        <th>Reference</th>
+      </tr>
+     </xsl:when>
+     <xsl:when test="@id = 'igmp-mld-report-message-flags'">
+      <tr>
+        <th>Flags Bit</th>
+        <th>Short Name</th>
+        <th>Description</th>
+        <th>Reference</th>
+      </tr>
+     </xsl:when>
      <xsl:otherwise>
       <tr>
         <th>Code</th>
@@ -43,6 +59,22 @@
        <td align="center"><xsl:value-of select="iana:value"/></td>
        <td><xsl:value-of select="iana:length"/></td>
        <td><xsl:value-of select="iana:name"/></td>
+       <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+     </xsl:when>
+     <xsl:when test="../@id = 'igmp-mld-query-message-flags'">
+      <tr>
+       <td align="center"><xsl:value-of select="iana:bit"/></td>
+       <td><xsl:value-of select="iana:name"/></td>
+       <td><xsl:value-of select="iana:description"/></td>
+       <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+     </xsl:when>
+     <xsl:when test="../@id = 'igmp-mld-report-message-flags'">
+      <tr>
+       <td align="center"><xsl:value-of select="iana:bit"/></td>
+       <td><xsl:value-of select="iana:name"/></td>
+       <td><xsl:value-of select="iana:description"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
      </xsl:when>
