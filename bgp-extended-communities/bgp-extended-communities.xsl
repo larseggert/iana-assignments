@@ -83,6 +83,24 @@
         <th>Change Controller</th>
         <th>Date</th>
       </xsl:when>
+      <xsl:when test="@id = 'evpn-esi-label-extended-community-flags'">
+        <th>Bit Position</th>
+        <th>Name</th>
+        <th>Reference</th>
+        <th>Date</th>
+      </xsl:when>
+      <xsl:when test="@id = 'multihoming-redundancy-mode'">
+        <th>Value</th>
+        <th>Multihoming Redundancy Mode</th>
+        <th>Reference</th>
+        <th>Date</th>
+      </xsl:when>
+      <xsl:when test="@id = 'split-horizon-type'">
+        <th>Value</th>
+        <th>Split Horizon Type Value</th>
+        <th>Reference</th>
+        <th>Date</th>
+      </xsl:when>
       <xsl:otherwise>
         <th>Type Value</th>
         <th>Name</th>
