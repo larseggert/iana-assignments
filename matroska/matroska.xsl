@@ -41,7 +41,7 @@
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:ref"/></td>
         </tr>
       </xsl:when>
     </xsl:choose>
