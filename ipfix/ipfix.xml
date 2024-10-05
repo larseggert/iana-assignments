@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="ipfix">
 <title>IP Flow Information Export (IPFIX) Entities</title>
 <created>2007-05-10</created>
-<updated>2024-09-06</updated>
+<updated>2024-10-04</updated>
 
 <note><xref type="rfc" data="rfc7012"/> has obsoleted <xref type="rfc" data="rfc5102"/>. However, references to <xref type="rfc" data="rfc5102"/>
 remain as part of the historical record.</note>
@@ -14,9 +14,14 @@ remain as part of the historical record.</note>
 <registration_rule>Expert Review</registration_rule>
 <expert>IE Doctors (Andrew Feren, Brian Trammell, Nevil Brownlee, Paul Aitken)</expert>
 <xref type="rfc" data="rfc7012"/>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-fixes-12"/>
 <note>Values 0-127: NFv9-compatible</note>
-<note>The columns previously titled "References" and "Requester" have been 
+<note>The columns previously titled "References" and "Requester" have been
 renamed "Additional Information" and "Reference", respectively.
+
+The initial values for this registry were provided in <xref type="rfc" data="rfc5102"/>.
+<xref type="rfc" data="rfc7012"/> has obsoleted <xref type="rfc" data="rfc5102"/> and specifies that the current
+registry is the normative reference for these Information Elements.
 </note>
 
 <record>
@@ -228,7 +233,7 @@ Traffic Class field.
 <date>2024-01-29</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>sourceTransportPort</name>
 <dataType>unsigned16</dataType>
 <group>transportHeader</group>
@@ -238,24 +243,27 @@ Traffic Class field.
 <status>current</status>
 <description>
 <paragraph>
-The source port identifier in the transport header.
-For the transport protocols UDP, TCP, and SCTP, this is the
-source port number given in the respective header.  This
-field MAY also be used for future transport protocols that
+The source port identifier in the transport protocol header.
+For transport protocols such as UDP, TCP, SCTP, and DCCP,
+this is the source port number given in the respective header.
+This field MAY also be used for future transport protocols that
 have 16-bit source port identifiers.
 </paragraph>
 </description>
 <references>
 <paragraph>
-See <xref type="rfc" data="rfc768"/> for the definition of the UDP
-source port field.
-See <xref type="rfc" data="rfc9293"/> for the definition of the TCP
-source port field.
-See <xref type="rfc" data="rfc9260"/> for the definition of SCTP.
+See <xref type="rfc" data="rfc768"/> for the definition of the
+UDP source port field.
+See <xref type="rfc" data="rfc9293"/> for the definition of the
+TCP source port field.
+See <xref type="rfc" data="rfc9260"/> for the definition of the
+SCTP source port number field.
+See <xref type="rfc" data="rfc4340"/> for the definition of the
+DCCP source port field.
 </paragraph>
 <paragraph>
-Additional information on defined UDP and TCP port numbers can be
-found at <xref type="uri" data="https://www.iana.org/assignments/service-names-port-numbers"/>.
+See the assigned transport protocol (e.g., UDP, TCP, SCTP, and DCCP) port numbers
+at <xref type="uri" data="https://www.iana.org/assignments/service-names-port-numbers"/>.
 </paragraph>
 </references>
 <xref type="rfc" data="rfc5102"/>
@@ -337,7 +345,7 @@ ifIndex object.
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>destinationTransportPort</name>
 <dataType>unsigned16</dataType>
 <group>transportHeader</group>
@@ -347,11 +355,11 @@ ifIndex object.
 <status>current</status>
 <description>
 <paragraph>
-The destination port identifier in the transport header.
-For the transport protocols UDP, TCP, and SCTP, this is the
-destination port number given in the respective header.
-This field MAY also be used for future transport protocols
-that have 16-bit destination port identifiers.
+The destination port identifier in the transport protocol header.
+For transport protocols such as UDP, TCP, SCTP, and DCCP, this is
+the destination port number given in the respective header. This
+field MAY also be used for future transport protocols that have
+16-bit destination port identifiers.
 </paragraph>
 </description>
 <references>
@@ -360,11 +368,14 @@ See <xref type="rfc" data="rfc768"/> for the definition of the UDP
 destination port field.
 See <xref type="rfc" data="rfc9293"/> for the definition of the TCP
 destination port field.
-See <xref type="rfc" data="rfc9260"/> for the definition of SCTP.
+See <xref type="rfc" data="rfc9260"/> for the definition of the SCTP
+destination port number field.
+See <xref type="rfc" data="rfc4340"/> for the definition of the DCCP
+destination port field.
 </paragraph>
 <paragraph>
-Additional information on defined UDP and TCP port numbers can be
-found at <xref type="uri" data="https://www.iana.org/assignments/service-names-port-numbers"/>.
+See the assigned transport protocol (e.g., UDP, TCP, SCTP, and DCCP) port numbers
+at <xref type="uri" data="https://www.iana.org/assignments/service-names-port-numbers"/>.
 </paragraph>
 </references>
 <xref type="rfc" data="rfc5102"/>
@@ -851,7 +862,7 @@ Flow Label field in the IPv6 packet header.
 <date>2014-08-13</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>icmpTypeCodeIPv4</name>
 <dataType>unsigned16</dataType>
 <group>transportHeader</group>
@@ -867,8 +878,7 @@ both values is reported as (ICMP type * 256) + ICMP code.
 </description>
 <references>
 <paragraph>
-See <xref type="rfc" data="rfc792"/> for the definition of the IPv4
-ICMP type and code fields.
+<xref type="uri" data="https://www.iana.org/assignments/icmp-parameters"/>
 </paragraph>
 </references>
 <xref type="rfc" data="rfc5102"/>
@@ -876,7 +886,7 @@ ICMP type and code fields.
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>igmpType</name>
 <dataType>unsigned8</dataType>
 <group>transportHeader</group>
@@ -891,8 +901,7 @@ The type field of the IGMP message.
 </description>
 <references>
 <paragraph>
-See <xref type="draft" data="RFC-ietf-pim-3376bis-12"/> for the definition of the IGMP
-type field.
+<xref type="uri" data="https://www.iana.org/assignments/igmp-type-numbers/igmp-type-numbers.xhtml#igmp-type-numbers-1"/>
 </paragraph>
 </references>
 <xref type="rfc" data="rfc5102"/>
@@ -1166,7 +1175,7 @@ IPv4 source address prefix.
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>mplsTopLabelType</name>
 <dataType>unsigned8</dataType>
 <group>derived</group>
@@ -1177,15 +1186,14 @@ IPv4 source address prefix.
 <description>
 <paragraph>
 This field identifies the control protocol that allocated the
-top-of-stack label.  Values for this field are listed in the 
-MPLS label type registry. See 
-<xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-mpls-label-type"/>
+top-of-stack label. Values for this field are listed in the MPLS
+label type registry.
 </paragraph>
 </description>
 <references>
 <paragraph>
+See the IPFIX MPLS label type registry <xref type="uri" data="https://www.iana.org/assignments/mpls-label-values"/>.
 See <xref type="rfc" data="rfc3031"/> for the MPLS label structure.
-See the list of MPLS label types assigned by IANA at <xref type="uri" data="https://www.iana.org/assignments/mpls-label-values"/>.
 </paragraph>
 </references>
 <xref type="rfc" data="rfc5102"/>
@@ -2173,16 +2181,27 @@ fragment offset in the IPv6 Fragment header.
 <date>2014-08-13</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>forwardingStatus</name>
-<dataType>unsigned8</dataType>
+<dataType>unsigned32</dataType>
 <dataTypeSemantics>identifier</dataTypeSemantics>
 <elementId>89</elementId>
 <status>current</status>
 <description>
 <paragraph>
-This Information Element describes the forwarding status of the
-flow and any attached reasons.
+This Information Element describes the forwarding
+status of the flow and any attached reasons.
+IPFIX reduced-size encoding is used as required.
+</paragraph>
+<paragraph>
+A structure is currently associated with the
+least-significant byte. Future versions may be
+defined to associate meanings with the remaining
+bits.
+</paragraph>
+<paragraph>
+The current version of the Information Element
+should be exported as unsigned8.
 </paragraph>
 <paragraph>
 The layout of the encoding is as follows:
@@ -2193,9 +2212,6 @@ MSB  -  0   1   2   3   4   5   6   7  -  LSB
       | Status|  Reason code or flags |
       +---+---+---+---+---+---+---+---+
 </artwork>
-<paragraph>
-See the Forwarding Status sub-registries at <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#forwarding-status"/>.
-</paragraph>
 <artwork>
 Examples:
 
@@ -2213,7 +2229,8 @@ decode: 10        -&gt; Drop
 </description>
 <references>
 <paragraph>
-See "NetFlow Version 9 Flow-Record Format" <xref type="uri" data="http://www.cisco.com/en/US/technologies/tk648/tk362/technologies_white_paper09186a00800a3db9.html">CCO-NF9FMT</xref>. 
+See "NetFlow Version 9 Flow-Record Format" <xref type="uri" data="https://www.cisco.com/en/US/technologies/tk648/tk362/technologies_white_paper09186a00800a3db9.html">CCO-NF9FMT</xref>.
+See the Forwarding Status sub-registries at <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#forwarding-status"/>.
 </paragraph>
 </references>
 <xref type="rfc" data="rfc7270"/>
@@ -2473,7 +2490,7 @@ associated with the classId Information Element.
 <date>2014-04-04</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>classificationEngineId</name>
 <dataType>unsigned8</dataType>
 <dataTypeSemantics>identifier</dataTypeSemantics>
@@ -2481,18 +2498,22 @@ associated with the classId Information Element.
 <status>current</status>
 <description>
 <paragraph>
-A unique identifier for the engine that determined the
-Selector ID. Thus, the Classification Engine ID defines
-the context for the Selector ID. The Classification
-Engine can be considered a specific registry for
-application assignments.
+A unique identifier for the engine that determined 
+the Selector ID. Thus, the Classification Engine ID
+defines the context for the Selector ID. The
+Classification Engine can be considered a specific
+registry for application assignments.
 </paragraph>
 <paragraph>
 Values for this field are listed in the Classification
-Engine IDs registry. See 
-<xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#classification-engine-ids"/>
+Engine IDs registry.
 </paragraph>
 </description>
+<references>
+<paragraph>
+See the Classification Engine IDs registry <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#classification-engine-ids"/>
+</paragraph>
+</references>
 <xref type="rfc" data="rfc6759"/>
 <revision>0</revision>
 <date>2013-02-18</date>
@@ -2751,7 +2772,7 @@ treatment since the Metering Process
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>flowEndReason</name>
 <dataType>unsigned8</dataType>
 <group>misc</group>
@@ -2761,9 +2782,14 @@ treatment since the Metering Process
 <status>current</status>
 <description>
 <paragraph>
-  The reason for Flow termination. Values are listed in the flowEndReason registry. See <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-flow-end-reason"/>.
+The reason for Flow termination. Values are listed in the flowEndReason registry.
 </paragraph>
 </description>
+<references>
+<paragraph>
+See the flowEndReason registry <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-flow-end-reason"/>.
+</paragraph>
+</references>
 <xref type="rfc" data="rfc5102"/>
 <revision>0</revision>
 <date>2013-02-18</date>
@@ -2812,7 +2838,7 @@ Elements.
 <date>2013-04-11</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>icmpTypeCodeIPv6</name>
 <dataType>unsigned16</dataType>
 <group>transportHeader</group>
@@ -2828,8 +2854,7 @@ both values is reported as (ICMP type * 256) + ICMP code.
 </description>
 <references>
 <paragraph>
-See <xref type="rfc" data="rfc4443"/> for the definition of the IPv6
-ICMP type and code fields.
+<xref type="uri" data="https://www.iana.org/assignments/icmpv6-parameters"/>
 </paragraph>
 </references>
 <xref type="rfc" data="rfc5102"/>
@@ -3645,7 +3670,7 @@ The number of octets includes IP header(s) and IP payload.
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>icmpTypeIPv4</name>
 <dataType>unsigned8</dataType>
 <group>transportHeader</group>
@@ -3660,8 +3685,7 @@ Type of the IPv4 ICMP message.
 </description>
 <references>
 <paragraph>
-See <xref type="rfc" data="rfc792"/> for the definition of the IPv4
-ICMP type field.
+<xref type="uri" data="https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml#icmp-parameters-types"/>
 </paragraph>
 </references>
 <xref type="rfc" data="rfc5102"/>
@@ -3669,7 +3693,7 @@ ICMP type field.
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>icmpCodeIPv4</name>
 <dataType>unsigned8</dataType>
 <group>transportHeader</group>
@@ -3684,8 +3708,7 @@ Code of the IPv4 ICMP message.
 </description>
 <references>
 <paragraph>
-See <xref type="rfc" data="rfc792"/> for the definition of the IPv4
-ICMP code field.
+<xref type="uri" data="https://www.iana.org/assignments/icmp-parameters/icmp-parameters.xhtml#icmp-parameters-codes"/>
 </paragraph>
 </references>
 <xref type="rfc" data="rfc5102"/>
@@ -3693,7 +3716,7 @@ ICMP code field.
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>icmpTypeIPv6</name>
 <dataType>unsigned8</dataType>
 <group>transportHeader</group>
@@ -3708,8 +3731,7 @@ Type of the IPv6 ICMP message.
 </description>
 <references>
 <paragraph>
-See <xref type="rfc" data="rfc4443"/> for the definition of the IPv6
-ICMP type field.
+<xref type="uri" data="https://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xhtml#icmpv6-parameters-2"/>
 </paragraph>
 </references>
 <xref type="rfc" data="rfc5102"/>
@@ -3717,7 +3739,7 @@ ICMP type field.
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>icmpCodeIPv6</name>
 <dataType>unsigned8</dataType>
 <group>transportHeader</group>
@@ -3732,8 +3754,7 @@ Code of the IPv6 ICMP message.
 </description>
 <references>
 <paragraph>
-See <xref type="rfc" data="rfc4443"/> for the definition of the IPv6
-ICMP code field.
+<xref type="uri" data="https://www.iana.org/assignments/icmpv6-parameters/icmpv6-parameters.xhtml#icmpv6-parameters-3"/>
 </paragraph>
 </references>
 <xref type="rfc" data="rfc5102"/>
@@ -4892,7 +4913,7 @@ See the list of protocol numbers assigned by IANA at <xref type="uri" data="http
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>collectorTransportPort</name>
 <dataType>unsigned16</dataType>
 <group>config</group>
@@ -4902,11 +4923,10 @@ See the list of protocol numbers assigned by IANA at <xref type="uri" data="http
 <status>current</status>
 <description>
 <paragraph>
-The destination port identifier to which the Exporting
-Process sends Flow information.  For the transport protocols
-UDP, TCP, and SCTP, this is the destination port number.
-This field MAY also be used for future transport protocols
-that have 16-bit source port identifiers.
+The destination port identifier to which the Exporting Process sends
+Flow information. For transport protocols such as UDP, TCP, and SCTP,
+this is the destination port number. This field MAY also be used for
+future transport protocols that have 16-bit source port identifiers.
 </paragraph>
 </description>
 <references>
@@ -4915,11 +4935,12 @@ See <xref type="rfc" data="rfc768"/> for the definition of the UDP
 destination port field.
 See <xref type="rfc" data="rfc9293"/> for the definition of the TCP
 destination port field.
-See <xref type="rfc" data="rfc9260"/> for the definition of SCTP.
+See <xref type="rfc" data="rfc9260"/> for the definition of the SCTP
+destination port number field.
 </paragraph>
 <paragraph>
-Additional information on defined UDP and TCP port numbers can be
-found at <xref type="uri" data="https://www.iana.org/assignments/service-names-port-numbers"/>.
+See the assigned transport protocol (e.g., UDP, TCP, and SCTP) port numbers
+at <xref type="uri" data="https://www.iana.org/assignments/service-names-port-numbers"/>.
 </paragraph>
 </references>
 <xref type="rfc" data="rfc5102"/>
@@ -4927,7 +4948,7 @@ found at <xref type="uri" data="https://www.iana.org/assignments/service-names-p
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>exporterTransportPort</name>
 <dataType>unsigned16</dataType>
 <group>config</group>
@@ -4937,13 +4958,11 @@ found at <xref type="uri" data="https://www.iana.org/assignments/service-names-p
 <status>current</status>
 <description>
 <paragraph>
-The source port identifier from which the Exporting
-Process sends Flow information.  For the transport protocols
-UDP, TCP, and SCTP, this is the source port number.
-This field MAY also be used for future transport protocols
-that have 16-bit source port identifiers.  This field may
-be useful for distinguishing multiple Exporting Processes
-that use the same IP address.
+The source port identifier from which the Exporting 
+Process sends Flow information. For transport protocols 
+such as UDP, TCP, and SCTP, this is the source port
+number. This field MAY also be used for future transport
+protocols that have 16-bit source port identifiers.
 </paragraph>
 </description>
 <references>
@@ -4952,11 +4971,12 @@ See <xref type="rfc" data="rfc768"/> for the definition of the UDP
 source port field.
 See <xref type="rfc" data="rfc9293"/> for the definition of the TCP
 source port field.
-See <xref type="rfc" data="rfc9260"/> for the definition of SCTP.
+See <xref type="rfc" data="rfc9260"/> for the definition of the SCTP
+source port number field.
 </paragraph>
 <paragraph>
-Additional information on defined UDP and TCP port numbers can be
-found at <xref type="uri" data="https://www.iana.org/assignments/service-names-port-numbers"/>.
+See the assigned transport protocol (e.g., UDP, TCP, and SCTP) port numbers 
+at <xref type="uri" data="https://www.iana.org/assignments/service-names-port-numbers"/>.
 </paragraph>
 </references>
 <xref type="rfc" data="rfc5102"/>
@@ -5201,7 +5221,7 @@ NAT.  See <xref type="rfc" data="rfc3234"/> for the definition of middleboxes.
 <date>2014-02-03</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>postNAPTSourceTransportPort</name>
 <dataType>unsigned16</dataType>
 <dataTypeSemantics>identifier</dataTypeSemantics>
@@ -5223,8 +5243,8 @@ field.  See <xref type="rfc" data="rfc9293"/> for the definition of the TCP
 source port field.  See <xref type="rfc" data="rfc9260"/> for the definition of 
 SCTP.     
 See <xref type="rfc" data="rfc3022"/> for the definition of NAPT.  See <xref type="rfc" data="rfc3234"/> for the definition of middleboxes. 
-Additional information on defined UDP and TCP port numbers can 
-be found at http://www.iana.org/assignments/port-numbers.   
+See the assigned transport protocol (e.g., UDP, TCP, SCTP, and DCCP) port numbers at
+<xref type="uri" data="https://www.iana.org/assignments/service-names-port-numbers"/>.
 </paragraph>
 </references>
 <xref type="person" data="ipfix-iana_at_cisco.com"/>
@@ -5254,8 +5274,8 @@ field.  See <xref type="rfc" data="rfc9293"/> for the definition of the TCP
 source port field.  See <xref type="rfc" data="rfc9260"/> for the definition of 
 SCTP.     
 See <xref type="rfc" data="rfc3022"/> for the definition of NAPT.  See <xref type="rfc" data="rfc3234"/> for the definition of middleboxes. 
-Additional information on defined UDP and TCP port numbers can 
-be found at <xref type="uri" data="https://www.iana.org/assignments/service-names-port-numbers"/>.   
+See the assigned transport protocol (e.g., UDP, TCP, SCTP, and DCCP) port numbers at
+<xref type="uri" data="https://www.iana.org/assignments/service-names-port-numbers"/>.   
 </paragraph>
 </references>
 <xref type="person" data="ipfix-iana_at_cisco.com"/>
@@ -5263,7 +5283,7 @@ be found at <xref type="uri" data="https://www.iana.org/assignments/service-name
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>natOriginatingAddressRealm</name>
 <dataType>unsigned8</dataType>
 <dataTypeSemantics>identifier</dataTypeSemantics>
@@ -5271,20 +5291,20 @@ be found at <xref type="uri" data="https://www.iana.org/assignments/service-name
 <status>current</status>
 <description>
 <paragraph>
-Indicates whether the session was created because traffic 
-originated in the private or public address realm. 
-postNATSourceIPv4Address, postNATDestinationIPv4Address, 
-postNAPTSourceTransportPort, and 
-postNAPTDestinationTransportPort are qualified with the address 
-realm in perspective. 
+Indicates whether the session was created because traffic
+originated in the private or public address realm.
+postNATSourceIPv4Address, postNATDestinationIPv4Address,
+postNAPTSourceTransportPort, and postNAPTDestinationTransportPort
+are qualified with the address realm in perspective.
 </paragraph>
 <paragraph>
-  Values are listed in the natOriginatingAddressRealm registry. See <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-nat-originating-address-realm"/>.
+Values are listed in the natOriginatingAddressRealm registry.
 </paragraph>
 </description>
 <range>1-2</range>
 <references>
-<paragraph>         
+<paragraph>
+See the natOriginatingAddressRealm registry <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-nat-originating-address-realm"/>.
 See <xref type="rfc" data="rfc3022"/> for the definition of NAT.
 </paragraph>
 </references>
@@ -5293,7 +5313,7 @@ See <xref type="rfc" data="rfc3022"/> for the definition of NAT.
 <date>2014-08-13</date>
 </record>
 
-<record updated="2017-03-15">
+<record updated="2024-10-04">
 <name>natEvent</name>
 <dataType>unsigned8</dataType>
 <dataTypeSemantics>identifier</dataTypeSemantics>
@@ -5301,20 +5321,19 @@ See <xref type="rfc" data="rfc3022"/> for the definition of NAT.
 <status>current</status>
 <description>
 <paragraph>
-This Information Element identifies a NAT event. This IE identifies 
-the type of a NAT event. Examples of NAT events include, but are not 
-limited to, NAT translation create, NAT translation delete, Threshold 
-Reached, or Threshold Exceeded, etc. Values for this Information 
-Element are listed in the "NAT Event Type" registry, see 
-<xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-nat-event-type"/>. 
+This Information Element identifies a NAT event. This IE
+identifies the type of a NAT event. Examples of NAT events
+include, but are not limited to, NAT translation create, NAT
+translation delete, Threshold Reached, or Threshold Exceeded,
+etc. Values for this Information Element are listed in the
+"NAT Event Type" registry. 
 </paragraph>
 </description>
 <references>
 <paragraph>
-See <xref type="rfc" data="rfc3022"/> for the definition of NAT.  See 
-<xref type="rfc" data="rfc3234"/> for the definition of middleboxes.  
-See <xref type="rfc" data="rfc8158"/> 
-for the definitions of values 4-16.
+See the NAT Event Type registry <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-nat-event-type"/>. 
+See <xref type="rfc" data="rfc3022"/> for the definition of NAT.  
+See <xref type="rfc" data="rfc8158"/> for the definitions of values 4-16.
 </paragraph>
 </references>
 <xref type="rfc" data="rfc8158"/>
@@ -5372,17 +5391,22 @@ See #299, responderPackets.
 <date>2014-08-13</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>firewallEvent</name>
 <dataType>unsigned8</dataType>
 <elementId>233</elementId>
 <status>current</status>
 <description>
 <paragraph>
-  Indicates a firewall event. Allowed values are listed in 
-  the firewallEvent registry. See <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-firewall-event"/>.
+Indicates a firewall event. Allowed values are listed in
+the firewallEvent registry.
 </paragraph>
 </description>
+<references>
+<paragraph>
+See the firewallEvent registry <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-firewall-event"/>.
+</paragraph>
+</references>
 <xref type="person" data="ipfix-iana_at_cisco.com"/>
 <revision>0</revision>
 <date>2013-02-18</date>
@@ -5495,7 +5519,7 @@ window scale.
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>biflowDirection</name>
 <dataType>unsigned8</dataType>
 <group>misc</group>
@@ -5505,19 +5529,25 @@ window scale.
 <status>current</status>
 <description>
 <paragraph>A description of the direction assignment method used to
-assign the Biflow Source and Destination.  This Information Element
-MAY be present in a Flow Data Record, or applied to all flows exported
-from an Exporting Process or Observation Domain using IPFIX Options.
-If this Information Element is not present in a Flow Record or
-associated with a Biflow via scope, it is assumed that the
-configuration of the direction assignment method is done out-of-band.
-Note that when using IPFIX Options to apply this Information Element
-to all flows within an Observation Domain or from an Exporting
-Process, the Option SHOULD be sent reliably.  If reliable transport is
-not available (i.e., when using UDP), this Information Element SHOULD
-appear in each Flow Record.  Values are listed in 
-the biflowDirection registry. See <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-biflow-direction"/>.</paragraph>
+assign the Biflow Source and Destination. This Information Element
+MAY be present in a Flow Data Record, or applied to all flows
+exported from an Exporting Process or Observation Domain using
+IPFIX Options. If this Information Element is not present in a
+Flow Record or associated with a Biflow via scope, it is assumed
+that the configuration of the direction assignment method is
+done out-of-band. Note that when using IPFIX Options to apply this
+Information Element to all flows within an Observation Domain or
+from an Exporting Process, the Option SHOULD be sent reliably. If
+reliable transport is not available (i.e., when using UDP), this
+Information Element SHOULD appear in each Flow Record. Values are
+listed in the biflowDirection registry.
+</paragraph>
 </description>
+<references>
+<paragraph>
+See the biflowDirection registry <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-biflow-direction"/>.
+</paragraph>
+</references>
 <xref type="rfc" data="rfc5103"/>
 <revision>0</revision>
 <date>2013-02-18</date>
@@ -5976,7 +6006,7 @@ IPv6 Traffic Class field.
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>collectionTimeMilliseconds</name>
 <dataType>dateTimeMilliseconds</dataType>
 <dataTypeSemantics>default</dataTypeSemantics>
@@ -5984,11 +6014,11 @@ IPv6 Traffic Class field.
 <status>current</status>
 <description>
 <paragraph>
-The absolute timestamp at which the data within the
-scope containing this Information Element was received by a
-Collecting Process.  This Information Element SHOULD be bound to
-its containing IPFIX Message via IPFIX Options and the
-messageScope Information Element, as defined below.
+The absolute timestamp at which the data within the scope
+containing this Information Element was received by a
+Collecting Process. This Information Element SHOULD be
+bound to its containing IPFIX Message via IPFIX Options
+and the messageScope Information Element.
 </paragraph>
 </description>
 <units>milliseconds</units>
@@ -6058,7 +6088,7 @@ via IPFIX Options and the sessionScope Information Element.
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>messageMD5Checksum</name>
 <dataType>octetArray</dataType>
 <dataTypeSemantics>default</dataTypeSemantics>
@@ -6066,20 +6096,20 @@ via IPFIX Options and the sessionScope Information Element.
 <status>current</status>
 <description>
 <paragraph>
-The MD5 checksum of the IPFIX Message containing this
-record.  This Information Element SHOULD be bound to its
-containing IPFIX Message via an options record and the
-messageScope Information Element, as defined below, and SHOULD
-appear only once in a given IPFIX Message.  To calculate the value
-of this Information Element, first buffer the containing IPFIX
-Message, setting the value of this Information Element to all
-zeroes.  Then calculate the MD5 checksum of the resulting buffer
-as defined in <xref type="rfc" data="rfc1321"/>, place the resulting value in this
-Information Element, and export the buffered message.  This
-Information Element is intended as a simple checksum only;
+The MD5 checksum of the IPFIX Message containing this record.
+This Information Element SHOULD be bound to its containing IPFIX
+Message via an options record and the messageScope Information 
+lement, and SHOULD appear only once in a given IPFIX Message.
+To calculate the value of this Information Element, first buffer
+the containing IPFIX Message, setting the value of this Information
+Element to all zeroes. Then calculate the MD5 checksum of the
+resulting buffer as defined in <xref type="rfc" data="rfc1321"/>,
+place the resulting value in this Information Element, and export
+the buffered message.
+
+This Information Element is intended as a simple checksum only;
 therefore collision resistance and algorithm agility are not
 required, and MD5 is an appropriate message digest.
-
 This Information Element has a fixed length of 16 octets.
 </paragraph>
 </description>
@@ -6418,7 +6448,7 @@ within this SCTP stream.
 <date>2014-02-03</date>
 </record>
 
-<record date="2010-09-16">
+<record date="2010-09-16" updated="2024-10-04">
 <name>observationPointType</name>
 <dataType>unsigned8</dataType>
 <dataTypeSemantics>identifier</dataTypeSemantics>
@@ -6426,10 +6456,15 @@ within this SCTP stream.
 <status>current</status>
 <description>
 <paragraph>
-  Type of observation point. Values are listed in 
-  the observationPointType registry. See <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-observation-point-type"/>.
+Type of observation point. Values are listed in the
+observationPointType registry.
 </paragraph>
 </description>
+<references>
+<paragraph>
+See the observationPointType registry <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-observation-point-type"/>.
+</paragraph>
+</references>
 <xref type="person" data="ipfix-iana_at_cisco.com"/>
 <revision>0</revision>
 <date>2013-02-18</date>
@@ -6565,7 +6600,7 @@ IPv6 header. See <xref type="rfc" data="rfc3234"/> for the definition of middleb
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>anonymizationFlags</name>
 <dataType>unsigned16</dataType>
 <dataTypeSemantics>flags</dataTypeSemantics>
@@ -6592,7 +6627,7 @@ anonymizationFlags IE
 | 0)     |          |                                               |
 +--------+----------+-----------------------------------------------+
 | 0-1    | SC       | Stability Class: see the Stability Class      |
-|        |          | table below, and section Section 5.1.         | 
+|        |          | table below, and Section 5.1 of [RFC6235].    |
 | 2      | PmA      | Perimeter Anonymization: when set (1),        |
 |        |          | source- Information Elements as described in  |
 |        |          | [RFC5103] are interpreted as external         |
@@ -6601,14 +6636,15 @@ anonymizationFlags IE
 |        |          | interpreted as internal addresses, for the    |
 |        |          | purposes of associating                       |
 |        |          | anonymizationTechnique to Information         |
-|        |          | Elements only; see Section 7.2.2 for details. |
+|        |          | Elements only; see Section 7.2.2 of [RFC6235] |
+|        |          | for details.                                  |
 |        |          | This bit MUST NOT be set when associated with |
 |        |          | a non-endpoint (i.e., source- or              |
 |        |          | destination-) Information Element.  SHOULD be |
 |        |          | consistent within a record (i.e., if a        |
 |        |          | source- Information Element has this flag     |
 |        |          | set, the corresponding destination- element   |
-|        |          | SHOULD have this flag set, and vice-versa.)   |
+|        |          | SHOULD have this flag set, and vice versa.)   |
 | 3      | LOR      | Low-Order Unchanged: when set (1), the        |
 |        |          | low-order bits of the anonymized Information  |
 |        |          | Element contain real data.  This modification |
@@ -6674,7 +6710,7 @@ other.  Values are as follows:
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>anonymizationTechnique</name>
 <dataType>unsigned16</dataType>
 <dataTypeSemantics>identifier</dataTypeSemantics>
@@ -6682,14 +6718,18 @@ other.  Values are as follows:
 <status>current</status>
 <description>
 <paragraph>
-A description of the anonymization technique applied
-to a referenced Information Element within a referenced Template.
+A description of the anonymization technique applied to a
+referenced Information Element within a referenced Template.
 Each technique may be applicable only to certain Information
-Elements and recommended only for certain Information Elements. 
-Values are listed in the anonymizationTechnique registry. See 
-<xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-anonymization-technique"/>.
+Elements and recommended only for certain Information Elements.
+Values are listed in the anonymizationTechnique registry.
 </paragraph>
 </description>
+<references>
+<paragraph>
+See the anonymizationTechnique registry <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-anonymization-technique"/>.
+</paragraph>
+</references>
 <xref type="rfc" data="rfc6235"/>
 <revision>0</revision>
 <date>2013-02-18</date>
@@ -6892,7 +6932,7 @@ See <xref type="rfc" data="rfc1701"/> for the definition of GRE and the GRE Key.
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>natType</name>
 <dataType>unsigned8</dataType>
 <dataTypeSemantics>identifier</dataTypeSemantics>
@@ -6900,18 +6940,19 @@ See <xref type="rfc" data="rfc1701"/> for the definition of GRE and the GRE Key.
 <status>current</status>
 <description>
 <paragraph>
-  Values are listed in the natType registry. See 
-  <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-nat-type"/>.
+This Information Element identifies the NAT type applied to packets of the Flow.
+  
+Values are listed in the natType registry.
 </paragraph>
 </description>
 <range/>
 <references>
-<paragraph>         
-See <xref type="rfc" data="rfc3022"/> for the definition of NAT.
-See <xref type="rfc" data="rfc1631"/> for the definition of NAT44.
-See <xref type="rfc" data="rfc6144"/> for the definition of NAT64.
-See <xref type="rfc" data="rfc6146"/> for the definition of NAT46.
-See <xref type="rfc" data="rfc6296"/> for the definition of NAT66.
+<paragraph>
+See the natType registry <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-nat-type"/>.
+See <xref type="rfc" data="rfc3022"/> for the definition of NAT (commonly named NAT44).
+See <xref type="rfc" data="rfc6144"/> for the definition of NAT46.
+See <xref type="rfc" data="rfc6146"/> for the definition of NAT64.
+See <xref type="rfc" data="rfc6296"/> for the definition of NPTv6.
 See <xref type="rfc" data="rfc791"/> for the definition of IPv4.
 See <xref type="rfc" data="rfc8200"/> for the definition of IPv6.
 </paragraph>
@@ -7049,7 +7090,7 @@ Element.
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>selectorAlgorithm</name>
 <dataType>unsigned16</dataType>
 <dataTypeSemantics>identifier</dataTypeSemantics>
@@ -7057,38 +7098,29 @@ Element.
 <status>current</status>
 <description>
 <paragraph>
-This Information Element identifies the packet selection methods
-(e.g., Filtering, Sampling) that are applied by the Selection
-Process.
+This Information Element identifies the packet selection
+methods (e.g., Filtering, Sampling) that are applied by
+the Selection Process. Most of these methods have parameters.
+Further Information Elements are needed to fully specify packet
+selection with these methods and all their parameters. For the
+methods parameters, Information Elements are defined in the
+IPFIX IANA registry <xref type="uri" data="https://www.iana.org/assignments/ipfix">IANA-IPFIX</xref>.
+he names of these Information Elements are listed for each
+method identifier. Further method identifiers may be added
+to the list. It might be necessary to define new Information
+Elements to specify their parameters.
 </paragraph>
 <paragraph>
-Most of these methods have parameters.  Further Information
-Elements are needed to fully specify packet selection with these
-methods and all their parameters.
-</paragraph>
-<paragraph>
-The methods listed below are defined in <xref type="rfc" data="rfc5475"/>.  For their parameters, Information Elements are defined in
-the information model document.  The names of these Information
-Elements are listed for each method identifier.
-</paragraph>
-<paragraph>
-Further method identifiers may be added to the list below.  It
-might be necessary to define new Information Elements to specify
-their parameters.
-</paragraph>
-<paragraph>
-The following packet selection methods identifiers are defined
-here:
-</paragraph>
-<paragraph>
-<xref type="uri" data="https://www.iana.org/assignments/psamp-parameters"/>
-</paragraph>
-<paragraph>
-There is a broad variety of possible parameters that could be used
-for Property match Filtering (5) but currently there are no agreed
-parameters specified.        
+There is a broad variety of possible parameters that could be
+used for Property match Filtering (5) but currently there are
+no agreed parameters specified.
 </paragraph>
 </description>
+<references>
+<paragraph>
+See the Packet Sampling (PSAMP) Parameters registry <xref type="uri" data="https://www.iana.org/assignments/psamp-parameters"/>
+</paragraph>
+</references>
 <xref type="rfc" data="rfc5477"/>
 <revision>0</revision>
 <date>2013-02-18</date>
@@ -8037,33 +8069,39 @@ unless all three are specified together.
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>informationElementDataType</name>
 <dataType>unsigned8</dataType>
 <elementId>339</elementId>
 <status>current</status>
 <description>
 <paragraph>
-A description of the abstract data type of an IPFIX
-information element.These are taken from the abstract data types
-defined in section 3.1 of the IPFIX Information Model <xref type="rfc" data="rfc5102"/>;
-see that section for more information on the types described
-in the <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-information-element-data-types">informationElementDataType</xref> subregistry.
+A description of the abstract data type of an IPFIX information element.
+These are taken from the abstract data types defined in Section 3.1 of
+the IPFIX Information Model <xref type="rfc" data="rfc5102"/>;
+see that section for more information on the types described in the
+<xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-information-element-data-types">informationElementDataType</xref>
+subregistry. These types are registered in the IANA IPFIX Information
+Element Data Type subregistry.
 </paragraph>
 <paragraph>
-These types are registered in the IANA IPFIX Information Element
-Data Type subregistry.  This subregistry is intended to assign
-numbers for type names, not to provide a mechanism for adding data
-types to the IPFIX Protocol, and as such requires a Standards
-Action <xref type="rfc" data="rfc8126"/> to modify.
+The <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-information-element-data-types">informationElementDataType</xref>
+subregistry is intended to assign numbers for type names, not to provide
+a mechanism for adding data types to the IPFIX Protocol, and as such
+requires a Standards Action <xref type="rfc" data="rfc8126"/> to modify.
 </paragraph>
 </description>
+<references>
+<paragraph>
+See the IPFIX Information Element Data Types registry <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-information-element-data-types"/>
+</paragraph>
+</references>
 <xref type="rfc" data="rfc5610"/>
 <revision>0</revision>
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>informationElementDescription</name>
 <dataType>string</dataType>
 <dataTypeSemantics>default</dataTypeSemantics>
@@ -8071,18 +8109,17 @@ Action <xref type="rfc" data="rfc8126"/> to modify.
 <status>current</status>
 <description>
 <paragraph>
-A UTF-8 <xref type="rfc" data="rfc3629"/> encoded Unicode string containing a
-human-readable description of an Information Element.  The content
-of the informationElementDescription MAY be annotated with one or
-more language tags <xref type="rfc" data="rfc4646"/>, encoded in-line <xref type="rfc" data="rfc2482"/> within the
-UTF-8 string, in order to specify the language in which the
-description is written.  Description text in multiple languages
-MAY tag each section with its own language tag; in this case, the
-description information in each language SHOULD have equivalent
-meaning.  In the absence of any language tag, the "i-default"
-<xref type="rfc" data="rfc2277"/> language SHOULD be assumed.  See the Security
-Considerations section for notes on string handling for
-Information Element type records.
+A UTF-8 <xref type="rfc" data="rfc3629"/> encoded Unicode string containing a human-readable
+description of an Information Element. The content of the informationElementDescription
+MAY be annotated with one or more language tags <xref type="rfc" data="rfc4646"/>, encoded in-line
+<xref type="rfc" data="rfc2482"/> within the UTF-8 string, in order to specify the language in
+which the description is written. Description text in multiple languages MAY tag each section with
+its ownlanguage tag; in this case, the description information in each language SHOULD have
+equivalent meaning. In the absence of any language tag, the "i-default" <xref type="rfc" data="rfc2277"/>
+language SHOULD be assumed.
+
+See the Security Considerations Section of <xref type="rfc" data="rfc5610"/> for notes on string
+handling for Information Element type records.
 </paragraph>
 </description>
 <xref type="rfc" data="rfc5610"/>
@@ -8143,7 +8180,7 @@ acceptable values for an Information Element.
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>informationElementSemantics</name>
 <dataType>unsigned8</dataType>
 <elementId>344</elementId>
@@ -8151,56 +8188,69 @@ acceptable values for an Information Element.
 <description>
 <paragraph>
 A description of the semantics of an IPFIX Information
-Element.  These are taken from the data type semantics defined in
-section 3.2 of the IPFIX Information Model <xref type="rfc" data="rfc5102"/>; see that
-section for more information on the types defined in the 
+Element. These are taken from the data type semantics defined
+in Section 3.2 of the IPFIX Information Model <xref type="rfc" data="rfc5102"/>;
+see that section for more information on the types defined in the 
 <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-information-element-semantics">IPFIX 
-Information Element Semantics</xref> subregistry.  This
-field may take the values in the semantics registry; the special value 0x00
-(default) is used to note that no semantics apply to the field; it
-cannot be manipulated by a Collecting Process or File Reader that
+Information Element Semantics</xref> subregistry. This field may
+take the values in the <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-information-element-semantics">IPFIX 
+Information Element Semantics</xref> subregistry. The special value
+0x00 (default) is used to note that no semantics apply to the field;
+it cannot be manipulated by a Collecting Process or File Reader that
 does not understand it a priori.
 </paragraph>
 <paragraph>
-These semantics are registered in the IANA IPFIX Information
-Element Semantics subregistry.  This subregistry is intended to
-assign numbers for semantics names, not to provide a mechanism for
-adding semantics to the IPFIX Protocol, and as such requires a
-Standards Action <xref type="rfc" data="rfc8126"/> to modify.
+The <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-information-element-semantics">IPFIX 
+Information Element Semantics</xref> subregistry is intended to assign
+numbers for semantics names, not to provide a mechanism for adding
+semantics to the IPFIX Protocol, and as such requires a Standards Action
+<xref type="rfc" data="rfc8126"/> to modify.
 </paragraph>
 </description>
+<references>
+<paragraph>
+See the IP Flow Information Export (IPFIX) Entities registry
+<xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-information-element-semantic"/>
+</paragraph>
+</references>
 <xref type="rfc" data="rfc5610"/>
 <revision>0</revision>
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>informationElementUnits</name>
 <dataType>unsigned16</dataType>
 <elementId>345</elementId>
 <status>current</status>
 <description>
 <paragraph>
-A description of the units of an IPFIX Information
-Element.  These correspond to the units implicitly defined in the
-Information Element definitions in section 5 of the IPFIX
-Information Model <xref type="rfc" data="rfc5102"/>; see that section for more information
-on the types described in the informationElementsUnits subregistry.  This field may take the values in
-Table 3 below; the special value 0x00 (none) is used to note that
-the field is unitless.
+A description of the units of an IPFIX Information Element.
+These correspond to the units implicitly defined in the Information
+Element definitions in Section 5 of the IPFIX Information Model
+<xref type="rfc" data="rfc5102"/>; see that section for more information
+on the types described in the informationElementsUnits subregistry. These
+types can take the values in the <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-information-element-units">IANA IPFIX Information Element
+Units</xref> subregistry. The special value 0x00 (none) is used to note
+that the field is unitless.
 </paragraph>
 <paragraph>
 These types are registered in the <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-information-element-units">IANA IPFIX Information Element
 Units</xref> subregistry.
 </paragraph>
 </description>
+<references>
+<paragraph>
+See the IPFIX Information Element Units registry <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-information-element-units"/>
+</paragraph>
+</references>
 <xref type="rfc" data="rfc5610"/>
 <xref type="rfc-errata" data="1822"/>
 <revision>1</revision>
 <date>2020-10-01</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>privateEnterpriseNumber</name>
 <dataType>unsigned32</dataType>
 <dataTypeSemantics>identifier</dataTypeSemantics>
@@ -8223,6 +8273,11 @@ associated informationElementId Information Element MUST be
 ignored by the Collecting Process.
 </paragraph>
 </description>
+<references>
+<paragraph>
+<xref type="uri" data="https://www.iana.org/assignments/enterprise-numbers/enterprise-numbers"/>
+</paragraph>
+</references>
 <xref type="rfc" data="rfc5610"/>
 <revision>0</revision>
 <date>2013-02-18</date>
@@ -8548,7 +8603,7 @@ Process is running.
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>portRangeStart</name>
 <dataType>unsigned16</dataType>
 <dataTypeSemantics>identifier</dataTypeSemantics>
@@ -8556,22 +8611,23 @@ Process is running.
 <status>current</status>
 <description>
 <paragraph>      
-The port number identifying the start of a range of ports. A value 
-of zero indicates that the range start is not specified, ie the
-range is defined in some other way.
-</paragraph>
-<paragraph>
-Additional information on defined TCP port numbers can be found at 
-<xref type="uri" data="https://www.iana.org/assignments/service-names-port-numbers"/>.
+The port number identifying the start of a range of port numbers.
+A value of zero indicates that the range start is not specified,
+i.e., the range is defined in some other way.
 </paragraph>
 </description>
-<references><paragraph/></references>
+<references>
+<paragraph>
+See the assigned transport protocol (e.g., UDP, TCP, SCTP, and DCCP) port numbers at
+<xref type="uri" data="https://www.iana.org/assignments/service-names-port-numbers"/>.
+</paragraph>
+</references>
 <xref type="person" data="ipfix-iana_at_cisco.com"/>
 <revision>0</revision>
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>portRangeEnd</name>
 <dataType>unsigned16</dataType>
 <dataTypeSemantics>identifier</dataTypeSemantics>
@@ -8579,16 +8635,17 @@ Additional information on defined TCP port numbers can be found at
 <status>current</status>
 <description>
 <paragraph>      
-The port number identifying the end of a range of ports. A value 
-of zero indicates that the range end is not specified, ie the
-range is defined in some other way.
-</paragraph>
-<paragraph>
-Additional information on defined TCP port numbers can be found at
-<xref type="uri" data="https://www.iana.org/assignments/service-names-port-numbers"/>.
+The port number identifying the end of a range of port numbers.
+A value of zero indicates that the range end is not specified,
+i.e., the range is defined in some other way.
 </paragraph>
 </description>
-<references><paragraph/></references>
+<references>
+<paragraph>
+See the assigned transport protocol (e.g., UDP, TCP, SCTP, and DCCP) port numbers at
+<xref type="uri" data="https://www.iana.org/assignments/service-names-port-numbers"/>.
+</paragraph>
+</references>
 <xref type="person" data="ipfix-iana_at_cisco.com"/>
 <revision>0</revision>
 <date>2013-02-18</date>
@@ -8690,7 +8747,7 @@ The IEEE 802 MAC address of a wireless access point (WTP).
 <date>2014-02-03</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>ingressInterfaceType</name>
 <dataType>unsigned32</dataType>
 <dataTypeSemantics>identifier</dataTypeSemantics>
@@ -8698,20 +8755,20 @@ The IEEE 802 MAC address of a wireless access point (WTP).
 <status>current</status>
 <description>
 <paragraph>      
-The type of interface where packets of this Flow are being received.
-The value matches the value of managed object 'ifType' as defined in 
-<xref type="uri" data="https://www.iana.org/assignments/ianaiftype-mib"/>.
+The type of interface where packets of this Flow are being
+received. The value matches the value of managed object 'ifType'.
 </paragraph>
 </description>
 <references>
-<paragraph><xref type="uri" data="https://www.iana.org/assignments/ianaiftype-mib"/></paragraph>
+<paragraph>See the IANAifType-MIB registry
+<xref type="uri" data="https://www.iana.org/assignments/ianaiftype-mib"/></paragraph>
 </references>
 <xref type="person" data="ipfix-iana_at_cisco.com"/>
 <revision>0</revision>
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>egressInterfaceType</name>
 <dataType>unsigned32</dataType>
 <dataTypeSemantics>identifier</dataTypeSemantics>
@@ -8720,12 +8777,12 @@ The value matches the value of managed object 'ifType' as defined in
 <description>
 <paragraph>      
 The type of interface where packets of this Flow are being sent.
-The value matches the value of managed object 'ifType' as defined in 
-<xref type="uri" data="https://www.iana.org/assignments/ianaiftype-mib"/>.
+The value matches the value of managed object 'ifType'.
 </paragraph>
 </description>
 <references>
-<paragraph><xref type="uri" data="https://www.iana.org/assignments/ianaiftype-mib"/></paragraph>
+<paragraph>See the IANAifType-MIB registry
+<xref type="uri" data="https://www.iana.org/assignments/ianaiftype-mib"/></paragraph>
 </references>
 <xref type="person" data="ipfix-iana_at_cisco.com"/>
 <revision>0</revision>
@@ -8896,7 +8953,7 @@ separate the counts by version.
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>distinctCountOfDestinationIPAddress</name>
 <dataType>unsigned64</dataType>
 <dataTypeSemantics>totalCounter</dataTypeSemantics>
@@ -8904,11 +8961,10 @@ separate the counts by version.
 <status>current</status>
 <description>
 <paragraph>
-The count of distinct destination IP address values
-for Original Flows contributing to this Aggregated Flow, without
-regard to IP version.  This Information Element is preferred to
-the version-specific counters below, unless it is important to
-separate the counts by version.
+The count of distinct destination IP address values for Original
+Flows contributing to this Aggregated Flow, without regard to IP
+version. This Information Element is preferred to the version-specific
+counters, unless it is important to separate the counts by version.
 </paragraph>
 </description>
 <xref type="rfc" data="rfc7015"/>
@@ -8984,26 +9040,31 @@ for Original Flows contributing to this Aggregated Flow.
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>valueDistributionMethod</name>
 <dataType>unsigned8</dataType>
 <elementId>384</elementId>
 <status>current</status>
 <description>
 <paragraph>
-A description of the method used to distribute the
-counters from Contributing Flows into the Aggregated Flow records
-described by an associated scope, generally a Template.  The
-method is deemed to apply to all the non-key Information Elements
-in the referenced scope for which value distribution is a valid
-operation; if the originalFlowsInitiated and/or
-originalFlowsCompleted Information Elements appear in the
-Template, they are not subject to this distribution method, as
-they each infer their own distribution method.  The valueDistributionMethod registry
-is intended to list a complete set of possible value distribution methods. See 
-  <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-value-distribution-method"/>.
+A description of the method used to distribute the counters
+from Contributing Flows into the Aggregated Flow records
+described by an associated scope, generally a Template.
+The method is deemed to apply to all the non-key Information
+Elements in the referenced scope for which value distribution
+is a valid operation; if the originalFlowsInitiated and/or
+originalFlowsCompleted Information Elements appear in the Template,
+they are not subject to this distribution method, as they each infer
+their own distribution method. The valueDistributionMethod registry
+is intended to list a complete set of possible value distribution methods.
 </paragraph>
 </description>
+<references>
+<paragraph>
+See the valueDistributionMethod registry
+<xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-value-distribution-method"/>.
+</paragraph>
+</references>
 <xref type="rfc" data="rfc7015"/>
 <revision>0</revision>
 <date>2013-02-18</date>
@@ -9119,7 +9180,7 @@ the C-TAG.
 <date>2014-02-03</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>flowSelectorAlgorithm</name>
 <dataType>unsigned16</dataType>
 <dataTypeSemantics>identifier</dataTypeSemantics>
@@ -9128,21 +9189,23 @@ the C-TAG.
 <description>
 <paragraph>
 This Information Element identifies the Intermediate Flow
-Selection Process technique (e.g., Filtering, Sampling) that is
-applied by the Intermediate Flow Selection Process.  Most of these
-techniques have parameters.  Its configuration parameter(s) MUST
-be clearly specified.  Further Information Elements are needed to
-fully specify packet selection with these methods and all their
-parameters.  Further method identifiers may be added to the 
-flowSelectorAlgorithm registry.  It might be necessary to define new Information Elements
-to specify their parameters.  Please note that
-the purpose of the flow selection techniques described in this
-document is the improvement of measurement functions as defined in
-the Scope (Section 1).  
-The Intermediate Flow Selection Process Techniques
-identifiers are defined at <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-flowselectoralgorithm"/>.
+Selection Process technique (e.g., Filtering, Sampling)
+that is applied by the Intermediate Flow Selection Process.
+Most of these techniques have parameters. Its configuration
+parameter(s) MUST be clearly specified. Further Information
+Elements are needed to fully specify packet selection with
+these methods and all their parameters. Further method
+identifiers may be added to the flowSelectorAlgorithm registry.
+It might be necessary to define new Information Elements to
+specify their parameters.
 </paragraph>
 </description>
+<references>
+<paragraph>
+See the flowSelectorAlgorithm registry
+<xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-flowselectoralgorithm"/>.
+</paragraph>
+</references>
 <xref type="rfc" data="rfc7014"/>
 <revision>0</revision>
 <date>2013-06-07</date>
@@ -9482,7 +9545,7 @@ operations performed by the Intermediate Process.
 <date>2013-12-24</date>
 </record>
 
-<record>
+<record updated="2024-10-04">
 <name>dataLinkFrameType</name>
 <dataType>unsigned16</dataType>
 <dataTypeSemantics>flags</dataTypeSemantics>
@@ -9491,24 +9554,21 @@ operations performed by the Intermediate Process.
 <description>
 <paragraph>
 This Information Element specifies the type of the selected data
-link frame.
+link frame. Data link types are defined in the dataLinkFrameType
+registry.
 </paragraph>
 <paragraph>
-  Data link types are defined in the dataLinkFrameType registry. See 
-  <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-data-link-frame-type"/>.
-</paragraph>
-<paragraph>
-Further values may be assigned by IANA.  Note that the assigned
+Further values may be assigned by IANA. Note that the assigned
 values are bits so that multiple observations can be OR'd
 together.
 </paragraph>
-<paragraph>
-The data link layer is defined in [ISO/IEC.7498-1:1994].
-</paragraph>
 </description>
 <references>
-<paragraph>
-[IEEE802.3][IEEE802.11][ISO/IEC.7498-1:1994]
+<paragraph>See the dataLinkFrameType registry
+<xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-data-link-frame-type"/>.
+</paragraph>
+<paragraph>More information about the data link layer can be found in
+(IEEE802.3)(IEEE802.11)(ISO/IEC.7498-1:1994).
 </paragraph>
 </references>
 <xref type="rfc" data="rfc7133"/>
@@ -10522,30 +10582,35 @@ IPFIX reduced-size encoding.
 <description>
 <paragraph>
 Indicates when in the lifetime of the Flow the MIB
-value was retrieved from the MIB for a mibObjectIdentifier.  This
-is used to indicate if the value exported was collected from the
-MIB closer to Flow creation or Flow export time and refers to the
-Timestamp fields included in the same Data Record.  This field
-SHOULD be used when exporting a mibObjectValue that specifies
-counters or statistics.
+value was retrieved from the MIB for a mibObjectIdentifier.
+This is used to indicate if the value exported was collected
+from the MIB closer to Flow creation or Flow export time and
+refers to the Timestamp fields included in the same Data
+Record.
 </paragraph>
 <paragraph>
-If the MIB value was sampled by SNMP prior to the IPFIX Metering
-Process or Exporting Process retrieving the value (i.e., the data
-is already stale) and it is important to know the exact sampling
-time, then an additional observationTime* element should be paired
-with the OID using IPFIX Structured Data [RFC6313].  Similarly, if
-different MIB capture times apply to different mibObjectValue elements
-within the Data Record, then individual mibCaptureTimeSemantics
-Information Elements should be paired with each OID using IPFIX
-Structured Data.
+This field SHOULD be used when exporting a mibObjectValue that
+specifies counters or statistics. If the MIB value was sampled
+by SNMP prior to the IPFIX Metering Process or Exporting
+Process retrieving the value (i.e., the data is already stale)
+and it is important to know the exact sampling time, then an
+additional observationTime* element should be paired with the
+OID using IPFIX Structured Data <xref type="rfc" data="rfc6313"/>. Similarly, if different
+MIB capture times apply to different mibObjectValue elements within
+the Data Record, then individual mibCaptureTimeSemantics Information
+Elements should be paired with each OID using IPFIX Structured Data.
 </paragraph>
 <paragraph>
-Values are listed in the mibCaptureTimeSemantics registry. See 
-<xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-mib-capture-time-semantics"/>.
+Values are listed in the mibCaptureTimeSemantics registry.
 </paragraph>
 </description>
 <units/>
+<references>
+  <paragraph>
+  See the mibCaptureTimeSemantics registry
+  <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-mib-capture-time-semantics"/>.
+  </paragraph>
+  </references>
 <xref type="rfc" data="rfc8038"/>
 <revision>0</revision>
 <date>2015-12-13</date>
@@ -10903,7 +10968,7 @@ of this field is limited to 10 characters, UTF-8 encoded.
 <date>2017-03-15</date>
 </record>
 
-<record date="2017-03-15">
+<record date="2017-03-15" updated="2024-10-04">
 <name>externalAddressRealm</name>
 <dataType>octetArray</dataType>
 <dataTypeSemantics>identifier</dataTypeSemantics>
@@ -10911,10 +10976,10 @@ of this field is limited to 10 characters, UTF-8 encoded.
 <status>current</status>
 <description>
   <paragraph>
-    This Information Element represents the external address
-    realm where the packet is originated from or destined to.  The
-    detailed definition is in the internal address realm as specified
-    above.
+    This Information Element represents the external address realm where
+    the packet is originated from or destined to.
+
+    See the internalAddressRealm IE for the detailed definition.
   </paragraph>
 </description>
 <references>
@@ -10930,54 +10995,49 @@ of this field is limited to 10 characters, UTF-8 encoded.
 <date>2017-03-15</date>
 </record>
 
-<record date="2017-03-15">
+<record date="2017-03-15" updated="2024-10-04">
 <name>natQuotaExceededEvent</name>
 <dataType>unsigned32</dataType>
 <dataTypeSemantics>identifier</dataTypeSemantics>
 <elementId>466</elementId>
 <status>current</status>
 <description>
-  <paragraph>
-    This Information Element identifies the type of a NAT Quota Exceeded 
-    event. Values for this Information Element are listed in the "NAT 
-    Quota Exceeded Event Type" registry, see 
-    <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-nat-quota-exceeded-event"/>. 
-  </paragraph>
+<paragraph>
+This Information Element identifies the type of a NAT Quota Exceeded event.
+Values for this Information Element are listed in the "NAT Quota Exceeded
+Event Type" registry.
+</paragraph>
 </description>
 <references>
-  <paragraph>
-    See <xref type="rfc" data="rfc791"/> for the definition of the IPv4 
-    source address field.  See <xref type="rfc" data="rfc3022"/> 
-    for the definition of NAT.  See <xref type="rfc" data="rfc3234"/> 
-    for the definition of middleboxes.
-  </paragraph>
+<paragraph>
+See the NAT Quota Exceeded Event Type registry <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-nat-quota-exceeded-event"/>. 
+See <xref type="rfc" data="rfc3022"/> for the definition of NAT.  
+</paragraph>
 </references>
 <xref type="rfc" data="rfc8158"/>
 <revision>0</revision>
 <date>2017-03-15</date>
 </record>
 
-<record date="2017-03-15">
+<record date="2017-03-15" updated="2024-10-04">
 <name>natThresholdEvent</name>
 <dataType>unsigned32</dataType>
 <dataTypeSemantics>identifier</dataTypeSemantics>
 <elementId>467</elementId>
 <status>current</status>
 <description>
-  <paragraph>
-    This Information Element identifies a type of a NAT Threshold event. 
-    Values for this Information Element are listed in the "NAT Threshold 
-    Event Type" registry, see 
-    <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-nat-threshold-event"/>. 
-  </paragraph>
+<paragraph>
+This Information Element identifies a type of a NAT Threshold event.
+Values for this Information Element are listed in the "NAT Threshold
+Event Type" registry.
+</paragraph>
 </description>
 <references>
-  <paragraph>
-    See <xref type="rfc" data="rfc791"/> for the definition of the IPv4 
-    source address field.  See <xref type="rfc" data="rfc3022"/> 
-    for the definition of NAT.  See <xref type="rfc" data="rfc3234"/> 
-    for the definition of middleboxes.
-  </paragraph>
+<paragraph>
+See the NAT Threshold Event Type registry
+<xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-nat-threshold-event"/>. 
+See <xref type="rfc" data="rfc3022"/> for the definition of NAT. 
+</paragraph>
 </references>
 <xref type="rfc" data="rfc8158"/>
 <revision>0</revision>
