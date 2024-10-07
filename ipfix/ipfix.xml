@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="ipfix">
 <title>IP Flow Information Export (IPFIX) Entities</title>
 <created>2007-05-10</created>
-<updated>2024-10-04</updated>
+<updated>2024-10-07</updated>
 
 <note><xref type="rfc" data="rfc7012"/> has obsoleted <xref type="rfc" data="rfc5102"/>. However, references to <xref type="rfc" data="rfc5102"/>
 remain as part of the historical record.</note>
@@ -1591,67 +1591,28 @@ See <xref type="rfc" data="rfc4271"/> for a description of BGP-4.
 <date>2014-02-03</date>
 </record>
 
-<record>
+<record updated="2024-10-07">
 <name>ipv6ExtensionHeaders</name>
 <dataType>unsigned32</dataType>
 <group>minMax</group>
 <dataTypeSemantics>flags</dataTypeSemantics>
 <elementId>64</elementId>
 <applicability>all</applicability>
-<status>current</status>
+<status>deprecated</status>
 <description>
 <paragraph>
-IPv6 extension headers observed in packets of this Flow.
-The information is encoded in a set of bit fields.  For
-each IPv6 option header, there is a bit in this set.
-The bit is set to 1 if any observed packet of this Flow
-contains the corresponding IPv6 extension header.
-Otherwise, if no observed packet of this Flow contained
-the respective IPv6 extension header, the value of the
-corresponding bit is 0.
+Deprecated in favor of the ipv6ExtensionHeadersFull
+IE defined in this document.
 </paragraph>
-<artwork>
-        0     1     2     3     4     5     6     7
-    +-----+-----+-----+-----+-----+-----+-----+-----+
-    | DST | HOP | Res | UNK |FRA0 | RH  |FRA1 | Res |  ...
-    +-----+-----+-----+-----+-----+-----+-----+-----+
-
-        8     9    10    11    12    13    14    15
-    +-----+-----+-----+-----+-----+-----+-----+-----+
-... |           Reserved    | MOB | ESP | AH  | PAY | ...
-    +-----+-----+-----+-----+-----+-----+-----+-----+
-
-       16    17    18    19    20    21    22    23
-    +-----+-----+-----+-----+-----+-----+-----+-----+
-... |                  Reserved                     | ...
-    +-----+-----+-----+-----+-----+-----+-----+-----+
-
-       24    25    26    27    28    29    30    31
-    +-----+-----+-----+-----+-----+-----+-----+-----+
-... |                  Reserved                     |
-    +-----+-----+-----+-----+-----+-----+-----+-----+
-
-Bit    IPv6 Option   Description
-
-0, DST      60       Destination option header
-1, HOP       0       Hop-by-hop option header
-2, Res               Reserved
-3, UNK               Unknown Layer 4 header
-                     (compressed, encrypted, not supported)
-4, FRA0     44       Fragment header - first fragment
-5, RH       43       Routing header
-6, FRA1     44       Fragmentation header - not first fragment
-7, Res               Reserved
-8 to 11              Reserved
-12, MOB     135      IPv6 mobility [RFC3775]
-13, ESP      50      Encrypted security payload
-14, AH       51      Authentication Header
-15, PAY     108      Payload compression header
-16 to 31             Reserved
-</artwork>
 </description>
 <references>
 <paragraph>
+This Information Element was initially specified in <xref type="rfc" data="rfc5102"/>.
+
+<xref type="rfc" data="rfc7012"/> has obsoleted <xref type="rfc" data="rfc5102"/> and specifies that
+<xref type="uri" data="https://www.iana.org/assignments/ipfix">IANA-IPFIX</xref> is the normative reference for
+this Information Element.
+
 See <xref type="rfc" data="rfc8200"/> for the general definition of
 IPv6 extension headers and for the specification of the hop-by-hop
 options header, the routing header, the fragment header, and the
@@ -1665,7 +1626,7 @@ The diagram provided in <xref type="rfc" data="rfc5102"/> is incorrect.
 The diagram in this registry is taken from Errata 1738. See <xref type="rfc-errata" data="1738"/>.       
 </paragraph>
 </references>
-<xref type="rfc" data="rfc5102"/>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
 <revision>0</revision>
 <date>2013-02-18</date>
 </record>
@@ -4692,56 +4653,29 @@ The diagram in this registry is taken from Errata 1737. See <xref type="rfc-erra
 <date>2013-02-18</date>
 </record>
 
-<record>
+<record updated="2024-10-07">
 <name>tcpOptions</name>
 <dataType>unsigned64</dataType>
 <group>minMax</group>
 <dataTypeSemantics>flags</dataTypeSemantics>
 <elementId>209</elementId>
 <applicability>all</applicability>
-<status>current</status>
+<status>deprecated</status>
 <description>
 <paragraph>
-TCP options in packets of this Flow.
-The information is encoded in a set of bit fields.  For
-each TCP option, there is a bit in this set.
-The bit is set to 1 if any observed packet of this Flow
-contains the corresponding TCP option.
-Otherwise, if no observed packet of this Flow contained
-the respective TCP option, the value of the
-corresponding bit is 0.
+Deprecated in favor of the tcpOptionsFull IE
+defined in this document.
 </paragraph>
-<paragraph>
-Options are mapped to bits according to their option
-numbers.  Option number X is mapped to bit X.
-TCP option numbers are maintained by IANA.
-</paragraph>
-<artwork>
-        0     1     2     3     4     5     6     7
-    +-----+-----+-----+-----+-----+-----+-----+-----+
-    |   7 |   6 |   5 |   4 |   3 |   2 |   1 |   0 |  ...
-    +-----+-----+-----+-----+-----+-----+-----+-----+
-
-        8     9    10    11    12    13    14    15
-    +-----+-----+-----+-----+-----+-----+-----+-----+
-... |  15 |  14 |  13 |  12 |  11 |  10 |   9 |   8 |...
-    +-----+-----+-----+-----+-----+-----+-----+-----+
-
-       16    17    18    19    20    21    22    23
-    +-----+-----+-----+-----+-----+-----+-----+-----+
-... |  23 |  22 |  21 |  20 |  19 |  18 |  17 |  16 |...
-    +-----+-----+-----+-----+-----+-----+-----+-----+
-
-                          . . .
-
-       56    57    58    59    60    61    62    63
-    +-----+-----+-----+-----+-----+-----+-----+-----+
-... |  63 |  62 |  61 |  60 |  59 |  58 |  57 |  56 |
-    +-----+-----+-----+-----+-----+-----+-----+-----+
-</artwork>
 </description>
 <references>
 <paragraph>
+
+This Information Element was initially specified in <xref type="rfc" data="rfc5102"/>.
+
+<xref type="rfc" data="rfc7012"/> has obsoleted <xref type="rfc" data="rfc5102"/> and specifies that
+<xref type="uri" data="https://www.iana.org/assignments/ipfix">IANA-IPFIX</xref> is the normative reference for
+this Information Element.
+
 See <xref type="rfc" data="rfc9293"/> for the definition of TCP
 options.
 See the list of TCP option numbers assigned by IANA at <xref type="uri" data="https://www.iana.org/assignments/tcp-parameters"/>.
@@ -4749,7 +4683,7 @@ The diagram provided in <xref type="rfc" data="rfc5102"/> is incorrect.
 The diagram in this registry is taken from Errata 1739. See <xref type="rfc-errata" data="1739"/>.
 </paragraph>
 </references>
-<xref type="rfc" data="rfc5102"/>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
 <revision>0</revision>
 <date>2013-02-18</date>
 </record>
@@ -12150,10 +12084,447 @@ decode: 0001 - PDU Type value
                     <date>2024-05-24</date>
                     </record>
 
+                    <record date="2024-10-07">
+                      <name>ipv6ExtensionHeaderType</name>
+                      <dataType>unsigned8</dataType>
+                      <dataTypeSemantics>identifier</dataTypeSemantics>
+                      <elementId>513</elementId>
+                      <status>current</status>
+                      <description>
+                        <paragraph>
+                          Type of an IPv6 extension header observed in at least one packet of this Flow.
+                        </paragraph>
+                      </description>
+                      <references>
+                        <paragraph>
+                          See the IPv6 Extension Header Types registry at <xref type="uri" data="https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml#extension-header">IANA-EH</xref>.
 
+                          See Section 4 of <xref type="rfc" data="rfc8200"/> for the general definition of IPv6
+                          extension headers.
+                        </paragraph> 
+                      </references>
+                      <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+                      <revision>0</revision>
+                      <date>2024-10-07</date>
+                    </record>
+
+                    <record date="2024-10-07">
+                      <name>ipv6ExtensionHeaderCount</name>
+                      <dataType>unsigned8</dataType>
+                      <dataTypeSemantics>totalCounter</dataTypeSemantics>
+                      <elementId>514</elementId>
+                      <status>current</status>
+                      <description>
+                        <paragraph>
+                          The number of consecutive occurrences of the same extension header type in a Flow.
+
+                          This IE is reported, e.g., in the ipv6ExtensionHeaderTypeCountList IE.
+                          
+                          The type of the extension header is provided in the ipv6ExtensionHeaderType IE.
+                        </paragraph>
+                      </description>
+                      <references>
+                        <paragraph>
+                          See the IPv6 Extension Header Types registry at <xref type="uri" data="https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml#extension-header">IANA-EH</xref>.
+
+                          See Section 4 of <xref type="rfc" data="rfc8200"/> for the general definition of IPv6
+                          extension headers.
+                        </paragraph>
+                      </references>
+                      <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+                      <revision>0</revision>
+                      <date>2024-10-07</date>
+                    </record>
+
+                    <record date="2024-10-07">
+                      <name>ipv6ExtensionHeadersFull</name>
+                      <dataType>unsigned256</dataType>
+                      <dataTypeSemantics>flags</dataTypeSemantics>
+                      <elementId>515</elementId>
+                      <status>current</status>
+                      <description>
+                        <paragraph>
+                          IPv6 extension headers observed in packets of this Flow. The information is encoded in a
+                          set of bit fields. For each IPv6 extension header, there is a bit in this set. The bit is
+                          set to 1 if any observed packet of this Flow contains the corresponding IPv6 extension
+                          header. Otherwise, if no observed packet of this Flow contains the respective IPv6
+                          extension header, the value of the corresponding bit is 0.
+                        </paragraph>
+                        <paragraph>
+                          The IPv6 extension header associated with each bit is provided in <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-ipv6extensionheaders-bits">IANA-IPFIX-IPv6EH</xref>.
+                          Bit 0 corresponds to the least-significant bit in the ipv6ExtensionHeadersFull IE while bit 255
+                          corresponds to the most-significant bit of the IE. In doing so, few octets will be needed to
+                          encode common IPv6 extension headers when observed in a Flow.
+                        </paragraph>
+                        <paragraph>
+                          The "No Next Header" (bit 2) value (Section 4.7 of <xref type="rfc" data="rfc8200"/>) is used if
+                          there is no upper-layer header in an IPv6 packet. Even if the value is not considered as an
+                          extension header as such, the corresponding bit is set in the ipv6ExtensionHeadersFull IE
+                          whenever that value is encountered in the Flow.
+                        </paragraph>
+                        <paragraph>
+                          Extension headers observed in a Flow with varying extension header chain MUST NOT be grouped in
+                          the ipv6ExtensionHeadersFull IE if the ipv6ExtensionHeaderChainLengthList IE is also present.
+                        </paragraph>
+                        <paragraph>
+                          If the ipv6ExtensionHeaderChainLengthList IE is not present, then extension headers observed in
+                          a Flow with varying extension header chain MAY be grouped in one single ipv6ExtensionHeadersFull
+                          IE or be exported in separate ipv6ExtensionHeadersFull IEs, one for each extension header chain.
+                        </paragraph>
+                        <paragraph>
+                          The ipv6ExtensionHeadersFull IE MUST NOT be exported if ipv6ExtensionHeaderTypeCountList IE is
+                          also present because of the overlapping scopes between these two IEs.
+                        </paragraph>
+                        <paragraph>
+                          The value of ipv6ExtensionHeadersFull IE may be encoded in fewer octets per the guidelines in
+                          Section 6.2 of <xref type="rfc" data="rfc7011"/>
+                        </paragraph>
+                      </description>
+                      <references>
+                        <paragraph>
+                          See the IPv6 Extension Header Types registry at <xref type="uri" data="https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml#extension-header">IANA-EH</xref>.
+
+                          See Section 4 of <xref type="rfc" data="rfc8200"/> for the general definition of IPv6
+                          extension headers.
+
+                          The ipv6ExtensionHeadersFull IE deprecates the ipv6ExtensionHeaders IE (64) that was initially defined in
+                          <xref type="rfc" data="rfc5102"/>.
+
+                          <xref type="rfc" data="rfc7012"/> obsoletes <xref type="rfc" data="rfc5102"/> and specifies that <xref type="uri" data="https://www.iana.org/assignments/ipfix">IANA-IPFIX</xref>
+                          is the normative reference for the ipv6ExtensionHeaders IE (64).
+                        </paragraph>
+                      </references>
+                      <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+                      <revision>0</revision>
+                      <date>2024-10-07</date>
+                    </record>
+
+                    <record date="2024-10-07">
+                      <name>ipv6ExtensionHeaderTypeCountList</name>
+                      <dataType>subTemplateList</dataType>
+                      <dataTypeSemantics>list</dataTypeSemantics>
+                      <elementId>516</elementId>
+                      <status>current</status>
+                      <description>
+                        <paragraph>
+                          As per Section 4.1 of <xref type="rfc" data="rfc8200"/>, IPv6 nodes must accept
+                          and attempt to process extension headers occurring any number of times in the
+                          same packet. This IE echoes the order of extension headers and number of 
+                          onsecutive occurrences of the same extension header type in a Flow.
+                        </paragraph>
+                        <paragraph>
+                          This IE is a subTemplateList of ipv6ExtensionHeaderType and ipv6ExtensionHeaderCount IEs.
+                        </paragraph>
+                        <paragraph>
+                          Each header chain in Flow with varying extension header chain MUST be exported in a separate IE.
+                        </paragraph>
+                        <paragraph>
+                          The same extension header type may appear several times in an ipv6ExtensionHeaderTypeCountList IE.
+                          For example, if an IPv6 packet of a Flow includes a Hop-by-Hop Options header, a Destination Options
+                          header, a Fragment header, and Destination Options header, the ipv6ExtensionHeaderTypeCountList IE
+                          will report:
+                        </paragraph>
+                        <paragraph>
+                          * the count of Hop-by-Hop Options headers,
+                        </paragraph>
+                        <paragraph>
+                          * the occurrences of the Destination Options headers that are observed before a Fragment header,
+                        </paragraph>
+                        <paragraph>
+                          * the occurrences of the Fragment headers, and
+                        </paragraph>
+                        <paragraph>
+                          * the occurrences of the Destination Options headers that are observed right after a Fragment header.
+                        </paragraph>
+                        <paragraph>
+                          If an implementation determines that an observed packet of a Flow includes an extension header
+                          (including an extension header that it does not support), then the exact observed code of that
+                          extension header MUST be echoed in the ipv6ExtensionHeaderTypeCountList IE. How an implementation
+                          disambiguates between unknown upper-layer protocols vs. extension headers is not IPFIX-specific.
+                          Refer, for example, to Section 2.2 of <xref type="rfc" data="rfc8883"/> for a behavior of an
+                          intermediate node that encounters an unknown Next Header type.
+                        </paragraph>
+                      </description>
+                      <references>
+                        <paragraph>
+                          See the IPv6 Extension Header Types registry at <xref type="uri" data="https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml#extension-header">IANA-EH</xref>.
+
+                          See <xref type="rfc" data="rfc8200"/> for the general definition of IPv6 extension headers.
+                        </paragraph>
+                      </references>
+                      <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+                      <revision>0</revision>
+                      <date>2024-10-07</date>
+                    </record>
+
+                    <record date="2024-10-07">
+                      <name>ipv6ExtensionHeadersLimit</name>
+                      <dataType>boolean</dataType>
+                      <dataTypeSemantics>default</dataTypeSemantics>
+                      <elementId>517</elementId>
+                      <status>current</status>
+                      <description>
+                        <paragraph>
+                          When set to "false", this IE indicates that the exported extension headers information
+                          (e.g., ipv6ExtensionHeadersFull or ipv6ExtensionHeaderTypeCountList) does not match the
+                          full enclosed extension headers, but only up to a limit that is typically set by hardware
+                          or software.
+                        </paragraph>
+                        <paragraph>
+                          When set to "true", this IE indicates that the exported extension header information
+                          matches the full enclosed extension headers.
+                        </paragraph>
+                      </description>
+                      <references>
+                        <paragraph>
+                          See Section 4 of <xref type="rfc" data="rfc8200"/> for the general definition of IPv6 extension headers.
+                          
+                          See <xref type="rfc" data="rfc8883"/> for an example of IPv6 packet processing due to limits on extension headers.
+                        </paragraph>
+                      </references>
+                      <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+                      <revision>0</revision>
+                      <date>2024-10-07</date>
+                    </record>
+
+                    <record date="2024-10-07">
+                      <name>ipv6ExtensionHeadersChainLength</name>
+                      <dataType>unsigned32</dataType>
+                      <dataTypeSemantics>identifier</dataTypeSemantics>
+                      <elementId>518</elementId>
+                      <status>current</status>
+                      <description>
+                        <paragraph>
+                          In theory, there are no limits on the number of IPv6 extension headers that may be present in a
+                          packet other than the path MTU. However, it was regularly reported that IPv6 packets with
+                          extension headers are often dropped in the Internet (e.g., <xref type="rfc" data="rfc7872"/>).
+                        </paragraph>
+                        <paragraph>
+                          As discussed in Section 1.2 of <xref type="rfc" data="rfc8883"/>, some hardware devices implement
+                          a parsing buffer of a fixed size to process packets, including all the headers. When the aggregate
+                          length of headers of an IPv6 packet exceeds that size, the packet will be discarded or deferred to
+                          a slow path.
+                        </paragraph>
+                        <paragraph>
+                          The ipv6ExtensionHeadersChainLength IE is used to report, in octets, the length of an extension
+                          header chain observed in a Flow. The length is the sum of the length of all extension headers of
+                          the chain. Exporting such information might help identifying root causes of performance degradation,
+                          including packet drops.
+                        </paragraph>
+                        <paragraph>
+                          Each header chain length of a Flow with varying extension header chain MUST be exported in a separate
+                          ipv6ExtensionHeadersChainLength IE.
+                        </paragraph>
+                      </description>
+                      <references>
+                        <paragraph>
+                          See Section 4 of <xref type="rfc" data="rfc8200"/> for the general definition of IPv6 extension headers.
+                          
+                          See <xref type="rfc" data="rfc9098"/> for an overview of operational implications of IPv6 packets with extension headers.
+                        </paragraph>
+                      </references>
+                      <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+                      <revision>0</revision>
+                      <date>2024-10-07</date>
+                    </record>
+
+                    <record date="2024-10-07">
+                      <name>ipv6ExtensionHeaderChainLengthList</name>
+                      <dataType>subTemplateList</dataType>
+                      <dataTypeSemantics>list</dataTypeSemantics>
+                      <elementId>519</elementId>
+                      <status>current</status>
+                      <description>
+                        <paragraph>
+                          This IE is used to report the chains and their length as observed in a Flow with varying extension header chain.
+                        </paragraph>
+                        <paragraph>
+                          This IE is a subTemplateList of ipv6ExtensionHeadersFull and ipv6ExtensionHeadersChainLength IEs.
+                        </paragraph>
+                        <paragraph>
+                          If several extension header chains are observed in a Flow, each header chain MUST be exported in a separate
+                          ipv6ExtensionHeaderChainLengthList IE.
+                        </paragraph>
+                      </description>
+                      <references>
+                        <paragraph>
+                          See the IPv6 Extension Header Types registry at <xref type="uri" data="https://www.iana.org/assignments/ipv6-parameters/ipv6-parameters.xhtml#extension-header">IANA-EH</xref>.
+
+                          See <xref type="rfc" data="rfc8200"/> for the general definition of IPv6 extension headers.
+                        </paragraph>
+                      </references>
+                      <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+                      <revision>0</revision>
+                      <date>2024-10-07</date>
+                    </record>
+
+                    <record date="2024-10-07">
+                      <name>tcpOptionsFull</name>
+                      <dataType>unsigned256</dataType>
+                      <dataTypeSemantics>flags</dataTypeSemantics>
+                      <elementId>520</elementId>
+                      <status>current</status>
+                      <description>
+                        <paragraph>
+                          TCP options in packets of this Flow. The information is encoded in a set of bit fields.
+                          For each TCP option, there is a bit in this set. The bit is set to 1 if any observed
+                          packet of this Flow contains the corresponding TCP option. Otherwise, if no observed
+                          packet of this Flow contains the respective TCP option, the value of the corresponding
+                          bit is 0.
+                        </paragraph>
+                        <paragraph>
+                          Options are mapped to bits according to their option numbers. TCP option Kind 0
+                          corresponds to the least-significant bit in the tcpOptionsFull IE while Kind 255
+                          corresponds to the most-significant bit of the IE. This approach allows an observer
+                          to export any observed TCP option even if it does not support that option and without
+                          requiring updating a mapping table.
+                        </paragraph>
+                        <paragraph>
+                          The value of tcpOptionsFull IE may be encoded in fewer octets per the guidelines in
+                          Section 6.2 of <xref type="rfc" data="rfc7011"/>.
+                        </paragraph>
+                        <paragraph>
+                          The presence of tcpSharedOptionExID16List or tcpSharedOptionExID32List IEs is an indication
+                          that a shared TCP option (Kind=253 or 254) is observed in a Flow. The presence of
+                          tcpSharedOptionExID16List or tcpSharedOptionExID32List IEs takes precedence over setting the
+                          corresponding bits in the tcpOptionsFull IE for the same Flow. In order to optimize the use of
+                          the reduced-size encoding in the presence of tcpSharedOptionExID16List or tcpSharedOptionExID32List IEs,
+                          the Exporter MUST NOT set to 1 the shared TCP options (Kind=253 or 254) flags of the tcpOptionsFull IE
+                          that is reported for the same Flow.
+                        </paragraph>
+                      </description>
+                      <references>
+                        <paragraph>
+                          See the TCP Option Kind Numbers registry at <xref type="uri" data="https://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml#tcp-parameters-1">IANA-TCP</xref>.
+
+                          See <xref type="rfc" data="rfc9293"/> for the general definition of TCP options.
+
+                          The tcpOptionsFull IE deprecates the tcpOptions IE (209) that was initially defined in <xref type="rfc" data="rfc5102"/>.
+                          
+                          <xref type="rfc" data="rfc7012"/> obsoletes <xref type="rfc" data="rfc5102"/> and specifies that 
+                          <xref type="uri" data="https://www.iana.org/assignments/ipfix">IANA-IPFIX</xref> is the normative reference
+                          for the tcpOptions IE (209).
+                        </paragraph>
+                      </references>
+                      <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+                      <revision>0</revision>
+                      <date>2024-10-07</date>
+                    </record>
+
+                    <record date="2024-10-07">
+                      <name>tcpSharedOptionExID16</name>
+                      <dataType>unsigned16</dataType>
+                      <dataTypeSemantics>identifier</dataTypeSemantics>
+                      <elementId>521</elementId>
+                      <status>current</status>
+                      <description>
+                        <paragraph>
+                          Reports an observed 2-byte ExID in a shared TCP option (Kind=253 or 254) in a Flow.
+                        </paragraph>
+                        <paragraph>
+                          A basicList of tcpSharedOptionExID16 is used to report tcpSharedOptionExID16List values.
+                        </paragraph>
+                      </description>
+                      <references>
+                        <paragraph>
+                          See the TCP Experimental Option Experiment Identifiers (TCP ExIDs) registry at <xref type="uri" data="https://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml#tcp-exids">IANA-TCP-EXIDs</xref>.
+
+                          See <xref type="rfc" data="rfc9293"/> for the general definition of TCP options.
+
+                          See <xref type="rfc" data="rfc6994"/> for the shared use of experimental TCP Options.
+                        </paragraph>
+                      </references>
+                      <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+                      <revision>0</revision>
+                      <date>2024-10-07</date>
+                    </record>
+
+                    <record date="2024-10-07">
+                      <name>tcpSharedOptionExID32</name>
+                      <dataType>unsigned32</dataType>
+                      <dataTypeSemantics>identifier</dataTypeSemantics>
+                      <elementId>522</elementId>
+                      <status>current</status>
+                      <description>
+                        <paragraph>
+                          Reports an observed 4-byte ExID in a shared TCP option (Kind=253 or 254) in a Flow.
+                        </paragraph>
+                      <paragraph>
+                          A basicList of tcpSharedOptionExID32 is used to report tcpSharedOptionExID32List values.
+                        </paragraph>
+                      </description>
+                      <references>
+                        <paragraph>
+                          See the TCP Experimental Option Experiment Identifiers (TCP ExIDs) registry at <xref type="uri" data="https://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml#tcp-exids">IANA-TCP-EXIDs</xref>.
+
+                          See <xref type="rfc" data="rfc9293"/> for the general definition of TCP options.
+
+                          See <xref type="rfc" data="rfc6994"/> for the shared use of experimental TCP Options.
+                        </paragraph>
+                      </references>
+                      <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+                      <revision>0</revision>
+                      <date>2024-10-07</date>
+                    </record>
+
+                    <record date="2024-10-07">
+                      <name>tcpSharedOptionExID16List</name>
+                      <dataType>basicList</dataType>
+                      <dataTypeSemantics>list</dataTypeSemantics>
+                      <elementId>523</elementId>
+                      <status>current</status>
+                      <description>
+                        <paragraph>
+                          Reports observed 2-byte ExIDs in shared TCP options (Kind=253 or 254) in a Flow.
+                        </paragraph>
+                        <paragraph>
+                          A basicList of tcpSharedOptionExID16 IEs in which each tcpSharedOptionExID16 IE carries an observed 2-byte ExID in a shared option.
+                        </paragraph>
+                      </description>
+                      <references>
+                        <paragraph>
+                          See the TCP Experimental Option Experiment Identifiers (TCP ExIDs) registry at <xref type="uri" data="https://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml#tcp-exids">IANA-TCP-EXIDs</xref>.
+
+                          See <xref type="rfc" data="rfc9293"/> for the general definition of TCP options.
+
+                          See <xref type="rfc" data="rfc6994"/> for the shared use of experimental TCP Options.
+                        </paragraph>
+                      </references>
+                      <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+                      <revision>0</revision>
+                      <date>2024-10-07</date>
+                    </record>
+
+                    <record date="2024-10-07">
+                      <name>tcpSharedOptionExID32List</name>
+                      <dataType>basicList</dataType>
+                      <dataTypeSemantics>list</dataTypeSemantics>
+                      <elementId>524</elementId>
+                      <status>current</status>
+                      <description>
+                        <paragraph>
+                          Reports observed 4-byte ExIDs in shared TCP options (Kind=253 or 254) in a Flow.
+                        </paragraph>
+                        <paragraph>
+                          A basicList of tcpSharedOptionExID32 IEs in which each tcpSharedOptionExID32 IE carries an observed 4-byte ExID in a shared option.
+                        </paragraph>
+                      </description>
+                      <references>
+                        <paragraph>
+                          See the TCP Experimental Option Experiment Identifiers (TCP ExIDs) registry at <xref type="uri" data="https://www.iana.org/assignments/tcp-parameters/tcp-parameters.xhtml#tcp-exids">IANA-TCP-EXIDs</xref>.
+
+                          See <xref type="rfc" data="rfc9293"/> for the general definition of TCP options.
+
+                          See <xref type="rfc" data="rfc6994"/> for the shared use of experimental TCP Options.
+                        </paragraph>
+                      </references>
+                      <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+                      <revision>0</revision>
+                      <date>2024-10-07</date>
+                    </record>
 <record>
   <name>Unassigned</name>
-  <elementId>513-32767</elementId>
+  <elementId>525-32767</elementId>
   </record>
 
 
@@ -13955,10 +14326,16 @@ hashSelectedRangeMax, hashOutputRangeMin, hashOutputRangeMax</parameters>
 <xref type="rfc" data="rfc7011"/>
 </record>
 
+<record date="2024-10-04">
+<value>23</value>
+<description>unsigned256</description>
+<xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+</record>
+
 
 
 <record>
-<value>23-255</value>
+<value>24-255</value>
 <description>Unassigned</description>
 </record>
 
@@ -14242,7 +14619,142 @@ data type semantic is the default structured data type semantic.
 
 </registry>
 
+<registry id="ipfix-ipv6extensionheaders-bits">
+  <title>IPFIX ipv6ExtensionHeaders Bits</title>
+  <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+  <registration_rule>Expert Review</registration_rule>
+  <expert>Unassigned</expert>
+  
+  <record date="2024-10-07">
+  <value>0</value>
+  <label>DST</label>
+  <number>60</number>
+  <description>Destination Options for IPv6</description>
+  <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+  </record>
 
+  <record date="2024-10-07">
+  <value>1</value>
+  <label>HOP</label>
+  <number>0</number>
+  <description>IPv6 Hop-by-Hop Options</description>
+  <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+  </record>
+  
+  <record date="2024-10-07">
+  <value>1</value>
+  <label>HOP</label>
+  <number>0</number>
+  <description>IPv6 Hop-by-Hop Options</description>
+  <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+  </record>
+
+  <record date="2024-10-07">
+  <value>2</value>
+  <label>NoNxt</label>
+  <number>59</number>
+  <description>No Next Header for IPv6</description>
+  <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+  </record>
+
+  <record date="2024-10-07">
+  <value>3</value>
+  <label>UNK</label>
+  <number/>
+  <description>Unknown extension or transport header</description>
+  <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+  </record>
+
+  <record date="2024-10-07">
+  <value>4</value>
+  <label>FRA0</label>
+  <number>44</number>
+  <description>Fragment header - first fragment</description>
+  <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+  </record>
+
+  <record date="2024-10-07">
+  <value>5</value>
+  <label>RH</label>
+  <number>43</number>
+  <description>Routing header</description>
+  <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+  </record>
+
+  <record date="2024-10-07">
+  <value>6</value>
+  <label>FRA1</label>
+  <number>44</number>
+  <description>Fragmentation header - not first fragment</description>
+  <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+  </record>
+
+  <record date="2024-10-07">
+  <value>7</value>
+  <label>MOB</label>
+  <number>135</number>
+  <description>Mobility Header</description>
+  <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+  </record>
+
+  <record date="2024-10-07">
+  <value>8</value>
+  <label>ESP</label>
+  <number>50</number>
+  <description>Encapsulating Security Payload</description>
+  <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+  </record>
+
+  <record date="2024-10-07">
+  <value>9</value>
+  <label>AH</label>
+  <number>51</number>
+  <description>Authentication Header</description>
+  <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+  </record>
+
+  <record date="2024-10-07">
+  <value>10</value>
+  <label>HIP</label>
+  <number>139</number>
+  <description>Host Identity Protocol</description>
+  <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+  </record>
+
+  <record date="2024-10-07">
+  <value>11</value>
+  <label>SHIM6</label>
+  <number>140</number>
+  <description>Shim6 Protocol</description>
+  <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+  </record>
+
+  <record date="2024-10-07">
+  <value>12</value>
+  <label/>
+  <number>253</number>
+  <description>Use for experimentation and testing</description>
+  <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+  </record>
+
+  <record date="2024-10-07">
+  <value>13</value>
+  <label/>
+  <number>254</number>
+  <description>Use for experimentation and testing</description>
+  <xref type="draft" data="RFC-ietf-opsawg-ipfix-tcpo-v6eh-18"/>
+  </record>
+
+  
+  
+  <record>
+  <value>14-255</value>
+  <label/>
+  <number/>
+  <description>Unassigned</description>
+  </record>
+  
+  </registry>
 
 <people>
 

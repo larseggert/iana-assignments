@@ -97,6 +97,9 @@
       <xsl:when test="@id = 'ipfix-structured-data-types-semantics'">
         <tr><th>Value</th><th>Name</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'ipfix-ipv6extensionheaders-bits'">
+        <tr><th>Bit</th><th>Label</th><th>Protocol Number</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
       </xsl:otherwise>
@@ -249,6 +252,16 @@
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+
+      <xsl:when test="../@id = 'ipfix-ipv6extensionheaders-bits'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:label"/></td>
+          <td><xsl:value-of select="iana:number"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
