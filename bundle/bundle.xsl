@@ -59,6 +59,9 @@
       <xsl:when test="@id = 'bpsec-bcb-aes-gcm-aad-scope'">
         <tr><th>Bit Position (right to left)</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'admin-record-types'">
+        <tr><th>Bundle Protocol Version</th><th>Value</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
       </xsl:otherwise>
@@ -170,6 +173,14 @@
           <td><xsl:value-of select="iana:description"/></td>
 		  <td><xsl:apply-templates select="iana:bp-ref"/></td>
 		  <td><xsl:apply-templates select="iana:uri-ref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'admin-record-types'">
+        <tr>
+          <td><xsl:value-of select="iana:protocol"/></td>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+		      <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
       <xsl:otherwise>
