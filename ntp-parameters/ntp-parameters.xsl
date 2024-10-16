@@ -12,7 +12,7 @@
         <tr><th>ID</th><th>Clock Source</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'ntp-parameters-2'">
-        <tr><th>Code</th><th>Meaning</th><th>Reference</th></tr>
+        <tr><th>ID</th><th>Meaning Source</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'ntp-parameters-3'">
         <tr><th>Field Type</th><th>Meaning</th><th>Reference</th></tr>
