@@ -62,6 +62,20 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'gnap-token-formats'">
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'gnap-rs-facing-error-codes'">
+        <tr>
+          <th>Error</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <th>Name</th>
@@ -110,10 +124,58 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:otherwise>
+      <xsl:when test="../@id = 'gnap-token-formats'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:status"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'gnap-token-introspection-request'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'gnap-token-introspection-response'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'gnap-resource-set-registration-request-parameters'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>      
+      <xsl:when test="../@id = 'gnap-resource-set-registration-response-parameters'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'gnap-rs-facing-discovery-document-fields'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'gnap-rs-facing-error-codes'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:otherwise>
