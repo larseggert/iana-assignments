@@ -133,6 +133,37 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'ace-groupcomm-rekeying-schemes'">
+        <tr>
+          <th>Value</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'ace-token-revocation-list-parameters'">
+        <tr>
+          <th>Name</th>
+          <th>CBOR Key</th>
+          <th>CBOR Type</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'ace-token-revocation-list-parameters'">
+        <tr>
+          <th>Name</th>
+          <th>CBOR Key</th>
+          <th>CBOR Type</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <th>Value</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
@@ -279,6 +310,21 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
+      <xsl:when test="../@id = 'ace-token-revocation-list-parameters'">
+        <tr>
+          <td><xsl:apply-templates select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:key"/></td>
+          <td><xsl:apply-templates select="iana:type"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <td><xsl:apply-templates select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
