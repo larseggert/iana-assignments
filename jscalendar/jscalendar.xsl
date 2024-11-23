@@ -15,6 +15,7 @@
         <th>Property Context</th>
         <th>Reference/Description</th>
         <th>Intended Usage</th>
+        <th>Is Per-User</th>
         <th>Change Controller</th>
         </tr>
       </xsl:when>
@@ -53,6 +54,7 @@
         <td><xsl:apply-templates select="iana:context"/></td>
         <td><xsl:apply-templates select="iana:refs"/></td>
         <td><xsl:apply-templates select="iana:use"/></td>
+        <td><xsl:apply-templates select="iana:user"/></td>
         <td><xsl:apply-templates select="iana:controller"/></td>
         </tr>
       </xsl:when>
