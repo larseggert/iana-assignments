@@ -1,0 +1,87 @@
+A. Submission Date: 2024-12-09
+
+B.1 Submission Type: [x] New RRTYPE [ ] Modification to RRTYPE
+B.2 Kind of RR: [x] Data RR [ ] Meta-RR
+
+C. Contact Information for submitter (will be publicly posted):
+Name: Peter Thomassen Email Address: peter&desec.io
+International telephone number: +4917663159879
+Other contact handles:
+
+D. Motivation for the new RRTYPE application.
+Please keep this part at a high level to inform the Expert and
+reviewers about uses of the RRTYPE. Most reviewers will be DNS
+experts that may have limited knowledge of your application space.
+
+For use with https://datatracker.ietf.org/doc/draft-ietf-dnsop-generalized-notify/.
+The draft specifies a way for a child DNS operator to send a
+notification when publishing a new record that relates to managing
+the child's delegation (such as, for DS updates), so that the
+notification recipient (parent) can perform appropriate actions.
+The DSYNC record is supposed to tell the child DNS operator where
+to send such notifications, and which targets pertain to what kinds
+of updates.
+
+E. Description of the proposed RR type.
+This description can be provided in-line in the template, as an
+attachment, or with a publicly available URL.
+
+DSYNC provides a scheme, a target hostname and port, and another
+RRtype (such as CDS). For details, see
+https://www.ietf.org/archive/id/draft-ietf-dnsop-generalized-notify-03.html#name-dsync-rr-type
+
+F. What existing RRTYPE or RRTYPEs come closest to filling that need
+and why are they unsatisfactory?
+
+SRV / SVCB are similar, but they do not provide a field for encoding
+the RRtype of the desired update (e.g., CDS). A workaround would be
+to encode that in the owner name, but the DNSOP WG preferred a new
+record type.For a discussion, see
+https://www.ietf.org/archive/id/draft-ietf-dnsop-generalized-notify-02.html#name-rationale
+
+G. What mnemonic is requested for the new RRTYPE (optional)?
+
+Note: If a mnemonic is not supplied, not allowed, or duplicates an
+existing RRTYPE or CLASS mnemonic, the Expert will assign a
+mnemonic.
+
+DSYNC
+
+H. Does the requested RRTYPE make use of any existing IANA registry
+or require the creation of a new IANA subregistry in DNS
+Parameters? If so, please indicate which registry is to be used
+or created. If a new subregistry is needed, specify the
+allocation policy for it and its initial contents. Also include
+what the modification procedures will be.
+
+From https://www.ietf.org/archive/id/draft-ietf-dnsop-generalized-notify-03.html#name-dsync-scheme-registration:
+
+IANA is requested to create a new registry on the
+"Domain Name System (DNS) Parameters" IANA web page as follows:
+
+Name DSYNC: Location of Synchronization Endpoints
+
+Assignment Policy Expert Review
+
+Reference (this document)
+
++========+=========+========================+=================+
+| RRtype | Scheme | Purpose | Reference |
++========+=========+========================+=================+
+| | 0 | Null scheme (no-op) | (this document) |
++--------+---------+------------------------+-----------------+
+| CDS | 1 | Delegation management | (this document) |
++--------+---------+------------------------+-----------------+
+| CSYNC | 1 | Delegation management | (this document) |
++--------+---------+------------------------+-----------------+
+| | 2-127 | Unassigned | |
++--------+---------+------------------------+-----------------+
+| | 128-255 | Reserved (private use) | (this document) |
++--------+---------+------------------------+-----------------+
+
+
+I. Does the proposal require/expect any changes in DNS
+servers/resolvers that prevent the new type from being processed
+as an unknown RRTYPE (see [RFC3597])?
+
+No.
