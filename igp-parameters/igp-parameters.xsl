@@ -19,7 +19,7 @@
         <tr>
           <th>Value</th>
           <th>Name</th>
-          <th>Data-Plane</th>
+          <th>Data Plane</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
