@@ -79,6 +79,14 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'mail-header-confidentiality-policies'">
+        <tr>
+          <th>Header Confidentiality Policy Name</th>
+          <th>Description</th>
+          <th>Recommended</th>
+          <th>Reference</th>
+        </tr>
+        </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -134,6 +142,14 @@
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:restriction"/></td>
           <td><xsl:apply-templates select="iana:security"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'mail-header-confidentiality-policies'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:recommended"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
