@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="urn:ietf:params:xml:ns:epp:ttl-1.0"
+  xmlns:ttl="urn:ietf:params:xml:ns:epp:ttl-1.0"
+  elementFormDefault="qualified">
+  <annotation>
+    <documentation>
+      Extensible Provisioning Protocol v1.0 extension
+      schema for Time-To-Live (TTL) values for domain
+      and host objects.
+    </documentation>
+  </annotation>
+
+  <element name="info">
+    <complexType>
+      <attribute name="policy" type="boolean" default="false"/>
+    </complexType>
+  </element>
+
+  <!--
+    <ttl> elements can appear in <create> and
+    <update> commands, and <info> responses
+  -->
+
+  <element name="create" type="ttl:commandContainer">
+    <unique name="uniqueRRTypeForCreate">
+      <selector xpath="ttl:ttl"/>
+      <field xpath="@for"/>
+    </unique>
+  </element>
+
+  <element name="update" type="ttl:commandContainer">
+    <unique name="uniqueRRTypeForUpdate">
+      <selector xpath="ttl:ttl"/>
+      <field xpath="@for"/>
+    </unique>
+  </element>
+
+  <element name="infData" type="ttl:responseContainer">
+    <unique name="uniqueRRTypeForInfo">
+      <selector xpath="ttl:ttl"/>
+      <field xpath="@for"/>
+    </unique>
+  </element>
+
+  <complexType name="commandContainer">
+    <sequence>
+      <element
+        name="ttl"
+        type="ttl:commandTTLType"
+        minOccurs="1"
+        maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="responseContainer">
+    <sequence>
+      <element
+        name="ttl"
+        type="ttl:responseTTLType"
+        minOccurs="1"
+        maxOccurs="unbounded"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="commandTTLType">
+    <simpleContent>
+      <extension base="ttl:ttlOrNull">
+        <attribute
+          name="for"
+          type="ttl:rrType"
+          use="required"/>
+
+        <attribute
+          name="custom"
+          type="ttl:customRRType"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+
+  <complexType name="responseTTLType">
+    <simpleContent>
+      <extension base="ttl:ttlOrNull">
+        <attribute
+          name="for"
+          type="ttl:rrType"
+          use="required"/>
+
+        <attribute
+          name="custom"
+          type="ttl:customRRType"/>
+
+        <attribute
+          name="min"
+          type="ttl:ttlValue"/>
+
+        <attribute
+          name="default"
+          type="ttl:ttlValue"/>
+
+        <attribute
+          name="max"
+          type="ttl:ttlValue"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+
+  <!--
+    union type allowing the element to either contain
+    nothing or a TTL value
+  -->
+  <simpleType name="ttlOrNull">
+    <union
+      memberTypes="ttl:emptyValue ttl:ttlValue"/>
+  </simpleType>
+
+  <!-- empty value type -->
+  <simpleType name="emptyValue">
+    <restriction base="token">
+      <length value="0"/>
+    </restriction>
+  </simpleType>
+
+  <!-- TTL value type -->
+  <simpleType name="ttlValue">
+    <restriction base="nonNegativeInteger">
+      <minInclusive value="0"/>
+      <maxInclusive value="2147483647"/>
+    </restriction>
+  </simpleType>
+
+  <!-- resource record mnemonic type -->
+  <simpleType name="rrType">
+    <restriction base="token">
+      <enumeration value="NS" />
+      <enumeration value="DS" />
+      <enumeration value="DNAME" />
+      <enumeration value="A" />
+      <enumeration value="AAAA" />
+      <enumeration value="custom" />
+    </restriction>
+  </simpleType>
+
+  <!-- custom resource record type -->
+  <simpleType name="customRRType">
+    <restriction base="token">
+      <pattern value="A|[A-Z][A-Z0-9\-]*[A-Z0-9]"/>
+    </restriction>
+  </simpleType>
+</schema>
