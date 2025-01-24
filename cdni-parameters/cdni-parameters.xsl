@@ -84,6 +84,19 @@
           <th>Protocol Specification</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'telemetry-source-types'">
+        <tr>
+          <th>Source Type</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'capacity-limit-types'">
+        <tr>
+          <th>Capacity Limit Type</th>
+          <th>Units</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <th>Value</th>
@@ -128,6 +141,19 @@
           <td><xsl:value-of select="iana:reason"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'telemetry-source-types'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'capacity-limit-types'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:units"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
         </tr>
       </xsl:when>
       <xsl:otherwise>
