@@ -1,0 +1,137 @@
+Namespace Registration for Coalition for Content Provenance and Authenticity
+
+Namespace Identifier:  c2pa
+
+Version:  1
+
+Date:  2025-02-03
+
+Registrant: 
+
+Leonard Rosenthol, 
+on behalf of C2PA (Coalition for Content Provenance and Authenticity)
+info&c2pa.org
+https://c2pa.org/
+1-215-808-4978
+
+Purpose: 
+
+Each C2PA Manifest (aka Content Credential) created to incorporate 
+provenance information about a given asset is given a unique 
+identifier which has historically been an incorrectly formatted UUID 
+URN. This proposal, in conjunction with an updated specification, 
+will define a new `c2pa` URN namespace for this purpose.
+
+The `c2pa` URN will consist of a UUID URN (as per RFC 9562), with the 
+namespace changed to 'c2pa' and additional information that is specific 
+to C2PA added. These URNs are non-resolvable, serving as unique 
+identifiers. In this way, the ability to unambiguously compare them is 
+of significant importance.
+
+Syntax:
+
+A `c2pa` URN shall consist of two mandatory and two optional components, 
+in the following order, with `:` characters between each section.
+ 
+  - URN identifier (`urn:c2pa`): REQUIRED
+
+  - UUID v4, in string representation (as per RFC 9562, section 4): REQUIRED
+
+  - Claim Generator identifier string : OPTIONAL
+
+  - Version and Reason string : OPTIONAL
+
+When present, the "Claim Generator identifier" string shall consist of 
+no more than 32 characters from the ASCII range (as per RFC 20), but 
+which are not Control Characters (RFC 20, 5.2), Graphic Characters 
+(RFC 20, 5.3), the `:` character or the `_` character.
+
+When present, the "Version and Reason" string shall consist of a `v` 
+followed by a monotonically increasing integer, starting with 1, 
+followed by an underscore (`_`) and then an integer representing the 
+reason for the re-labeling.
+
+The ABNF for a `c2pa` URN is as follows:
+
+  c2pa_urn = c2pa-namespace UUID [claim-generator [version-reason]]
+
+  c2pa-namespace = "urn:c2pa:"
+
+  UUID   =  4hexOctet "-"
+            2hexOctet "-"
+            2hexOctet "-"
+            2hexOctet "-"
+            6hexOctet
+            ; this definition is taken from RFC 9562
+
+  hexOctet = HEXDIG HEXDIG
+
+  DIGIT  = %x30-39
+
+  HEXDIG   = DIGIT / "A" / "B" / "C" / "D" / "E" / "F"
+
+  visible-char-except-space = %x21-7E / %x80-FF
+            ; ASCII, but not Control Characters or Graphic Characters
+
+  claim-generator = ":" claim-generator-identifier
+
+  claim-generator-identifier = 0*32visible-char-except-space
+            ; claim-generator-identifier is a string of 0 to 32 
+            ; visible-char-except-space characters
+            ; this means that an empty string is valid
+
+  version-reason = ":" version "_" reason
+            ; version-reason is a string consisting of a positive integer
+            ; followed by an underscore and a positive integer
+
+  version = 1*DIGIT
+
+  reason = 1*DIGIT 
+
+EXAMPLES:
+
+  - `urn:c2pa:F9168C5E-CEB2-4FAA-B6BF-329BF39FA1E4`
+
+  - `urn:c2pa:F9168C5E-CEB2-4FAA-B6BF-329BF39FA1E4:acme`
+
+  - `urn:c2pa:F9168C5E-CEB2-4FAA-B6BF-329BF39FA1E4:acme:v2_1`
+
+  - `urn:c2pa:F9168C5E-CEB2-4FAA-B6BF-329BF39FA1E4:v2_1`
+
+Assignment: 
+
+URNs conforming to this scheme are self-assigned, based on the creation 
+of the UUID (as per RFC 9562) and the optional inclusion of the Claim 
+Generator identifier string and Version and Reason. This process is 
+described at:
+
+https://c2pa.org/specifications/specifications/2.1/specs/C2PA_Specification.html#_unique_identifiers
+
+Security and Privacy: 
+
+No known security or privacy issues exist for this URN namespace, 
+however, the C2PA specification maintains an "Information Security" 
+section which documents any known threats and harms related to the core 
+C2PA specification:
+
+https://c2pa.org/specifications/specifications/2.1/specs/C2PA_Specification.html#_information_security
+
+Interoperability: 
+
+A standard UUID URN can be "losslessly upgraded" to a `c2pa` UUID, if 
+there were to exist a workflow that required doing so. Beyond that, no 
+known concerns or requirements around interoperability exist.
+
+Resolution:
+
+As mentioned earlier in this document, these URNs are non-resolvable, 
+serving as unique identifiers. In this way, the ability to unambiguously 
+compare them is of significant importance.
+
+Documentation: 
+
+https://c2pa.org/specifications/specifications/2.1/specs/C2PA_Specification.html
+
+Additional Information:  NONE
+
+Revision Information:  N/A
