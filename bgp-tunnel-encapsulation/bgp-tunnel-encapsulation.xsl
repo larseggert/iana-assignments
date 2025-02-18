@@ -39,6 +39,30 @@
         <th>Description</th>
         <th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'sr-policy-binding-sid-flags'">
+        <tr>
+        <th>Bit</th>
+        <th>Description</th>
+        <th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'sr-policy-srv6-binding-sid-flags'">
+        <tr>
+        <th>Bit</th>
+        <th>Description</th>
+        <th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'sr-policy-segment-flags'">
+        <tr>
+        <th>Bit</th>
+        <th>Description</th>
+        <th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'color-extended-community-color-only-types'">
+        <tr>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Reference</th></tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
         <th>Value</th>
