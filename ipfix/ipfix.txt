@@ -6,7 +6,7 @@
    2007-05-10
 
    Last Updated
-   2025-02-13
+   2025-02-19
 
    Note
 
@@ -956,7 +956,7 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               Options and the sessionScope Information Element.
                                                                                               The MD5 checksum of the IPFIX Message containing this record. This Information Element
                                                                                               SHOULD be bound to its containing IPFIX Message via an options record and the
-                                                                                              messageScope Information lement, and SHOULD appear only once in a given IPFIX Message.
+                                                                                              messageScope Information Element, and SHOULD appear only once in a given IPFIX Message.
                                                                                               To calculate the value of this Information Element, first buffer the containing IPFIX
    262    messageMD5Checksum                     octetArray           default      current    Message, setting the value of this Information Element to all zeroes. Then calculate the                                                                                                                                [RFC5655][RFC1321][RFC-ietf-opsawg-ipfix-fixes-12]        0        2013-02-18
                                                                                               MD5 checksum of the resulting buffer as defined in [RFC1321], place the resulting value
@@ -1089,9 +1089,9 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               | 0-1    | SC       | Stability Class: see the Stability Class      |
                                                                                               |        |          | table below, and Section 5.1 of [RFC6235].    |
                                                                                               | 2      | PmA      | Perimeter Anonymization: when set (1),        |
-                                                                                              |        |          | source Information Elements as described in  |
+                                                                                              |        |          | source Information Elements as described in   |
                                                                                               |        |          | [RFC5103] are interpreted as external         |
-                                                                                              |        |          | addresses, and destination Information       |
+                                                                                              |        |          | addresses, and destination Information        |
                                                                                               |        |          | Elements as described in [RFC5103] are        |
                                                                                               |        |          | interpreted as internal addresses, for the    |
                                                                                               |        |          | purposes of associating                       |
@@ -1099,11 +1099,11 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               |        |          | Elements only; see Section 7.2.2 of [RFC6235] |
                                                                                               |        |          | for details.                                  |
                                                                                               |        |          | This bit MUST NOT be set when associated with |
-                                                                                              |        |          | a non-endpoint (i.e., source or              |
-                                                                                              |        |          | destination) Information Element.  SHOULD be |
+                                                                                              |        |          | a non-endpoint (i.e., source or               |
+                                                                                              |        |          | destination) Information Element.  SHOULD be  |
                                                                                               |        |          | consistent within a record (i.e., if a        |
-                                                                                              |        |          | source Information Element has this flag     |
-                                                                                              |        |          | set, the corresponding destination element   |
+                                                                                              |        |          | source Information Element has this flag      |
+                                                                                              |        |          | set, the corresponding destination element    |
                                                                                               |        |          | SHOULD have this flag set, and vice versa.)   |
                                                                                               | 3      | LOR      | Low-Order Unchanged: when set (1), the        |
                                                                                               |        |          | low-order bits of the anonymized Information  |
@@ -1485,9 +1485,8 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               A description of the abstract data type of an IPFIX information element. These are taken
                                                                                               from the abstract data types defined in Section 3.1 of the IPFIX Information Model
                                                                                               [RFC5102]; see that section for more information on the types described in the "IPFIX
-                                                                                              Information Element Data Types" registry (previously the "informationElementDataType"
-   339    informationElementDataType             unsigned8                         current    registry). These types are registered in the "IPFIX Information Element Data Types"                              See the "IPFIX Information Element Data Types" registry [https://www.iana.org/assignments/ipfix]       [RFC5610][RFC-ietf-opsawg-ipfix-fixes-12]                 0        2013-02-18
-                                                                                              registry.
+                                                                                              Information Element Data Types" registry. These types are registered in the "IPFIX
+   339    informationElementDataType             unsigned8                         current    Information Element Data Types" registry.                                                                        See the "IPFIX Information Element Data Types" registry [https://www.iana.org/assignments/ipfix]       [RFC5610][RFC-ietf-opsawg-ipfix-fixes-12]                 0        2013-02-18
 
                                                                                               The "IPFIX Information Element Data Types" registry is intended to assign numbers for
                                                                                               type names, not to provide a mechanism for adding data types to the IPFIX Protocol; as
@@ -1496,10 +1495,10 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               Information Element. The content of the informationElementDescription MAY be annotated
                                                                                               with one or more language tags [RFC4646], encoded in-line [RFC2482] within the UTF-8
                                                                                               string, in order to specify the language in which the description is written.
-   340    informationElementDescription          string               default      current    Description text in multiple languages MAY tag each section with its ownlanguage tag; in                                                                                                                                [RFC5610][RFC-ietf-opsawg-ipfix-fixes-12]                 0        2013-02-18
-                                                                                              this case, the description information in each language SHOULD have equivalent meaning.
-                                                                                              In the absence of any language tag, the "i-default" [RFC2277] language SHOULD be
-                                                                                              assumed. See Section 4 (Security Considerations) of [RFC5610] for notes on string
+   340    informationElementDescription          string               default      current    Description text in multiple languages MAY tag each section with its own language tag;                                                                                                                                  [RFC5610][RFC-ietf-opsawg-ipfix-fixes-12]                 0        2013-02-18
+                                                                                              in this case, the description information in each language SHOULD have equivalent
+                                                                                              meaning. In the absence of any language tag, the "i-default" [RFC2277] language SHOULD
+                                                                                              be assumed. See Section 4 (Security Considerations) of [RFC5610] for notes on string
                                                                                               handling for Information Element type records.
                                                                                               A UTF-8 [RFC3629] encoded Unicode string containing the name of an Information Element,
    341    informationElementName                 string               default      current    intended as a simple identifier. See the Security Considerations section for notes on                                                                                                                                   [RFC5610]                                                 0        2013-02-18
@@ -1521,13 +1520,10 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               as such, modifications require Standards Action [RFC8126].
                                                                                               A description of the units of an IPFIX Information Element. These correspond to the
                                                                                               units implicitly defined in the Information Element definitions in Section 5 of the
-                                                                                              IPFIX Information Model [RFC5102]; see that section for more information on the types
-                                                                                              described in the "IPFIX Information Element Units" registry (previously the                                                                                                                                             [RFC5610][RFC Errata
-   345    informationElementUnits                unsigned16                        current    "informationElementsUnits" registry). These types can take the values in the "IPFIX                              See the "IPFIX Information Element Units" registry [https://www.iana.org/assignments/ipfix]            1822][RFC-ietf-opsawg-ipfix-fixes-12]                     1        2020-10-01
-                                                                                              Information Element Units" registry. The special value 0x00 (none) is used to note that
-                                                                                              the field is unitless.
-
-                                                                                              These types are registered in the [IANA IPFIX Information Element Units] subregistry.
+   345    informationElementUnits                unsigned16                        current    IPFIX Information Model [RFC5102]; see that section for more information on the types                            See the "IPFIX Information Element Units" registry [https://www.iana.org/assignments/ipfix]            [RFC5610][RFC Errata                                      1        2020-10-01
+                                                                                              described in the "IPFIX Information Element Units" registry. These types can take the                                                                                                                                   1822][RFC-ietf-opsawg-ipfix-fixes-12]
+                                                                                              values in the "IPFIX Information Element Units" registry. The special value 0x00 (none)
+                                                                                              is used to note that the field is unitless.
                                                                                               A private enterprise number, as assigned by IANA. Within the context of an Information
                                                                                               Element Type record, this element can be used along with the informationElementId
                                                                                               element to scope properties to a specific Information Element. To export type
