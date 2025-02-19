@@ -6,7 +6,7 @@
    2005-01-18
 
    Last Updated
-   2025-02-13
+   2025-02-18
 
    Available Formats
    [IMG]
@@ -26,6 +26,8 @@
           • Transform Type 3 - Integrity Algorithm Transform IDs
           • Transform Type 4 - Key Exchange Method Transform IDs
           • Transform Type 5 - Sequence Numbers Transform IDs
+          • Transform Type 13 - Key Wrap Algorithm Transform IDs
+          • Transform Type 14 - Group Controller Authentication Method Transform IDs
 
      • IKEv2 Identification Payload ID Types
      • IKEv2 Certificate Encodings
@@ -42,6 +44,10 @@
      • IKEv2 Secure Password Methods
      • IKEv2 Hash Algorithms
      • IKEv2 Post-quantum Preshared Key ID Types
+     • GSA Attributes
+     • Group-wide Policy Attributes
+     • Group Key Bag Attributes
+     • Member Key Bag Attributes
 
 IKEv2 Exchange Types
 
@@ -60,17 +66,17 @@ IKEv2 Exchange Types
    [IMG]
    CSV
 
-    Value    Exchange Type           Reference
+    Value    Exchange Type              Reference
     0-33   Reserved           [RFC7296]
      34    IKE_SA_INIT        [RFC7296]
      35    IKE_AUTH           [RFC7296]
      36    CREATE_CHILD_SA    [RFC7296]
      37    INFORMATIONAL      [RFC7296]
      38    IKE_SESSION_RESUME [RFC5723]
-     39    GSA_AUTH           [draft-yeung-g-ikev2-07]
-     40    GSA_REGISTRATION   [draft-yeung-g-ikev2-07]
-     41    GSA_REKEY          [draft-yeung-g-ikev2-07]
-     42    Unassigned
+     39    GSA_AUTH           [RFC-ietf-ipsecme-g-ikev2-21]
+     40    GSA_REGISTRATION   [RFC-ietf-ipsecme-g-ikev2-21]
+     41    GSA_REKEY          [RFC-ietf-ipsecme-g-ikev2-21]
+     42    GSA_INBAND_REKEY   [RFC-ietf-ipsecme-g-ikev2-21]
      43    IKE_INTERMEDIATE   [RFC9242]
      44    IKE_FOLLOWUP_KE    [RFC9370]
    45-239  Unassigned
@@ -93,7 +99,7 @@ IKEv2 Payload Types
    [IMG]
    CSV
 
-    Value           Next Payload Type           Notation        Reference
+    Value           Next Payload Type           Notation           Reference
       0    No Next Payload                               [RFC7296]
     1-32   Reserved                                      [RFC7296]
      33    Security Association                 SA       [RFC7296]
@@ -113,9 +119,9 @@ IKEv2 Payload Types
      47    Configuration                        CP       [RFC7296]
      48    Extensible Authentication            EAP      [RFC7296]
      49    Generic Secure Password Method       GSPM     [RFC6467]
-     50    Group Identification                 IDg      [draft-yeung-g-ikev2-07]
-     51    Group Security Association           GSA      [draft-yeung-g-ikev2-07]
-     52    Key Download                         KD       [draft-yeung-g-ikev2-07]
+     50    Group Identification                 IDg      [RFC-ietf-ipsecme-g-ikev2-21]
+     51    Group Security Association           GSA      [RFC-ietf-ipsecme-g-ikev2-21]
+     52    Key Download                         KD       [RFC-ietf-ipsecme-g-ikev2-21]
      53    Encrypted and Authenticated Fragment SKF      [RFC7383]
      54    Puzzle Solution                      PS       [RFC8019]
    55-127  Unassigned
@@ -162,22 +168,24 @@ Transform Type Values
    [IMG]
    CSV
 
-    Type              Description                       Used In                              Reference
-      0    Reserved                                                       [RFC7296]
-      1    Encryption Algorithm (ENCR)        (IKE and ESP)               [RFC7296]
-      2    Pseudo-random Function (PRF)       (IKE)                       [RFC7296]
-      3    Integrity Algorithm (INTEG)        (IKE, AH, optional in ESP)  [RFC7296]
-      4    Key Exchange Method (KE)           (IKE, optional in AH & ESP) [RFC7296][RFC9370]
-      5    Sequence Numbers (SN)              (AH and ESP)                [RFC7296][RFC-ietf-ipsecme-ikev2-rename-esn-04]
-      6    Additional Key Exchange 1 (ADDKE1) (optional in IKE, AH, ESP)  [RFC9370]
-      7    Additional Key Exchange 2 (ADDKE2) (optional in IKE, AH, ESP)  [RFC9370]
-      8    Additional Key Exchange 3 (ADDKE3) (optional in IKE, AH, ESP)  [RFC9370]
-      9    Additional Key Exchange 4 (ADDKE4) (optional in IKE, AH, ESP)  [RFC9370]
-     10    Additional Key Exchange 5 (ADDKE5) (optional in IKE, AH, ESP)  [RFC9370]
-     11    Additional Key Exchange 6 (ADDKE6) (optional in IKE, AH, ESP)  [RFC9370]
-     12    Additional Key Exchange 7 (ADDKE7) (optional in IKE, AH, ESP)  [RFC9370]
-   13-240  Unassigned
-   241-255 Private use                                                    [RFC7296]
+    Type                     Description                                   Used In                                    Reference
+      0    Reserved                                                                                [RFC7296]
+      1    Encryption Algorithm (ENCR)                     (IKE, GIKE_UPDATE and ESP)              [RFC7296][RFC-ietf-ipsecme-g-ikev2-21]
+      2    Pseudo-random Function (PRF)                    (IKE, GIKE_UPDATE)                      [RFC7296][RFC-ietf-ipsecme-g-ikev2-21]
+      3    Integrity Algorithm (INTEG)                     (IKE, GIKE_UPDATE, AH, optional in ESP) [RFC7296][RFC-ietf-ipsecme-g-ikev2-21]
+      4    Key Exchange Method (KE)                        (IKE, optional in AH & ESP)             [RFC7296][RFC9370]
+      5    Sequence Numbers (SN)                           (AH and ESP)                            [RFC7296][RFC-ietf-ipsecme-ikev2-rename-esn-04]
+      6    Additional Key Exchange 1 (ADDKE1)              (optional in IKE, AH, ESP)              [RFC9370]
+      7    Additional Key Exchange 2 (ADDKE2)              (optional in IKE, AH, ESP)              [RFC9370]
+      8    Additional Key Exchange 3 (ADDKE3)              (optional in IKE, AH, ESP)              [RFC9370]
+      9    Additional Key Exchange 4 (ADDKE4)              (optional in IKE, AH, ESP)              [RFC9370]
+     10    Additional Key Exchange 5 (ADDKE5)              (optional in IKE, AH, ESP)              [RFC9370]
+     11    Additional Key Exchange 6 (ADDKE6)              (optional in IKE, AH, ESP)              [RFC9370]
+     12    Additional Key Exchange 7 (ADDKE7)              (optional in IKE, AH, ESP)              [RFC9370]
+     13    Key Wrap Algorithm (KWA)                        (IKE, GIKE_UPDATE)                      [RFC-ietf-ipsecme-g-ikev2-21]
+     14    Group Controller Authentication Method (GCAUTH) (GIKE_UPDATE)                           [RFC-ietf-ipsecme-g-ikev2-21]
+   15-240  Unassigned
+   241-255 Private use                                                                             [RFC7296]
 
   IKEv2 Transform Attribute Types
 
@@ -196,12 +204,13 @@ Transform Type Values
    [IMG]
    CSV
 
-      Value       Attribute Type    Format Reference
-      0-13     Reserved                    [RFC7296]
-       14      Key Length (in bits) TV     [RFC7296]
-      15-17    Reserved                    [RFC7296]
-    18-16383   Unassigned
-   16384-32767 Private use                 [RFC7296]
+      Value            Attribute Type         Format           Reference
+      0-13     Reserved                              [RFC7296]
+       14      Key Length (in bits)           TV     [RFC7296]
+      15-17    Reserved                              [RFC7296]
+       18      Signature Algorithm Identifier TLV    [RFC-ietf-ipsecme-g-ikev2-21]
+    19-16383   Unassigned
+   16384-32767 Private use                           [RFC7296]
 
   Transform Type 1 - Encryption Algorithm Transform IDs
 
@@ -484,6 +493,56 @@ Transform Type Values
       1    Partially Transmitted 64-bit Sequential Numbers [RFC7296][RFC-ietf-ipsecme-ikev2-rename-esn-04]
    2-65535 Reserved                                        [RFC7296]
 
+  Transform Type 13 - Key Wrap Algorithm Transform IDs
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-ipsecme-g-ikev2-21]
+
+   Available Formats
+   [IMG]
+   CSV
+
+     Value       Key Wrap Algorithm              Reference
+       0      Reserved                 [RFC-ietf-ipsecme-g-ikev2-21]
+       1      KW_5649_128              [RFC-ietf-ipsecme-g-ikev2-21]
+       2      KW_5649_192              [RFC-ietf-ipsecme-g-ikev2-21]
+       3      KW_5649_256              [RFC-ietf-ipsecme-g-ikev2-21]
+       4      KW_ARX                   [RFC-ietf-ipsecme-g-ikev2-21]
+     5-1023   Unassigned
+   1024-65535 Reserved for Private Use [RFC-ietf-ipsecme-g-ikev2-21]
+
+  Transform Type 14 - Group Controller Authentication Method Transform IDs
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-ipsecme-g-ikev2-21]
+
+   Available Formats
+   [IMG]
+   CSV
+
+     Value    Group Controller Authentication Method           Reference
+       0      Reserved                               [RFC-ietf-ipsecme-g-ikev2-21]
+       1      Implicit                               [RFC-ietf-ipsecme-g-ikev2-21]
+       2      Digital Signature                      [RFC-ietf-ipsecme-g-ikev2-21]
+     3-1023   Unassigned
+   1024-65535 Reserved for Private Use               [RFC-ietf-ipsecme-g-ikev2-21]
+
 IKEv2 Identification Payload ID Types
 
    Registration Procedure(s)
@@ -609,7 +668,7 @@ IKEv2 Notify Message Error Types
    0-8191     Expert Review
    8192-16383 Private use
 
-     Value     Notify Message Error Type          Reference
+     Value     Notify Message Error Type             Reference
        0      Reserved                     [RFC7296]
        1      UNSUPPORTED_CRITICAL_PAYLOAD [RFC7296]
       2-3     Reserved                     [RFC7296]
@@ -639,11 +698,12 @@ IKEv2 Notify Message Error Types
        42     USE_ASSIGNED_HoA             [RFC5026]
        43     TEMPORARY_FAILURE            [RFC7296]
        44     CHILD_SA_NOT_FOUND           [RFC7296]
-       45     INVALID_GROUP_ID             [draft-yeung-g-ikev2-07]
-       46     AUTHORIZATION_FAILED         [draft-yeung-g-ikev2-07]
+       45     INVALID_GROUP_ID             [RFC-ietf-ipsecme-g-ikev2-21]
+       46     AUTHORIZATION_FAILED         [RFC-ietf-ipsecme-g-ikev2-21]
        47     STATE_NOT_FOUND              [RFC9370]
        48     TS_MAX_QUEUE                 [RFC9611]
-    49-8191   Unassigned
+       49     REGISTRATION_FAILED          [RFC-ietf-ipsecme-g-ikev2-21]
+    50-8191   Unassigned
    8192-16383 Private use                  [RFC7296]
 
 IKEv2 Notify Message Status Types
@@ -709,7 +769,7 @@ IKEv2 Notify Message Status Types
       16426    PSK_CONFIRM                         [RFC6631]
       16427    ERX_SUPPORTED                       [RFC6867]
       16428    IFOM_CAPABILITY                     [Frederic_Firmin][3GPP TS 24.303 v10.6.0 annex B.2]
-      16429    SENDER_REQUEST_ID                   [draft-yeung-g-ikev2-07]
+      16429    GROUP_SENDER                        [RFC-ietf-ipsecme-g-ikev2-21]
       16430    IKEV2_FRAGMENTATION_SUPPORTED       [RFC7383]
       16431    SIGNATURE_HASH_ALGORITHMS           [RFC7427]
       16432    CLONE_IKE_SA_SUPPORTED              [RFC7791]
@@ -776,14 +836,15 @@ IKEv2 Security Protocol Identifiers
    [IMG]
    CSV
 
-   Protocol ID       Protocol       Reference
+   Protocol ID       Protocol                 Reference
         0      Reserved             [RFC7296]
         1      IKE                  [RFC7296]
         2      AH                   [RFC7296]
         3      ESP                  [RFC7296]
         4      FC_ESP_HEADER        [RFC4595]
         5      FC_CT_AUTHENTICATION [RFC4595]
-      6-200    Unassigned
+        6      GIKE_UPDATE          [RFC-ietf-ipsecme-g-ikev2-21]
+      7-200    Unassigned
      201-255   Private use          [RFC7296]
 
 IKEv2 Traffic Selector Types
@@ -1029,6 +1090,104 @@ IKEv2 Post-quantum Preshared Key ID Types
       2    PPK_ID_FIXED             [RFC8784]
     3-127  Unassigned
    128-255 Reserved for Private Use [RFC8784]
+
+GSA Attributes
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-ipsecme-g-ikev2-21]
+
+   Available Formats
+   [IMG]
+   CSV
+
+      Value         GSA Attributes      Format Multi-Valued   Used in Protocol             Reference
+        0      Reserved                                                          [RFC-ietf-ipsecme-g-ikev2-21]
+        1      GSA_KEY_LIFETIME         TLV    NO           GIKE_UPDATE, AH, ESP [RFC-ietf-ipsecme-g-ikev2-21]
+        2      GSA_INITIAL_MESSAGE_ID   TLV    NO           GIKE_UPDATE          [RFC-ietf-ipsecme-g-ikev2-21]
+        3      GSA_NEXT_SPI             TLV    YES          GIKE_UPDATE, AH, ESP [RFC-ietf-ipsecme-g-ikev2-21]
+     5-16383   Unassigned
+   16384-32767 Reserved for Private Use
+
+Group-wide Policy Attributes
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-ipsecme-g-ikev2-21]
+
+   Available Formats
+   [IMG]
+   CSV
+
+      Value      GW Policy Attributes   Format Multi-Valued           Reference
+        0      Reserved                                     [RFC-ietf-ipsecme-g-ikev2-21]
+        1      GWP_ATD                  TV     NO           [RFC-ietf-ipsecme-g-ikev2-21]
+        2      GWP_DTD                  TV     NO           [RFC-ietf-ipsecme-g-ikev2-21]
+        3      GWP_SENDER_ID_BITS       TV     NO           [RFC-ietf-ipsecme-g-ikev2-21]
+     4-16383   Unassigned
+   16384-32767 Reserved for Private Use
+
+Group Key Bag Attributes
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-ipsecme-g-ikev2-21]
+
+   Available Formats
+   [IMG]
+   CSV
+
+      Value    Group Key Bag Attributes Format Multi-Valued   Used in Protocol             Reference
+        0      Reserved                                                          [RFC-ietf-ipsecme-g-ikev2-21]
+        1      SA_KEY                   TLV    YES          GIKE_UPDATE, AH, ESP [RFC-ietf-ipsecme-g-ikev2-21]
+     2-16383   Unassigned
+   16384-32767 Reserved for Private Use
+
+Member Key Bag Attributes
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-ipsecme-g-ikev2-21]
+
+   Available Formats
+   [IMG]
+   CSV
+
+      Value    Member Key Bag Attributes Format Multi-Valued           Reference
+        0      Reserved                                      [RFC-ietf-ipsecme-g-ikev2-21]
+        1      WRAP_KEY                  TLV    YES          [RFC-ietf-ipsecme-g-ikev2-21]
+        2      AUTH_KEY                  TLV    NO           [RFC-ietf-ipsecme-g-ikev2-21]
+        3      GM_SENDER_ID              TLV    YES          [RFC-ietf-ipsecme-g-ikev2-21]
+     4-16383   Unassigned
+   16384-32767 Reserved for Private Use
 
                                                                  Contact Information
 

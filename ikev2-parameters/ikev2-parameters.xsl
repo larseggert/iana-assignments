@@ -178,6 +178,58 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'key-wrap-algorithm-transform-ids'">
+        <tr>
+          <th>Value</th>
+          <th>Key Wrap Algorithm</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'group-controller-authentication-method-transform-ids'">
+        <tr>
+          <th>Value</th>
+          <th>Group Controller Authentication Method</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'gsa-attributes'">
+        <tr>
+          <th>Value</th>
+          <th>GSA Attributes</th>
+          <th>Format</th>
+          <th>Multi-Valued</th>
+          <th>Used in Protocol</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'group-wide-policy-attributes'">
+        <tr>
+          <th>Value</th>
+          <th>GW Policy Attributes</th>
+          <th>Format</th>
+          <th>Multi-Valued</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'group-key-bag-attributes'">
+        <tr>
+          <th>Value</th>
+          <th>Group Key Bag Attributes</th>
+          <th>Format</th>
+          <th>Multi-Valued</th>
+          <th>Used in Protocol</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'member-key-bag-attributes'">
+        <tr>
+          <th>Value</th>
+          <th>Member Key Bag Attributes</th>
+          <th>Format</th>
+          <th>Multi-Valued</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
   
@@ -247,6 +299,44 @@
        <td><xsl:value-of select="iana:description"/></td>
        <td><xsl:value-of select="iana:multi_valued"/></td>
        <td><xsl:value-of select="iana:length"/></td>
+       <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+     </xsl:when>
+      <xsl:when test="../@id = 'gsa-attributes'">
+      <tr>
+       <td align="center"><xsl:value-of select="iana:value"/></td>
+       <td><xsl:value-of select="iana:description"/></td>
+       <td><xsl:value-of select="iana:format"/></td>
+       <td><xsl:value-of select="iana:multi"/></td>
+       <td><xsl:value-of select="iana:used"/></td>
+       <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+     </xsl:when>
+     <xsl:when test="../@id = 'group-wide-policy-attributes'">
+      <tr>
+       <td align="center"><xsl:value-of select="iana:value"/></td>
+       <td><xsl:value-of select="iana:description"/></td>
+       <td><xsl:value-of select="iana:format"/></td>
+       <td><xsl:value-of select="iana:multi"/></td>
+       <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+     </xsl:when>
+     <xsl:when test="../@id = 'group-key-bag-attributes'">
+     <tr>
+       <td align="center"><xsl:value-of select="iana:value"/></td>
+       <td><xsl:value-of select="iana:description"/></td>
+       <td><xsl:value-of select="iana:format"/></td>
+       <td><xsl:value-of select="iana:multi"/></td>
+       <td><xsl:value-of select="iana:used"/></td>
+       <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+     </xsl:when>
+     <xsl:when test="../@id = 'member-key-bag-attributes'">
+      <tr>
+       <td align="center"><xsl:value-of select="iana:value"/></td>
+       <td><xsl:value-of select="iana:description"/></td>
+       <td><xsl:value-of select="iana:format"/></td>
+       <td><xsl:value-of select="iana:multi"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
      </xsl:when>
