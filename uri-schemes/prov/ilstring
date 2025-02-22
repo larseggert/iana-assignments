@@ -1,0 +1,55 @@
+(registered 2025-02-21, last updated 2025-02-21)
+
+Scheme name: ilstring
+
+Status: 'Provisional'
+
+Applications/protocols that use this scheme name: Used to embed an IL
+string as defined by IEC 61406-1 in a X509.v3 Certificate.
+
+Contact: Randy Armstrong (randy.armstrong&opcfoundation.org)
+
+Change controller: OPC Foundation
+
+References: IEC 61406-2:2024 Annex F
+
+https://webstore.iec.ch/en/publication/77973
+
+Scheme syntax: Defined in IEC 61406-2:2024 Annex F
+
+See attached screenshot of Annex F.
+
+The IL string defined in IEC 61406-1 is a valid URL with an https scheme, however the https may be omitted (IL strings are intended for use in QR-codes and other limited space formats which is why dropping the https scheme is allowed).
+
+When incorporated into the https scheme shall be removed from the IL string. When comparing IL strings any https:// prefix shall be removed before any comparison is done.
+
+For example:
+
+• IL string: https://www.domain-abc.com/?.1P=1A2B3C&.S=sd09fqw4hrdfj0as89u7
+• Resulting URI: ilstring:www.domain-abc.com/?.1P=1A2B3C&.Ssd09fqw4hrdfj0as89u7
+
+Scheme semantics: IEC 61406-2:2024 Annex F
+
+ the ilstring is a prefix on a URL identifies the URL as an IL string.
+
+The ilstring prefix is needed because there can be many subjectAltName URIs in an X.509 certificate and this is best way to identify URLs that are IL strings. Other URIs can appear because other OT standards define their own URIs and require that they appear in subjectAltName. It is not possible to make assumptions about the syntax or scheme of these other URIs.
+
+There is also a long-term security risk because URLs used as identifiers an X.509 certificates should not be treated as web accessible links. This is an issue unique to OT devices where devices can be in use for years/decades after their manufacture. During this period of time the owners of domains can change so a previously valid URL could now point to a malicious site.
+
+Encoding considerations: Same as defined for IL String in IEC 61406-1
+
+Interoperability considerations: None
+
+Used only as an opaque identifier.
+
+Security considerations:
+
+The IL string is intended to be a publicly known identifier for a device.
+
+The device manufacturer is responsible for choosing strings that address
+privacy concerns.
+
+That said, the IL string may identify a specific device serial number and
+manufacturer name  which could potentially leak information that identifies
+a person depending on what the device is. Manufacturers of devices where
+this is a risk are responsible for addressing this risk.
