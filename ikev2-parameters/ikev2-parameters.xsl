@@ -238,9 +238,9 @@
      <xsl:when test="../@id = 'ikev2-parameters-2'">
       <tr>
        <td align="center"><xsl:value-of select="iana:value"/></td>
-       <td><xsl:value-of select="iana:description"/></td>
-       <td><xsl:value-of select="iana:notation"/></td>
-       <td><xsl:apply-templates select="iana:xref"/></td>
+       <td><xsl:apply-templates select="iana:description"/></td>
+       <td><xsl:apply-templates select="iana:notation"/></td>
+       <td><xsl:apply-templates select="iana:reference"/></td>
       </tr>
      </xsl:when>
      <xsl:when test="../@id = 'ikev2-parameters-3'">
