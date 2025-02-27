@@ -80,7 +80,7 @@
       <xsl:when test="../@id = 'web-signature-encryption-header-parameters'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:value-of select="iana:usage"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
