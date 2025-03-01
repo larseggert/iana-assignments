@@ -35,6 +35,7 @@
           <th>Type</th>
           <th>Description</th>
           <th>Reference</th>
+          <th>Allowed in Generic-Metric</th>
         </tr>
       </xsl:when>
       <xsl:when test="@id = 'igp-flexible-algorithm-definition-flags'">
@@ -98,6 +99,7 @@
         <td><xsl:value-of select="iana:value"/></td>
         <td><xsl:apply-templates select="iana:description"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
+        <td><xsl:apply-templates select="iana:allowed"/></td>
       </tr>
     </xsl:when>
     <xsl:when test="../@id = 'igp-flexible-algorithm-definition-flags'">
