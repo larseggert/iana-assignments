@@ -97,7 +97,7 @@
       </xsl:when>
       <xsl:when test="@id = 'split-horizon-type'">
         <th>Value</th>
-        <th>Split Horizon Type Value</th>
+        <th>Split-Horizon Type Value</th>
         <th>Reference</th>
         <th>Date</th>
       </xsl:when>
