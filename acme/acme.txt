@@ -6,7 +6,7 @@
    2019-01-02
 
    Last Updated
-   2025-01-16
+   2025-03-06
 
    Available Formats
    [IMG]
@@ -28,6 +28,7 @@
      • ACME Directory Metadata Auto-Renewal Fields
      • STAR Delegation CSR Template Extensions
      • ACME Authority Token Challenge Types
+     • ACME Renewal Info Object Fields
 
 ACME Account Object Fields
 
@@ -72,7 +73,7 @@ ACME Order Object Fields
    [IMG]
    CSV
 
-        Field Name         Field Type    Configurable Reference
+        Field Name         Field Type    Configurable       Reference
    status                string          false        [RFC8555]
    expires               string          false        [RFC8555]
    identifiers           array of object true         [RFC8555]
@@ -86,6 +87,7 @@ ACME Order Object Fields
    star-certificate      string          false        [RFC8739]
    allow-certificate-get boolean         true         [RFC9115]
    delegation            string          true         [RFC9115]
+   replaces              string          true         [RFC-ietf-acme-ari-08]
 
 ACME Authorization Object Fields
 
@@ -165,6 +167,8 @@ ACME Error Types
    unknownDelegation                 An unknown configuration is listed in the delegation attribute of the order request   [RFC9115]
    onionCAARequired                  The CA only supports checking CAA for hidden services in-band, but the client has not [RFC-ietf-acme-onion-07]
                                      provided an in-band CAA
+   alreadyReplaced                   The request specified a predecessor certificate which has already been marked as      [RFC-ietf-acme-ari-08]
+                                     replaced
 
 ACME Resource Types
 
@@ -183,14 +187,15 @@ ACME Resource Types
    [IMG]
    CSV
 
-   Field Name   Resource Type    Reference
-   newNonce   New nonce          [RFC8555]
-   newAccount New account        [RFC8555]
-   newOrder   New order          [RFC8555]
-   newAuthz   New authorization  [RFC8555]
-   revokeCert Revoke certificate [RFC8555]
-   keyChange  Key change         [RFC8555]
-   meta       Metadata object    [RFC8555]
+   Field Name     Resource Type          Reference
+   newNonce    New nonce           [RFC8555]
+   newAccount  New account         [RFC8555]
+   newOrder    New order           [RFC8555]
+   newAuthz    New authorization   [RFC8555]
+   revokeCert  Revoke certificate  [RFC8555]
+   keyChange   Key change          [RFC8555]
+   meta        Metadata object     [RFC8555]
+   renewalInfo Renewal Info object [RFC-ietf-acme-ari-08]
 
 ACME Directory Metadata Fields
 
@@ -360,5 +365,26 @@ ACME Authority Token Challenge Types
 
    Label             Description             Reference
    atc   JSON Web Token (JWT) challenge type [RFC9447]
+
+ACME Renewal Info Object Fields
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-acme-ari-08]
+
+   Available Formats
+   [IMG]
+   CSV
+
+     Field Name    Field Type       Reference
+   suggestedWindow object     [RFC-ietf-acme-ari-08]
+   explanationURL  string     [RFC-ietf-acme-ari-08]
 
    Licensing Terms
