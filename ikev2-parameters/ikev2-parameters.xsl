@@ -326,9 +326,9 @@
        <td align="center"><xsl:value-of select="iana:value"/></td>
        <td><xsl:value-of select="iana:description"/></td>
        <td><xsl:value-of select="iana:format"/></td>
-       <td><xsl:value-of select="iana:multi"/></td>
-       <td><xsl:value-of select="iana:used"/></td>
-       <td><xsl:apply-templates select="iana:xref"/></td>
+       <td><xsl:apply-templates select="iana:multi"/></td>
+       <td><xsl:apply-templates select="iana:used"/></td>
+       <td><xsl:apply-templates select="iana:reference"/></td>
       </tr>
      </xsl:when>
      <xsl:when test="../@id = 'member-key-bag-attributes'">
