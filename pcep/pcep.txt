@@ -6,7 +6,7 @@
    2008-12-19
 
    Last Updated
-   2025-01-14
+   2025-03-10
 
    Available Formats
    [IMG]
@@ -855,7 +855,9 @@ PCEP-ERROR Object Error Types and Values
                                              29: Attempted Native-IP operations when the capability   [RFC-ietf-pce-pcep-extension-native-ip-39]
                                              was not advertised
                                              30: Unknown Native-IP Info                               [RFC-ietf-pce-pcep-extension-native-ip-39]
-                                             31-255: Unassigned
+                                             31: Invalid Color                                        [RFC-ietf-pce-pcep-color-12]
+                                             32: Inconsistent Color                                   [RFC-ietf-pce-pcep-color-12]
+                                             33-255: Unassigned
        20     LSP State Synchronization      0: Unassigned                                            [RFC8231]
               Error
                                              1: A PCE indicates to a PCC that it cannot process (an
@@ -1256,7 +1258,7 @@ PCEP TLV Type Indicators
        65      VIRTUAL-NETWORK-TLV                                                                [RFC9358]
        66      SR-Algorithm (TEMPORARY - registered 2023-09-13, extension registered 2024-07-23,  [draft-ietf-pce-sid-algo-12]
                expires 2025-09-13)
-       67      Color (TEMPORARY - registered 2023-10-30, publication requested 2024-11-25)        [draft-ietf-pce-pcep-color-02]
+       67      Color                                                                              [RFC-ietf-pce-pcep-color-12]
        68      COMPUTATION-PRIORITY (TEMPORARY - registered 2024-02-13, publication requested     [draft-ietf-pce-segment-routing-policy-cp-14]
                2024-07-05)
        69      EXPLICIT-NULL-LABEL-POLICY (TEMPORARY - registered 2024-02-13, publication         [draft-ietf-pce-segment-routing-policy-cp-14]
@@ -1465,23 +1467,23 @@ STATEFUL-PCE-CAPABILITY TLV Flag Field
    [IMG]
    CSV
 
-   Value                                      Description                                                           Reference
+   Value                                      Description                                                          Reference
    0-16  Unassigned
-    17   RELAX                                                                                  [RFC-ietf-pce-stateful-pce-optional-13]
-    18   STRICT-PATH-CAPABILITY (TEMPORARY - registered 2024-02-23, expires 2025-02-23)         [draft-ietf-pce-circuit-style-pcep-extensions-03]
-    19   PATH-RECOMPUTATION-CAPABILITY (TEMPORARY - registered 2024-02-23, expires 2025-02-23)  [draft-ietf-pce-circuit-style-pcep-extensions-03]
-    20   COLOR-CAPABILITY (TEMPORARY - registered 2023-10-30, publication requested 2024-11-25) [draft-ietf-pce-pcep-color-02]
-    21   PD-LSP-CAPABILITY (PD-bit)                                                             [RFC8934]
-    22   LSP-SCHEDULING-CAPABILITY (B-bit)                                                      [RFC8934]
-    23   P2MP-LSP-INSTANTIATION-CAPABILITY                                                      [RFC8623]
-    24   P2MP-LSP-UPDATE-CAPABILITY                                                             [RFC8623]
-    25   P2MP-CAPABILITY                                                                        [RFC8623]
-    26   TRIGGERED-INITIAL-SYNC                                                                 [RFC8232]
-    27   DELTA-LSP-SYNC-CAPABILITY                                                              [RFC8232]
-    28   TRIGGERED-RESYNC                                                                       [RFC8232]
-    29   LSP-INSTANTIATION-CAPABILITY (I)                                                       [RFC8281]
-    30   INCLUDE-DB-VERSION                                                                     [RFC8232]
-    31   LSP-UPDATE-CAPABILITY                                                                  [RFC8231]
+    17   RELAX                                                                                 [RFC-ietf-pce-stateful-pce-optional-13]
+    18   STRICT-PATH-CAPABILITY (TEMPORARY - registered 2024-02-23, expires 2025-02-23)        [draft-ietf-pce-circuit-style-pcep-extensions-03]
+    19   PATH-RECOMPUTATION-CAPABILITY (TEMPORARY - registered 2024-02-23, expires 2025-02-23) [draft-ietf-pce-circuit-style-pcep-extensions-03]
+    20   COLOR-CAPABILITY                                                                      [RFC-ietf-pce-pcep-color-12]
+    21   PD-LSP-CAPABILITY (PD-bit)                                                            [RFC8934]
+    22   LSP-SCHEDULING-CAPABILITY (B-bit)                                                     [RFC8934]
+    23   P2MP-LSP-INSTANTIATION-CAPABILITY                                                     [RFC8623]
+    24   P2MP-LSP-UPDATE-CAPABILITY                                                            [RFC8623]
+    25   P2MP-CAPABILITY                                                                       [RFC8623]
+    26   TRIGGERED-INITIAL-SYNC                                                                [RFC8232]
+    27   DELTA-LSP-SYNC-CAPABILITY                                                             [RFC8232]
+    28   TRIGGERED-RESYNC                                                                      [RFC8232]
+    29   LSP-INSTANTIATION-CAPABILITY (I)                                                      [RFC8281]
+    30   INCLUDE-DB-VERSION                                                                    [RFC8232]
+    31   LSP-UPDATE-CAPABILITY                                                                 [RFC8231]
 
 LSP-ERROR-CODE TLV Error Code Field
 
@@ -1496,18 +1498,18 @@ LSP-ERROR-CODE TLV Error Code Field
    [IMG]
    CSV
 
-    Value                                           Meaning                                                   Reference
-      0     Reserved                                                                                [RFC8231]
-      1     Unknown reason                                                                          [RFC8231]
-      2     Limit reached for PCE-controlled LSPs                                                   [RFC8231]
-      3     Too many pending LSP update requests                                                    [RFC8231]
-      4     Unacceptable parameters                                                                 [RFC8231]
-      5     Internal error                                                                          [RFC8231]
-      6     LSP administratively brought down                                                       [RFC8231]
-      7     LSP preempted                                                                           [RFC8231]
-      8     RSVP signaling error                                                                    [RFC8231]
-      9     Unsupported Color (TEMPORARY - registered 2023-10-30, publication requested 2024-11-25) [draft-ietf-pce-pcep-color-02]
-      10    SID Verification fails                                                                  [RFC9603]
+    Value                  Meaning                         Reference
+      0     Reserved                              [RFC8231]
+      1     Unknown reason                        [RFC8231]
+      2     Limit reached for PCE-controlled LSPs [RFC8231]
+      3     Too many pending LSP update requests  [RFC8231]
+      4     Unacceptable parameters               [RFC8231]
+      5     Internal error                        [RFC8231]
+      6     LSP administratively brought down     [RFC8231]
+      7     LSP preempted                         [RFC8231]
+      8     RSVP signaling error                  [RFC8231]
+      9     Deprecated (Unsupported Color)        [RFC-ietf-pce-pcep-color-12]
+      10    SID Verification fails                [RFC9603]
    11-65535 Unassigned
 
 SRP Object Flag Field
