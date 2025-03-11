@@ -45,7 +45,9 @@
         or @id = 'generic-transitive-experimental-part2'
         or @id = 'generic-transitive-experimental-part3'
         or @id = 'evpn-layer-2-attributes-control-flags'
-        or @id = 'sfc-extended-community'">
+        or @id = 'sfc-extended-community'
+        or @id = 'trans-transport-class'
+        or @id = 'non-trans-transport-class'">
         <th>Sub-Type Value</th>
         <th>Name</th>
         <th>Reference</th>
