@@ -6,7 +6,7 @@
    2024-06-07
 
    Last Updated
-   2024-06-13
+   2025-03-13
 
    Available Formats
    [IMG]
@@ -72,7 +72,7 @@ RIFT Security Algorithms
    CSV
 
              Name                                                    Recommendation                                                Reference
-                            Simplest way to ensure integrity of transmissions across adjacencies when used as outer key and
+                            Simplest way to ensure integrity of transmissions across adjacencies when used as outer keys and
    HMAC-SHA256              integrity of TIEs when used as inner keys. Recommended for most interoperable security           [SHA-2][RFC2104]
                             protection.
    HMAC-SHA512              Same as HMAC-SHA256 with stronger protection.                                                    [SHA-2][RFC2104]
@@ -192,8 +192,8 @@ RIFTCommonIPAddressType
 
     Value     Name     Min. Schema Version Max. Schema Version     Comment            Reference
    0       Reserved    8.0                 All Versions                        [RFC-ietf-rift-rift-24]
-   1       ipv4address 8.0                                     Content is ipv4 [RFC-ietf-rift-rift-24]
-   2       ipv6address 8.0                                     Content is ipv6 [RFC-ietf-rift-rift-24]
+   1       ipv4address 8.0                                     Content is IPv4 [RFC-ietf-rift-rift-24]
+   2       ipv6address 8.0                                     Content is IPv6 [RFC-ietf-rift-rift-24]
    3-65535 Unassigned
 
 RIFTCommonIPPrefixType
@@ -306,10 +306,10 @@ RIFTCommonPrefixSequenceType
    Minor change (per RFC-ietf-rift-rift-24, Section 7) Expert Review
    All other allocations                               Specification Required
 
-    Value      Name      Min. Schema Version Max. Schema Version                     Comment                             Reference
-   0       Reserved      8.0                 All Versions                                                         [RFC-ietf-rift-rift-24]
-   1       timestamp     8.0                                                                                      [RFC-ietf-rift-rift-24]
-   2       transactionid 8.0                                     Transaction id set by client in e.g. in 6lowpan. [RFC-ietf-rift-rift-24]
+    Value      Name      Min. Schema Version Max. Schema Version                      Comment                              Reference
+   0       Reserved      8.0                 All Versions                                                           [RFC-ietf-rift-rift-24]
+   1       timestamp     8.0                                                                                        [RFC-ietf-rift-rift-24]
+   2       transactionid 8.0                                     Transaction ID set by client in, e.g., in 6LoWPAN. [RFC-ietf-rift-rift-24]
    3-65535 Unassigned
 
 RIFTCommonRouteType
@@ -487,39 +487,40 @@ RIFTEncodingLIEPacket
     Value              Name             Min. Schema Version Max. Schema Version                   Comment                          Reference
    0        Reserved                    8.0                 All Versions                                                    [RFC-ietf-rift-rift-24]
    1        name                        8.0                                     Node or adjacency name.                     [RFC-ietf-rift-rift-24]
-   2        local_id                    8.0                                     Local link id.                              [RFC-ietf-rift-rift-24]
-   3        flood_port                  8.0                                     Udp port to which we can receive flooded    [RFC-ietf-rift-rift-24]
+   2        local_id                    8.0                                     Local link ID.                              [RFC-ietf-rift-rift-24]
+   3        flood_port                  8.0                                     UDP port to which we can receive flooded    [RFC-ietf-rift-rift-24]
                                                                                 ties.
-   4        link_mtu_size               8.0                                     Layer 2 mtu, used to discover mismatch.     [RFC-ietf-rift-rift-24]
+   4        link_mtu_size               8.0                                     Layer 2 MTU, used to discover mismatch.     [RFC-ietf-rift-rift-24]
    5        link_bandwidth              8.0                                     Local link bandwidth on the interface.      [RFC-ietf-rift-rift-24]
    6        neighbor                    8.0                                     Reflects the neighbor once received to      [RFC-ietf-rift-rift-24]
                                                                                 provide 3-way connectivity.
-   7        pod                         8.0                                     Node's pod.                                 [RFC-ietf-rift-rift-24]
+   7        pod                         8.0                                     Node's PoD.                                 [RFC-ietf-rift-rift-24]
    8-9      Unassigned
    10       node_capabilities           8.0                                     Node capabilities supported.                [RFC-ietf-rift-rift-24]
    11       link_capabilities           8.0                                     Capabilities of this link.                  [RFC-ietf-rift-rift-24]
-                                                                                Required holdtime of the adjacency, i.e.
+                                                                                Required holdtime of the adjacency, i.e.,
    12       holdtime                    8.0                                     for how long a period should adjacency be   [RFC-ietf-rift-rift-24]
-                                                                                kept up without valid lie reception.
+                                                                                kept up without valid LIE reception.
                                                                                 Optional, unsolicited, downstream assigned
    13       label                       8.0                                     locally significant label value for the     [RFC-ietf-rift-rift-24]
                                                                                 adjacency.
    14-20    Unassigned
-                                                                                Indicates that the level on the lie must
-   21       not_a_ztp_offer             8.0                                     not be used to derive a ztp level by the    [RFC-ietf-rift-rift-24]
+                                                                                Indicates that the level on the LIE must
+   21       not_a_ztp_offer             8.0                                     not be used to derive a ZTP level by the    [RFC-ietf-rift-rift-24]
                                                                                 receiving node.
-                                                                                Indicates to northbound neighbor that it
-   22       you_are_flood_repeater      8.0                                     should be reflooding ties received from     [RFC-ietf-rift-rift-24]
+                                                                                Indicates to the northbound neighbor that
+   22       you_are_flood_repeater      8.0                                     it should be reflooding TIEs received from  [RFC-ietf-rift-rift-24]
                                                                                 this node to achieve flood reduction and
                                                                                 balancing for northbound flooding.
-                                                                                Indicates to neighbor to flood node ties
-   23       you_are_sending_too_quickly 8.0                                     only and slow down all other ties. ignored  [RFC-ietf-rift-rift-24]
-                                                                                when received from southbound neighbor.
-   24       instance_name               8.0                                     Instance name in case multiple rift         [RFC-ietf-rift-rift-24]
-                                                                                instances running on same interface.
+                                                                                Indicates to the neighbor to flood node
+   23       you_are_sending_too_quickly 8.0                                     ties only and slow down all other ties.     [RFC-ietf-rift-rift-24]
+                                                                                Ignored when received from southbound
+                                                                                neighbor.
+   24       instance_name               8.0                                     Instance name in case multiple RIFT         [RFC-ietf-rift-rift-24]
+                                                                                instances running on the same interface.
    25-34    Unassigned
-                                                                                It provides the optional id of the fabric
-   35       fabric_id                   8.0                                     configured. this must match the information [RFC-ietf-rift-rift-24]
+                                                                                It provides the optional ID of the fabric
+   35       fabric_id                   8.0                                     configured. This must match the information [RFC-ietf-rift-rift-24]
                                                                                 advertised on the node element.
    36-65535 Unassigned
 
@@ -542,9 +543,9 @@ RIFTEncodingLinkCapabilities
 
     Value           Name           Min. Schema Version Max. Schema Version                     Comment                             Reference
    0       Reserved                8.0                 All Versions                                                         [RFC-ietf-rift-rift-24]
-   1       bfd                     8.0                                     Indicates that the link is supporting bfd.       [RFC-ietf-rift-rift-24]
+   1       bfd                     8.0                                     Indicates that the link is supporting BFD.       [RFC-ietf-rift-rift-24]
    2       ipv4_forwarding_capable 8.0                                     Indicates whether the interface will support     [RFC-ietf-rift-rift-24]
-                                                                           ipv4 forwarding.
+                                                                           IPv4 forwarding.
    3-65535 Unassigned
 
 RIFTEncodingLinkIDPair
@@ -567,18 +568,18 @@ RIFTEncodingLinkIDPair
     Value              Name            Min. Schema Version Max. Schema Version                   Comment                           Reference
    0        Reserved                   8.0                 All Versions                                                     [RFC-ietf-rift-rift-24]
    1        local_id                   8.0                                     Node-wide unique value for the local link.   [RFC-ietf-rift-rift-24]
-   2        remote_id                  8.0                                     Received remote link id for this link.       [RFC-ietf-rift-rift-24]
+   2        remote_id                  8.0                                     Received remote link ID for this link.       [RFC-ietf-rift-rift-24]
    3-9      Unassigned
    10       platform_interface_index   8.0                                     Describes the local interface index of the   [RFC-ietf-rift-rift-24]
                                                                                link.
    11       platform_interface_name    8.0                                     Describes the local interface name.          [RFC-ietf-rift-rift-24]
-                                                                               Indicates whether the link is secured, i.e.
+                                                                               Indicates whether the link is secured, i.e.,
    12       trusted_outer_security_key 8.0                                     protected by outer key, absence of this      [RFC-ietf-rift-rift-24]
                                                                                element means no indication, undefined outer
                                                                                key means not secured.
    13       bfd_up                     8.0                                     Indicates whether the link is protected by   [RFC-ietf-rift-rift-24]
-                                                                               established bfd session.
-   14       address_families           8.0                                     Optional indication which address families   [RFC-ietf-rift-rift-24]
+                                                                               established BFD session.
+   14       address_families           8.0                                     Optional indication that address families    [RFC-ietf-rift-rift-24]
                                                                                are up on the interface.
    15-65535 Unassigned
 
@@ -601,8 +602,8 @@ RIFTEncodingNeighbor
 
     Value     Name    Min. Schema Version Max. Schema Version            Comment                    Reference
    0       Reserved   8.0                 All Versions                                       [RFC-ietf-rift-rift-24]
-   1       originator 8.0                                     System id of the originator.   [RFC-ietf-rift-rift-24]
-   2       remote_id  8.0                                     Id of remote side of the link. [RFC-ietf-rift-rift-24]
+   1       originator 8.0                                     System ID of the originator.   [RFC-ietf-rift-rift-24]
+   2       remote_id  8.0                                     ID of remote side of the link. [RFC-ietf-rift-rift-24]
    3-65535 Unassigned
 
 RIFTEncodingNodeCapabilities
@@ -627,8 +628,8 @@ RIFTEncodingNodeCapabilities
    1       protocol_minor_version 8.0                                     Must advertise supported minor version dialect    [RFC-ietf-rift-rift-24]
                                                                           that way.
    2       flood_reduction        8.0                                     Indicates that node supports flood reduction.     [RFC-ietf-rift-rift-24]
-                                                                          Indicates place in hierarchy, i.e. top-of-fabric
-   3       hierarchy_indications  8.0                                     or leaf only (in ztp) or support for leaf-2-leaf  [RFC-ietf-rift-rift-24]
+                                                                          Indicates place in hierarchy, i.e., top of fabric
+   3       hierarchy_indications  8.0                                     or leaf only (in ZTP) or support for L2L          [RFC-ietf-rift-rift-24]
                                                                           procedures.
    4-65535 Unassigned
 
@@ -651,7 +652,7 @@ RIFTEncodingNodeFlags
 
     Value     Name    Min. Schema Version Max. Schema Version                            Comment                                   Reference
    0       Reserved   8.0                 All Versions                                                                      [RFC-ietf-rift-rift-24]
-   1       overload   8.0                                     Indicates that node is in overload, do not transit traffic    [RFC-ietf-rift-rift-24]
+   1       overload   8.0                                     Indicates that node is in overload; do not transit traffic    [RFC-ietf-rift-rift-24]
                                                               through it.
    2-65535 Unassigned
 
@@ -676,10 +677,10 @@ RIFTEncodingNodeNeighborsTIEElement
    0       Reserved   8.0                 All Versions                                                                      [RFC-ietf-rift-rift-24]
    1       level      8.0                                     Level of neighbor.                                            [RFC-ietf-rift-rift-24]
    2       Unassigned
-   3       cost       8.0                                     Cost to neighbor. ignore anything equal or larger than        [RFC-ietf-rift-rift-24]
-                                                              `infinite_distance` and equal to `invalid_distance`.
+   3       cost       8.0                                     Cost to neighbor. Ignore anything equal or larger than        [RFC-ietf-rift-rift-24]
+                                                              'infinite_distance' and equal to 'invalid_distance'.
    4       link_ids   8.0                                     Carries description of multiple parallel links in a tie.      [RFC-ietf-rift-rift-24]
-   5       bandwidth  8.0                                     Total bandwith to neighbor as sum of all parallel links.      [RFC-ietf-rift-rift-24]
+   5       bandwidth  8.0                                     Total bandwidth to neighbor as sum of all parallel links.     [RFC-ietf-rift-rift-24]
    6-65535 Unassigned
 
 RIFTEncodingNodeTIEElement
@@ -702,22 +703,22 @@ RIFTEncodingNodeTIEElement
     Value        Name       Min. Schema Version Max. Schema Version                         Comment                                Reference
    0        Reserved        8.0                 All Versions                                                                [RFC-ietf-rift-rift-24]
    1        level           8.0                                     Level of the node.                                      [RFC-ietf-rift-rift-24]
-   2        neighbors       8.0                                     Node's neighbors. multiple node ties can carry disjoint [RFC-ietf-rift-rift-24]
+   2        neighbors       8.0                                     Node's neighbors. Multiple node ties can carry disjoint [RFC-ietf-rift-rift-24]
                                                                     sets of neighbors.
    3        capabilities    8.0                                     Capabilities of the node.                               [RFC-ietf-rift-rift-24]
    4        flags           8.0                                     Flags of the node.                                      [RFC-ietf-rift-rift-24]
    5        name            8.0                                     Optional node name for easier operations.               [RFC-ietf-rift-rift-24]
    6        pod             8.0                                     Pod to which the node belongs.                          [RFC-ietf-rift-rift-24]
-   7        startup_time    8.0                                     Optional startup time of the node                       [RFC-ietf-rift-rift-24]
+   7        startup_time    8.0                                     Optional startup time of the node.                      [RFC-ietf-rift-rift-24]
    8-9      Unassigned
    10       miscabled_links 8.0                                     If any local links are miscabled, this indication is    [RFC-ietf-rift-rift-24]
                                                                     flooded.
    11       Unassigned
-                                                                    Tofs in the same plane. only carried by tof. multiple
-   12       same_plane_tofs 8.0                                     node ties can carry disjoint sets of tofs which must be [RFC-ietf-rift-rift-24]
+                                                                    ToFs in the same plane. only carried by ToF. Multiple
+   12       same_plane_tofs 8.0                                     node ties can carry disjoint sets of ToFs that must be  [RFC-ietf-rift-rift-24]
                                                                     joined to form a single set.
    13-19    Unassigned
-   20       fabric_id       8.0                                     It provides the optional id of the fabric configured    [RFC-ietf-rift-rift-24]
+   20       fabric_id       8.0                                     It provides the optional ID of the fabric configured    [RFC-ietf-rift-rift-24]
    21-65535 Unassigned
 
 RIFTEncodingPacketContent
@@ -766,11 +767,11 @@ RIFTEncodingPacketHeader
    0       Reserved      8.0                 All Versions                                                                   [RFC-ietf-rift-rift-24]
    1       major_version 8.0                                     Major version of protocol.                                 [RFC-ietf-rift-rift-24]
    2       minor_version 8.0                                     Minor version of protocol.                                 [RFC-ietf-rift-rift-24]
-   3       sender        8.0                                     Node sending the packet, in case of lie/tire/tide also the [RFC-ietf-rift-rift-24]
+   3       sender        8.0                                     Node sending the packet, in case of LIE/TIRE/TIDE also the [RFC-ietf-rift-rift-24]
                                                                  originator of it.
                                                                  Level of the node sending the packet, required on
-   4       level         8.0                                     everything except lies. lack of presence on lies indicates [RFC-ietf-rift-rift-24]
-                                                                 undefined_level and is used in ztp procedures.
+   4       level         8.0                                     everything except LIEs. Lack of presence on LIEs indicates [RFC-ietf-rift-rift-24]
+                                                                 undefined_level and is used in ZTP procedures.
    5-65535 Unassigned
 
 RIFTEncodingPrefixAttributes
@@ -795,7 +796,7 @@ RIFTEncodingPrefixAttributes
    1        Unassigned
    2        metric            8.0                                     Distance of the prefix.                               [RFC-ietf-rift-rift-24]
                                                                       Generic unordered set of route tags, can be
-   3        tags              8.0                                     redistributed to other protocols or use within the    [RFC-ietf-rift-rift-24]
+   3        tags              8.0                                     redistributed to other protocols or used within the   [RFC-ietf-rift-rift-24]
                                                                       context of real time analytics.
    4        monotonic_clock   8.0                                     Monotonic clock for mobile addresses.                 [RFC-ietf-rift-rift-24]
    6        loopback          8.0                                     Indicates if the prefix is a node loopback.           [RFC-ietf-rift-rift-24]
@@ -803,7 +804,7 @@ RIFTEncodingPrefixAttributes
    8-9      Unassigned
    10       from_link         8.0                                     Link to which the address belongs to.                 [RFC-ietf-rift-rift-24]
    11       Unassigned
-   12       label             8.0                                     Optional, per prefix significant label.               [RFC-ietf-rift-rift-24]
+   12       label             8.0                                     Optional, per-prefix significant label.               [RFC-ietf-rift-rift-24]
    13-65535 Unassigned
 
 RIFTEncodingPrefixTIEElement
@@ -870,8 +871,8 @@ RIFTEncodingTIDEPacket
 
     Value     Name     Min. Schema Version Max. Schema Version               Comment                       Reference
    0       Reserved    8.0                 All Versions                                             [RFC-ietf-rift-rift-24]
-   1       start_range 8.0                                     First tie header in the tide packet. [RFC-ietf-rift-rift-24]
-   2       end_range   8.0                                     Last tie header in the tide packet.  [RFC-ietf-rift-rift-24]
+   1       start_range 8.0                                     First TIE header in the TIDE packet. [RFC-ietf-rift-rift-24]
+   2       end_range   8.0                                     Last TIE header in the TIDE packet.  [RFC-ietf-rift-rift-24]
    3       headers     8.0                                     _sorted_ list of headers.            [RFC-ietf-rift-rift-24]
    4-65535 Unassigned
 
@@ -930,12 +931,12 @@ RIFTEncodingTIEHeader
     Value           Name         Min. Schema Version Max. Schema Version                  Comment                          Reference
    0        Reserved             8.0                 All Versions                                                   [RFC-ietf-rift-rift-24]
    1        Unassigned
-   2        tieid                8.0                                     Id of tie.                                 [RFC-ietf-rift-rift-24]
-   3        seq_nr               8.0                                     Sequence number of tie.                    [RFC-ietf-rift-rift-24]
+   2        tieid                8.0                                     ID of TIE.                                 [RFC-ietf-rift-rift-24]
+   3        seq_nr               8.0                                     Sequence number of TIE.                    [RFC-ietf-rift-rift-24]
    4-9      Unassigned
-   10       origination_time     8.0                                     Absolute timestamp when tie was generated. [RFC-ietf-rift-rift-24]
+   10       origination_time     8.0                                     Absolute timestamp when TIE was generated. [RFC-ietf-rift-rift-24]
    11       Unassigned
-   12       origination_lifetime 8.0                                     Original lifetime when tie was generated.  [RFC-ietf-rift-rift-24]
+   12       origination_lifetime 8.0                                     Original lifetime when TIE was generated.  [RFC-ietf-rift-rift-24]
    13-65535 Unassigned
 
 RIFTEncodingTIEHeaderWithLifeTime
@@ -980,10 +981,10 @@ RIFTEncodingTIEID
 
     Value     Name    Min. Schema Version Max. Schema Version           Comment                   Reference
    0       Reserved   8.0                 All Versions                                     [RFC-ietf-rift-rift-24]
-   1       direction  8.0                                     Direction of tie.            [RFC-ietf-rift-rift-24]
-   2       originator 8.0                                     Indicates originator of tie. [RFC-ietf-rift-rift-24]
-   3       tietype    8.0                                     Type of tie.                 [RFC-ietf-rift-rift-24]
-   4       tie_nr     8.0                                     Number of tie.               [RFC-ietf-rift-rift-24]
+   1       direction  8.0                                     Direction of TIE.            [RFC-ietf-rift-rift-24]
+   2       originator 8.0                                     Indicates originator of TIE. [RFC-ietf-rift-rift-24]
+   3       tietype    8.0                                     Type of TIE.                 [RFC-ietf-rift-rift-24]
+   4       tie_nr     8.0                                     Number of TIE.               [RFC-ietf-rift-rift-24]
    5-65535 Unassigned
 
 RIFTEncodingTIEPacket
