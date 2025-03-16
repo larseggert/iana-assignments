@@ -31,6 +31,14 @@
         <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'sr-policy-protocol-origin'">
+        <tr>
+        <th>Code Point</th>
+        <th>Protocol Origin</th>
+        <th>Reference</th>
+        <th>Change Controller</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -57,6 +65,14 @@
         <td><xsl:value-of select="iana:value"/></td>
         <td><xsl:apply-templates select="iana:description"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'sr-policy-protocol-origin'">
+        <tr>
+        <td><xsl:value-of select="iana:value"/></td>
+        <td><xsl:apply-templates select="iana:description"/></td>
+        <td><xsl:apply-templates select="iana:reference"/></td>
+        <td><xsl:apply-templates select="iana:controller"/></td>
         </tr>
       </xsl:when>
     </xsl:choose>

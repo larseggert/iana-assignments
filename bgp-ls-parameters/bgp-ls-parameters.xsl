@@ -70,6 +70,24 @@
         </tr>
       </xsl:when>
       
+      <xsl:when test="@id = 'bgp-ls-sr-segment-descriptor-types'">
+        <tr>
+          <th>Code Point</th>
+          <th>Segment Descriptor</th>
+          <th>Reference</th>
+          <th>Change Controller</th>
+        </tr>
+      </xsl:when>
+
+      <xsl:when test="@id = 'bgp-ls-sr-policy-metric-type'">
+        <tr>
+          <th>Code Point</th>
+          <th>Metric Type</th>
+          <th>Reference</th>
+          <th>Change Controller</th>
+        </tr>
+      </xsl:when>
+
       <xsl:otherwise>
         <tr>
           <th>Value</th>
@@ -77,7 +95,7 @@
           <th>Reference</th>
         </tr>
       </xsl:otherwise>
-      
+
     </xsl:choose>
   </xsl:template>
 
@@ -91,7 +109,25 @@
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
-      </xsl:when>   
+      </xsl:when>
+
+      <xsl:when test="../@id = 'bgp-ls-sr-segment-descriptor-types'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
+        </tr>
+      </xsl:when>
+
+      <xsl:when test="../@id = 'bgp-ls-sr-policy-metric-type'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
+        </tr>
+      </xsl:when>
       
       <xsl:otherwise>
         <tr>
