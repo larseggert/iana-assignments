@@ -7,8 +7,8 @@
     <xsl:choose> 
       <xsl:when test="@id = 'whip-urns'">
         <tr>
-          <th>URI</th>
-          <th>Description</th>
+          <th>URN</th>
+          <th>Name</th>
           <th>Reference</th>
           <th>IANA Registry Reference</th>
           <th>Change Controller</th>
@@ -16,8 +16,8 @@
       </xsl:when>
       <xsl:when test="@id = 'whip-extension-urns'">
         <tr>
-          <th>URI</th>
-          <th>Description</th>
+          <th>URN</th>
+          <th>Name</th>
           <th>Reference</th>
           <th>IANA Registry Reference</th>
           <th>Change Controller</th>
