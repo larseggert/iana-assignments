@@ -138,6 +138,22 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+
+      <xsl:when test="@id = 'bgp-car-nlri-types'">
+        <tr>
+          <th>Type</th>
+          <th>NLRI Type</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+
+      <xsl:when test="@id = 'bgp-car-nlri-tlv-types'">
+        <tr>
+          <th>Type</th>
+          <th>NLRI TLV Type</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
 	  
       <xsl:otherwise>
         <tr><th>Value</th><th>Name</th><th>Reference</th></tr>
@@ -266,6 +282,20 @@
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'bgp-bier-tlv-sub-tlv-types'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'bgp-car-nlri-types'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'bgp-car-nlri-tlv-types'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:name"/></td>
