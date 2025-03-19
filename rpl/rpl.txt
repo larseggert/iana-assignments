@@ -6,7 +6,7 @@
    2011-04-08
 
    Last Updated
-   2025-03-17
+   2025-03-19
 
    Available Formats
    [IMG]
@@ -36,6 +36,13 @@
      • Destination Cleanup Object Acknowledgment (DCO) Acknowledgment Flags
      • RPL Non-Rejection Status
      • RPL Rejection Status
+     • RPL Option Flags
+     • Projected DAO Request (PDR)
+     • PDR-ACK Flags
+     • PDR-ACK Acceptance Status Values
+     • PDR-ACK Rejection Status Values
+     • Via Information Options (VIO) Flags
+     • Sibling Information Option (SIO) Flags
 
 RPL Control Codes
 
@@ -50,7 +57,7 @@ RPL Control Codes
    [IMG]
    CSV
 
-     Code                         Description                       Reference
+     Code                         Description                                   Reference
    0x00      DODAG Information Solicitation                         [RFC6550]
    0x01      DODAG Information Object                               [RFC6550]
    0x02      Destination Advertisement Object                       [RFC6550]
@@ -60,7 +67,9 @@ RPL Control Codes
    0x06      Measurement Object                                     [RFC6998]
    0x07      Destination Cleanup Object                             [RFC9009]
    0x08      Destination Cleanup Object Acknowledgment              [RFC9009]
-   0x09-0x7A Unassigned
+   0x09      Projected DAO Request (PDR)                            [RFC-ietf-roll-dao-projection-40]
+   0x0A      PDR-ACK                                                [RFC-ietf-roll-dao-projection-40]
+   0x0B-0x7A Unassigned
    0x80      Secure DODAG Information Solicitation                  [RFC6550]
    0x81      Secure DODAG Information Object                        [RFC6550]
    0x82      Secure Destination Advertisement Object                [RFC6550]
@@ -87,7 +96,7 @@ Mode of Operation
    [IMG]
    CSV
 
-   Value                               Description                                               Reference
+   Value                               Description                                                         Reference
    0     No Downward routes maintained by RPL                                     [RFC6550]
    1     Non-Storing Mode of Operation                                            [RFC6550]
    2     Storing Mode of Operation with no multicast support                      [RFC6550]
@@ -95,7 +104,7 @@ Mode of Operation
    4     P2P Route Discovery Mode of Operation                                    [RFC6997][RFC-ietf-roll-aodv-rpl-20]
    5     Non-Storing Mode of Operation with ingress replication multicast support [RFC-ietf-6lo-multicast-registration-19]
    6     Unassigned
-   7     Reserved                                                                 [RFC9008][RFC9010][RFC9035]
+   7     Reserved                                                                 [RFC9008][RFC9010][RFC9035][RFC-ietf-roll-dao-projection-40]
 
 RPL Control Message Options
 
@@ -110,23 +119,26 @@ RPL Control Message Options
    [IMG]
    CSV
 
-     Value          Meaning                 Reference
-   0x00      Pad1                  [RFC6550]
-   0x01      PadN                  [RFC6550]
-   0x02      DAG Metric Container  [RFC6550]
-   0x03      Routing Information   [RFC6550]
-   0x04      DODAG Configuration   [RFC6550]
-   0x05      RPL Target            [RFC6550]
-   0x06      Transit Information   [RFC6550]
-   0x07      Solicited Information [RFC6550]
-   0x08      Prefix Information    [RFC6550]
-   0x09      Target Descriptor     [RFC6550]
-   0x0A      P2P Route Discovery   [RFC6997]
-   0x0B      RREQ Option           [RFC-ietf-roll-aodv-rpl-20]
-   0x0C      RREP Option           [RFC-ietf-roll-aodv-rpl-20]
-   0x0D      ART Option            [RFC-ietf-roll-aodv-rpl-20]
-   0x0E      RNFD Option           [RFC-ietf-roll-rnfd-07]
-   0x0F-0xFF Unassigned
+     Value             Meaning                       Reference
+   0x00      Pad1                        [RFC6550]
+   0x01      PadN                        [RFC6550]
+   0x02      DAG Metric Container        [RFC6550]
+   0x03      Routing Information         [RFC6550]
+   0x04      DODAG Configuration         [RFC6550]
+   0x05      RPL Target                  [RFC6550]
+   0x06      Transit Information         [RFC6550]
+   0x07      Solicited Information       [RFC6550]
+   0x08      Prefix Information          [RFC6550]
+   0x09      Target Descriptor           [RFC6550]
+   0x0A      P2P Route Discovery         [RFC6997]
+   0x0B      RREQ Option                 [RFC-ietf-roll-aodv-rpl-20]
+   0x0C      RREP Option                 [RFC-ietf-roll-aodv-rpl-20]
+   0x0D      ART Option                  [RFC-ietf-roll-aodv-rpl-20]
+   0x0E      RNFD Option                 [RFC-ietf-roll-rnfd-07]
+   0x0F      Stateful VIO (SM-VIO)       [RFC-ietf-roll-dao-projection-40]
+   0x10      Source-Routed VIO (NSM-VIO) [RFC-ietf-roll-dao-projection-40]
+   0x11      Sibling Information option  [RFC-ietf-roll-dao-projection-40]
+   0x12-0xFF Unassigned
 
 Objective Code Point (OCP)
 
@@ -255,10 +267,11 @@ Destination Advertisement Object (DAO) Flags
    [IMG]
    CSV
 
-   Bit Number    Capability Description    Reference
+   Bit Number    Capability Description                Reference
    0          DAO-ACK request (K)          [RFC6550]
    1          DODAGID field is present (D) [RFC6550]
-   2-7        Unassigned
+   2          Projected DAO (P)            [RFC-ietf-roll-dao-projection-40]
+   3-7        Unassigned
 
 Destination Advertisement Object (DAO) Acknowledgment Flags
 
@@ -275,7 +288,8 @@ Destination Advertisement Object (DAO) Acknowledgment Flags
 
    Bit Number    Capability Description    Reference
    0          DODAGID field is present (D) [RFC6550]
-   1-7        Unassigned
+   1          Projected DAO-ACK (P)        [RFC6550]
+   2-7        Unassigned
 
 Consistency Check (CC) Flags
 
@@ -307,8 +321,8 @@ DODAG Configuration Option Flags for MOP 0..6
    [IMG]
    CSV
 
-   Bit Number       Capability Description        Reference
-   0          Unassigned
+   Bit Number       Capability Description                    Reference
+   0          Projected Routes Support (D)        [RFC-ietf-roll-dao-projection-40]
    1          Root Proxies EDAR/EDAC (P)          [RFC9010]
    2          Enable Compression per RFC 8138 (T) [RFC9035]
    3          RPI 0x23 enable                     [RFC9008]
@@ -435,9 +449,127 @@ RPL Rejection Status
    [IMG]
    CSV
 
-   Value        Meaning        Reference
-   0     Unqualified rejection [RFC9010]
-   1     No routing entry      [RFC9009]
-   2-63  Unassigned
+   Value         Meaning                     Reference
+   0     Unqualified rejection   [RFC9010]
+   1     No routing entry        [RFC9009]
+   2     Out of Resources        [RFC-ietf-roll-dao-projection-40]
+   3     Error in VIO            [RFC-ietf-roll-dao-projection-40]
+   4     Predecessor Unreachable [RFC-ietf-roll-dao-projection-40]
+   5     Unreachable Target      [RFC-ietf-roll-dao-projection-40]
+   6-63  Unassigned
+
+RPL Option Flags
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+   [RFC-ietf-roll-dao-projection-40]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Bit Number Indication When Set              Reference
+   0          Down 'O'             [RFC6553]
+   1          Rank-Error (R)       [RFC6553]
+   2          Forwarding-Error (F) [RFC6553]
+   3          Projected-Route (P)  [RFC-ietf-roll-dao-projection-40]
+   4-255      Unassigned
+
+Projected DAO Request (PDR)
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+   [RFC-ietf-roll-dao-projection-40]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Bit Number         Capability Description                     Reference
+   0          PDR-ACK request (K)                    [RFC-ietf-roll-dao-projection-40]
+   1          Requested path should be redundant (R) [RFC-ietf-roll-dao-projection-40]
+   2-255      Unassigned
+
+PDR-ACK Flags
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+   [RFC-ietf-roll-dao-projection-40]
+
+   Bit Number Capability Description Reference
+   No registrations at this time.
+
+PDR-ACK Acceptance Status Values
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+   [RFC-ietf-roll-dao-projection-40]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Bit Number        Meaning                     Reference
+   0          Unqualified Acceptance [RFC-ietf-roll-dao-projection-40]
+   1-63       Unassigned
+
+PDR-ACK Rejection Status Values
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+   [RFC-ietf-roll-dao-projection-40]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Bit Number        Meaning                    Reference
+   0          Unqualified Rejection [RFC-ietf-roll-dao-projection-40]
+   1          Transient Failure     [RFC-ietf-roll-dao-projection-40]
+   2-63       Unassigned
+
+Via Information Options (VIO) Flags
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+   [RFC-ietf-roll-dao-projection-40]
+
+   Bit Number Capability Description Reference
+   No registrations at this time.
+
+Sibling Information Option (SIO) Flags
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+   [RFC-ietf-roll-dao-projection-40]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Bit Number         Capability Description                      Reference
+   0          "S" flag: Sibling in same DODAG as Self [RFC-ietf-roll-dao-projection-40]
+   1-4        Unassigned
 
    Licensing Terms

@@ -61,6 +61,27 @@
         <xsl:when test="@id = 'rpl-rej-status'">
         <tr><th>Value</th><th>Meaning</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'rpl-options-flags'">
+        <tr><th>Bit Number</th><th>Indication When Set</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'projected-dao-request'">
+        <tr><th>Bit Number</th><th>Capability Description</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'pdr-ack-flags'">
+        <tr><th>Bit Number</th><th>Capability Description</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'pdr-ack-acceptance-status-values'">
+        <tr><th>Bit Number</th><th>Meaning</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'pdr-ack-rejection-status-values'">
+        <tr><th>Bit Number</th><th>Meaning</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'via-information-options-flags'">
+        <tr><th>Bit Number</th><th>Capability Description</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'sibling-information-option-flags'">
+        <tr><th>Bit Number</th><th>Capability Description</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
       </xsl:otherwise>
