@@ -180,6 +180,15 @@
         <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'dsync-location-of-synchronization-endpoints'">
+        <tr>
+          <th>RRtype</th>
+          <th>Scheme</th>
+          <th>Mnemonic</th>
+          <th>Purpose</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -295,6 +304,15 @@
         <tr>
         <td><xsl:apply-templates select="iana:value"/></td>
         <td><xsl:apply-templates select="iana:description"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'dsync-location-of-synchronization-endpoints'">
+        <tr>
+        <td><xsl:apply-templates select="iana:value"/></td>
+        <td><xsl:apply-templates select="iana:scheme"/></td>
+        <td><xsl:apply-templates select="iana:mnemonic"/></td>
+        <td><xsl:apply-templates select="iana:purpose"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
