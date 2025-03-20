@@ -64,7 +64,7 @@
       <xsl:when test="@id = 'rpl-options-flags'">
         <tr><th>Bit Number</th><th>Indication When Set</th><th>Reference</th></tr>
       </xsl:when>
-      <xsl:when test="@id = 'projected-dao-request'">
+      <xsl:when test="@id = 'projected-dao-request-flags'">
         <tr><th>Bit Number</th><th>Capability Description</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'pdr-ack-flags'">
