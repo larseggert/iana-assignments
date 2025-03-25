@@ -24,7 +24,12 @@
         <tr><th>Flag Bit</th><th>Meaning</th><th>Reference</th></tr>
       </xsl:when>      
       <xsl:when test="@id = 'tcp-exids'">
-        <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
+        <tr>
+        <th>Value</th>
+        <th>Protocol</th>
+        <th>Description</th>
+        <th>Reference</th>
+        </tr>
       </xsl:when>
       <xsl:when test="@id = 'tcp-encryption'">
         <tr><th>Value</th><th>Meaning</th><th>Reference</th></tr>
@@ -87,6 +92,7 @@
       <xsl:when test="../@id = 'tcp-exids'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:protocol"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:reference"/></td>
         </tr>
