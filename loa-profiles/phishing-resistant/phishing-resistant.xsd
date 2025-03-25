@@ -1,0 +1,43 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	   xmlns="http://schemas.openid.net/pape/policies/2007/06/phishing-resistant"
+	   targetNamespace="http://schemas.openid.net/pape/policies/2007/06/phishing-resistant"
+	   finalDefault="extension"
+	   blockDefault="substitution"
+	   version="2.0">
+  <xs:redefine
+      schemaLocation="http://docs.oasis-open.org/security/saml/v2.0/saml-schema-authn-context-types-2.0.xsd">
+    <xs:annotation>
+      <xs:documentation>
+	Class identifier: http://schemas.openid.net/pape/policies/2007/06/phishing-resistant
+	Phishing-Resistant.
+	An authentication mechanism where a party potentially under
+	the control of the Relying Party cannot gain sufficient
+	information to be able to successfully authenticate to the End
+	User's OpenID Provider as if that party were the End User. (Note
+	that the potentially malicious Relying Party controls where the
+	User-Agent is redirected to and thus may not send it to the End
+	User's actual OpenID Provider).
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType name="AuthnContextDeclarationBaseType">
+      <xs:complexContent>
+	<xs:restriction base="AuthnContextDeclarationBaseType">
+	  <xs:sequence>
+	    <xs:element ref="GoverningAgreements"/>
+	  </xs:sequence>
+	  <xs:attribute name="ID" type="xs:ID" use="optional"/>
+	</xs:restriction>
+      </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="GoverningAgreementRefType">
+      <xs:complexContent>
+	<xs:restriction base="GoverningAgreementRefType">
+	  <xs:attribute name="governingAgreementRef"
+			type="xs:anyURI"
+			fixed="http://schemas.openid.net/pape/policies/2007/06/phishing-resistant"
+			use="required"/>
+	</xs:restriction>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:redefine>
+</xs:schema>
