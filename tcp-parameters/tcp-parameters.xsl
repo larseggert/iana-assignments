@@ -23,7 +23,7 @@
       <xsl:when test="@id = 'mptcp-handshake'">
         <tr><th>Flag Bit</th><th>Meaning</th><th>Reference</th></tr>
       </xsl:when>      
-      <xsl:when test="@id = 'tcp-exids'">
+      <xsl:when test="@id = 'tcp-udp-exids'">
         <tr>
         <th>Value</th>
         <th>Protocol</th>
@@ -89,7 +89,7 @@
           <td><xsl:apply-templates select="iana:spec"/></td>
         </tr>
       </xsl:when>      
-      <xsl:when test="../@id = 'tcp-exids'">
+      <xsl:when test="../@id = 'tcp-udp-exids'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:protocol"/></td>
