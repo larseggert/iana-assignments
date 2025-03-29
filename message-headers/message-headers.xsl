@@ -14,6 +14,7 @@
           <th>Template</th>
           <th>Protocol</th>
           <th>Status</th>
+          <th>Trace</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
@@ -36,6 +37,7 @@
           <td><xsl:apply-templates select="iana:file"/></td>
           <td><xsl:value-of select="iana:protocol"/></td>
           <td><xsl:value-of select="iana:status"/></td>
+          <td><xsl:value-of select="iana:trace"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
