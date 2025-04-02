@@ -1,0 +1,54 @@
+(registered 2025-04-01, last updated 2025-04-01)
+
+Media type name: text
+
+Media subtype name: vnd.typst
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+Typst files are UTF-8 encoded. Their canonical form uses CRLF for line endings but tooling commonly accepts other line endings such as LF. They may contain lines longer than 998 octets.
+
+Security considerations: Typst files contain markup and scripting constructs interpreted (i.e. executed) by the Typst compiler to typeset the file into output formats, including PDF, raster images, SVGs, or HTML files.
+
+Typst files can reference external files, especially images, and data files like CSV, XML, and TOML. They can import packages from Typst Universe (https://typst.app/universe/, integrity protected through TLS). Throughout the compilation of a Typst file, the fonts installed on a user's system may be used to produce the final output. The Typst compiler generates one or multiple output files at user-controlled paths comprising the final typeset document.
+
+In order to mitigate security risks, the Typst compiler sandboxes execution of Typst code. File access is read-only and restricted to the project root directory which, by default, is the directory the Typst file is located in. Typst code cannot access the network without explicit user permission, with exception of trusted network locations operated by the Typst project (such as the package registry Typst Universe from which the compiler transiently downloads packages referenced by a Typst file). Users are not expected to review the contents of packages they use.
+
+It is possible that a malicious Typst file or package may exfiltrate contents of the project root directory by including them in the final deliverable in a covert way, for example as transparent text. Furthermore, it is possible to construct Typst files that will take up large amounts of system memory and processing time. It is possible to exploit this to run a Denial of Service attack on systems processing untrusted Typst files without further precautions.
+
+Like any text format, Typst files can contain sensitive user information and may require an access control system.
+
+Interoperability considerations: Typst files can be used on any platform with an implementation of the Typst compiler (see https://github.com/typst/typst/releases/ for prebuilt binaries). The format of Typst files can be parsed by other implementations. For example, Pandoc ships a partial implementation of Typst to ingest Typst files (see https://github.com/jgm/typst-hs).
+
+Published specification: There is no public formal specification of the Typst file format. Reference documentation is provided at https://typst.app/docs/reference/. The normative reference implementation of the Typst compiler can be found here: https://github.com/typst/typst
+
+Applications which use this media: The Typst compiler as well as other typesetting and text processing tools such as Pandoc will use this format. Furthermore, applications managing Typst documents and files in general will use this type (see e.g. https://invent.kde.org/frameworks/breeze-icons/-/merge_requests/412)
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: N/A
+
+Additional information:
+
+1. Deprecated alias names for this type: text/x-typst
+2. Magic number(s): none
+3. File extension(s): .typ
+4. Macintosh file type code: none (\0 \0 \0 \0)
+5. Object Identifiers: none
+
+General Comments: Typst markup, like Markdown, is designed to be readable by humans without interpretation by the Typst compiler. Hence, we chose the text top-level media type.
+
+Person to contact for further information:
+
+1. Name: Martin Haug
+2. Email: martin.haug&typst.app
+
+Intended usage: COMMON
+
+Common use with the Typst compiler and as an interchange format for manuscripts.
+
+Author/Change controller: Authored by Martin Haug <martin.haug&typst.app>. Change controller is either Martin Haug <martin.haug&typst.app> or Laurenz Mädje <laurenz.maedje&typst.app>.
