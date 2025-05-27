@@ -1,0 +1,103 @@
+A. Submission Date: 14 MAY 2025
+
+B.1 Submission Type:  [x] New RRTYPE  [ ] Modification to RRTYPE
+B.2 Kind of RR:  [x] Data RR  [ ] Meta-RR
+
+C. Contact Information for submitter (will be publicly posted):
+    Name: Adam Wiethuechter
+    Email Address: adam.wiethuechter&axenterprize.com
+    International telephone number: None
+    Other contact handles: None
+
+D. Motivation for the new RRTYPE application.
+
+This RRTYPE is to be used for the lookup of static information
+fields found in the ASTM F3411 standard for Remote ID (RID). It is
+primarily focused on Broadcast RID information elements as having
+them present in DNS would allow Observers to perform a lookup to
+obtain anything missed.
+
+E. Description of the proposed RR type.
+
+The UAS Broadcast RID RRType (BRID) is a format to hold
+public information typically sent of the UAS Broadcast RID that is static.
+It can act as a data source if information is not received over
+Broadcast RID or for cross validation.
+
+The wire format of the RDATA section is CBOR-encoded data.
+
+The CDDL specification for the CBOR-encoded data is as follows:
+
+bcast-rr = {
+    uas_type => nibble-field,
+    uas_ids => [+ uas-id-grp],
+    ? auth => [+ auth-grp],
+    ? self_id => self-grp,
+    ? area => area-grp,
+    ? classification => classification-grp,
+    ? operator_id => operator-grp
+}
+uas-id-grp = [
+    id_type: &uas-id-types,
+    uas_id: bstr .size(20)
+]
+auth-grp = [
+    a_type: &auth-types,
+    a_data: bstr .size(1..362)
+]
+area-grp = [
+    area_count: 1..255,
+    area_radius: float,  # in decameters
+    area_floor: float,   # wgs84-hae in meters
+    area_ceiling: float  # wgs84-hae in meters
+]
+classification-grp = [
+    class_type: 0..8,
+    class: nibble-field,
+    category: nibble-field
+]
+self-grp = [
+    desc_type: 0..255,
+    description: tstr .size(23)
+]
+operator-grp = [
+    operator_id_type: 0..255,
+    operator_id: bstr .size(20)
+]
+uas-id-types = (none: 0, serial: 1, session_id: 4)
+auth-types = (none: 0, specific_method: 5)
+nibble-field = 0..15
+uas_type = 0
+uas_ids = 1
+auth = 2
+self_id = 3
+area = 4
+classification = 5
+operator_id = 6
+
+The presentation format of the RDATA section is the base64-encoded CBOR data.
+
+F. What existing RRTYPE or RRTYPEs come closest to filling that need
+    and why are they unsatisfactory?
+
+None.
+
+G. What mnemonic is requested for the new RRTYPE (optional)?
+
+BRID
+
+H. Does the requested RRTYPE make use of any existing IANA registry
+    or require the creation of a new IANA subregistry in DNS
+    Parameters?
+
+No.
+
+I. Does the proposal require/expect any changes in DNS
+    servers/resolvers that prevent the new type from being processed
+    as an unknown RRTYPE (see [RFC3597])?
+
+No.
+
+J. Comments:
+
+None.

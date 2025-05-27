@@ -1,0 +1,263 @@
+(registered 2025-04-18, last updated 2025-04-18)
+
+Media type name: application
+
+
+Media subtype name: vnd.superfile.super
+
+
+Required parameters: N/A
+
+
+Optional parameters: N/A
+
+
+Encoding considerations: Binary.
+
+
+Security considerations: Confidentiality (AES-256-GCM), integrity (HMAC-SHA256), and key management risks.
+
+Interoperability considerations: Adherence to published specification required for parsing.
+
+
+Published specification:
+https://superfile.com/specifications/superfile-v1.1.pdf
+
+
+Applications which use this media: Applications That Use/Will Use the .super Media Type
+
+1. Secure File Sharing Platforms
+
+Description:
+Platforms designed for exchanging confidential information can adopt the .super format for secure file sharing.
+Files are encrypted, ensuring end-to-end security.
+
+Example Applications:
+Enterprise collaboration tools like Slack, Microsoft Teams, or proprietary internal systems.
+Secure email attachments in encrypted formats.
+
+2. Data Backup and Archiving
+
+Description:
+The .super format is ideal for secure backups and archival of sensitive data.
+It ensures both encryption and integrity, providing confidence during recovery.
+
+Example Applications:
+Cloud backup services (e.g., AWS S3, Google Drive, Dropbox).
+Enterprise-level backup solutions like Veeam or Carbonite.
+
+3. Legal and Compliance File Management
+
+Description:
+Law firms, financial institutions, and healthcare providers require secure file storage to meet regulatory requirements (e.g., GDPR, HIPAA).
+The .super format can store client data, legal documents, or medical records securely.
+
+Example Applications:
+Document management systems (DMS) in legal tech.
+Compliance tools for financial audits.
+
+4. Media and Entertainment
+
+Description:
+Media production workflows often require secure file transfers of scripts, pre-released movies, or other proprietary content.
+The .super format can protect intellectual property during production and distribution.
+
+Example Applications:
+Post-production tools like DaVinci Resolve or Avid Media Composer.
+Digital distribution platforms (e.g., proprietary content-sharing tools).
+
+5. Scientific Research and Data Collaboration
+
+Description:
+Research institutions and organizations dealing with sensitive data, such as genomic or pharmaceutical research, can use .super to securely share datasets.
+
+Example Applications:
+Research data repositories like Dryad or Zenodo.
+Internal data-sharing systems for pharmaceutical companies.
+
+6. Enterprise Data Protection
+
+Description:
+Enterprises can use .super to protect sensitive documents, contracts, and reports.
+The format’s metadata support enables easy classification and tracking of files.
+
+Example Applications:
+Enterprise Resource Planning (ERP) and Customer Relationship Management (CRM) platforms.
+Proprietary enterprise tools for secure file storage and management.
+
+7. Consumer Applications
+
+Description:
+The .super format can be adopted by consumer apps for personal encryption needs, such as securing photos, videos, or financial documents.
+
+Example Applications:
+Password managers like LastPass or 1Password.
+Personal cloud storage solutions like pCloud or Mega.
+
+8. Government and Defense
+
+Description:
+Governments and defense agencies can use .super for secure communication and data sharing.
+The format supports the highest levels of encryption, ensuring data confidentiality.
+
+Example Applications:
+
+Secure messaging systems for interagency communication.
+Document management systems for classified information.
+
+Applications Under Development
+
+SuperFile Applications:
+Native tools and APIs for creating, encrypting, and decrypting .super files.
+Standalone desktop and mobile applications for managing .super files.
+Integration with Third-Party Platforms:
+APIs to integrate .super support into third-party software and workflows.
+
+Future Use Cases
+
+Blockchain Integration: Storing .super files as part of decentralized applications for secure data sharing.
+AI Workflows: Securely bundling training datasets or models for AI applications.
+
+
+Fragment identifier considerations:
+
+1. Applicability
+The .super format is an encrypted container, meaning most of its content is inaccessible without decryption. Fragment identifiers are primarily applicable in the following cases:
+Unencrypted Metadata: Fragment identifiers can refer to fields like the owner, version, or file creation date.
+Decrypted Content: After decryption, identifiers can reference specific files, sections, or data within the .super container.
+
+2. Fragment Identifier Syntax
+Fragment identifiers for .super files should follow the standard URI fragment syntax defined in RFC 3986.
+Proposed Syntax:
+Use hierarchical paths to reference sections or embedded files.
+Example:
+superfile:///example.super#metadata/owner
+superfile:///example.super#files/image1.jpg
+superfile:///example.super#metadata/unencrypted
+
+3. Use Cases
+
+a. Referencing Metadata
+Purpose: Allows quick access to metadata without decrypting the entire file.
+Examples:
+#metadata/owner – Accesses the owner user ID.
+#metadata/version – Accesses the file content version number.
+
+b. Referencing Embedded Files
+Purpose: Identifies specific files or components within the .super container.
+Examples:
+#files/document1.pdf – Points to an embedded document.
+#files/media/video.mp4 – Points to an embedded video file.
+
+c. Referencing Sections
+Purpose: Targets structural sections of the .super file format.
+Examples:
+#thumbnail – References the blurred thumbnail image (if present).
+#encryptedMetadata – References the encrypted metadata section.
+
+4. Limitations
+
+a. Encrypted Content
+Since most of the .super file is encrypted, fragment identifiers cannot directly reference the encrypted content without decryption.
+Mitigation: Provide an API or tool that maps fragment identifiers to decrypted content dynamically.
+
+b. Unstructured Data
+
+If the .super file contains unstructured data or files without predefined names, fragment identifiers may be ambiguous.
+
+Mitigation: Use unique IDs or paths for all embedded files and metadata.
+
+5. Security Considerations
+
+Unauthorized Access:
+
+Fragment identifiers should not bypass encryption or access controls.
+Access to referenced content should require proper decryption keys and permissions.
+
+Tampering:
+
+Use cryptographic methods (e.g., HMAC) to ensure the integrity of fragment identifier mappings.
+
+Privacy:
+Avoid exposing sensitive metadata (e.g., owner, creation time) through fragment identifiers in untrusted environments.
+
+6. Implementation Recommendations
+
+Standardized Fragment Identifiers:
+Define a clear and consistent syntax for fragment identifiers in the .super specification.
+
+Tool Support:
+Provide tools (e.g., command-line utilities or libraries) to parse and resolve fragment identifiers in .super files.
+
+API Integration:
+Build an API for developers to use fragment identifiers in their applications.
+
+7. Example Scenarios
+Fragment for Metadata
+
+superfile:///secure_file.super#metadata/version
+Refers to the format version of the .super file.
+Fragment for Embedded File
+
+superfile:///secure_file.super#files/image1.jpg
+Points to a specific file within the .super container.
+
+
+Restrictions on Usage – .super File Type
+
+The .super file format is intended for structured data storage and exchange. Its usage is subject to the following restrictions:
+
+1. Intended Use
+
+* The .super file format is designed for use in applications that support the SuperFile specification.
+
+* It is optimized for structured data handling and should not be used for unintended purposes, such as executable content or arbitrary data storage.
+
+2. Security Considerations
+
+* Integrity & Authenticity: Users must ensure that .super files are obtained from trusted sources and verified to prevent unauthorized modifications.
+
+* Execution Restriction: The .super format does not inherently support executable content; any implementation that extends the format to include executable elements should apply proper security controls.
+
+* Data Sensitivity: .super files may contain structured data. If storing sensitive information, users must implement appropriate encryption and access control mechanisms.
+
+3. Interoperability & Compatibility
+
+* The .super file format is intended for systems that conform to the official SuperFile specification.
+
+* Compatibility with third-party software not adhering to the specification is not guaranteed.
+
+4. Licensing & Distribution
+
+* The .super file format is an open standard and may be implemented by any application that complies with the specification.
+
+* Redistribution of .super files must adhere to applicable legal and licensing terms.
+
+5. Liability Disclaimer
+
+* The developers and maintainers of the .super format assume no liability for data loss, corruption, or security risks resulting from misuse or improper implementation.
+
+For full technical details, refer to the official SuperFile Specification v1.1:
+
+https://www.superfile.com/specifications/superfile-v1.1.pdf
+
+
+Additional information:
+
+1. Deprecated alias names for this type: none
+2. Magic number(s): Magic number(s): 0x53 0x75 0x70 0x65 0x72 0x46 0x69 0x6C 0x65 (ASCII: "SuperFile")
+3. File extension(s): File extension(s): .super
+4. Macintosh file type code: Macintosh File Type Code(s): SUPR
+5. Object Identifiers: Object Identifier(s) or OID(s): None
+
+
+Person to contact for further information:
+
+1. Name: Shane Valdez
+2. Email: Shane&superfile.com
+
+
+Intended usage: COMMON
+
+
+Author/Change controller: Shane Valdez

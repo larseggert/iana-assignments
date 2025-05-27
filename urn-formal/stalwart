@@ -1,0 +1,165 @@
+Namespace Registration for Stalwart Mail and Collaboration Server
+
+Namespace Identifier: stalwart
+
+Version: 1
+
+Date: 2025-04-14
+
+Registrant:
+
+  Name:
+      Stalwart Labs LLC
+
+  Address:
+      1309 Coffeen Avenue STE 1200,
+      Sheridan, Wyoming, 82801
+      United States of America
+
+  Designated Contact Person:
+      Mauro De Gennaro
+      mauro&stalw.art
+
+Purpose:
+
+The 'stalwart' URN namespace is intended to provide persistent,
+location-independent identifiers for resources related to the Stalwart
+Mail and Collaboration Server (https://github.com/stalwartlabs/mail-server),
+an open-source communication platform. Specifically, this namespace will
+be used for:
+
+- Custom JMAP extensions (RFC 8620) that are not covered by existing
+  standardized namespaces.
+- WebDAV lock tokens (RFC 4918).
+- WebDAV synchronization tokens (RFC 6578).
+
+The namespace will benefit the Stalwart Mail and Collaboration Server
+user community by providing globally unique, persistent identifiers for
+various server resources, enhancing interoperability between server
+instances and client applications.
+
+Syntax:
+
+The syntax of the NSS portion of URNs in the 'stalwart' namespace
+conforms to the general URN syntax requirements (RFC 8141). The specific
+structure is:
+
+urn:stalwart:{resource-type}:{specific-identifier}
+
+where:
+
+- {resource-type} is a string comprised of lowercase letters, digits, and
+  hyphens that designates the category of resource being identified. The
+  resource-type MUST NOT contain a colon (:) character or any whitespace.
+  Currently defined resource-types are "jmap", "davlock", and "davsync".
+
+- {specific-identifier} is the unique identifier for the resource within
+  that type, with format dependent on the resource-type as defined below.
+
+Examples:
+    - urn:stalwart:jmap:mailfilter
+    - urn:stalwart:davlock:a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6
+    - urn:stalwart:davsync:a1b2c3d4e5f6a7b8
+
+For the currently defined resource-types, the specific-identifier
+follows these syntax rules:
+
+    - jmap: A string comprised of lowercase letters, digits, and hyphens,
+      describing the extension functionality.
+
+    - davlock: A 128-bit number encoded as 32 hexadecimal digits (using
+      characters 0-9 and a-f).
+
+    - davsync: A 64-bit number encoded as 16 hexadecimal digits (using
+      characters 0-9 and a-f).
+
+Additional characters allowed by the URN syntax may be used in the
+specific-identifier portion for future resource-types that may be
+defined, including slashes (/) for hierarchical identifiers.
+Percent-encoding is used as needed for characters not allowed in the
+URN syntax.
+
+URN-equivalence within this namespace is as defined in RFC 8141, with
+the addition that string comparison of the NSS is case-insensitive.
+
+Assignment:
+
+URNs in the 'stalwart' namespace are assigned as follows:
+
+    - Stalwart Labs LLC maintains the registry of all valid
+      resource-types, and for each resource-type, the syntax of
+      specific-identifiers and the processes by which they may be
+      assigned.
+
+    - For JMAP extensions (jmap): Stalwart Labs LLC centrally assigns
+      specific-identifiers based on the functionality provided by the
+      extension, following a naming convention similar to standard
+      JMAP capabilities.
+
+    - For WebDAV lock tokens (davlock): Specific-identifiers are
+      algorithmically generated as random 128-bit numbers encoded in
+      hexadecimal format by Stalwart server instances. Due to the size
+      of the identifier space (2^128) and the random generation method,
+      uniqueness is statistically ensured without requiring central
+      registration.
+
+    - For WebDAV synchronization tokens (davsync): Specific-identifiers
+      are algorithmically generated as 64-bit numbers encoded in
+      hexadecimal format by Stalwart server instances. These are
+      typically generated based on resource version information with
+      techniques that ensure uniqueness within the server context.
+
+Security and Privacy:
+
+The 'stalwart' URN namespace presents no additional security or privacy
+considerations beyond those inherent to the use of URNs in general.
+However, specific considerations include:
+
+    - WebDAV lock tokens should be treated as private information,
+      although they do not grant exclusive access to resources.
+
+    - When WebDAV sync tokens or lock tokens are used across networks,
+      they should be transmitted using secure protocols to prevent
+      unauthorized interception.
+
+    - JMAP extension identifiers may reveal information about specific
+      server capabilities, which could be useful to potential attackers
+      in fingerprinting server installations.
+
+Interoperability:
+
+The 'stalwart' URN namespace is designed to avoid conflicts with other
+URN namespaces. It complements existing namespaces by providing
+identifiers for resources specific to the Stalwart Mail and
+Collaboration Server implementation.
+
+For JMAP extensions, this namespace complements the standard JMAP
+capabilities URIs, which typically use https://www.ietf.org/rfc/
+URIs. The 'stalwart' namespace will be used for non-standardized,
+implementation-specific extensions.
+
+For WebDAV functions, this namespace provides an explicit indication
+that the lock or sync token originates from a Stalwart server, which
+can help in debugging and interoperability across different WebDAV
+implementations.
+
+Resolution:
+
+Direct resolution of URNs in the 'stalwart' namespace is not intended.
+These URNs serve primarily as identifiers within the context of JMAP
+and WebDAV protocols. Resolution to related resources or documentation
+may be provided in the future, but no resolution services are specified
+at this time.
+
+Documentation:
+
+Documentation for the Stalwart Mail and Collaboration Server, including
+information about the 'stalwart' URN namespace, is available at
+https://stalw.art/docs/development/urn
+
+Additional Information:
+
+The Stalwart Mail and Collaboration Server is an open-source platform,
+and use of the 'stalwart' URN namespace within the scope of projects
+related to or derived from this server is permitted according to the
+terms of the server's license.

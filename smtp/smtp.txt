@@ -1,0 +1,478 @@
+   Internet Assigned Numbers Authority
+
+                                                               SMTP-Related Registries
+
+   Last Updated
+   2025-05-02
+
+   Note
+
+ This registry group was formerly known as "MAIL Parameters."
+
+
+   Associated Registries
+
+
+ [https://www.iana.org/assignments/message-headers]
+
+
+   Available Formats
+   [IMG]
+   XML [IMG]
+   HTML [IMG]
+   Plain text
+
+   Registries Included Below
+
+     • SMTP Service Extensions
+
+          • SMTP Service Extension Parameters
+
+     • Mail Transmission Types for the "Received:" Header Field
+
+          • VIA Link Types
+          • WITH Protocol Types
+          • Additional Registered 'Received:' Clauses
+
+     • Address Literal Tags
+     • SMTP PRIORITY Extension Priority Assignment Policy
+     • Registered-states
+     • Multicast Email SMTP Extensions
+     • SMTP Server Limits
+     • Mail Header Confidentiality Policies
+
+SMTP Service Extensions
+
+   Registration Procedure(s)
+
+ Either Model 1 (IETF) or Model 2 (FCFS) as described in Sections 8.1.1.1 of [RFC-ietf-emailcore-rfc5321bis-43].
+
+   Reference
+   [RFC-ietf-emailcore-rfc5321bis-43, Sections 8.1.1, 2.2.2]
+
+   Note
+
+ The Simple Mail Transfer Protocol [RFC-ietf-emailcore-rfc5321bis-43]
+ specifies a set of commands or services and a general procedure for
+ extending that set. The table below lists SMTP service extensions.
+ Both message submission [RFC6409]and mail transfer
+ [RFC-ietf-emailcore-rfc5321bis-43] may use these extensions unless
+ otherwise specified.
+
+ As specified in [RFC5321] Section 2.2.2, no entry may be made in this
+ registry that starts in an "X". Entries may be made only for service
+ extensions (and associated keywords, parameters, or verbs) that are
+ defined in Standards-Track or Experimental RFCs specifically approved
+ by the IESG for this purpose.
+
+ The server response to a client EHLO command includes a keyword for
+ each service extension the server implements.  Some of these keywords
+ have parameters, which are listed in the "SMTP Service Extension
+ Parameters" registry.
+
+
+   Note
+
+ The SMTP Extension names/keywords registered in this section are for
+ general use. For those specific to Multicast email, see the registry
+ for that protocol below.
+
+
+   Available Formats
+   [IMG]
+   CSV
+
+                                                                                                                         MAIL/RCPT            Message
+   EHLO Keyword                Description                         Reference                EHLO Parameters   Additional Parameter RegMethod Submission  Length                 Note                Contact   Change
+                                                                                                                Verbs     Values              Use and    Added                                              Controller
+                                                                                                                                               Values
+                                                                                                                                                                 The description of SEND was
+SEND                Send to terminal                   [RFC821]                           None                [RFC821]   [RFC821]  IETF      MUST NOT            updated by [RFC1123] and then its  IETF    IETF
+                                                                                                                                                                 actual use was deprecated in
+                                                                                                                                                                 [RFC2821]
+                                                                                                                                                                 The description of SOML was
+SOML                Send as mail or to terminal        [RFC821]                           None                [RFC821]   [RFC821]  IETF      MUST NOT            updated by [RFC1123] and then its  IETF    IETF
+                                                                                                                                                                 actual use was deprecated in
+                                                                                                                                                                 [RFC2821]
+                                                                                                                                                                 The description of SAML was
+SAML                Send as mail and to terminal       [RFC821]                           None                [RFC821]   [RFC821]  IETF      MUST NOT            updated by [RFC1123] and then its  IETF    IETF
+                                                                                                                                                                 actual use was deprecated in
+                                                                                                                                                                 [RFC2821]
+                                                                                                                                                                 Implementation support for VRFY is
+                                                                                                                                                                 required in servers, but its
+VRFY                VRFY command as specified in       [RFC-ietf-emailcore-rfc5321bis-43] None                None       None      IETF      MUST NOT   0        listing in the EHLO response is    IETF    IETF
+                    [RFC-ietf-emailcore-rfc5321bis-43]                                                                                                           optional. See Section 3.5.2 in
+                                                                                                                                                                 [RFC-ietf-emailcore-rfc5321bis-43]
+                                                                                                                                                                 for details on this subject.
+EXPN                Expand the mailing list            [RFC821]                           None                [RFC821]   [RFC821]  IETF      MUST NOT            Command description updated by     IETF    IETF
+                                                                                                                                                                 [RFC-ietf-emailcore-rfc5321bis-43]
+HELP                Supply helpful information         [RFC821]                           None                [RFC821]   [RFC821]  IETF      MUST NOT            Command description updated by     IETF    IETF
+                                                                                                                                                                 [RFC-ietf-emailcore-rfc5321bis-43]
+TURN                Interchange the client and server  [RFC821]                           None                [RFC821]   [RFC821]  IETF      MUST NOT            The actual use of TURN was         IETF    IETF
+                    roles                                                                                                                                        deprecated in [RFC2821]
+8BITMIME            SMTP and Submit transport of 8bit  [RFC6152]                          None                [RFC6152]  [RFC6152] IETF      SHOULD                                                 IETF    IETF
+                    MIME content
+                                                                                                                                                                 For additional declarations or
+SIZE                Message size declaration           [RFC1870]                          number              [RFC1870]  [RFC1870] IETF      MAY                 limits of this general type, see   IETF    IETF
+                                                                                                                                                                 the LIMITS extension below and the
+                                                                                                                                                                 SMTP Server Limits registry.
+VERB                Verbose                            [Eric Allman]                      Not supplied        Not        Not       Legacy    Not        Not                                         Eric    Eric
+                                                                                                              supplied   supplied            supplied   supplied                                    Allman  Allman
+ONEX                One message transaction only       [Eric Allman]                      Not supplied        Not        Not       Legacy    Not        Not                                         Eric    Eric
+                                                                                                              supplied   supplied            supplied   supplied                                    Allman  Allman
+CHUNKING            Chunking                           [RFC3030]                          None                [RFC3030]  [RFC3030] IETF      MAY                                                    IETF    IETF
+BINARYMIME          Binary MIME                        [RFC3030]                          None                [RFC3030]  [RFC3030] IETF      MAY                                                    IETF    IETF
+CHECKPOINT          Checkpoint/Restart                 [RFC1845]                          None                [RFC1845]  [RFC1845] IETF      MAY                                                    IETF    IETF
+DELIVERBY           Deliver By                         [RFC2852]                          None                [RFC2852]  [RFC2852] IETF      MAY                                                    IETF    IETF
+PIPELINING          Command Pipelining                 [RFC2920]                          None                [RFC2920]  [RFC2920] IETF      SHOULD                                                 IETF    IETF
+DSN                 Delivery Status Notification       [RFC3461]                          None                [RFC3461]  [RFC3461] IETF      SHOULD                                                 IETF    IETF
+                                                                                                                                                                 SMTP
+ETRN                Extended Turn                      [RFC1985]                          None                [RFC1985]  [RFC1985] IETF      MUST NOT            [RFC-ietf-emailcore-rfc5321bis-43] IETF    IETF
+                                                                                                                                                                 only. Not for use on Submit port
+                                                                                                                                                                 587.
+ENHANCEDSTATUSCODES Enhanced Status Codes              [RFC2034]                          None                [RFC2034]  [RFC2034] IETF      SHOULD                                                 IETF    IETF
+STARTTLS            Start TLS                          [RFC3207]                          None                [RFC3207]  [RFC3207] IETF      MAY                                                    IETF    IETF
+NO-SOLICITING       Notification of no soliciting      [RFC3865]                          Soliciting-keywords [RFC3865]  [RFC3865] IETF      MAY                                                    IETF    IETF
+MTRK                Message Tracking                   [RFC3885]                                              [RFC3885]  [RFC3885] IETF      MAY                                                    IETF    IETF
+                                                                                                                                                                 Deprecated by [Moving RFC 4405,
+SUBMITTER           SMTP Responsible Submitter         [RFC4405]                          None                [RFC4405]  [RFC4405] IETF      MUST NOT            RFC 4406, RFC 4407 (Sender-ID) to  IETF    IETF
+                                                                                                                                                                 Historic].
+                                                                                                                                                                 SMTP
+ATRN                Authenticated TURN                 [RFC2645]                          None                [RFC2645]  [RFC2645] IETF      MUST NOT            [RFC-ietf-emailcore-rfc5321bis-43] IETF    IETF
+                                                                                                                                                                 only. Not for use on Submit port
+                                                                                                                                                                 587.
+AUTH                Authentication                     [RFC4954]                          SASL mechanism      [RFC4954]  [RFC4954] IETF      MUST                                                   IETF    IETF
+                                                                                          names
+BURL                Remote Content                     [RFC4468]                          Permitted URL       [RFC4468]  [RFC4468] IETF      MUST NOT            Submit [RFC6409] only. Not for use IETF    IETF
+                                                                                          prefixes                                                               with SMTP on port 25.
+FUTURERELEASE       Future Message Release             [RFC4865]                          None                [RFC4865]  [RFC4865] IETF      MUST NOT                                               IETF    IETF
+UTF8SMTP            Internationalized email address    [RFC5336]                          None                [RFC5336]  [RFC5336] IETF      MUST NOT            Experimental; deprecated in        IETF    IETF
+                                                                                                                                                                 [RFC6531].
+CONPERM             Content Conversion Permission      [RFC4141]                          None                [RFC4141]  [RFC4141] IETF      MAY                                                    IETF    IETF
+CONNEG              Content Conversion Negotiation     [RFC4141]                          None                [RFC4141]  [RFC4141] IETF      MAY                                                    IETF    IETF
+SMTPUTF8            Internationalized email address    [RFC6531]                          None                [RFC6531]  [RFC6531] IETF      MUST NOT                                               IETF    IETF
+                                                                                          Name of the
+MT-PRIORITY         Priority Message Handling          [RFC6710]                          Priority Assignment [RFC6710]  [RFC6710] IETF      MUST NOT                                               IETF    IETF
+                                                                                          Policy (optional)
+RRVS                Require Recipient Valid Since      [RFC7293]                          None                [RFC7293]  [RFC7293] IETF      MUST NOT                                               IETF    IETF
+REQUIRETLS          Require TLS                        [RFC8689]                          None                [RFC8689]  [RFC8689] IETF      MUST NOT                                               IETF    IETF
+LIMITS              Server limits                      [RFC9422]                          None                [RFC9422]  [RFC9422] IETF      MUST NOT            See "SMTP Server Limits" registry. IETF    IETF
+
+  SMTP Service Extension Parameters
+
+   Registration Procedure(s)
+
+ Registry closed
+
+   Reference
+   [RFC-ietf-emailcore-rfc5321bis-43]
+
+   Note
+
+ These entries have been incorporated into the SMTP Service Extension registry's
+ "EHLO Parameters" field.
+
+Mail Transmission Types for the "Received:" Header Field
+
+   Reference
+   [RFC-ietf-emailcore-rfc5321bis-43, Sections 8.1.3, 8.1.4][RFC-ietf-emailcore-rfc5322bis-12]
+
+   Note
+
+ The Simple Mail Transfer Protocol [RFC-ietf-emailcore-rfc5321bis-43]
+ and the Standard for Internet Message Formats [RFC-ietf-emailcore-rfc5322bis-12]
+ specify that a set of "Received" lines will be prepended to the
+ headers of electronic mail messages as they are transported through
+ the Internet. These received line may optionally include either or
+ both a "via" phrase and/or a "with" phrase.  The legal values for the
+ phrases are listed here. The via phrase is intended to indicate the
+ link or physical medium over which the message was transferred.  The
+ with phrase is intended to indicate the protocol or logical process
+ that was used to transfer the message.
+
+
+  VIA Link Types
+
+   Registration Procedure(s)
+
+ RFC Required
+
+   Reference
+   [RFC-ietf-emailcore-rfc5321bis-43]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   VIA link types        Description                    Reference
+   UUCP           Unix-to-Unix Copy Program
+   TCP            TCP                       [RFC-ietf-emailcore-rfc5321bis-43]
+
+  WITH Protocol Types
+
+   Registration Procedure(s)
+
+ RFC Required
+
+   Reference
+   [RFC-ietf-emailcore-rfc5321bis-43]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   WITH protocol types                  Description                               Reference
+   SMTP                Simple Mail Transfer Protocol                  [RFC-ietf-emailcore-rfc5321bis-43]
+   ESMTP               SMTP with Service Extensions                   [RFC-ietf-emailcore-rfc5321bis-43]
+   ESMTPA              ESMTP with AUTH                                [RFC3848]
+   ESMTPS              ESMTP with STARTTLS                            [RFC3848]
+   ESMTPSA             ESMTP with both STARTTLS and AUTH              [RFC3848]
+   LMTP                Local Mail Transfer Protocol                   [RFC3848]
+   LMTPA               LMTP with AUTH                                 [RFC3848]
+   LMTPS               LMTP with STARTTLS                             [RFC3848]
+   LMTPSA              LMTP with both STARTTLS and AUTH               [RFC3848]
+   MMS                 Multimedia Messaging Service                   [RFC4356]
+   UTF8SMTP            ESMTP with SMTPUTF8                            [RFC6531]
+   UTF8SMTPA           ESMTP with SMTPUTF8 and AUTH                   [RFC4954][RFC6531]
+   UTF8SMTPS           ESMTP with SMTPUTF8 and STARTTLS               [RFC3207][RFC6531]
+   UTF8SMTPSA          ESMTP with SMTPUTF8 and both STARTTLS and AUTH [RFC3207][RFC4954][RFC6531]
+   UTF8LMTP            LMTP with SMTPUTF8                             [RFC6531]
+   UTF8LMTPA           LMTP with SMTPUTF8 and AUTH                    [RFC4954][RFC6531]
+   UTF8LMTPS           LMTP with SMTPUTF8 and STARTTLS                [RFC3207][RFC6531]
+   UTF8LMTPSA          LMTP with SMTPUTF8 and both STARTTLS and AUTH  [RFC3207][RFC4954][RFC6531]
+
+  Additional Registered 'Received:' Clauses
+
+   Registration Procedure(s)
+
+ IETF Review
+
+   Reference
+   [RFC-ietf-emailcore-rfc5321bis-43]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Clause Name                       Service Extension                       Description                  Syntax Summary                  Reference
+    PRIORITY   Records the value of the MT-PRIORITY parameter specified in               See Section 7 of RFC [RFC6710]                   [RFC6710]
+               the MAIL FROM command
+      state    Indicates entry into a special queue state                                state <state-name>                               [RFC6729]
+                                                                                         tls-cipher = tls-cipher-name / tls-cipher-hex
+
+                                                                                         tls-cipher-name = ALPHA *(ALPHA / DIGIT / "_")
+       tls     Indicates the TLS cipher used                                             ; as registered in the IANA TLS Cipher Suite     [RFC8314]
+                                                                                         Registry
+
+                                                                                         tls-cipher-hex = "0x" 4HEXDIG
+               Indicates the Diffie-Hellman group used with the TLS cipher               dh-group = ALPHA *(ALPHA / DIGIT / "_" / "-")
+      group    (if applicable)                                                           ; as registered in the IANA TLS Supported Groups [RFC8314]
+                                                                                         Registry
+
+Address Literal Tags
+
+   Registration Procedure(s)
+
+ Standards Action
+
+   Reference
+   [RFC-ietf-emailcore-rfc5321bis-43]
+
+   Note
+
+ Sometimes a host is not known to the domain name system and
+ communication (and, in particular, communication to report and repair
+ the error) is blocked.  To bypass this barrier a special literal form
+ of the address is allowed as an alternative to a domain name.  For
+ IPv4 addresses, this form uses four small decimal integers separated
+ by dots and enclosed by brackets such as [123.255.37.2], which
+ indicates an (IPv4) Internet Address in sequence-of-octets form.  For
+ IPv6 and other forms of addressing that might eventually be
+ standardized, the form consists of a standardized "tag" that
+ identifies the address syntax, a colon, and the address itself, in a
+ format specified as part of the IPv6 standards [17].
+
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Tag              Reference
+   IPv6 [RFC-ietf-emailcore-rfc5321bis-43]
+
+SMTP PRIORITY Extension Priority Assignment Policy
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC6710]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Policy Name    Comment           Reference
+   MIXER       Default policy [RFC6710, Appendix B]
+   STANAG4406                 [RFC6710, Appendix A]
+   NSEP                       [RFC6710, Appendix C]
+
+Registered-states
+
+   Registration Procedure(s)
+
+ First Come First Served
+
+   Reference
+   [RFC6729]
+
+   Available Formats
+   [IMG]
+   CSV
+
+      Name                                     Description                                  Reference   Use
+      auth    Held for message authentication                                               [RFC6729] current
+    content   Held for message content analysis                                             [RFC6729] current
+    convert   Held for message content conversion                                           [RFC6729] current
+   moderation Held for list moderation                                                      [RFC6729] current
+     normal   Message is not being held other than to accommodate typical relaying handling [RFC6729] current
+     other    Held for causes not covered by other registered state keywords                [RFC6729] current
+    outbound  Message placed in outbound queue                                              [RFC6729] current
+   quarantine Held for operator action due to content analysis or local policy              [RFC6729] current
+     timed    Held to accommodate a specific requested delivery window                      [RFC6729] current
+
+Multicast Email SMTP Extensions
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Alexey Melnikov (primary), RFC Independent Submissions Editor (secondary)
+
+   Reference
+   [RFC8494]
+
+   Note
+
+ Extension names/keywords and status used with Multicast Email; see
+ SMTP Service Extensions above for the list for more general use.
+
+   Available Formats
+   [IMG]
+   CSV
+
+          Name           Status   Multicast-Mail-Specific References Non-Multicast-Specific                          Note
+                                                                           References
+   SIZE                Required                                      [RFC1870]
+   8BITMIME            Required                                      [RFC6152]
+   DSN                 Required                                      [RFC3461]
+   MT-PRIORITY         Required                                      [RFC6710]
+   DELIVERBY           Required                                      [RFC2852]
+   BINARYMIME          Required                                      [RFC3030]
+                                                                                            SMTP CHUNKING MUST be supported on the receiving SMTP
+   CHUNKING            Special                                       [RFC3030]              side of an SMTP-to-MULE gateway and MAY be used on the
+                                                                                            sending side of a MULE-to-SMTP gateway. A MULE relay
+                                                                                            doesn't need to do anything special for this extension.
+                                                                                            The ENHANCEDSTATUSCODES extension is supported by
+   ENHANCEDSTATUSCODES Special                                       [RFC2034]              including relevant status codes in DSN [RFC3461]
+                                                                                            reports.
+   RRVS                Supported                                     [RFC7293]
+   SUBMITTER           Supported                                     [RFC4405]              Deprecated by [Moving RFC 4405, RFC 4406, RFC 4407
+                                                                                            (Sender-ID) to Historic].
+   PIPELINING          N/A                                           [RFC2920]
+   STARTTLS            N/A                                           [RFC3207]
+                                                                                            The AUTH parameter to the MAIL FROM command is
+   AUTH                Special                                       [RFC4954]              "Supported", but the rest of the AUTH extension is not
+                                                                                            applicable to MULE.
+   BURL                N/A                                           [RFC4468]
+   NO-SOLICITING       N/A                                           [RFC3865]
+   CHECKPOINT          Disallowed                                    [RFC1845]
+   CONNEG              Disallowed                                    [RFC4141]
+
+SMTP Server Limits
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ John Klensin, Murray Kucherawy (backup)
+
+   Reference
+   [RFC9422]
+
+   Available Formats
+   [IMG]
+   CSV
+
+       Name             Value syntax                              Description                       Restrictions Security Considerations  Reference
+                                            MAILMAX specifies the maximum number of transactions
+   MAILMAX       %x31-39 0*5DIGIT ; "0" not (MAIL FROM commands) the server will accept in a single None         See [RFC9422, Section 6] [RFC9422]
+                 allowed, six-digit maximum session. The count includes all MAIL FROM commands,
+                                            regardless of whether they succeed or fail.
+                                            RCPTMAX specifies the maximum number of RCPT TO
+                                            commands the server will accept in a single
+   RCPTMAX       %x31-39 0*5DIGIT ; "0" not transaction. It is not a limit on the actual number of  None         See [RFC9422, Section 6] [RFC9422]
+                 allowed, six-digit maximum recipients the message ends up being sent to; a single
+                                            RCPT TO command may produce multiple recipients or, in
+                                            the event of an error, none.
+                                            RCPTDOMAINMAX specifies the maximum number of different
+                                            domains that can appear in a recipient (RCPT TO)
+   RCPTDOMAINMAX %x31-39 0*5DIGIT ; "0" not address within a single session. This limit is imposed  None         See [RFC9422, Section 6] [RFC9422]
+                 allowed, six-digit maximum by some servers that bind to a specific internal
+                                            delivery mechanism on receipt of the first RCPT TO
+                                            command.
+
+Mail Header Confidentiality Policies
+
+   Registration Procedure(s)
+
+ Specification Required or IETF Review (see Note)
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-lamps-header-protection-25]
+
+   Note
+
+ Adding an entry to this registry with an N in the "Recommended"
+ column follows the registration policy of SPECIFICATION REQUIRED.
+ Adding an entry to this registry with a Y in the "Recommended"
+ column or changing the "Recommended" column in an existing entry
+ (from N to Y or vice versa) requires IETF REVIEW.
+
+
+   Note
+
+ The Header Confidentiality Policy Name never appears on the wire.
+ This registry merely tracks stable references to implementable
+ descriptions of distinct policies. Any addition to this registry
+ should be governed by guidance in Section 3.4.2 of
+ [RFC-ietf-lamps-header-protection-25].
+
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Header Confidentiality Policy Name                 Description                  Recommended                      Reference
+   hcp_no_confidentiality             No header confidentiality                    N           [RFC-ietf-lamps-header-protection-25, Section 3.2.3]
+                                      Confidentiality for Informational Header
+   hcp_baseline                       Fields: Subject Header Field is obscured,    Y           [RFC-ietf-lamps-header-protection-25, Section 3.2.1]
+                                      Keywords and Comments are removed
+                                      Obscure Subject, remove Keywords and
+   hcp_shy                            Comments, remove the time zone from Date,    N           [RFC-ietf-lamps-header-protection-25, Section 3.2.2]
+                                      and obscure display-names
+
+   Licensing Terms

@@ -1,0 +1,147 @@
+(registered 2025-04-18, last updated 2025-05-14)
+
+Media type name: image
+
+Media subtype name: vnd.blockfact.facti
+
+Required parameters:
+
+content-type (string):
+
+Description: Specifies the MIME type of the wrapped image file.
+Examples: image/jpeg, image/png.
+Purpose: Enables systems to interpret the underlying content accurately.
+
+version (string):
+
+Description: Indicates the version of the .facti container format.
+Example: version=1.0.
+Purpose: Ensures compatibility and correct processing of files using different container versions.
+
+blockchain-id (string):
+
+Description: Provides the unique blockchain transaction or smart contract identifier for verifying the file.
+Example: blockchain-id=0x123abc456.
+Purpose: Ensures integrity and verification via a blockchain-based system.
+
+checksum (string):
+
+Description: A hash value (e.g., SHA256) to verify the integrity of the contained file.
+Example: checksum=abc123hash.
+Purpose: Detects data corruption or unauthorized modifications.
+
+encryption-key (string):
+
+Description: Specifies the key or key identifier used for decrypting the file content or metadata.
+Example: encryption-key=key-id-789.
+Purpose: Enables secure decryption of encrypted components of the .facti file.
+
+Optional parameters:
+
+encryption (string, optional): Describes the encryption applied to the metadata (e.g., AES256).
+
+compression (boolean, optional): Specifies if compression is applied to the wrapped content (true or false).
+
+Structure and Fields:
+
+* author (string, optional): The name or identifier of the image creator.
+
+* creation_date (ISO 8601 string, optional): The timestamp of when the image was originally created.
+
+* location (object, optional): Contains latitude and longitude fields to indicate where the image was captured (if geotagging is enabled).
+
+* tags (array, optional): A list of keywords or labels associated with the image.
+
+* description (string, optional): A textual description of the image.
+
+This JSON structure ensures extensibility while maintaining readability for applications processing .facti files.
+
+Encoding considerations: binary
+
+Security considerations: The .facti file includes encrypted metadata that can be decrypted for verification purposes using an external BlockFact application.
+
+The metadata contains a unique ID and other file integrity information, verified via a blockchain-based system.
+
+The use of encryption ensures privacy and protects against unauthorized modification.
+
+Systems handling .facti files must ensure the integrity of both the metadata and the wrapped image format.
+
+Interoperability considerations: Lite systems can decode and access the wrapped image content without requiring decryption of the metadata.
+
+Full systems can decode both the image content and the encrypted metadata to verify the unique ID and file integrity via the blockchain.
+
+Developers should ensure systems recognize and support .facti extensions for seamless integration.
+
+Published specification: The .facti format specification is available at https://blockfact.io/specifications/facti.txt
+
+Applications which use this media:
+
+BlockFact Verification Tool (desktop, web, and mobile apps)
+BlockFact Creation Tool (desktop, web, and mobile apps)
+Blockchain-integrated content management systems (CMS)
+Digital asset management (DAM) platforms
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage:
+
+Prohibited Uses
+
+The .facti format is designed for secure image verification and integrity protection. It should not be used in the following environments due to potential security risks or interoperability issues:
+
+Insecure Transport Protocols (HTTP, FTP, etc.)
+* .facti files should be transmitted over secure channels (e.g., HTTPS, encrypted storage) to prevent unauthorized interception or metadata leakage.
+
+Non-Compliant Decoding Systems
+* Applications that do not support structured metadata or cryptographic verification may fail to process .facti files correctly.
+
+Metadata-Stripping File Systems
+* Legacy storage environments (e.g., FAT32) may strip embedded metadata, reducing verification capabilities.
+
+Automated Modification Pipelines
+* Systems that alter or re-encode .facti files without preserving integrity mechanisms may invalidate verification properties.
+
+Offline-Only Environments Without Blockchain Access
+* Some verification features require a blockchain connection; offline-only systems may not fully validate .facti files.
+
+Additional information:
+
+1. Deprecated alias names for this type: none
+2. Magic number(s): 0xFA I1 01 00
+3. File extension(s): .facti
+4. Macintosh file type code: FACTI
+5. Object Identifiers: N/A
+
+File Structure:
+
+A .facti file consists of the following components:
+
+1) Magic Number: Identifies .facti files uniquely.
+
+Value: 0xFA I1 01 00
+
+2) Required Parameters: (Used to ensure compatibility)
+
+version (string, required): Specifies the .facti format version (e.g., 1.0).
+
+3) Optional Parameters: (May be included based on implementation)
+
+encryption (string, optional): Specifies the encryption type for metadata (e.g., AES256).
+compression (boolean, optional): Indicates whether the image content is compressed (true/false).
+
+4) Encrypted Metadata: Contains additional data for verification and offline access.
+This metadata is typically stored on-chain, but an optional local copy may exist within the .facti file.
+Systems should prioritize verifying metadata against the blockchain.
+
+5) Image Content: The wrapped standard image format (e.g., .jpeg, .png).
+
+Person to contact for further information:
+
+1. Name: Egbert von Frankenberg
+2. Email: egbert&blockfact.io
+
+Intended usage: COMMON
+
+The .facti file type is designed for secure and verifiable image distribution across systems that require both interoperability and blockchain-based verification.
+
+Author/Change controller: Egbert von Frankenberg

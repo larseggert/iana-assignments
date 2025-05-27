@@ -6,7 +6,7 @@
    2002-07-15
 
    Last Updated
-   2024-10-09
+   2025-05-13
 
    Available Formats
    [IMG]
@@ -14,7 +14,7 @@
    HTML [IMG]
    Plain text
 
-   Registries included below
+   Registries Included Below
 
      • Objects
      • Attributes
@@ -1226,6 +1226,8 @@ Operation     output-attributes                                      noise-remov
 Operation     output-attributes                                      output-compression-quality-factor                                     integer(0:100)              [PWG5100.17]
 Operation     output-device-job-states                                                                                                     1setOf type1 enum           [PWG5100.18]
 Operation     output-device-uuid                                                                                                           uri                         [PWG5100.18]
+Operation     output-device-x509-certificate                                                                                               1setOf text(MAX)            [PWG5100.22]
+Operation     output-device-x509-request                                                                                                   1setOf text(MAX)            [PWG5100.22]
 Operation     preferred-attributes                                                                                                         collection                  [PWG5100.13]
 Operation     printer-geo-location                                                                                                         uri                         [PWG5100.22]
 Operation     printer-id                                                                                                                   integer(1:65535)            [PWG5100.22]
@@ -2122,6 +2124,10 @@ Printer       printer-make-and-model                                            
 Description
 Printer       printer-mandatory-job-attributes                                                                                             1setOf keyword              [PWG5100.13]
 Description
+Printer       printer-mode-configured                                                                                                      type2 keyword               [PWG5100.18]
+Description
+Printer       printer-mode-supported                                                                                                       1setOf type2 keyword        [PWG5100.18]
+Description
 Printer       printer-more-info-manufacturer                                                                                               uri                         [RFC8011]
 Description
 Printer       printer-name                                                                                                                 name(127)                   [RFC8011]
@@ -2360,6 +2366,12 @@ Printer       printer-config-change-time                                        
 Status
 Printer       printer-config-changes                                                                                                       integer(0:MAX)              [PWG5100.22]
 Status
+Printer       printer-console-display                                                                                                      1setOf text(MAX)            [IPPCONSOLE]
+Status
+Printer       printer-console-light                                                                                                        1setOf octetString(MAX)     [IPPCONSOLE]
+Status
+Printer       printer-console-light-description                                                                                            1setOf text(MAX)            [IPPCONSOLE]
+Status
 Printer       printer-cover                                                                                                                1setOf octetString(MAX)     [IPP20210223]
 Status
 Printer       printer-cover-description                                                                                                    1setOf text(MAX)            [IPP20210223]
@@ -2381,6 +2393,8 @@ Status
 Printer       printer-firmware-string-version                                                                                              1setOf text(MAX)            [PWG5100.13]
 Status
 Printer       printer-firmware-version                                                                                                     1setOf octetString(MAX)     [PWG5100.13]
+Status
+Printer       printer-home-page-uri                                                                                                        uri                         [IPPCONSOLE]
 Status
 Printer       printer-id                                                                                                                   integer(1:65535)            [PWG5100.22]
 Status
@@ -2583,6 +2597,8 @@ System        notify-schemes-supported                                          
 Description
 System        operations-supported                                                                                                         1setOf type2 enum           [PWG5100.22]
 Description
+System        output-device-x509-type-supported                                                                                            1setOf type2 keyword        [PWG5100.22]
+Description
 System        power-calendar-policy-col                                                                                                    1setOf collection           [PWG5100.22]
 Description
 System        power-calendar-policy-col                              calendar-id                                                           integer(1:MAX)              [PWG5100.22]
@@ -2635,13 +2651,15 @@ System        smi2699-device-format-supported                                   
 Description
 System        smi2699-device-uri-schemes-supported                                                                                         1setOf uriScheme            [IPPSERVER]
 Description
+System        system-asset-tag                                                                                                             octetString(MAX)            [PWG5100.22]
+Description
 System        system-contact-col                                                                                                           collection | unknown        [PWG5100.22]
 Description
 System        system-current-time                                                                                                          dateTime                    [PWG5100.22]
 Description
 System        system-default-printer-id                                                                                                    integer(1:65535) | no-value [PWG5100.22]
 Description
-System        system-dns-sd-name                                                                                                           name(63)                    [IPPSYSDISC10]
+System        system-dns-sd-name                                                                                                           name(63)                    [PWG5100.22]
 Description
 System        system-geo-location                                                                                                          uri | unknown               [PWG5100.22]
 Description
@@ -2653,9 +2671,13 @@ System        system-make-and-model                                             
 Description
 System        system-mandatory-printer-attributes                                                                                          1setOf keyword              [PWG5100.22]
 Description
+System        system-mandatory-registration-attributes                                                                                     1setOf keyword              [PWG5100.22]
+Description
 System        system-message-from-operator                                                                                                 text(127)                   [PWG5100.22]
 Description
 System        system-name                                                                                                                  name(127)                   [PWG5100.22]
+Description
+System        system-service-contact-col                                                                                                   collection | unknown        [PWG5100.22]
 Description
 System        system-settable-attributes-supported                                                                                         1setOf keyword              [PWG5100.22]
 Description
@@ -2914,7 +2936,7 @@ Keyword Attribute Values
    document-privacy-scope                     default                                         type2 keyword                      [IPPPRIVACY10]
    document-privacy-scope                     none                                            type2 keyword                      [IPPPRIVACY10]
    document-privacy-scope                     owner                                           type2 keyword                      [IPPPRIVACY10]
-   document-state-reasons                                                                     1setOf type2 keyword               [PWG5100.13]
+   document-state-reasons                                                                     1setOf type2 keyword               [PWG5100.18]
    document-state-reasons                     aborted-by-system                               1setOf type2 keyword               [PWG5100.5]
    document-state-reasons                     canceled-at-device                              1setOf type2 keyword               [PWG5100.5]
    document-state-reasons                     canceled-by-operator                            1setOf type2 keyword               [PWG5100.5]
@@ -3396,7 +3418,7 @@ Keyword Attribute Values
    input-source                               platen                                          type2 keyword                      [PWG5100.15]
    input-source-supported                                                                     1setOf type2 keyword               [PWG5100.15]
    input-source-supported                     <Any "input-source" value>                      1setOf type2 keyword               [PWG5100.15]
-   ipp-features-supported                                                                     1setOf type2 keyword               [PWG5100.11]
+   ipp-features-supported                                                                     1setOf type2 keyword               [PWG5100.22]
    ipp-features-supported                     document-object                                 1setOf type2 keyword               [PWG5100.13]
    ipp-features-supported                     faxout                                          1setOf type2 keyword               [PWG5100.15]
    ipp-features-supported                     icc-color-matching                              1setOf type2 keyword               [APPLE-ICC]
@@ -4402,33 +4424,55 @@ Keyword Attribute Values
                                                                                               name(MAX)
    media                                      iso_c0_917x1297mm                               type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
+   media                                      iso_c1-long-edge_917x648mm                      type2 keyword |      size name     [IPPENVELOPE]
+                                                                                              name(MAX)
    media                                      iso_c1_648x917mm                                type2 keyword |      size name     [PWG5101.1]
+                                                                                              name(MAX)
+   media                                      iso_c2-long-edge_648x458mm                      type2 keyword |      size name     [IPPENVELOPE]
                                                                                               name(MAX)
    media                                      iso_c2_458x648mm                                type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
+   media                                      iso_c3-long-edge_458x324mm                      type2 keyword |      size name     [IPPENVELOPE]
+                                                                                              name(MAX)
    media                                      iso_c3_324x458mm                                type2 keyword |      size name     [PWG5101.1]
+                                                                                              name(MAX)
+   media                                      iso_c4-long-edge_324x229mm                      type2 keyword |      size name     [IPPENVELOPE]
                                                                                               name(MAX)
    media                                      iso_c4_229x324mm                                type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
+   media                                      iso_c5-long-edge_229x162mm                      type2 keyword |      size name     [IPPENVELOPE]
+                                                                                              name(MAX)
    media                                      iso_c5_162x229mm                                type2 keyword |      size name     [PWG5101.1]
+                                                                                              name(MAX)
+   media                                      iso_c6-long-edge_162x114mm                      type2 keyword |      size name     [IPPENVELOPE]
                                                                                               name(MAX)
    media                                      iso_c6_114x162mm                                type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
    media                                      iso_c6c5_114x229mm                              type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
+   media                                      iso_c7-long-edge_114x81mm                       type2 keyword |      size name     [IPPENVELOPE]
+                                                                                              name(MAX)
    media                                      iso_c7_81x114mm                                 type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
    media                                      iso_c7c6_81x162mm                               type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
+   media                                      iso_c8-long-edge_81x57mm                        type2 keyword |      size name     [IPPENVELOPE]
+                                                                                              name(MAX)
    media                                      iso_c8_57x81mm                                  type2 keyword |      size name     [PWG5101.1]
+                                                                                              name(MAX)
+   media                                      iso_c9-long-edge_57x40mm                        type2 keyword |      size name     [IPPENVELOPE]
                                                                                               name(MAX)
    media                                      iso_c9_40x57mm                                  type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
+   media                                      iso_c10-long-edge_40x28mm                       type2 keyword |      size name     [IPPENVELOPE]
+                                                                                              name(MAX)
    media                                      iso_c10_28x40mm                                 type2 keyword |      size name     [PWG5101.1]
+                                                                                              name(MAX)
+   media                                      iso_dl-long-edge_220x110mm                      type2 keyword |      size name     [IPPENVELOPE]
                                                                                               name(MAX)
    media                                      iso_dl_110x220mm                                type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      iso_id-1_53.98x85.6mm                           type2 keyword |      size name     [CANON20180329]
+   media                                      iso_id-1_53.98x85.6mm                           type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
    media                                      iso_ra0_860x1220mm                              type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
@@ -4574,7 +4618,25 @@ Keyword Attribute Values
                                                                                               name(MAX)
    media                                      jpn_oufuku_148x200mm                            type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
+   media                                      jpn_you1_176x120mm                              type2 keyword |      size name     [IPPENVELOPE]
+                                                                                              name(MAX)
+   media                                      jpn_you3_148x98mm                               type2 keyword |      size name     [IPPENVELOPE]
+                                                                                              name(MAX)
    media                                      jpn_you4_105x235mm                              type2 keyword |      size name     [PWG5101.1]
+                                                                                              name(MAX)
+   media                                      jpn_you4_235x105mm                              type2 keyword |      size name     [IPPENVELOPE]
+                                                                                              name(MAX)
+   media                                      jpn_you5_217x95mm                               type2 keyword |      size name     [IPPENVELOPE]
+                                                                                              name(MAX)
+   media                                      jpn_you6_190x98mm                               type2 keyword |      size name     [IPPENVELOPE]
+                                                                                              name(MAX)
+   media                                      jpn_you7_165x92mm                               type2 keyword |      size name     [IPPENVELOPE]
+                                                                                              name(MAX)
+   media                                      jpn_youchou2_146x111.1mm                        type2 keyword |      size name     [IPPENVELOPE]
+                                                                                              name(MAX)
+   media                                      jpn_youchou3_235x120mm                          type2 keyword |      size name     [IPPENVELOPE]
+                                                                                              name(MAX)
+   media                                      jpn_youchou4_205x90mm                           type2 keyword |      size name     [IPPENVELOPE]
                                                                                               name(MAX)
    media                                      large-capacity(obsolete)                        type2 keyword |      input tray    [RFC2911]
                                                                                               name(MAX)
@@ -4678,9 +4740,9 @@ Keyword Attribute Values
                                                                                               name(MAX)
    media                                      na_arch-d_24x36in                               type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      na_arch-e2_26x38in                              type2 keyword |      size name     [IPPWG20160229-2]
+   media                                      na_arch-e2_26x38in                              type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      na_arch-e3_27x39in                              type2 keyword |      size name     [IPPWG20160229-2]
+   media                                      na_arch-e3_27x39in                              type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
    media                                      na_arch-e_36x48in                               type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
@@ -4734,19 +4796,33 @@ Keyword Attribute Values
                                                                                               name(MAX)
    media                                      na_letter_8.5x11in                              type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
+   media                                      na_monarch-long-edge_7.5x3.875in                type2 keyword |      size name     [IPPENVELOPE]
+                                                                                              name(MAX)
    media                                      na_monarch_3.875x7.5in                          type2 keyword |      size name     [PWG5101.1]
+                                                                                              name(MAX)
+   media                                      na_number-9-long-edge_8.875x3.875in             type2 keyword |      size name     [IPPENVELOPE]
                                                                                               name(MAX)
    media                                      na_number-9_3.875x8.875in                       type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
+   media                                      na_number-10-long-edge_9.5x4.125in              type2 keyword |      size name     [IPPENVELOPE]
+                                                                                              name(MAX)
    media                                      na_number-10_4.125x9.5in                        type2 keyword |      size name     [PWG5101.1]
+                                                                                              name(MAX)
+   media                                      na_number-11-long-edge_10.375x4.5in             type2 keyword |      size name     [IPPENVELOPE]
                                                                                               name(MAX)
    media                                      na_number-11_4.5x10.375in                       type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
+   media                                      na_number-12-long-edge_11x4.75in                type2 keyword |      size name     [IPPENVELOPE]
+                                                                                              name(MAX)
    media                                      na_number-12_4.75x11in                          type2 keyword |      size name     [PWG5101.1]
+                                                                                              name(MAX)
+   media                                      na_number-14-long-edge_11.5x5in                 type2 keyword |      size name     [IPPENVELOPE]
                                                                                               name(MAX)
    media                                      na_number-14_5x11.5in                           type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
    media                                      na_oficio_8.5x13.4in                            type2 keyword |      size name     [PWG5101.1]
+                                                                                              name(MAX)
+   media                                      na_personal-long-edge_6.5x3.625in               type2 keyword |      size name     [IPPENVELOPE]
                                                                                               name(MAX)
    media                                      na_personal_3.625x6.5in                         type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
@@ -4758,57 +4834,61 @@ Keyword Attribute Values
                                                                                               name(MAX)
    media                                      na_wide-format_30x42in                          type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      oe_12x16_12x16in                                type2 keyword |      size name     [IPPWG20160229-2]
+   media                                      oe_12x16_12x16in                                type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      oe_14x17_14x17in                                type2 keyword |      size name     [IPPWG20160229-2]
+   media                                      oe_13x22_13x22in                                type2 keyword |      size name     [CANON-20250424]
                                                                                               name(MAX)
-   media                                      oe_18x22_18x22in                                type2 keyword |      size name     [IPPWG20160229-2]
+   media                                      oe_14x17_14x17in                                type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      oe_a2plus_17x24in                               type2 keyword |      size name     [IPPWG20160229-2]
+   media                                      oe_18x22_18x22in                                type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      oe_business-card_2x3.5in                        type2 keyword |      size name     [CANON20180618]
+   media                                      oe_a2plus_17x24in                               type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      oe_photo-10r_10x12in                            type2 keyword |      size name     [IPPWG20160229-2]
+   media                                      oe_business-card_2x3.5in                        type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      oe_photo-12r_12x15in                            type2 keyword |      size name     [HP20210302]
+   media                                      oe_photo-10r_10x12in                            type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      oe_photo-14x18_14x18in                          type2 keyword |      size name     [HP20210302]
+   media                                      oe_photo-12r_12x15in                            type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      oe_photo-16r_16x20in                            type2 keyword |      size name     [HP20210302]
+   media                                      oe_photo-14x18_14x18in                          type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      oe_photo-20r_20x24in                            type2 keyword |      size name     [IPPWG20160229-2]
+   media                                      oe_photo-16r_16x20in                            type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      oe_photo-22r_22x29.5in                          type2 keyword |      size name     [HP20210302]
+   media                                      oe_photo-20r_20x24in                            type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      oe_photo-22x28_22x28in                          type2 keyword |      size name     [HP20210302]
+   media                                      oe_photo-20x30_20x30in                          type2 keyword |      size name     [CANON-20250424]
                                                                                               name(MAX)
-   media                                      oe_photo-24r_24x31.5in                          type2 keyword |      size name     [HP20210302]
+   media                                      oe_photo-22r_22x29.5in                          type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      oe_photo-24x30_24x30in                          type2 keyword |      size name     [HP20210302]
+   media                                      oe_photo-22x28_22x28in                          type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      oe_photo-30r_30x40in                            type2 keyword |      size name     [HP20210302]
+   media                                      oe_photo-24r_24x31.5in                          type2 keyword |      size name     [PWG5101.1]
+                                                                                              name(MAX)
+   media                                      oe_photo-24x30_24x30in                          type2 keyword |      size name     [PWG5101.1]
+                                                                                              name(MAX)
+   media                                      oe_photo-30r_30x40in                            type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
    media                                      oe_photo-l_3.5x5in                              type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      oe_photo-s8r_8x12in                             type2 keyword |      size name     [HP20210302]
+   media                                      oe_photo-s8r_8x12in                             type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      oe_square-photo_4x4in                           type2 keyword |      size name     [CANON20180618]
+   media                                      oe_square-photo_4x4in                           type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      oe_square-photo_5x5in                           type2 keyword |      size name     [CANON20180618]
+   media                                      oe_square-photo_5x5in                           type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
    media                                      om_16k_184x260mm                                type2 keyword |      size name     [HP-MEDIA]
                                                                                               name(MAX)
    media                                      om_16k_195x270mm                                type2 keyword |      size name     [HP-MEDIA]
                                                                                               name(MAX)
-   media                                      om_business-card_55x85mm                        type2 keyword |      size name     [CANON20180618]
+   media                                      om_business-card_55x85mm                        type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      om_business-card_55x91mm                        type2 keyword |      size name     [CANON20180618]
+   media                                      om_business-card_55x91mm                        type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      om_card_54x86mm                                 type2 keyword |      size name     [CANON20180329]
+   media                                      om_card_54x86mm                                 type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
    media                                      om_dai-pa-kai_275x395mm                         type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      om_dsc-photo_89x119mm                           type2 keyword |      size name     [CANON20180329]
+   media                                      om_dsc-photo_89x119mm                           type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
    media                                      om_folio-sp_215x315mm                           type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
@@ -4826,23 +4906,25 @@ Keyword Attribute Values
                                                                                               name(MAX)
    media                                      om_pa-kai_267x389mm                             type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      om_photo-30x40_300x400mm                        type2 keyword |      size name     [HP20210302]
+   media                                      om_photo-30x40_300x400mm                        type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      om_photo-30x45_300x450mm                        type2 keyword |      size name     [HP20210302]
+   media                                      om_photo-30x45_300x450mm                        type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      om_photo-35x46_350x460mm                        type2 keyword |      size name     [HP20210302]
+   media                                      om_photo-30x90_300x900mm                        type2 keyword |      size name     [CANON-20250424]
                                                                                               name(MAX)
-   media                                      om_photo-40x60_400x600mm                        type2 keyword |      size name     [HP20210302]
+   media                                      om_photo-35x46_350x460mm                        type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      om_photo-50x75_500x750mm                        type2 keyword |      size name     [HP20210302]
+   media                                      om_photo-40x60_400x600mm                        type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      om_photo-50x76_500x760mm                        type2 keyword |      size name     [HP20210302]
+   media                                      om_photo-50x75_500x750mm                        type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      om_photo-60x90_600x900mm                        type2 keyword |      size name     [HP20210302]
+   media                                      om_photo-50x76_500x760mm                        type2 keyword |      size name     [PWG5101.1]
+                                                                                              name(MAX)
+   media                                      om_photo-60x90_600x900mm                        type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
    media                                      om_small-photo_100x150mm                        type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
-   media                                      om_square-photo_89x89mm                         type2 keyword |      size name     [CANON20180618]
+   media                                      om_square-photo_89x89mm                         type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
    media                                      om_wide-photo_100x200mm                         type2 keyword |      size name     [PWG5101.1]
                                                                                               name(MAX)
@@ -5563,12 +5645,12 @@ Keyword Attribute Values
    multiple-operation-time-out-action         hold-job                                        type2 keyword                      [PWG5100.13]
    multiple-operation-time-out-action         process-job                                     type2 keyword                      [PWG5100.13]
    notify-events                                                                              1setOf type2 keyword               [RFC3995]
-   notify-events                              document-completed                              1setOf type2 keyword               [PWG5100.5]
-   notify-events                              document-config-changed                         1setOf type2 keyword               [PWG5100.5]
-   notify-events                              document-created                                1setOf type2 keyword               [PWG5100.5]
+   notify-events                              document-completed                              1setOf type2 keyword               [PWG5100.18]
+   notify-events                              document-config-changed                         1setOf type2 keyword               [PWG5100.18]
+   notify-events                              document-created                                1setOf type2 keyword               [PWG5100.18]
    notify-events                              document-fetchable                              1setOf type2 keyword               [PWG5100.18]
-   notify-events                              document-state-changed                          1setOf type2 keyword               [PWG5100.5]
-   notify-events                              document-stopped                                1setOf type2 keyword               [PWG5100.5]
+   notify-events                              document-state-changed                          1setOf type2 keyword               [PWG5100.18]
+   notify-events                              document-stopped                                1setOf type2 keyword               [PWG5100.18]
    notify-events                              job-completed                                   1setOf type2 keyword Job Events    [RFC3995]
    notify-events                              job-config-changed                              1setOf type2 keyword Job Events    [RFC3995]
    notify-events                              job-created                                     1setOf type2 keyword Job Events    [RFC3995]
@@ -5709,6 +5791,13 @@ Keyword Attribute Values
                                                                                               keyword | name(MAX))
    output-bin-supported                       <Any "output-bin" value>                        1setof (type2                      [PWG5100.2]
                                                                                               keyword | name(MAX))
+   output-device-x509-type-supported                                                          1setOf type2 keyword               [PWG5100.22]
+   output-device-x509-type-supported          ecdsa-p256_sha256                               1setOf type2 keyword               [PWG5100.22]
+   output-device-x509-type-supported          ecdsa-p384_sha256                               1setOf type2 keyword               [PWG5100.22]
+   output-device-x509-type-supported          ecdsa-p521_sha256                               1setOf type2 keyword               [PWG5100.22]
+   output-device-x509-type-supported          rsa-2048_sha256                                 1setOf type2 keyword               [PWG5100.22]
+   output-device-x509-type-supported          rsa-3072_sha256                                 1setOf type2 keyword               [PWG5100.22]
+   output-device-x509-type-supported          rsa-4096_sha256                                 1setOf type2 keyword               [PWG5100.22]
    page-delivery                                                                              type2 keyword                      [PWG5100.3]
    page-delivery                              reverse-order-face-down                         type2 keyword                      [PWG5100.3]
    page-delivery                              reverse-order-face-up                           type2 keyword                      [PWG5100.3]
@@ -5859,6 +5948,12 @@ Keyword Attribute Values
                                                                                               keyword | name(MAX))
    printer-kind                               roll                                            1setOf (type2                      [PWG5100.16]
                                                                                               keyword | name(MAX))
+   printer-mode-configured                                                                    type2 keyword                      [PWG5100.18]
+   printer-mode-configured                    passthrough                                     type2 keyword                      [PWG5100.18]
+   printer-mode-configured                    release-action                                  type2 keyword                      [PWG5100.18]
+   printer-mode-configured                    release-printing                                type2 keyword                      [PWG5100.18]
+   printer-mode-supported                                                                     1setOf type2 keyword               [PWG5100.18]
+   printer-mode-supported                     <Any "printer-mode-configured" value>           1setOf type2 keyword               [PWG5100.18]
    printer-service-type                                                                       type2 keyword                      [PWG5100.22]
    printer-service-type                       copy                                            type2 keyword                      [PWG5100.22]
    printer-service-type                       faxin                                           type2 keyword                      [PWG5100.22]
@@ -5867,7 +5962,7 @@ Keyword Attribute Values
    printer-service-type                       print3d                                         type2 keyword                      [PWG5100.22]
    printer-service-type                       scan                                            type2 keyword                      [PWG5100.22]
    printer-service-type                       transform                                       type2 keyword                      [PWG5100.22]
-   printer-state-reasons                                                                      type2 keyword                      [RFC8011]
+   printer-state-reasons                                                                      1setOf type2 keyword               [RFC8011]
    printer-state-reasons                      alert-removal-of-binary-change-entry            1setOf type2 keyword               [PWG5100.9]
    printer-state-reasons                      bander-added                                    1setOf type2 keyword               [PWG5100.9]
    printer-state-reasons                      bander-almost-empty                             1setOf type2 keyword               [PWG5100.9]
@@ -6793,6 +6888,7 @@ Keyword Attribute Values
    requested-attributes                       system-description                              1setOf type2 keyword               [PWG5100.22]
    requested-attributes                       system-status                                   1setOf type2 keyword               [PWG5100.22]
    resource-state-reasons                                                                     1setOf type2 keyword               [PWG5100.22]
+   resource-state-reasons                     < any "job-state-reasons" value >               1setOf type2 keyword               [PWG5100.22]
    resource-state-reasons                     <Any "job-state-reasons" value>                 1setOf type2 keyword               [PWG5100.22]
    resource-state-reasons                     cancel-requested                                1setOf type2 keyword               [PWG5100.22]
    resource-state-reasons                     install-requested                               1setOf type2 keyword               [PWG5100.22]
@@ -6874,6 +6970,7 @@ Keyword Attribute Values
    subscription-privacy-scope                 none                                            type2 keyword                      [IPPPRIVACY10]
    subscription-privacy-scope                 owner                                           type2 keyword                      [IPPPRIVACY10]
    system-state-reasons                                                                       1setOf type2 keyword               [PWG5100.22]
+   system-state-reasons                       < any "printer-state-reasons" value >           1setOf type2 keyword               [PWG5100.22]
    system-state-reasons                       <Any "printer-state-reasons" value>             1setOf type2 keyword               [PWG5100.22]
    system-time-source                                                                         type2 keyword |                    [PWG5100.22]
                                                                                               name(MAX)
@@ -6922,6 +7019,9 @@ Keyword Attribute Values
    uri-authentication-supported                                                               1setOf type2 keyword               [RFC8011]
    uri-authentication-supported               basic                                           1setOf type2 keyword               [RFC8011]
    uri-authentication-supported               certificate                                     1setOf type2 keyword               [RFC8011]
+   uri-authentication-supported               certificate+basic                               1setOf type2 keyword               [PWG5100.22]
+   uri-authentication-supported               certificate+digest                              1setOf type2 keyword               [PWG5100.22]
+   uri-authentication-supported               certificate+oauth                               1setOf type2 keyword               [PWG5100.22]
    uri-authentication-supported               digest                                          1setOf type2 keyword               [RFC8011]
    uri-authentication-supported               negotiate                                       1setOf type2 keyword               [PWG5100.13]
    uri-authentication-supported               none                                            1setOf type2 keyword               [RFC8011]
@@ -7028,8 +7128,11 @@ Enum Attribute Values
    document-state                        8                                      aborted                              type1 enum   [PWG5100.5]
    document-state                        9                                      completed                            type1 enum   [PWG5100.5]
    end-power-state                                                                                                   type1 enum   [PWG5100.22]
+   end-power-state                       < any "power-state" value >                                                 type1 enum   [PWG5100.22]
    end-power-state                       <Any "power-state" value>                                                   type1 enum   [PWG5100.22]
    fetch-status-code                                                                                                 type2 enum   [PWG5100.18]
+   fetch-status-code                     < all status code values other than                                         type2 enum   [PWG5100.18]
+                                         'successful-ok' >
    fetch-status-code                     <Any "status-code" value other than                                         type2 enum   [PWG5100.18]
                                          'successful-ok'>
    finishings                                                                                                        1setOf type2 [RFC8011]
@@ -7440,6 +7543,8 @@ Enum Attribute Values
                                                                                                                      enum
    output-device-job-states                                                                                          1setOf type1 [PWG5100.18]
                                                                                                                      enum
+   output-device-job-states              < all job-state values >                                                    1setOf type1 [PWG5100.18]
+                                                                                                                     enum
    output-device-job-states              <Any "job-state" enum value >                                               1setOf type1 [PWG5100.18]
                                                                                                                      enum
    power-state                                                                                                       type1 enum   [PWG5100.22]
@@ -7508,6 +7613,7 @@ Enum Attribute Values
    printer-wifi-state                    7                                      joining                              type2 enum   [IPPWIFI]
    printer-wifi-state                    8                                      on                                   type2 enum   [IPPWIFI]
    request-power-state                                                                                               type1 enum   [PWG5100.22]
+   request-power-state                   < any "power-state" value >                                                 type1 enum   [PWG5100.22]
    request-power-state                   <Any "power-state" value>                                                   type1 enum   [PWG5100.22]
    resource-state                                                                                                    type1 enum   [PWG5100.22]
    resource-state                        3                                      pending                              type1 enum   [PWG5100.22]
@@ -7516,6 +7622,7 @@ Enum Attribute Values
    resource-state                        6                                      canceled                             type1 enum   [PWG5100.22]
    resource-state                        7                                      aborted                              type1 enum   [PWG5100.22]
    start-power-state                                                                                                 type1 enum   [PWG5100.22]
+   start-power-state                     < any "power-state" value >                                                 type1 enum   [PWG5100.22]
    start-power-state                     <Any "power-state" value>                                                   type1 enum   [PWG5100.22]
    system-state                                                                                                      type1 enum   [PWG5100.22]
    system-state                          3                                      idle                                 type1 enum   [PWG5100.22]
@@ -7737,7 +7844,7 @@ Operations
    Close-Job                               [PWG5100.7]
    Create-Job                              [RFC8011]
    Create-Job(Extension)                   [PWG5100.11]
-   Create-Job(extension)                   [PWG5100.7]
+   Create-Job(extension)                   [PWG5100.22]
    Create-Job(extension)                   [PWG5100.17]
    Create-Job(extension)                   [RFC3995]
    Create-Job(extension)                   [PWG5100.5]
@@ -7778,10 +7885,10 @@ Operations
    Get-Jobs(extension)                     [PWG5100.13]
    Get-Next-Document-Data                  [PWG5100.17]
    Get-Notifications                       [RFC3996]
-   Get-Notifications(extension)            [PWG5100.18]
+   Get-Notifications(extension)            [PWG5100.22]
    Get-Output-Device-Attributes            [PWG5100.18]
    Get-Printer-Attributes                  [RFC8011]
-   Get-Printer-Attributes(extension)       [IPPWIFI]
+   Get-Printer-Attributes(extension)       [PWG5100.22]
    Get-Printer-Attributes(extension)       [RFC3995]
    Get-Printer-Attributes(extension)       [PWG5100.13]
    Get-Printer-Resources                   [PWG5100.22]
@@ -7792,7 +7899,7 @@ Operations
    Get-Subscription-Attributes             [RFC3995]
    Get-Subscription-Attributes(extension)  [PWG5100.22]
    Get-Subscriptions                       [RFC3995]
-   Get-Subscriptions(extension)            [PWG5100.13]
+   Get-Subscriptions(extension)            [PWG5100.22]
    Get-System-Attributes                   [PWG5100.22]
    Get-System-Supported-Values             [PWG5100.22]
    Get-User-Printer-Attributes             [PWG5100.11]
@@ -7802,7 +7909,7 @@ Operations
    Hold-Job(extension)                     [RFC3380]
    Hold-Job(extension)                     [PWG5100.5]
    Hold-New-Jobs                           [RFC3998]
-   Identify-Printer                        [PWG5100.13]
+   Identify-Printer                        [PWG5100.18]
    Identify-Printer(extension)             [PWG5100.18]
    Install-Resource                        [PWG5100.22]
    Pause-All-Printers                      [PWG5100.22]
@@ -7812,7 +7919,7 @@ Operations
    Pause-Printer-After-Current-Job         [RFC3998]
    Print-Job                               [RFC8011]
    Print-Job(Extension)                    [PWG5100.11]
-   Print-Job(extension)                    [PWG5100.5]
+   Print-Job(extension)                    [PWG5100.22]
    Print-Job(extension)                    [RFC3995]
    Print-Job(extension)                    [PWG5100.5]
    Print-Job(extension)                    [PWG5100.7]
@@ -7821,7 +7928,7 @@ Operations
    Print-URI                               [RFC8011]
    Print-URI(Extension)                    [PWG5100.11]
    Print-URI(deprecated)                   [DEPURI]
-   Print-URI(extension)                    [PWG5100.5]
+   Print-URI(extension)                    [PWG5100.22]
    Print-URI(extension)                    [PWG5100.18]
    Print-URI(extension)                    [RFC3995]
    Print-URI(extension)                    [PWG5100.5]
@@ -7860,14 +7967,14 @@ Operations
    Schedule-Job-After                      [RFC3998]
    Send-Document                           [RFC8011]
    Send-Document(Extension)                [PWG5100.7]
-   Send-Document(extension)                [PWG5100.5]
+   Send-Document(extension)                [PWG5100.22]
    Send-Document(extension)                [PWG5100.5]
    Send-Document(extension)                [PWG5100.13]
    Send-Resource-Data                      [PWG5100.22]
    Send-URI                                [RFC8011]
    Send-URI(Extension)                     [PWG5100.7]
    Send-URI(deprecated)                    [DEPURI]
-   Send-URI(extension)                     [PWG5100.5]
+   Send-URI(extension)                     [PWG5100.22]
    Send-URI(extension)                     [PWG5100.18]
    Send-URI(extension)                     [PWG5100.5]
    Send-URI(extension)                     [PWG5100.13]

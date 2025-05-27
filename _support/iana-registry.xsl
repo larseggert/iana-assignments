@@ -66,10 +66,10 @@
           <xsl:when test="count(iana:registry/iana:title) = 0">
           </xsl:when>
           <xsl:when test="count(iana:registry/iana:title) = 1">
-            <p><b>Registry included below</b></p>
+            <p><b>Registry Included Below</b></p>
           </xsl:when>
           <xsl:otherwise>
-            <p><b>Registries included below</b></p>
+            <p><b>Registries Included Below</b></p>
           </xsl:otherwise>
         </xsl:choose>
         <xsl:call-template name="table-of-contents"/>

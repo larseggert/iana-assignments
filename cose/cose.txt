@@ -6,7 +6,7 @@
    2017-01-11
 
    Last Updated
-   2025-03-05
+   2025-05-16
 
    Available Formats
    [IMG]
@@ -14,7 +14,7 @@
    HTML [IMG]
    Plain text
 
-   Registries included below
+   Registries Included Below
 
      • COSE Header Parameters
      • COSE Header Algorithm Parameters
@@ -47,114 +47,199 @@ COSE Header Parameters
    Strings of length 2                      Specification Required
    Strings of length greater than 2         Expert Review
 
-           Name            Label           Value Type           Value Registry           Description                       Reference
-   Reserved for Private  less than                                                                           [RFC9052]
-   Use                   -65536
-   delegated to the COSE -65536 to
-   Header Algorithm      -1
-   Parameters registry
-   Reserved              0                                                                                   [RFC9052]
-   alg                   1         int / tstr                 COSE Algorithms     Cryptographic algorithm to [RFC9052]
-                                                              registry            use
-   crit                  2         [+ label]                  COSE Header         Critical headers to be     [RFC9052]
-                                                              Parameters registry understood
-                                                              [COAP
-   content type          3         tstr / uint                Content-Formats] or Content type of the        [RFC9052]
-                                                              [Media Types]       payload
-                                                              registry
-   kid                   4         bstr                                           Key identifier             [RFC9052]
-   IV                    5         bstr                                           Full Initialization Vector [RFC9052]
-   Partial IV            6         bstr                                           Partial Initialization     [RFC9052]
-                                                                                  Vector
-                                   COSE_Signature / [+                            CBOR-encoded signature
-   counter signature     7         COSE_Signature ]                               structure (Deprecated by   [RFC8152]
-                                                                                  [RFC9338])
-   Unassigned            8
-                                                                                  Counter signature with
-   CounterSignature0     9         bstr                                           implied signer and headers [RFC8152]
-                                                                                  (Deprecated by [RFC9338])
-   kid context           10        bstr                                           Identifies the context for [RFC8613, Section 5.1]
-                                                                                  the key identifier
-   Countersignature      11        COSE_Countersignature / [+                     V2 countersignature        [RFC9338]
-   version 2                       COSE_Countersignature]                         attribute
-   Countersignature0     12        COSE_Countersignature0                         V2 Abbreviated             [RFC9338]
-   version 2                                                                      Countersignature
-                                                                                  A CBOR Web Token (CWT)
-                                                                                  containing a COSE_Key in a
-                                                                                  'cnf' claim and possibly
-   kcwt                  13        COSE_Messages                                  other claims. CWT is       [RFC9528]
-                                                                                  defined in [RFC8392].
-                                                                                  COSE_Messages is defined
-                                                                                  in [RFC9052].
-                                                                                  A CWT Claims Set (CCS)
-                                                                                  containing a COSE_Key in a
-   kccs                  14        map                                            'cnf' claim and possibly   [RFC9528]
-                                                                                  other claims. CCS is
-                                                                                  defined in [RFC8392].
-   CWT Claims            15        map                        map keys in [CWT    Location for CWT Claims in [RFC9597, Section 2]
-                                                              Claims]             COSE Header Parameters.
-                                                              [COAP
-   typ (type)            16        uint / tstr                Content-Formats] or Content type of the        [RFC9596, Section 2]
-                                                              [Media Types]       complete COSE object
-                                                              registry
-   Unassigned            17-21
-                                                                                  Hash of a C509Certificate
-                                                                                  (TEMPORARY - registered
-   c5t                   22        COSE_CertHash                                  2024-03-11, extension      [draft-ietf-cose-cbor-encoded-cert-12]
-                                                                                  registered 2025-02-28,
-                                                                                  expires 2025-03-11)
-                                                                                  URI pointing to a
-                                                                                  COSE_C509 containing an
-                                                                                  ordered chain of
-   c5u                   23        uri                                            certificates (TEMPORARY -  [draft-ietf-cose-cbor-encoded-cert-12]
-                                                                                  registered 2024-03-11,
-                                                                                  extension registered
-                                                                                  2025-02-28, expires
-                                                                                  2025-03-11)
-                                                                                  An unordered bag of C509
-                                                                                  certificates (TEMPORARY -
-   c5b                   24        COSE_C509                                      registered 2024-03-11,     [draft-ietf-cose-cbor-encoded-cert-12]
-                                                                                  extension registered
-                                                                                  2025-02-28, expires
-                                                                                  2025-03-11)
-                                                                                  An ordered chain of C509
-                                                                                  certificates (TEMPORARY -
-   c5c                   25        COSE_C509                                      registered 2024-03-11,     [draft-ietf-cose-cbor-encoded-cert-12]
-                                                                                  extension registered
-                                                                                  2025-02-28, expires
-                                                                                  2025-03-11)
-   Unassigned            26-31
-   x5bag                 32        COSE_X509                                      An unordered bag of X.509  [RFC9360]
-                                                                                  certificates
-   x5chain               33        COSE_X509                                      An ordered chain of X.509  [RFC9360]
-                                                                                  certificates
-   x5t                   34        COSE_CertHash                                  Hash of an X.509           [RFC9360]
-                                                                                  certificate
-   x5u                   35        uri                                            URI pointing to an X.509   [RFC9360]
-                                                                                  certificate
-   Unassigned            36-255
-   CUPHNonce             256       bstr                                           Challenge Nonce            [FIDO Device Onboard Specification]
-   CUPHOwnerPubKey       257       array                                          Public Key                 [FIDO Device Onboard Specification]
-                                                                                  The hash algorithm used to
-                                                              [COSE Algorithms]   produce the payload of a   [draft-ietf-cose-hash-envelope-03,
-   payload-hash-alg      258       int                        registry            COSE_Sign1 (TEMPORARY -    Section 3]
-                                                                                  registered 2025-03-05,
-                                                                                  expires 2026-03-05)
-                                                                                  The content-format number
-                                                                                  or content-type
-                                                              [CoAP               (media-type name) of data
-   preimage content type 259       uint / tstr                Content-Formats]    that has been hashed to    [draft-ietf-cose-hash-envelope-03,
-                                                              registry            produce the payload of the Section 3]
-                                                                                  COSE_Sign1 (TEMPORARY -
-                                                                                  registered 2025-03-05,
-                                                                                  expires 2026-03-05)
-                                                                                  The string or URI hint for
-                                                                                  the location of the data
-                                                                                  hashed to produce the      [draft-ietf-cose-hash-envelope-03,
-   payload-location      260       tstr                                           payload of a COSE_Sign1    Section 3]
-                                                                                  (TEMPORARY - registered
-                                                                                  2025-03-05, expires
-                                                                                  2026-03-05)
+         Name         Label        Value Type                  Value Registry               Description                    Reference
+   Reserved for      less
+   Private Use       than                                                                                   [RFC9052]
+                     -65536
+   delegated to the
+   COSE Header       -65536
+   Algorithm         to -1
+   Parameters
+   registry
+   Reserved          0                                                                                      [RFC9052]
+   alg               1       int / tstr              COSE Algorithms registry            Cryptographic      [RFC9052]
+                                                                                         algorithm to use
+   crit              2       [+ label]               COSE Header Parameters registry     Critical headers   [RFC9052]
+                                                                                         to be understood
+   content type      3       tstr / uint             [COAP Content-Formats] or [Media    Content type of    [RFC9052]
+                                                     Types] registry                     the payload
+   kid               4       bstr                                                        Key identifier     [RFC9052]
+                                                                                         Full
+   IV                5       bstr                                                        Initialization     [RFC9052]
+                                                                                         Vector
+                                                                                         Partial
+   Partial IV        6       bstr                                                        Initialization     [RFC9052]
+                                                                                         Vector
+                                                                                         CBOR-encoded
+                             COSE_Signature / [+                                         signature
+   counter signature 7       COSE_Signature ]                                            structure          [RFC8152]
+                                                                                         (Deprecated by
+                                                                                         [RFC9338])
+   Unassigned        8
+                                                                                         Counter signature
+                                                                                         with implied
+   CounterSignature0 9       bstr                                                        signer and headers [RFC8152]
+                                                                                         (Deprecated by
+                                                                                         [RFC9338])
+                                                                                         Identifies the
+   kid context       10      bstr                                                        context for the    [RFC8613, Section 5.1]
+                                                                                         key identifier
+   Countersignature          COSE_Countersignature /                                     V2
+   version 2         11      [+                                                          countersignature   [RFC9338]
+                             COSE_Countersignature]                                      attribute
+   Countersignature0 12      COSE_Countersignature0                                      V2 Abbreviated     [RFC9338]
+   version 2                                                                             Countersignature
+                                                                                         A CBOR Web Token
+                                                                                         (CWT) containing a
+                                                                                         COSE_Key in a
+                                                                                         'cnf' claim and
+                                                                                         possibly other
+   kcwt              13      COSE_Messages                                               claims. CWT is     [RFC9528]
+                                                                                         defined in
+                                                                                         [RFC8392].
+                                                                                         COSE_Messages is
+                                                                                         defined in
+                                                                                         [RFC9052].
+                                                                                         A CWT Claims Set
+                                                                                         (CCS) containing a
+                                                                                         COSE_Key in a
+   kccs              14      map                                                         'cnf' claim and    [RFC9528]
+                                                                                         possibly other
+                                                                                         claims. CCS is
+                                                                                         defined in
+                                                                                         [RFC8392].
+                                                                                         Location for CWT
+   CWT Claims        15      map                     map keys in [CWT Claims]            Claims in COSE     [RFC9597, Section 2]
+                                                                                         Header Parameters.
+                                                     [COAP Content-Formats] or [Media    Content type of
+   typ (type)        16      uint / tstr             Types] registry                     the complete COSE  [RFC9596, Section 2]
+                                                                                         object
+   Unassigned        17-21
+                                                                                         Hash of a
+                                                                                         C509Certificate
+                                                                                         (TEMPORARY -
+                                                                                         registered
+   c5t               22      COSE_CertHash                                               2024-03-11,        [draft-ietf-cose-cbor-encoded-cert-12]
+                                                                                         extension
+                                                                                         registered
+                                                                                         2025-02-28,
+                                                                                         expires
+                                                                                         2025-03-11)
+                                                                                         URI pointing to a
+                                                                                         COSE_C509
+                                                                                         containing an
+                                                                                         ordered chain of
+                                                                                         certificates
+                                                                                         (TEMPORARY -
+   c5u               23      uri                                                         registered         [draft-ietf-cose-cbor-encoded-cert-12]
+                                                                                         2024-03-11,
+                                                                                         extension
+                                                                                         registered
+                                                                                         2025-02-28,
+                                                                                         expires
+                                                                                         2025-03-11)
+                                                                                         An unordered bag
+                                                                                         of C509
+                                                                                         certificates
+                                                                                         (TEMPORARY -
+                                                                                         registered
+   c5b               24      COSE_C509                                                   2024-03-11,        [draft-ietf-cose-cbor-encoded-cert-12]
+                                                                                         extension
+                                                                                         registered
+                                                                                         2025-02-28,
+                                                                                         expires
+                                                                                         2025-03-11)
+                                                                                         An ordered chain
+                                                                                         of C509
+                                                                                         certificates
+                                                                                         (TEMPORARY -
+                                                                                         registered
+   c5c               25      COSE_C509                                                   2024-03-11,        [draft-ietf-cose-cbor-encoded-cert-12]
+                                                                                         extension
+                                                                                         registered
+                                                                                         2025-02-28,
+                                                                                         expires
+                                                                                         2025-03-11)
+   Unassigned        26-31
+                                                                                         An unordered bag
+   x5bag             32      COSE_X509                                                   of X.509           [RFC9360]
+                                                                                         certificates
+                                                                                         An ordered chain
+   x5chain           33      COSE_X509                                                   of X.509           [RFC9360]
+                                                                                         certificates
+   x5t               34      COSE_CertHash                                               Hash of an X.509   [RFC9360]
+                                                                                         certificate
+   x5u               35      uri                                                         URI pointing to an [RFC9360]
+                                                                                         X.509 certificate
+   Unassigned        36-255
+   CUPHNonce         256     bstr                                                        Challenge Nonce    [FIDO Device Onboard Specification]
+   CUPHOwnerPubKey   257     array                                                       Public Key         [FIDO Device Onboard Specification]
+                                                                                         The hash algorithm
+                                                                                         used to produce
+                                                                                         the payload of a
+                                                                                         COSE_Sign1         [draft-ietf-cose-hash-envelope-03,
+   payload-hash-alg  258     int                     [COSE Algorithms] registry          (TEMPORARY -       Section 3]
+                                                                                         registered
+                                                                                         2025-03-05,
+                                                                                         expires
+                                                                                         2026-03-05)
+                                                                                         The content-format
+                                                                                         number or
+                                                                                         content-type
+                                                                                         (media-type name)
+                                                                                         of data that has
+                                                                                         been hashed to
+   preimage content  259     uint / tstr             [CoAP Content-Formats] registry     produce the        [draft-ietf-cose-hash-envelope-03,
+   type                                                                                  payload of the     Section 3]
+                                                                                         COSE_Sign1
+                                                                                         (TEMPORARY -
+                                                                                         registered
+                                                                                         2025-03-05,
+                                                                                         expires
+                                                                                         2026-03-05)
+                                                                                         The string or URI
+                                                                                         hint for the
+                                                                                         location of the
+                                                                                         data hashed to
+                                                                                         produce the
+   payload-location  260     tstr                                                        payload of a       [draft-ietf-cose-hash-envelope-03,
+                                                                                         COSE_Sign1         Section 3]
+                                                                                         (TEMPORARY -
+                                                                                         registered
+                                                                                         2025-03-05,
+                                                                                         expires
+                                                                                         2026-03-05)
+   Unassigned        261-393
+                                                                                         Priority ordered
+                                                                                         sequence of CBOR
+                                                                                         encoded Receipts
+   receipts          394     array                                                       (TEMPORARY -       [draft-ietf-cose-merkle-tree-proofs-14,
+                                                                                         registered         Section 2]
+                                                                                         2025-05-16,
+                                                                                         expires
+                                                                                         2026-05-16)
+                                                                                         Algorithm
+                                                                                         identifier for
+                                                                                         verifiable data
+                                                     COSE Verifiable Data Structure (to  structures, used
+                                                     be created for                      to produce
+   vds               395     int                     draft-ietf-cose-merkle-tree-proofs  verifiable data    [draft-ietf-cose-merkle-tree-proofs-14,
+                                                     upon approval for publication as an structure proofs   Section 2]
+                                                     RFC)                                (TEMPORARY -
+                                                                                         registered
+                                                                                         2025-05-16,
+                                                                                         expires
+                                                                                         2026-05-16)
+                                                                                         Location for
+                                                                                         verifiable data
+                                                     map key in COSE Verifiable Data     structure proofs
+                                                     Structure Proofs (to be created for in COSE Header
+   vdp               396     map                     draft-ietf-cose-merkle-tree-proofs  Parameters         [draft-ietf-cose-merkle-tree-proofs-14,
+                                                     upon approval for publication as an (TEMPORARY -       Section 2]
+                                                     RFC)                                registered
+                                                                                         2025-05-16,
+                                                                                         expires
+                                                                                         2026-05-16)
 
 COSE Header Algorithm Parameters
 
@@ -231,7 +316,7 @@ COSE Algorithms
  Göran Selander, Derek Atkins, Sean Turner
 
    Reference
-   [RFC9053][RFC9054]
+   [RFC9053][RFC9054][RFC-ietf-jose-fully-specified-algorithms-13, Section 4.3.1]
 
    Available Formats
    [IMG]
@@ -247,122 +332,208 @@ COSE Algorithms
    Strings of length 2                 Specification Required
    Strings of length greater than 2    Expert Review
 
-             Name              Value                 Description              Capabilities   Change               Reference             Recommended
-                                                                                           Controller
-   Reserved for Private Use less than                                                                 [RFC9053]                         No
-                            -65536
-   Unassigned               -65536
-   RS1                      -65535      RSASSA-PKCS1-v1_5 using SHA-1         [kty]        IESG       [RFC8812][RFC9053]                Deprecated
-   A128CTR                  -65534      AES-CTR w/ 128-bit key                [kty]        IETF       [RFC9459]                         Deprecated
-   A192CTR                  -65533      AES-CTR w/ 192-bit key                [kty]        IETF       [RFC9459]                         Deprecated
-   A256CTR                  -65532      AES-CTR w/ 256-bit key                [kty]        IETF       [RFC9459]                         Deprecated
-   A128CBC                  -65531      AES-CBC w/ 128-bit key                [kty]        IETF       [RFC9459]                         Deprecated
-   A192CBC                  -65530      AES-CBC w/ 192-bit key                [kty]        IETF       [RFC9459]                         Deprecated
-   A256CBC                  -65529      AES-CBC w/ 256-bit key                [kty]        IETF       [RFC9459]                         Deprecated
-   Unassigned               -65528 to
-                            -261
-   KT256                    -264        KT256 XOF                             [kty]        IETF       [RFC-irtf-cfrg-kangarootwelve-17] No
-   KT128                    -263        KT128 XOF                             [kty]        IETF       [RFC-irtf-cfrg-kangarootwelve-17] No
-   TurboSHAKE256            -262        TurboSHAKE256 XOF                     [kty]        IETF       [RFC-irtf-cfrg-kangarootwelve-17] No
-   TurboSHAKE128            -261        TurboSHAKE128 XOF                     [kty]        IETF       [RFC-irtf-cfrg-kangarootwelve-17] No
-   WalnutDSA                -260        WalnutDSA signature                   [kty]                   [RFC9021][RFC9053]                No
-   RS512                    -259        RSASSA-PKCS1-v1_5 using SHA-512       [kty]        IESG       [RFC8812][RFC9053]                No
-   RS384                    -258        RSASSA-PKCS1-v1_5 using SHA-384       [kty]        IESG       [RFC8812][RFC9053]                No
-   RS256                    -257        RSASSA-PKCS1-v1_5 using SHA-256       [kty]        IESG       [RFC8812][RFC9053]                No
-   Unassigned               -256 to -48
-   ES256K                   -47         ECDSA using secp256k1 curve and       [kty]        IESG       [RFC8812][RFC9053]                No
-                                        SHA-256
-   HSS-LMS                  -46         HSS/LMS hash-based digital signature  [kty]                   [RFC8778][RFC9053]                Yes
-   SHAKE256                 -45         SHAKE-256 512-bit Hash Value          [kty]                   [RFC9054][RFC9053]                Yes
-   SHA-512                  -44         SHA-2 512-bit Hash                    [kty]                   [RFC9054][RFC9053]                Yes
-   SHA-384                  -43         SHA-2 384-bit Hash                    [kty]                   [RFC9054][RFC9053]                Yes
-   RSAES-OAEP w/ SHA-512    -42         RSAES-OAEP w/ SHA-512                 [kty]                   [RFC8230][RFC9053]                Yes
-   RSAES-OAEP w/ SHA-256    -41         RSAES-OAEP w/ SHA-256                 [kty]                   [RFC8230][RFC9053]                Yes
-   RSAES-OAEP w/ RFC 8017   -40         RSAES-OAEP w/ SHA-1                   [kty]                   [RFC8230][RFC9053]                Yes
+            Name           Value        Description      Capabilities   Change                         Reference                        Recommended
+                                                                      Controller
+   Reserved for Private   less
+   Use                    than                                                   [RFC9053]                                              No
+                          -65536
+   Unassigned             -65536
+   RS1                    -65535   RSASSA-PKCS1-v1_5     [kty]        IESG       [RFC8812][RFC9053]                                     Deprecated
+                                   using SHA-1
+   A128CTR                -65534   AES-CTR w/ 128-bit    [kty]        IETF       [RFC9459]                                              Deprecated
+                                   key
+   A192CTR                -65533   AES-CTR w/ 192-bit    [kty]        IETF       [RFC9459]                                              Deprecated
+                                   key
+   A256CTR                -65532   AES-CTR w/ 256-bit    [kty]        IETF       [RFC9459]                                              Deprecated
+                                   key
+   A128CBC                -65531   AES-CBC w/ 128-bit    [kty]        IETF       [RFC9459]                                              Deprecated
+                                   key
+   A192CBC                -65530   AES-CBC w/ 192-bit    [kty]        IETF       [RFC9459]                                              Deprecated
+                                   key
+   A256CBC                -65529   AES-CBC w/ 256-bit    [kty]        IETF       [RFC9459]                                              Deprecated
+                                   key
+   Unassigned             -65528
+                          to -269
+                                   ECDSA using
+   ESB512                 -268     BrainpoolP512r1 curve [kty]        IETF       [RFC-ietf-jose-fully-specified-algorithms-13]          No
+                                   and SHA-512
+                                   ECDSA using
+   ESB384                 -267     BrainpoolP384r1 curve [kty]        IETF       [RFC-ietf-jose-fully-specified-algorithms-13]          No
+                                   and SHA-384
+                                   ECDSA using
+   ESB320                 -266     BrainpoolP320r1 curve [kty]        IETF       [RFC-ietf-jose-fully-specified-algorithms-13]          No
+                                   and SHA-384
+                                   ECDSA using
+   ESB256                 -265     BrainpoolP256r1 curve [kty]        IETF       [RFC-ietf-jose-fully-specified-algorithms-13]          No
+                                   and SHA-256
+   KT256                  -264     KT256 XOF             [kty]        IETF       [RFC-irtf-cfrg-kangarootwelve-17]                      No
+   KT128                  -263     KT128 XOF             [kty]        IETF       [RFC-irtf-cfrg-kangarootwelve-17]                      No
+   TurboSHAKE256          -262     TurboSHAKE256 XOF     [kty]        IETF       [RFC-irtf-cfrg-kangarootwelve-17]                      No
+   TurboSHAKE128          -261     TurboSHAKE128 XOF     [kty]        IETF       [RFC-irtf-cfrg-kangarootwelve-17]                      No
+   WalnutDSA              -260     WalnutDSA signature   [kty]                   [RFC9021][RFC9053]                                     No
+   RS512                  -259     RSASSA-PKCS1-v1_5     [kty]        IESG       [RFC8812][RFC9053]                                     No
+                                   using SHA-512
+   RS384                  -258     RSASSA-PKCS1-v1_5     [kty]        IESG       [RFC8812][RFC9053]                                     No
+                                   using SHA-384
+   RS256                  -257     RSASSA-PKCS1-v1_5     [kty]        IESG       [RFC8812][RFC9053]                                     No
+                                   using SHA-256
+   Unassigned             -256 to
+                          -54
+   Ed448                  -53      EdDSA using Ed448     [kty]        IETF       [RFC-ietf-jose-fully-specified-algorithms-13]          Yes
+                                   curve
+   ESP512                 -52      ECDSA using P-521     [kty]        IETF       [RFC-ietf-jose-fully-specified-algorithms-13]          Yes
+                                   curve and SHA-512
+   ESP384                 -51      ECDSA using P-384     [kty]        IETF       [RFC-ietf-jose-fully-specified-algorithms-13]          Yes
+                                   curve and SHA-384
+                                   CBOR Object Signing
+                                   Algorithm for
+   ML-DSA-87              -50      ML-DSA-87 (TEMPORARY  [kty]                   [draft-ietf-cose-dilithium-06]                         Yes
+                                   - registered
+                                   2025-04-24, expires
+                                   2026-04-24)
+                                   CBOR Object Signing
+                                   Algorithm for
+   ML-DSA-65              -49      ML-DSA-65 (TEMPORARY  [kty]                   [draft-ietf-cose-dilithium-06]                         Yes
+                                   - registered
+                                   2025-04-24, expires
+                                   2026-04-24)
+                                   CBOR Object Signing
+                                   Algorithm for
+   ML-DSA-44              -48      ML-DSA-44 (TEMPORARY  [kty]                   [draft-ietf-cose-dilithium-06]                         Yes
+                                   - registered
+                                   2025-04-24, expires
+                                   2026-04-24)
+   ES256K                 -47      ECDSA using secp256k1 [kty]        IESG       [RFC8812][RFC9053]                                     No
+                                   curve and SHA-256
+   HSS-LMS                -46      HSS/LMS hash-based    [kty]                   [RFC8778][RFC9053]                                     Yes
+                                   digital signature
+   SHAKE256               -45      SHAKE-256 512-bit     [kty]                   [RFC9054][RFC9053]                                     Yes
+                                   Hash Value
+   SHA-512                -44      SHA-2 512-bit Hash    [kty]                   [RFC9054][RFC9053]                                     Yes
+   SHA-384                -43      SHA-2 384-bit Hash    [kty]                   [RFC9054][RFC9053]                                     Yes
+   RSAES-OAEP w/ SHA-512  -42      RSAES-OAEP w/ SHA-512 [kty]                   [RFC8230][RFC9053]                                     Yes
+   RSAES-OAEP w/ SHA-256  -41      RSAES-OAEP w/ SHA-256 [kty]                   [RFC8230][RFC9053]                                     Yes
+   RSAES-OAEP w/ RFC 8017 -40      RSAES-OAEP w/ SHA-1   [kty]                   [RFC8230][RFC9053]                                     Yes
    default parameters
-   PS512                    -39         RSASSA-PSS w/ SHA-512                 [kty]                   [RFC8230][RFC9053]                Yes
-   PS384                    -38         RSASSA-PSS w/ SHA-384                 [kty]                   [RFC8230][RFC9053]                Yes
-   PS256                    -37         RSASSA-PSS w/ SHA-256                 [kty]                   [RFC8230][RFC9053]                Yes
-   ES512                    -36         ECDSA w/ SHA-512                      [kty]                   [RFC9053]                         Yes
-   ES384                    -35         ECDSA w/ SHA-384                      [kty]                   [RFC9053]                         Yes
-   ECDH-SS + A256KW         -34         ECDH SS w/ Concat KDF and AES Key     [kty]                   [RFC9053]                         Yes
-                                        Wrap w/ 256-bit key
-   ECDH-SS + A192KW         -33         ECDH SS w/ Concat KDF and AES Key     [kty]                   [RFC9053]                         Yes
-                                        Wrap w/ 192-bit key
-   ECDH-SS + A128KW         -32         ECDH SS w/ Concat KDF and AES Key     [kty]                   [RFC9053]                         Yes
-                                        Wrap w/ 128-bit key
-   ECDH-ES + A256KW         -31         ECDH ES w/ Concat KDF and AES Key     [kty]                   [RFC9053]                         Yes
-                                        Wrap w/ 256-bit key
-   ECDH-ES + A192KW         -30         ECDH ES w/ Concat KDF and AES Key     [kty]                   [RFC9053]                         Yes
-                                        Wrap w/ 192-bit key
-   ECDH-ES + A128KW         -29         ECDH ES w/ Concat KDF and AES Key     [kty]                   [RFC9053]                         Yes
-                                        Wrap w/ 128-bit key
-   ECDH-SS + HKDF-512       -28         ECDH SS w/ HKDF - generate key        [kty]                   [RFC9053]                         Yes
-                                        directly
-   ECDH-SS + HKDF-256       -27         ECDH SS w/ HKDF - generate key        [kty]                   [RFC9053]                         Yes
-                                        directly
-   ECDH-ES + HKDF-512       -26         ECDH ES w/ HKDF - generate key        [kty]                   [RFC9053]                         Yes
-                                        directly
-   ECDH-ES + HKDF-256       -25         ECDH ES w/ HKDF - generate key        [kty]                   [RFC9053]                         Yes
-                                        directly
-   Unassigned               -24 to -19
-   SHAKE128                 -18         SHAKE-128 256-bit Hash Value          [kty]                   [RFC9054][RFC9053]                Yes
-   SHA-512/256              -17         SHA-2 512-bit Hash truncated to       [kty]                   [RFC9054][RFC9053]                Yes
-                                        256-bits
-   SHA-256                  -16         SHA-2 256-bit Hash                    [kty]                   [RFC9054][RFC9053]                Yes
-   SHA-256/64               -15         SHA-2 256-bit Hash truncated to       [kty]                   [RFC9054][RFC9053]                Filter Only
-                                        64-bits
-   SHA-1                    -14         SHA-1 Hash                            [kty]                   [RFC9054][RFC9053]                Filter Only
-   direct+HKDF-AES-256      -13         Shared secret w/ AES-MAC 256-bit key  [kty]                   [RFC9053]                         Yes
-   direct+HKDF-AES-128      -12         Shared secret w/ AES-MAC 128-bit key  [kty]                   [RFC9053]                         Yes
-   direct+HKDF-SHA-512      -11         Shared secret w/ HKDF and SHA-512     [kty]                   [RFC9053]                         Yes
-   direct+HKDF-SHA-256      -10         Shared secret w/ HKDF and SHA-256     [kty]                   [RFC9053]                         Yes
-   Unassigned               -9
-   EdDSA                    -8          EdDSA                                 [kty]                   [RFC9053]                         Yes
-   ES256                    -7          ECDSA w/ SHA-256                      [kty]                   [RFC9053]                         Yes
-   direct                   -6          Direct use of CEK                     [kty]                   [RFC9053]                         Yes
-   A256KW                   -5          AES Key Wrap w/ 256-bit key           [kty]                   [RFC9053]                         Yes
-   A192KW                   -4          AES Key Wrap w/ 192-bit key           [kty]                   [RFC9053]                         Yes
-   A128KW                   -3          AES Key Wrap w/ 128-bit key           [kty]                   [RFC9053]                         Yes
-   Unassigned               -2 to -1
-   Reserved                 0                                                                         [RFC9053]                         No
-   A128GCM                  1           AES-GCM mode w/ 128-bit key, 128-bit  [kty]                   [RFC9053]                         Yes
-                                        tag
-   A192GCM                  2           AES-GCM mode w/ 192-bit key, 128-bit  [kty]                   [RFC9053]                         Yes
-                                        tag
-   A256GCM                  3           AES-GCM mode w/ 256-bit key, 128-bit  [kty]                   [RFC9053]                         Yes
-                                        tag
-   HMAC 256/64              4           HMAC w/ SHA-256 truncated to 64 bits  [kty]                   [RFC9053]                         Yes
-   HMAC 256/256             5           HMAC w/ SHA-256                       [kty]                   [RFC9053]                         Yes
-   HMAC 384/384             6           HMAC w/ SHA-384                       [kty]                   [RFC9053]                         Yes
-   HMAC 512/512             7           HMAC w/ SHA-512                       [kty]                   [RFC9053]                         Yes
-   Unassigned               8-9
-   AES-CCM-16-64-128        10          AES-CCM mode 128-bit key, 64-bit tag, [kty]                   [RFC9053]                         Yes
-                                        13-byte nonce
-   AES-CCM-16-64-256        11          AES-CCM mode 256-bit key, 64-bit tag, [kty]                   [RFC9053]                         Yes
-                                        13-byte nonce
-   AES-CCM-64-64-128        12          AES-CCM mode 128-bit key, 64-bit tag, [kty]                   [RFC9053]                         Yes
-                                        7-byte nonce
-   AES-CCM-64-64-256        13          AES-CCM mode 256-bit key, 64-bit tag, [kty]                   [RFC9053]                         Yes
-                                        7-byte nonce
-   AES-MAC 128/64           14          AES-MAC 128-bit key, 64-bit tag       [kty]                   [RFC9053]                         Yes
-   AES-MAC 256/64           15          AES-MAC 256-bit key, 64-bit tag       [kty]                   [RFC9053]                         Yes
-   Unassigned               16-23
-   ChaCha20/Poly1305        24          ChaCha20/Poly1305 w/ 256-bit key,     [kty]                   [RFC9053]                         Yes
-                                        128-bit tag
-   AES-MAC 128/128          25          AES-MAC 128-bit key, 128-bit tag      [kty]                   [RFC9053]                         Yes
-   AES-MAC 256/128          26          AES-MAC 256-bit key, 128-bit tag      [kty]                   [RFC9053]                         Yes
-   Unassigned               27-29
-   AES-CCM-16-128-128       30          AES-CCM mode 128-bit key, 128-bit     [kty]                   [RFC9053]                         Yes
-                                        tag, 13-byte nonce
-   AES-CCM-16-128-256       31          AES-CCM mode 256-bit key, 128-bit     [kty]                   [RFC9053]                         Yes
-                                        tag, 13-byte nonce
-   AES-CCM-64-128-128       32          AES-CCM mode 128-bit key, 128-bit     [kty]                   [RFC9053]                         Yes
-                                        tag, 7-byte nonce
-   AES-CCM-64-128-256       33          AES-CCM mode 256-bit key, 128-bit     [kty]                   [RFC9053]                         Yes
-                                        tag, 7-byte nonce
-   IV-GENERATION            34          For doing IV generation for symmetric                         [RFC9053]                         No
-                                        algorithms.
+   PS512                  -39      RSASSA-PSS w/ SHA-512 [kty]                   [RFC8230][RFC9053]                                     Yes
+   PS384                  -38      RSASSA-PSS w/ SHA-384 [kty]                   [RFC8230][RFC9053]                                     Yes
+   PS256                  -37      RSASSA-PSS w/ SHA-256 [kty]                   [RFC8230][RFC9053]                                     Yes
+   ES512                  -36      ECDSA w/ SHA-512      [kty]                   [RFC9053][RFC-ietf-jose-fully-specified-algorithms-13] Deprecated
+   ES384                  -35      ECDSA w/ SHA-384      [kty]        IETF       [RFC9053][RFC-ietf-jose-fully-specified-algorithms-13] Deprecated
+                                   ECDH SS w/ Concat KDF
+   ECDH-SS + A256KW       -34      and AES Key Wrap w/   [kty]                   [RFC9053]                                              Yes
+                                   256-bit key
+                                   ECDH SS w/ Concat KDF
+   ECDH-SS + A192KW       -33      and AES Key Wrap w/   [kty]                   [RFC9053]                                              Yes
+                                   192-bit key
+                                   ECDH SS w/ Concat KDF
+   ECDH-SS + A128KW       -32      and AES Key Wrap w/   [kty]                   [RFC9053]                                              Yes
+                                   128-bit key
+                                   ECDH ES w/ Concat KDF
+   ECDH-ES + A256KW       -31      and AES Key Wrap w/   [kty]                   [RFC9053]                                              Yes
+                                   256-bit key
+                                   ECDH ES w/ Concat KDF
+   ECDH-ES + A192KW       -30      and AES Key Wrap w/   [kty]                   [RFC9053]                                              Yes
+                                   192-bit key
+                                   ECDH ES w/ Concat KDF
+   ECDH-ES + A128KW       -29      and AES Key Wrap w/   [kty]                   [RFC9053]                                              Yes
+                                   128-bit key
+   ECDH-SS + HKDF-512     -28      ECDH SS w/ HKDF -     [kty]                   [RFC9053]                                              Yes
+                                   generate key directly
+   ECDH-SS + HKDF-256     -27      ECDH SS w/ HKDF -     [kty]                   [RFC9053]                                              Yes
+                                   generate key directly
+   ECDH-ES + HKDF-512     -26      ECDH ES w/ HKDF -     [kty]                   [RFC9053]                                              Yes
+                                   generate key directly
+   ECDH-ES + HKDF-256     -25      ECDH ES w/ HKDF -     [kty]                   [RFC9053]                                              Yes
+                                   generate key directly
+   Unassigned             -24 to
+                          -20
+   Ed25519                -19      EdDSA using Ed25519   [kty]        IETF       [RFC-ietf-jose-fully-specified-algorithms-13]          Yes
+                                   curve
+   SHAKE128               -18      SHAKE-128 256-bit     [kty]                   [RFC9054][RFC9053]                                     Yes
+                                   Hash Value
+   SHA-512/256            -17      SHA-2 512-bit Hash    [kty]                   [RFC9054][RFC9053]                                     Yes
+                                   truncated to 256-bits
+   SHA-256                -16      SHA-2 256-bit Hash    [kty]                   [RFC9054][RFC9053]                                     Yes
+   SHA-256/64             -15      SHA-2 256-bit Hash    [kty]                   [RFC9054][RFC9053]                                     Filter Only
+                                   truncated to 64-bits
+   SHA-1                  -14      SHA-1 Hash            [kty]                   [RFC9054][RFC9053]                                     Filter Only
+   direct+HKDF-AES-256    -13      Shared secret w/      [kty]                   [RFC9053]                                              Yes
+                                   AES-MAC 256-bit key
+   direct+HKDF-AES-128    -12      Shared secret w/      [kty]                   [RFC9053]                                              Yes
+                                   AES-MAC 128-bit key
+   direct+HKDF-SHA-512    -11      Shared secret w/ HKDF [kty]                   [RFC9053]                                              Yes
+                                   and SHA-512
+   direct+HKDF-SHA-256    -10      Shared secret w/ HKDF [kty]                   [RFC9053]                                              Yes
+                                   and SHA-256
+   ESP256                 -9       ECDSA using P-256     [kty]        IETF       [RFC-ietf-jose-fully-specified-algorithms-13]          Yes
+                                   curve and SHA-256
+   EdDSA                  -8       EdDSA                 [kty]        IETF       [RFC9053][RFC-ietf-jose-fully-specified-algorithms-13] Deprecated
+   ES256                  -7       ECDSA w/ SHA-256      [kty]        IETF       [RFC9053][RFC-ietf-jose-fully-specified-algorithms-13] Deprecated
+   direct                 -6       Direct use of CEK     [kty]                   [RFC9053]                                              Yes
+   A256KW                 -5       AES Key Wrap w/       [kty]                   [RFC9053]                                              Yes
+                                   256-bit key
+   A192KW                 -4       AES Key Wrap w/       [kty]                   [RFC9053]                                              Yes
+                                   192-bit key
+   A128KW                 -3       AES Key Wrap w/       [kty]                   [RFC9053]                                              Yes
+                                   128-bit key
+   Unassigned             -2 to -1
+   Reserved               0                                                      [RFC9053]                                              No
+                                   AES-GCM mode w/
+   A128GCM                1        128-bit key, 128-bit  [kty]                   [RFC9053]                                              Yes
+                                   tag
+                                   AES-GCM mode w/
+   A192GCM                2        192-bit key, 128-bit  [kty]                   [RFC9053]                                              Yes
+                                   tag
+                                   AES-GCM mode w/
+   A256GCM                3        256-bit key, 128-bit  [kty]                   [RFC9053]                                              Yes
+                                   tag
+   HMAC 256/64            4        HMAC w/ SHA-256       [kty]                   [RFC9053]                                              Yes
+                                   truncated to 64 bits
+   HMAC 256/256           5        HMAC w/ SHA-256       [kty]                   [RFC9053]                                              Yes
+   HMAC 384/384           6        HMAC w/ SHA-384       [kty]                   [RFC9053]                                              Yes
+   HMAC 512/512           7        HMAC w/ SHA-512       [kty]                   [RFC9053]                                              Yes
+   Unassigned             8-9
+                                   AES-CCM mode 128-bit
+   AES-CCM-16-64-128      10       key, 64-bit tag,      [kty]                   [RFC9053]                                              Yes
+                                   13-byte nonce
+                                   AES-CCM mode 256-bit
+   AES-CCM-16-64-256      11       key, 64-bit tag,      [kty]                   [RFC9053]                                              Yes
+                                   13-byte nonce
+                                   AES-CCM mode 128-bit
+   AES-CCM-64-64-128      12       key, 64-bit tag,      [kty]                   [RFC9053]                                              Yes
+                                   7-byte nonce
+                                   AES-CCM mode 256-bit
+   AES-CCM-64-64-256      13       key, 64-bit tag,      [kty]                   [RFC9053]                                              Yes
+                                   7-byte nonce
+   AES-MAC 128/64         14       AES-MAC 128-bit key,  [kty]                   [RFC9053]                                              Yes
+                                   64-bit tag
+   AES-MAC 256/64         15       AES-MAC 256-bit key,  [kty]                   [RFC9053]                                              Yes
+                                   64-bit tag
+   Unassigned             16-23
+                                   ChaCha20/Poly1305 w/
+   ChaCha20/Poly1305      24       256-bit key, 128-bit  [kty]                   [RFC9053]                                              Yes
+                                   tag
+   AES-MAC 128/128        25       AES-MAC 128-bit key,  [kty]                   [RFC9053]                                              Yes
+                                   128-bit tag
+   AES-MAC 256/128        26       AES-MAC 256-bit key,  [kty]                   [RFC9053]                                              Yes
+                                   128-bit tag
+   Unassigned             27-29
+                                   AES-CCM mode 128-bit
+   AES-CCM-16-128-128     30       key, 128-bit tag,     [kty]                   [RFC9053]                                              Yes
+                                   13-byte nonce
+                                   AES-CCM mode 256-bit
+   AES-CCM-16-128-256     31       key, 128-bit tag,     [kty]                   [RFC9053]                                              Yes
+                                   13-byte nonce
+                                   AES-CCM mode 128-bit
+   AES-CCM-64-128-128     32       key, 128-bit tag,     [kty]                   [RFC9053]                                              Yes
+                                   7-byte nonce
+                                   AES-CCM mode 256-bit
+   AES-CCM-64-128-256     33       key, 128-bit tag,     [kty]                   [RFC9053]                                              Yes
+                                   7-byte nonce
+                                   For doing IV
+   IV-GENERATION          34       generation for                                [RFC9053]                                              No
+                                   symmetric algorithms.
 
 COSE Key Common Parameters
 
@@ -420,34 +591,38 @@ COSE Key Type Parameters
    [IMG]
    CSV
 
-   Key Type     Name      Label        CBOR Type                                    Description                             Reference
-   1        crv           -1    int / tstr               EC identifier -- Taken from the "COSE Elliptic Curves" registry    [RFC9053]
-   1        x             -2    bstr                     Public Key                                                         [RFC9053]
-   1        d             -4    bstr                     Private key                                                        [RFC9053]
-   2        crv           -1    int / tstr               EC identifier -- Taken from the "COSE Elliptic Curves" registry    [RFC9053]
-   2        x             -2    bstr                     x-coordinate                                                       [RFC9053]
-   2        y             -3    bstr / bool              y-coordinate                                                       [RFC9053]
-   2        d             -4    bstr                     Private key                                                        [RFC9053]
-   3        n             -1    bstr                     the RSA modulus n                                                  [RFC8230]
-   3        e             -2    bstr                     the RSA public exponent e                                          [RFC8230]
-   3        d             -3    bstr                     the RSA private exponent d                                         [RFC8230]
-   3        p             -4    bstr                     the prime factor p of n                                            [RFC8230]
-   3        q             -5    bstr                     the prime factor q of n                                            [RFC8230]
-   3        dP            -6    bstr                     dP is d mod (p - 1)                                                [RFC8230]
-   3        dQ            -7    bstr                     dQ is d mod (q - 1)                                                [RFC8230]
-   3        qInv          -8    bstr                     qInv is the CRT coefficient q^(-1) mod p                           [RFC8230]
-   3        other         -9    array                    other prime infos, an array                                        [RFC8230]
-   3        r_i           -10   bstr                     a prime factor r_i of n, where i >= 3                              [RFC8230]
-   3        d_i           -11   bstr                     d_i = d mod (r_i - 1)                                              [RFC8230]
-   3        t_i           -12   bstr                     the CRT coefficient t_i = (r_1 * r_2 * ... * r_(i-1))^(-1) mod r_i [RFC8230]
-   4        k             -1    bstr                     Key Value                                                          [RFC9053]
-   5        pub           -1    bstr                     Public key for HSS/LMS hash-based digital signature                [RFC8778]
-   6        N             -1    uint                     Group and Matrix (NxN) size                                        [RFC9021]
-   6        q             -2    uint                     Finite field F_q                                                   [RFC9021]
-   6        t-values      -3    array (of uint)          List of T-values, entries in F_q                                   [RFC9021]
-   6        matrix 1      -4    array (of array of uint) NxN Matrix of entries in F_q in column-major form                  [RFC9021]
-   6        permutation 1 -5    array (of uint)          Permutation associated with matrix 1                               [RFC9021]
-   6        matrix 2      -6    array (of array of uint) NxN Matrix of entries in F_q in column-major form                  [RFC9021]
+   Key Type     Name      Label        CBOR Type                                 Description                                   Reference
+   1        crv           -1    int / tstr               EC identifier -- Taken from the "COSE Elliptic Curves"      [RFC9053]
+                                                         registry
+   1        x             -2    bstr                     Public Key                                                  [RFC9053]
+   1        d             -4    bstr                     Private key                                                 [RFC9053]
+   2        crv           -1    int / tstr               EC identifier -- Taken from the "COSE Elliptic Curves"      [RFC9053]
+                                                         registry
+   2        x             -2    bstr                     x-coordinate                                                [RFC9053]
+   2        y             -3    bstr / bool              y-coordinate                                                [RFC9053]
+   2        d             -4    bstr                     Private key                                                 [RFC9053]
+   3        n             -1    bstr                     the RSA modulus n                                           [RFC8230]
+   3        e             -2    bstr                     the RSA public exponent e                                   [RFC8230]
+   3        d             -3    bstr                     the RSA private exponent d                                  [RFC8230]
+   3        p             -4    bstr                     the prime factor p of n                                     [RFC8230]
+   3        q             -5    bstr                     the prime factor q of n                                     [RFC8230]
+   3        dP            -6    bstr                     dP is d mod (p - 1)                                         [RFC8230]
+   3        dQ            -7    bstr                     dQ is d mod (q - 1)                                         [RFC8230]
+   3        qInv          -8    bstr                     qInv is the CRT coefficient q^(-1) mod p                    [RFC8230]
+   3        other         -9    array                    other prime infos, an array                                 [RFC8230]
+   3        r_i           -10   bstr                     a prime factor r_i of n, where i >= 3                       [RFC8230]
+   3        d_i           -11   bstr                     d_i = d mod (r_i - 1)                                       [RFC8230]
+   3        t_i           -12   bstr                     the CRT coefficient t_i = (r_1 * r_2 * ... * r_(i-1))^(-1)  [RFC8230]
+                                                         mod r_i
+   4        k             -1    bstr                     Key Value                                                   [RFC9053]
+   5        pub           -1    bstr                     Public key for HSS/LMS hash-based digital signature         [RFC8778]
+   6        N             -1    uint                     Group and Matrix (NxN) size                                 [RFC9021]
+   6        q             -2    uint                     Finite field F_q                                            [RFC9021]
+   6        t-values      -3    array (of uint)          List of T-values, entries in F_q                            [RFC9021]
+   6        matrix 1      -4    array (of array of uint) NxN Matrix of entries in F_q in column-major form           [RFC9021]
+   6        permutation 1 -5    array (of uint)          Permutation associated with matrix 1                        [RFC9021]
+   6        matrix 2      -6    array (of array of uint) NxN Matrix of entries in F_q in column-major form           [RFC9021]
+   7        pub           -1    bstr                     Public key                                                  [draft-ietf-cose-dilithium-06]
 
 COSE Key Types
 
@@ -466,7 +641,7 @@ COSE Key Types
    [IMG]
    CSV
 
-     Name    Value                     Description                           Capabilities           Reference
+     Name    Value                     Description                           Capabilities                 Reference
    Reserved  0     This value is reserved                                                       [RFC9053]
    OKP       1     Octet Key Pair                                      [kty(1), crv]            [RFC9053]
    EC2       2     Elliptic Curve Keys w/ x- and y-coordinate pair     [kty(2), crv]            [RFC9053]
@@ -474,6 +649,7 @@ COSE Key Types
    Symmetric 4     Symmetric Keys                                      [kty(4)]                 [RFC9053]
    HSS-LMS   5     Public key for HSS/LMS hash-based digital signature [kty(5), hash algorithm] [RFC8778][RFC9053]
    WalnutDSA 6     WalnutDSA public key                                [kty(6)]                 [RFC9021][RFC9053]
+   AKP       7     COSE Key Type for Algorithm Key Pairs               [kty(7)]                 [draft-ietf-cose-dilithium-06]
 
 COSE Elliptic Curves
 

@@ -7,7 +7,7 @@
   <xsl:import href="../_support/iana-registry.xsl" />
 
   <xsl:template name="iana:record_header">
-    <tr><th>Tag</th><th>Reference</th></tr>
+    <!--<tr><th>Tag</th><th>Reference</th></tr>-->
   </xsl:template>
 
   <xsl:template match="iana:record">
@@ -16,5 +16,5 @@
       <td><xsl:apply-templates select="iana:xref"/></td>
     </tr>
   </xsl:template>
-
+  <xsl:template name="iana:registryempty"/>
 </xsl:stylesheet>
