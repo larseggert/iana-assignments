@@ -76,7 +76,7 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'acme-renewal-info-object-fields'">
+      <xsl:when test="@id = 'acme-renewalinfo-object-fields'">
         <tr>
           <th>Field Name</th>
           <th>Field Type</th>
