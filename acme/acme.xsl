@@ -150,7 +150,7 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'acme-renewal-info-object-fields'">
+      <xsl:when test="../@id = 'acme-renewalinfo-object-fields'">
         <tr>
           <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
