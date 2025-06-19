@@ -31,6 +31,7 @@
           <th>Decimal</th>
           <th>Descriptor</th>
           <th>OID Type</th>
+          <th>Reference</th>
         </xsl:when>
         <xsl:when test="@id = 'smi-numbers-23' or
                         @id = 'smi-numbers-28' or
@@ -42,15 +43,18 @@
           <th>Decimal</th>
           <th>Name</th>
           <th>Description</th>
+          <th>Reference</th>
         </xsl:when>        
         <xsl:when test="@id = 'ltans-module-identifiers'">
           <th>OID Value</th>
           <th>Description</th>
+          <th>Reference</th>
         </xsl:when>
         <xsl:when test="@id = 'smi-numbers-29'">
           <th>OID Value</th>
           <th>Name</th>
           <th>Description</th>
+          <th>Reference</th>
         </xsl:when>
         <xsl:when test="@id = 'security-smime' or
                         @id = 'security-smime-0' or
@@ -91,7 +95,6 @@
                         @id = 'smi-numbers-1.3.6.1.5.5.7.16' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.17' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.18' or
-                        @id = 'smi-numbers-1.3.6.1.5.5.7.19' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.19.2' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.19.3' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.19.4' or
@@ -105,19 +108,27 @@
                         @id = 'smi-numbers-1.3.101'">
           <th>Decimal</th>
           <th>Description</th>
+          <th>Reference</th>
         </xsl:when> 
         <xsl:when test="@id = 'smi-numbers-1.3.6.1.2.1.198.4'">
           <th>Value</th>
           <th>Description</th>
           <th>Recommended</th>
-        </xsl:when>  
+          <th>Reference</th>
+        </xsl:when>
+        <xsl:when test="@id = 'smi-numbers-1.3.6.1.5.5.7.19'">
+          <th>Decimal</th>
+          <th>Description</th>
+          <th>Reference</th>
+          <th>Notes</th>
+        </xsl:when>   
         <xsl:otherwise>
           <xsl:if test="iana:record/iana:value"><th>Decimal</th></xsl:if>
           <xsl:if test="iana:record/iana:name"><th>Name</th></xsl:if>
           <xsl:if test="iana:record/iana:description"><th>Description</th></xsl:if>
+          <th>Reference</th>
         </xsl:otherwise>
       </xsl:choose>
-      <th>References</th>
     </tr>
   </xsl:template>
   
@@ -134,33 +145,44 @@
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
         </xsl:when>        
         <xsl:when test="../@id = 'ltans-module-identifiers'">
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
         </xsl:when>
         <xsl:when test="../@id = 'smi-numbers-29'">
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
         </xsl:when>
         <xsl:when test="../@id = 'smi-numbers-1.3.101'">
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
         </xsl:when>
         <xsl:when test="../@id = 'smi-numbers-1.3.6.1.2.1.198.4'">
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:value-of select="iana:recommended"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </xsl:when>
+        <xsl:when test="../@id = 'smi-numbers-1.3.6.1.5.5.7.19'">
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:notes"/></td>
         </xsl:when>
         <xsl:otherwise>
           <xsl:if test="../iana:record/iana:value"><td align="center"><xsl:value-of select="iana:value"/></td></xsl:if>
           <xsl:if test="../iana:record/iana:name"><td><xsl:value-of select="iana:name"/></td></xsl:if>
           <xsl:if test="../iana:record/iana:type"><td><xsl:value-of select="iana:type"/></td></xsl:if>
           <xsl:if test="../iana:record/iana:description"><td><xsl:value-of select="iana:description"/></td></xsl:if>
+          <td><xsl:apply-templates select="iana:xref"/></td>
         </xsl:otherwise>
       </xsl:choose>
-      <td><xsl:apply-templates select="iana:xref"/></td>
     </tr>
   </xsl:template>
   
