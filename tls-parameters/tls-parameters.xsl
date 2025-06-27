@@ -6,21 +6,16 @@
   <xsl:template name="iana:record_header">
     <xsl:choose> 
       
-      <xsl:when test="@id = 'tls-parameters-2'
-        or @id = 'tls-parameters-5'
+      <xsl:when test="@id = 'tls-parameters-5'
+        or @id = 'tls-parameters-6'   
+        or @id = 'tls-parameters-7'
         or @id = 'tls-parameters-9' 
         or @id = 'tls-parameters-10' 
         or @id = 'tls-parameters-12' 
         or @id = 'tls-parameters-14' 
-        or @id = 'tls-parameters-16' 
-        or @id = 'tls-parameters-18' 
         or @id = 'heartbeat-message-types' 
         or @id = 'heartbeat-modes' 
         or @id = 'authorization-data'">
-        <tr><th>Value</th><th>Description</th><th>DTLS-OK</th><th>Reference</th></tr>
-      </xsl:when>
-      <xsl:when test="@id = 'tls-parameters-6' 
-        or @id = 'tls-parameters-7'">
         <tr>
           <th>Value</th>
           <th>Description</th>
@@ -29,7 +24,19 @@
           <th>Comment</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'tls-parameters-8'">
+      <xsl:when test="@id = 'tls-parameters-2'
+        or @id = 'tls-parameters-16'
+        or @id = 'tls-parameters-18'">
+        <tr>
+          <th>Value</th>
+          <th>Description</th>
+          <th>DTLS-OK</th>
+          <th>Recommended</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'tls-parameters-4'
+          or @id = 'tls-parameters-8'">
         <tr>
           <th>Value</th>
           <th>Description</th>
@@ -45,29 +52,25 @@
           <th>DTLS-OK</th>
           <th>Recommended</th>
           <th>Reference</th>
-          <th>Note</th>
+          <th>Comment</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'tls-parameters-4'">
+      <xsl:when test="@id = 'tls-pskkeyexchangemode'
+        or @id = 'tls-signaturescheme'">
         <tr>
           <th>Value</th>
           <th>Description</th>
-          <th>DTLS-OK</th>
           <th>Recommended</th>
           <th>Reference</th>
+          <th>Comment</th>
         </tr>
-      </xsl:when>
-      <xsl:when test="@id = 'tls-pskkeyexchangemode'">
-        <tr><th>Value</th><th>Description</th><th>Recommended</th><th>Reference</th></tr>
-      </xsl:when>
-      <xsl:when test="@id = 'tls-signaturescheme'">
-        <tr><th>Value</th><th>Description</th><th>Recommended</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'tls-kdf-ids'">
         <tr>
           <th>Value</th>
           <th>KDF Description</th>
           <th>Reference</th>
+          <th>Comment</th>
         </tr>
       </xsl:when>
       <xsl:when test="@id = 'tls-sslkeylogfile-labels'">
@@ -75,6 +78,7 @@
           <th>Value</th>
           <th>Description</th>
           <th>Reference</th>
+          <th>Comment</th>
         </tr>
       </xsl:when>
     </xsl:choose>
@@ -82,15 +86,34 @@
   
   <xsl:template match="iana:record">
     <xsl:choose>
-      
-      <xsl:when test="../@id = 'tls-parameters-2' 
-        or ../@id = 'tls-parameters-5' 
+      <xsl:when test="../@id = 'tls-parameters-2'
+        or ../@id = 'tls-parameters-16'
+        or ../@id = 'tls-parameters-18'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:value-of select="iana:dtls"/></td>
+          <td><xsl:value-of select="iana:rec"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'tls-parameters-4'">
+        <tr>
+          <td align="center" style="font-family:monospace"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:value-of select="iana:dtls"/></td>
+          <td><xsl:value-of select="iana:rec"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:comment"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'tls-parameters-5'
+        or ../@id = 'tls-parameters-6' 
+        or ../@id = 'tls-parameters-7' 
         or ../@id = 'tls-parameters-9' 
         or ../@id = 'tls-parameters-10' 
         or ../@id = 'tls-parameters-12' 
         or ../@id = 'tls-parameters-14' 
-        or ../@id = 'tls-parameters-16' 
-        or ../@id = 'tls-parameters-18' 
         or ../@id = 'heartbeat-message-types' 
         or ../@id = 'heartbeat-modes' 
         or ../@id = 'authorization-data'">
@@ -99,16 +122,7 @@
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:value-of select="iana:dtls"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
-        </tr>
-      </xsl:when>
-      <xsl:when test="../@id = 'tls-parameters-6' 
-        or ../@id = 'tls-parameters-7'">
-        <tr>
-          <td align="center"><xsl:value-of select="iana:value"/></td>
-          <td><xsl:apply-templates select="iana:description"/></td>
-          <td><xsl:value-of select="iana:dtls"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
-          <td><xsl:value-of select="iana:comment"/></td>
+          <td><xsl:apply-templates select="iana:comment"/></td>
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'tls-parameters-8'">
@@ -130,43 +144,23 @@
           <td><xsl:value-of select="iana:note"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'tls-parameters-4'">
-        <tr>
-          <td align="center" style="font-family:monospace"><xsl:value-of select="iana:value"/></td>
-          <td><xsl:apply-templates select="iana:description"/></td>
-          <td><xsl:value-of select="iana:dtls"/></td>
-          <td><xsl:value-of select="iana:rec"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
-        </tr>
-      </xsl:when>
-      <xsl:when test="../@id = 'tls-pskkeyexchangemode'">
+      <xsl:when test="../@id = 'tls-pskkeyexchangemode' 
+          or ../@id = 'tls-signaturescheme'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:value-of select="iana:recommended"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:comment"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'tls-signaturescheme'">
-        <tr>
-          <td align="center"><xsl:value-of select="iana:value"/></td>
-          <td><xsl:apply-templates select="iana:description"/></td>
-          <td><xsl:value-of select="iana:recommended"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
-        </tr>
-      </xsl:when>
-      <xsl:when test="../@id = 'tls-kdf-ids'">
-        <tr>
-          <td align="center"><xsl:value-of select="iana:value"/></td>
-          <td><xsl:apply-templates select="iana:description"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
-        </tr>
-      </xsl:when>
-      <xsl:when test="../@id = 'tls-sslkeylogfile-labels'">
+      <xsl:when test="../@id = 'tls-kdf-ids' 
+        or ../@id = 'tls-sslkeylogfile-labels'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:comment"/></td>
         </tr>
       </xsl:when>
     </xsl:choose>

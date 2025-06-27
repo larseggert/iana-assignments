@@ -13,6 +13,7 @@
           <th>DTLS-Only</th>
           <th>Recommended</th>
           <th>Reference</th>
+          <th>Comment</th>
         </tr>
       </xsl:when>
       <xsl:when test="@id = 'tls-extensiontype-values-3'">
@@ -37,6 +38,7 @@
           <th>Protocol</th>
           <th>Identification Sequence</th>
           <th>Reference</th>
+          <th>Comment</th>
         </tr>
       </xsl:when>
       <xsl:when test="@id = 'tls-certificate-compression-algorithm-ids'">
@@ -44,10 +46,11 @@
           <th>Algorithm Number</th>
           <th>Description</th>
           <th>Reference</th>
+          <th>Comment</th>
         </tr>
       </xsl:when>
       <xsl:otherwise>
-        <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
+        <tr><th>Value</th><th>Description</th><th>Reference</th><th>Comment</th></tr>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -62,6 +65,7 @@
           <td><xsl:value-of select="iana:dtls-only"/></td>
           <td><xsl:value-of select="iana:rec"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:comment"/></td>
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'tls-extensiontype-values-3'">
@@ -70,7 +74,7 @@
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:value-of select="iana:rec"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
-          <td><xsl:value-of select="iana:comment"/></td>
+          <td><xsl:apply-templates select="iana:comment"/></td>
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'certificate-status'">
@@ -78,7 +82,7 @@
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
-          <td><xsl:value-of select="iana:comment"/></td>
+          <td><xsl:apply-templates select="iana:comment"/></td>
         </tr>
       </xsl:when>
       <xsl:otherwise>
@@ -86,6 +90,7 @@
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:comment"/></td>
         </tr>
       </xsl:otherwise>
     </xsl:choose>
