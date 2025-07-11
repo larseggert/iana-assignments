@@ -6,7 +6,7 @@
    2005-11-15
 
    Last Updated
-   2025-07-02
+   2025-07-11
 
    Available Formats
    [IMG]
@@ -209,9 +209,13 @@ TLS ExtensionType Values
 60139-64249 Unassigned
 64250       Reserved                               CH, CR, NST            N         N           [RFC8701]
 64251-64767 Unassigned
-64768       ech_outer_extensions                   CH [2]                 N         N           [draft-ietf-tls-esni-17]
+                                                                                                                                                       Only
+                                                                                                                                                       appears
+64768       ech_outer_extensions                   CH                     N         Y           [RFC-ietf-tls-esni-25]                                 in
+                                                                                                                                                       inner
+                                                                                                                                                       CH.
 64769-65036 Unassigned
-65037       encrypted_client_hello                 CH, HRR, EE            N         N           [draft-ietf-tls-esni-17]
+65037       encrypted_client_hello                 CH, HRR, EE            N         Y           [RFC-ietf-tls-esni-25]
 65038-65279 Unassigned
 65280       Reserved for Private Use                                                            [RFC8446]
 65281       renegotiation_info                     -                      N         Y           [RFC5746]
@@ -334,7 +338,7 @@ TLS Application-Layer Protocol Negotiation (ALPN) Protocol IDs
    [IMG]
    CSV
 
-   Protocol        Identification                                                      Reference                                                  Comment
+   Protocol        Identification                                                      Reference                                                    Comment
                       Sequence
 Reserved       0x0A 0x0A              [RFC8701]
 Reserved       0x1A 0x1A              [RFC8701]
@@ -379,8 +383,19 @@ NAT (STUN)     0x72 0x79
                ("stun.nat-discovery")
 HTTP/2 over    0x68 0x32 ("h2")       [RFC9113]
 TLS
-HTTP/2 over    0x68 0x32 0x63 ("h2c") [1][RFC9113]
-TCP
+                                                                                                                                                  This entry
+                                                                                                                                                  reserves an
+                                                                                                                                                  identifier
+                                                                                                                                                  for use
+                                                                                                                                                  within a
+HTTP/2 over                                                                                                                                       cleartext
+TCP            0x68 0x32 0x63 ("h2c") [RFC9113]                                                                                                   version of a
+                                                                                                                                                  protocol and
+                                                                                                                                                  is not
+                                                                                                                                                  allowed to
+                                                                                                                                                  appear in a
+                                                                                                                                                  TLS ALPN
+                                                                                                                                                  negotiation.
 WebRTC Media   0x77 0x65 0x62 0x72    [RFC8833]
 and Data       0x74 0x63 ("webrtc")
 Confidential   0x63 0x2d 0x77 0x65
@@ -536,13 +551,5 @@ TLS Certificate Compression Algorithm IDs
    3                zstd                          [RFC8879]
    4-16383          Unassigned
    16384-65535      Reserved for Experimental Use [RFC8879]
-
-                                                                      Footnotes
-
-   [1] This entry reserves an identifier for use within a cleartext version
-       of a protocol and is not allowed to appear in a TLS ALPN negotiation.
-
-   [2] Only appears in inner CH.
-
 
    Licensing Terms
