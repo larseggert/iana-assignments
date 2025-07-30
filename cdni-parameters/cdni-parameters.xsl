@@ -144,12 +144,6 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'telemetry-source-types'">
-        <tr>
-          <td><xsl:value-of select="iana:value"/></td>
-          <td><xsl:apply-templates select="iana:reference"/></td>
-        </tr>
-      </xsl:when>
       <xsl:when test="../@id = 'capacity-limit-types'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
