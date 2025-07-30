@@ -87,6 +87,7 @@
       <xsl:when test="@id = 'telemetry-source-types'">
         <tr>
           <th>Source Type</th>
+          <th>Description</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
