@@ -128,8 +128,8 @@
       <xsl:when test="../@id = 'smtp-additional-registered-received-clauses'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
-          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:extension"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:syntax"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
