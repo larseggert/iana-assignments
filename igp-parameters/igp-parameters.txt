@@ -6,7 +6,7 @@
    2017-12-18
 
    Last Updated
-   2025-07-10
+   2025-08-08
 
    Available Formats
    [IMG]
@@ -24,6 +24,7 @@
      • Path Computation Element (PCE) Capability Flags
      • PCE Discovery (PCED) Sub-TLV Type Indicators
      • IGP Algorithm Type For Computing Flooding Topology
+     • IGP Flex-Algorithm Path Computation Rules
 
 IGP Algorithm Types
 
@@ -229,5 +230,76 @@ IGP Algorithm Type For Computing Flooding Topology
    1-127   Unassigned
    128-254 Reserved for Private Use      [RFC-ietf-lsr-dynamic-flooding-18]
    255     Reserved                      [RFC-ietf-lsr-dynamic-flooding-18]
+
+IGP Flex-Algorithm Path Computation Rules
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-lsr-igp-flex-algo-reverse-affinity-12]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Sequence Number                             Description                                                      Reference
+                   Check if any exclude Administrative Group rule is part of the
+                   Flex-Algorithm Definition. If such exclude rule exists, check if
+   1               any color that is part of the exclude rule is also set on the link. [RFC9350, Section 13]
+                   If such a color is set, the link MUST be pruned from the
+                   computation.
+                   Check if any exclude SRLG rule is part of the Flex-Algorithm
+   2               Definition. If such exclude rule exists, check if the link is part  [RFC9350, Section 13]
+                   of any SRLG that is also part of the SRLG exclude rule. If the link
+                   is part of such SRLG, the link MUST be pruned from the computation.
+                   Check if any include-any Administrative Group rule is part of the
+                   Flex-Algorithm Definition. If such include-any rule exists, check
+   3               if any color that is part of the include-any rule is also set on    [RFC9350, Section 13]
+                   the link. If no such color is set, the link MUST be pruned from the
+                   computation.
+                   Check if any include-all Administrative Group rule is part of the
+                   Flex-Algorithm Definition. If such include-all rule exists, check
+   4               if all colors that are part of the include-all rule are also set on [RFC9350, Section 13]
+                   the link. If all such colors are not set on the link, the link MUST
+                   be pruned from the computation.
+                   If the Flex-Algorithm Definition uses something other than the IGP
+                   metric (Section 5 of [RFC9350]), and such metric is not advertised
+   5               for the particular link in a topology for which the computation is  [RFC9350, Section 13]
+                   done, such link MUST be pruned from the computation. A metric of
+                   value 0 MUST NOT be assumed in such a case.
+                   Check if any exclude FAEMB rule is part of the Flex-Algorithm
+                   definition. If such exclude rule exists and the link has Maximum
+   6               Link Bandwidth advertised, check if the link bandwidth satisfies    [RFC-ietf-lsr-flex-algo-bw-con-22, Section 6]
+                   the FAEMB rule. If the link does not satisfy the FAEMB rule, the
+                   link MUST be pruned from the Flex-Algorithm computation.
+                   Check if any exclude FAEMD rule is part of the Flex-Algorithm
+                   definition. If such exclude rule exists and the link has Min
+   7               Unidirectional link delay advertised, check if the link delay       [RFC-ietf-lsr-flex-algo-bw-con-22, Section 6]
+                   satisfies the FAEMD rule. If the link does not satisfy the FAEMD
+                   rule, the link MUST be pruned from the Flex-Algorithm computation.
+                   Check if any exclude reverse Admin Group rule is part of the
+                   Flex-Algorithm definition. If such exclude rule exists, check if
+   8               any Admin Group that is part of the exclude rule is also set on the [RFC-ietf-lsr-igp-flex-algo-reverse-affinity-12, Section 11]
+                   link in the reverse direction. If such Admin Group is set on the
+                   link in the reverse direction, the link MUST be pruned from the
+                   computation.
+                   Check if any include-any reverse Admin Group rule is part of the
+                   Flex-Algorithm definition. If such include-any rule exists, check
+   9               if any Admin Group that is part of the include-any rule is also set [RFC-ietf-lsr-igp-flex-algo-reverse-affinity-12, Section 11]
+                   on the link in the reverse direction. If no such Admin Group is set
+                   on the link in the reverse direction, the link MUST be pruned from
+                   the computation.
+                   Check if any include-all reverse Admin Group rule is part of the
+                   Flex-Algorithm definition. If such include-all rule exists, check
+   10              if all Admin Groups that are part of the include-all rule are also  [RFC-ietf-lsr-igp-flex-algo-reverse-affinity-12, Section 11]
+                   set on the link in the reverse direction. If all such Admin Groups
+                   are not set on the link in the reverse direction, the link MUST be
+                   pruned from the computation.
 
    Licensing Terms
