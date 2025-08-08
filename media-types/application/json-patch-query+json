@@ -1,0 +1,50 @@
+(registered 2025-08-07, last updated 2025-08-07)
+
+Media type name: application
+
+Media subtype name: json-patch-query+json
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+Security considerations: This media type does not contain active or executable content in the traditional sense (e.g. no embedded scripts or code), but it does include path expressions with embedded queries and filters (such as JSONPath expressions), which may be evaluated against a target JSON document. Implementations must take care to ensure that evaluation of these expressions is done in a safe and predictable manner, particularly where dynamic or user-generated input is involved.
+
+Like other JSON-based formats, this media type may contain untrusted data. It is critical that implementers avoid executing or blindly trusting input values. Improper use of path query expressions, such as complex filters or crafted selectors, could potentially lead to resource exhaustion, unexpected data access, or denial-of-service (DoS) attacks, especially if expression evaluation traverses large or deeply nested JSON structures. Implementers are encouraged to:
+Impose limits on the complexity or length of query expressions.
+Avoid arbitrary code execution during query evaluation.
+Use safe, standards-compliant libraries for processing JSONPath or other selectors.
+This media type does not itself provide privacy or integrity protection. Such protections should be enforced at the transport level (e.g. HTTPS/TLS) or application level if required. Implementations must not assume confidentiality or integrity unless they are explicitly enforced by the surrounding protocol.
+This media type is based on JSON as defined in RFC 8259. Therefore, the security considerations outlined in Section 12 of RFC 8259 apply.
+
+Interoperability considerations: None known. This media type is used consistently across client and server implementations supporting TM Forum Open APIs, specifically where a combination of JSON Patch and query expressions is required.
+
+Published specification: TM Forum Open API Specification TMF630, Part 5: API Design Guidelines, JSON Patch with Query Extensions
+https://www.tmforum.org/resources/specifications/tmf630-rest-api-design-guidelines-4-2-0/
+
+Applications which use this media: This media type is used by Communications Service Providers (CSPs) and vendors implementing TM Forum Open APIs, especially for partial updates using PATCH operations with filtering logic, such as in TMF620 Product Ordering, TMF629 Customer Management, and other domain-specific APIs.
+
+Fragment identifier considerations: Same as for application/json. This media type does not define any fragment identifier semantics. Applications that use fragment identifiers in conjunction with resources of this media type must not assume any particular interpretation. If fragment identifiers are used, they are to be interpreted by the application in a manner consistent with its own logic or conventions, but such use is outside the scope of this media type registration.
+
+Restrictions on usage: This media type is intended for use with HTTP PATCH requests to partially update JSON documents. Its use outside of HTTP PATCH or in non-JSON contexts is not defined and may result in unpredictable behavior.
+The structure and semantics are tightly coupled to those defined in [RFC6902] (JSON Patch), with extensions for array element selection using query parameters and JSONPath-like filters.
+Implementers should ensure that target systems correctly support the extended path syntax to avoid unintended modifications to the resource.
+
+Additional information:
+
+1. Deprecated alias names for this type: None
+2. Magic number(s): None
+3. File extension(s): None
+4. Macintosh file type code: None
+5. Object Identifiers: None
+
+Person to contact for further information:
+
+1. Name: Lorna Mitchell
+2. Email: lmitchell&tmforum.org
+
+Intended usage: LIMITED USE
+
+Author/Change controller: TM Forum <https://www.tmforum.org>
