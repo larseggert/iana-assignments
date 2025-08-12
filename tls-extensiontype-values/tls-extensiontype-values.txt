@@ -6,7 +6,7 @@
    2005-11-15
 
    Last Updated
-   2025-07-11
+   2025-08-12
 
    Available Formats
    [IMG]
@@ -30,7 +30,7 @@ TLS ExtensionType Values
  Yoav Nir, Rich Salz, Nick Sullivan
 
    Reference
-   [RFC8446][RFC8447][RFC9146][RFC-ietf-tls-tls12-frozen-08][RFC-ietf-tls-rfc8447bis-14]
+   [RFC-ietf-tls-rfc8446bis-13][RFC8447][RFC9146][RFC-ietf-tls-tls12-frozen-08][RFC-ietf-tls-rfc8447bis-14]
 
    Note
 
@@ -123,7 +123,7 @@ TLS ExtensionType Values
             "elliptic_curves")
 11          ec_point_formats                       -                      N         Y           [RFC8422]
 12          srp                                    -                      N         N           [RFC5054]
-13          signature_algorithms                   CH, CR                 N         Y           [RFC8446]
+13          signature_algorithms                   CH, CR                 N         Y           [RFC-ietf-tls-rfc8446bis-13]
 14          use_srtp                               CH, EE                 N         Y           [RFC5764]
 15          heartbeat                              CH, EE                 N         Y           [RFC6520]
 16          application_layer_protocol_negotiation CH, EE                 N         Y           [RFC7301]
@@ -133,7 +133,7 @@ TLS ExtensionType Values
 20          server_certificate_type                CH, EE                 N         Y           [RFC7250]
 21          padding                                CH                     N         Y           [RFC7685]
 22          encrypt_then_mac                       -                      N         Y           [RFC7366]
-23          extended_master_secret                 -                      N         Y           [RFC7627]
+23          extended_main_secret                   -                      N         Y           [RFC7627][RFC-ietf-tls-rfc8446bis-13]
 24          token_binding                          -                      N         Y           [RFC8472]
 25          cached_info                            -                      N         Y           [RFC7924]
 26          tls_lts                                -                      N         N           [draft-gutmann-tls-lts-11]
@@ -153,18 +153,18 @@ TLS ExtensionType Values
 39          supported_ekt_ciphers                  CH, EE                 N         Y           [RFC8870]
 40          Reserved                                                                D           [RFC-ietf-tls-rfc8447bis-14][tls-reg-review mailing
                                                                                                 list]
-41          pre_shared_key                         CH, SH                 N         Y           [RFC8446]
-42          early_data                             CH, EE, NST            N         Y           [RFC8446]
-43          supported_versions                     CH, SH, HRR            N         Y           [RFC8446]
-44          cookie                                 CH, HRR                N         Y           [RFC8446]
-45          psk_key_exchange_modes                 CH                     N         Y           [RFC8446]
+41          pre_shared_key                         CH, SH                 N         Y           [RFC-ietf-tls-rfc8446bis-13]
+42          early_data                             CH, EE, NST            N         Y           [RFC-ietf-tls-rfc8446bis-13]
+43          supported_versions                     CH, SH, HRR            N         Y           [RFC-ietf-tls-rfc8446bis-13]
+44          cookie                                 CH, HRR                N         Y           [RFC-ietf-tls-rfc8446bis-13]
+45          psk_key_exchange_modes                 CH                     N         Y           [RFC-ietf-tls-rfc8446bis-13]
 46          Reserved                                                                D           [RFC-ietf-tls-rfc8447bis-14][tls-reg-review mailing
                                                                                                 list]
-47          certificate_authorities                CH, CR                 N         Y           [RFC8446]
-48          oid_filters                            CR                     N         Y           [RFC8446]
-49          post_handshake_auth                    CH                     N         Y           [RFC8446]
-50          signature_algorithms_cert              CH, CR                 N         Y           [RFC8446]
-51          key_share                              CH, SH, HRR            N         Y           [RFC8446][RFC Errata 5483]
+47          certificate_authorities                CH, CR                 N         Y           [RFC-ietf-tls-rfc8446bis-13]
+48          oid_filters                            CR                     N         Y           [RFC-ietf-tls-rfc8446bis-13]
+49          post_handshake_auth                    CH                     N         Y           [RFC-ietf-tls-rfc8446bis-13]
+50          signature_algorithms_cert              CH, CR                 N         Y           [RFC-ietf-tls-rfc8446bis-13]
+51          key_share                              CH, SH, HRR            N         Y           [RFC-ietf-tls-rfc8446bis-13][RFC Errata 5483]
 52          transparency_info                      CH, CR, CT             N         Y           [RFC9162]
 53          connection_id (deprecated)             -                      Y         D           [RFC9146][RFC-ietf-tls-rfc8447bis-14]
 54          connection_id                          CH, SH                 Y         N           [RFC9146]
@@ -217,9 +217,9 @@ TLS ExtensionType Values
 64769-65036 Unassigned
 65037       encrypted_client_hello                 CH, HRR, EE            N         Y           [RFC-ietf-tls-esni-25]
 65038-65279 Unassigned
-65280       Reserved for Private Use                                                            [RFC8446]
+65280       Reserved for Private Use                                                            [RFC-ietf-tls-rfc8446bis-13]
 65281       renegotiation_info                     -                      N         Y           [RFC5746]
-65282-65535 Reserved for Private Use                                                            [RFC8446]
+65282-65535 Reserved for Private Use                                                            [RFC-ietf-tls-rfc8446bis-13]
 
 TLS Certificate Types
 
@@ -228,7 +228,7 @@ TLS Certificate Types
  Yoav Nir, Rich Salz, Nick Sullivan
 
    Reference
-   [RFC6091][RFC8446][RFC8447][RFC-ietf-tls-tls12-frozen-08][RFC-ietf-tls-rfc8447bis-14]
+   [RFC6091][RFC-ietf-tls-rfc8446bis-13][RFC8447][RFC-ietf-tls-tls12-frozen-08][RFC-ietf-tls-rfc8447bis-14]
 
    Note
 
@@ -278,9 +278,9 @@ TLS Certificate Types
    "Recommended" set to/transitioning from "Y" or "D"             Either Standards Action With Expert Review or IESG Approval
    "Recommended" set to "N," not transitioning from another value Specification Required
 
-    Value            Name           Recommended         Reference                       Comment
-   0       X509                     Y           [RFC6091][RFC Errata 5976] Was X.509 before TLS 1.3.
-   1       OpenPGP_RESERVED         N           [RFC6091][RFC8446]         Used in TLS versions prior to 1.3.
+    Value            Name           Recommended               Reference                            Comment
+   0       X509                     Y           [RFC6091][RFC Errata 5976]            Was X.509 before TLS 1.3.
+   1       OpenPGP_RESERVED         N           [RFC6091][RFC-ietf-tls-rfc8446bis-13] Used in TLS versions prior to 1.3.
    2       Raw Public Key           Y           [RFC7250]
    3       1609Dot2                 N           [RFC8902]
    4-223   Unassigned
@@ -293,7 +293,7 @@ TLS Certificate Status Types
  IETF Review
 
    Reference
-   [RFC6961][RFC8446][RFC-ietf-tls-tls12-frozen-08][RFC-ietf-tls-rfc8447bis-14]
+   [RFC6961][RFC-ietf-tls-rfc8446bis-13][RFC-ietf-tls-tls12-frozen-08][RFC-ietf-tls-rfc8447bis-14]
 
    Note
 
@@ -307,10 +307,10 @@ TLS Certificate Status Types
    [IMG]
    CSV
 
-   Value     Description         Reference                   Comment
+   Value     Description                   Reference                            Comment
    0     Reserved            [RFC6961]
    1     ocsp                [RFC6066][RFC6961]
-   2     ocsp_multi_RESERVED [RFC6961][RFC8446] Used in TLS versions prior to 1.3.
+   2     ocsp_multi_RESERVED [RFC6961][RFC-ietf-tls-rfc8446bis-13] Used in TLS versions prior to 1.3.
    3-255 Unassigned
 
 TLS Application-Layer Protocol Negotiation (ALPN) Protocol IDs
