@@ -36,6 +36,7 @@
      • TLS PskKeyExchangeMode
      • TLS KDF Identifiers
      • TLS SSLKEYLOGFILE Labels
+     • TLS RRC Message Types
 
 TLS ClientCertificateType Identifiers
 
@@ -705,24 +706,28 @@ TLS ContentType
  TLS 1.3 or later" in that entry, such as the "Comment" column.
 
 
+   Note
+
+ The return_routability_check content type is only applicable to DTLS 1.2 and 1.3.
+
+
    Available Formats
    [IMG]
    CSV
 
-   Value                                          Description                                          DTLS-OK          Reference           Comment
-    0-19  Unassigned (Requires coordination; see [RFC9443])                                                    [RFC5764][RFC9443]
-     20   change_cipher_spec                                                                           Y       [RFC-ietf-tls-rfc8446bis-13]
-     21   alert                                                                                        Y       [RFC-ietf-tls-rfc8446bis-13]
-     22   handshake                                                                                    Y       [RFC-ietf-tls-rfc8446bis-13]
-     23   application_data                                                                             Y       [RFC-ietf-tls-rfc8446bis-13]
-     24   heartbeat                                                                                    Y       [RFC6520]
-     25   tls12_cid                                                                                    Y       [RFC9146]
-     26   ACK                                                                                          Y       [RFC9147]
-     27   return_routability_check (TEMPORARY - registered 2023-11-28, extension registered            Y       [draft-ietf-tls-dtls-rrc-10]
-          2024-11-06, expires 2025-11-28)
+   Value                     Description                    DTLS-OK          Reference           Comment
+    0-19  Unassigned (Requires coordination; see [RFC9443])         [RFC5764][RFC9443]
+     20   change_cipher_spec                                Y       [RFC-ietf-tls-rfc8446bis-13]
+     21   alert                                             Y       [RFC-ietf-tls-rfc8446bis-13]
+     22   handshake                                         Y       [RFC-ietf-tls-rfc8446bis-13]
+     23   application_data                                  Y       [RFC-ietf-tls-rfc8446bis-13]
+     24   heartbeat                                         Y       [RFC6520]
+     25   tls12_cid                                         Y       [RFC9146]
+     26   ACK                                               Y       [RFC9147]
+     27   return_routability_check                          Y       [RFC-ietf-tls-dtls-rrc-20]
    28-31  Unassigned
-   32-63  Reserved                                                                                             [RFC9147]
-   64-255 Unassigned (Requires coordination; see [RFC9443])                                                    [RFC5764][RFC9443]
+   32-63  Reserved                                                  [RFC9147]
+   64-255 Unassigned (Requires coordination; see [RFC9443])         [RFC5764][RFC9443]
 
 TLS Alerts
 
@@ -2330,6 +2335,47 @@ TLS SSLKEYLOGFILE Labels
    EXPORTER_SECRET                 Exporter secret after handshake                 [RFC-ietf-tls-keylogfile-05]
    ECH_SECRET                      HPKE KEM shared secret used in the ECH          [RFC-ietf-tls-keylogfile-05]
    ECH_CONFIG                      ECHConfig used for construction of the ECH      [RFC-ietf-tls-keylogfile-05]
+
+TLS RRC Message Types
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-tls-dtls-rrc-20]
+
+   Note
+
+ Registration requests should be sent to iana@iana.org or submitted
+ via IANA's [application form], per [RFC-ietf-tls-rfc8447bis-14].
+ IANA will forward the request to the expert mailing list described in
+ [RFC 8447, Section 17] and track its progress.
+
+
+   Note
+
+ As specified in [RFC8126], assignments made in the Private Use space are
+ not generally useful for broad interoperability. Those making use of the
+ Private Use range are responsible for ensuring that no conflicts occur
+ within the intended scope of use. For widespread experiments, provisional
+ registrations (Section 4.13 of [RFC8126]) are available.
+
+
+   Available Formats
+   [IMG]
+   CSV
+
+    Value        Description        DTLS-Only Recommended         Reference          Comment
+      0    path_challenge           Y         Y           [RFC-ietf-tls-dtls-rrc-20]
+      1    path_response            Y         Y           [RFC-ietf-tls-dtls-rrc-20]
+      2    path_drop                Y         Y           [RFC-ietf-tls-dtls-rrc-20]
+    3-253  Unassigned
+   254-255 Reserved for Private Use Y                     [RFC-ietf-tls-dtls-rrc-20]
 
                                                                  Contact Information
 

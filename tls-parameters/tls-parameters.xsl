@@ -81,6 +81,16 @@
           <th>Comment</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'tls-rrc-message-types'">
+        <tr>
+          <th>Value</th>
+          <th>Description</th>
+          <th>DTLS-Only</th>
+          <th>Recommended</th>
+          <th>Reference</th>
+          <th>Comment</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
   
@@ -125,7 +135,8 @@
           <td><xsl:apply-templates select="iana:comment"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'tls-parameters-8'">
+      <xsl:when test="../@id = 'tls-parameters-8'
+          or ../@id = 'tls-rrc-message-types'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
