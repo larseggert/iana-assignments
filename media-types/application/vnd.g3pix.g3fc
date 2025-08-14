@@ -1,0 +1,58 @@
+(registered 2025-08-13, last updated 2025-08-13)
+
+Media type name: application
+
+Media subtype name: vnd.g3pix.g3fc
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+Security considerations: This media type does not contain any active or executable content. The G3FC format is a container for passive data files and metadata only.
+
+The G3FC format provides optional, built-in services for confidentiality and integrity through robust, password-based encryption. When enabled, the file index and all data blocks are encrypted using AES-256-GCM. The GCM mode is significant as it provides both confidentiality (encryption) and authentication (integrity checking via an authentication tag), protecting against unauthorized access and modification of the archive's content. Keys are derived from user-supplied passwords using PBKDF2 with HMAC-SHA256, which mitigates dictionary and brute-force attacks. If the native encryption is not used, these security services must be provided by external means, such as by transporting the file over a secure channel like TLS.
+
+Compression
+The media type employs Zstandard compression. As with any format that uses compression, G3FC files are susceptible to "compression bomb" denial-of-service attacks, where a small file decompresses to an extremely large size, potentially exhausting system memory or disk space. Implementations that parse this format SHOULD mitigate this risk by first checking the uncompressed_size field in the file's metadata index and enforcing reasonable limits on resource allocation before attempting decompression.
+
+Container Format
+As a container format, G3FC stores internal file and directory paths. A maliciously crafted archive could contain paths intended to overwrite sensitive system files (e.g., a path traversal attack using ../../..). Implementations MUST rigorously validate and sanitize all path information from the file index before writing any data to the local filesystem. File paths MUST be treated as relative to the designated extraction directory, and any attempts to write outside of this directory must be prevented.
+
+Password-Based Encryption Considerations
+Password Strength: The security of an encrypted archive is entirely dependent on the strength of the user's password. Implementations SHOULD encourage or enforce strong password policies.
+
+KDF Iterations: The number of PBKDF2 iterations (kdf_iterations) is critical for resisting brute-force attacks. The recommended value of 100,000 is a baseline and SHOULD be increased over time as computing power grows.
+
+Salt: The use of a unique, randomly generated salt for each archive is crucial to prevent rainbow table attacks. The read_salt MUST be cryptographically random.
+
+Interoperability considerations: This document specifies format version 1.0. All fields use little-endian byte order.
+
+Published specification: https://g3pix.com.br/g3fc/g3fc_file_format_specification.txt
+https://g3pix.com.br/g3fc/g3fc_file_format_specification.html
+https://g3pix.com.br/g3fc/g3fc_file_format_specification.xml
+https://github.com/guimaraeslucas/g3fc
+
+Applications which use this media: G3FC Archiver Tool and other compatible archiving utilities.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: None
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): The first 4 bytes are 0x47 0x33 0x46 0x43 (ASCII "G3FC")
+3. File extension(s): .g3fc, .g3fc<n>
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+Person to contact for further information:
+
+1. Name: Lucas Guimarães
+2. Email: lucas&g3pix.com.br
+
+Intended usage: COMMON
+
+Author/Change controller: G3Pix
