@@ -1,14 +1,12 @@
-Type name
-   video
+Type name:  video
 
-Subtype name
-   jpeg2000-scl
+Subtype name:  jpeg2000-scl
 
-Required parameters
-   None
+Required parameters:  N/A
 
-Optional parameters
-   pixel
+Optional parameters:
+
+   pixel:
       Specifies the pixel format used by the video sequence.
 
       The parameter MUST be a URI-reference as specified in
@@ -16,7 +14,7 @@ Optional parameters
 
       If the parameter is a relative-ref as specified in [RFC3986],
       then it MUST be equal to one of the pixel formats specified in
-      Table 4 and the RTP header and payload MUST conform with the
+      Table 4, and the RTP header and payload MUST conform to the
       characteristics of that pixel format.
 
       If the parameter is not a relative-ref, the specification of
@@ -26,7 +24,7 @@ Optional parameters
       If the parameter is not specified, the pixel format is
       unspecified.
 
-   sample
+   sample:
       Specifies the format of the samples in each component of the
       codestream.
 
@@ -35,7 +33,7 @@ Optional parameters
 
       If the parameter is a relative-ref as specified in [RFC3986],
       then it MUST be equal to one of the formats specified in
-      Appendix C and the stream MUST conform with the characteristics
+      Appendix C, and the stream MUST conform to the characteristics
       of that format.
 
       If the parameter is not a relative-ref, the specification of
@@ -45,7 +43,7 @@ Optional parameters
       If the parameter is not specified, the sample format is
       unspecified.
 
-   width
+   width:
       Maximum width in pixels of each image.  Integer between 0 and
       4,294,967,295.
 
@@ -54,7 +52,7 @@ Optional parameters
       If the parameter is not specified, the maximum width is
       unspecified.
 
-   height
+   height:
       Maximum height in pixels of each image.  Integer between 0 and
       4,294,967,295.
 
@@ -63,7 +61,7 @@ Optional parameters
       If the parameter is not specified, the maximum height is
       unspecified.
 
-   signal
+   signal:
       Specifies the sequence of image types.
 
       The parameter MUST be a URI-reference as specified in
@@ -71,7 +69,7 @@ Optional parameters
 
       If the parameter is a relative-ref as specified in [RFC3986],
       then it MUST be equal to one of the signal formats specified in
-      Appendix B and the image sequence MUST conform to that signal
+      Appendix B, and the image sequence MUST conform to that signal
       format.
 
       If the parameter is not a relative-ref, the specification of
@@ -81,15 +79,15 @@ Optional parameters
       If the parameter is not specified, the stream consists of an
       arbitrary sequence of image types.
 
-   caps
+   caps:
       The parameter contains a list of sets of constraints to which
       the stream conforms, with each set of constraints identified
       using an absolute-URI defined by an application.
 
-      The parameter MUST conform to the uri-list syntax expressed
-      using ABNF ([RFC5234]):
+      The parameter MUST conform to the uri-list syntax expressed as
+      follows using ABNF [RFC5234]:
 
-        uri-list = absolute-URI *(";" absolute-URI)
+         uri-list = absolute-URI *(";" absolute-URI)
 
       The application that defines the absolute-URI MUST ensure that
       it does not contain any ";" character and MUST associate it
@@ -97,60 +95,58 @@ Optional parameters
       constraints can, for example, include the maximum height and
       width of images.
 
-      If the parameter is not specified, constraints, beyond those
-      specified in this document, are unspecified.
+      If the parameter is not specified, constraints beyond those
+      specified in this document are unspecified.
 
-   cache
+   cache:
       The value of the parameter MUST be either false or true.
 
-      If the parameter is true, the field C MAY be 0 or 1; otherwise
+      If the parameter is true, the field C MAY be 0 or 1; otherwise,
       the field C MUST be 0.
 
       If the parameter is not specified, then the parameter is equal
       to false.
 
-Encoding considerations
-   This media type is framed and binary, see Section 4.8 of
-   [RFC6838].
+Encoding considerations:  This media type is framed and binary.  See
+   Section 4.8 of [RFC6838].
 
-Security considerations
-   JPEG 2000 is a flexible image format.  As a result, the size of
-   the memory structures required to process JPEG 2000 images can
-   vary greatly depending on the characteristics of the image and the
-   encoding parameters.  For example, the JPEG 2000 syntax allows
-   image height and width up to 2^32 - 1 pixels, which is also
-   captured in the syntax of the height and width parameters of the
-   media type specified at Section 9.2.  Implementations SHOULD
-   therefore take care when processing input that influences the size
-   of memory structures, and SHOULD fail gracefully when resource
-   constraints are exceeded.
+Security considerations:  JPEG 2000 is a flexible image format.  As a
+   result, the size of the memory structures required to process JPEG
+   2000 images can vary greatly depending on the characteristics of
+   the image and the encoding parameters.  For example, the JPEG 2000
+   syntax allows image height and width up to 2^32 - 1 pixels, which
+   is also captured in the syntax of the height and width parameters
+   of this media type.  Therefore, implementations SHOULD take care
+   when processing input that influences the size of memory
+   structures and SHOULD fail gracefully when resource constraints
+   are exceeded.
 
-See also RFC-ietf-avtcore-rtp-j2k-scl-08, Section 13.
+   See also Section 13.
 
-Interoperability considerations
-   The RTP stream is a sequence of JPEG 2000 images.  An
-   implementation that conforms to the family of JPEG 2000 standards
-   can decode and attempt to display each image.
+Interoperability considerations:  The RTP stream is a sequence of
+   JPEG 2000 images.  An implementation that conforms to the family
+   of JPEG 2000 standards can decode and attempt to display each
+   image.
 
-Published specification
-   RFC-ietf-avtcore-rtp-j2k-scl-08
+Published specification:  RFC-ietf-avtcore-rtp-j2k-scl-08
 
-Applications that use this media type
-   video streaming and communication
+Applications that use this media type:  video streaming and
+   communication
 
-Person and email address to contact for further information
+Fragment identifier considerations:  N/A
+
+Additional information:  N/A
+
+Person & email address to contact for further information:
    Pierre-Anthony Lemieux <pal&sandflow.com>
 
-Intended usage
-   COMMON
+Intended usage:  COMMON
 
-Restrictions on Usage
-   This media type depends on RTP framing, and hence is only defined
-   for use with RTP as specified at [RFC3550].  Transport within
-   other framing protocols is not defined at the time.
+Restrictions on Usage:  This media type depends on RTP framing and
+   hence is only defined for use with RTP as specified in [RFC3550].
+   Transport within other framing protocols is not defined at the
+   time.
 
-Author
-   Pierre-Anthony Lemieux (mailto:pal&sandflow.com)
+Author:  Pierre-Anthony Lemieux <pal&sandflow.com>
 
-Change controller
-   IETF
+Change controller:  IETF
