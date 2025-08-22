@@ -36,6 +36,21 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'drip-raa'">
+        <tr>
+          <th>Value</th>
+          <th>Name</th>
+          <th>Reference</th>
+          <th>Contact</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'hhit-entity-type'">
+        <tr>
+          <th>Value</th>
+          <th>HHIT Type</th>
+          <th>Reference</th> 
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -62,6 +77,21 @@
           <td><xsl:apply-templates select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'drip-raa'">
+        <tr>
+          <td><xsl:apply-templates select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:contact"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'hhit-entity-type'">
+        <tr>
+          <td><xsl:apply-templates select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
