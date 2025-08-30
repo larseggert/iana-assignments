@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="ipp-registrations">
   <title>Internet Printing Protocol (IPP) Registrations</title>
   <created>2002-07-15</created>
-  <updated>2025-08-14</updated>
+  <updated>2025-08-29</updated>
   <registry id="ipp-registrations-1">
     <title>Objects</title>
     <xref type="rfc" data="rfc8011"/>
@@ -4906,6 +4906,18 @@ Section 5.2 Subscription Template Attributes.
     </record>
     <record>
       <collection>Operation</collection>
+      <name>encrypted-job-request-format</name>
+      <syntax>mimeMediaType</syntax>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf">PWG5100.TRUSTNOONE</xref>
+    </record>
+    <record>
+      <collection>Operation</collection>
+      <name>encrypted-job-request-id</name>
+      <syntax>integer(1:MAX)</syntax>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf">PWG5100.TRUSTNOONE</xref>
+    </record>
+    <record>
+      <collection>Operation</collection>
       <name>fetch-status-code</name>
       <syntax>type2 enum</syntax>
       <xref data="https://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra11-20250502-5100.18.pdf" type="uri">PWG5100.18</xref>
@@ -5463,6 +5475,12 @@ Section 5.2 Subscription Template Attributes.
       <name>requesting-user-name</name>
       <syntax>name(MAX)</syntax>
       <xref type="rfc" data="rfc8011"/>
+    </record>
+    <record>
+      <collection>Operation</collection>
+      <name>requesting-user-pkcs7-public-key</name>
+      <syntax>1setOf text(MAX)</syntax>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf">PWG5100.TRUSTNOONE</xref>
     </record>
     <record>
       <collection>Operation</collection>
@@ -7619,13 +7637,19 @@ Section 5.2 Subscription Template Attributes.
       <collection>Printer Description</collection>
       <name>oauth-authorization-scope</name>
       <syntax>1setOf name(MAX)</syntax>
-      <xref data="https://ftp.pwg.org/pub/pwg/ipp/registrations/ippwg-oauth-authorization-scope-20190521.txt" type="uri">IPP20190521</xref>
+      <xref data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ippoauth10-20250411.pdf" type="uri">PWG5100.OAUTH</xref>
+    </record>
+    <record>
+      <collection>Printer Description</collection>
+      <name>oauth-authorization-scope(extension)</name>
+      <syntax>1setOf name(MAX) | no-value</syntax>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ippoauth10-20250411.pdf">PWG5100.OAUTH</xref>
     </record>
     <record>
       <collection>Printer Description</collection>
       <name>oauth-authorization-server-uri</name>
       <syntax>uri | no-value</syntax>
-      <xref data="https://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf" type="uri">PWG5100.18</xref>
+      <xref data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ippoauth10-20250411.pdf" type="uri">PWG5100.OAUTH</xref>
     </record>
     <record>
       <collection>Printer Description</collection>
@@ -7842,6 +7866,12 @@ Section 5.2 Subscription Template Attributes.
       <name>pdl-override-supported</name>
       <syntax>type2 keyword</syntax>
       <xref type="rfc" data="rfc8011"/>
+    </record>
+    <record>
+      <collection>Printer Description</collection>
+      <name>pkcs7-document-format-supported</name>
+      <syntax>1setOf mimeMediaType</syntax>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf">PWG5100.TRUSTNOONE</xref>
     </record>
     <record>
       <collection>Printer Description</collection>
@@ -8273,6 +8303,24 @@ Section 5.2 Subscription Template Attributes.
       <name>printer-organizational-unit</name>
       <syntax>1setOf text(MAX)</syntax>
       <xref data="https://ftp.pwg.org/pub/pwg/candidates/cs-ippnodriver20-20230301-5100.13.pdf" type="uri">PWG5100.13</xref>
+    </record>
+    <record>
+      <collection>Printer Description</collection>
+      <name>printer-pkcs7-public-key</name>
+      <syntax>1setOf text(MAX)</syntax>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf">PWG5100.TRUSTNOONE</xref>
+    </record>
+    <record>
+      <collection>Printer Description</collection>
+      <name>printer-pkcs7-repertoire-configured</name>
+      <syntax>type2 keyword</syntax>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf">PWG5100.TRUSTNOONE</xref>
+    </record>
+    <record>
+      <collection>Printer Description</collection>
+      <name>printer-pkcs7-repertoire-supported</name>
+      <syntax>1setOf type2 keyword</syntax>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf">PWG5100.TRUSTNOONE</xref>
     </record>
     <record>
       <collection>Printer Description</collection>
@@ -9658,6 +9706,18 @@ Section 5.2 Subscription Template Attributes.
       <name>notify-schemes-supported</name>
       <syntax>1setOf uriScheme</syntax>
       <xref data="https://ftp.pwg.org/pub/pwg/candidates/cs-ippsystem11-20250328-5100.22.pdf" type="uri">PWG5100.22</xref>
+    </record>
+    <record>
+      <collection>System Description</collection>
+      <name>oauth-authorization-scope</name>
+      <syntax>1setOf name(MAX) | no-value</syntax>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ippoauth10-20250411.pdf">PWG5100.OAUTH</xref>
+    </record>
+    <record>
+      <collection>System Description</collection>
+      <name>oauth-authorization-server-uri</name>
+      <syntax>uri | no-value</syntax>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ippoauth10-20250411.pdf">PWG5100.OAUTH</xref>
     </record>
     <record>
       <collection>System Description</collection>
@@ -22329,6 +22389,28 @@ IESG-designated experts.
       <xref type="uri" data="https://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra11-20250502-5100.18.pdf">PWG5100.18</xref>
     </record>
     <record>
+      <attribute>printer-pkcs7-repertoire-configured</attribute>
+      <syntax>type2 keyword</syntax>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf">PWG5100.TRUSTNOONE</xref>
+    </record>
+    <record>
+      <value>&lt; all printer-pkcs7-repertoire-supported values &gt;</value>
+      <attribute>printer-pkcs7-repertoire-configured</attribute>
+      <syntax>type2 keyword</syntax>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf">PWG5100.TRUSTNOONE</xref>
+    </record>
+    <record>
+      <attribute>printer-pkcs7-repertoire-supported</attribute>
+      <syntax>1setOf type2 keyword</syntax>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf">PWG5100.TRUSTNOONE</xref>
+    </record>
+    <record>
+      <value>&lt; all job-password-repertoire-supported values &gt;</value>
+      <attribute>printer-pkcs7-repertoire-supported</attribute>
+      <syntax>1setOf type2 keyword</syntax>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf">PWG5100.TRUSTNOONE</xref>
+    </record>
+    <record>
       <attribute>printer-service-type</attribute>
       <syntax>type2 keyword</syntax>
       <xref data="https://ftp.pwg.org/pub/pwg/candidates/cs-ippsystem11-20250328-5100.22.pdf" type="uri">PWG5100.22</xref>
@@ -23239,6 +23321,12 @@ IESG-designated experts.
       <attribute>printer-state-reasons</attribute>
       <syntax>1setOf type2 keyword</syntax>
       <xref type="rfc" data="rfc8011"/>
+    </record>
+    <record>
+      <value>encrypted-job-attributes-requested</value>
+      <attribute>printer-state-reasons</attribute>
+      <syntax>1setOf type2 keyword</syntax>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf">PWG5100.TRUSTNOONE</xref>
     </record>
     <record>
       <value>extruder-cooling</value>
@@ -29422,7 +29510,7 @@ IESG-designated experts.
       <value>oauth</value>
       <attribute>uri-authentication-supported</attribute>
       <syntax>1setOf type2 keyword</syntax>
-      <xref data="https://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf" type="uri">PWG5100.18</xref>
+      <xref data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ippoauth10-20250411.pdf" type="uri">PWG5100.OAUTH</xref>
     </record>
     <record>
       <value>requesting-user-name</value>
@@ -29708,7 +29796,7 @@ IESG-designated experts.
       <value>oauth</value>
       <attribute>xri-authentication-supported</attribute>
       <syntax>1setOf type2 keyword</syntax>
-      <xref data="https://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra10-20150619-5100.18.pdf" type="uri">PWG5100.18</xref>
+      <xref data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ippoauth10-20250411.pdf" type="uri">PWG5100.OAUTH</xref>
     </record>
     <record>
       <value>requesting-user-name</value>
@@ -31326,6 +31414,27 @@ IESG-designated experts.
       <xref data="https://ftp.pwg.org/pub/pwg/candidates/cs-ippsystem11-20250328-5100.22.pdf" type="uri">PWG5100.22</xref>
     </record>
     <record>
+      <value>0x0068</value>
+      <name>Acknowledge-Encrypted-Job-Attributes</name>
+      <attribute>operations-supported</attribute>
+      <syntax>1setOf type2 enum</syntax>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf">PWG5100.TRUSTNOONE</xref>
+    </record>
+    <record>
+      <value>0x0069</value>
+      <name>Fetch-Encrypted-Job-Attributes</name>
+      <attribute>operations-supported</attribute>
+      <syntax>1setOf type2 enum</syntax>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf">PWG5100.TRUSTNOONE</xref>
+    </record>
+    <record>
+      <value>0x006A</value>
+      <name>Get-Encrypted-Job-Attributes</name>
+      <attribute>operations-supported</attribute>
+      <syntax>1setOf type2 enum</syntax>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf">PWG5100.TRUSTNOONE</xref>
+    </record>
+    <record>
       <attribute>orientation-requested</attribute>
       <syntax>type2 enum</syntax>
       <xref type="rfc" data="rfc8011"/>
@@ -32313,6 +32422,10 @@ after the name.
       <xref data="https://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra11-20250502-5100.18.pdf" type="uri">PWG5100.18</xref>
     </record>
     <record>
+      <name>Acknowledge-Encrypted-Job-Attributes</name>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf">PWG5100.TRUSTNOONE</xref>
+    </record>
+    <record>
       <name>Acknowledge-Identify-Printer</name>
       <xref data="https://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra11-20250502-5100.18.pdf" type="uri">PWG5100.18</xref>
     </record>
@@ -32505,6 +32618,10 @@ after the name.
       <xref data="https://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra11-20250502-5100.18.pdf" type="uri">PWG5100.18</xref>
     </record>
     <record>
+      <name>Fetch-Encrypted-Job-Attributes</name>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf">PWG5100.TRUSTNOONE</xref>
+    </record>
+    <record>
       <name>Fetch-Job</name>
       <xref data="https://ftp.pwg.org/pub/pwg/candidates/cs-ippinfra11-20250502-5100.18.pdf" type="uri">PWG5100.18</xref>
     </record>
@@ -32519,6 +32636,10 @@ after the name.
     <record>
       <name>Get-Documents(extension)</name>
       <xref data="https://ftp.pwg.org/pub/pwg/candidates/cs-ippnodriver20-20230301-5100.13.pdf" type="uri">PWG5100.13</xref>
+    </record>
+    <record>
+      <name>Get-Encrypted-Job-Attributes</name>
+      <xref type="uri" data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf">PWG5100.TRUSTNOONE</xref>
     </record>
     <record>
       <name>Get-Job-Attributes</name>
@@ -32694,7 +32815,7 @@ after the name.
     </record>
     <record>
       <name>Print-Job(extension)</name>
-      <xref data="https://ftp.pwg.org/pub/pwg/candidates/cs-ippsystem11-20250328-5100.22.pdf" type="uri">PWG5100.22</xref>
+      <xref data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf" type="uri">PWG5100.TRUSTNOONE</xref>
     </record>
     <record>
       <name>Print-Job(extension)</name>
@@ -32886,7 +33007,7 @@ after the name.
     </record>
     <record>
       <name>Send-Document(extension)</name>
-      <xref data="https://ftp.pwg.org/pub/pwg/candidates/cs-ippsystem11-20250328-5100.22.pdf" type="uri">PWG5100.22</xref>
+      <xref data="https://ftp.pwg.org/pub/pwg/ipp/wd/wd-ipptrustnoone10-20210519.pdf" type="uri">PWG5100.TRUSTNOONE</xref>
     </record>
     <record>
       <name>Send-Document(extension)</name>
