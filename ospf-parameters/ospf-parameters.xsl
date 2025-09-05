@@ -22,7 +22,7 @@
         <tr><th>Bit Number</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'flexible-algorithm-definition-tlv-sub-tlvs'">
-        <tr><th>Bit Number</th><th>Description</th><th>Reference</th></tr>
+        <tr><th>Type</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'dynamic-flooding-lsa'">
         <tr><th>Type</th><th>Description</th><th>Reference</th></tr>
