@@ -121,6 +121,11 @@
           <th>Description</th>
           <th>Reference</th>
           <th>Notes</th>
+        </xsl:when>
+        <xsl:when test="@id = 'smi-numbers-1.3.6.1.5.5.7.25'">
+          <th>Decimal</th>
+          <th>Description</th>
+          <th>Reference</th>
         </xsl:when>   
         <xsl:otherwise>
           <xsl:if test="iana:record/iana:value"><th>Decimal</th></xsl:if>
@@ -174,6 +179,11 @@
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:apply-templates select="iana:notes"/></td>
+        </xsl:when>
+         <xsl:when test="../@id = 'smi-numbers-1.3.6.1.5.5.7.25'">
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
         </xsl:when>
         <xsl:otherwise>
           <xsl:if test="../iana:record/iana:value"><td align="center"><xsl:value-of select="iana:value"/></td></xsl:if>
