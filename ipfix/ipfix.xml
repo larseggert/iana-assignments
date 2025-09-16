@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="ipfix">
 <title>IP Flow Information Export (IPFIX) Entities</title>
 <created>2007-05-10</created>
-<updated>2025-04-03</updated>
+<updated>2025-09-16</updated>
 
 <note><xref type="rfc" data="rfc7012"/> has obsoleted <xref type="rfc" data="rfc5102"/>. However, references to <xref type="rfc" data="rfc5102"/>
 remain as part of the historical record.</note>
@@ -12154,7 +12154,7 @@ decode: 0001 - PDU Type value
                       <date>2024-10-07</date>
                     </record>
 
-                    <record date="2024-10-07">
+                    <record date="2024-10-07" updated="2025-09-16">
                       <name>ipv6ExtensionHeadersFull</name>
                       <dataType>unsigned256</dataType>
                       <dataTypeSemantics>flags</dataTypeSemantics>
@@ -12170,8 +12170,8 @@ decode: 0001 - PDU Type value
                         </paragraph>
                         <paragraph>
                           The IPv6 extension header associated with each bit is provided in <xref type="uri" data="https://www.iana.org/assignments/ipfix/ipfix.xhtml#ipfix-ipv6extensionheaders-bits">IANA-IPFIX-IPv6EH</xref>.
-                          Bit 0 corresponds to the least-significant bit in the ipv6ExtensionHeadersFull IE while bit 255
-                          corresponds to the most-significant bit of the IE. In doing so, few octets will be needed to
+                          Bit 0 corresponds to the least significant bit in the ipv6ExtensionHeadersFull IE, while bit 255
+                          corresponds to the most significant bit of the IE. In doing so, few octets will be needed to
                           encode common IPv6 extension headers when observed in a Flow.
                         </paragraph>
                         <paragraph>
@@ -12181,17 +12181,17 @@ decode: 0001 - PDU Type value
                           whenever that value is encountered in the Flow.
                         </paragraph>
                         <paragraph>
-                          Extension headers observed in a Flow with varying extension header chain MUST NOT be grouped in
+                          Extension headers observed in a Flow with varying extension header chains MUST NOT be grouped in
                           the ipv6ExtensionHeadersFull IE if the ipv6ExtensionHeaderChainLengthList IE is also present.
                         </paragraph>
                         <paragraph>
                           If the ipv6ExtensionHeaderChainLengthList IE is not present, then extension headers observed in
-                          a Flow with varying extension header chain MAY be grouped in one single ipv6ExtensionHeadersFull
+                          a Flow with varying extension header chains MAY be grouped in one single ipv6ExtensionHeadersFull
                           IE or be exported in separate ipv6ExtensionHeadersFull IEs, one for each extension header chain.
                         </paragraph>
                         <paragraph>
                           The ipv6ExtensionHeadersFull IE MUST NOT be exported if ipv6ExtensionHeaderTypeCountList IE is
-                          also present because of the overlapping scopes between these two IEs.
+                          also present because of the overlapping scopes of these two IEs.
                         </paragraph>
                         <paragraph>
                           The value of ipv6ExtensionHeadersFull IE may be encoded in fewer octets per the guidelines in
@@ -12217,7 +12217,7 @@ decode: 0001 - PDU Type value
                       <date>2024-10-07</date>
                     </record>
 
-                    <record date="2024-10-07">
+                    <record date="2024-10-07" updated="2025-09-16">
                       <name>ipv6ExtensionHeaderTypeCountList</name>
                       <dataType>subTemplateList</dataType>
                       <dataTypeSemantics>list</dataTypeSemantics>
@@ -12234,12 +12234,12 @@ decode: 0001 - PDU Type value
                           This IE is a subTemplateList of ipv6ExtensionHeaderType and ipv6ExtensionHeaderCount IEs.
                         </paragraph>
                         <paragraph>
-                          Each header chain in Flow with varying extension header chain MUST be exported in a separate IE.
+                          Each header chain in a Flow with varying extension header chains MUST be exported in a separate IE.
                         </paragraph>
                         <paragraph>
                           The same extension header type may appear several times in an ipv6ExtensionHeaderTypeCountList IE.
                           For example, if an IPv6 packet of a Flow includes a Hop-by-Hop Options header, a Destination Options
-                          header, a Fragment header, and Destination Options header, the ipv6ExtensionHeaderTypeCountList IE
+                          header, a Fragment header, and a Destination Options header, the ipv6ExtensionHeaderTypeCountList IE
                           will report:
                         </paragraph>
                         <paragraph>
@@ -12275,7 +12275,7 @@ decode: 0001 - PDU Type value
                       <date>2024-10-07</date>
                     </record>
 
-                    <record date="2024-10-07">
+                    <record date="2024-10-07" updated="2025-09-16">
                       <name>ipv6ExtensionHeadersLimit</name>
                       <dataType>boolean</dataType>
                       <dataTypeSemantics>default</dataTypeSemantics>
@@ -12283,7 +12283,7 @@ decode: 0001 - PDU Type value
                       <status>current</status>
                       <description>
                         <paragraph>
-                          When set to "false", this IE indicates that the exported extension headers information
+                          When set to "false", this IE indicates that the exported extension header information
                           (e.g., ipv6ExtensionHeadersFull or ipv6ExtensionHeaderTypeCountList) does not match the
                           full enclosed extension headers, but only up to a limit that is typically set by hardware
                           or software.
@@ -12305,7 +12305,7 @@ decode: 0001 - PDU Type value
                       <date>2024-10-07</date>
                     </record>
 
-                    <record date="2024-10-07">
+                    <record date="2024-10-07" updated="2025-09-16">
                       <name>ipv6ExtensionHeadersChainLength</name>
                       <dataType>unsigned32</dataType>
                       <dataTypeSemantics>identifier</dataTypeSemantics>
@@ -12315,7 +12315,7 @@ decode: 0001 - PDU Type value
                         <paragraph>
                           In theory, there are no limits on the number of IPv6 extension headers that may be present in a
                           packet other than the path MTU. However, it was regularly reported that IPv6 packets with
-                          extension headers are often dropped in the Internet (e.g., <xref type="rfc" data="rfc7872"/>).
+                          extension headers were often dropped in the Internet (e.g., <xref type="rfc" data="rfc7872"/>).
                         </paragraph>
                         <paragraph>
                           As discussed in Section 1.2 of <xref type="rfc" data="rfc8883"/>, some hardware devices implement
@@ -12325,12 +12325,12 @@ decode: 0001 - PDU Type value
                         </paragraph>
                         <paragraph>
                           The ipv6ExtensionHeadersChainLength IE is used to report, in octets, the length of an extension
-                          header chain observed in a Flow. The length is the sum of the length of all extension headers of
+                          header chain observed in a Flow. The length is the sum of the lengths of all extension headers of
                           the chain. Exporting such information might help identifying root causes of performance degradation,
                           including packet drops.
                         </paragraph>
                         <paragraph>
-                          Each header chain length of a Flow with varying extension header chain MUST be exported in a separate
+                          Each header chain length of a Flow with varying extension header chains MUST be exported in a separate
                           ipv6ExtensionHeadersChainLength IE.
                         </paragraph>
                       </description>
@@ -12346,7 +12346,7 @@ decode: 0001 - PDU Type value
                       <date>2024-10-07</date>
                     </record>
 
-                    <record date="2024-10-07">
+                    <record date="2024-10-07" updated="2025-09-16">
                       <name>ipv6ExtensionHeaderChainLengthList</name>
                       <dataType>subTemplateList</dataType>
                       <dataTypeSemantics>list</dataTypeSemantics>
@@ -12354,7 +12354,7 @@ decode: 0001 - PDU Type value
                       <status>current</status>
                       <description>
                         <paragraph>
-                          This IE is used to report the chains and their length as observed in a Flow with varying extension header chain.
+                          This IE is used to report the chains and their lengths as observed in a Flow with varying extension header chains.
                         </paragraph>
                         <paragraph>
                           This IE is a subTemplateList of ipv6ExtensionHeadersFull and ipv6ExtensionHeadersChainLength IEs.
@@ -12376,7 +12376,7 @@ decode: 0001 - PDU Type value
                       <date>2024-10-07</date>
                     </record>
 
-                    <record date="2024-10-07">
+                    <record date="2024-10-07" updated="2025-09-16">
                       <name>tcpOptionsFull</name>
                       <dataType>unsigned256</dataType>
                       <dataTypeSemantics>flags</dataTypeSemantics>
@@ -12392,8 +12392,8 @@ decode: 0001 - PDU Type value
                         </paragraph>
                         <paragraph>
                           Options are mapped to bits according to their option numbers. TCP option Kind 0
-                          corresponds to the least-significant bit in the tcpOptionsFull IE while Kind 255
-                          corresponds to the most-significant bit of the IE. This approach allows an observer
+                          corresponds to the least significant bit in the tcpOptionsFull IE, while Kind 255
+                          corresponds to the most significant bit of the IE. This approach allows an observer
                           to export any observed TCP option even if it does not support that option and without
                           requiring updating a mapping table.
                         </paragraph>

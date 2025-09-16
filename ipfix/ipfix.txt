@@ -6,7 +6,7 @@
    2007-05-10
 
    Last Updated
-   2025-04-03
+   2025-09-16
 
    Note
 
@@ -19,7 +19,7 @@
    HTML [IMG]
    Plain text
 
-   Registries included below
+   Registries Included Below
 
      • IPFIX Information Elements
 
@@ -2150,8 +2150,8 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               IPv6 extension header, the value of the corresponding bit is 0.
 
                                                                                               The IPv6 extension header associated with each bit is provided in [IANA-IPFIX-IPv6EH].
-                                                                                              Bit 0 corresponds to the least-significant bit in the ipv6ExtensionHeadersFull IE while
-                                                                                              bit 255 corresponds to the most-significant bit of the IE. In doing so, few octets will
+                                                                                              Bit 0 corresponds to the least significant bit in the ipv6ExtensionHeadersFull IE, while
+                                                                                              bit 255 corresponds to the most significant bit of the IE. In doing so, few octets will
                                                                                               be needed to encode common IPv6 extension headers when observed in a Flow.
 
                                                                                               The "No Next Header" (bit 2) value (Section 4.7 of [RFC8200]) is used if there is no
@@ -2159,17 +2159,17 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               extension header as such, the corresponding bit is set in the ipv6ExtensionHeadersFull                           See the IPv6 Extension Header Types registry at [IANA-EH]. See Section 4 of [RFC8200] for the general
    515    ipv6ExtensionHeadersFull               unsigned256          flags        current    IE whenever that value is encountered in the Flow.                                                               definition of IPv6 extension headers. The ipv6ExtensionHeadersFull IE deprecates the                   [RFC9740]                                0        2024-10-07
                                                                                                                                                                                                                ipv6ExtensionHeaders IE (64) that was initially defined in [RFC5102]. [RFC7012] obsoletes [RFC5102]
-                                                                                              Extension headers observed in a Flow with varying extension header chain MUST NOT be                             and specifies that [IANA-IPFIX] is the normative reference for the ipv6ExtensionHeaders IE (64).
+                                                                                              Extension headers observed in a Flow with varying extension header chains MUST NOT be                            and specifies that [IANA-IPFIX] is the normative reference for the ipv6ExtensionHeaders IE (64).
                                                                                               grouped in the ipv6ExtensionHeadersFull IE if the ipv6ExtensionHeaderChainLengthList IE
                                                                                               is also present.
 
                                                                                               If the ipv6ExtensionHeaderChainLengthList IE is not present, then extension headers
-                                                                                              observed in a Flow with varying extension header chain MAY be grouped in one single
+                                                                                              observed in a Flow with varying extension header chains MAY be grouped in one single
                                                                                               ipv6ExtensionHeadersFull IE or be exported in separate ipv6ExtensionHeadersFull IEs, one
                                                                                               for each extension header chain.
 
                                                                                               The ipv6ExtensionHeadersFull IE MUST NOT be exported if ipv6ExtensionHeaderTypeCountList
-                                                                                              IE is also present because of the overlapping scopes between these two IEs.
+                                                                                              IE is also present because of the overlapping scopes of these two IEs.
 
                                                                                               The value of ipv6ExtensionHeadersFull IE may be encoded in fewer octets per the
                                                                                               guidelines in Section 6.2 of [RFC7011]
@@ -2181,12 +2181,12 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               This IE is a subTemplateList of ipv6ExtensionHeaderType and ipv6ExtensionHeaderCount
                                                                                               IEs.
 
-                                                                                              Each header chain in Flow with varying extension header chain MUST be exported in a
+                                                                                              Each header chain in a Flow with varying extension header chains MUST be exported in a
                                                                                               separate IE.
 
                                                                                               The same extension header type may appear several times in an
                                                                                               ipv6ExtensionHeaderTypeCountList IE. For example, if an IPv6 packet of a Flow includes a
-                                                                                              Hop-by-Hop Options header, a Destination Options header, a Fragment header, and
+                                                                                              Hop-by-Hop Options header, a Destination Options header, a Fragment header, and a
                                                                                               Destination Options header, the ipv6ExtensionHeaderTypeCountList IE will report:
    516    ipv6ExtensionHeaderTypeCountList       subTemplateList      list         current                                                                                                                     See the IPv6 Extension Header Types registry at [IANA-EH]. See [RFC8200] for the general definition of [RFC9740]                                0        2024-10-07
                                                                                               * the count of Hop-by-Hop Options headers,                                                                       IPv6 extension headers.
@@ -2205,7 +2205,7 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               How an implementation disambiguates between unknown upper-layer protocols vs. extension
                                                                                               headers is not IPFIX-specific. Refer, for example, to Section 2.2 of [RFC8883] for a
                                                                                               behavior of an intermediate node that encounters an unknown Next Header type.
-                                                                                              When set to "false", this IE indicates that the exported extension headers information
+                                                                                              When set to "false", this IE indicates that the exported extension header information
                                                                                               (e.g., ipv6ExtensionHeadersFull or ipv6ExtensionHeaderTypeCountList) does not match the
                                                                                               full enclosed extension headers, but only up to a limit that is typically set by                                 See Section 4 of [RFC8200] for the general definition of IPv6 extension headers. See [RFC8883] for an
    517    ipv6ExtensionHeadersLimit              boolean              default      current    hardware or software.                                                                                            example of IPv6 packet processing due to limits on extension headers.                                  [RFC9740]                                0        2024-10-07
@@ -2214,22 +2214,23 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               matches the full enclosed extension headers.
                                                                                               In theory, there are no limits on the number of IPv6 extension headers that may be
                                                                                               present in a packet other than the path MTU. However, it was regularly reported that
-                                                                                              IPv6 packets with extension headers are often dropped in the Internet (e.g., [RFC7872]).
+                                                                                              IPv6 packets with extension headers were often dropped in the Internet (e.g.,
+                                                                                              [RFC7872]).
 
                                                                                               As discussed in Section 1.2 of [RFC8883], some hardware devices implement a parsing
                                                                                               buffer of a fixed size to process packets, including all the headers. When the aggregate
-                                                                                              length of headers of an IPv6 packet exceeds that size, the packet will be discarded or
-   518    ipv6ExtensionHeadersChainLength        unsigned32           identifier   current    deferred to a slow path.                                                                                         See Section 4 of [RFC8200] for the general definition of IPv6 extension headers. See [RFC9098] for an  [RFC9740]                                0        2024-10-07
-                                                                                                                                                                                                               overview of operational implications of IPv6 packets with extension headers.
+                                                                                              length of headers of an IPv6 packet exceeds that size, the packet will be discarded or                           See Section 4 of [RFC8200] for the general definition of IPv6 extension headers. See [RFC9098] for an
+   518    ipv6ExtensionHeadersChainLength        unsigned32           identifier   current    deferred to a slow path.                                                                                         overview of operational implications of IPv6 packets with extension headers.                           [RFC9740]                                0        2024-10-07
+
                                                                                               The ipv6ExtensionHeadersChainLength IE is used to report, in octets, the length of an
-                                                                                              extension header chain observed in a Flow. The length is the sum of the length of all
+                                                                                              extension header chain observed in a Flow. The length is the sum of the lengths of all
                                                                                               extension headers of the chain. Exporting such information might help identifying root
                                                                                               causes of performance degradation, including packet drops.
 
-                                                                                              Each header chain length of a Flow with varying extension header chain MUST be exported
+                                                                                              Each header chain length of a Flow with varying extension header chains MUST be exported
                                                                                               in a separate ipv6ExtensionHeadersChainLength IE.
-                                                                                              This IE is used to report the chains and their length as observed in a Flow with varying
-                                                                                              extension header chain.
+                                                                                              This IE is used to report the chains and their lengths as observed in a Flow with
+                                                                                              varying extension header chains.
 
    519    ipv6ExtensionHeaderChainLengthList     subTemplateList      list         current    This IE is a subTemplateList of ipv6ExtensionHeadersFull and                                                     See the IPv6 Extension Header Types registry at [IANA-EH]. See [RFC8200] for the general definition of [RFC9740]                                0        2024-10-07
                                                                                               ipv6ExtensionHeadersChainLength IEs.                                                                             IPv6 extension headers.
@@ -2243,8 +2244,8 @@ ElementID                  Name                   Abstract Data Type   Data Type
                                                                                               bit is 0.
 
                                                                                               Options are mapped to bits according to their option numbers. TCP option Kind 0
-                                                                                              corresponds to the least-significant bit in the tcpOptionsFull IE while Kind 255
-                                                                                              corresponds to the most-significant bit of the IE. This approach allows an observer to
+                                                                                              corresponds to the least significant bit in the tcpOptionsFull IE, while Kind 255
+                                                                                              corresponds to the most significant bit of the IE. This approach allows an observer to
                                                                                               export any observed TCP option even if it does not support that option and without                               See the TCP Option Kind Numbers registry at [IANA-TCP]. See [RFC9293] for the general definition of
                                                                                               requiring updating a mapping table.                                                                              TCP options. The tcpOptionsFull IE deprecates the tcpOptions IE (209) that was initially defined in
    520    tcpOptionsFull                         unsigned256          flags        current                                                                                                                     [RFC5102]. [RFC7012] obsoletes [RFC5102] and specifies that [IANA-IPFIX] is the normative reference    [RFC9740]                                0        2024-10-07

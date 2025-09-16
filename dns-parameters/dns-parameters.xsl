@@ -183,8 +183,7 @@
       <xsl:when test="@id = 'dsync-location-of-synchronization-endpoints'">
         <tr>
           <th>RRtype</th>
-          <th>Scheme</th>
-          <th>Mnemonic</th>
+          <th>Scheme (Mnemonic)</th>
           <th>Purpose</th>
           <th>Reference</th>
         </tr>
