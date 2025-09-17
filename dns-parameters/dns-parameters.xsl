@@ -310,7 +310,6 @@
         <tr>
         <td><xsl:apply-templates select="iana:value"/></td>
         <td><xsl:apply-templates select="iana:scheme"/></td>
-        <td><xsl:apply-templates select="iana:mnemonic"/></td>
         <td><xsl:apply-templates select="iana:purpose"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
