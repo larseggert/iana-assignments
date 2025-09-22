@@ -26,7 +26,11 @@
     <body/>
   </xsl:template>
 
+
+  <xsl:param name="display_beta_site_banner" select="'false'"/>
+  <xsl:param name="base_url" select="'https://www.iana.org'"/>
   <xsl:template match="/iana:registry">
+
     <head>
       <link rel="stylesheet" href="../_support/iana-registry.css" type="text/css"/>
       <!-- IE insists on having <script ...></script>, not <script .../> when it
@@ -42,9 +46,31 @@
     </head>
     <body>
       <header>
-          <div>
-          <a href="/"><img src="https://www.iana.org/_img/2022/iana-logo-header.svg" alt="Internet Assigned Numbers Authority"/></a>
+        <div id="header">
+          <div id="logo">
+            <a href="{concat($base_url, '/')}">
+              <img src="{concat($base_url, '/_img/2025.01/iana-logo-header.svg')}" alt="Internet Assigned Numbers Authority"/>
+            </a>
           </div>
+          <div class="navigation">
+            <ul>
+                <li><a href="{concat($base_url, '/domains')}">Domains</a></li>
+                <li><a href="{concat($base_url, '/protocols')}">Protocols</a></li>
+                <li><a href="{concat($base_url, '/numbers')}">Numbers</a></li>
+                <li><a href="{concat($base_url, '/about')}">About</a></li>
+            </ul>
+          </div>
+        </div>
+        <xsl:if test="$display_beta_site_banner = 'true'">
+           <div id="header_banner" class="panel_warning">
+             <div class="hemmed">This is a beta site, intended for testing and feedback, which can be sent to
+              <a href="mailto:beta-feedback@iana.org">beta-feedback@iana.org</a>.
+              <br/>
+              For the latest information and to submit requests, please use
+              <a href="https://www.iana.org">www.iana.org</a>.
+            </div>
+          </div>
+        </xsl:if>
       </header>
       <article>
       <xsl:apply-templates select="iana:title" />
@@ -91,7 +117,7 @@
       </article>
       <footer>
           <div>
-          <a href="https://www.iana.org/help/licensing-terms">Licensing Terms</a>
+          <a href="{concat($base_url, '/help/licensing-terms')}">Licensing Terms</a>
           </div>
       </footer>
     </body>
@@ -261,15 +287,16 @@
   </xsl:template>
  
   <xsl:template name="iana:formats">
+    <xsl:variable name="registry_id" select="./@id"/>
     <dt>Available Formats</dt>
     <dd>
       <xsl:if test="iana:record">
-        <a class="altformat" href="{@id}.csv"><img src="/_img/icons/text-csv.png"/><br/>CSV</a>
+        <a class="altformat" href="{$registry_id}.csv"><img src="/_img/icons/text-csv.png"/><br/>CSV</a>
       </xsl:if>
       <xsl:if test="not(parent::*)">
-        <a class="altformat" href="{@id}.xml"><img src="/_img/icons/text-xml.png"/><br/>XML</a>
-        <a class="altformat" href="{@id}.xhtml"><img src="/_img/icons/text-html.png"/><br/>HTML</a>
-        <a class="altformat" href="{@id}.txt"><img src="/_img/icons/text-plain.png"/><br/>Plain text</a>
+        <a class="altformat" href="{$registry_id}.xml"><img src="/_img/icons/text-xml.png"/><br/>XML</a>
+        <a class="altformat" href="{$registry_id}.xhtml"><img src="/_img/icons/text-html.png"/><br/>HTML</a>
+        <a class="altformat" href="{$registry_id}.txt"><img src="/_img/icons/text-plain.png"/><br/>Plain text</a>
       </xsl:if>
     </dd>
   </xsl:template>
@@ -500,7 +527,7 @@
     <xsl:text>[</xsl:text>
     <xsl:choose>
       <xsl:when test="@type = 'rfc'">
-        <a href="https://www.iana.org/go/{@data}">
+        <a href="{concat($base_url, '/go/', @data)}">
           <xsl:choose>
             <xsl:when test="normalize-space()">
               <xsl:value-of select="."/>
@@ -528,8 +555,8 @@
         <a>
           <xsl:attribute name="href">
             <xsl:choose>
-              <xsl:when test="starts-with(@data, 'RFC-')">https://www.iana.org/go/draft-<xsl:value-of select="substring(@data,5)"/></xsl:when>
-              <xsl:otherwise>https://www.iana.org/go/<xsl:value-of select="@data"/></xsl:otherwise>
+              <xsl:when test="starts-with(@data, 'RFC-')"><xsl:value-of select="$base_url"/>/go/draft-<xsl:value-of select="substring(@data,5)"/></xsl:when>
+              <xsl:otherwise><xsl:value-of select="$base_url"/>/go/<xsl:value-of select="@data"/></xsl:otherwise>
             </xsl:choose>
           </xsl:attribute>
           <xsl:choose>
@@ -561,7 +588,7 @@
         <a href="#note{@data}"><xsl:value-of select="@data"/></a>
       </xsl:when>
       <xsl:when test="@type = 'registry'">
-        <a href="https://www.iana.org/assignments/{@data}">
+        <a href="{concat($base_url, '/assignments/', @data)}">
           <xsl:choose>
             <xsl:when test="normalize-space()">
               <xsl:value-of select="."/>
@@ -670,6 +697,10 @@
         </xsl:call-template>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="assignment_id">
+    <xsl:value-of select="iana:value"/>
   </xsl:template>
 
 </xsl:stylesheet>
