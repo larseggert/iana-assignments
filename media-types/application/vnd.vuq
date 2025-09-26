@@ -1,0 +1,77 @@
+(registered 2025-09-25, last udpated 2025-09-25)
+
+Media type name: application
+
+Media subtype name: vnd.vuq
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+The format is a binary container; NUL bytes may appear; CR/LF may appear outside CRLF; individual chunks can exceed 998 octets. Therefore “binary” is correct
+
+Security considerations: This media type contains active content (WebAssembly modules and JavaScript) executed within a constrained runtime. Security measures include:
+
+(1) ACTIVE CONTENT: All executable content runs in a WebAssembly sandbox with memory isolation and restricted system call access. JavaScript execution is limited to approved APIs with no direct DOM or file system access.
+
+(2) CRYPTOGRAPHIC INTEGRITY: The format uses SHA-256 hash chains for tamper detection and AES-256-GCM for content encryption. Digital signatures use Ed25519 for authenticity verification.
+
+(3) MALICIOUS CONTENT PREVENTION: Input validation prevents buffer overflows, path traversal attacks, and ZIP bombs. Resource limits include maximum 512MB memory allocation and 30-second execution timeouts per operation.
+
+(4) DATA EXFILTRATION PREVENTION: Network access is denied by default. When enabled, only explicitly allowlisted domains are accessible with rate limiting (10 requests/minute). No local file system access is permitted.
+
+(5) COMPRESSION SECURITY: ZSTD compression includes bounds checking and metadata validation before decompression to prevent resource exhaustion attacks.
+
+(6) SIDE-CHANNEL MITIGATION: Cryptographic operations use constant-time algorithms to prevent timing attacks. Temporary data is securely cleared from memory.
+
+Interoperability considerations: (1) ENDIANNESS: All multi-byte integers use little-endian encoding for cross-platform compatibility.
+
+(2) VERSION HANDLING: Files include format version in header. Implementations must reject files with major version numbers higher than supported. Minor version differences should be handled gracefully.
+
+(3) CHUNK PROCESSING: Unknown optional chunks should be ignored. Unknown mandatory chunks must cause processing to fail with clear error messages.
+
+(4) HASH COMPUTATION: SHA-256 operations must use canonical byte ordering and standard padding as defined in FIPS 180-4.
+
+(5) POLICY DEFAULTS: Network access defaults to disabled. Copy protection defaults to tracking-enabled. Implementations should document any deviations from these defaults.
+
+(6) MAGIC NUMBER: Implementations must verify the 8-byte magic number (56 55 51 01 00 00 00 56) before processing to prevent misidentification.
+
+Published specification: Basic format specification available at: https://github.com/PhillipGimmi/vuq
+Full technical documentation will be published upon format stabilization.
+
+Applications which use this media: Used by the VUQ toolchain and runtimes to package, distribute, and render responsive, sandboxed “walled-garden” documents and apps. Typical producers/consumers:
+
+VUQ Creator/Packager (builds .vuq containers)
+
+VUQ Viewer (browser/WebAssembly and/or native helper runtime)
+
+Enterprise Admin/Dashboard (policy and audit tools)
+
+Third-party software treats this type as an opaque binary container unless integrated with the VUQ runtime.
+
+Fragment identifier considerations: None.
+
+Restrictions on usage: None. Suitable for transfer over general Internet protocols. When used in 7-bit transports (e.g., some email paths), binary-safe transfer encodings (e.g., Base64) SHOULD be applied.
+
+Additional information:
+
+1. Deprecated alias names for this type: None.
+2. Magic number(s): "VUQ" (0x56,0x55,0x51) + format version (0x01) + reserved (0x00,0x00,0x00) + verification (0x56)
+3. File extension(s): .vuq
+4. Macintosh file type code: None.
+5. Object Identifiers: None.
+
+General Comments: This media type may contain active content. Decoders/viewers MUST execute in a least-privilege sandbox, verify integrity before processing, deny network access by default (with optional explicit allow-listing), validate container metadata (to mitigate decompression bombs and oversized allocations), and prevent path traversal on any extracted virtual resources.
+
+Person to contact for further information:
+
+1. Name: Phillip Gimmi
+2. Email: Phillip.gimmi&gmail.com
+
+Intended usage: LIMITED USE
+
+Intended primarily for use by VUQ creator/viewer software and enterprise systems; not designed as a general-purpose interchange format among arbitrary applications.
+
+Author/Change controller: Phillip Gimmi (vendor/owner of the media type)

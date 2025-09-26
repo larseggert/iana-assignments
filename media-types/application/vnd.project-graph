@@ -1,0 +1,55 @@
+(registered 2025-09-25, last udpated 2025-09-25)
+
+Media type name: application
+
+Media subtype name: vnd.project-graph
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+Security considerations: Compression Bombs: A PRG file may contain a small ZIP that decompresses to an extremely large amount of data, causing denial-of-service. Implementations MUST impose reasonable limits on the number of extracted files and the total uncompressed size.
+
+Path Traversal: Maliciously crafted ZIP entries could have names like ../../../some_important_file. Implementations MUST NOT extract files to filesystem, instead, read them directly from the ZIP stream to memory or a controlled environment.
+
+Attachment Risks: The attachments directory can contain any file type. The application processing the PRG file is responsible for handling each attachment in a secure manner (e.g., run script files in sandbox, detect malware in attachments).
+
+Interoperability considerations: This media type defines a format for representing complex node graphs, such as project dependency graphs.
+
+The content is a ZIP-archived container that holds one `stage.msgpack` file serialized using MessagePack, and may have other file in any format. This combination provides efficient storage and fast parsing.
+
+The structure of the MessagePack-serialized data within the archive MUST conform to the schema defined in [https://project-graph.top/docs/spec/prg].
+
+Key considerations for implementers include:
+
+- Handling of required and optional properties gracefully (e.g., ignoring unknown optional properties rather than failing).
+- Being aware that the graph may contain cycles and must be processed accordingly to avoid infinite loops.
+- The possibility of very large graphs, requiring streaming or chunked processing strategies.
+
+Published specification: https://project-graph.top/docs/spec/prg
+
+Applications which use this media: Project Graph - [https://project-graph.top]
+
+Fragment identifier considerations: UUIDs separated by `;`
+See section 6.5 in the specification
+
+Restrictions on usage: N/A
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): PK\x03\x04
+3. File extension(s): .prg
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+Person to contact for further information:
+
+1. Name: Tianyu Zhang
+2. Email: z&2y.nz
+
+Intended usage: COMMON
+
+Author/Change controller: Tianyu Zhang <z&2y.nz>
