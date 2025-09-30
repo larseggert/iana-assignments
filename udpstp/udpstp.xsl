@@ -8,8 +8,20 @@
 
   <xsl:template name="iana:record_header">
     <xsl:choose> 
+      <xsl:when test="@id = 'pdu-identifier'">
+        <tr><th>Value</th><th>Description</th><th>Reference</th><th>Change Controller</th></tr>
+      </xsl:when>
       <xsl:when test="@id = 'protocol-version'">
-        <tr><th>Value</th><th>Reference</th></tr>
+        <tr><th>Value</th><th>Reference</th><th>Change Controller</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'test-setup-pdu-command-response-field'">
+        <tr><th>Value</th><th>Description</th><th>Reference</th><th>Change Controller</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'test-activation-pdu-command-request'">
+        <tr><th>Value</th><th>Description</th><th>Reference</th><th>Change Controller</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'test-activation-pdu-command-response-field'">
+        <tr><th>Value</th><th>Description</th><th>Reference</th><th>Change Controller</th></tr>
       </xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
@@ -19,10 +31,43 @@
 
   <xsl:template match="iana:record">
     <xsl:choose>
+      <xsl:when test="../@id = 'pdu-identifier'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
+        </tr>
+      </xsl:when>
       <xsl:when test="../@id = 'protocol-version'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'test-setup-pdu-command-response-field'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'test-activation-pdu-command-request'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'test-activation-pdu-command-response-field'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
         </tr>
       </xsl:when>
       <xsl:otherwise>
