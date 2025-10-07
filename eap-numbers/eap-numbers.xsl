@@ -24,6 +24,9 @@
       <xsl:when test="@id = 'eap-lower-layers'">
         <tr><th>Value</th><th>Lower Layer</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'eap-provisioning-ids'">
+        <tr><th>NAI</th><th>Method-Type</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
       </xsl:otherwise>
@@ -69,6 +72,13 @@
           <td><xsl:value-of select="iana:flag"/></td>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'eap-provisioning-ids'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
         </tr>
       </xsl:when>
       <xsl:otherwise>
