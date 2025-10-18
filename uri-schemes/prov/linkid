@@ -1,0 +1,74 @@
+(registered 2025-10-17, last updated 2025-10-17)
+
+Scheme name: linkid
+
+Status: Provisional
+
+Applications/protocols that use this scheme name:
+Link integrity and preservation systems for web and document content; resolver services and clients that
+detect, analyze, and repair broken hyperlinks; archival and enterprise content platforms using persistent
+identifiers.
+
+Contact:
+Christian Nyffenegger, Founder & CEO, Link Genetic GmbH
+Email: c.n&linkgenetic.com
+Address: Link Genetic GmbH, Leugrueb 21, 8126 Zumikon, Switzerland
+Web: https://linkgenetic.com/
+
+Change controller:
+Link Genetic GmbH (on behalf of the LinkID specification maintainers)
+
+References:
+LinkID Specification v1.0 (public draft): https://github.com/Link-Genetic-GmbH/lid/
+RFC 3986 (URI Generic Syntax)
+RFC 7595 (URI Scheme Guidelines and Registration)
+
+Scheme syntax (ABNF using RFC 3986 productions):
+linkid-URI = "linkid:" linkid-id [ "?" query ] [ "#" fragment ] linkid-id = linkid-seg *( "/" linkid-seg ) linkid-seg =
+1*( unreserved / pct-encoded / sub-delims / ":" ) ; unreserved / pct-encoded / sub-delims / query / fragment
+per RFC 3986 Scheme name is case-insensitive; the linkid-id is case-sensitive unless specified by a given
+namespace profile. Percent-encoding follows RFC 3986.
+
+Scheme semantics:
+linkid: identifies a persistent LinkID representing a target resource (e.g., a web page, document section,
+dataset, media asset). A linkid: does not embed a direct network location; resolution to a current actionable
+locator (e.g., https: URL) is performed by one or more LinkID resolvers per the LinkID Spec. The identifier
+remains stable even when the resource moves or is renamed.
+
+Encoding considerations:
+linkid-id components are UTF-8 strings percent-encoded per RFC 3986 for any characters outside
+unreserved. Producers SHOULD apply Unicode NFC before percent-encoding to improve comparison
+stability.
+
+Interoperability considerations:
+- Conforms to RFC 3986 generic syntax.
+- Namespace profiling allowed (e.g., linkid:ns:local-id/path).
+- Comparison rules per RFC 3986; profiles MAY define canonicalization.
+
+Security considerations:
+- Phishing/misdirection: resolution maps identifiers to current locators; validate origin and use TLS.
+- Normalization/comparison: follow RFC 3986; avoid lossy transformations.
+- Authorization: access control is enforced by resolvers/targets.
+- Integrity/abuse: use TLS, consider signed responses, rate limiting, and logging.
+
+Privacy considerations:
+- linkid: values SHOULD avoid embedding personal data.
+- Resolution requests can reveal user interest; operators SHOULD minimize logs and apply retention
+limits.
+
+Examples:
+linkid:doc:acme/handbook/2025/section-3 linkid:doi:10.1234/xyz-2025-07#methods
+linkid:media:images/product-42?v=2 linkid:archive:ch.admin/finrep/2024/Q4
+
+Intended usage: Common
+
+Restrictions on usage: None beyond RFC 3986 and this registration.
+
+Author/Change controller statement:
+Link Genetic GmbH maintains the LinkID specification and welcomes multi-stakeholder governance as
+adoption grows.
+
+Public Repository Reference:
+All current specification drafts, reference implementations, and interoperability documentation are publicly
+available at:
+https://github.com/Link-Genetic-GmbH/lid/
