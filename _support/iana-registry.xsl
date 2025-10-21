@@ -26,9 +26,10 @@
     <body/>
   </xsl:template>
 
-
   <xsl:param name="display_beta_site_banner" select="'false'"/>
   <xsl:param name="base_url" select="'https://www.iana.org'"/>
+  <xsl:param name="registry_json_export" select="'false'"/>
+
   <xsl:template match="/iana:registry">
 
     <head>
@@ -49,7 +50,7 @@
         <div id="header">
           <div id="logo">
             <a href="{concat($base_url, '/')}">
-              <img src="{concat($base_url, '/_img/2025.01/iana-logo-header.svg')}" alt="Internet Assigned Numbers Authority"/>
+              <img src="{concat($base_url, '/static/_img/2025.01/iana-logo-header.svg')}" alt="Internet Assigned Numbers Authority"/>
             </a>
           </div>
           <div class="navigation">
@@ -290,13 +291,22 @@
     <xsl:variable name="registry_id" select="./@id"/>
     <dt>Available Formats</dt>
     <dd>
-      <xsl:if test="iana:record">
-        <a class="altformat" href="{$registry_id}.csv"><img src="/_img/icons/text-csv.png"/><br/>CSV</a>
-      </xsl:if>
+        <xsl:if test="iana:record">
+            <a class="altformat" href="{$registry_id}.csv">
+                <img src="{concat($base_url, '/static/_img/icons/text-csv.png')}"/>
+                <br/>CSV
+            </a>
+            <xsl:if test="$registry_json_export = 'true'">
+                <a class="altformat" href="v1/{$registry_id}.json">
+                    <img src="{concat($base_url, '/static/_img/icons/protocol-export-json.svg')}" height="25"/>
+                    <br/>JSON
+                </a>
+            </xsl:if>
+        </xsl:if>
       <xsl:if test="not(parent::*)">
-        <a class="altformat" href="{$registry_id}.xml"><img src="/_img/icons/text-xml.png"/><br/>XML</a>
-        <a class="altformat" href="{$registry_id}.xhtml"><img src="/_img/icons/text-html.png"/><br/>HTML</a>
-        <a class="altformat" href="{$registry_id}.txt"><img src="/_img/icons/text-plain.png"/><br/>Plain text</a>
+        <a class="altformat" href="{$registry_id}.xml"><img src="{concat($base_url, '/static/_img/icons/text-xml.png')}"/><br/>XML</a>
+        <a class="altformat" href="{$registry_id}.xhtml"><img src="{concat($base_url, '/static/_img/icons/text-html.png')}"/><br/>HTML</a>
+        <a class="altformat" href="{$registry_id}.txt"><img src="{concat($base_url, '/static/_img/icons/text-plain.png')}"/><br/>Plain text</a>
       </xsl:if>
     </dd>
   </xsl:template>
