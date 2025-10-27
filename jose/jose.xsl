@@ -89,7 +89,7 @@
       <xsl:when test="../@id = 'web-signature-encryption-algorithms'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:value-of select="iana:usage"/></td>
           <td><xsl:value-of select="iana:requirements"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
