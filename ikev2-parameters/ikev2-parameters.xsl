@@ -195,7 +195,7 @@
       <xsl:when test="@id = 'gsa-attributes'">
         <tr>
           <th>Value</th>
-          <th>GSA Attributes</th>
+          <th>Group SA Attributes</th>
           <th>Format</th>
           <th>Multi-Valued</th>
           <th>Used in Protocol</th>
