@@ -17,12 +17,23 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="iana:record">
+<xsl:template match="iana:record">
+    <xsl:choose>
+    <xsl:when test="../@id = 'event'">
     <tr>
+      <td><xsl:value-of select="iana:value"/></td>
+      <td><xsl:value-of select="iana:description"/></td>
+      <td><xsl:apply-templates select="iana:reference"/></td>
+    </tr>
+    </xsl:when>
+    <xsl:otherwise>
+      <tr>
       <td><xsl:value-of select="iana:value"/></td>
       <td><xsl:value-of select="iana:description"/></td>
       <td><xsl:apply-templates select="iana:xref"/></td>
     </tr>
+    </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
 </xsl:stylesheet>
