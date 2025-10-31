@@ -25,17 +25,9 @@
         </tr>
       </xsl:when>
       <xsl:when test="@id = 'tls-parameters-2'
-        or @id = 'tls-parameters-16'
-        or @id = 'tls-parameters-18'">
-        <tr>
-          <th>Value</th>
-          <th>Description</th>
-          <th>DTLS-OK</th>
-          <th>Recommended</th>
-          <th>Reference</th>
-        </tr>
-      </xsl:when>
-      <xsl:when test="@id = 'tls-parameters-4'
+          or @id = 'tls-parameters-4'
+          or @id = 'tls-parameters-16'
+          or @id = 'tls-parameters-18'
           or @id = 'tls-parameters-8'">
         <tr>
           <th>Value</th>
@@ -97,14 +89,17 @@
   <xsl:template match="iana:record">
     <xsl:choose>
       <xsl:when test="../@id = 'tls-parameters-2'
+        or ../@id = 'tls-parameters-8'
         or ../@id = 'tls-parameters-16'
-        or ../@id = 'tls-parameters-18'">
+        or ../@id = 'tls-parameters-18'
+        or ../@id = 'tls-rrc-message-types'">
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:value-of select="iana:dtls"/></td>
           <td><xsl:value-of select="iana:rec"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:comment"/></td>
         </tr>
       </xsl:when>
       <xsl:when test="../@id = 'tls-parameters-4'">
@@ -131,17 +126,6 @@
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:value-of select="iana:dtls"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
-          <td><xsl:apply-templates select="iana:comment"/></td>
-        </tr>
-      </xsl:when>
-      <xsl:when test="../@id = 'tls-parameters-8'
-          or ../@id = 'tls-rrc-message-types'">
-        <tr>
-          <td align="center"><xsl:value-of select="iana:value"/></td>
-          <td><xsl:apply-templates select="iana:description"/></td>
-          <td><xsl:value-of select="iana:dtls"/></td>
-          <td><xsl:value-of select="iana:rec"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:apply-templates select="iana:comment"/></td>
         </tr>
