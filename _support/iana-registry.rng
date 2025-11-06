@@ -59,7 +59,7 @@
       </interleave>
     </element>
   </define>
-  
+
   <define name="people">
     <element name="people">
       <zeroOrMore>
@@ -73,7 +73,20 @@
       </zeroOrMore>
     </element>
   </define>
-  
+
+  <define name="RFCFragment">
+    <!-- allow section OR line OR neither -->
+    <choice>
+      <empty/>
+      <attribute name="section"><data type="string"/></attribute>
+      <attribute name="page"><data type="string"/></attribute>
+      <attribute name="appendix"><data type="string"/></attribute>
+      <attribute name="table"><data type="string"/></attribute>
+      <attribute name="figure"><data type="string"/></attribute>
+      <attribute name="anchor"><data type="string"/></attribute>
+    </choice>
+  </define>
+
   <define name="xref">
     <element name="xref">
       <optional>
@@ -91,6 +104,7 @@
               <param name="pattern">(rfc|bcp|std)\d+</param>
             </data>
           </attribute>
+          <ref name="RFCFragment"/>
         </group>
         <group>
           <attribute name="type"><value>rfc-errata</value></attribute>
@@ -103,6 +117,7 @@
               <param name="pattern">(draft|RFC)(-[a-zA-Z0-9]+)+</param>
             </data>
           </attribute>
+          <ref name="RFCFragment"/>
         </group>
         <group>
           <attribute name="type"><value>registry</value></attribute>

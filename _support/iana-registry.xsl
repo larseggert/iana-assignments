@@ -78,8 +78,8 @@
       <xsl:if
         test="iana:created|iana:updated|iana:registration_rule|iana:expert|iana:description|iana:note|iana:xref|iana:record">
         <dl>
-          <xsl:apply-templates select="iana:created" /> 
-          <xsl:apply-templates select="iana:updated" /> 
+          <xsl:apply-templates select="iana:created" />
+          <xsl:apply-templates select="iana:updated" />
           <xsl:apply-templates select="iana:registration_rule" />
           <xsl:apply-templates select="iana:expert" />
           <xsl:apply-templates select="iana:description" />
@@ -282,11 +282,11 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
- 
+
   <xsl:template match="iana:note">
         <xsl:apply-templates/>
   </xsl:template>
- 
+
   <xsl:template name="iana:formats">
     <xsl:variable name="registry_id" select="./@id"/>
     <dt>Available Formats</dt>
@@ -534,18 +534,99 @@
   </xsl:template>
 
   <xsl:template match="iana:xref">
+    <xsl:variable name="link_label">
+      <xsl:choose>
+        <xsl:when test="normalize-space()">
+          <xsl:value-of select="."/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="base">
+            <xsl:choose>
+              <xsl:when test="@type = 'rfc'">
+                <xsl:value-of select="translate(@data, $alpha, $ALPHA)"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="@data"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+          <xsl:variable name="suffix">
+            <xsl:choose>
+              <xsl:when test="@section">
+                <xsl:value-of select="concat(', Section ', @section)"/>
+              </xsl:when>
+              <xsl:when test="@page">
+                <xsl:value-of select="concat(', Page ', @page)"/>
+              </xsl:when>
+              <xsl:when test="@appendix">
+                <xsl:value-of select="concat(', Appendix ', @appendix)"/>
+              </xsl:when>
+              <xsl:when test="@table">
+                <xsl:value-of select="concat(', Table ', @table)"/>
+              </xsl:when>
+              <xsl:when test="@figure">
+                <xsl:value-of select="concat(', Figure ', @figure)"/>
+              </xsl:when>
+              <xsl:when test="@anchor">
+                <xsl:value-of select="concat('#', @anchor)"/>
+              </xsl:when>
+              <xsl:otherwise/>
+            </xsl:choose>
+          </xsl:variable>
+          <xsl:value-of select="concat($base, $suffix)"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="link_href">
+      <xsl:variable name="base">
+        <xsl:choose>
+          <xsl:when test="@type = 'rfc'">
+            <xsl:value-of select="concat($base_url, '/go/', @data)"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:choose>
+              <xsl:when test="starts-with(@data, 'RFC-')">
+                <xsl:value-of select="concat($base_url, '/go/draft-', substring(@data,5))"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="concat($base_url, '/go/', @data)"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+      <xsl:variable name="suffix">
+        <xsl:choose>
+          <xsl:when test="@section">
+            <xsl:value-of select="concat('#section-', @section)"/>
+          </xsl:when>
+          <xsl:when test="@page">
+            <xsl:value-of select="concat('#page-', @page)"/>
+          </xsl:when>
+          <xsl:when test="@appendix">
+            <xsl:value-of select="concat('#appendix-', @appendix)"/>
+          </xsl:when>
+          <xsl:when test="@table">
+            <xsl:value-of select="concat('#table-', @table)"/>
+          </xsl:when>
+          <xsl:when test="@figure">
+            <xsl:value-of select="concat('#figure-', @figure)"/>
+          </xsl:when>
+          <xsl:when test="@anchor">
+            <xsl:value-of select="concat('#', @anchor)"/>
+          </xsl:when>
+        </xsl:choose>
+      </xsl:variable>
+      <xsl:value-of select="concat($base, $suffix)"/>
+    </xsl:variable>
     <xsl:text>[</xsl:text>
     <xsl:choose>
       <xsl:when test="@type = 'rfc'">
-        <a href="{concat($base_url, '/go/', @data)}">
-          <xsl:choose>
-            <xsl:when test="normalize-space()">
-              <xsl:value-of select="."/>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:value-of select="translate(@data,$alpha,$ALPHA)"/>
-            </xsl:otherwise>
-          </xsl:choose>
+        <a>
+          <xsl:attribute name="href">
+            <xsl:value-of select="$link_href"/>
+          </xsl:attribute>
+          <xsl:value-of select="$link_label"/>
         </a>
       </xsl:when>
       <xsl:when test="@type = 'rfc-errata'">
@@ -564,19 +645,9 @@
       <xsl:when test="@type = 'draft'">
         <a>
           <xsl:attribute name="href">
-            <xsl:choose>
-              <xsl:when test="starts-with(@data, 'RFC-')"><xsl:value-of select="$base_url"/>/go/draft-<xsl:value-of select="substring(@data,5)"/></xsl:when>
-              <xsl:otherwise><xsl:value-of select="$base_url"/>/go/<xsl:value-of select="@data"/></xsl:otherwise>
-            </xsl:choose>
+            <xsl:value-of select="$link_href"/>
           </xsl:attribute>
-          <xsl:choose>
-            <xsl:when test="normalize-space()">
-              <xsl:value-of select="."/>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:value-of select="@data"/>
-            </xsl:otherwise>
-          </xsl:choose>
+          <xsl:value-of select="$link_label"/>
         </a>
       </xsl:when>
       <xsl:when test="@type = 'uri'">
