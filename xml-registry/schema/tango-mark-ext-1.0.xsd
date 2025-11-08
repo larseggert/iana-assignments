@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+targetNamespace="http://xmlns.tango-rs.net/epp/mark-ext-1.0"
+xmlns:ext="http://xmlns.tango-rs.net/epp/mark-ext-1.0"
+xmlns:mark="urn:ietf:params:xml:ns:mark-1.0"
+xmlns:smd="urn:ietf:params:xml:ns:signedMark-1.0"
+elementFormDefault="qualified"
+attributeFormDefault="unqualified">
+
+<annotation>
+<documentation>
+extension schema for the submission of additional
+launch phase/application data if standard mark data
+is not sufficient; the schema defines an "augmentedMark" element
+which type allows it to be used in place of standard mark data
+in the launch phase extension (http://tools.ietf.org/html/rfc7848)
+and to augment mark data with arbitrary, key-value style additional
+information required for evaluating domain name applications
+</documentation>
+</annotation>
+
+
+<!-- import mark data definitions -->
+
+<import namespace="urn:ietf:params:xml:ns:mark-1.0"/>
+<import namespace="urn:ietf:params:xml:ns:signedMark-1.0"/>
+
+
+<!-- type for application info values -->
+
+<simpleType name="applicationInfoValueType">
+<restriction base="normalizedString">
+<minLength value="1"/>
+<maxLength value="2048"/>
+</restriction>
+</simpleType>
+
+
+<!-- type for application info types -->
+
+<simpleType name="applicationInfoTypeType">
+<restriction base="token">
+<minLength value="1"/>
+<maxLength value="64"/>
+</restriction>
+</simpleType>
+
+
+<!-- type for application info data -->
+
+<complexType name="applicationInfoType">
+<simpleContent>
+<extension base="ext:applicationInfoValueType">
+<!-- optional attribute to denote the type of information provided -->
+<attribute name="type" type="ext:applicationInfoTypeType"
+use="optional"/>
+</extension>
+</simpleContent>
+</complexType>
+
+
+<!-- sub-type of abstractSignedMarkType suitable for
+use in the launch phase extension -->
+
+<complexType name="augmentedMarkType">
+<complexContent>
+<extension base="smd:abstractSignedMarkType">
+<sequence>
+
+<!-- optional embedded standard mark data;
+unsigned, signed or encoded -->
+<choice minOccurs="0">
+<element ref="mark:abstractMark"/>
+<element ref="smd:abstractSignedMark"/>
+<element ref="smd:encodedSignedMark"/>
+</choice>
+
+<!-- additional information for a domain application;
+at least one must be provided -->
+<element name="applicationInfo" type="ext:applicationInfoType"
+maxOccurs="unbounded"/>
+
+</sequence>
+</extension>
+</complexContent>
+</complexType>
+
+
+<!-- top-level element for augmented mark data -->
+
+<element name="augmentedMark" type="ext:augmentedMarkType"
+substitutionGroup="smd:abstractSignedMark"/>
+
+</schema>

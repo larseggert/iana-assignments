@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://xmlns.tango-rs.net/epp/eligibility-1.0"
+xmlns="http://www.w3.org/2001/XMLSchema"
+xmlns:el="http://xmlns.tango-rs.net/epp/eligibility-1.0"
+elementFormDefault="qualified"
+attributeFormDefault="unqualified">
+
+<annotation>
+<documentation>
+Extensible Provisioning Protocol v1.0
+extension schema for domain registration eligibility information
+</documentation>
+</annotation>
+
+
+<!-- child elements found in EPP commands -->
+
+<element name="create" type="el:createType"/>
+<element name="update" type="el:updateType"/>
+
+<!-- child elements found in EPP responses -->
+
+<element name="infData" type="el:infDataType"/>
+
+
+<!-- create extension -->
+
+<complexType name="createType">
+<sequence>
+<element name="intendedUse" type="el:intendedUseType"/>
+</sequence>
+</complexType>
+
+<simpleType name="intendedUseType">
+<restriction base="string">
+<minLength value="1"/>
+<maxLength value="2048"/>
+</restriction>
+</simpleType>
+
+
+<!-- update extension -->
+
+<complexType name="updateType">
+<sequence>
+<element name="chg" type="el:chgType"/>
+</sequence>
+</complexType>
+
+<complexType name="chgType">
+<sequence>
+<element name="intendedUse" type="el:intendedUseType"/>
+</sequence>
+</complexType>
+
+
+<!-- info extension -->
+
+<complexType name="infDataType">
+<sequence>
+<element name="intendedUse" type="el:intendedUseType"/>
+</sequence>
+</complexType>
+
+</schema>

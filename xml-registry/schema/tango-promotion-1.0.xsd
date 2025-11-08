@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://xmlns.tango-rs.net/epp/promotion-1.0"
+xmlns="http://www.w3.org/2001/XMLSchema"
+xmlns:promo="http://xmlns.tango-rs.net/epp/promotion-1.0"
+elementFormDefault="qualified"
+attributeFormDefault="unqualified">
+
+<annotation>
+<documentation>
+Extensible Provisioning Protocol v1.0
+extension schema for specifying promotion codes in
+domain create and renew commands
+</documentation>
+</annotation>
+
+<!-- child elements found in EPP commands -->
+
+<element name="create" type="promo:createType"/>
+<element name="renew" type="promo:renewType"/>
+
+
+<!-- create extension -->
+
+<complexType name="createType">
+<sequence>
+<element name="code" type="promo:promotionCodeType"/>
+</sequence>
+</complexType>
+
+
+<!-- renew extension -->
+
+<complexType name="renewType">
+<sequence>
+<element name="code" type="promo:promotionCodeType"/>
+</sequence>
+</complexType>
+
+
+<!-- shared types -->
+
+<simpleType name="promotionCodeType">
+<restriction base="token">
+<minLength value="1"/>
+<maxLength value="64"/>
+</restriction>
+</simpleType>
+
+</schema>

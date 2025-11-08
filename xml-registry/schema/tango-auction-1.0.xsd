@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<schema targetNamespace="http://xmlns.tango-rs.net/epp/auction-1.0"
+xmlns:auction="http://xmlns.tango-rs.net/epp/auction-1.0"
+xmlns="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified"
+attributeFormDefault="unqualified">
+
+<annotation>
+<documentation>
+Extensible Provisioning Protocol v1.0
+domain name extension schema for auction
+data processing.
+</documentation>
+</annotation>
+
+
+<!-- child elements found in EPP commands -->
+
+<element name="create" type="auction:requestType"/>
+<element name="update" type="auction:requestType"/>
+
+<!-- child elements of the transform commands -->
+<complexType name="requestType">
+<sequence>
+<element name="bid" type="auction:bidType"/>
+</sequence>
+</complexType>
+
+
+<!-- child response elements -->
+
+<element name="infData" type="auction:infDataType"/>
+
+<!-- response elements -->
+<complexType name="infDataType">
+<sequence>
+<element name="bid" type="auction:bidType"/>
+</sequence>
+</complexType>
+
+
+<!-- common types -->
+
+<simpleType name="nonNegAmount">
+<restriction base="decimal">
+<minInclusive value="0"/>
+<fractionDigits value="2"/>
+</restriction>
+</simpleType>
+
+<!-- a currency specified by its ISO 4217 country code -->
+<simpleType name="currencyType">
+<restriction base="token">
+<length value="3"/>
+</restriction>
+</simpleType>
+
+<!-- a bid -->
+<complexType name="bidType">
+<simpleContent>
+<extension base="auction:nonNegAmount">
+<attribute name="currency" type="auction:currencyType" use="required"/>
+</extension>
+</simpleContent>
+</complexType>
+
+</schema>
