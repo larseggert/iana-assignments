@@ -14,6 +14,7 @@
       <th>Template</th>
       <th>Description</th>
       <th>Status</th>
+      <th>CRI Scheme Number</th>
       <th>Well-Known URI Support</th>
       <th>Reference</th>
       <th>Notes</th>
@@ -43,6 +44,7 @@
       <td><xsl:apply-templates select="iana:file"/></td>
       <td><xsl:apply-templates select="iana:description"/></td>
       <td><xsl:value-of select="iana:status"/></td>
+      <td><xsl:apply-templates select="iana:cri"/></td>
       <td><xsl:apply-templates select="iana:well-known"/></td>
       <td><xsl:apply-templates select="iana:xref"/></td>
       <td><xsl:apply-templates select="iana:notes"/></td>
