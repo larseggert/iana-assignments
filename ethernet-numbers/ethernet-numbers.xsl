@@ -23,6 +23,13 @@
         <th>References</th>
       </tr>
      </xsl:when>
+     <xsl:when test="@id = 'iana-ptp-tlv-subtypes'">
+       <tr>
+        <th>Subtype</th>
+        <th>Description</th>
+        <th>Reference</th>
+      </tr>
+     </xsl:when>
      <xsl:otherwise>
         <tr>
           <th>Value</th>
