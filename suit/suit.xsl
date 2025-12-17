@@ -12,16 +12,16 @@
         <tr><th>Label</th><th>Name</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'suit-report-elements'">
-        <tr><th>Label</th><th>Name</th>CDDL Label<th></th><th>Reference</th></tr>
+        <tr><th>Label</th><th>Name</th><th>CDDL Label</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'suit-record-elements'">
-        <tr><th>Label</th><th>Name</th>CDDL Label<th></th><th>Reference</th></tr>
+        <tr><th>Label</th><th>Name</th><th>CDDL Label</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'suit-report-reasons'">
-        <tr><th>Label</th><th>Name</th>CDDL Label<th></th><th>Reference</th></tr>
+        <tr><th>Label</th><th>Name</th><th>CDDL Label</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'suit-capability-report-elements'">
-        <tr><th>Label</th><th>Name</th>CDDL Label<th></th><th>Reference</th></tr>
+        <tr><th>Label</th><th>Name</th><th>CDDL Label</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:otherwise>
         <tr><th>Label</th><th>Name</th><th>Reference</th></tr>
