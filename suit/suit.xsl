@@ -11,6 +11,18 @@
       <xsl:when test="@id = 'suit-envelope-elements'">
         <tr><th>Label</th><th>Name</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'suit-report-elements'">
+        <tr><th>Label</th><th>Name</th>CDDL Label<th></th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'suit-record-elements'">
+        <tr><th>Label</th><th>Name</th>CDDL Label<th></th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'suit-report-reasons'">
+        <tr><th>Label</th><th>Name</th>CDDL Label<th></th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'suit-capability-report-elements'">
+        <tr><th>Label</th><th>Name</th>CDDL Label<th></th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Label</th><th>Name</th><th>Reference</th></tr>
       </xsl:otherwise>
@@ -23,6 +35,38 @@
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'suit-report-elements'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:value-of select="iana:cddl"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'suit-record-elements'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:value-of select="iana:cddl"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'suit-report-reasons'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:value-of select="iana:cddl"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'suit-capability-report-elements'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:value-of select="iana:cddl"/></td>
           <td><xsl:apply-templates select="iana:reference"/></td>
         </tr>
       </xsl:when>
