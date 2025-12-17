@@ -44,7 +44,7 @@
           <th>Contact</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'hhit-entity-type'">
+      <xsl:when test="@id = 'hhit-entity-types'">
         <tr>
           <th>Value</th>
           <th>HHIT Type</th>
@@ -88,7 +88,7 @@
           <td><xsl:apply-templates select="iana:contact"/></td>
         </tr>
       </xsl:when>
-      <xsl:when test="../@id = 'hhit-entity-type'">
+      <xsl:when test="../@id = 'hhit-entity-types'">
         <tr>
           <td><xsl:apply-templates select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:name"/></td>
