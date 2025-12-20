@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://xmlns.corenic.net/epp/promotion-info-1.0"
+xmlns="http://www.w3.org/2001/XMLSchema"
+xmlns:promo="http://xmlns.corenic.net/epp/promotion-info-1.0"
+elementFormDefault="qualified"
+attributeFormDefault="unqualified">
+
+<annotation>
+<documentation>
+Extensible Provisioning Protocol v1.0
+object extension schema for getting information about promotion codes
+</documentation>
+</annotation>
+
+
+<!-- elements for EPP commands -->
+
+<element name="info" type="promo:infoType"/>
+
+<!-- child elements found in EPP responses -->
+
+<element name="infData" type="promo:infDataType"/>
+
+
+<!-- type definitions -->
+
+<complexType name="infoType">
+<sequence>
+<element name="code" type="promo:promotionCodeType"/>
+<element name="domain" type="promo:domainNameType" minOccurs="0"/>
+<element name="pricing" type="promo:pricingType" minOccurs="0"/>
+<element name="refdate" type="dateTime" minOccurs="0"/>
+<element name="phase" type="promo:phaseType" minOccurs="0"/>
+</sequence>
+</complexType>
+
+<simpleType name="promotionCodeType">
+<restriction base="token">
+<minLength value="1"/>
+<maxLength value="64"/>
+</restriction>
+</simpleType>
+
+<complexType name="domainNameType">
+<sequence>
+<element name="name" type="promo:labelType"/>
+</sequence>
+</complexType>
+
+<simpleType name="labelType">
+<restriction base="token">
+<minLength value="1"/>
+<maxLength value="255"/>
+</restriction>
+</simpleType>
+
+<complexType name="pricingType">
+<choice>
+<element name="create" type="promo:pricingPeriodType"/>
+<element name="renew" type="promo:pricingPeriodType"/>
+</choice>
+</complexType>
+
+<complexType name="pricingPeriodType">
+<sequence>
+<element name="period" type="promo:periodType"/>
+</sequence>
+</complexType>
+
+<complexType name="periodType">
+<simpleContent>
+<extension base="promo:pLimitType">
+<attribute name="unit" type="promo:pUnitType"
+use="required"/>
+</extension>
+</simpleContent>
+</complexType>
+
+<simpleType name="pLimitType">
+<restriction base="unsignedShort">
+<minInclusive value="1"/>
+<maxInclusive value="99"/>
+</restriction>
+</simpleType>
+
+<simpleType name="pUnitType">
+<restriction base="token">
+<enumeration value="y"/>
+<enumeration value="m"/>
+</restriction>
+</simpleType>
+
+
+<!-- response data types -->
+
+<complexType name="infDataType">
+<sequence>
+<!-- information about the promotion; only present if a promotion was
+found for the given code -->
+<element name="promo" minOccurs="0">
+<complexType>
+<sequence>
+<!-- the promotion name -->
+<element name="promotionName" type="string"/>
+
+<!-- the validity period; only present if the validity is
+limited -->
+<element name="validity" type="promo:validityPeriodType"
+minOccurs="0"/>
+
+<!-- details about the availability of the record -->
+<element name="utilization" type="promo:utilizationType"/>
+</sequence>
+</complexType>
+</element>
+<!-- pricing information; only present if an operation was specified -->
+<element name="pricing" minOccurs="0">
+<complexType>
+<sequence>
+<element name="total" type="promo:pricingTotalType"/>
+</sequence>
+</complexType>
+</element>
+</sequence>
+</complexType>
+
+<complexType name="validityPeriodType">
+<attribute name="from" type="dateTime"/>
+<attribute name="to" type="dateTime"/>
+</complexType>
+
+<complexType name="utilizationType">
+<!-- details about the result -->
+<sequence>
+<element name="enabled" type="boolean"/>
+<element name="operations" type="promo:operationListType"/>
+<element name="codeUsable" type="boolean"/>
+<element name="inValidityPeriod" type="boolean"/>
+
+<!-- only present if a domain name was specified -->
+<element name="validDomainName" type="boolean" minOccurs="0"/>
+</sequence>
+<!-- overall result -->
+<attribute name="avail" type="boolean" use="required"/>
+</complexType>
+
+<simpleType name="operationListType">
+<annotation>
+<documentation>a list of available operations</documentation>
+</annotation>
+<list itemType="promo:operationType"/>
+</simpleType>
+
+<simpleType name="operationType">
+<restriction base="token">
+<enumeration value="create"/>
+<enumeration value="renew"/>
+</restriction>
+</simpleType>
+
+<complexType name="pricingTotalType">
+<attribute name="value" type="decimal" use="required"/>
+<attribute name="mu" type="token" use="required"/>
+</complexType>
+
+<!-- launch phase specification, same syntax as defined in
+urn:ietf:params:xml:ns:launch-1.0 -->
+<complexType name="phaseType">
+<simpleContent>
+<extension base="promo:phaseTypeValue">
+<attribute name="name" type="token"/>
+</extension>
+</simpleContent>
+</complexType>
+
+<!-- enumeration for the standard launch phase values -->
+<simpleType name="phaseTypeValue">
+<restriction base="token">
+<enumeration value="sunrise"/>
+<enumeration value="landrush"/>
+<enumeration value="claims"/>
+<enumeration value="open"/>
+<enumeration value="custom"/>
+</restriction>
+</simpleType>
+
+</schema>

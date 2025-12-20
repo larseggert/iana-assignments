@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://xmlns.corenic.net/epp/contact-eligibility-1.1"
+xmlns="http://www.w3.org/2001/XMLSchema"
+xmlns:el="http://xmlns.corenic.net/epp/contact-eligibility-1.1"
+elementFormDefault="qualified">
+
+<annotation>
+<documentation>
+Extensible Provisioning Protocol v1.0
+extension schema for provisioning registration eligibility information
+for contact objects
+</documentation>
+</annotation>
+
+
+<!-- child elements found in EPP commands -->
+
+<element name="create" type="el:createType"/>
+<element name="update" type="el:updateType"/>
+
+<!-- child elements found in EPP responses -->
+
+<element name="infData" type="el:infDataType"/>
+
+
+<!-- optional string type for update commands (allows removing items) -->
+
+<simpleType name="optLatinType">
+<restriction base="string">
+<pattern value="\p{IsBasicLatin}*"/>
+</restriction>
+</simpleType>
+
+
+<!-- non-empty string type for create commands and info responses -->
+
+<simpleType name="reqLatinType">
+<restriction base="string">
+<minLength value="1"/>
+<pattern value="\p{IsBasicLatin}*"/>
+</restriction>
+</simpleType>
+
+
+<!-- possible status values for a contact validation -->
+
+<simpleType name="validationStatusType">
+<restriction base="token">
+<enumeration value="pendingValidation"/>
+<enumeration value="validated"/>
+<enumeration value="invalid"/>
+</restriction>
+</simpleType>
+
+
+<!-- possible values for the "natural person" flag -->
+
+<simpleType name="naturalPersonType">
+<restriction base="token">
+<enumeration value="true"/>
+<enumeration value="false"/>
+<enumeration value=""/> <!-- empty value means "unspecified" -->
+</restriction>
+</simpleType>
+
+
+<!-- required public ID + mandatory type attribute -->
+
+<complexType name="reqPublicId">
+<simpleContent>
+<extension base="el:reqLatinType">
+<attribute name="type" use="required"/>
+</extension>
+</simpleContent>
+</complexType>
+
+
+<!-- optional public ID + mandatory type attribute -->
+
+<complexType name="optPublicId">
+<simpleContent>
+<extension base="el:optLatinType">
+<attribute name="type" use="required"/>
+</extension>
+</simpleContent>
+</complexType>
+
+
+<!-- create extension -->
+
+<complexType name="createType">
+<sequence>
+<!-- multiple public IDs may be specified, but each type only once -->
+<element name="publicId" type="el:reqPublicId" minOccurs="0"
+maxOccurs="unbounded"/>
+
+<element name="naturalPerson" type="el:naturalPersonType" minOccurs="0"/>
+</sequence>
+</complexType>
+
+
+<!-- update extension -->
+
+<complexType name="updateType">
+<sequence>
+<element name="chg" type="el:chgType"/>
+</sequence>
+</complexType>
+
+
+<!-- type for changing / removing eligibility data -->
+
+<complexType name="chgType">
+<sequence>
+<!-- multiple public IDs may be specified, but each type only once;
+empty elements (with mandatory type) indicate that the public ID
+for that type shall be removed -->
+<element name="publicId" type="el:optPublicId" minOccurs="0"
+maxOccurs="unbounded"/>
+
+<!-- empty element asks the natural person flag to be cleared -->
+<element name="naturalPerson" type="el:naturalPersonType" minOccurs="0"/>
+</sequence>
+</complexType>
+
+
+<!-- info extension -->
+
+<complexType name="infDataType">
+<sequence>
+<!-- multiple public IDs may occur, but each type only once -->
+<element name="publicId" type="el:reqPublicId" minOccurs="0"
+maxOccurs="unbounded"/>
+
+<element name="naturalPerson" type="el:naturalPersonType" minOccurs="0"/>
+
+<element name="validationStatus" type="el:validationStatusType"
+minOccurs="0"/>
+</sequence>
+</complexType>
+</schema>

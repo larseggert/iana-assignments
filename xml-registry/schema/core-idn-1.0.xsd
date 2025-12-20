@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<schema targetNamespace="http://xmlns.corenic.net/epp/idn-1.0"
+xmlns:idn="http://xmlns.corenic.net/epp/idn-1.0"
+xmlns:eppcom="urn:ietf:params:xml:ns:eppcom-1.0"
+xmlns="http://www.w3.org/2001/XMLSchema"
+elementFormDefault="qualified"
+attributeFormDefault="unqualified">
+
+<annotation>
+<documentation>
+Extensible Provisioning Protocol v1.0
+domain name extension schema for internationalised domain names
+processing.
+</documentation>
+</annotation>
+
+<import namespace="urn:ietf:params:xml:ns:eppcom-1.0"/>
+
+
+<!-- child elements found in EPP commands -->
+
+<element name="check" type="idn:checkType"/>
+<element name="create" type="idn:createType"/>
+<element name="update" type="idn:updateType"/>
+
+
+<!-- child elements of the <check> command -->
+
+<complexType name="checkType">
+<sequence>
+<group ref="idn:idnTagGroup"/>
+</sequence>
+</complexType>
+
+
+<!-- child elements of the <create> command -->
+
+<complexType name="createType">
+<sequence>
+<group ref="idn:idnTagGroup" minOccurs="0"/>
+<element name="variants" type="idn:variantListType" minOccurs="0"/>
+</sequence>
+</complexType>
+
+
+<!-- child elements of the <update> command -->
+
+<complexType name="updateType">
+<sequence>
+<element name="add" type="idn:variantListType" minOccurs="0"/>
+<element name="rem" type="idn:variantListType" minOccurs="0"/>
+<element name="chg" minOccurs="0">
+<complexType>
+<sequence>
+<group ref="idn:idnTagGroup" minOccurs="0"/>
+</sequence>
+</complexType>
+</element>
+</sequence>
+</complexType>
+
+
+<!-- child response elements -->
+
+<element name="creData" type="idn:bundleDataType"/>
+<element name="updData" type="idn:bundleDataType"/>
+<element name="trnData" type="idn:bundleDataType"/>
+<element name="infData" type="idn:respDataType"/>
+
+
+<!-- response elements -->
+
+<complexType name="respDataType">
+<sequence>
+<group ref="idn:idnTagGroup"/>
+<element name="variants" type="idn:variantListType" minOccurs="0"/>
+</sequence>
+</complexType>
+
+
+<!-- bundle information -->
+
+<complexType name="bundleDataType">
+<sequence>
+<element name="variants" type="idn:variantListType"/>
+</sequence>
+</complexType>
+
+
+<!-- common types -->
+
+<!-- type that allows an empty string only -->
+
+<simpleType name="emptyTokenType">
+<restriction base="token">
+<length value="0"/>
+</restriction>
+</simpleType>
+
+
+<!-- a script code according to ISO 15924, additionally allowing an
+empty string -->
+
+<simpleType name="scriptType">
+<union memberTypes="idn:emptyTokenType">
+<simpleType>
+<restriction base="token">
+<minLength value="3"/>
+<maxLength value="4"/>
+</restriction>
+</simpleType>
+</union>
+</simpleType>
+
+
+<!-- a language code according to RFC 5646, additionally allowing an
+empty string -->
+
+<simpleType name="languageType">
+<union memberTypes="idn:emptyTokenType language">
+</union>
+</simpleType>
+
+
+<!-- elements that represent either a language or a script -->
+
+<group name="idnTagGroup">
+<choice>
+<element name="lang" type="idn:languageType"/>
+<element name="script" type="idn:scriptType"/>
+</choice>
+</group>
+
+
+<!-- a list of variants of a domain name -->
+
+<complexType name="variantListType">
+<sequence>
+<element name="nameVariant" type="eppcom:labelType"
+minOccurs="0" maxOccurs="unbounded"/>
+</sequence>
+</complexType>
+
+</schema>

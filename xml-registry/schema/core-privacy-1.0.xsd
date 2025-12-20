@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema targetNamespace="http://xmlns.corenic.net/epp/privacy-1.0"
+xmlns="http://www.w3.org/2001/XMLSchema"
+xmlns:prv="http://xmlns.corenic.net/epp/privacy-1.0"
+elementFormDefault="qualified"
+attributeFormDefault="unqualified">
+
+<annotation>
+<documentation>
+Extensible Provisioning Protocol v1.0
+extension schema for per-domain privacy settings
+</documentation>
+</annotation>
+
+
+<!-- child elements found in EPP commands -->
+
+<element name="create" type="prv:createType"/>
+<element name="update" type="prv:updateType"/>
+
+<!-- child elements found in EPP responses -->
+
+<element name="infData" type="prv:infDataType"/>
+
+
+<!-- create extension -->
+
+<complexType name="createType">
+<sequence>
+<element name="disclosure" type="prv:disclosureType"/>
+</sequence>
+</complexType>
+
+<complexType name="disclosureType">
+<sequence>
+<choice>
+<element name="natural" type="prv:naturalType"/>
+<element name="legal" type="prv:legalType"/>
+</choice>
+</sequence>
+</complexType>
+
+<complexType name="naturalType">
+<attribute name="disclose" type="boolean" use="required"/>
+</complexType>
+
+<complexType name="legalType">
+<!-- intentionally left empty -->
+</complexType>
+
+
+<!-- update extension -->
+
+<complexType name="updateType">
+<sequence>
+<element name="chg" type="prv:chgType"/>
+</sequence>
+</complexType>
+
+<complexType name="chgType">
+<sequence>
+<element name="disclosure" type="prv:disclosureType"/>
+</sequence>
+</complexType>
+
+
+<!-- info extension -->
+
+<complexType name="infDataType">
+<sequence>
+<element name="disclosure" type="prv:disclosureType"/>
+</sequence>
+</complexType>
+
+</schema>
