@@ -11,7 +11,9 @@
       <xsl:when test="@id = 'icmp-parameters-ext-classes'">
         <tr><th>Class Value</th><th>Class Name</th><th>Reference</th></tr>
       </xsl:when>
-      <xsl:when test="@id = 'icmp-parameters-ext-class-1' or @id = 'icmp-parameters-ext-class-2'">
+      <xsl:when test="@id = 'icmp-parameters-ext-class-1' 
+        or @id = 'icmp-parameters-ext-class-2'
+        or @id = 'icmp-parameters-ext-class-6'">
         <tr><th>C-Type (Value)</th><th>Description</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'icmp-parameters-ext-class-2-if-roles' or @id = 'icmp-parameters-ext-class-4'">
