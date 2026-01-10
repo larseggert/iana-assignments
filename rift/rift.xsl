@@ -21,6 +21,14 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'rift-well-known-key-sub-types'">
+        <tr>
+          <th>Value</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <th>Value</th>
@@ -45,6 +53,14 @@
     <xsl:when test="../@id = 'rift-versions'">
     <tr>
       <td><xsl:value-of select="iana:value"/></td>
+      <td><xsl:apply-templates select="iana:xref"/></td>
+    </tr>
+    </xsl:when>
+    <xsl:when test="../@id = 'rift-well-known-key-sub-types'">
+    <tr>
+      <td><xsl:value-of select="iana:value"/></td>
+      <td><xsl:apply-templates select="iana:name"/></td>
+      <td><xsl:apply-templates select="iana:description"/></td>
       <td><xsl:apply-templates select="iana:xref"/></td>
     </tr>
     </xsl:when>
