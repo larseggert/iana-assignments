@@ -1,0 +1,155 @@
+(registered 2026-01-27, last updated 2026-01-27)
+
+Media type name: application
+
+Media subtype name: vnd.aia
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+The format is a binary stream resulting from the encryption of a JSON structure. It uses AES-256-GCM authenticated encryption. The resulting ciphertext is a stream of bytes that is not suitable for 7-bit transport.
+
+Security considerations: 
+
+- The media will contain Key Derivation: The encryption key is derived with PBKDF2-HMAC-SHA256 using the client's secret as the password. Key inlcudes a 16-byte random salt, 390,000 iterations, and produces a 32-byte key (AES-256). The encryption key is not used directly. Instead, it's derived from a client secret, which is client managed under a client id (CMEK), using PBKDF2-HMAC-SHA256. This process uses 390,000 iterations and a unique, randomly generated 16-byte salt for each encryption operation. This makes it computationally expensive to brute-force the key and protects against pre-computation attacks.
+
+- Encryption Algorithm: Uses AES-256 in GCM mode (authenticated encryption). Integrity is verified by the GCM tag; decryption MUST fail and the result MUST be discarded if authentication fails. The AES-256-GCM (Advanced Encryption Standard with Galois/Counter Mode). AES-256 is a widely trusted, strong symmetric encryption algorithm, and the GCM mode provides authenticated encryption, which ensures both the confidentiality and integrity of data.
+
+- The client secret (used to derive the key) MUST be protected by the calling application. Do NOT store the client secret unencrypted in a database or log it.
+
+- Recommended practices:
+
+- Use secure storage (e.g., Secret Manager, platform keystore) for secrets.
+
+- Rotate client secrets periodically and provide versioned keys for decryption of older files.
+
+- Use unique, cryptographically-random salts for each file. Salt uniqueness prevents precomputation attacks across files.
+
+- Ensure the GCM nonce (IV) is randomly generated and unique per (derived) key. Nonce reuse with same key is catastrophic.
+
+- Limit exposure of decrypted plaintext in memory and use safe memory handling where available.
+
+- Do not attempt to decrypt untrusted blobs without verifying provenance or scanning for oversized inputs.
+
+- Reject files with malformed lengths or impossible sizes.
+
+- Prefer envelope encryption: protect the client secret with a client Id reference key, rather than storing long-lived raw service account keys in DB.
+
+The media type will contain informational data only which will be read and utilized by a ‘runner’ application, but by itself the file format is not active and non-executable.
+
+Published specification (exact format and execution logic):
+
+- Byte layout (raw, before Base64 encoding)
+
+- salt: 16 bytes (PBKDF2 salt) -> offset 0..15
+- nonce (IV): 12 bytes (GCM nonce) -> offset 16..27
+- ciphertext: N bytes (variable) -> offset 28..(len-17)
+- tag: 16 bytes (GCM authentication tag) -> trailing 16 bytes
+
+- Encoded representation:
+
+- The final bytes (salt || nonce || ciphertext || tag) are encoded with base64.urlsafe_b64encode and stored/sent as ASCII. Example file contents are the base64 string.
+
+- Key derivation:
+
+- PBKDF2-HMAC-SHA256
+- salt length: 16 bytes
+- iterations: 390000
+- derived key length: 32 bytes (256 bits)
+- Pseudocode:
+key = PBKDF2_HMAC_SHA256(password=client_secret_bytes, salt=salt, iterations=390000, dklen=32)
+
+- Encryption algorithm:
+
+- AES-256-GCM
+- Nonce length: 12 bytes (96 bits)
+- Tag length: 16 bytes (128 bits)
+- Associated data: none (not used)
+- Pseudocode encrypt:
+salt = random_bytes(16)
+nonce = random_bytes(12)
+key = PBKDF2(... as above ...)
+encryptor = AESGCM(key)
+ciphertext, tag = encryptor.encrypt_and_digest(plaintext_bytes, nonce)
+out = salt || nonce || ciphertext || tag
+encoded = base64.urlsafe_b64encode(out)
+- Prefix encryption with: aia*{version}*{clientId}\*{datetimeiso}\_ (ex. aia*v1_7c08a121-70a0-42f0-b540-b2315069aef0_2025-11-04T15:05:55.302346*)
+
+- Decryption algorithm:
+
+- Steps to decrypt a .aia payload:
+
+1. Detect and strip optional aia v1 prefix: "aia*v1*{client*id}*{datetimeiso}\*<payload>"
+2. If present, extract client_id and datetimeiso from the prefix for use to acquire secret key.
+3. base64 decode the file content using URL-safe base64.
+4. Validate total length >= 16 (salt) + 12 (nonce) + 16 (tag) + 1 (min ciphertext). Reject otherwise.
+5. Extract salt = bytes[0:16]; nonce = bytes[16:28]; tag = bytes[-16:]; ciphertext = bytes[28:-16]
+6. key = PBKDF2_HMAC_SHA256(password=client_secret_bytes, salt=salt, iterations=390000, dklen=32)
+7. decryptor = AESGCM(key); plaintext_bytes = decryptor.decrypt(nonce, ciphertext + tag, associated_data=None)
+8. Decode plaintext_bytes as UTF-8 text; parse as JSON.
+
+- Pseudocode decrypt:
+
+raw = base64.urlsafe_b64decode(encoded_string)
+salt = raw[0:16]; nonce = raw[16:28]; tag = raw[-16:]
+ciphertext = raw[28:-16]
+key = PBKDF2_HMAC_SHA256(client_secret, salt, iterations=390000, dklen=32)
+plaintext = AESGCM(key).decrypt(nonce, ciphertext + tag, None)
+json_obj = JSON.parse(plaintext.decode('utf-8'))
+
+Reference implementation notes
+
+- Salt constant: 16 bytes
+- Nonce constant: 12 bytes
+- Tag: 16 bytes
+- PBKDF2 iterations: 390000
+- Cipher: AES-GCM, 256-bit key
+- Encoding: base64.urlsafe_b64encode of concatenated bytes
+
+Interoperability considerations: 
+
+- Implementations MUST support the exact parameters above to maintain interoperability.
+
+- Implementations MAY support alternate KDF iteration counts via an envelope metadata approach, but any change MUST be defensibly recorded in file metadata (not currently present in the base format).
+
+- When reading older files encrypted with different parameters, the decryptor MUST be capable to derive the versioned client secret key using the client Id, and datetime parameters, or the file MUST include an explicit metadata header (potential future version) where this information may be located.
+
+- Current format includes no version header; instead, prepend a small version prefix before salt in a revision and increment media type versioning.
+
+- Shortcut version of a file may exist that only contains the small version prefix and not an encrypted payload of final bytes. This can be handled by the runner application to gather final bytes stored online.
+
+Published specification: https://docs.pinionai.com/PinionAI_AIA/
+
+Applications which use this media: 
+
+- Applications that use this media type PinionAI AI Agent Platform and related tools.
+
+- Encrypted PinionAI agent runner configuration bundles, agent templates, or secrets-containing agent files.
+
+- Transport of agent packages between systems that share the client_secret to decrypt.
+
+Fragment identifier considerations: The syntax and semantics of fragment identifiers for application/vnd.aia are as specified for application/json, after successful decryption and parsing.
+
+Restrictions on usage: Usage is restricted to environments with appropriate security measures for executing encapsulated AI agent functionality.
+
+Additional information:
+
+1. Deprecated alias names for this type: None
+2. Magic number(s): N/A — canonical representation is URL-safe base64 ASCII (no fixed magic bytes).
+3. File extension(s): .aia
+4. Macintosh file type code: None
+5. Object Identifiers: PGW9-1PH-UOJ
+
+Person to contact for further information:
+
+1. Name: Alan Johnson
+2. Email: alan&pinionai.com
+
+Intended usage: COMMON
+
+exchange and storage of encrypted PinionAI agent configuration / agent package files
+
+Author/Change controller: PinionAI
