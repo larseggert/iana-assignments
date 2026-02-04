@@ -11,7 +11,7 @@
    2012-07-27
 
    Last Updated
-   2025-10-02
+   2026-02-03
 
    Available Formats
    [IMG]
@@ -217,6 +217,14 @@ OAuth Extensions Error Registry
                                     authorization    OpenID for                                                              [OpenID for Verifiable
    wallet_unavailable               endpoint, token  Verifiable         [OpenID_Foundation_Digital_Credentials_Protocols_WG] Presentations 1.0,
                                     endpoint         Presentations                                                           Section 8.5]
+   invalid_redirect_uri             registration     Dynamic Client     IETF                                                 [RFC7591, Section
+                                    endpoint         Registration                                                            3.2.2]
+   invalid_client_metadata          registration     Dynamic Client     IETF                                                 [RFC7591, Section
+                                    endpoint         Registration                                                            3.2.2]
+   invalid_software_statement       registration     Dynamic Client     IETF                                                 [RFC7591, Section
+                                    endpoint         Registration                                                            3.2.2]
+   invalid_client_metadata          registration     Dynamic Client     IETF                                                 [RFC7591, Section
+                                    endpoint         Registration                                                            3.2.2]
 
 OAuth Parameters
 
@@ -358,7 +366,7 @@ OAuth Parameters
    sign_info              client-rs request, rs-client     IETF                                                 [RFC9594]
                           response
    kdcchallenge           rs-client response               IETF                                                 [RFC9594]
-   trust_chain            authorization request            [OpenID_Foundation_Artifact_Binding_WG]              [Section 12.1.1.1.2 of OpenID
+   trust_chain            authorization request            [OpenID_Foundation_Artifact_Binding_WG]              [Section 12.1.1.1.1 of OpenID
                                                                                                                 Federation 1.0]
    dcql_query             authorization request            [OpenID_Foundation_Digital_Credentials_Protocols_WG] [OpenID for Verifiable
                                                                                                                 Presentations 1.0, Section 5.1]
@@ -717,14 +725,31 @@ OAuth Dynamic Client Registration Metadata
                                               Human-readable name                                                                  [Section 5.2.2
    organization_name                          representing the organization   [OpenID_Foundation_Artifact_Binding_WG]              of OpenID
                                               owning this client                                                                   Federation 1.0]
+                                              Human-readable brief                                                                 [Section 5.2.2
+   description                                description of this client      [OpenID_Foundation_Artifact_Binding_WG]              of OpenID
+                                              presentable to the End-User                                                          Federation 1.0]
+                                              JSON array with one or more
+                                              strings representing search                                                          [Section 5.2.2
+   keywords                                   keywords, tags, categories, or  [OpenID_Foundation_Artifact_Binding_WG]              of OpenID
+                                              labels that apply to this                                                            Federation 1.0]
+                                              client
+                                              URL for documentation of                                                             [Section 5.2.2
+   information_uri                            additional information about    [OpenID_Foundation_Artifact_Binding_WG]              of OpenID
+                                              this client viewable by the                                                          Federation 1.0]
+                                              End-User
                                               URL of a Web page for the                                                            [Section 5.2.2
-   homepage_uri                               organization owning this client [OpenID_Foundation_Artifact_Binding_WG]              of OpenID
+   organization_uri                           organization owning this client [OpenID_Foundation_Artifact_Binding_WG]              of OpenID
                                                                                                                                    Federation 1.0]
-                                                                                                                                   [Section
-                                              URL of a Web page for the                                                            5.2.2.1.1 of
-   use_mtls_endpoint_aliases                  organization owning this client [OpenID_Foundation_FAPI_WG]                          FAPI 2.0
-                                                                                                                                   Security
-                                                                                                                                   Profile]
+                                              Boolean value indicating the
+                                              requirement for a client to use
+                                              mutual-TLS endpoint aliases                                                          [Section
+                                              [RFC8705] declared by the                                                            5.2.2.1.1 of
+   use_mtls_endpoint_aliases                  authorization server in its     [OpenID_Foundation_FAPI_WG]                          FAPI 2.0
+                                              metadata even beyond the                                                             Security
+                                              Mutual-TLS Client                                                                    Profile]
+                                              Authentication and
+                                              Certificate-Bound Access Tokens
+                                              use cases
                                               Non-empty array of strings,                                                          [Section 5.1 of
                                               where each string is a JWE                                                           OpenID for
    encrypted_response_enc_values_supported    [RFC7516] enc algorithm that    [OpenID_Foundation_Digital_Credentials_Protocols_WG] Verifiable
@@ -1297,17 +1322,6 @@ OAuth Authorization Server Metadata
                                                                    Federation                                                    [Section 5.1.3 of
    federation_registration_endpoint                                Registration Endpoint [OpenID_Foundation_Artifact_Binding_WG] OpenID Federation
                                                                                                                                  1.0]
-                                                                   Authentication                                                [Section 5.1.3 of
-   request_authentication_methods_supported                        request               [OpenID_Foundation_Artifact_Binding_WG] OpenID Federation
-                                                                   authentication                                                1.0]
-                                                                   methods supported
-                                                                   JSON array containing
-                                                                   the JWS signing
-                                                                   algorithms supported                                          [Section 5.1.3 of
-   request_authentication_signing_alg_values_supported             for the signature on  [OpenID_Foundation_Artifact_Binding_WG] OpenID Federation
-                                                                   the JWT used to                                               1.0]
-                                                                   authenticate the
-                                                                   request
                                                                    URL referencing a
                                                                    signed JWT having                                             [Section 5.2.1 of
    signed_jwks_uri                                                 this authorization    [OpenID_Foundation_Artifact_Binding_WG] OpenID Federation
@@ -1322,6 +1336,23 @@ OAuth Authorization Server Metadata
    organization_name                                               organization owning   [OpenID_Foundation_Artifact_Binding_WG] OpenID Federation
                                                                    this authorization                                            1.0]
                                                                    server
+                                                                   Human-readable name
+                                                                   of the authorization                                          [Section 5.2.2 of
+   display_name                                                    server to be          [OpenID_Foundation_Artifact_Binding_WG] OpenID Federation
+                                                                   presented to the                                              1.0]
+                                                                   End-User
+                                                                   Human-readable brief
+                                                                   description of this                                           [Section 5.2.2 of
+   description                                                     authorization server  [OpenID_Foundation_Artifact_Binding_WG] OpenID Federation
+                                                                   presentable to the                                            1.0]
+                                                                   End-User
+                                                                   JSON array with one
+                                                                   or more strings
+                                                                   representing search                                           [Section 5.2.2 of
+   keywords                                                        keywords, tags,       [OpenID_Foundation_Artifact_Binding_WG] OpenID Federation
+                                                                   categories, or labels                                         1.0]
+                                                                   that apply to this
+                                                                   authorization server
                                                                    Array of strings
                                                                    representing ways to
                                                                    contact people                                                [Section 5.2.2 of
@@ -1334,8 +1365,14 @@ OAuth Authorization Server Metadata
    logo_uri                                                        organization owning   [OpenID_Foundation_Artifact_Binding_WG] OpenID Federation
                                                                    this authorization                                            1.0]
                                                                    server
+                                                                   URL for documentation
+                                                                   of additional                                                 [Section 5.2.2 of
+   information_uri                                                 information about     [OpenID_Foundation_Artifact_Binding_WG] OpenID Federation
+                                                                   this authorization                                            1.0]
+                                                                   server viewable by
+                                                                   the End-User
                                                                    URL of a Web page for                                         [Section 5.2.2 of
-   homepage_uri                                                    the organization      [OpenID_Foundation_Artifact_Binding_WG] OpenID Federation
+   organization_uri                                                the organization      [OpenID_Foundation_Artifact_Binding_WG] OpenID Federation
                                                                    owning this                                                   1.0]
                                                                    authorization server
                                                                    JSON array containing
