@@ -9,7 +9,7 @@
   <xsl:template name="iana:record_header">
     <xsl:choose> 
       <xsl:when test="@id = 'provisional-standard-types'">
-        <tr><th>Media Type</th><th>Organization</th><th>Contact</th></tr>
+        <tr><th>Media Type</th><th>Organization</th><th>Reference</th></tr>
       </xsl:when>
     </xsl:choose>
   </xsl:template>
