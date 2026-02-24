@@ -297,7 +297,7 @@
                 <br/>CSV
             </a>
             <xsl:if test="$registry_json_export = 'true'">
-                <a class="altformat" href="v1/{$registry_id}.json">
+                <a class="altformat" href="{$registry_id}-v1.json">
                     <img src="{concat($base_url, '/static/_img/icons/protocol-export-json.svg')}" height="25"/>
                     <br/>JSON
                 </a>
