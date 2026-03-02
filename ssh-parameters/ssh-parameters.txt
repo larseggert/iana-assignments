@@ -11,7 +11,7 @@
    2005-06-02
 
    Last Updated
-   2025-10-06
+   2026-03-02
 
    Available Formats
    [IMG]
@@ -44,6 +44,11 @@
      • Publickey Subsystem Attributes
      • Publickey Subsystem Status Codes
      • Extension Names
+     • SSH Agent Protocol Message Type Numbers
+     • SSH Agent Key Constraint Numbers
+     • SSH Agent Key Constraint Extension Names
+     • SSH Agent Signature Flags
+     • SSH Agent Extension Request Names
 
 Message Numbers
 
@@ -404,11 +409,12 @@ Connection Protocol Channel Types
    [IMG]
    CSV
 
-    Channel Type   Reference     Note
-   session         [RFC4254] Section 6.1
-   x11             [RFC4254] Section 6.3.2
-   forwarded-tcpip [RFC4254] Section 7.2
-   direct-tcpip    [RFC4254] Section 7.2
+    Channel Type            Reference               Note
+   session         [RFC4254]                    Section 6.1
+   x11             [RFC4254]                    Section 6.3.2
+   forwarded-tcpip [RFC4254]                    Section 7.2
+   direct-tcpip    [RFC4254]                    Section 7.2
+   agent-connect   [RFC-ietf-sshm-ssh-agent-16] Section 5.3
 
 Connection Protocol Global Request Names
 
@@ -462,19 +468,20 @@ Connection Protocol Channel Request Names
    [IMG]
    CSV
 
-   Request Type  Reference     Note
-   pty-req       [RFC4254] Section 6.2
-   x11-req       [RFC4254] Section 6.3.1
-   env           [RFC4254] Section 6.4
-   shell         [RFC4254] Section 6.5
-   exec          [RFC4254] Section 6.5
-   subsystem     [RFC4254] Section 6.5
-   window-change [RFC4254] Section 6.7
-   xon-xoff      [RFC4254] Section 6.8
-   signal        [RFC4254] Section 6.9
-   exit-status   [RFC4254] Section 6.10
-   exit-signal   [RFC4254] Section 6.10
+   Request Type           Reference               Note
+   pty-req       [RFC4254]                    Section 6.2
+   x11-req       [RFC4254]                    Section 6.3.1
+   env           [RFC4254]                    Section 6.4
+   shell         [RFC4254]                    Section 6.5
+   exec          [RFC4254]                    Section 6.5
+   subsystem     [RFC4254]                    Section 6.5
+   window-change [RFC4254]                    Section 6.7
+   xon-xoff      [RFC4254]                    Section 6.8
+   signal        [RFC4254]                    Section 6.9
+   exit-status   [RFC4254]                    Section 6.10
+   exit-signal   [RFC4254]                    Section 6.10
    break         [RFC4335]
+   agent-req     [RFC-ietf-sshm-ssh-agent-16] Section 5.2
 
 Signal Names
 
@@ -1011,10 +1018,145 @@ Extension Names
    [IMG]
    CSV
 
-    Extension Name   Reference    Note
-   server-sig-algs   [RFC8308] Section 3.1
-   delay-compression [RFC8308] Section 3.2
-   no-flow-control   [RFC8308] Section 3.3
-   elevation         [RFC8308] Section 3.4
+    Extension Name            Reference              Note
+   server-sig-algs   [RFC8308]                    Section 3.1
+   delay-compression [RFC8308]                    Section 3.2
+   no-flow-control   [RFC8308]                    Section 3.3
+   elevation         [RFC8308]                    Section 3.4
+   agent-forward     [RFC-ietf-sshm-ssh-agent-16] Section 5.1
+
+SSH Agent Protocol Message Type Numbers
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-sshm-ssh-agent-16]
+
+   Available Formats
+   [IMG]
+   CSV
+
+    Range  Registration Procedures
+   0-239   Expert Review
+   240-255 Private Use
+
+   Number                 Identifier                                     Reference
+   0       Reserved                                 [RFC-ietf-sshm-ssh-agent-16, Section 6.1.1]
+   1       Reserved                                 [RFC-ietf-sshm-ssh-agent-16, Section 6.1.1]
+   2       Reserved                                 [RFC-ietf-sshm-ssh-agent-16, Section 6.1.1]
+   3       Reserved                                 [RFC-ietf-sshm-ssh-agent-16, Section 6.1.1]
+   4       Reserved                                 [RFC-ietf-sshm-ssh-agent-16, Section 6.1.1]
+   5       SSH_AGENT_FAILURE                        [RFC-ietf-sshm-ssh-agent-16, Sections 3.1 and 6.1]
+   6       SSH_AGENT_SUCCESS                        [RFC-ietf-sshm-ssh-agent-16, Sections 3.1 and 6.1]
+   7       Reserved                                 [RFC-ietf-sshm-ssh-agent-16, Section 6.1.1]
+   8       Reserved                                 [RFC-ietf-sshm-ssh-agent-16, Section 6.1.1]
+   9       Reserved                                 [RFC-ietf-sshm-ssh-agent-16, Section 6.1.1]
+   10      Reserved                                 [RFC-ietf-sshm-ssh-agent-16, Section 6.1.1]
+   11      SSH_AGENTC_REQUEST_IDENTITIES            [RFC-ietf-sshm-ssh-agent-16, Sections 3.5 and 6.1]
+   12      SSH_AGENT_IDENTITIES_ANSWER              [RFC-ietf-sshm-ssh-agent-16, Sections 3.5 and 6.1]
+   13      SSH_AGENTC_SIGN_REQUEST                  [RFC-ietf-sshm-ssh-agent-16, Sections 3.6 and 6.1]
+   14      SSH_AGENT_SIGN_RESPONSE                  [RFC-ietf-sshm-ssh-agent-16, Sections 3.6 and 6.1]
+   15      Reserved                                 [RFC-ietf-sshm-ssh-agent-16, Section 6.1.1]
+   16      Reserved                                 [RFC-ietf-sshm-ssh-agent-16, Section 6.1.1]
+   17      SSH_AGENTC_ADD_IDENTITY                  [RFC-ietf-sshm-ssh-agent-16, Sections 3.2 and 6.1]
+   18      SSH_AGENTC_REMOVE_IDENTITY               [RFC-ietf-sshm-ssh-agent-16, Sections 3.4 and 6.1]
+   19      SSH_AGENTC_REMOVE_ALL_IDENTITIES         [RFC-ietf-sshm-ssh-agent-16, Sections 3.4 and 6.1]
+   20      SSH_AGENTC_ADD_SMARTCARD_KEY             [RFC-ietf-sshm-ssh-agent-16, Sections 3.2.6 and 6.1]
+   21      SSH_AGENTC_REMOVE_SMARTCARD_KEY          [RFC-ietf-sshm-ssh-agent-16, Sections 3.4 and 6.1]
+   22      SSH_AGENTC_LOCK                          [RFC-ietf-sshm-ssh-agent-16, Sections 3.7 and 6.1]
+   23      SSH_AGENTC_UNLOCK                        [RFC-ietf-sshm-ssh-agent-16, Sections 3.7 and 6.1]
+   24      Reserved                                 [RFC-ietf-sshm-ssh-agent-16, Section 6.1.1]
+   25      SSH_AGENTC_ADD_ID_CONSTRAINED            [RFC-ietf-sshm-ssh-agent-16, Sections 3.2 and 6.1]
+   26      SSH_AGENTC_ADD_SMARTCARD_KEY_CONSTRAINED [RFC-ietf-sshm-ssh-agent-16, Sections 3.2.6 and 6.1]
+   27      SSH_AGENTC_EXTENSION                     [RFC-ietf-sshm-ssh-agent-16, Sections 3.8 and 6.1]
+   28      SSH_AGENT_EXTENSION_FAILURE              [RFC-ietf-sshm-ssh-agent-16, Sections 3.8 and 6.1]
+   29      SSH_AGENT_EXTENSION_RESPONSE             [RFC-ietf-sshm-ssh-agent-16, Sections 3.8 and 6.1]
+   30-239  Unassigned
+   240-255 Reserved for Private Use                 [RFC-ietf-sshm-ssh-agent-16, Section 6.1]
+
+SSH Agent Key Constraint Numbers
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-sshm-ssh-agent-16]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Number          Identifier                           Reference
+   0      Reserved                      [RFC-ietf-sshm-ssh-agent-16, Section 6.2]
+   1      SSH_AGENT_CONSTRAIN_LIFETIME  [RFC-ietf-sshm-ssh-agent-16, Section 6.2]
+   2      SSH_AGENT_CONSTRAIN_CONFIRM   [RFC-ietf-sshm-ssh-agent-16, Section 6.2]
+   3-254  Unassigned
+   255    SSH_AGENT_CONSTRAIN_EXTENSION [RFC-ietf-sshm-ssh-agent-16, Section 6.2]
+
+SSH Agent Key Constraint Extension Names
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-sshm-ssh-agent-16]
+
+   Number  Identifier  Reference
+   No registrations at this time.
+
+SSH Agent Signature Flags
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-sshm-ssh-agent-16]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Number       Identifier                       Reference
+   0x01   Reserved               [RFC-ietf-sshm-ssh-agent-16, Section 6.3]
+   0x02   SSH_AGENT_RSA_SHA2_256 [RFC-ietf-sshm-ssh-agent-16, Section 6.3]
+   0x03   Unassigned
+   0x04   SSH_AGENT_RSA_SHA2_512 [RFC-ietf-sshm-ssh-agent-16, Section 6.3]
+
+SSH Agent Extension Request Names
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-sshm-ssh-agent-16]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Extension Name                  Reference
+   query          [RFC-ietf-sshm-ssh-agent-16, Section 3.8.1]
 
    Licensing Terms

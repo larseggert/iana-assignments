@@ -168,6 +168,46 @@
           <th>Note</th>
         </tr>
       </xsl:when> 
+
+      <xsl:when test="@id = 'ssh-agent-protocol-message-type-numbers'">
+      <tr>
+        <th>Number</th>
+        <th>Identifier</th>
+        <th>Reference</th>
+      </tr>
+     </xsl:when>
+
+     <xsl:when test="@id = 'ssh-agent-key-constraint-numbers'">
+      <tr>
+        <th>Number</th>
+        <th>Identifier</th>
+        <th>Reference</th>
+      </tr>
+     </xsl:when>
+
+     <xsl:when test="@id = 'ssh-agent-key-constraint-extension-names'">
+      <tr>
+        <th>Number</th>
+        <th>Identifier</th>
+        <th>Reference</th>
+      </tr>
+     </xsl:when>
+
+     <xsl:when test="@id = 'ssh-agent-signature-flags'">
+      <tr>
+        <th>Number</th>
+        <th>Identifier</th>
+        <th>Reference</th>
+      </tr>
+     </xsl:when>
+
+     <xsl:when test="@id = 'ssh-agent-extension-request-names'">
+      <tr>
+        <th>Extension Name</th>
+        <th>Reference</th>
+      </tr>
+     </xsl:when>
+
     </xsl:choose>
   </xsl:template>
   <xsl:template match="iana:record">
@@ -269,6 +309,40 @@
       <tr>
        <td align="center"><xsl:value-of select="iana:value"/></td>
        <td><xsl:value-of select="iana:status"/></td>
+       <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+     </xsl:when>
+     <xsl:when test="../@id = 'ssh-agent-protocol-message-type-numbers'">
+      <tr>
+       <td><xsl:value-of select="iana:value"/></td>
+       <td><xsl:value-of select="iana:identifier"/></td>
+       <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+     </xsl:when>
+     <xsl:when test="../@id = 'ssh-agent-key-constraint-numbers'">
+      <tr>
+       <td><xsl:value-of select="iana:value"/></td>
+       <td><xsl:value-of select="iana:identifier"/></td>
+       <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+     </xsl:when>
+     <xsl:when test="../@id = 'ssh-agent-key-constraint-extension-names'">
+      <tr>
+       <td><xsl:value-of select="iana:value"/></td>
+       <td><xsl:value-of select="iana:identifier"/></td>
+       <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+     </xsl:when>
+     <xsl:when test="../@id = 'ssh-agent-signature-flags'">
+      <tr>
+       <td><xsl:value-of select="iana:value"/></td>
+       <td><xsl:value-of select="iana:identifier"/></td>
+       <td><xsl:apply-templates select="iana:xref"/></td>
+      </tr>
+     </xsl:when>
+     <xsl:when test="../@id = 'ssh-agent-extension-request-names'">
+      <tr>
+       <td><xsl:value-of select="iana:value"/></td>
        <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
      </xsl:when>
