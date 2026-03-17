@@ -1,0 +1,53 @@
+(registered 2026-03-17, last updated 2026-03-17)
+
+Media type name: application
+
+Media subtype name: vnd.hdfgroup.hdf5
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+Security considerations: HDF5 is a general-purpose binary container for arbitrary datasets and metadata. Implementations should treat files as untrusted input and defend against:
+
+- vulnerabilities in the HDF5 library or dependent codecs/filters,
+- resource exhaustion (very large datasets, extreme chunking,
+many objects, pathological metadata),
+- decompression bombs (high compression ratio data),
+- unintended external file access if external links or external storage
+are honored,
+- execution risks associated with dynamically loaded filter plugins
+(if enabled by the application environment).
+
+HDF5 does not provide built-in content confidentiality or integrity (no inherent signing/encryption); such services must be layered externally.
+
+Interoperability considerations: Filename extensions are not a reliable indicator of the underlying format: the extension “.hdf” is commonly used for both HDF4 and HDF5 content (and may also be used for other HDF-family files). Implementations SHOULD identify content by inspecting the on-disk format signature rather than relying on extensions. HDF4 files begin with the 4‑byte header signature 0x0E031301 at offset 0. HDF5 files contain the 8‑byte signature 0x894844460D0A1A0A at offset 0, or at offset 512 and successive powers-of-two multiples (to allow an optional user block). If the expected signature is not present, the content SHOULD be treated as unknown or in a different format rather than inferred from the filename.
+
+Published specification: HDF5 File Format Specification (The HDF Group).
+
+https://support.hdfgroup.org/documentation/hdf5/latest/_f_m_t4.html
+
+Applications which use this media: Scientific/engineering data tools using the HDF5 library, including HDFView and many language bindings.
+
+Fragment identifier considerations: none
+
+Restrictions on usage: none
+
+Additional information:
+
+1. Deprecated alias names for this type: application/x-hdf5 (historic, unregistered)
+2. Magic number(s): HDF5 format signature (8 bytes): Hex: 89 48 44 46 0D 0A 1A 0A ASCII C: \211HDF\r\n\032\n Location: The HDF5 superblock signature may appear at offset 0, or at offset 512 and successive powers-of-two multiples (0, 512, 1024, 2048, ...), to allow a user block/wrapper.
+3. File extension(s): .h5 (common), .hdf5 (also common)
+4. Macintosh file type code: none known
+5. Object Identifiers: none
+
+Person to contact for further information:
+
+1. Name: The HDF Group
+2. Email: help&hdfgroup.org
+
+Intended usage: COMMON
+
+Author/Change controller: The HDF Group
