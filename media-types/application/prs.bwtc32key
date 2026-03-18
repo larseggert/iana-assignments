@@ -1,0 +1,83 @@
+(registered 2026-03-18, last updated 2026-03-18)
+
+Media type name: application
+
+Media subtype name: prs.bwtc32key
+
+Required parameters:
+
+* "charset"; as specified in RFC2045 for "text" types
+
+* "password" (required for the NodeJS port or to encrypt); a string expressed in UTF-8.
+
+* "decoded-filename" (Stores the filename of a decoded file that has yet to be downloaded, defaults to "output.bin" in the HTML5 version); a string expressed in UTF-8.
+
+* "encoded-filename" (Stores the filename of an encoded file that has yet to be downloaded, defaults to "myFile.B3K" in the HTML5 version.); a string expressed in UTF-8.
+
+Essentially, as a text-based (albeit Unicode) format, though canonically UTF-16BE, BWTC32Key's output text CAN have multiple byte representations given how varied Unicode UTFs are (even UTF-9 and Lotus Multi-Byte Character Set, which are not exactly mainstream UTFs), so it would be prudent to involve a "charset" parameter. The encoder in the original HTML5 implementation has "Compression Level"/"compression-level" default as "9", relying on HTML's ability to have a default value in a <number> tag. For the NodeJS port it is strongly advised to specify a level (given argument placeholders in NodeJS in this situation being messy) and a password is needed. The Compression Level can be any value that can result in an integer when multiplied by 100,000, though negatives and 0 are unwise, as are extremely high values well past 9. Basically, the section in the BWTC part (so pre-Base32768 and pre-AES256-CTR) has a finite length for its storage of the Compression Level.
+
+Optional parameters:
+
+* "password" (required for the NodeJS port or to encrypt); a string expressed in UTF-8.
+
+* "compression-level"; requires an integer or floating point value with no more than six digits of precision, is 9 by default in the HTML5 version, MUST be specified in the NodeJS version.
+
+* "decoded-mediatype" (Stores the media type of a decoded file that has yet to be downloaded, is by default "application/octet-stream" in the HTML5 version); a string expressed in US-ASCII.
+
+The password, like a non-default Compression Level, is optional in the original HTML5 implementation of BWTC32Key. The default password value in the HTML5 version is "Enter a password here before uploading." (even though the code in that implementation is entirely client-side), due to implementation reasons, and it is used for "unencrypted" (the encryption never truly is skipped) files, due to that statement being treated as a password if not overwritten, so it is in essence a default password that should be factored into decoders.
+
+Also, BWTC32Key uses SHA256 to turn the UTF-8 password into the AES256-CTR key so a blank password will also work as an unencrypted one (though not to the obsolete 2019 version of the HTML5 implementation, which follows the above paragraph but due to a bug behaves as "unencrypted" as described in that paragraph no matter what password value is used) using spaces or tabs for "blank" passwords is permitted, as are newlines in the HTML5 version).
+
+The password is UTF-8. The code already hashes the password, so the parameter IS the password, *not* a hash of it. There are NO length limits on passwords.
+
+It is possible to specify a MIMEtype for what the browser will save when decoding (What this means is that the filename and MIME type of the decoded file are set by the user, because they are NOT stored in the file), but in the HTML5 version it defaults to "application/octet-stream", and that same decoded file's default filename is "output.bin". The output filename MUST be specified in the NodeJS version. The HTML5 version is where the MIME types are most relevant.
+
+The way the encoded-filename parameter works is that saving a .B3K file from encoded output is done as a file with "myFile.B3K" as its name by default in the HTML5 version (it can be changed to anything, and it MUST be specified in the NodeJS version), and in the case of the HTML5 version it DOES try to tell browsers it is a UTF-16BE text document to ensure that it is handled as text.
+
+Encoding considerations: binary
+
+This format is special in that it IS 8-bit *text* (specifically UTF-16BE, at least that is the INTENDED form of Unicode for this) used to store AES256-CTR encrypted BWT-compressed data as common Unicode characters with up to 93.75% efficiency on just the binary-to-text component alone. None of its components already exist in the list of MIME types.
+
+The most important part of the above is that the format's space savings benefit MOST (as in, the binary-to-text encoding used gets its full 93.75% efficiency; the character set doesn't change how the compression or encryption steps work, and in fact those work just as well regardless of what UTF they are asked to compress) when the character set used to store BWTC32Key strings is UTF-16, and by default it is UTF-16BE.
+
+Security considerations: The AES256-CTR implementation used has quirks and they make correct (good AES256-CTR practice) usage consisting of assigning the counter value to the current time cause the issue of making decryption not work. The encryption key is generated from a UTF-8 password of any length via non-HMAC SHA256. The decompression buffer being uncapped could create overflows even though it does allow large files.
+
+In regards to whether this media type has active or executable content, it does not. It's a file compressor that takes in one file at a time (unless TAR is used) and doesn't store its name or attributes.
+
+This program doesn't have privacy protection or integrity checking services.
+
+For security transparency, note that the nested magic numbers serve as a means of not decoding something corrupted or bogus, but they aren't proper CRC hashes or simple checksums like are usually used for integrity checking, even though each is the size of a CRC32. Using a random value (less ideal than the clock, but an LFSR value is usable) for the counter instead of the clock or as a salt doesn't work either. 
+
+Another factor is that it should be mentioned that the AES256-CTR type used is the one that uses the counter in making the IV, in addition to the rest of that addendum to the considerations.
+
+Interoperability considerations: This program is cross-platform but it does require Unicode support and favors UTF-16BE. The characters used are well behaved. It has been developed and tested across all platforms in modern use.
+
+Published specification: In this case, fileformats.archiveteam.org's wiki article on it fits, as does https://github.com/stgiga/bwtc32key (the actual source code)
+
+Applications which use this media: File compression programs.
+
+Fragment identifier considerations: None
+
+Restrictions on usage: None
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): 0:0xFEFF4D00, 4:"bwtc", 8:"nomo", 12:"dfsm", 16:"fenw", 20:0x4D01
+3. File extension(s): .B3K
+4. Macintosh file type code: ".B3K"
+5. Object Identifiers: N/A
+
+General Comments: The file type has been documented on the File Formats Wiki (by Archive Team) as well as on Github at https://github.com/stgiga/bwtc32key but the File Formats Wiki entry (which has changed URLs but is searchable on Google in part due to its distinct name) is most detailed. Further information on it at https://stgiga.itch.io/bwtc32key where it is mirrored.
+
+MOST importantly (magic numbers ARE important) the file extension is .B3K and this format's files have 0xFEFF4D00 as the file header and 0x4D01 as the end marker (all assuming UTF-16BE). Inside the compression step there are the ASCII magic numbers of "bwtc" (assuming successful decoding with the correct key), and the block size divided by 100,000 followed by "
+nomo" (short for NoModel), and if the compression level is 5 or higher, the magic number "fenw" (referring to Fenwick Trees), but if less than 5, the magic number for this fast mode is "dfsm" (short for Deferred-Sum). A successful decode has to go through all this, so corruption is fairly easy to weed out.
+
+Person to contact for further information:
+
+1. Name: Raja Fjords
+2. Email: stgigamovement&yahoo.com
+
+Intended usage: N/A
+
+Author/Change controller: Raja Fjords, stgigamovement&yahoo.com
