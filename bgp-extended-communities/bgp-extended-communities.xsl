@@ -103,6 +103,12 @@
         <th>Reference</th>
         <th>Date</th>
       </xsl:when>
+      <xsl:when test="@id = 'evpn-link-bandwidth-value-units'">
+        <th>Value</th>
+        <th>Name</th>
+        <th>Reference</th>
+        <th>Date</th>
+      </xsl:when>
       <xsl:otherwise>
         <th>Type Value</th>
         <th>Name</th>
