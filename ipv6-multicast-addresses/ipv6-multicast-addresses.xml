@@ -3,7 +3,7 @@
 <?xml-model href="ipv6-multicast-addresses.rng" schematypens="http://relaxng.org/ns/structure/1.0" ?>
 <registry xmlns="http://www.iana.org/assignments" id="ipv6-multicast-addresses">
   <title>IPv6 Multicast Address Space</title>
-  <updated>2026-02-02</updated>
+  <updated>2026-03-19</updated>
   <expert>Stig Venaas</expert>
   <note>IPv6 multicast addresses are defined in "IP Version 6 Addressing
 Architecture" <xref type="rfc" data="rfc4291"/>. This defines fixed scope and variable scope
@@ -1326,8 +1326,12 @@ in scope represent different groups.  Nodes must join each group individually.
 address use, but are currently invalid.
 FF3X:0:0:0:0:0:0:0-FF3X:0:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF (FF3X:0::/32)
 
-FF3X:0:0:0:0:0:4000:0-FF3X:0:0:0:0:0:7FFF:FFFF - Expert Review; see registry at <xref type="uri" data="https://www.iana.org/assignments/perm-mcast-groupids"/>
-FF3X:0:0:0:0:0:8000:0-FF3X:0:0:0:0:0:FFFF:FFFF - Dynamically allocated by hosts when needed <xref type="rfc" data="rfc4607"/>.
+FF3X:0:0:0:0:0:4000:0-FF3X:0:0:0:0:0:7FFF:FFFF - Expert Review; see registry 
+at <xref type="uri" data="https://www.iana.org/assignments/perm-mcast-groupids"/>
+
+FF3X:0:0:0:0:0:8000:0-FF3X:0:0:0:0:0:FFFF:FFFF - Uses dynamic assignment 
+according to the protocols listed in the <xref type="uri" data="https://www.iana.org/assignments/ipv6-multicast-addresses/ipv6-multicast-addresses.xhtml#dynamic-multicast-group-ids">Dynamic Multicast Group IDs</xref> 
+registry <xref type="draft" data="RFC-ietf-pim-updt-ipv6-dyn-mcast-addr-grp-id-13"/>
     </registration_rule>
     <record>
       <addr>FF3X:0:0:0:0:0:0:0-FF3X:0:0:0:0:0:3FFF:FFFF</addr>
@@ -1339,12 +1343,61 @@ FF3X:0:0:0:0:0:8000:0-FF3X:0:0:0:0:0:FFFF:FFFF - Dynamically allocated by hosts 
       <description>Reserved for IANA allocation; see <xref type="uri" data="https://www.iana.org/assignments/perm-mcast-groupids"/></description>
       <xref type="rfc" data="rfc4607"/>
     </record>
-    <record>
+    <record date="2026-03-19">
       <addr>FF3X:0:0:0:0:0:8000:0-FF3X:0:0:0:0:0:FFFF:FFFF</addr>
-      <description>Reserved for local host allocation</description>
-      <xref type="rfc" data="rfc4607"/>
+      <description>This range uses dynamic assignment according to the protocols listed in the <xref type="uri" data="https://www.iana.org/assignments/ipv6-multicast-addresses/ipv6-multicast-addresses.xhtml#dynamic-multicast-group-ids">Dynamic Multicast Group IDs</xref> registry</description>
+      <xref type="draft" data="RFC-ietf-pim-updt-ipv6-dyn-mcast-addr-grp-id-13"/>
     </record>
   </registry>
+
+  <registry id="dynamic-multicast-group-ids">
+    <title>Dynamic Multicast Group IDs</title>
+    <xref type="rfc" data="rfc3307"/>
+    <xref type="draft" data="RFC-ietf-pim-updt-ipv6-dyn-mcast-addr-grp-id-13"/>
+    <range>
+      <value>0x90000000-0xEFFFFFFF</value>
+      <registration_rule>Standards Action</registration_rule>
+    </range>
+    <range>
+      <value>0xFD000000-0xFDFFFFFF</value>
+      <registration_rule>Private Use</registration_rule>
+    </range>
+    <range>
+      <value>0xFE000000-0xFEFFFFFF</value>
+      <registration_rule>Experimental Use</registration_rule>
+    </range>
+    <record date="2026-03-19">
+      <value>0x80000000-0x8FFFFFFF</value>
+      <description>MADCAP</description>
+      <reference>Defined in <xref type="rfc" data="rfc2730"/>, range assigned in <xref type="draft" data="RFC-ietf-pim-updt-ipv6-dyn-mcast-addr-grp-id-13"/></reference>
+    </record>
+    <record>
+      <value>0x90000000-0xEFFFFFFF</value>
+      <description>Unassigned</description>
+      <reference/>
+    </record>
+    <record date="2026-03-19">
+      <value>0xF0000000-0xFCFFFFFF</value>
+      <description>Host allocation of SSM group addresses</description>
+      <reference><xref type="draft" data="RFC-ietf-pim-updt-ipv6-dyn-mcast-addr-grp-id-13"/></reference>
+    </record>
+    <record date="2026-03-19">
+      <value>0xFD000000-0xFDFFFFFF</value>
+      <description>Reserved for Private Use</description>
+      <reference><xref type="draft" data="RFC-ietf-pim-updt-ipv6-dyn-mcast-addr-grp-id-13"/></reference>
+    </record>
+    <record date="2026-03-19">
+      <value>0xFE000000-0xFEFFFFFF</value>
+      <description>Reserved for Experimental Use</description>
+      <reference><xref type="draft" data="RFC-ietf-pim-updt-ipv6-dyn-mcast-addr-grp-id-13"/></reference>
+    </record>
+    <record date="2026-03-19">
+      <value>0xFF000000-0xFFFFFFFF</value>
+      <description>Solicited-Node multicast addresses</description>
+      <reference><xref type="rfc" data="rfc4291" section="2.7.1"/></reference>
+    </record>
+  </registry>
+
 
   <people>
     <person id="_3GPP">

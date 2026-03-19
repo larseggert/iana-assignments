@@ -15,6 +15,13 @@
       <th>Reference</th>
     </tr>
   </xsl:when>
+  <xsl:when test="@id = 'dynamic-multicast-group-ids'">
+    <tr>
+      <th>Range</th>
+      <th>Description</th>
+      <th>Reference</th>
+    </tr>
+  </xsl:when>
   <xsl:otherwise>
     <tr>
       <th>Address(es)</th>
@@ -37,6 +44,15 @@
     <td><xsl:apply-templates select="iana:xref"/></td>
   </tr>
   </xsl:when>
+
+<xsl:when test="../@id = 'dynamic-multicast-group-ids'">
+  <tr>
+    <td><xsl:value-of select="iana:value"/></td>
+    <td><xsl:apply-templates select="iana:description"/></td>
+    <td><xsl:apply-templates select="iana:reference"/></td>
+  </tr>
+  </xsl:when>
+
   <xsl:otherwise>
     <tr>
       <td style="font-family:monospace"><xsl:value-of select="iana:addr"/></td>
