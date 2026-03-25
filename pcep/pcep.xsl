@@ -185,7 +185,8 @@
         or @id = 'h-pce-flag-tlv-flag-field'
         or @id = 'association-flag-field'
         or @id = 'auto-bandwidth-capability-tlv-flag-field'
-        or @id = 'te-path-binding-tlv-flags'">
+        or @id = 'te-path-binding-tlv-flags'
+        or @id = 'path-modification-tlv-flag-field'">
         <tr>
           <th>Bit</th>
           <th>Description</th>
