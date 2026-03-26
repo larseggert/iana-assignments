@@ -68,6 +68,12 @@
       <xsl:when test="@id = 'proximity-values'">
         <tr><th>Value</th><th>Status</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'substate-values'">
+        <tr><th>Substate</th><th>Status</th><th>Reference</th></tr>
+      </xsl:when>
+      <xsl:when test="@id = 'task-mode-values'">
+        <tr><th>Task Mode</th><th>Status</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Name</th><th>Status</th><th>Reference</th></tr>
       </xsl:otherwise>
