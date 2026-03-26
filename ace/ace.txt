@@ -11,7 +11,7 @@
    2021-07-27
 
    Last Updated
-   2026-03-21
+   2026-03-25
 
    Available Formats
    [IMG]
@@ -38,6 +38,7 @@
      • ACE Groupcomm Rekeying Schemes
      • ACE Token Revocation List Parameters
      • ACE Token Revocation List Errors
+     • Group OSCORE Roles
 
 ACE Authorization Server Request Creation Hints
 
@@ -191,37 +192,39 @@ OAuth Parameters CBOR Mappings
    less than -65536  Private Use
    -65536 or greater Expert Review
 
-             Name               CBOR Key         Value Type            Reference        Original Specification
+             Name               CBOR Key         Value Type                    Reference                        Original Specification
    Reserved for Private Use less than -65536                     [RFC9200]
-   access_token             1                byte string         [RFC9200]              [RFC6749]
-   expires_in               2                unsigned integer    [RFC9200]              [RFC6749]
-   req_cnf                  4                map                 [RFC9201, Section 3.1] [RFC9201]
-   audience                 5                text string         [RFC9200]              [RFC8693]
-   cnf                      8                map                 [RFC9201, Section 3.2] [RFC9201]
-   scope                    9                text or byte string [RFC9200]              [RFC6749]
-   client_id                24               text string         [RFC9200]              [RFC6749]
-   client_secret            25               byte string         [RFC9200]              [RFC6749]
-   response_type            26               text string         [RFC9200]              [RFC6749]
-   redirect_uri             27               text string         [RFC9200]              [RFC6749]
-   state                    28               text string         [RFC9200]              [RFC6749]
-   code                     29               byte string         [RFC9200]              [RFC6749]
-   error                    30               integer             [RFC9200]              [RFC6749]
-   error_description        31               text string         [RFC9200]              [RFC6749]
-   error_uri                32               text string         [RFC9200]              [RFC6749]
-   grant_type               33               unsigned integer    [RFC9200]              [RFC6749]
-   token_type               34               integer             [RFC9200]              [RFC6749]
-   username                 35               text string         [RFC9200]              [RFC6749]
-   password                 36               text string         [RFC9200]              [RFC6749]
-   refresh_token            37               byte string         [RFC9200]              [RFC6749]
-   ace_profile              38               integer             [RFC9200]              [RFC9200]
-   cnonce                   39               byte string         [RFC9200]              [RFC9200]
+   access_token             1                byte string         [RFC9200]                              [RFC6749]
+   expires_in               2                unsigned integer    [RFC9200]                              [RFC6749]
+   req_cnf                  4                map                 [RFC9201, Section 3.1]                 [RFC9201]
+   audience                 5                text string         [RFC9200]                              [RFC8693]
+   cnf                      8                map                 [RFC9201, Section 3.2]                 [RFC9201]
+   scope                    9                text or byte string [RFC9200]                              [RFC6749]
+   client_id                24               text string         [RFC9200]                              [RFC6749]
+   client_secret            25               byte string         [RFC9200]                              [RFC6749]
+   response_type            26               text string         [RFC9200]                              [RFC6749]
+   redirect_uri             27               text string         [RFC9200]                              [RFC6749]
+   state                    28               text string         [RFC9200]                              [RFC6749]
+   code                     29               byte string         [RFC9200]                              [RFC6749]
+   error                    30               integer             [RFC9200]                              [RFC6749]
+   error_description        31               text string         [RFC9200]                              [RFC6749]
+   error_uri                32               text string         [RFC9200]                              [RFC6749]
+   grant_type               33               unsigned integer    [RFC9200]                              [RFC6749]
+   token_type               34               integer             [RFC9200]                              [RFC6749]
+   username                 35               text string         [RFC9200]                              [RFC6749]
+   password                 36               text string         [RFC9200]                              [RFC6749]
+   refresh_token            37               byte string         [RFC9200]                              [RFC6749]
+   ace_profile              38               integer             [RFC9200]                              [RFC9200]
+   cnonce                   39               byte string         [RFC9200]                              [RFC9200]
    nonce1                   40               bstr                [RFC9203]
-   rs_cnf                   41               map                 [RFC9201, Section 3.2] [RFC9201]
+   rs_cnf                   41               map                 [RFC9201, Section 3.2]                 [RFC9201]
    nonce2                   42               bstr                [RFC9203]
    ace_client_recipientid   43               bstr                [RFC9203]
    ace_server_recipientid   44               bstr                [RFC9203]
    sign_info                45               Null or array       [RFC9594]
    kdcchallenge             46               byte string         [RFC9594]
+   ecdh_info                47               Null or array       [RFC-ietf-ace-key-groupcomm-oscore-21] [RFC-ietf-ace-key-groupcomm-oscore-21]
+   kdc_dh_creds             48               Null or array       [RFC-ietf-ace-key-groupcomm-oscore-21] [RFC-ietf-ace-key-groupcomm-oscore-21]
 
 OAuth Token Introspection Response CBOR Mappings
 
@@ -287,16 +290,40 @@ OSCORE Security Context Parameters
    Strings of length 2              Specification Required
    Strings of length greater than 2 Expert Review
 
-             Name              CBOR Label          CBOR Type                     Registry                          Description            Reference
-   Reserved for Private Use less than -65536                                                                                              [RFC9203]
-   id                       0                byte string                                                 OSCORE Input Material Identifier [RFC9203]
-   version                  1                unsigned integer                                            OSCORE Version                   [RFC9203]
-   ms                       2                byte string                                                 OSCORE Master Secret value       [RFC9203]
-   hkdf                     3                text string / integer [COSE Algorithms] Values (HMAC-based) OSCORE HKDF value                [RFC9203]
-   alg                      4                text string / integer [COSE Algorithms] Values (AEAD)       OSCORE AEAD Algorithm value      [RFC9203]
-   salt                     5                byte string                                                 an input to OSCORE Master Salt   [RFC9203]
-                                                                                                         value
-   contextId                6                byte string                                                 OSCORE ID Context value          [RFC9203]
+           Name         CBOR Label   CBOR Type               Registry                     Description                      Reference
+   Reserved for Private less than                                                                            [RFC9203]
+   Use                  -65536
+   id                   0          byte string                                     OSCORE Input Material     [RFC9203]
+                                                                                   Identifier
+   version              1          unsigned                                        OSCORE Version            [RFC9203]
+                                   integer
+   ms                   2          byte string                                     OSCORE Master Secret      [RFC9203]
+                                                                                   value
+   hkdf                 3          text string / [COSE Algorithms] Values          OSCORE HKDF value         [RFC9203]
+                                   integer       (HMAC-based)
+   alg                  4          text string / [COSE Algorithms] Values (AEAD)   OSCORE AEAD Algorithm     [RFC9203]
+                                   integer                                         value
+   salt                 5          byte string                                     an input to OSCORE Master [RFC9203]
+                                                                                   Salt value
+   contextId            6          byte string                                     OSCORE ID Context value   [RFC9203]
+                                                                                   OSCORE Sender ID assigned
+   group_SenderId       7          byte string                                     to a member of an OSCORE  [RFC-ietf-ace-key-groupcomm-oscore-21]
+                                                                                   group
+                                                 [COSE Header Parameters] Labels   Format of authentication
+   cred_fmt             8          integer       (integer)                         credentials to be used in [RFC-ietf-ace-key-groupcomm-oscore-21]
+                                                                                   the OSCORE group
+   gp_enc_alg           9          text string / [COSE Algorithms] Values          OSCORE Group Encryption   [RFC-ietf-ace-key-groupcomm-oscore-21]
+                                   integer                                         Algorithm Value
+   sign_alg             10         text string / [COSE Algorithms] Values          OSCORE Signature          [RFC-ietf-ace-key-groupcomm-oscore-21]
+                                   integer                                         Algorithm Value
+                                                 [COSE Algorithms] Capabilities,   OSCORE Signature
+   sign_params          11         array         [COSE Key Types] Capabilities,    Algorithm Parameters      [RFC-ietf-ace-key-groupcomm-oscore-21]
+                                                 [COSE Elliptic Curves] Values
+   ecdh_alg             12         text string / [COSE Algorithms] Values          OSCORE Pairwise Key       [RFC-ietf-ace-key-groupcomm-oscore-21]
+                                   integer                                         Agreement Algorithm Value
+                                                 [COSE Algorithms] Capabilities,   OSCORE Pairwise Key
+   ecdh_params          13         array         [COSE Key Types] Capabilities,    Agreement Algorithm       [RFC-ietf-ace-key-groupcomm-oscore-21]
+                                                 [COSE Elliptic Curves] Values     Parameters
 
 ACE Groupcomm Parameters
 
@@ -321,7 +348,7 @@ ACE Groupcomm Parameters
    Strings of length 2              Specification Required
    Strings of length greater than 2 Expert Review
 
-             Name               CBOR Key                     CBOR Type                  Reference
+             Name               CBOR Key                     CBOR Type                                Reference
    Reserved for Private Use less than -65536                                            [RFC9594]
    gid                      0                array                                      [RFC9594]
    gname                    1                array of tstr                              [RFC9594]
@@ -344,6 +371,7 @@ ACE Groupcomm Parameters
    kdc_nonce                18               bstr                                       [RFC9594]
    kdc_cred_verify          19               bstr                                       [RFC9594]
    rekeying_scheme          20               int                                        [RFC9594]
+   group_senderId           21               bstr                                       [RFC-ietf-ace-key-groupcomm-oscore-21]
    client_cred_verify       24               bstr                                       [RFC9594]
    creds_repo               25               tstr                                       [RFC9594]
    control_uri              26               tstr                                       [RFC9594]
@@ -351,6 +379,10 @@ ACE Groupcomm Parameters
    control_group_uri        28               tstr                                       [RFC9594]
    sign_info                29               Null or array                              [RFC9594]
    kdcchallenge             30               bstr                                       [RFC9594]
+   ecdh_info                31               array                                      [RFC-ietf-ace-key-groupcomm-oscore-21]
+   kdc_dh_creds             32               array                                      [RFC-ietf-ace-key-groupcomm-oscore-21]
+   sign_enc_key             33               bstr                                       [RFC-ietf-ace-key-groupcomm-oscore-21]
+   stale_node_ids           34               array                                      [RFC-ietf-ace-key-groupcomm-oscore-21]
 
 ACE Groupcomm Key Types
 
@@ -375,9 +407,17 @@ ACE Groupcomm Key Types
    Strings of length 2              Specification Required
    Strings of length greater than 2 Expert Review
 
-             Name            Key Type Value  Profile      Description       Reference
-   Reserved for Private Use less than -65536                                [RFC9594]
-   Reserved                 0                        This value is reserved [RFC9594]
+                             Key
+           Name              Type                 Profile                              Description                             Reference
+                            Value
+                            less
+Reserved for Private Use    than                                                                                 [RFC9594]
+                            -65536
+Reserved                    0                                             This value is reserved                 [RFC9594]
+                                   "coap_group_oscore_app", registered in A Group_OSCORE_Input_Material object
+Group_OSCORE_Input_Material 1      [RFC-ietf-ace-key-groupcomm-oscore-21, encoded as described in                [RFC-ietf-ace-key-groupcomm-oscore-21]
+object                             Section 17.5]                          [RFC-ietf-ace-key-groupcomm-oscore-21,
+                                                                          Section 6.3]
 
 ACE Groupcomm Profiles
 
@@ -399,9 +439,12 @@ ACE Groupcomm Profiles
    256 to 65535       Specification Required
    greater than 65535 Expert Review
 
-             Name                Description          CBOR Value    Reference
-   Reserved for Private Use                        less than -65536 [RFC9594]
-   Reserved                 This value is reserved 0                [RFC9594]
+             Name                                     Description                              CBOR Value                  Reference
+   Reserved for Private Use                                                                 less than -65536 [RFC9594]
+   Reserved                 This value is reserved                                          0                [RFC9594]
+                            Application profile to provision keying material for
+   coap_group_oscore_app    participating in group communication protected with Group       1                [RFC-ietf-ace-key-groupcomm-oscore-21]
+                            OSCORE as per [draft-ietf-core-oscore-groupcomm]
 
 ACE Groupcomm Policies
 
@@ -483,7 +526,7 @@ ACE Groupcomm Errors
    256 to 65535       Specification Required
    greater than 65535 Expert Review
 
-        Value                                   Description                             Reference
+        Value                                   Description                                           Reference
    less than -65536 Reserved for Private Use                                            [RFC9594]
    0                Operation permitted only to group members                           [RFC9594]
    1                Request inconsistent with the current roles                         [RFC9594]
@@ -492,6 +535,9 @@ ACE Groupcomm Errors
    4                No available individual keying material                             [RFC9594]
    5                Group membership terminated                                         [RFC9594]
    6                Group deleted                                                       [RFC9594]
+   7                Signatures not used in the group                                    [RFC-ietf-ace-key-groupcomm-oscore-21]
+   8                Operation permitted only to signature verifiers                     [RFC-ietf-ace-key-groupcomm-oscore-21]
+   9                Group currently not active                                          [RFC-ietf-ace-key-groupcomm-oscore-21]
 
 ACE Groupcomm Rekeying Schemes
 
@@ -572,5 +618,32 @@ ACE Token Revocation List Errors
    0                Invalid parameter value   [RFC9770]
    1                Invalid set of parameters [RFC9770]
    2                Out of bound cursor value [RFC9770]
+
+Group OSCORE Roles
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-ace-key-groupcomm-oscore-21]
+
+   Available Formats
+   [IMG]
+   CSV
+
+         Range        Registration Procedures
+   0-65535            Expert Review
+   greater than 65535 Private Use
+
+         Value                  Name                                    Description                                        Reference
+   0                  Reserved                 This value is reserved                                        [RFC-ietf-ace-key-groupcomm-oscore-21]
+   1                  Requester                Send protected requests; receive protected responses          [RFC-ietf-ace-key-groupcomm-oscore-21]
+   2                  Responder                Send protected responses; receive protected requests          [RFC-ietf-ace-key-groupcomm-oscore-21]
+   3                  Monitor                  Receive protected requests; never send protected messages     [RFC-ietf-ace-key-groupcomm-oscore-21]
+   4                  Verifier                 Verify signature of intercepted messages protected with the   [RFC-ietf-ace-key-groupcomm-oscore-21]
+                                               group mode
+   5-65535            Unassigned               Unassigned
+   greater than 65535 Reserved for Private Use Reserved for Private Use                                      [RFC-ietf-ace-key-groupcomm-oscore-21]
 
    Licensing Terms
