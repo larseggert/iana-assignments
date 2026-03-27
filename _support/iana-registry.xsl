@@ -50,7 +50,7 @@
         <div id="header">
           <div id="logo">
             <a href="{concat($base_url, '/')}">
-              <img src="{concat($base_url, '/static/_img/2025.01/iana-logo-header.svg')}" alt="Internet Assigned Numbers Authority"/>
+              <img src="../_support/iana-logo-header.svg" alt="Internet Assigned Numbers Authority"/>
             </a>
           </div>
           <div class="navigation">
@@ -293,20 +293,20 @@
     <dd>
         <xsl:if test="iana:record">
             <a class="altformat" href="{$registry_id}.csv">
-                <img src="{concat($base_url, '/static/_img/icons/text-csv.png')}"/>
+                <img src="../_support/export-csv.png"/>
                 <br/>CSV
             </a>
             <xsl:if test="$registry_json_export = 'true'">
                 <a class="altformat" href="{$registry_id}-v1.json">
-                    <img src="{concat($base_url, '/static/_img/icons/protocol-export-json.svg')}" height="25"/>
+                    <img src="../_support/export-json.svg" height="25"/>
                     <br/>JSON
                 </a>
             </xsl:if>
         </xsl:if>
       <xsl:if test="not(parent::*)">
-        <a class="altformat" href="{$registry_id}.xml"><img src="{concat($base_url, '/static/_img/icons/text-xml.png')}"/><br/>XML</a>
-        <a class="altformat" href="{$registry_id}.xhtml"><img src="{concat($base_url, '/static/_img/icons/text-html.png')}"/><br/>HTML</a>
-        <a class="altformat" href="{$registry_id}.txt"><img src="{concat($base_url, '/static/_img/icons/text-plain.png')}"/><br/>Plain text</a>
+        <a class="altformat" href="{$registry_id}.xml"><img src="../_support/export-xml.png"/><br/>XML</a>
+        <a class="altformat" href="{$registry_id}.xhtml"><img src="../_support/export-html.png"/><br/>HTML</a>
+        <a class="altformat" href="{$registry_id}.txt"><img src="../_support/export-plain.png"/><br/>Plain text</a>
       </xsl:if>
     </dd>
   </xsl:template>
