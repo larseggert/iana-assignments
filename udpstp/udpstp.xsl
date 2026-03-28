@@ -23,6 +23,9 @@
       <xsl:when test="@id = 'test-activation-pdu-command-response-field'">
         <tr><th>Value</th><th>Description</th><th>Reference</th><th>Change Controller</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'test-activation-pdu-adjustment-algo'">
+        <tr><th>Value (Numeric)</th><th>Description</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
       </xsl:otherwise>
