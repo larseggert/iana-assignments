@@ -27,8 +27,10 @@
   </xsl:template>
 
   <xsl:param name="display_beta_site_banner" select="'false'"/>
-  <xsl:param name="base_url" select="'https://www.iana.org'"/>
-  <xsl:param name="registry_json_export" select="'false'"/>
+  <xsl:param name="website_base_url" select="'https://www.iana.org'"/>
+  <xsl:param name="registry_json_base_url" select="''"/>
+  <xsl:param name="registry_csv_base_url" select="''"/>
+  <xsl:param name="enable_json_export" select="'false'"/>
 
   <xsl:template match="/iana:registry">
 
@@ -49,16 +51,16 @@
       <header>
         <div id="header">
           <div id="logo">
-            <a href="{concat($base_url, '/')}">
+            <a href="{concat($website_base_url, '/')}">
               <img src="../_support/iana-logo-header.svg" alt="Internet Assigned Numbers Authority"/>
             </a>
           </div>
           <div class="navigation">
             <ul>
-                <li><a href="{concat($base_url, '/domains')}">Domains</a></li>
-                <li><a href="{concat($base_url, '/protocols')}">Protocols</a></li>
-                <li><a href="{concat($base_url, '/numbers')}">Numbers</a></li>
-                <li><a href="{concat($base_url, '/about')}">About</a></li>
+                <li><a href="{concat($website_base_url, '/domains')}">Domains</a></li>
+                <li><a href="{concat($website_base_url, '/protocols')}">Protocols</a></li>
+                <li><a href="{concat($website_base_url, '/numbers')}">Numbers</a></li>
+                <li><a href="{concat($website_base_url, '/about')}">About</a></li>
             </ul>
           </div>
         </div>
@@ -118,7 +120,7 @@
       </article>
       <footer>
           <div>
-          <a href="{concat($base_url, '/help/licensing-terms')}">Licensing Terms</a>
+          <a href="{concat($website_base_url, '/help/licensing-terms')}">Licensing Terms</a>
           </div>
       </footer>
     </body>
@@ -289,15 +291,25 @@
 
   <xsl:template name="iana:formats">
     <xsl:variable name="registry_id" select="./@id"/>
+    <xsl:variable name="group_id">
+      <xsl:choose>
+        <xsl:when test="ancestor::iana:registry[1]">
+          <xsl:value-of select="ancestor::iana:registry[1]/@id"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="./@id"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
     <dt>Available Formats</dt>
     <dd>
         <xsl:if test="iana:record">
-            <a class="altformat" href="{$registry_id}.csv">
+            <a class="altformat" href="{concat($registry_csv_base_url, '/assignments/', $group_id, '/', $registry_id, '.csv')}">
                 <img src="../_support/export-csv.png"/>
                 <br/>CSV
             </a>
-            <xsl:if test="$registry_json_export = 'true'">
-                <a class="altformat" href="{$registry_id}-v1.json">
+            <xsl:if test="$enable_json_export = 'true'">
+                <a class="altformat" href="{concat($registry_json_base_url, '/assignments/', $group_id, '/', $registry_id, '-v1.json')}">
                     <img src="../_support/export-json.svg" height="25"/>
                     <br/>JSON
                 </a>
@@ -581,15 +593,15 @@
       <xsl:variable name="base">
         <xsl:choose>
           <xsl:when test="@type = 'rfc'">
-            <xsl:value-of select="concat($base_url, '/go/', @data)"/>
+            <xsl:value-of select="concat($website_base_url, '/go/', @data)"/>
           </xsl:when>
           <xsl:otherwise>
             <xsl:choose>
               <xsl:when test="starts-with(@data, 'RFC-')">
-                <xsl:value-of select="concat($base_url, '/go/draft-', substring(@data,5))"/>
+                <xsl:value-of select="concat($website_base_url, '/go/draft-', substring(@data,5))"/>
               </xsl:when>
               <xsl:otherwise>
-                <xsl:value-of select="concat($base_url, '/go/', @data)"/>
+                <xsl:value-of select="concat($website_base_url, '/go/', @data)"/>
               </xsl:otherwise>
             </xsl:choose>
           </xsl:otherwise>
@@ -669,7 +681,7 @@
         <a href="#note{@data}"><xsl:value-of select="@data"/></a>
       </xsl:when>
       <xsl:when test="@type = 'registry'">
-        <a href="{concat($base_url, '/assignments/', @data)}">
+        <a href="{concat($website_base_url, '/assignments/', @data)}">
           <xsl:choose>
             <xsl:when test="normalize-space()">
               <xsl:value-of select="."/>
