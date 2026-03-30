@@ -11,7 +11,7 @@
    2021-02-11
 
    Last Updated
-   2025-09-23
+   2026-03-30
 
    Available Formats
    [IMG]
@@ -97,6 +97,7 @@ QUIC Transport Parameters
 0x10               retry_source_connection_id          permanent   [RFC9000, Section 18.2]                                             2021-02-11 IETF             [QUIC_WG]
 0x11               version_information                 permanent   [RFC9368]                                                           2022-12-16 IETF             [QUIC_WG]
 0x20               max_datagram_frame_size             permanent   [RFC9221]                                                           2021-10-20 IETF             [QUIC_WG]
+0x3e               initial_max_path_id                 permanent   [RFC-ietf-quic-multipath-21, Section 2.1]                           2026-03-30 IETF             [QUIC_WG]
 0x173e             discard                             provisional [https://github.com/quicwg/base-drafts/wiki/Quantum-Readiness-test] 2022-06-02 [David_Schinazi] [David_Schinazi]  Receiver silently
                                                                                                                                                                                      discards.
                                                                                                                                                                                      Used to carry
@@ -118,9 +119,6 @@ QUIC Transport Parameters
                                                                                                                                                                                      instead
 0x219bbcd0         google_debug_1                      provisional                                                                     2025-09-23 [Google]         [Google]
 0xff04de1b         min_ack_delay                       provisional [draft-ietf-quic-ack-frequency-07]                                  2023-10-27 Mirja Kühlewind  [Mirja_Kuhlewind]
-0x0f739bbc1b666d05 enable_multipath                    provisional [draft-ietf-quic-multipath-05, Section 3]                           2023-07-26 Yanmei Liu       [Yanmei_Liu]
-0x0f739bbc1b666d06 enable_multipath(-06)               provisional [draft-ietf-quic-multipath-06, Section 3]                           2023-11-03 Yanmei Liu       [Yanmei_Liu]
-0x0f739bbc1b666d0d initial_max_path_id                 provisional [draft-ietf-quic-multipath-15, Section 2.1]                         2025-07-09 Yanmei Liu       [Yanmei_Liu]
 0x4143414213370002 bdp_frame                           provisional [draft-misell-quic-bdp-token-02]                                    2024-01-24 Q Misell         [Q_Misell]
 
 QUIC Frame Types
@@ -143,53 +141,39 @@ QUIC Frame Types
    permanent, greater than 0x3f               Specification Required
    first unassigned codepoint                 Standards Action
 
-           Value              Frame Type Name        Status                Specification                 Date      Change        Contact      Notes
-                                                                                                                 Controller
-   0x00                  PADDING                   permanent   [RFC9000, Section 19.1]                2021-02-11 IETF       [QUIC_WG]
-   0x01                  PING                      permanent   [RFC9000, Section 19.2]                2021-02-11 IETF       [QUIC_WG]
-   0x02-0x03             ACK                       permanent   [RFC9000, Section 19.3]                2021-02-11 IETF       [QUIC_WG]
-   0x04                  RESET_STREAM              permanent   [RFC9000, Section 19.4]                2021-02-11 IETF       [QUIC_WG]
-   0x05                  STOP_SENDING              permanent   [RFC9000, Section 19.5]                2021-02-11 IETF       [QUIC_WG]
-   0x06                  CRYPTO                    permanent   [RFC9000, Section 19.6]                2021-02-11 IETF       [QUIC_WG]
-   0x07                  NEW_TOKEN                 permanent   [RFC9000, Section 19.7]                2021-02-11 IETF       [QUIC_WG]
-   0x08-0x0f             STREAM                    permanent   [RFC9000, Section 19.8]                2021-02-11 IETF       [QUIC_WG]
-   0x10                  MAX_DATA                  permanent   [RFC9000, Section 19.9]                2021-02-11 IETF       [QUIC_WG]
-   0x11                  MAX_STREAM_DATA           permanent   [RFC9000, Section 19.10]               2021-02-11 IETF       [QUIC_WG]
-   0x12-0x13             MAX_STREAMS               permanent   [RFC9000, Section 19.11]               2021-02-11 IETF       [QUIC_WG]
-   0x14                  DATA_BLOCKED              permanent   [RFC9000, Section 19.12]               2021-02-11 IETF       [QUIC_WG]
-   0x15                  STREAM_DATA_BLOCKED       permanent   [RFC9000, Section 19.13]               2021-02-11 IETF       [QUIC_WG]
-   0x16-0x17             STREAMS_BLOCKED           permanent   [RFC9000, Section 19.14]               2021-02-11 IETF       [QUIC_WG]
-   0x18                  NEW_CONNECTION_ID         permanent   [RFC9000, Section 19.15]               2021-02-11 IETF       [QUIC_WG]
-   0x19                  RETIRE_CONNECTION_ID      permanent   [RFC9000, Section 19.16]               2021-02-11 IETF       [QUIC_WG]
-   0x1a                  PATH_CHALLENGE            permanent   [RFC9000, Section 19.17]               2021-02-11 IETF       [QUIC_WG]
-   0x1b                  PATH_RESPONSE             permanent   [RFC9000, Section 19.18]               2021-02-11 IETF       [QUIC_WG]
-   0x1c-0x1d             CONNECTION_CLOSE          permanent   [RFC9000, Section 19.19]               2021-02-11 IETF       [QUIC_WG]
-   0x1e                  HANDSHAKE_DONE            permanent   [RFC9000, Section 19.20]               2021-02-11 IETF       [QUIC_WG]
-   0x1f                  IMMEDIATE_ACK             provisional [draft-ietf-quic-ack-frequency-07]     2023-10-27 Mirja      [Mirja_Kuhlewind]
-                                                                                                                 Kühlewind
-   0x30-0x31             DATAGRAM                  permanent   [RFC9221]                              2021-10-20 IETF       [QUIC_WG]
-   0xaf                  ACK_FREQUENCY             provisional [draft-ietf-quic-ack-frequency-07]     2023-10-27 Mirja      [Mirja_Kuhlewind]
-                                                                                                                 Kühlewind
-   0x15228c00-0x15228c01 PATH_ACK                  provisional [draft-ietf-quic-multipath-15, Section 2023-07-26 Yanmei Liu [Yanmei_Liu]
-                                                               4.1]
-   0x15228c05            PATH_ABANDON              provisional [draft-ietf-quic-multipath-15, Section 2023-07-26 Yanmei Liu [Yanmei_Liu]
-                                                               4.2]
-   0x15228c06            PATH_STATUS               provisional [draft-ietf-quic-multipath-05, Section 2023-07-26 Yanmei Liu [Yanmei_Liu]
-                                                               8.3]
-   0x15228c07            PATH_STATUS_BACKUP        provisional [draft-ietf-quic-multipath-15, Section 2023-11-03 Yanmei Liu [Yanmei_Liu]
-                                                               4.3]
-   0x15228c08            PATH_STATUS_AVAILABLE     provisional [draft-ietf-quic-multipath-15, Section 2023-11-03 Yanmei Liu [Yanmei_Liu]
-                                                               4.3]
-   0x15228c09            PATH_NEW_CONNECTION_ID    provisional [draft-ietf-quic-multipath-15, Section 2025-07-09 Yanmei Liu [Yanmei_Liu]
-                                                               4.4]
-   0x15228c0a            PATH_RETIRE_CONNECTION_ID provisional [draft-ietf-quic-multipath-15, Section 2025-07-09 Yanmei Liu [Yanmei_Liu]
-                                                               4.5]
-   0x15228c0c            MAX_PATH_ID               provisional [draft-ietf-quic-multipath-15, Section 2025-07-09 Yanmei Liu [Yanmei_Liu]
-                                                               4.6]
-   0x15228c0d            PATHS_BLOCKED             provisional [draft-ietf-quic-multipath-15, Section 2025-07-09 Yanmei Liu [Yanmei_Liu]
-                                                               4.7]
-   0x15228c0e            PATH_CIDS_BLOCKED         provisional [draft-ietf-quic-multipath-15, Section 2025-07-09 Yanmei Liu [Yanmei_Liu]
-                                                               4.7]
+     Value        Frame Type Name        Status                  Specification                  Date    Change Controller      Contact      Notes
+   0x00      PADDING                   permanent   [RFC9000, Section 19.1]                   2021-02-11 IETF              [QUIC_WG]
+   0x01      PING                      permanent   [RFC9000, Section 19.2]                   2021-02-11 IETF              [QUIC_WG]
+   0x02-0x03 ACK                       permanent   [RFC9000, Section 19.3]                   2021-02-11 IETF              [QUIC_WG]
+   0x04      RESET_STREAM              permanent   [RFC9000, Section 19.4]                   2021-02-11 IETF              [QUIC_WG]
+   0x05      STOP_SENDING              permanent   [RFC9000, Section 19.5]                   2021-02-11 IETF              [QUIC_WG]
+   0x06      CRYPTO                    permanent   [RFC9000, Section 19.6]                   2021-02-11 IETF              [QUIC_WG]
+   0x07      NEW_TOKEN                 permanent   [RFC9000, Section 19.7]                   2021-02-11 IETF              [QUIC_WG]
+   0x08-0x0f STREAM                    permanent   [RFC9000, Section 19.8]                   2021-02-11 IETF              [QUIC_WG]
+   0x10      MAX_DATA                  permanent   [RFC9000, Section 19.9]                   2021-02-11 IETF              [QUIC_WG]
+   0x11      MAX_STREAM_DATA           permanent   [RFC9000, Section 19.10]                  2021-02-11 IETF              [QUIC_WG]
+   0x12-0x13 MAX_STREAMS               permanent   [RFC9000, Section 19.11]                  2021-02-11 IETF              [QUIC_WG]
+   0x14      DATA_BLOCKED              permanent   [RFC9000, Section 19.12]                  2021-02-11 IETF              [QUIC_WG]
+   0x15      STREAM_DATA_BLOCKED       permanent   [RFC9000, Section 19.13]                  2021-02-11 IETF              [QUIC_WG]
+   0x16-0x17 STREAMS_BLOCKED           permanent   [RFC9000, Section 19.14]                  2021-02-11 IETF              [QUIC_WG]
+   0x18      NEW_CONNECTION_ID         permanent   [RFC9000, Section 19.15]                  2021-02-11 IETF              [QUIC_WG]
+   0x19      RETIRE_CONNECTION_ID      permanent   [RFC9000, Section 19.16]                  2021-02-11 IETF              [QUIC_WG]
+   0x1a      PATH_CHALLENGE            permanent   [RFC9000, Section 19.17]                  2021-02-11 IETF              [QUIC_WG]
+   0x1b      PATH_RESPONSE             permanent   [RFC9000, Section 19.18]                  2021-02-11 IETF              [QUIC_WG]
+   0x1c-0x1d CONNECTION_CLOSE          permanent   [RFC9000, Section 19.19]                  2021-02-11 IETF              [QUIC_WG]
+   0x1e      HANDSHAKE_DONE            permanent   [RFC9000, Section 19.20]                  2021-02-11 IETF              [QUIC_WG]
+   0x1f      IMMEDIATE_ACK             provisional [draft-ietf-quic-ack-frequency-07]        2023-10-27 Mirja Kühlewind   [Mirja_Kuhlewind]
+   0x30-0x31 DATAGRAM                  permanent   [RFC9221]                                 2021-10-20 IETF              [QUIC_WG]
+   0x3e-0x3f PATH_ACK                  permanent   [RFC-ietf-quic-multipath-21, Section 4.1] 2026-03-30 IETF              [QUIC_WG]
+   0xaf      ACK_FREQUENCY             provisional [draft-ietf-quic-ack-frequency-07]        2023-10-27 Mirja Kühlewind   [Mirja_Kuhlewind]
+   0x3e75    PATH_ABANDON              permanent   [RFC-ietf-quic-multipath-21, Section 4.2] 2026-03-30 IETF              [QUIC_WG]
+   0x3e76    PATH_STATUS_BACKUP        permanent   [RFC-ietf-quic-multipath-21, Section 4.3] 2026-03-30 IETF              [QUIC_WG]
+   0x3e77    PATH_STATUS_AVAILABLE     permanent   [RFC-ietf-quic-multipath-21, Section 4.3] 2026-03-30 IETF              [QUIC_WG]
+   0x3e78    PATH_NEW_CONNECTION_ID    permanent   [RFC-ietf-quic-multipath-21, Section 4.4] 2026-03-30 IETF              [QUIC_WG]
+   0x3e79    PATH_RETIRE_CONNECTION_ID permanent   [RFC-ietf-quic-multipath-21, Section 4.5] 2026-03-30 IETF              [QUIC_WG]
+   0x3e7a    MAX_PATH_ID               permanent   [RFC-ietf-quic-multipath-21, Section 4.6] 2026-03-30 IETF              [QUIC_WG]
+   0x3e7b    PATHS_BLOCKED             permanent   [RFC-ietf-quic-multipath-21, Section 4.7] 2026-03-30 IETF              [QUIC_WG]
+   0x3e7c    PATH_CIDS_BLOCKED         permanent   [RFC-ietf-quic-multipath-21, Section 4.7] 2026-03-30 IETF              [QUIC_WG]
 
 QUIC Transport Error Codes
 
@@ -211,7 +195,7 @@ QUIC Transport Error Codes
    permanent, greater than 0x3f               Specification Required
    first unassigned codepoint                 Standards Action
 
-         Value                   Code              Description     Status             Specification              Date      Change     Contact    Notes
+         Value                   Code              Description     Status             Specification              Date      Change    Contact   Notes
                                                                                                                          Controller
    0x00               NO_ERROR                    No error       permanent   [RFC9000, Section 20]            2021-02-11 IETF       [QUIC_WG]
    0x01               INTERNAL_ERROR              Implementation permanent   [RFC9000, Section 20]            2021-02-11 IETF       [QUIC_WG]
@@ -260,26 +244,25 @@ QUIC Transport Error Codes
                                                   version
    0x0100-0x01ff      CRYPTO_ERROR                TLS alert code permanent   [RFC9000, Section 20]            2021-05-18 IETF       [QUIC_WG]
                                                   Path abandoned
-   0x004150504142414e APPLICATION_ABANDON_PATH    at the         provisional [draft-ietf-quic-multipath-15,   2025-07-09 Yanmei Liu [Yanmei_Liu]
+   0x3e               APPLICATION_ABANDON_PATH    at the         permanent   [RFC-ietf-quic-multipath-21,     2026-03-30 IETF       [QUIC_WG]
                                                   application's              Section 4.2.1]
                                                   request
                                                   Path abandoned
-                                                  due to no                  [draft-ietf-quic-multipath-15,
-   0x004e4f5f4349445f NO_CID_AVAILABLE_FOR_PATH   available      provisional Section 4.2.1]                   2025-07-09 Yanmei Liu [Yanmei_Liu]
-                                                  connection IDs
-                                                  for the path
-                                                  Path abandoned
-                                                  due to                     [draft-ietf-quic-multipath-15,
-   0x0052534c494d4954 PATH_RESOURCE_LIMIT_REACHED resource       provisional Section 4.2.1]                   2025-07-09 Yanmei Liu [Yanmei_Liu]
+                                                  due to                     [RFC-ietf-quic-multipath-21,
+   0x3e75             PATH_RESOURCE_LIMIT_REACHED resource       permanent   Section 4.2.1]                   2026-03-30 IETF       [QUIC_WG]
                                                   limitations in
                                                   the transport
                                                   Path abandoned
-   0x00554e5f494e5446 APPLICATION_ABANDON_PATH    due to         provisional [draft-ietf-quic-multipath-15,   2025-07-09 Yanmei Liu [Yanmei_Liu]
-                                                  unstable                   Section 4.2.1]
-                                                  interfaces
-                                                  Multipath                  [draft-ietf-quic-multipath-05,
-   0x1001d76d3ded42f3 MP_PROTOCOL_VIOLATION       protocol       provisional Section 9]                       2023-07-26 Yanmei Liu [Yanmei_Liu]
-                                                  violation
+                                                  due to
+   0x3e76             PATH_UNSTABLE_OR_POOR       unstable       permanent   [RFC-ietf-quic-multipath-21,     2026-03-30 IETF       [QUIC_WG]
+                                                  interfaces or              Section 4.2.1]
+                                                  poor
+                                                  performance
+                                                  Path abandoned
+                                                  due to no                  [RFC-ietf-quic-multipath-21,
+   0x3e77             NO_CID_AVAILABLE_FOR_PATH   available      permanent   Section 4.2.1]                   2026-03-30 IETF       [QUIC_WG]
+                                                  connection IDs
+                                                  for the path
                                                   The BDP token
    0x4143414213370002 BDP_TOKEN_ERROR             received from  provisional [draft-misell-quic-bdp-token-02] 2024-01-24 Q Misell   [Q_Misell]
                                                   the client is
@@ -287,12 +270,11 @@ QUIC Transport Error Codes
 
                                                                  Contact Information
 
-          ID                Name                   Contact URI            Last Updated
-   [David_Schinazi]  David Schinazi     mailto:dschinazi.ietf&gmail.com   2022-06-02
-   [Google]          Google             mailto:quic-iana&google.com       2025-09-23
-   [Mirja_Kuhlewind] Mirja Kühlewind    mailto:ietf&kuehlewind.net        2023-10-27
-   [Q_Misell]        Q Misell           mailto:q&as207960.net             2024-01-24
+          ID                Name                  Contact URI           Last Updated
+   [David_Schinazi]  David Schinazi     mailto:dschinazi.ietf&gmail.com 2022-06-02
+   [Google]          Google             mailto:quic-iana&google.com     2025-09-23
+   [Mirja_Kuhlewind] Mirja Kühlewind    mailto:ietf&kuehlewind.net      2023-10-27
+   [Q_Misell]        Q Misell           mailto:q&as207960.net           2024-01-24
    [QUIC_WG]         QUIC working group mailto:quic&ietf.org
-   [Yanmei_Liu]      Yanmei Liu         mailto:miaoji.lym&alibaba-inc.com 2025-07-09
 
    Licensing Terms
