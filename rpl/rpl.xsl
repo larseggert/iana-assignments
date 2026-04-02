@@ -71,10 +71,10 @@
         <tr><th>Bit Number</th><th>Capability Description</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'pdr-ack-acceptance-status-values'">
-        <tr><th>Bit Number</th><th>Meaning</th><th>Reference</th></tr>
+        <tr><th>Value</th><th>Meaning</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'pdr-ack-rejection-status-values'">
-        <tr><th>Bit Number</th><th>Meaning</th><th>Reference</th></tr>
+        <tr><th>Value</th><th>Meaning</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'via-information-options-flags'">
         <tr><th>Bit Number</th><th>Capability Description</th><th>Reference</th></tr>
