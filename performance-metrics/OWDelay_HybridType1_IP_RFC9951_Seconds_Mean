@@ -1,0 +1,313 @@
+OWDelay_HybridType1_IP_RFC9951_Seconds_Mean
+
+All section numbers below refer to RFC 9951.
+
+4.1.1.  Summary
+
+This category includes multiple indexes of the registered performance
+metrics: the element Identifier and Metric Name.
+
+4.1.1.1.  ID (Identifier)
+
+27
+
+4.1.1.2.  Name
+
+OWDelay_HybridType1_IP_RFC9951_Seconds_Mean
+
+4.1.1.3.  URI
+
+<https://www.iana.org/assignments/performance-metrics/
+OWDelay_HybridType1_IP_RFC9951_Seconds_Mean>
+
+4.1.2.  Description
+
+This metric assesses the mean of one-way delays of all
+successfully forwarded IP packets constituting a single Flow.  The
+measurement of one-way delay is based on a single Observation
+Point [RFC7011] somewhere in the network.
+
+4.1.3.  Reference
+
+RFC 9951
+
+4.1.4.  Change Controller
+
+IETF
+
+4.1.5.  Version of Registry Format
+
+1.0
+
+4.2.  Metric Definition
+
+This category includes columns to prompt the entry of all necessary
+details related to the metric definition, including the immutable
+document reference and values of input factors, called "Fixed
+Parameters".
+
+4.2.1.  Reference Definition
+
+See [RFC6049] and [RFC7679] in the Normative References
+(Section 9.1).
+
+Section 3.4 of [RFC7679] provides the reference definition of the
+singleton (single value) one-way delay metric.  Section 4.4 of
+[RFC7679] provides the reference definition expanded to cover a
+multi-value sample.  Note that terms such as "singleton" and "sample"
+are defined in Section 11 of [RFC2330].
+
+With the Observation Point [RFC7011] typically located between the
+hosts participating in the IP Flow, the one-way delay metric requires
+one individual measurement between the Observation Point and sourcing
+host, such that the Spatial Composition [RFC6049] of the measurements
+yields a one-way delay singleton.
+
+This document specifies how to export the performance metric using
+IPFIX.
+
+4.2.2.  Fixed Parameters
+
+None
+
+4.3.  Method of Measurement
+
+This category includes columns for references to relevant sections of
+the RFC(s) and any supplemental information needed to ensure an
+unambiguous method for implementations.
+
+4.3.1.  Reference Methods
+
+The foundational methodology for this metric is defined in Section 4
+of [RFC7323] using the Timestamps option with modifications that
+allow application at a mid-path Observation Point [RFC7011].
+
+4.3.2.  Packet Stream Generation
+
+This is the time when the packet is being received at the OAM header
+encapsulating node.  The timestamp format depends on the On-Path
+Telemetry implementation.  For IOAM, Section 4.4.1 of [RFC9197]
+describes the supported timestamps.  Sections 4.4.2.3 and 4.4.2.4 of
+[RFC9197] describe where the timestamp is being inserted.  For the
+Enhanced Alternate Marking Method, Section 2 of [ENH-ALT-MARKING] and
+Section 3.2 of [RFC9947] define the supported timestamp encodings and
+granularity.
+
+4.3.3.  Traffic Filtering (Observation) Details
+
+Runtime Parameters (in the following sections) may be used for
+Traffic Filtering.
+
+4.3.4.  Sampling Distribution
+
+This metric requires a partial sample of all packets that qualify
+according to the Traffic Filter criteria.
+
+4.3.5.  Runtime Parameters and Data Format
+
+Runtime Parameters are input factors that must be determined,
+configured into a measurement system, and reported with the results
+for the context to be complete.
+
+The Hybrid Type I metering parameters must be reported to provide the
+complete measurement context.  As an example, if the IPFIX Metering
+Process is used, then the IPFIX Metering Process parameters (IPFIX
+Template Record, potential traffic filters, and potential sampling
+method and parameters) that generate the Flow Records must be
+reported to provide the complete measurement context.  At a minimum,
+the following fields are required:
+
+Src:  The IP address of the host in the host A Role (format ipv4-
+   address-no-zone value for IPv4 or ipv6-address-no-zone value for
+   IPv6; see Section 4 of [RFC9911]).
+
+Dst:  The IP address of the host in the host B Role (format ipv4-
+   address-no-zone value for IPv4 or ipv6-address-no-zone value for
+   IPv6; see Section 4 of [RFC9911]).
+
+T0:  T time, the start of a measurement interval (format "date/time"
+   as specified in Section 5.6 of [RFC3339]; see also "date-and-time"
+   in Section 3 of [RFC9911]).  The UTC Time Zone is required by
+   Section 6.1 of [RFC2330].  When T0 is "all-zeros", a start time is
+   unspecified, and Tf is to be interpreted as the duration of the
+   measurement interval.  The start time is controlled through other
+   means.
+
+Tf:  A time, the end of a measurement interval (format "date/time" as
+   specified in Section 5.6 of [RFC3339]; see also "date-and-time" in
+   Section 3 of [RFC9911]).  The UTC Time Zone is required by
+   Section 6.1 of [RFC2330].  When T0 is "all-zeros", an ending time
+   and date are ignored, and Tf is interpreted as the duration of the
+   measurement interval.
+
+4.3.6.  Roles
+
+Host A:  Launches an IP packet to start the Flow.
+
+Host B:  Receives the IP packet to start the Flow.
+
+OAM Header Encapsulating Node:  Receives the IP packets, encapsulates
+   the packets with the OAM header, and adds the timestamp into the
+   OAM header.
+
+OAM Header Transit Node:  Receives the IP packets, measures the delay
+   between the timestamp in the packet and the timestamp when the
+   packet was received.
+
+OAM Header Decapsulating Node:  Receives the IP packets, computes the
+   delay between the timestamp in the packet and the timestamp when
+   the packet was received, and removes the OAM header from the
+   packet.
+
+4.4.  Output
+
+This category specifies all details of the output of measurements
+using the metric.
+
+4.4.1.  Type
+
+OWDelay Types are discussed in the subsections below.
+
+4.4.2.  Reference Definition
+
+For all output types:
+
+OWDelay_HybridType1_IP:  The one-way delay of one IP packet is a
+   Singleton.
+
+For each <statistic> Singleton, one of the following subsections
+applies.
+
+4.4.2.1.  OWDelay_HybridType1_IP_RFC9951_Seconds_Mean
+
+Similar to Section 7.4.2.2 of [RFC8912], the mean SHALL be calculated
+using the conditional distribution of all packets with a finite value
+of one-way delay (undefined delays are excluded) -- a single value,
+as follows:
+
+See Section 4.1 of [RFC3393] for details on the conditional
+distribution to exclude undefined values of delay, and see Section 5
+of [RFC6703] for background on this analysis choice.
+
+See Section 4.2.2 of [RFC6049] for details on calculating this
+statistic; see also Section 4.2.3 of [RFC6049].
+
+Mean:  The time value of the result is expressed in units of
+   microseconds, as a positive value of type decimal64 with fraction
+   digits = 9 (similar to decimal64 in YANG, Section 9.3 of
+   [RFC6020]) with a resolution of 0.001 microseconds (1.0 ns), and
+   with lossless conversion to/from the 64-bit NTP timestamp as per
+   Section 6 of [RFC5905].
+
+4.4.2.2.  OWDelay_HybridType1_IP_RFC9951_Seconds_Min
+
+Similar to Section 7.4.2.3 of [RFC8912], the minimum SHALL be
+calculated using the conditional distribution of all packets with a
+finite value of one-way delay (undefined delays are excluded) -- a
+single value, as follows:
+
+See Section 4.1 of [RFC3393] for details on the conditional
+distribution to exclude undefined values of delay, and see Section 5
+of [RFC6703] for background on this analysis choice.
+
+See Section 4.3.2 of [RFC6049] for details on calculating this
+statistic; see also Section 4.3.3 of [RFC6049].
+
+Min:  The time value of the result is expressed in units of
+   microseconds, as a positive value of type decimal64 with fraction
+   digits = 9 (similar to decimal64 in YANG, Section 9.3 of
+   [RFC6020]) with a resolution of 0.001 microseconds (1.0 ns), and
+   with lossless conversion to/from the 64-bit NTP timestamp as per
+   Section 6 of [RFC5905].
+
+4.4.2.3.  OWDelay_HybridType1_IP_RFC9951_Seconds_Max
+
+Similar to Section 7.4.2.4 of [RFC8912], the maximum SHALL be
+calculated using the conditional distribution of all packets with a
+finite value of one-way delay (undefined delays are excluded) -- a
+single value, as follows:
+
+See Section 4.1 of [RFC3393] for details on the conditional
+distribution to exclude undefined values of delay, and see Section 5
+of [RFC6703] for background on this analysis choice.
+
+See Section 4.3.2 of [RFC6049] for a closely related method for
+calculating this statistic; see also Section 4.3.3 of [RFC6049].  The
+formula is as follows:
+
+ Max = (FiniteDelay[j])
+ such that for some index, j, where 1 <= j <= N
+ FiniteDelay[j] >= FiniteDelay[n] for all n
+
+where all packets n = 1 through N have finite singleton delays.
+
+Max:  The time value of the result is expressed in units of
+   microseconds, as a positive value of type decimal64 with fraction
+   digits = 9 (similar to decimal64 in YANG, Section 9.3 of
+   [RFC6020]) with a resolution of 0.001 microseconds (1.0 ns), and
+   with lossless conversion to/from the 64-bit NTP timestamp as per
+   Section 6 of [RFC5905].
+
+4.4.2.4.  OWDelay_HybridType1_IP_RFC9951_Seconds_Sum
+
+The sum SHALL be calculated using the conditional distribution of all
+packets with a finite value of one-way delay (undefined delays are
+excluded) -- a single value, as follows:
+
+See Section 4.1 of [RFC3393] for details on the conditional
+distribution to exclude undefined values of delay, and see Section 5
+of [RFC6703] for background on this analysis choice.
+
+See Section 4.3.5 of [RFC6049] for details on calculating this
+statistic; however, in this case, FiniteDelay or MaxDelay MAY be
+used.
+
+Sum:  The time value of the result is expressed in units of
+   microseconds, as a positive value of type decimal64 with fraction
+   digits = 9 (similar to decimal64 in YANG, Section 9.3 of
+   [RFC6020]) with a resolution of 0.001 microseconds (1.0 ns), and
+   with lossless conversion to/from the 64-bit NTP timestamp as per
+   Section 6 of [RFC5905].
+
+4.4.2.5.  Metric Units
+
+*  Mean
+
+*  Min
+
+*  Max
+
+*  Sum
+
+The one-way delay of the IP Flow singleton is expressed in
+microseconds.
+
+4.4.2.6.  Calibration
+
+A clock synchronization between the nodes of the monitored OAM domain
+is needed to compute representative delay measurements at the OAM
+header transit and decapsulating nodes.  NTP, as defined in
+[RFC5905], can be used for synchronizing the clocks of the monitored
+nodes.
+
+4.4.3.  Administrative Items
+
+4.4.3.1.  Status
+
+Current
+
+4.4.3.2.  Requester
+
+RFC 9951
+
+4.4.3.3.  Revision
+
+1.0
+
+4.4.3.4.  Revision Date
+
+2026-04-02
+
+4.4.4.  Comments and Remarks
+
+None

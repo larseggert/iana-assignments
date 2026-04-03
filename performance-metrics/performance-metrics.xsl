@@ -44,7 +44,7 @@
           <td><xsl:value-of select="iana:id"/></td>
           <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:file"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
           <td><xsl:value-of select="iana:version"/></td>
@@ -60,7 +60,7 @@
         <tr>
           <td><xsl:value-of select="iana:id"/></td>
           <td><xsl:value-of select="iana:name"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
         </tr>
