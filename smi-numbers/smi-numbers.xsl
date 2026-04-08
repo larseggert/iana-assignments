@@ -103,6 +103,7 @@
                         @id = 'smi-numbers-1.3.6.1.5.5.7.22' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.23' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.24' or
+                        @id = 'smi-numbers-1.3.6.1.5.5.7.25' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.48' or
                         @id = 'smi-numbers-1.3.6.1.5.5.7.48.1' or
                         @id = 'smi-numbers-1.3.101'">
@@ -122,11 +123,6 @@
           <th>Reference</th>
           <th>Notes</th>
         </xsl:when>
-        <xsl:when test="@id = 'smi-numbers-1.3.6.1.5.5.7.25'">
-          <th>Decimal</th>
-          <th>Description</th>
-          <th>Reference</th>
-        </xsl:when>   
         <xsl:otherwise>
           <xsl:if test="iana:record/iana:value"><th>Decimal</th></xsl:if>
           <xsl:if test="iana:record/iana:name"><th>Name</th></xsl:if>

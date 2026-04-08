@@ -292,14 +292,7 @@
   <xsl:template name="iana:formats">
     <xsl:variable name="registry_id" select="./@id"/>
     <xsl:variable name="group_id">
-      <xsl:choose>
-        <xsl:when test="ancestor::iana:registry[1]">
-          <xsl:value-of select="ancestor::iana:registry[1]/@id"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="./@id"/>
-        </xsl:otherwise>
-      </xsl:choose>
+      <xsl:value-of select="/iana:registry/@id"/>
     </xsl:variable>
     <dt>Available Formats</dt>
     <dd>
