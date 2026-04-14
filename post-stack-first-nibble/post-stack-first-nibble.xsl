@@ -5,7 +5,7 @@
 
   <xsl:template name="iana:record_header">
     <xsl:choose> 
-      <xsl:when test="@id = 'post-stack-first-nibble'">
+      <xsl:when test="@id = 'post-stack-first-nibble-registrations'">
         <tr>
           <th>Protocol</th>
           <th>Value</th>
@@ -18,7 +18,7 @@
 
   <xsl:template match="iana:record">
     <xsl:choose>
-      <xsl:when test="../@id = 'post-stack-first-nibble'">
+      <xsl:when test="../@id = 'post-stack-first-nibble-registrations'">
         <tr>
           <td><xsl:apply-templates select="iana:protocol"/></td>
           <td><xsl:value-of select="iana:value"/></td>

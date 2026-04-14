@@ -8,12 +8,11 @@
 
   <xsl:template name="iana:record_header">
     <xsl:choose> 
-      <xsl:when test="@id = 'security-txt-field-names'">
+      <xsl:when test="@id = 'pcap-related-linktypes'">
         <tr>
-          <th>Field Name</th>
+          <th>Value</th>
+          <th>Name</th>
           <th>Description</th>
-          <th>Multiple Appearances</th>
-          <th>Status</th>
           <th>Change Controller</th>
           <th>Reference</th>
         </tr>
@@ -23,14 +22,13 @@
 
   <xsl:template match="iana:record">
     <xsl:choose>
-      <xsl:when test="../@id = 'security-txt-field-names'">
+    <xsl:when test="../@id = 'pcap-related-linktypes'">
         <tr>
-          <td><xsl:apply-templates select="iana:value"/></td>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
-          <td><xsl:apply-templates select="iana:appearance"/></td>
-          <td><xsl:apply-templates select="iana:status"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
         </tr>
       </xsl:when>
     </xsl:choose>
