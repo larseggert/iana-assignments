@@ -23,7 +23,7 @@
         <th>Reference</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'yang-sid'">
+      <xsl:when test="@id = 'ietf-yang-sid-modules'">
         <tr>
         <th>YANG Module Name</th>
         <th>YANG File</th>
@@ -55,7 +55,7 @@
         <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
     </xsl:when>
-    <xsl:when test="../@id = 'yang-sid'"> 
+    <xsl:when test="../@id = 'ietf-yang-sid-modules'">
       <tr>
         <td><xsl:apply-templates select="iana:name"/></td>
         <td><xsl:apply-templates select="iana:file"/></td>
