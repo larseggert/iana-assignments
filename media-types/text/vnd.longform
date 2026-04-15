@@ -1,0 +1,50 @@
+(registered 2026-04-15, last updated 2026-04-15)
+
+Media type name: text
+
+Media subtype name: vnd.longform
+
+Required parameters: charset parameter is optional, UTF-8 charset is the default.
+
+Optional parameters: N/A
+
+Encoding considerations: 8bit
+
+Security considerations: Longform is used like Markdown and has all the security considerations of the text/markdown media type, however it has a broader feature set that should be considered. The following is taken from here: https://longform.occultist.dev/#security-considerations
+
+Longform is typically rendered into a HTML document, or parsed client side and rendered into a DOM environment. It is possible to mix untrusted user defined content with the original Longform markup creating the possibility of content injection attacks. Longform provides sanitization APIs that can be configured with allow lists to only allow intended markup to be rendered at the location the untrusted content is being embedded. Where the markup is in the Longform form, the Longform parser should apply the sanitization rules to the markup. Where HTML markup is used the parser should expose APIs so the sanitization rules can be enforced using the Sanitizer API and / or the Trusted Types API. These APIs work in a DOM environment on modern browsers. For server side sanitization or older browser support the parser would need to integrate with a sanitization library such as DOMPurify. Users of a Longform parser should familiarize themselves with how to configure their parser to sanitize HTML content correctly in any environment the content is parsed.
+
+The Longform serialization rules assume the Longform document itself is not comprised of untrusted content. Parsers should consider exposing APIs to allow the same sanitization rules be applied document wide so documents can be constructed from multiple sources before being parsed.
+
+It is important for parser implementers to consider that any user content that is rendered into the HTML page as HTML could use the same HTML ids or data attributes as the ones used by the parser and could be picked up by the client application instead of the intended Longform fragment. So it is important that a parsers takes steps to ensure the data attribute names used are unique, maybe using values generated at the time of render. Parsers are encouraged to export CSS selector strings that client applications can use to rebuild the Longform documents, instead of fixed data-attribute naming conventions. For this reason it is also preferred that data attributes are used over HTML ids where user content might be rendered to the page even if the fragment has an embedded id.
+
+Application developers using Longform in the client should consider the affects external scripts might have on a Longform fragment if it is re-attached to the DOM after state changes. Browser extensions could modify the fragment if it is attached to the DOM so consider performing a deep clone on a pristine in memory copy of the fragment instead of re-using previously attached fragments.
+
+Interoperability considerations: Longform is in development and the final formal syntax is not yet complete. The base media type is intended to be a narrow feature set intended for the purposes described in https://longform.occultist.dev/#fragments. It is intended that the syntax and directives could be built upon by other formats and considerations are being made for that now.
+
+Published specification: https://longform.occultist.dev
+
+Applications which use this media: Applications that render HTML documents, handle DOM state changes and maybe also render to XML and MathML.
+
+Fragment identifier considerations: The fragment identifier is used to select from the available Longform fragments outputted by parsing a Longform document. Fragment identifiers are currently loosely described here https://longform.occultist.dev/#fragments.
+
+Longform also supports simple templating. A fragment identifier can be used to apply parameters to a template using the query string format following the Longform fragment's identifier.
+
+Restrictions on usage: None.
+
+Additional information:
+
+1. Deprecated alias names for this type: None
+2. Magic number(s): None
+3. File extension(s): .lf, .longform
+4. Macintosh file type code: TBD
+5. Object Identifiers: Unsure
+
+Person to contact for further information:
+
+1. Name: Matthew Quinn
+2. Email: dev&matthewquinn.me
+
+Intended usage: COMMON
+
+Author/Change controller: Matthew Quinn, dev&matthewquinn.me
