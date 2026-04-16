@@ -1,0 +1,54 @@
+(registered 2026-04-15, last updated 2026-04-15)
+
+Media type name: application
+
+Media subtype name: vnd.vertifile.pvf
+
+Required parameters: N/A
+
+Optional parameters: version - PVF format version identifier (default: "1.0")
+
+Encoding considerations: binary
+
+PVF files are UTF-8 encoded HTML documents. Lines may exceed 998 octets due to base64-encoded document payloads embedded within the HTML body.
+
+Security considerations: PVF files are self-contained HTML documents that include embedded JavaScript for document integrity verification.
+
+(1) Active content: PVF files contain JavaScript that performs SHA-256 hash computation and HMAC-SHA256 signature validation entirely client-side. The JavaScript is obfuscated to resist tampering. The embedded document payload is base64-encoded and is not independently executable. Viewers SHOULD render PVF files in a sandboxed environment (e.g., iframe with sandbox attribute or isolated browser context) to mitigate risks from malicious content injection.
+
+(2) Privacy/Integrity: Yes. PVF files are designed specifically to provide integrity verification. Each file embeds a SHA-256 hash of the original document and an HMAC-SHA256 signature computed with a server-held secret. The issuing server operates under a blind processing model — it never reads or stores document content, only hashing raw bytes.
+
+(3) Integrity is provided by the embedded cryptographic values (SHA-256 hash and HMAC-SHA256 signature). Optional online verification against the issuing server provides additional assurance. Optional blockchain anchoring on the Polygon network provides immutable timestamping. For transport-level security, PVF files should be transmitted over TLS (HTTPS).
+
+(4) PVF files use the HTML5 format (WHATWG HTML Living Standard) as a container. Security considerations from the HTML specification apply, particularly regarding script execution and resource loading. PVF files do not employ compression. The format does not use ZIP or other container formats.
+
+(5) PVF files MAY contain a reference to the issuing server's verification API endpoint for optional online verification. Basic integrity verification works entirely offline without referencing any external links.
+
+Interoperability considerations: PVF files are valid HTML5 documents and can be rendered by any modern web browser that supports JavaScript and the Web Crypto API (Chrome 37+, Firefox 34+, Safari 11+, Edge 79+). Browsers or viewers without JavaScript support will display the embedded document without interactive verification. The file begins with the magic bytes <!--PVF:1.0--> for reliable format identification independent of file extension. PVF files are UTF-8 encoded and use standard HTML5 markup, ensuring broad compatibility across platforms.
+
+Published specification: https://github.com/zur2525-star/vertifile/blob/main/spec/PVF-FORMAT-SPEC-v1.0.md
+
+Applications which use this media: PVF Viewer (desktop application for macOS and Windows), Vertifile web platform (https://vertifile.com), and any HTML5-capable web browser. The format is intended for tamper-proof document distribution in education, healthcare, government, and financial sectors.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: N/A
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): <!--PVF:1.0-->
+3. File extension(s): .pvf
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+General Comments: PVF (Protected Verified File) is a new document format for tamper-proof document protection with embedded cryptographic verification. A patent application has been filed for the underlying technology.
+
+Person to contact for further information:
+
+1. Name: zur halfon
+2. Email: zur2525&gmail.com
+
+Intended usage: COMMON
+
+Author/Change controller: Zur Halfon
