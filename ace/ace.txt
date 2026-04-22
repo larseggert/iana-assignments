@@ -11,7 +11,7 @@
    2021-07-27
 
    Last Updated
-   2026-04-08
+   2026-04-22
 
    Available Formats
    [IMG]
@@ -39,6 +39,7 @@
      • ACE Token Revocation List Parameters
      • ACE Token Revocation List Errors
      • Group OSCORE Roles
+     • Group OSCORE Admin Permissions
 
 ACE Authorization Server Request Creation Hints
 
@@ -350,6 +351,29 @@ ACE Groupcomm Parameters
 
              Name               CBOR Key                     CBOR Type                                Reference
    Reserved for Private Use less than -65536                                            [RFC9594]
+   app_groups_diff          -28              array                                      [RFC-ietf-ace-oscore-gm-admin-17]
+   conf_filter              -27              array                                      [RFC-ietf-ace-oscore-gm-admin-17]
+   det_hash_alg             -26              tstr or int                                [RFC-ietf-ace-oscore-gm-admin-17]
+   det_req                  -25              True or False                              [RFC-ietf-ace-oscore-gm-admin-17]
+   as_uri                   -19              tstr                                       [RFC-ietf-ace-oscore-gm-admin-17]
+   joining_uri              -18              tstr                                       [RFC-ietf-ace-oscore-gm-admin-17]
+   app_groups               -17              array                                      [RFC-ietf-ace-oscore-gm-admin-17]
+   gid_reuse                -16              True or False                              [RFC-ietf-ace-oscore-gm-admin-17]
+   max_stale_sets           -15              uint                                       [RFC-ietf-ace-oscore-gm-admin-17]
+   group_description        -14              Null or tstr                               [RFC-ietf-ace-oscore-gm-admin-17]
+   group_name               -13              tstr or #6.<uint>(any)                     [RFC-ietf-ace-oscore-gm-admin-17]
+   active                   -12              True or False                              [RFC-ietf-ace-oscore-gm-admin-17]
+   rt                       -11              tstr                                       [RFC-ietf-ace-oscore-gm-admin-17]
+   ecdh_params              -10              Null or array                              [RFC-ietf-ace-oscore-gm-admin-17]
+   ecdh_alg                 -9               Null or tstr or int                        [RFC-ietf-ace-oscore-gm-admin-17]
+   alg                      -8               Null or tstr or int                        [RFC-ietf-ace-oscore-gm-admin-17]
+   pairwise_mode            -7               True or False                              [RFC-ietf-ace-oscore-gm-admin-17]
+   sign_params              -6               Null or array                              [RFC-ietf-ace-oscore-gm-admin-17]
+   sign_alg                 -5               Null or tstr or int                        [RFC-ietf-ace-oscore-gm-admin-17]
+   gp_enc_alg               -4               Null or tstr or int                        [RFC-ietf-ace-oscore-gm-admin-17]
+   group_mode               -3               True or False                              [RFC-ietf-ace-oscore-gm-admin-17]
+   cred_fmt                 -2               int                                        [RFC-ietf-ace-oscore-gm-admin-17]
+   hkdf                     -1               tstr or int                                [RFC-ietf-ace-oscore-gm-admin-17]
    gid                      0                array                                      [RFC9594]
    gname                    1                array of tstr                              [RFC9594]
    guri                     2                array of tstr                              [RFC9594]
@@ -538,6 +562,9 @@ ACE Groupcomm Errors
    7                Signatures not used in the group                                    [RFC-ietf-ace-key-groupcomm-oscore-21]
    8                Operation permitted only to signature verifiers                     [RFC-ietf-ace-key-groupcomm-oscore-21]
    9                Group currently not active                                          [RFC-ietf-ace-key-groupcomm-oscore-21]
+   10               Group currently active                                              [RFC-ietf-ace-oscore-gm-admin-17]
+   11               Unable to determine a group name                                    [RFC-ietf-ace-oscore-gm-admin-17]
+   12               Unsupported group configuration                                     [RFC-ietf-ace-oscore-gm-admin-17]
 
 ACE Groupcomm Rekeying Schemes
 
@@ -645,5 +672,29 @@ Group OSCORE Roles
                                                group mode
    5-65535            Unassigned               Unassigned
    greater than 65535 Reserved for Private Use Reserved for Private Use                                      [RFC-ietf-ace-key-groupcomm-oscore-21]
+
+Group OSCORE Admin Permissions
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-ace-oscore-gm-admin-17]
+
+   Available Formats
+   [IMG]
+   CSV
+
+    Name  Value              Description                          Reference
+   List   0     Retrieve list of group configurations [RFC-ietf-ace-oscore-gm-admin-17]
+   Create 1     Create new group configurations       [RFC-ietf-ace-oscore-gm-admin-17]
+   Read   2     Retrieve group configurations         [RFC-ietf-ace-oscore-gm-admin-17]
+   Write  3     Change group configurations           [RFC-ietf-ace-oscore-gm-admin-17]
+   Delete 4     Delete group configurations           [RFC-ietf-ace-oscore-gm-admin-17]
 
    Licensing Terms

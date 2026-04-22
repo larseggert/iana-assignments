@@ -149,6 +149,14 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'group-oscore-admin-permissions'">
+        <tr>
+          <th>Name</th>
+          <th>Value</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <th>Value</th>
@@ -306,6 +314,14 @@
         <tr>
           <td><xsl:apply-templates select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'group-oscore-admin-permissions'">
+        <tr>
+          <td><xsl:apply-templates select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:reference"/></td>
         </tr>
