@@ -47,6 +47,14 @@
         <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'jscontact-profile'">
+        <tr>
+        <th>Name</th>
+        <th>Version</th>
+        <th>Change Controller</th>
+        <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
         <th>Enum Value</th>
@@ -96,6 +104,14 @@
         <td><xsl:apply-templates select="iana:context"/></td>
         <td><xsl:apply-templates select="iana:since"/></td>
         <td><xsl:apply-templates select="iana:until"/></td>
+        <td><xsl:apply-templates select="iana:controller"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'jscontact-profile'">
+        <tr>
+        <td><xsl:apply-templates select="iana:name"/></td>
+        <td><xsl:apply-templates select="iana:version"/></td>
         <td><xsl:apply-templates select="iana:controller"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
