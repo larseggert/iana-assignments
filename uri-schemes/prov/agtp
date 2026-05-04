@@ -1,0 +1,132 @@
+(registered 2026-05-04, last updated 2026-05-04)
+
+URI scheme name: agtp
+
+Status: provisional
+
+Applications/protocols that use this scheme name:
+
+  The Agent Transfer Protocol (AGTP), an application-layer protocol
+  for AI agent traffic. AGTP is specified in Internet-Draft
+  draft-hood-independent-agtp-06 (Independent Submission Stream).
+
+  AGTP URIs identify AI agents by their canonical 256-bit
+  cryptographic identifier (the agent-id URI component,
+  rendered as the agent_id field in the corresponding Agent
+  Document body). Resolution proceeds via an AGTP registry
+  service that maps the Agent ID to a serving host:port, after which
+  the client opens a TLS-protected connection to that host on the
+  IANA-registered AGTP port (4480/TCP for `agtp`, 4480/UDP for
+  `agtp-quic`) and exchanges AGTP wire-format messages.
+
+Contact:
+  Chris Hood
+  chris&nomotic.ai
+
+Change controller:
+  Chris Hood (provisional registration; permanent registration would
+  require a published RFC).
+
+References:
+
+  [AGTP] Hood, C., "Agent Transfer Protocol (AGTP)",
+         Work in Progress, Internet-Draft,
+         draft-hood-independent-agtp-06, May 2026.
+         <https://datatracker.ietf.org/doc/draft-hood-independent-agtp/>
+
+  [AGTP-PORT] IANA Service Name and Transport Protocol Port Number
+         Registry, "agtp" and "agtp-quic", port 4480 (TCP/UDP),
+         registered 2026-04-30.
+
+URI scheme syntax (ABNF, per RFC 5234 and RFC 3986):
+
+  AGTP-URI    = "agtp://" agent-id [ "@" host [ ":" port ] ] [ "?" query ]
+  agent-id    = 64HEXDIG-LC
+  HEXDIG-LC   = DIGIT / %x61-66    ; lowercase hex only
+  host        = <as defined in RFC 3986>
+  port        = <as defined in RFC 3986>
+  query       = <as defined in RFC 3986>
+
+  Examples:
+    agtp://d8dc6f0df55d66c7b30100db3cffbe383c5f814e6e58a08521fb7636c3bcc230
+    agtp://d8dc6f0d...c3bcc230&agents.agtp.io
+    agtp://d8dc6f0d...c3bcc230?format=agent.yaml
+
+URI scheme semantics:
+
+  AGTP URIs identify AI agents by their canonical 256-bit
+  cryptographic identifier. It is the canonical, content-addressed
+  identity of the agent and is intended to remain stable across
+  the agent's lifetime.
+
+  When the URI lacks an explicit host (Form 1), clients resolve the
+  agent-id against an AGTP registry service to obtain the serving
+  host:port. When the URI includes "@host[:port]" (Form 1a), clients
+  connect directly to the named host, bypassing the registry. Form 1a
+  is intended for testing and pre-registry deployments.
+
+  Dereferencing an AGTP URI invokes the DESCRIBE method on the
+  identified agent's serving server. The DESCRIBE method returns the
+  Agent Document — a structured identity record carrying the agent's
+  name, principal, capabilities, accepted scopes, status, and issuer.
+
+  The optional `format` query parameter signals the desired
+  representation of the Agent Document (`agent.json`, `agent.yaml`,
+  or `html`). Content negotiation via the Accept header is the
+  canonical mechanism; the query parameter is a convenience.
+
+Encoding considerations:
+
+  The agent-id component MUST consist solely of 64 lowercase
+  hexadecimal characters. No percent-encoding is required for the
+  agent-id since all characters in 0-9 and a-f are in the unreserved
+  set.
+
+  The host and query components follow standard URI encoding rules
+  per RFC 3986. AGTP URIs are intended to be transmitted as 7-bit
+  ASCII; no internationalized identifiers are defined in this
+  registration.
+
+Interoperability considerations:
+
+  AGTP is a new protocol with limited deployment as of registration.
+  A reference implementation is publicly available at
+  <https://github.com/nomoticai/agtp> with a live deployment at
+  registry.agtp.io and agents.agtp.io.
+
+  Clients that do not implement AGTP cannot dereference these URIs.
+  Generic URI parsers can extract the agent-id, host, and query
+  components per the syntax above without requiring AGTP-specific
+  knowledge.
+
+Security considerations:
+
+  AGTP requires TLS 1.3 or higher for all connections to AGTP servers
+  per the AGTP specification. Plaintext AGTP is permitted only for
+  development; production deployments MUST encrypt the transport.
+
+  The 256-bit agent-id is content-addressed (derived from a signed
+  Agent Genesis document in the AGTP-LOG companion specification).
+  This provides cryptographic integrity for the agent's identity:
+  the agent-id cannot be claimed by an entity that does not control
+  the corresponding Genesis document.
+
+  Registry-based resolution (Form 1) introduces a trust dependency
+  on the registry service. Clients SHOULD verify the registry's TLS
+  certificate and SHOULD consider supporting multiple registries for
+  resilience. Form 1a (explicit @host) bypasses the registry and is
+  appropriate when the client has out-of-band knowledge of the
+  serving host.
+
+  AGTP URIs should be treated with the same caution as other
+  resource-locating URIs: dereferencing initiates a network
+  connection, which has privacy and security implications. AGTP
+  Agent Documents are public by design (they are the agent's
+  identity card); they SHOULD NOT be expected to remain confidential.
+
+  Renderings of Agent Documents in the `text/html` representation
+  are intended for display in trust-aware clients (such as the
+  reference "elemen" browser). HTML Agent Documents are static
+  identity cards and SHOULD NOT contain executable scripts;
+  receiving clients SHOULD render HTML Agent Documents in
+  sandboxed contexts.
