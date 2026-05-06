@@ -9,6 +9,11 @@
         <tr>
           <th>Value</th>
           <th>Name</th>
+          <th>Nh</th>
+          <th>Nka</th>
+          <th>Nk</th>
+          <th>Nn</th>
+          <th>Nt</th>
           <th>Recommended</th>
           <th>Reference</th>
           <th>Change Controller</th>
@@ -23,6 +28,11 @@
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:value-of select="iana:nh"/></td>
+          <td><xsl:value-of select="iana:nka"/></td>
+          <td><xsl:value-of select="iana:nk"/></td>
+          <td><xsl:value-of select="iana:nn"/></td>
+          <td><xsl:value-of select="iana:nt"/></td>
           <td><xsl:value-of select="iana:rec"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
