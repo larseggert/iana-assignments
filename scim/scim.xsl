@@ -11,6 +11,9 @@
       <xsl:when test="@id = 'data-resources'">
         <tr><th>Schema URI</th><th>Name</th><th>Reference</th></tr>
       </xsl:when>
+      <xsl:when test="@id = 'event'">
+        <tr><th>Event URI</th><th>Name</th><th>Reference</th></tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr><th>Schema URI</th><th>Name</th><th>Reference</th></tr>
       </xsl:otherwise>
