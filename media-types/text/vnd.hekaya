@@ -1,0 +1,76 @@
+(registered 2026-05-11, last updated 2026-05-11)
+
+Media type name: text
+
+Media subtype name: vnd.hekaya
+
+Required parameters: N/A
+
+Optional parameters: charset: UTF-8 is the default and expected charset. Other charsets are not defined for this media type.
+
+Encoding considerations: 8bit
+
+Hekaya files are UTF-8 encoded plain text. Line endings may be LF or CRLF (both are accepted and normalized during parsing). Content may include Arabic, Latin, and mixed-script text with Unicode bidirectional characters.
+
+Security considerations: Hekaya is a plain-text screenplay markup format parsed via regex-based tokenization. It does not contain executable code, macros, or active content.
+
+The parser performs no file I/O beyond reading the input file; the renderer and PDF generator produce static output with no embedded scripting.
+
+Notes ([[...]]) and boneyard (/* ... */) sections are stripped from output by default, preventing unintended disclosure of annotations in exported documents.
+
+The parser has zero runtime dependencies. The PDF generator depends on pdfmake-rtl (HarfBuzz-based font shaping) with no network calls.
+
+HTML output uses standard DOM escaping. No user-supplied content is interpreted as markup or code.
+
+No additional security considerations beyond those applicable to plain text (RFC 2046, Section 3).
+
+Interoperability considerations: Hekaya extends the Fountain screenplay markup format (https://fountain.io/) with support for right-to-left (RTL) languages, primarily Arabic. Any valid Fountain (.fountain) file is also valid Hekaya.
+
+Key extensions for Arabic:
+- @ prefix for character name registration (Arabic has no uppercase)
+- Arabic scene heading keywords (داخلي/خارجي for INT/EXT)
+- Arabic transition keywords from Egyptian film industry conventions
+- Bidirectional text support with Unicode BiDi algorithm
+
+Direction is auto-detected from content or set explicitly via title page metadata (Direction: rtl). All regex patterns use the Unicode flag (u) for proper Arabic character class matching.
+
+Multiple implementations exist: a TypeScript parser (@hekaya/parser on npm), HTML renderer, PDF generator, and a CLI tool.
+
+Published specification: The Hekaya Markup Specification is published at: https://michaelkmalak.github.io/hekaya/docs/spec/hekaya-markup-spec
+
+Source: https://github.com/michaelkmalak/hekaya/blob/main/docs/docs/spec/hekaya-markup-spec.md
+
+The specification defines all markup elements, Arabic keyword mappings, character registry behavior, bidirectional text handling, and Fountain backward compatibility. Current version: v0.1.
+
+Applications which use this media: - @hekaya/parser — TypeScript parser (zero dependencies), available on npm
+- @hekaya/renderer — HTML renderer with RTL-aware CSS, available on npm
+- @hekaya/pdf — PDF generator with Arabic font shaping, available on npm
+- @hekaya/cli — Command-line tool (parse, render, export, validate, convert),
+available on npm and as standalone binaries on GitHub Releases
+- hekaya_app — Flutter desktop + web WYSIWYG editor (in development)
+
+All tools are open source (MIT license): https://github.com/michaelkmalak/hekaya
+npm packages: https://www.npmjs.com/org/hekaya
+
+Fragment identifier considerations: None defined.
+
+Restrictions on usage: None. This media type is freely usable by any application.
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): N/A
+3. File extension(s): .hekaya
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+Person to contact for further information:
+
+1. Name: Michael K Malak
+2. Email: michael.k.malak&gmail.com
+
+Intended usage: COMMON
+
+Hekaya (حكاية, Arabic for "story") was created to fill the gap left by discontinued Arabic screenplay tools (Seyaq, Miktab) and the lack of RTL support in the Fountain ecosystem. It serves Egyptian and Arabic-speaking screenwriters through the Cairo Indie Filmmakers Club (https://cairoindie.com/).
+
+Author/Change controller: Michael K Malak (https://github.com/michaelkmalak)

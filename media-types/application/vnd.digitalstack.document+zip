@@ -1,0 +1,48 @@
+(registered 2026-05-11, last updated 2026-05-11)
+
+Media type name: application
+
+Media subtype name: vnd.digitalstack.document+zip
+
+Required parameters: N/A
+
+Optional parameters: version: optional format version identifier for diagnostics or negotiation. If omitted, consumers MUST determine the version from the package manifest contained in the archive. Unknown optional parameters MUST be ignored.
+
+Encoding considerations: binary
+
+This media type is a ZIP-based container format and may contain JSON, text, signatures, and binary assets. Because it is a ZIP archive and may include arbitrary binary members and lines longer than 998 octets, binary encoding is required for transports that do not natively support binary content. The +zip structured syntax suffix is used to indicate the underlying container syntax.
+
+Security considerations: This media type does not itself define executable content and is intended to carry structured document packages. However, processors must treat package contents as untrusted input. Implementations should protect against malformed or malicious ZIP archives, including decompression bombs, oversized members, duplicate paths, directory traversal attempts, and corrupted central directory records. If the package contains embedded markup, scripts, attachments, or externally referenced resources, consuming applications must apply the security controls appropriate to those embedded formats and should avoid automatic execution or retrieval.
+
+The format may contain confidential business documents, signatures, comments, metadata, and audit information. As a result, privacy and integrity protections are often important. The media type itself does not guarantee confidentiality or authenticity; those protections should be provided externally, such as through TLS in transit, access controls at rest, and optional package signing or detached signatures where supported by the format. Because this type uses a ZIP container, the security considerations associated with +zip also apply.
+
+Interoperability considerations: Interoperability depends on consistent package structure and manifest semantics. Producers should generate a canonical package layout, stable UTF-8 manifest encoding, normalized path rules, and deterministic handling of optional members. Consumers should ignore unknown manifest fields and unknown package entries unless they are marked required by the specification. Interoperability may be reduced if implementations rely on vendor-specific extensions, noncanonical ZIP features, or undocumented required files.
+
+Published specification: https://digitalstack360.com/specs/dstack-document-package/v1#encoding
+
+Applications which use this media: Used by DigitalStack and compatible tools to exchange packaged business documents, reviewable artifacts, signatures, metadata, and related assets as a single portable file.
+
+Fragment identifier considerations: Fragment identifiers for application/vnd.digitalstack.document+zip follow the rules for application/zip unless otherwise defined by the DigitalStack package specification. This registration does not currently define additional fragment semantics beyond those associated with +zip.
+
+Restrictions on usage: N/A
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): 50 4B 03 04
+3. File extension(s): .dstack,.dsdoc
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+General Comments: This media type is intended for interoperable package exchange among DigitalStack-compatible systems and may also be used by third parties implementing the published specification.
+
+Person to contact for further information:
+
+1. Name: Edwin Spradley
+2. Email: edwin&edwindigital.co
+
+Intended usage: LIMITED USE
+
+This media type is used by DigitalStack and compatible tools to exchange structured document packages, including manifests, metadata, and associated assets, as a single portable archive. It is primarily intended for use within the DigitalStack ecosystem, but the format is publicly specified and may be implemented by third-party systems.
+
+Author/Change controller: DigitalStack a subsidiary of Edwin Digital
