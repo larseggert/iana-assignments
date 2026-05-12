@@ -25,7 +25,7 @@
         <tr><th>Value</th><th>Lower Layer</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:when test="@id = 'eap-provisioning-ids'">
-        <tr><th>NAI</th><th>Method-Type</th><th>Reference</th></tr>
+        <tr><th>NAI</th><th>Method Type</th><th>Reference</th></tr>
       </xsl:when>
       <xsl:otherwise>
         <tr><th>Value</th><th>Description</th><th>Reference</th></tr>
