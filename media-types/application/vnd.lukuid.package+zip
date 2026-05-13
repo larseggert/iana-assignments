@@ -1,0 +1,54 @@
+(registered 2026-05-12, last updated 2026-05-12)
+
+Media type name: application
+
+Media subtype name: vnd.lukuid.package+zip
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+This media type is a ZIP-formatted container. Binary encoding is required as it contains compressed data, Base64-encoded cryptographic signatures, and binary DER-encoded certificates.
+
+This media type uses the '+zip' structured syntax suffix as defined in RFC 6839."
+
+Security considerations: Active Content: The media type does not contain active or executable content. It is a strictly structured forensic data container.
+
+Privacy/Integrity: Integrity is a critical requirement. The format provides native integrity services.
+
+Services: Integrity is maintained through a dual-PKI system (ML-DSA-65 and Ed25519). Every record is cryptographically signed and linked via a previous-signature field to create an append-only ledger. A global manifest signature (manifest.sig) seals the entire collection.
+
+Existing Formats: It employs NDJSON (RFC 8259) for the ledger and ZIP (ISO/IEC 21320-1) for the container. It inherits security considerations from those specifications.
+
+Compression: Uses standard ZIP DEFLATE. Risks of resource exhaustion (zip bombs) are mitigated by a protocol-level limit of 1,000 records per ArchiveBlock.
+
+Container Usage: The ZIP container is used to bundle the ledger with associated certificate chains and binary attachments. The integrity of the container is anchored by a SHA-256 hash of the blocks.jsonl file within the signed manifest.json.
+
+Interoperability considerations: The format uses standard UTF-8 for JSON data and Base64 (RFC 4648) for all binary blobs to ensure cross-platform compatibility. The ZIP structure is restricted to the ISO/IEC 21320-1 profile to ensure it can be opened by all standard-compliant unarchiving tools.
+
+Published specification: https://lukuid.com/en/spec/1.0
+
+Applications which use this media: The LukuID Forensic Viewer, LukuID Mobile Scanners, and LukuID Hardware Readers use this type to package and verify secure forensic evidence and environmental telemetry. These are initial use cases and more vendors and devices will appear that will export and read this format.
+
+Fragment identifier considerations: Fragment identifiers may be used to point to specific blocks or records using the syntax #block=[ID] or #block=[ID]&record=[ID].
+
+Restrictions on usage: N/A
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): Offset 0: 50 4B 03 04 (Standard ZIP header). Following the header, the first record MUST be an uncompressed file named 'mimetype' containing the ASCII string 'application/vnd.lukuid.package+zip'.
+3. File extension(s): .luku
+4. Macintosh file type code: LUKU
+5. Object Identifiers: N/A
+
+Person to contact for further information:
+
+1. Name: Johann du Toit
+2. Email: info&lukuid.com
+
+Intended usage: COMMON
+
+Author/Change controller: LukuID Oy
