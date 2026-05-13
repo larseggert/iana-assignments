@@ -158,6 +158,15 @@
         </tr>
       </xsl:when>
 
+      <xsl:when test="@id = 'matroska-tag-names'">
+        <tr>
+          <th>Tag Name</th>
+          <th>Tag Type</th>
+          <th>Change Controller</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+
     </xsl:choose>
   </xsl:template>
 
