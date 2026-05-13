@@ -1,0 +1,146 @@
+(registered 2026-05-13, last updated 2026-05-13)
+
+Type name: application
+
+Subtype name: vnd.fafm+yaml
+
+Required parameters: N/A
+
+Optional parameters: version
+
+Encoding considerations: 8bit (UTF-8). Binary content, when
+present, is base64-encoded inside YAML.
+
+Security considerations:
+
+The following addresses the questions outlined in the
+media-type security considerations checklist at
+https://www.iana.org/form/media-types:
+
+1. Active or executable content. No. The .fafm format is a YAML
+data document. It contains no scripts, code, executable
+directives, or active markup. Implementations MUST treat
+.fafm content as data, never as instructions, commands, or
+code.
+
+2. Privacy and integrity needs. Yes. .fafm files contain personal
+user memory - preferences, names, conversational facts, and
+arbitrary user-supplied content. Confidentiality and integrity
+protection are required when these files are stored or
+transmitted.
+
+3. Privacy and integrity services. The .fafm format itself does
+not provide cryptographic confidentiality, integrity
+protection, or signing. These services MUST be provided
+externally:
+
+- Confidentiality: OS-level file permissions (mode 0600 is
+the local-default), encryption at rest in server backends,
+and TLS for all transport.
+
+- Integrity: filesystem permissions, transport-layer
+integrity (TLS), and application-level write authorization.
+
+- Future versions of the format may add cryptographic signing
+of memory entries for provenance and audit trail.
+
+4. YAML format considerations. .fafm is built on YAML 1.2. All
+YAML 1.2 security considerations apply, including those
+described in RFC 9512 ("YAML Media Type") section 6. Specific
+to .fafm:
+
+- Parsers MUST disable custom type construction (no
+!!python/object, !ruby/object, or equivalent
+language-specific constructors).
+
+- Parsers MUST enforce alias-expansion limits to mitigate
+entity-expansion / "billion-laughs"-style attacks.
+
+- Parsers MUST enforce nesting-depth limits to prevent stack
+overflow.
+
+5. Compression. Not applicable. .fafm does not use or require
+compression at the format layer. If transport-level
+compression (e.g., HTTP Content-Encoding: gzip) is applied to
+.fafm content alongside other secret data, standard
+compression-with-secret considerations (e.g., CRIME/BREACH
+class attacks) apply at the transport layer.
+
+6. Container format. Not applicable. .fafm is a single YAML
+document, not a container or archive format. No
+packaging-level security considerations apply.
+
+7. Link references. Not applicable. .fafm content does not
+require resolution of external links to be properly
+interpreted. The format is fully self-contained.
+
+Additional security considerations:
+
+- Untrusted input / context poisoning / prompt injection. .fafm
+files are written from voice and AI interactions and MUST be
+treated as untrusted user input by consumers. Implementations
+MUST NOT elevate .fafm content to "system instructions" or
+"developer directives" within prompt hierarchies. Memory
+entries are a documented vector for context poisoning and
+prompt injection.
+
+- Cross-context isolation. Implementations SHOULD scope memory
+consumption to the originating namepoint to prevent unintended
+cross-context influence between projects, agents, or users.
+
+- No secrets or credentials. .fafm files MUST NOT contain
+secrets, API keys, or credentials. Memory is intended for
+user-facing facts and preferences only.
+
+- Voice-command safety. Memory MUST NOT be deleted by voice
+commands; deletion is a UI-only operation. Implementations
+MUST expose a forget(namepoint, criteria) method supporting
+deletion by entry ID, time range, or full wipe.
+
+Interoperability considerations:
+
+.fafm is the Voice Memory Layer (VML) sibling of the
+IANA-registered .faf format (application/vnd.faf+yaml). It is
+designed to interoperate with .faf while serving a distinct
+purpose:
+
+.faf - Foundational Context Layer (project IS - static, read once)
+.fafm - Voice Memory Layer (VML) (agent REMEMBERS - mutating, persisted)
+
+Two formats. Two lifecycles. One ecosystem.
+
+.faf is read once and trusted as the project's canonical context.
+.fafm accretes over time as the agent and user interact, with
+entries appended, summarized, and selectively promoted into .faf
+when they become enduring facts.
+
+The .fafm schema extends application/vnd.faf+yaml - a .fafm
+document remains a valid YAML file. Consumers that only
+understand .faf will safely ignore the memory block and still
+extract identity from namepoint and top-level fields. Consumers
+that understand .fafm gain access to accumulated memory.
+
+Both formats share the same family branding, YAML philosophy
+(YAML 1.2 / RFC 9512 baseline), and MIT license. Multiple .fafm
+documents per scope are permitted, distinguished by namepoint.
+
+Published specification: https://github.com/Wolfe-Jam/faf/blob/main/MEMORY-FORMAT.md
+
+Applications that use this media type: Voice agents, LiveKit
+deployments, Grok Voice SDKs, future ElevenLabs/Hume
+integrations.
+
+Fragment identifier considerations: None.
+
+Additional information - File extension: .fafm
+
+Person & email address for further information: James Wolfe,
+team&faf.one
+
+Intended usage: COMMON
+
+Restrictions on usage: None
+
+Author: James Wolfe
+
+Change controller: FAF Foundation
