@@ -60,7 +60,7 @@
  </xs:restriction>
 </xs:simpleType>
 
-<!-- The policy actions specified by p, sp and np in the
+<!-- The policy actions specified by p, sp, and np in the
      DMARC Policy Record. -->
 <xs:simpleType name="DispositionType">
  <xs:restriction base="xs:string">
@@ -88,8 +88,8 @@
 
 <!-- The method used to discover the DMARC Policy Record used during
      evaluation.  The available values are "psl" and "treewalk",
-     where "psl" is the method from [@?RFC7489] and the "treewalk"
-     is described in [@I-D.ietf-dmarc-dmarcbis]. -->
+     where "psl" is the method from RFC 7489 and "treewalk" is
+     described in RFC 9989. -->
 <xs:simpleType name="DiscoveryType">
  <xs:restriction base="xs:string">
   <xs:enumeration value="psl"/>
@@ -120,19 +120,19 @@
   <!-- The SPF alignment mode. -->
   <xs:element name="aspf" type="AlignmentType"
         minOccurs="0" maxOccurs="1"/>
-  <!-- Method used to find/obtain DMARC policy -->
+  <!-- Method used to find/obtain DMARC policy. -->
   <xs:element name="discovery_method" type="DiscoveryType"
         minOccurs="0" maxOccurs="1"/>
   <!-- Failure reporting options in effect. -->
   <xs:element name="fo" type="xs:string"
         minOccurs="0" maxOccurs="1"/>
-  <!-- Whether testing mode was declared in the DMARC Record -->
+  <!-- Whether testing mode was declared in the DMARC Record. -->
   <xs:element name="testing" type="TestingType"
         minOccurs="0" maxOccurs="1"/>
  </xs:all>
 </xs:complexType>
 
-<!-- Values for Testing mode attached to policy -->
+<!-- Values for Testing mode attached to policy. -->
 <xs:simpleType name="TestingType">
  <xs:restriction base="xs:string">
   <xs:enumeration value="n"/>
@@ -173,7 +173,7 @@
 <!-- Taking into account everything else in the record,
      the results of applying DMARC. If alignment fails
      and the policy applied does not match the domain's
-     configured policy, the reason element MUST be specified -->
+     configured policy, the reason element MUST be specified. -->
 <xs:complexType name="PolicyEvaluatedType">
  <xs:sequence>
   <xs:element name="disposition" type="ActionDispositionType"
@@ -190,7 +190,7 @@
 <xs:complexType name="RowType">
  <xs:all>
   <!-- The connecting IP. IPv4address or IPv6address
-       as defined in RFC 3986 section 3.2.2 -->
+       as defined in RFC 3986, Section 3.2.2. -->
   <xs:element name="source_ip" type="xs:string"
         minOccurs="1" maxOccurs="1"/>
   <!-- The number of messages for which the
@@ -208,7 +208,7 @@
   <!-- The RFC5322.From domain. -->
   <xs:element name="header_from" type="xs:string"
         minOccurs="1" maxOccurs="1"/>
-  <!-- The RFC5321.MailFrom domain -->
+  <!-- The RFC5321.MailFrom domain. -->
   <xs:element name="envelope_from" type="xs:string"
         minOccurs="0" maxOccurs="1"/>
   <!-- The envelope recipient domain. -->
@@ -217,7 +217,7 @@
  </xs:all>
 </xs:complexType>
 
-<!-- DKIM verification result, see RFC 8601 Section 2.7.1. -->
+<!-- DKIM verification result; see RFC 8601, Section 2.7.1. -->
 <xs:simpleType name="DKIMResultType">
  <xs:restriction base="xs:string">
   <xs:enumeration value="none"/>
@@ -254,7 +254,7 @@
  </xs:restriction>
 </xs:simpleType>
 
-<!-- SPF verification result, see RFC 8601 Section 2.7.2. -->
+<!-- SPF verification result; see RFC 8601, Section 2.7.2. -->
 <xs:simpleType name="SPFResultType">
  <xs:restriction base="xs:string">
   <xs:enumeration value="none"/>
@@ -340,7 +340,7 @@
    <!-- Extension at top level -->
    <xs:element name="extension" type="ExtensionType"
          minOccurs="0" maxOccurs="1"/>
-   <!-- One record per (IP, result, IDs Auths) tuples -->
+   <!-- One record (IP, result, IDs Auths) per tuple -->
    <xs:element name="record" type="RecordType"
          minOccurs="1" maxOccurs="unbounded"/>
   </xs:sequence>
