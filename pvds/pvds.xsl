@@ -10,7 +10,7 @@
     <xsl:choose> 
       <xsl:when test="@id = 'additional-information-pvd-keys'">
         <tr>
-          <th>JSON key</th>
+          <th>JSON Key</th>
           <th>Description</th>
           <th>Type</th>
           <th>Example</th>
@@ -26,7 +26,35 @@
       </xsl:when>
       <xsl:when test="@id = 'pvd-split-dns-claims'">
         <tr>
-          <th>JSON key</th>
+          <th>JSON Key</th>
+          <th>Description</th>
+          <th>Type</th>
+          <th>Example</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'proxy-information-pvd-keys'">
+        <tr>
+          <th>JSON Key</th>
+          <th>Optional/Required</th>
+          <th>Description</th>
+          <th>Type</th>
+          <th>Example</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'proxy-protocol-pvd-values'">
+        <tr>
+          <th>Proxy Protocol</th>
+          <th>Proxy Location Format</th>
+          <th>Reference</th>
+          <th>Notes</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'proxy-destination-rule-pvd-keys'">
+        <tr>
+          <th>JSON Key</th>
+          <th>Optional/Required</th>
           <th>Description</th>
           <th>Type</th>
           <th>Example</th>
@@ -47,20 +75,48 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-  <xsl:when test="../@id = 'pvd-option-flags'">
+      <xsl:when test="../@id = 'pvd-option-flags'">
        <tr>
         <td align="center"><xsl:value-of select="iana:value"/></td>
         <td><xsl:value-of select="iana:name"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
        </tr>
       </xsl:when>
-  <xsl:when test="../@id = 'pvd-split-dns-claims'">
+      <xsl:when test="../@id = 'pvd-split-dns-claims'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:type"/></td>
           <td><xsl:apply-templates select="iana:example"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+       </xsl:when>
+       <xsl:when test="../@id = 'proxy-information-pvd-keys'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:req"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:type"/></td>
+          <td><xsl:apply-templates select="iana:example"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+       </xsl:when>
+       <xsl:when test="../@id = 'proxy-protocol-pvd-values'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:format"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+          <td><xsl:apply-templates select="iana:notes"/></td>
+        </tr>
+       </xsl:when>
+       <xsl:when test="../@id = 'proxy-destination-rule-pvd-keys'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:req"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:type"/></td>
+          <td><xsl:apply-templates select="iana:example"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
         </tr>
        </xsl:when>
     </xsl:choose>

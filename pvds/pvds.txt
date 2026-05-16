@@ -11,7 +11,7 @@
    2020-02-18
 
    Last Updated
-   2025-02-21
+   2026-05-15
 
    Available Formats
    [IMG]
@@ -24,6 +24,9 @@
      • Additional Information PvD Keys
      • PvD Option Flags
      • PvD Split DNS Claims
+     • Proxy Information PvD Keys
+     • Proxy Protocol PvD Values
+     • Proxy Destination Rule PvD Keys
 
 Additional Information PvD Keys
 
@@ -42,18 +45,34 @@ Additional Information PvD Keys
    [IMG]
    CSV
 
-      JSON key                 Description                    Type                                   Example                              Reference
-   identifier     PvD ID FQDN                           String           "pvd.example.com."                                               [RFC8801]
-   expires        Date after which this object is no    [RFC3339] Date   "2020-05-23T06:00:00Z"                                           [RFC8801]
-                  longer valid
-   prefixes       Array of IPv6 prefixes valid for this Array of strings ["2001:db8:1::/48", "2001:db8:4::/48"]                           [RFC8801]
-                  PvD
-   dnsZones       DNS zones searchable and accessible   Array of strings ["example.com", "sub.example.com"]                               [RFC8801]
-   noInternet     No Internet; set to "true" when the   Boolean          true                                                             [RFC8801]
-                  PvD is restricted.
-                                                                         [{ "resolver": "dns.example.net", "parent": "example.com",
-   splitDnsClaims Verifiable locally served domains     Array of Objects "subdomains": ["sub"], "algorithm": "SHA384", "salt":            [RFC9704]
-                                                                         "abc...123" }]
+      JSON Key      Description        Type                                 Example                                          Reference
+   identifier     PvD ID FQDN      String       "pvd.example.com."                                               [RFC8801]
+                  Date after which [RFC3339]
+   expires        this object is   Date         "2020-05-23T06:00:00Z"                                           [RFC8801]
+                  no longer valid
+                  Array of IPv6    Array of
+   prefixes       prefixes valid   strings      ["2001:db8:1::/48", "2001:db8:4::/48"]                           [RFC8801]
+                  for this PvD
+                  DNS zones        Array of
+   dnsZones       searchable and   strings      ["example.com", "sub.example.com"]                               [RFC8801]
+                  accessible
+                  No Internet; set
+   noInternet     to "true" when   Boolean      true                                                             [RFC8801]
+                  the PvD is
+                  restricted.
+                  Verifiable       Array of     [{ "resolver": "dns.example.net", "parent": "example.com",
+   splitDnsClaims locally served   Objects      "subdomains": ["sub"], "algorithm": "SHA384", "salt":            [RFC9704]
+                  domains                       "abc...123" }]
+                  Array of proxy
+   proxies        dictionaries     Array of     [ { "protocol": "connect-udp", "proxy":                          [RFC-ietf-intarea-proxy-config-13]
+                  associated with  dictionaries "https://proxy.example.org/masque{?target_host,target_port}" } ]
+                  this PvD
+                  Array of proxy
+                  match rules, as
+   proxy-match    dictionaries,    Array of     [ { "domains": [ "*.internal.example.org" ], "proxies": [        [RFC-ietf-intarea-proxy-config-13]
+                  associated with  dictionaries "default_proxy" ] } ]
+                  entries in the
+                  proxies array.
 
 PvD Option Flags
 
@@ -86,11 +105,112 @@ PvD Split DNS Claims
    [IMG]
    CSV
 
-    JSON key                 Description                       Type            Example      Reference
+    JSON Key                 Description                       Type            Example      Reference
    resolver   The Authentication Domain Name             String           "dns.example.net" [RFC9704]
    parent     The parent zone name                       String           "example.com"     [RFC9704]
    subdomains An array containing the claimed subdomains Array of Strings ["sub"]           [RFC9704]
    algorithm  The hash algorithm                         String           "SHA384"          [RFC9704]
    salt       The salt (base64url)                       String           "abc...123"       [RFC9704]
+
+Proxy Information PvD Keys
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-intarea-proxy-config-13]
+
+   Available Formats
+   [IMG]
+   CSV
+
+ JSON Key  Optional/Required    Description     Type                             Example                                        Reference
+                             The protocol used
+protocol   required          to communicate    String  "connect-udp"                                                [RFC-ietf-intarea-proxy-config-13]
+                             with the proxy
+                             String containing
+                             the URI template
+                             or host and port
+proxy      required          of the proxy,     String  "https://example.org:4443/masque/{?target_host,target_port}" [RFC-ietf-intarea-proxy-config-13]
+                             depending on the
+                             format defined by
+                             the protocol
+                             An array of
+                             optional keys     Array
+mandatory  optional          that client must  of      ["example_key"]                                              [RFC-ietf-intarea-proxy-config-13]
+                             understand and    Strings
+                             process to use
+                             this proxy
+                             An array of
+                             Application-Layer Array
+alpn       optional          Protocol          of      ["h3","h2"]                                                  [RFC-ietf-intarea-proxy-config-13]
+                             Negotiation       Strings
+                             protocol
+                             identifiers
+                             A string used to
+                             refer to the
+                             proxy, which can
+identifier optional          be referenced by  String  "udp-proxy"                                                  [RFC-ietf-intarea-proxy-config-13]
+                             other
+                             dictionaries,
+                             such as entries
+                             in proxy-match
+
+Proxy Protocol PvD Values
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-intarea-proxy-config-13]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Proxy Protocol Proxy Location Format           Reference                                        Notes
+   socks5         host:port             [RFC1928]
+   http-connect   host:port             [RFC9110, Section 9.3.6]       Standard CONNECT method, using unencrypted HTTP to the proxy
+   https-connect  host:port             [RFC9110, Section 9.3.6]       Standard CONNECT method, using TLS-protected HTTP to the proxy
+   connect-udp    URI template          [RFC9298]
+   connect-ip     URI template          [RFC9484]
+   connect-tcp    URI template          [draft-httpbis-connect-tcp-11]
+
+Proxy Destination Rule PvD Keys
+
+   Registration Procedure(s)
+
+ Expert Review
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-intarea-proxy-config-13]
+
+   Available Formats
+   [IMG]
+   CSV
+
+   JSON Key Optional/Required                Description                  Type               Example                         Reference
+   proxies  No                An array of strings that match identifier Array of ["tcp-proxy", "udp-proxy"]      [RFC-ietf-intarea-proxy-config-13]
+                              values from the top-level proxies array   Strings
+   domains  Yes               An array of FQDNs and wildcard DNS        Array of ["www.example.com",             [RFC-ietf-intarea-proxy-config-13]
+                              domains                                   Strings  "*.internal.example.com"]
+   subnets  Yes               An array of IPv4 and IPv6 addresses and   Array of ["2001:db8::1", "192.0.2.0/24"] [RFC-ietf-intarea-proxy-config-13]
+                              subnets                                   Strings
+   ports    Yes               An array of TCP and UDP port ranges       Array of ["80", "443", "1024-65535"]     [RFC-ietf-intarea-proxy-config-13]
+                                                                        Strings
 
    Licensing Terms

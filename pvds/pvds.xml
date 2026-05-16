@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="pvds">
   <title>Provisioning Domains (PvDs)</title>
   <created>2020-02-18</created>
-  <updated>2025-02-21</updated>
+  <updated>2026-05-15</updated>
   
   <registry id="additional-information-pvd-keys">
     <title>Additional Information PvD Keys</title>
@@ -59,6 +59,30 @@
       }]</example>
       <xref type="rfc" data="rfc9704"/>
     </record>
+    <record date="2026-05-15">
+      <value>proxies</value>
+      <description>Array of proxy dictionaries associated with this PvD</description>
+      <type>Array of dictionaries</type>
+      <example>[
+          {
+            "protocol": "connect-udp",
+            "proxy": "https://proxy.example.org/masque{?target_host,target_port}"
+          }
+        ]</example>
+      <xref type="draft" data="RFC-ietf-intarea-proxy-config-13"/>
+    </record>
+    <record date="2026-05-15">
+      <value>proxy-match</value>
+      <description>Array of proxy match rules, as dictionaries, associated with entries in the proxies array.</description>
+      <type>Array of dictionaries</type>
+      <example>[
+          {
+            "domains": [ "*.internal.example.org" ],
+            "proxies": [ "default_proxy" ]
+          }
+        ]</example>
+      <xref type="draft" data="RFC-ietf-intarea-proxy-config-13"/>
+    </record>
     </registry>
 
     <registry id="pvd-option-flags">
@@ -110,6 +134,136 @@
         <xref type="rfc" data="rfc9704"/>
       </record>
     </registry>
+
+    <registry id="proxy-information-pvd-keys">
+      <title>Proxy Information PvD Keys</title>
+      <xref type="draft" data="RFC-ietf-intarea-proxy-config-13"/>
+      <registration_rule>Expert Review</registration_rule>
+      <expert>Unassigned</expert>
+      <record date="2026-05-15">
+        <value>protocol</value>
+        <req>required</req>
+        <description>The protocol used to communicate with the proxy</description>
+        <type>String</type>
+        <example>"connect-udp"</example>
+        <reference><xref type="draft" data="RFC-ietf-intarea-proxy-config-13"/></reference>
+      </record>
+      <record date="2026-05-15">
+        <value>proxy</value>
+        <req>required</req>
+        <description>String containing the URI template or host and port of the proxy, depending on the format defined by the protocol</description>
+        <type>String</type>
+        <example>"https://example.org:4443/masque/{?target_host,target_port}"</example>
+        <reference><xref type="draft" data="RFC-ietf-intarea-proxy-config-13"/></reference>
+      </record>
+      <record date="2026-05-15">
+        <value>mandatory</value>
+        <req>optional</req>
+        <description>An array of optional keys that client must understand and process to use this proxy</description>
+        <type>Array of Strings</type>
+        <example>["example_key"]</example>
+        <reference><xref type="draft" data="RFC-ietf-intarea-proxy-config-13"/></reference>
+      </record>
+      <record date="2026-05-15">
+        <value>alpn</value>
+        <req>optional</req>
+        <description>An array of Application-Layer Protocol Negotiation protocol identifiers</description>
+        <type>Array of Strings</type>
+        <example>["h3","h2"]</example>
+        <reference><xref type="draft" data="RFC-ietf-intarea-proxy-config-13"/></reference>
+      </record>
+      <record date="2026-05-15">
+        <value>identifier</value>
+        <req>optional</req>
+        <description>A string used to refer to the proxy, which can be referenced by other dictionaries, such as entries in proxy-match</description>
+        <type>String</type>
+        <example>"udp-proxy"</example>
+        <reference><xref type="draft" data="RFC-ietf-intarea-proxy-config-13"/></reference>
+      </record>
+    </registry>
+
+    <registry id="proxy-protocol-pvd-values">
+      <title>Proxy Protocol PvD Values</title>
+      <xref type="draft" data="RFC-ietf-intarea-proxy-config-13"/>
+      <registration_rule>Expert Review</registration_rule>
+      <expert>Unassigned</expert>
+      <record date="2026-05-15">
+        <value>socks5</value>
+        <format>host:port</format>
+        <reference><xref type="rfc" data="rfc1928"/></reference>
+        <notes/>
+      </record>
+      <record date="2026-05-15">
+        <value>http-connect</value>
+        <format>host:port</format>
+        <reference><xref type="rfc" data="rfc9110" section="9.3.6"/></reference>
+        <notes>Standard CONNECT method, using unencrypted HTTP to the proxy</notes>
+      </record>
+      <record date="2026-05-15">
+        <value>https-connect</value>
+        <format>host:port</format>
+        <reference><xref type="rfc" data="rfc9110" section="9.3.6"/></reference>
+        <notes>Standard CONNECT method, using TLS-protected HTTP to the proxy</notes>
+      </record>
+      <record date="2026-05-15">
+        <value>connect-udp</value>
+        <format>URI template</format>
+        <reference><xref type="rfc" data="rfc9298"/></reference>
+        <notes/>
+      </record>
+      <record date="2026-05-15">
+        <value>connect-ip</value>
+        <format>URI template</format>
+        <reference><xref type="rfc" data="rfc9484"/></reference>
+        <notes/>
+      </record>
+      <record date="2026-05-15">
+        <value>connect-tcp</value>
+        <format>URI template</format>
+        <reference><xref type="draft" data="draft-httpbis-connect-tcp-11"/></reference>
+        <notes/>
+      </record>
+    </registry>
+
+    <registry id="proxy-destination-rule-pvd-keys">
+      <title>Proxy Destination Rule PvD Keys</title>
+      <xref type="draft" data="RFC-ietf-intarea-proxy-config-13"/>
+      <registration_rule>Expert Review</registration_rule>
+      <expert>Unassigned</expert>
+      <record date="2026-05-15">
+        <value>proxies</value>
+        <req>No</req>
+        <description>An array of strings that match identifier values from the top-level proxies array</description>
+        <type>Array of Strings</type>
+        <example>["tcp-proxy", "udp-proxy"]</example>
+        <reference><xref type="draft" data="RFC-ietf-intarea-proxy-config-13"/></reference>
+      </record>
+      <record date="2026-05-15">
+        <value>domains</value>
+        <req>Yes</req>
+        <description>An array of FQDNs and wildcard DNS domains</description>
+        <type>Array of Strings</type>
+        <example>["www.example.com", "*.internal.example.com"]</example>
+        <reference><xref type="draft" data="RFC-ietf-intarea-proxy-config-13"/></reference>
+      </record>
+      <record date="2026-05-15">
+        <value>subnets</value>
+        <req>Yes</req>
+        <description>An array of IPv4 and IPv6 addresses and subnets</description>
+        <type>Array of Strings</type>
+        <example>["2001:db8::1", "192.0.2.0/24"]</example>
+        <reference><xref type="draft" data="RFC-ietf-intarea-proxy-config-13"/></reference>
+      </record>
+      <record date="2026-05-15">
+        <value>ports</value>
+        <req>Yes</req>
+        <description>An array of TCP and UDP port ranges</description>
+        <type>Array of Strings</type>
+        <example>["80", "443", "1024-65535"]</example>
+        <reference><xref type="draft" data="RFC-ietf-intarea-proxy-config-13"/></reference>
+      </record>
+    </registry>
+
 
   <people>
   </people>
