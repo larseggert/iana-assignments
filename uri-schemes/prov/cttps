@@ -1,46 +1,59 @@
-(registered 2026-05-11, last updated 2026-05-11)
+(registered 2026-05-11, last updated 2026-05-20)
 
 Scheme name: cttps
 
 Status: Provisional
 
-Applications/protocols that use this scheme: CTTPS (Crypto Transfer Protocol Secure). This protocol facilitates encrypted data transmission using an ephemeral X25519/AES-GCM handshake layer.
+Syntax:
+   The syntax of the 'cttps' URI scheme is identical to the 'https' URI
+   scheme syntax as defined in RFC 9110, Section 4.2.2.
+   
+   cttps-URI = "cttps:" "//" authority path-abempty [ "?" query ] [ "#" fragment ]
 
-Contact: Saso Ahmed (NotDreamPVP&gmail.com)
+Applicable scheme semantics:
+   The 'cttps' URI scheme denotes a secure variant of the Hypertext Transfer
+   Protocol (HTTP) where the underlying transport mechanism mandates a zero-trust,
+   ephemeral cryptographic handshake with strict transcript binding. The semantics
+   of HTTP requests and responses remain identical to HTTP over TLS.
 
+Encoding considerations:
+   Identical to the encoding considerations for the 'https' URI scheme
+   specified in RFC 9110.
 
-Change controller: Saso Ahmed (NotDreamPVP&gmail.com)
+Security considerations:
+   Implementations of the 'cttps' scheme must adhere to a baseline zero-trust
+   security architecture designed to mitigate Man-in-the-Middle (MITM) and
+   handshake modification attacks.
+   
+   1. Handshake Transcript Hashing: Both the Client and Server must maintain
+      a running transcript of the entire initial exchange and compute a
+      SHA-256 hash over the concatenation of the Client’s ephemeral public
+      key (pk_C) and the Server’s ephemeral public key (pk_S).
+     
+   2. HKDF-SHA256 Key Derivation: Implementations must not use raw shared
+      secrets for session encryption. The raw X25519 shared secret (ss)
+      generated via Elliptic Curve Diffie-Hellman must be passed as the Input
+      Keying Material (IKM) into HKDF-SHA256. The calculated Handshake
+      Transcript Hash must be supplied as the 'info' parameter during the
+      HKDF expansion phase to cryptographically bind the resulting symmetric
+      session keys to the unmodified handshake.
+     
+   3. MITM & Tamper Detection: Symmetric session encryption must utilize
+      Authenticated Encryption with Associated Data (AEAD). Any alteration
+      of the handshake transcript or public keys will result in divergent
+      session keys, causing the first AEAD-encrypted frame to fail its
+      integrity check. Any such integrity failure must result in immediate
+      connection termination to prevent information leakage.
 
-References: Technical Specification (Included below).
+Proxying considerations:
+   Identical to 'https' proxying routing and encapsulation.
 
-Security considerations: CTTPS is designed with a "Secure-Only" architecture. It requires a mandatory cryptographic handshake before any application data is exchanged. It utilizes authenticated encryption (AEAD) to ensure data integrity and Perfect Forward Secrecy (PFS) to ensure that session keys are never reused or compromised long-term.
+Contact:
+  Saso Ahmed
+  NotDreamPVP&gmail.com
 
-Technical Specification: CTTPS Protocol
+Change controller:
+   Saso Ahmed
 
-**1. Overview**
-The Ciphered Text Transfer Protocol over SSL/Stream (CTTPS) is a high-performance secure transport protocol. It is designed to establish an encrypted tunnel over a standard TCP connection using an ephemeral Elliptic Curve Diffie-Hellman (ECDH) handshake and subsequent symmetric authenticated encryption.
-
-**2. Cryptographic Primitive: Key Exchange**
-To ensure Forward Secrecy, CTTPS utilizes the **X25519** curve (RFC 7748).
-*   **Handshake Process:**
-    *   **Client Hello:** The client transmits a 32-byte X25519 ephemeral public key.
-    *   **Server Response:** The server responds with its own 32-byte X25519 ephemeral public key.
-*   **Secret Derivation:** Both endpoints compute the shared 256-bit secret locally. This secret is never transmitted over the wire.
-
-**3. Data Encryption & Integrity (AES-GCM)**
-Once the handshake is complete, all further communication is encrypted using **AES-256-GCM**. This provides both confidentiality and built-in tamper detection.
-*   **Nonce (Initialization Vector):** 12 bytes. Each packet must use a unique nonce to prevent replay attacks and ensure cryptographic security.
-*   **Authentication Tag:** 16 bytes. This tag is calculated over the ciphertext and nonce to verify that the data has not been modified in transit.
-
-**4. Packet Structure**
-A standard CTTPS packet is composed of the following contiguous segments:
-1. **Nonce:** 12 bytes
-2. **Encrypted Payload:** Variable length
-3. **Authentication Tag:** 16 bytes
-
-**5. URI Syntax**
-The `cttps` scheme follows the generic URI syntax defined in RFC 3986:
-`cttps://<host>[:<port>]/<path>`
-
-**6. Reference Implementation Details**
-The reference implementation is written in Rust, leveraging the `ring` library for low-level cryptographic operations and `tokio` for asynchronous networking. The handshake is handled via `agreement::EphemeralPrivateKey`, and data protection is managed through the `ring::aead` (Authenticated Encryption with Associated Data) module.
+References:
+   N/A
