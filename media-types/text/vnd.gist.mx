@@ -1,0 +1,115 @@
+(registered 2026-06-01, last updated 2026-06-01)
+
+Media type name: text
+
+Media subtype name: vnd.gist.mx
+
+Required parameters: N/A
+
+Optional parameters: charset: Specifies the character encoding of the content. If omitted, UTF-8 is assumed, consistent with modern markdown processing. The charset parameter follows the same conventions defined in RFC 6657 for textual media types.
+
+version: Indicates the version of the MX format specification that the file conforms to. The value is a dotted decimal version number (e.g., "1.0"). If omitted, version "1.0" is assumed.
+
+Encoding considerations: 8bit
+
+MX files are UTF-8 encoded plain text consisting of YAML frontmatter delimited by "---" lines, followed by a standard markdown document body. The format does not contain NUL octets, binary data, or lines exceeding 998 octets under normal usage. Content is line-oriented text separated by CRLF or LF line endings.
+
+In rare cases where the embedded markdown body contains very long lines (e.g., base64-encoded inline images in markdown or extremely long URLs), lines may exceed 998 octets. Implementations generating such content should use Content-Transfer-Encoding of "binary" or "quoted-printable" when transmitting via protocols that impose line length limits (e.g., SMTP).
+
+Security considerations: 
+
+1. Active/executable content: MX files do not contain active or executable content. The format consists entirely of UTF-8 text: YAML frontmatter metadata fields followed by a markdown document body. No scripting, macros, or executable instructions are defined by the format. However, the markdown body may contain raw HTML if the source markdown includes it. Consumers that render embedded HTML should apply the same sanitization practices used for standard markdown rendering (e.g., stripping <script> tags, disallowing event handlers).
+
+2. Privacy and integrity: MX files may contain AI-generated comprehension layers (summaries, voice scripts, explanatory text) derived from the source markdown. These layers could inadvertently disclose sensitive information from the source document in a more accessible form. The format itself includes a source_hash field (SHA-256) that allows consumers to verify whether the comprehension layers correspond to a specific source document, providing a basic integrity check. The format does not provide encryption or digital signature mechanisms.
+
+3. External privacy/integrity services: For documents requiring
+confidentiality or tamper detection, standard transport-layer security (TLS) should be used for transmission, and external signing mechanisms (e.g., PGP, S/MIME) can be applied to the file as with any text document.
+
+4. Underlying format considerations: MX files use YAML (in the frontmatter) and markdown (in the body), both of which are well-established text formats. YAML parsing carries known security considerations: consumers MUST use safe YAML loading (e.g., YAML.safeLoad or equivalent) to prevent code execution through YAML deserialization attacks. The frontmatter section is constrained to simple scalar values, sequences, and mappings; no YAML tags, anchors, or aliases are used in the format specification.
+
+5. The format may reference an external audio file via the voice_brief.audio_hash field. This is a content hash, not a URL; it does not create an automatic external reference. Consumers that resolve audio files should verify the hash matches the retrieved content.
+
+6. The guidance section (in version 2.0 of the format) may contain author-attributed metadata including the author's name and editorial guidance. This constitutes personal data and should be handled in accordance with applicable data protection regulations.
+
+Interoperability considerations: MX files are designed for maximum backward compatibility with existing markdown tooling. An MX file is structurally identical to a markdown file with YAML frontmatter, a pattern widely supported by static site generators (Jekyll, Hugo, Gatsby), documentation tools (MkDocs, Docusaurus), and text editors (VS Code, Obsidian, Typora).
+
+Any application that processes standard markdown with YAML frontmatter can open and render an MX file, displaying the frontmatter as metadata and the body as rendered markdown. MX-unaware applications will simply ignore the comprehension layer fields in the frontmatter.
+
+MX-aware applications additionally parse the frontmatter to extract and display the structured comprehension layers (oneliner, gist, voice_brief, eli5) and may resolve the associated audio content.
+
+The YAML frontmatter conforms to the YAML 1.2 specification and uses only the JSON-compatible subset (scalars, sequences, mappings). The markdown body follows the CommonMark specification with GitHub Flavored Markdown (GFM) extensions.
+
+Line endings may be either CRLF or LF. Consumers should accept both.
+
+Published specification: The MX format specification is published and maintained at:
+
+https://www.gist.mx/#spec
+
+The specification defines:
+- The YAML frontmatter schema (required and optional fields)
+- The five comprehension layers and their constraints
+- The source hash verification mechanism
+- The multi-file project MX variant
+- JSON Schema for frontmatter validation
+
+The specification source is additionally available in the project's
+public GitHub repository:
+
+https://github.com/gistmx/spec
+
+Applications which use this media: The MX format is used by the gist.mx platform and associated tools for creating, distributing, and consuming AI-enriched markdown documents.
+
+Applications that produce MX files:
+
+- gist.mx web application (https://gist.mx)
+- @gistmx/cli command-line tool (published on npm)
+- gistmx/convert-action GitHub Action
+- gist.mx REST API
+
+Applications that consume MX files:
+
+- gist.mx web viewer (renders all comprehension layers with audio playback)
+- gist.mx mobile applications (iOS and Android)
+- Any standard markdown editor or viewer (backward-compatible rendering)
+- Any YAML-aware text editor (frontmatter is valid YAML)
+
+The format is also designed for use in CI/CD pipelines where MX files are auto-generated alongside source markdown files in version-controlled repositories.
+
+Fragment identifier considerations: Fragment identifiers for MX files follow the same conventions as for text/markdown (RFC 7763). Fragment identifiers reference sections of the rendered markdown body using heading-derived anchors (e.g., #section-name).
+
+Additionally, MX-aware consumers may recognize the following fragment identifiers for navigating to specific comprehension layers:
+
+#mx-oneliner - Navigate to the one-liner layer
+#mx-gist - Navigate to the core gist layer
+#mx-voice - Navigate to the voice brief layer
+#mx-eli5 - Navigate to the ELI5 layer
+#mx-full - Navigate to the full document body
+
+These layer fragment identifiers are advisory. MX-unaware consumers will ignore them, consistent with standard fragment identifier handling for unknown fragments.
+
+Restrictions on usage: N/A. The MX format may be used in any context where text/markdown is appropriate. No restrictions on protocol or application context.
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): The byte sequence 0x2D 0x2D 0x2D 0x0A (ASCII: "---\n") at position 0 followed by the string "mx_version:" within the first 256 bytes. The leading "---" is the YAML frontmatter delimiter, and the presence of "mx_version" within the frontmatter distinguishes MX files from standard markdown with YAML frontmatter.
+3. File extension(s): .mx
+4. Macintosh file type code: TEXT
+5. Object Identifiers: N/A
+
+General Comments: The MX (Markdown Experience) format extends standard markdown with structured AI-generated comprehension layers embedded in YAML frontmatter. It is designed to make markdown documents more accessible by providing multiple levels of understanding: a single-sentence summary, a short gist, a conversational voice-ready script, and a simplified explanation.
+
+The format prioritizes backward compatibility: any tool that reads markdown with YAML frontmatter can process MX files without modification. The additional comprehension layers are purely additive metadata.
+
+The MX format specification is versioned (starting at 1.0) and includes provisions for future extensions including guided authoring metadata and edit history tracking.
+
+The ".mx" file extension does not conflict with any currently registered IANA media type file extension.
+
+Person to contact for further information:
+
+1. Name: Sachin Nagda
+2. Email: sachin.nagda&gmail.com
+
+Intended usage: COMMON
+
+Author/Change controller: Sachin Nagda, gist.mx
