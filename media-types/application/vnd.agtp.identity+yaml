@@ -1,0 +1,97 @@
+(registered 2026-06-03, last updated 2026-06-03)
+
+Type name: application
+
+Subtype name: vnd.agtp.identity+yaml
+
+Required parameters: N/A
+
+Optional parameters:
+
+charset: must be UTF-8 if present.
+
+version: identifies the Agent Identity Document schema version.
+The current version is "1.0". If absent, the receiver SHOULD
+assume the latest version it understands and verify against the
+agtp_version field in the document body.
+
+Encoding considerations:
+
+The content is YAML 1.2 encoded as UTF-8 per the YAML 1.2
+specification (yaml.org/spec/1.2.2). The "+yaml" structured
+syntax suffix per RFC 9512 indicates that the content can be
+processed by generic YAML tooling without AGTP-specific support.
+
+Security considerations:
+
+Agent Identity Documents are public identity records; they are
+intended to be served and consumed without confidentiality
+requirements.
+
+YAML deserializers MUST be configured to disable language-native
+type instantiation (e.g., Python's yaml.safe_load rather than
+yaml.load). The Agent Identity Document schema is purely scalar
+and collection types — strings, numbers, booleans, lists, and
+maps; no custom tags or language-native objects are used or
+permitted.
+
+All other security considerations from
+"application/vnd.agtp.identity+json" apply: claim integrity,
+agent_id matching, issuer validation, no executable content.
+
+Interoperability considerations:
+
+This media type is a presentation alternative to
+"application/vnd.agtp.identity+json". The two carry the same
+information modeled in the same eleven-field schema. AGTP servers
+MAY support both formats and select via content negotiation;
+clients SHOULD accept "application/vnd.agtp.identity+json" as the
+baseline interoperable format.
+
+The YAML form exists for human readability — agent authors who
+hand-edit Agent Identity Documents typically prefer YAML;
+automated consumers typically prefer JSON.
+
+Published specification:
+
+Hood, C., "Agent Transfer Protocol (AGTP)",
+Work in Progress, Internet-Draft,
+draft-hood-independent-agtp-07, May 2026.
+<https://datatracker.ietf.org/doc/draft-hood-independent-agtp/>
+
+Applications that use this media type:
+
+The Agent Transfer Protocol (AGTP). The reference AGTP server
+serves Agent Identity Documents in this format on request via
+Accept header content negotiation. The "elemen" desktop browser
+displays Agent Identity Documents in this format in its YAML
+view.
+
+Fragment identifier considerations:
+
+AGTP does not define fragment identifier semantics for this type
+beyond those defined in the YAML 1.2 specification.
+
+Restrictions on usage: none
+
+Additional information:
+
+Deprecated alias names for this type: none
+Magic number(s): none
+File extension(s): .agent.yaml, .agent.yml
+Macintosh file type code(s): none
+Object Identifier(s) or OID(s): none
+
+Person & email address to contact for further information:
+
+Chris Hood (chris&nomotic.ai)
+
+Intended usage: COMMON
+
+Author:
+
+Chris Hood (chris&nomotic.ai)
+
+Change controller:
+
+Chris Hood / Nomotic, Inc. (chris&nomotic.ai)

@@ -1,0 +1,106 @@
+(registered 2026-06-03, last updated 2026-06-03)
+
+Type name: application
+
+Subtype name: vnd.agtp.identity+json
+
+Required parameters: N/A
+
+Optional parameters:
+
+charset: per Section 4.2.5 of RFC 6839 (must be UTF-8 if present).
+
+version: identifies the Agent Identity Document schema version.
+The current version is "1.0". If absent, the receiver SHOULD
+assume the latest version it understands and verify against the
+agtp_version field in the document body.
+
+Encoding considerations:
+
+The content is JSON encoded as UTF-8 per RFC 8259. Binary content
+is not used. The "+json" structured syntax suffix indicates that
+the content can be processed by generic JSON tooling without
+AGTP-specific support.
+
+Security considerations:
+
+Agent Identity Documents are public identity records; they are
+intended to be served and consumed without confidentiality
+requirements. All security considerations applicable to JSON
+content per RFC 8259 §12 apply.
+
+The Agent Identity Document carries claims about an agent's
+identity, principal, and capabilities. In future versions of the
+AGTP specification, these claims will be cryptographically signed;
+the v1 schema is unsigned and SHOULD NOT be relied upon for trust
+decisions in adversarial environments.
+
+Receivers SHOULD validate that the agent_id field in the body
+matches the agent-id used to retrieve the document. A mismatch
+indicates either a misconfigured server or active attack.
+
+Receivers SHOULD validate the issuer field against expected
+registration authorities for the deployment context.
+
+Agent Identity Documents do not contain executable content. JSON
+parsers with standard hardening (depth limits, size limits, no
+prototype pollution) are appropriate.
+
+Interoperability considerations:
+
+This media type is the canonical wire format for AGTP Agent
+Identity Documents. A reference implementation is publicly
+available at <https://github.com/nomoticai/agtp> with a live
+deployment serving Agent Identity Documents in this format at
+agents.agtp.io.
+
+Generic JSON tooling can process the content; AGTP-specific
+processing additionally validates the eleven-field schema defined
+in the AGTP specification.
+
+Published specification:
+
+Hood, C., "Agent Transfer Protocol (AGTP)",
+Work in Progress, Internet-Draft,
+draft-hood-independent-agtp-07, May 2026.
+<https://datatracker.ietf.org/doc/draft-hood-independent-agtp/>
+
+The Agent Identity Document schema is defined in Section 5 of the
+Internet-Draft.
+
+Applications that use this media type:
+
+The Agent Transfer Protocol (AGTP). The reference AGTP server
+serves Agent Identity Documents in this format in response to
+DESCRIBE method requests. The reference AGTP client and the
+"elemen" desktop browser consume documents in this format.
+
+Fragment identifier considerations:
+
+Standard JSON Pointer (RFC 6901) fragment identifiers are
+applicable. AGTP does not define additional fragment semantics.
+
+Restrictions on usage: none
+
+Additional information:
+
+Deprecated alias names for this type: none
+Magic number(s): none (JSON has no magic number)
+File extension(s): .agent.json
+Macintosh file type code(s): none
+Object Identifier(s) or OID(s): none
+
+Person & email address to contact for further information:
+
+Chris Hood (chris&nomotic.ai)
+
+Intended usage: COMMON
+
+Author:
+
+Chris Hood (chris&nomotic.ai)
+
+Change controller:
+
+Chris Hood / Nomotic, Inc. (chris&nomotic.ai)
+
