@@ -154,6 +154,15 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+
+      <xsl:when test="@id = 'next-hop-dependent-characteristic-codes'">
+        <tr>
+          <th>Value</th>
+          <th>Description</th>
+          <th>Reference</th>
+          <th>Change Controller</th>
+        </tr>
+      </xsl:when>
 	  
       <xsl:otherwise>
         <tr><th>Value</th><th>Name</th><th>Reference</th></tr>
@@ -300,6 +309,14 @@
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'next-hop-dependent-characteristic-codes'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
         </tr>
       </xsl:when>
 
