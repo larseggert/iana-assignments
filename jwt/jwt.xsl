@@ -9,16 +9,28 @@
   <xsl:template name="iana:record_header">
     <xsl:choose> 
       <xsl:when test="@id = 'claims'">
-        <tr><th>Claim Name</th>
+        <tr>
+          <th>Claim Name</th>
           <th>Claim Description</th>
           <th>Change Controller</th>
-          <th>Reference</th></tr>
+          <th>Reference</th>
+        </tr>
       </xsl:when>
       <xsl:when test="@id = 'confirmation-methods'">
-        <tr><th>Confirmation Method Value</th>
+        <tr>
+          <th>Confirmation Method Value</th>
           <th>Confirmation Method Description</th>
           <th>Change Controller</th>
-          <th>Reference</th></tr>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'status-mechanisms'">
+        <tr>
+          <th>Status Mechanism Value</th>
+          <th>Status Mechanism Method Description</th>
+          <th>Change Controller</th>
+          <th>Reference</th>
+        </tr>
       </xsl:when>
     </xsl:choose>
   </xsl:template>
@@ -33,12 +45,20 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
+       <xsl:when test="../@id = 'confirmation-methods'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:controller"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:controller"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
         </tr>
       </xsl:otherwise>
     </xsl:choose>

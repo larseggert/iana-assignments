@@ -11,7 +11,7 @@
    2018-03-22
 
    Last Updated
-   2026-01-15
+   2026-06-12
 
    Available Formats
    [IMG]
@@ -23,6 +23,7 @@
 
      • CBOR Web Token (CWT) Claims
      • CWT Confirmation Methods
+     • CWT Status Mechanisms
 
 CBOR Web Token (CWT) Claims
 
@@ -36,7 +37,7 @@ CBOR Web Token (CWT) Claims
    Note
 
  Registration requests should be sent to the [mailing list] described in
- [RFC8392]. If approved, designated experts should notify IANA within
+ [RFC8392]. If they approve, designated experts should notify IANA within
  three weeks. For assistance, please contact iana@iana.org. IANA does not
  monitor the list.
 
@@ -54,219 +55,232 @@ CBOR Web Token (CWT) Claims
    Strings of length 2                Specification Required
    Strings of length greater than 2   Expert Review
 
-             Claim Name               Claim Description   JWT Claim Name Claim   Claim Value       Change Controller               Reference
-                                                                          Key        Type
-                                                                         less
- Reserved for Private Use                                                than                                             [RFC8392]
-                                                                         -65536
-                                                                         -65536
- Unassigned                                                              to
-                                                                         -262
-                                    This claim holds an
-                                    array of CBOR maps in
-                                    which each array
-                                    entry holds a map
-                                    containing claims                                                                     [GlobalPlatform Entity
- globalplatform_component           about a               N/A            -261   map            [GlobalPlatform_Inc.]      Attestation Protocol
-                                    GlobalPlatform                                                                        Specification, GPP_SPE_001,
-                                    component that is                                                                     Section 6.5.]
-                                    within the boundary
-                                    of the enclosing
-                                    Entity Attestation
-                                    Token.
- hcert                              Health Certificate    hcert          -260   map            [European_eHealth_Network] [Electronic Health
-                                                                                                                          Certificate Specification]
- EUPHNonce                          Challenge Nonce       EUPHNonce      -259   bstr           [FIDO_Alliance]            [FIDO Device Onboard
-                                                                                                                          Specification]
-                                    Signing prefix for
- EATMAROEPrefix                     multi-app restricted  EATMAROEPrefix -258   bstr           [FIDO_Alliance]            [FIDO Device Onboard
-                                    operating                                                                             Specification]
-                                    environments
-                                    EAT-FDO may contain                                                                   [FIDO Device Onboard
- EAT-FDO                            related to FIDO       EAT-FDO        -257   array          [FIDO_Alliance]            Specification]
-                                    Device Onboarding
- Unassigned                                                              -256
-                                                                         to -1
-                                    This registration
- Reserved                           reserves the key                     0                     [IESG]                     [RFC8392]
-                                    value 0
- iss                                Issuer                iss            1      text string    [IESG]                     [RFC8392]
- sub                                Subject               sub            2      text string    [IESG]                     [RFC8392]
- aud                                Audience              aud            3      text string    [IESG]                     [RFC8392]
-                                                                                integer or
- exp                                Expiration Time       exp            4      floating-point [IESG]                     [RFC8392]
-                                                                                number
-                                                                                integer or
- nbf                                Not Before            nbf            5      floating-point [IESG]                     [RFC8392]
-                                                                                number
-                                                                                integer or
- iat                                Issued At             iat            6      floating-point [IESG]                     [RFC8392]
-                                                                                number
- cti                                CWT ID                jti            7      byte string    [IESG]                     [RFC8392]
- cnf                                Confirmation          cnf            8      map            [IESG]                     [RFC8747]
-                                    The scope of an                             byte string or
- scope                              access token, as      scope          9      text string    [IESG]                     [RFC8693, Section 4.2]
-                                    defined in [RFC6749].
- Nonce                              Nonce                 eat_nonce      10     bstr or array  [IETF]                     [RFC9711]
- vct (TEMPORARY - registered        Verifiable credential vct            11     bstr           [IETF]                     [draft-ietf-spice-sd-cwt-06,
- 2025-12-02, expires 2026-12-02)    type                                                                                  Section 13]
- Unassigned                                                              12 to
-                                                                         37
-                                    The ACE profile a
- ace_profile                        token is supposed to  ace_profile    38     integer        [IETF]                     [RFC9200, Section 5.10]
-                                    be used with.
-                                    The client-nonce sent
- cnonce                             to the AS by the RS   cnonce         39     byte string    [IETF]                     [RFC9200, Section 5.10]
-                                    via the client.
-                                    The expiration time
-                                    of a token measured                         unsigned
- exi                                from when it was      exi            40     integer        [IETF]                     [RFC9200, Section 5.10.3]
-                                    received at the RS in
-                                    seconds.
- Unassigned                                                              41 to
-                                                                         168
-                                    Registering the claim
-                                    for storing identity
-                                    data of a person,
-                                    which could be                                                                        [CBOR Identity Data in QR
- identity-data                      personally            identity-data  169    map            [MOSIP]                    Code, Section 3][CBOR
-                                    identifiable data                                                                     Identity Data in QR Code,
-                                    (PII) mostly used in                                                                  Section 4]
-                                    Foundational/National
-                                    ID for cross-border
-                                    interoperability.
- Unassigned                                                              170 to
-                                                                         255
- UEID                               Universal Entity ID   ueid           256    bstr           [IETF]                     [RFC9711]
- SUEIDs                             Semipermanent UEIDs   sueids         257    map            [IETF]                     [RFC9711]
- Hardware OEM ID                    Hardware OEM ID       oemid          258    bstr or int    [IETF]                     [RFC9711]
- Hardware Model                     Model identifier for  hwmodel        259    bstr           [IETF]                     [RFC9711]
-                                    hardware
- Hardware Version                   Hardware Version      hwversion      260    array          [IETF]                     [RFC9711]
-                                    Identifier
- Uptime                             Uptime                uptime         261    uint           [IETF]                     [RFC9711]
-                                    Indicates whether the
- OEM Authorized Boot                software booted was   oemboot        262    bool           [IETF]                     [RFC9711]
-                                    OEM authorized
- Debug Status                       The status of debug   dbgstat        263    uint           [IETF]                     [RFC9711]
-                                    facilities
- Location                           The geographic        location       264    map            [IETF]                     [RFC9711]
-                                    location
- EAT Profile                        The EAT profile       eat_profile    265    uri or oid     [IETF]                     [RFC9711]
-                                    followed
- Submodules Section                 The section           submods        266    map            [IETF]                     [RFC9711]
-                                    containing submodules
-                                    The number of times
- Boot Count                         the entity or         bootcount      267    uint           [IETF]                     [RFC9711]
-                                    submodule has been
-                                    booted
- Boot Seed                          Identifies a boot     bootseed       268    bstr           [IETF]                     [RFC9711]
-                                    cycle
-                                    Certifications
- DLOAs                              received as Digital   dloas          269    array          [IETF]                     [RFC9711]
-                                    Letters of Approval
-                                    The name of the
- Software Name                      software running in   swname         270    tstr           [IETF]                     [RFC9711]
-                                    the entity
-                                    The version of
- Software Version                   software running in   swversion      271    array          [IETF]                     [RFC9711]
-                                    the entity
-                                    Manifests describing
- Software Manifests                 the software          manifests      272    array          [IETF]                     [RFC9711]
-                                    installed on the
-                                    entity
-                                    Measurements of the
- Measurements                       software, memory      measurements   273    array          [IETF]                     [RFC9711]
-                                    configuration, and
-                                    such on the entity
-                                    The results of
- Software Measurement Results       comparing software    measres        274    array          [IETF]                     [RFC9711]
-                                    measurements to
-                                    reference values
- Intended Use                       The intended use of   intuse         275    uint           [IETF]                     [RFC9711]
-                                    the EAT
- Unassigned                                                              276 to
-                                                                         281
-                                                                                text string or                            [Fast and Readable
- geohash                            Geohash String        geohash        282    array          [CTA]                      Geographical Hashing
-                                                                                                                          (CTA-5009)]
- Unassigned                                                              283 to
-                                                                         298
-                                    A RATS Conceptual                           CBOR map, CBOR                            [RFC-ietf-rats-msg-wrap-22,
- cmw                                Message Wrapper       cmw            299    array, or CBOR [IETF]                     Sections 3.1, 3.2, 3.3]
-                                                                                tag
- wmver                              The version of the WM wmver          300    unsigned       [DASH-IF]                  [ETSI TS 104 002 V1.1.1]
-                                    Token                                       integer
- wmvnd                              The WM technology     wmvnd          301    unsigned       [DASH-IF]                  [ETSI TS 104 002 V1.1.1]
-                                    vendor                                      integer
- wmpatlen                           The length in bits of wmpatlen       302    unsigned       [DASH-IF]                  [ETSI TS 104 002 V1.1.1]
-                                    the WM pattern                              integer
- wmsegduration                      The nominal duration  wmsegduration  303    map            [DASH-IF]                  [ETSI TS 104 002 V1.1.1]
-                                    of a segment
-                                                                                COSE_Encrypt0
- wmpattern                          The WM pattern        wmpattern      304    or             [DASH-IF]                  [ETSI TS 104 002 V1.1.1]
-                                                                                COSE_Encrypt
-                                                                                or byte string
-                                    Used as input to
- wmid                               derive the WM pattern wmid           305    text string    [DASH-IF]                  [ETSI TS 104 002 V1.1.1]
-                                    for indirect mode
-                                    Used as additional
- wmopid                             input to derive the   wmopid         306    unsigned       [DASH-IF]                  [ETSI TS 104 002 V1.1.1]
-                                    WM pattern for                              integer
-                                    indirect mode
-                                    The key to use for
- wmkeyver                           derivation of the WM  wmkeyver       307    unsigned       [DASH-IF]                  [ETSI TS 104 002 V1.1.1]
-                                    pattern in indirect                         integer
-                                    mode
- catreplay                          Common Access Token   N/A            308    unsigned       [CTA]                      [CTA-5007]
-                                    Replay                                      integer
-                                    Common Access Token
- catpor                             Probability of        N/A            309    array          [CTA]                      [CTA-5007]
-                                    Rejection
- catv                               Common Access Token   N/A            310    unsigned       [CTA]                      [CTA-5007]
-                                    Version                                     integer
- catnip                             Common Access Token   N/A            311    array          [CTA]                      [CTA-5007]
-                                    Network IP
- catu                               Common Access Token   N/A            312    map            [CTA]                      [CTA-5007]
-                                    URI
- catm                               Common Access Token   N/A            313    array          [CTA]                      [CTA-5007]
-                                    Method
- catalpn                            Common Access Token   N/A            314    array          [CTA]                      [CTA-5007]
-                                    ALPN
- cath                               Common Access Token   N/A            315    map            [CTA]                      [CTA-5007]
-                                    Header
- catgeoiso3166                      Common Access Token   N/A            316    array          [CTA]                      [CTA-5007]
-                                    Geographic ISO3166
- catgeocoord                        Common Access Token   N/A            317    array          [CTA]                      [CTA-5007]
-                                    Geographic Coordinate
- catgeoalt                          Common Access Token   N/A            318    array          [CTA]                      [CTA-5007]
-                                    Geographic Altitude
- cattpk                             Common Access Token   N/A            319    byte string    [CTA]                      [CTA-5007]
-                                    TLS Public Key
- catifdata                          Common Access Token   N/A            320    string or      [CTA]                      [CTA-5007]
-                                    If Data                                     array
- catdpop                            Common Access Token   N/A            321    map            [CTA]                      [CTA-5007]
-                                    DPoP Settings
- catif                              Common Access Token   N/A            322    map            [CTA]                      [CTA-5007]
-                                    If
- catr                               Common Access Token   N/A            323    map            [CTA]                      [CTA-5007]
-                                    Renewal
- Unassigned                                                              324 to
-                                                                         2393
- psa-client-id                      PSA Client ID         N/A            2394   signed integer [Hannes_Tschofenig]        [RFC9783, Section 4.1.2]
- psa-security-lifecycle             PSA Security          N/A            2395   unsigned       [Hannes_Tschofenig]        [RFC9783, Section 4.3.1]
-                                    Lifecycle                                   integer
- psa-implementation-id              PSA Implementation ID N/A            2396   byte string    [Hannes_Tschofenig]        [RFC9783, Section 4.2.2]
- Unassigned                                                                     2397
- psa-certification-reference        PSA Certification     N/A            2398   text string    [Hannes_Tschofenig]        [RFC9783, Section 4.2.3]
-                                    Reference
- psa-software-components            PSA Software          N/A            2399   array          [Hannes_Tschofenig]        [RFC9783, Section 4.4.1]
-                                    Components
- psa-verification-service-indicator PSA Verification      N/A            2400   text string    [Hannes_Tschofenig]        [RFC9783, Section 4.5.1]
-                                    Service Indicator
-                                                                         2401
- Unassigned                                                              to
-                                                                         65535
+            Claim Name               Claim Description   JWT Claim Name Claim   Claim Value       Change Controller                 Reference
+                                                                         Key        Type
+                                                                        less
+Reserved for Private Use                                                than                                             [RFC8392]
+                                                                        -65536
+                                                                        -65536
+Unassigned                                                              to
+                                                                        -262
+                                   This claim holds an
+                                   array of CBOR maps in
+                                   which each array
+                                   entry holds a map
+                                   containing claims                                                                     [GlobalPlatform Entity
+globalplatform_component           about a               N/A            -261   map            [GlobalPlatform_Inc.]      Attestation Protocol
+                                   GlobalPlatform                                                                        Specification, GPP_SPE_001,
+                                   component that is                                                                     Section 6.5.]
+                                   within the boundary
+                                   of the enclosing
+                                   Entity Attestation
+                                   Token.
+hcert                              Health Certificate    hcert          -260   map            [European_eHealth_Network] [Electronic Health Certificate
+                                                                                                                         Specification]
+EUPHNonce                          Challenge Nonce       EUPHNonce      -259   bstr           [FIDO_Alliance]            [FIDO Device Onboard
+                                                                                                                         Specification]
+                                   Signing prefix for
+EATMAROEPrefix                     multi-app restricted  EATMAROEPrefix -258   bstr           [FIDO_Alliance]            [FIDO Device Onboard
+                                   operating                                                                             Specification]
+                                   environments
+                                   EAT-FDO may contain                                                                   [FIDO Device Onboard
+EAT-FDO                            related to FIDO       EAT-FDO        -257   array          [FIDO_Alliance]            Specification]
+                                   Device Onboarding
+Unassigned                                                              -256
+                                                                        to -1
+                                   This registration
+Reserved                           reserves the key                     0                     [IESG]                     [RFC8392]
+                                   value 0
+iss                                Issuer                iss            1      text string    [IESG]                     [RFC8392]
+sub                                Subject               sub            2      text string    [IESG]                     [RFC8392]
+aud                                Audience              aud            3      text string    [IESG]                     [RFC8392]
+                                                                               integer or
+exp                                Expiration Time       exp            4      floating-point [IESG]                     [RFC8392]
+                                                                               number
+                                                                               integer or
+nbf                                Not Before            nbf            5      floating-point [IESG]                     [RFC8392]
+                                                                               number
+                                                                               integer or
+iat                                Issued At             iat            6      floating-point [IESG]                     [RFC8392]
+                                                                               number
+cti                                CWT ID                jti            7      byte string    [IESG]                     [RFC8392]
+cnf                                Confirmation          cnf            8      map            [IESG]                     [RFC8747]
+                                   The scope of an                             byte string or
+scope                              access token, as      scope          9      text string    [IESG]                     [RFC8693, Section 4.2]
+                                   defined in [RFC6749].
+Nonce                              Nonce                 eat_nonce      10     bstr or array  [IETF]                     [RFC9711]
+vct (TEMPORARY - registered        Verifiable credential vct            11     bstr           [IETF]                     [draft-ietf-spice-sd-cwt-06,
+2025-12-02, expires 2026-12-02)    type                                                                                  Section 13]
+Unassigned                                                              12 to
+                                                                        37
+                                   The ACE profile a
+ace_profile                        token is supposed to  ace_profile    38     integer        [IETF]                     [RFC9200, Section 5.10]
+                                   be used with.
+                                   The client-nonce sent
+cnonce                             to the AS by the RS   cnonce         39     byte string    [IETF]                     [RFC9200, Section 5.10]
+                                   via the client.
+                                   The expiration time
+                                   of a token measured                         unsigned
+exi                                from when it was      exi            40     integer        [IETF]                     [RFC9200, Section 5.10.3]
+                                   received at the RS in
+                                   seconds.
+Unassigned                                                              41 to
+                                                                        168
+                                   Registering the claim
+                                   for storing identity
+                                   data of a person,
+                                   which could be                                                                        [CBOR Identity Data in QR Code,
+identity-data                      personally            identity-data  169    map            [MOSIP]                    Section 3][CBOR Identity Data
+                                   identifiable data                                                                     in QR Code, Section 4]
+                                   (PII) mostly used in
+                                   Foundational/National
+                                   ID for cross-border
+                                   interoperability.
+Unassigned                                                              170 to
+                                                                        255
+UEID                               Universal Entity ID   ueid           256    bstr           [IETF]                     [RFC9711]
+SUEIDs                             Semipermanent UEIDs   sueids         257    map            [IETF]                     [RFC9711]
+Hardware OEM ID                    Hardware OEM ID       oemid          258    bstr or int    [IETF]                     [RFC9711]
+Hardware Model                     Model identifier for  hwmodel        259    bstr           [IETF]                     [RFC9711]
+                                   hardware
+Hardware Version                   Hardware Version      hwversion      260    array          [IETF]                     [RFC9711]
+                                   Identifier
+Uptime                             Uptime                uptime         261    uint           [IETF]                     [RFC9711]
+                                   Indicates whether the
+OEM Authorized Boot                software booted was   oemboot        262    bool           [IETF]                     [RFC9711]
+                                   OEM authorized
+Debug Status                       The status of debug   dbgstat        263    uint           [IETF]                     [RFC9711]
+                                   facilities
+Location                           The geographic        location       264    map            [IETF]                     [RFC9711]
+                                   location
+EAT Profile                        The EAT profile       eat_profile    265    uri or oid     [IETF]                     [RFC9711]
+                                   followed
+Submodules Section                 The section           submods        266    map            [IETF]                     [RFC9711]
+                                   containing submodules
+                                   The number of times
+Boot Count                         the entity or         bootcount      267    uint           [IETF]                     [RFC9711]
+                                   submodule has been
+                                   booted
+Boot Seed                          Identifies a boot     bootseed       268    bstr           [IETF]                     [RFC9711]
+                                   cycle
+                                   Certifications
+DLOAs                              received as Digital   dloas          269    array          [IETF]                     [RFC9711]
+                                   Letters of Approval
+                                   The name of the
+Software Name                      software running in   swname         270    tstr           [IETF]                     [RFC9711]
+                                   the entity
+                                   The version of
+Software Version                   software running in   swversion      271    array          [IETF]                     [RFC9711]
+                                   the entity
+                                   Manifests describing
+Software Manifests                 the software          manifests      272    array          [IETF]                     [RFC9711]
+                                   installed on the
+                                   entity
+                                   Measurements of the
+Measurements                       software, memory      measurements   273    array          [IETF]                     [RFC9711]
+                                   configuration, and
+                                   such on the entity
+                                   The results of
+Software Measurement Results       comparing software    measres        274    array          [IETF]                     [RFC9711]
+                                   measurements to
+                                   reference values
+Intended Use                       The intended use of   intuse         275    uint           [IETF]                     [RFC9711]
+                                   the EAT
+Unassigned                                                              276 to
+                                                                        281
+geohash                            Geohash String        geohash        282    text string or [CTA]                      [Fast and Readable Geographical
+                                                                               array                                     Hashing (CTA-5009)]
+Unassigned                                                              283 to
+                                                                        298
+                                   A RATS Conceptual                           CBOR map, CBOR                            [RFC-ietf-rats-msg-wrap-22,
+cmw                                Message Wrapper       cmw            299    array, or CBOR [IETF]                     Sections 3.1, 3.2, 3.3]
+                                                                               tag
+wmver                              The version of the WM wmver          300    unsigned       [DASH-IF]                  [ETSI TS 104 002 V1.1.1]
+                                   Token                                       integer
+wmvnd                              The WM technology     wmvnd          301    unsigned       [DASH-IF]                  [ETSI TS 104 002 V1.1.1]
+                                   vendor                                      integer
+wmpatlen                           The length in bits of wmpatlen       302    unsigned       [DASH-IF]                  [ETSI TS 104 002 V1.1.1]
+                                   the WM pattern                              integer
+wmsegduration                      The nominal duration  wmsegduration  303    map            [DASH-IF]                  [ETSI TS 104 002 V1.1.1]
+                                   of a segment
+                                                                               COSE_Encrypt0
+wmpattern                          The WM pattern        wmpattern      304    or             [DASH-IF]                  [ETSI TS 104 002 V1.1.1]
+                                                                               COSE_Encrypt
+                                                                               or byte string
+                                   Used as input to
+wmid                               derive the WM pattern wmid           305    text string    [DASH-IF]                  [ETSI TS 104 002 V1.1.1]
+                                   for indirect mode
+                                   Used as additional
+wmopid                             input to derive the   wmopid         306    unsigned       [DASH-IF]                  [ETSI TS 104 002 V1.1.1]
+                                   WM pattern for                              integer
+                                   indirect mode
+                                   The key to use for
+wmkeyver                           derivation of the WM  wmkeyver       307    unsigned       [DASH-IF]                  [ETSI TS 104 002 V1.1.1]
+                                   pattern in indirect                         integer
+                                   mode
+catreplay                          Common Access Token   N/A            308    unsigned       [CTA]                      [CTA-5007]
+                                   Replay                                      integer
+                                   Common Access Token
+catpor                             Probability of        N/A            309    array          [CTA]                      [CTA-5007]
+                                   Rejection
+catv                               Common Access Token   N/A            310    unsigned       [CTA]                      [CTA-5007]
+                                   Version                                     integer
+catnip                             Common Access Token   N/A            311    array          [CTA]                      [CTA-5007]
+                                   Network IP
+catu                               Common Access Token   N/A            312    map            [CTA]                      [CTA-5007]
+                                   URI
+catm                               Common Access Token   N/A            313    array          [CTA]                      [CTA-5007]
+                                   Method
+catalpn                            Common Access Token   N/A            314    array          [CTA]                      [CTA-5007]
+                                   ALPN
+cath                               Common Access Token   N/A            315    map            [CTA]                      [CTA-5007]
+                                   Header
+catgeoiso3166                      Common Access Token   N/A            316    array          [CTA]                      [CTA-5007]
+                                   Geographic ISO3166
+catgeocoord                        Common Access Token   N/A            317    array          [CTA]                      [CTA-5007]
+                                   Geographic Coordinate
+catgeoalt                          Common Access Token   N/A            318    array          [CTA]                      [CTA-5007]
+                                   Geographic Altitude
+cattpk                             Common Access Token   N/A            319    byte string    [CTA]                      [CTA-5007]
+                                   TLS Public Key
+catifdata                          Common Access Token   N/A            320    string or      [CTA]                      [CTA-5007]
+                                   If Data                                     array
+catdpop                            Common Access Token   N/A            321    map            [CTA]                      [CTA-5007]
+                                   DPoP Settings
+catif                              Common Access Token   N/A            322    map            [CTA]                      [CTA-5007]
+                                   If
+catr                               Common Access Token   N/A            323    map            [CTA]                      [CTA-5007]
+                                   Renewal
+Unassigned                                                              324 to
+                                                                        2393
+psa-client-id                      PSA Client ID         N/A            2394   signed integer [Hannes_Tschofenig]        [RFC9783, Section 4.1.2]
+psa-security-lifecycle             PSA Security          N/A            2395   unsigned       [Hannes_Tschofenig]        [RFC9783, Section 4.3.1]
+                                   Lifecycle                                   integer
+psa-implementation-id              PSA Implementation ID N/A            2396   byte string    [Hannes_Tschofenig]        [RFC9783, Section 4.2.2]
+Unassigned                                                                     2397
+psa-certification-reference        PSA Certification     N/A            2398   text string    [Hannes_Tschofenig]        [RFC9783, Section 4.2.3]
+                                   Reference
+psa-software-components            PSA Software          N/A            2399   array          [Hannes_Tschofenig]        [RFC9783, Section 4.4.1]
+                                   Components
+psa-verification-service-indicator PSA Verification      N/A            2400   text string    [Hannes_Tschofenig]        [RFC9783, Section 4.5.1]
+                                   Service Indicator
+                                                                        2401
+Unassigned                                                              to
+                                                                        65532
+                                   A CBOR structure
+                                   containing up-to-date
+status_list                        status information on status_list    65533  map            [IETF]                     [RFC-ietf-oauth-status-list-20,
+                                   multiple tokens using                                                                 Section 5.2]
+                                   the Token Status List
+                                   mechanism.
+ttl                                Time to Live          ttl            65534  unsigned       [IETF]                     [RFC-ietf-oauth-status-list-20,
+                                                                               integer                                   Section 5.2]
+                                   A CBOR structure
+                                   containing a
+status                             reference to a status status         65535  map            [IETF]                     [RFC-ietf-oauth-status-list-20,
+                                   mechanism from the                                                                    Section 6.2]
+                                   CWT Status Mechanisms
+                                   registry.
 
 CWT Confirmation Methods
 
@@ -284,7 +298,7 @@ CWT Confirmation Methods
    Note
 
  Registration requests should be sent to the [mailing list] described in
- [RFC8747]. If approved, designated experts should notify IANA within
+ [RFC8747]. If they approve, designated experts should notify IANA within
  three weeks. For assistance, please contact iana@iana.org. IANA does not
  monitor the list.
 
@@ -311,6 +325,35 @@ CWT Confirmation Methods
    ckt                 COSE Key SHA-256 Thumbprint               (none)           5                binary string          [IETF]     [RFC9679]
    Unassigned                                                                     6-322
    jkt                 JWK SHA-256 Thumbprint                    jkt              323              byte string            [CTA]      [CTA-5007]
+
+CWT Status Mechanisms
+
+   Registration Procedure(s)
+
+ Specification Required
+
+   Expert(s)
+
+ Unassigned
+
+   Reference
+   [RFC-ietf-oauth-status-list-20]
+
+   Note
+
+ Registration requests should be sent to the [mailing list] described in
+ [RFC-ietf-oauth-status-list-20]. If they approve, designated experts
+ should notify IANA within two weeks. For assistance, please contact
+ iana@iana.org. IANA does not monitor the list.
+
+
+   Available Formats
+   [IMG]
+   CSV
+
+   Status Mechanism Value            Status Mechanism Method Description             Change Controller                  Reference
+   status_list            A Token Status List containing up-to-date status           [IETF]            [RFC-ietf-oauth-status-list-20, Section 6.3]
+                          information on multiple tokens.
 
                                                                  Contact Information
 
