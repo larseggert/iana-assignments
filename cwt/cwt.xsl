@@ -33,7 +33,7 @@
       <xsl:when test="@id = 'status-mechanisms'">
         <tr>
           <th>Status Mechanism Value</th>
-          <th>Status Mechanism Method Description</th>
+          <th>Status Mechanism Description</th>
           <th>Change Controller</th>
           <th>Reference</th>
         </tr>
