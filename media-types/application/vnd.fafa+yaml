@@ -1,0 +1,165 @@
+(registered 2026-06-26, last updated 2026-06-26)
+
+Type name: application
+
+Subtype name: vnd.fafa+yaml
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+No required or optional parameters are defined for 
+application/vnd.fafa+yaml; versioning is handled in-band via the 
+top-level "version" field of the document.
+
+Encoding considerations: 8bit (UTF-8). Binary content, when
+present, is base64-encoded inside YAML.
+
+Security considerations:
+
+The following addresses the questions outlined in the IANA
+media-type security considerations checklist at https://www.iana.org/form/media-types:
+
+1. Active or executable content. No. The .fafa format is a YAML
+data document. It contains no scripts, code, executable
+directives, or active markup. Implementations MUST treat
+.fafa content as data, never as instructions, commands, or
+code. Declaration is not authorization: an implementation
+MUST NOT auto-execute a capability purely because it is
+declared.
+
+2. Privacy and integrity needs. .fafa carries agent identity
+claims and capability declarations. It is not intended to
+carry personal data. Integrity of the endpoints and
+signature fields is required where present; confidentiality
+of the declaration itself is generally not required, but
+transport SHOULD be authenticated and encrypted.
+
+3. Privacy and integrity services. The .fafa format itself does
+not provide cryptographic confidentiality, integrity
+protection, or signing. These services MUST be provided
+externally:
+
+- Confidentiality: TLS for all transport; encryption at rest
+in any backend that stores .fafa documents.
+
+- Integrity: where present, the signature field carries
+provenance/integrity material, verified by the consumer;
+transport-layer integrity (TLS); application-level write
+authorization.
+
+- Consumers MUST treat the endpoints field as untrusted
+until verified against signature if present, and MUST
+apply least privilege when consuming declared
+capabilities.
+
+4. YAML format considerations. .fafa is built on YAML 1.2. All
+YAML 1.2 security considerations apply, including those
+described in RFC 9512 ("YAML Media Type") section 6. Specific
+to .fafa:
+
+- Parsers MUST disable custom type construction (no
+!!python/object, !ruby/object, or equivalent
+language-specific constructors).
+
+- Parsers MUST enforce alias-expansion limits to mitigate
+entity-expansion / "billion-laughs"-style attacks.
+
+- Parsers MUST enforce nesting-depth limits to prevent stack
+overflow.
+
+5. Compression. Not applicable. .fafa does not use or require
+compression at the format layer. If transport-level
+compression is applied to .fafa content alongside other
+secret data, standard compression-with-secret considerations
+(e.g., CRIME/BREACH class attacks) apply at the transport
+layer.
+
+6. Container format. Not applicable. .fafa is a single YAML
+document, not a container or archive format. No
+packaging-level security considerations apply.
+
+7. Link references. .fafa documents MAY contain endpoint
+locators (the endpoints field) and provenance references
+(the provenance field). These are declarative pointers; a
+.fafa document does not require resolving them to be
+correctly interpreted. Consumers MUST treat endpoint
+locators as untrusted until verified (see item 3) and MUST
+NOT auto-resolve or auto-invoke them by virtue of their
+presence in the document.
+
+Additional security considerations:
+
+- Untrusted input / context poisoning / prompt injection. .fafa
+documents originate from agents and third parties and MUST be
+treated as untrusted input by consumers. Implementations MUST
+NOT elevate .fafa content to "system instructions" or
+"developer directives" within prompt hierarchies. Capability
+declarations are a documented vector for over-trust and
+prompt injection.
+
+- Cross-context isolation. Implementations SHOULD scope
+capability consumption to the declaring agent's verified
+identity to prevent unintended cross-agent or cross-domain
+influence.
+
+- No secrets or credentials. .fafa documents MUST NOT contain
+secrets, API keys, or credentials; MUST NOT contain
+user-personal data (use .fafm for memory of that kind); and
+MUST NOT contain executable code. The format is declarative,
+not executable.
+
+Interoperability considerations:
+
+.fafa is the Agent Card format of the FAF family, sibling to
+the IANA-registered .faf format (application/vnd.faf+yaml) and
+.fafm format (application/vnd.fafm+yaml). It is designed to
+interoperate while serving a distinct purpose:
+
+.faf - Foundational Context Layer (project IS - static, read once)
+.fafm - Voice Memory Layer (VML) (agent REMEMBERS - mutating, persisted)
+.fafa - Agent Card (agent IS - declarative identity + capability)
+
+Three formats. Three roles. One ecosystem.
+
+.fafa is format-level, not protocol-level. It composes with -
+does not replace - agent-interaction protocols: a protocol
+carries, references, or resolves a .fafa document; the document
+declares the agent the protocol acts upon.
+
+The .fafa schema extends application/vnd.faf+yaml - a .fafa
+document remains a valid YAML file. Consumers that only
+understand .faf will safely ignore the agent-specific blocks
+and still extract identity from top-level fields. Consumers
+that understand .fafa gain the full agent declaration.
+
+.fafa is YAML 1.2 / RFC 9512 compliant. Consumers MUST use
+YAML safe-load, MUST treat unknown top-level fields and unknown
+subfields within agent, capabilities, and endpoints as
+forward-compatible extensions, and SHOULD use UTF-8 encoding.
+
+All three formats share the same family branding, YAML
+philosophy (YAML 1.2 / RFC 9512 baseline), and MIT license.
+Multiple .fafa documents per scope are permitted, distinguished
+by agent.id.
+
+Published specification: https://github.com/Wolfe-Jam/faf/blob/main/AGENT-FORMAT.md
+
+Applications that use this media type: faf-agent-mcp (reference
+implementation), xAI/Grok, claude-faf-mcp, gemini-faf-mcp and
+future FAF MCP-family integrations.
+
+Fragment identifier considerations: None
+
+Additional information - File extension: .fafa
+
+Person & email address for further information: James Wolfe,
+team&faf.one
+
+Intended usage: COMMON
+
+Restrictions on usage: None
+
+Author: James Wolfe
+
+Change controller: FAF Foundation
