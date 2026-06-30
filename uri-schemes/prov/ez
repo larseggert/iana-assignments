@@ -1,4 +1,4 @@
-(registered 2026-06-11, last updated 2026-06-11)
+(registered 2026-06-14, last updated 2026-06-30)
 
 Section 1. Scheme name:
 ez
@@ -7,29 +7,58 @@ Section 2. Status:
 Provisional
 
 Section 3. Specification:
-https://spec.nug8.com v0.0-rev2 dated 2026-07-09
+https://github.com/NuG8Com/ez-uri-spec
+(Official Spec v1.1.0, identical to IANA Ticket #1454153 submission)
 
 Section 4. Applications/protocols that use this scheme name:
-AI Agents, parallel computing, URI routing systems, GPU-accelerated parsers
+Distributed GPU and accelerator scheduling systems; heterogeneous
+compute orchestration platforms; AI inference and training task
+coordination systems; resource-oriented control planes for
+distributed execution environments.
 
 Section 5. Contact information:
 KuoChun Fang
 M-Commerce.com
-Email: RoyFang&m-commerce.com
-IANA Ticket #1453765
+Email: RoyFang&M-Commerce.com
+IANA Ticket #1454153
 
 Section 6. Author/Change controller:
 KuoChun Fang / M-Commerce.com
 
 Section 7. Security considerations:
-ez:// uses a constrained character set: a-z, A-Z, 0-9, dot, slash, question mark, hash. The scheme uses fixed 3-level parsing without DNS recursion. URI length is constrained to 128 bytes. Implementations must validate character set and length before parsing.
+The ez scheme does not itself provide confidentiality, integrity,
+authentication, or authorization; such properties MUST be provided
+by the underlying transport, application protocol, or deployment
+environment. Plaintext credentials or other secrets MUST NOT be
+conveyed in userinfo, path, or query components. Implementations
+MUST validate and sanitize ez URIs before use to reduce the risk of
+injection, path confusion, traversal, resource exhaustion, or other
+malformed-input attacks. Implementations SHOULD impose reasonable
+bounds on URI length and parsing resource consumption; a recommended
+initial implementation limit is 128 octets. General security
+considerations from RFC 3986 apply.
+
+Encoding considerations:
+Non-ASCII characters MUST be encoded using UTF-8 and then
+percent-encoded as required by RFC 3986. Reserved characters
+appearing outside their delimiter roles MUST be percent-encoded in
+accordance with RFC 3986.
 
 Section 8. Interoperability:
-Specification: https://spec.nug8.com v0.0-rev2 dated 2026-07-09
-Live Demo: https://genesis.nug8.com
-Reference Implementation: https://github.com/NuG8Com/ez-gpu-parser
-Release v0.0.1: V0.0 Genesis - Provisional IANA Registration #1453765
-Verification: Tested on Google Colab T4 GPU - 1,000,000 URIs parsed with 100% accuracy. See README for screenshot.
+Specification: https://github.com/NuG8Com/ez-uri-spec
+
+The scheme is designed for cross-vendor and cross-architecture
+interoperability, based on RFC 3986 generic URI components, with no
+vendor-specific or hardware-specific semantics embedded in the
+syntax.
+
+A reference parser implementation has been benchmarked at a median
+of 4.96 ns/URI (p99 5.89 ns/URI) on GPU hardware (NVIDIA Tesla T4),
+verified against 23 adversarial test cases, including the empty-host
+rejection case described in Section 3.
 
 Section 9. Notes:
-ez:// V0.0 implements a registry-backed namespace without DNS integration. All URIs resolve through the ez:// registry system per https://spec.nug8.com. This is a provisional registration for testing and reference implementation purposes.
+This registration supersedes the original character-set and
+applications description from the initial submission. The scheme is
+now scoped to resource addressing across distributed compute, edge,
+and IoT environments, as detailed in the linked specification.
