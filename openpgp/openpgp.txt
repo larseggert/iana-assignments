@@ -11,7 +11,7 @@
    2024-01-19
 
    Last Updated
-   2026-06-25
+   2026-07-02
 
    Available Formats
    [IMG]
@@ -382,109 +382,88 @@ OpenPGP Public Key Algorithms
    [IMG]
    CSV
 
-     ID          Algorithm         Public Key Format  Secret Key Format    Signature              PKESK Format                    Reference
-                                                                             Format
-      0    Reserved                                                                                                       [RFC9580]
-                                  MPI(n), MPI(e)                         MPI(m^d mod n)
-      1    RSA (Encrypt or Sign)  [RFC9580, Section   MPI(d), MPI(p),    [RFC9580,      MPI(m^e mod n) [RFC9580, Section  [RFC9580]
-           [FIPS186]              5.5.5.1]            MPI(q), MPI(u)     Section        5.1.3]
-                                                                         5.2.3.1]
-           RSA Encrypt-Only       MPI(n), MPI(e)      MPI(d), MPI(p),                   MPI(m^e mod n) [RFC9580, Section
-      2    [FIPS186]              [RFC9580, Section   MPI(q), MPI(u)     N/A            5.1.3]                            [RFC9580]
-                                  5.5.5.1]
-                                  MPI(n), MPI(e)                         MPI(m^d mod n)
-      3    RSA Sign-Only          [RFC9580, Section   MPI(d), MPI(p),    [RFC9580,      N/A                               [RFC9580]
-           [FIPS186]              5.5.5.1]            MPI(q), MPI(u)     Section
-                                                                         5.2.3.1]
+     ID            Algorithm             Public Key Format      Secret Key Format     Signature Format           PKESK Format           Reference
+      0    Reserved                                                                                                                    [RFC9580]
+           RSA (Encrypt or Sign)      MPI(n), MPI(e)          MPI(d), MPI(p),        MPI(m^d mod n)      MPI(m^e mod n) [RFC9580,
+      1    [FIPS186]                  [RFC9580, Section       MPI(q), MPI(u)         [RFC9580, Section   Section 5.1.3]                [RFC9580]
+                                      5.5.5.1]                                       5.2.3.1]
+                                      MPI(n), MPI(e)          MPI(d), MPI(p),                            MPI(m^e mod n) [RFC9580,
+      2    RSA Encrypt-Only [FIPS186] [RFC9580, Section       MPI(q), MPI(u)         N/A                 Section 5.1.3]                [RFC9580]
+                                      5.5.5.1]
+                                      MPI(n), MPI(e)          MPI(d), MPI(p),        MPI(m^d mod n)
+      3    RSA Sign-Only [FIPS186]    [RFC9580, Section       MPI(q), MPI(u)         [RFC9580, Section   N/A                           [RFC9580]
+                                      5.5.5.1]                                       5.2.3.1]
     4-15   Unassigned
-           Elgamal (Encrypt-Only) MPI(p), MPI(g),                                       MPI(g^k mod p), MPI(m * y^k mod
-     16    [ELGAMAL]              MPI(y) [RFC9580,    MPI(x)             N/A            p) [RFC9580, Section 5.1.4]       [RFC9580]
-                                  Section 5.5.5.3]
-                                  MPI(p), MPI(q),                        MPI(r), MPI(s)
-     17    DSA (Digital Signature MPI(g), MPI(y)      MPI(x)             [RFC9580,      N/A                               [RFC9580]
-           Algorithm) [FIPS186]   [RFC9580, Section                      Section
-                                  5.5.5.2]                               5.2.3.2]
-                                  OID, MPI(point in
-                                  curve-specific      MPI(value in                      MPI(point in curve-specific point
-     18    ECDH public key        point format),      curve-specific     N/A            format), size octet, encoded key  [RFC9580]
-           algorithm              KDFParams [RFC9580, format) [RFC9580,                 [RFC9580, Sections 9.2.1, 5.1.5,
-                                  Sections 9.2.1 and  Section 9.2.1]                    and 11.5]
-                                  5.5.5.6]
-                                  OID, MPI(point in                      MPI(r), MPI(s)
-     19    ECDSA public key       SEC1 format)        MPI(value)         [RFC9580,      N/A                               [RFC9580]
-           algorithm [FIPS186]    [RFC9580, Section                      Section
-                                  5.5.5.4]                               5.2.3.2]
-           Reserved (formerly
-     20    Elgamal Encrypt or                                                                                             [RFC9580]
-           Sign)
+           Elgamal (Encrypt-Only)     MPI(p), MPI(g), MPI(y)                                             MPI(g^k mod p), MPI(m * y^k
+     16    [ELGAMAL]                  [RFC9580, Section       MPI(x)                 N/A                 mod p) [RFC9580, Section      [RFC9580]
+                                      5.5.5.3]                                                           5.1.4]
+           DSA (Digital Signature     MPI(p), MPI(q), MPI(g),                        MPI(r), MPI(s)
+     17    Algorithm) [FIPS186]       MPI(y) [RFC9580,        MPI(x)                 [RFC9580, Section   N/A                           [RFC9580]
+                                      Section 5.5.5.2]                               5.2.3.2]
+                                      OID, MPI(point in       MPI(value in                               MPI(point in curve-specific
+                                      curve-specific point    curve-specific format)                     point format), size octet,
+     18    ECDH public key algorithm  format), KDFParams      [RFC9580, Section      N/A                 encoded key [RFC9580,         [RFC9580]
+                                      [RFC9580, Sections      9.2.1]                                     Sections 9.2.1, 5.1.5, and
+                                      9.2.1 and 5.5.5.6]                                                 11.5]
+           ECDSA public key algorithm OID, MPI(point in SEC1                         MPI(r), MPI(s)
+     19    [FIPS186]                  format) [RFC9580,       MPI(value)             [RFC9580, Section   N/A                           [RFC9580]
+                                      Section 5.5.5.4]                               5.2.3.2]
+     20    Reserved (formerly Elgamal                                                                                                  [RFC9580]
+           Encrypt or Sign)
            Reserved for
-     21    Diffie-Hellman (X9.42,                                                                                         [RFC9580]
-           as defined for
-           IETF-S/MIME)
-                                  OID, MPI(point in   MPI(value in       MPI, MPI
-           EdDSALegacy            prefixed native     curve-specific     [RFC9580,
-     22    (deprecated)           format) [RFC9580,   format) [RFC9580,  Sections 9.2.1 N/A                               [RFC9580]
-                                  Sections 11.2.2 and Section 9.2.1]     and 5.2.3.3]
-                                  5.5.5.5]
-     23    Reserved (AEDH)                                                                                                [RFC9580]
-     24    Reserved (AEDSA)                                                                                               [RFC9580]
-     25    X25519                 32 octets [RFC9580, 32 octets          N/A            32 octets, size octet, encoded    [RFC9580]
-                                  Section 5.5.5.7]                                      key [RFC9580, Section 5.1.6]
-     26    X448                   56 octets [RFC9580, 56 octets          N/A            56 octets, size octet, encoded    [RFC9580]
-                                  Section 5.5.5.8]                                      key [RFC9580, Section 5.1.7]
-                                                                         64 octets
-     27    Ed25519                32 octets [RFC9580, 32 octets          [RFC9580,                                        [RFC9580]
-                                  Section 5.5.5.9]                       Section
-                                                                         5.2.3.4]
-                                                                         114 octets
-     28    Ed448                  57 octets [RFC9580, 57 octets          [RFC9580,                                        [RFC9580]
-                                  Section 5.5.5.10]                      Section
-                                                                         5.2.3.5]
+     21    Diffie-Hellman (X9.42, as                                                                                                   [RFC9580]
+           defined for IETF-S/MIME)
+                                      OID, MPI(point in       MPI(value in           MPI, MPI [RFC9580,
+     22    EdDSALegacy (deprecated)   prefixed native format) curve-specific format) Sections 9.2.1 and  N/A                           [RFC9580]
+                                      [RFC9580, Sections      [RFC9580, Section      5.2.3.3]
+                                      11.2.2 and 5.5.5.5]     9.2.1]
+     23    Reserved (AEDH)                                                                                                             [RFC9580]
+     24    Reserved (AEDSA)                                                                                                            [RFC9580]
+                                      32 octets [RFC9580,                                                32 octets, size octet,
+     25    X25519                     Section 5.5.5.7]        32 octets              N/A                 encoded key [RFC9580, Section [RFC9580]
+                                                                                                         5.1.6]
+                                      56 octets [RFC9580,                                                56 octets, size octet,
+     26    X448                       Section 5.5.5.8]        56 octets              N/A                 encoded key [RFC9580, Section [RFC9580]
+                                                                                                         5.1.7]
+     27    Ed25519                    32 octets [RFC9580,     32 octets              64 octets [RFC9580,                               [RFC9580]
+                                      Section 5.5.5.9]                               Section 5.2.3.4]
+                                      57 octets [RFC9580,                            114 octets
+     28    Ed448                      Section 5.5.5.10]       57 octets              [RFC9580, Section                                 [RFC9580]
+                                                                                     5.2.3.5]
      29    Unassigned
-                                                                         64-octet
-                                  32-octet Ed25519    32-octet Ed25519   Ed25519
-                                  public key [Table   secret key [Table  signature
-     30    ML-DSA-65+Ed25519      6], 1952-octet      6], 32-octet       [Table 6],     N/A                               [RFC-ietf-openpgp-pqc-16,
-                                  ML-DSA-65 public    ML-DSA-65 secret   3309-octet                                       Section 5]
-                                  key [Table 7]       key [Table 7]      ML-DSA-65
-                                                                         signature
-                                                                         [Table 7]
-                                                                         114-octet
-                                  57-octet Ed448      57-octet Ed448     Ed448
-                                  public key [Table   secret key [Table  signature
-     31    ML-DSA-87+Ed448        6], 2592-octet      6], 32-octet       [Table 6],     N/A                               [RFC-ietf-openpgp-pqc-16,
-                                  ML-DSA-87 public    ML-DSA-87 secret   4627-octet                                       Section 5]
-                                  key [Table 7]       key [Table 7]      ML-DSA-87
-                                                                         signature
-                                                                         [Table 7]
-                                  32-octet public key 64-octet secret    7856-octet                                       [RFC-ietf-openpgp-pqc-16,
-     32    SLH-DSA-SHAKE-128s     [Table 8]           key [Table 8]      signature      N/A                               Section 6.1]
-                                                                         [Table 8]
-                                  32-octet public key 64-octet secret    17088-octet                                      [RFC-ietf-openpgp-pqc-16,
-     33    SLH-DSA-SHAKE-128f     [Table 8]           key [Table 8]      signature      N/A                               Section 6.1]
-                                                                         [Table 8]
-                                  64-octet public key 128-octet secret   29792-octet                                      [RFC-ietf-openpgp-pqc-16,
-     34    SLH-DSA-SHAKE-256s     [Table 8]           key [Table 8]      signature      N/A                               Section 6.1]
-                                                                         [Table 8]
-                                                                                        32-octet X25519 ciphertext,
-                                  32-octet X25519     32-octet X25519                   1088-octet ML-KEM-768 ciphertext,
-                                  public key [Table   secret key [Table                 1 octet remaining length,
-     35    ML-KEM-768+X25519      3], 1184-octet      3], 64-octet       N/A            [1-octet algorithm ID in the case [RFC-ietf-openpgp-pqc-16,
-                                  ML-KEM-768 public   ML-KEM-768 secret                 of v3 PKESK,] n octets wrapped    Section 4]
-                                  key [Table 4]       key [Table 4]                     session key
-                                                                                        [RFC-ietf-openpgp-pqc-16, Section
-                                                                                        4.3.1]
-                                                                                        56-octet X448 ciphertext,
-                                  56-octet X448       56-octet X448                     1568-octet ML-KEM-1024
-                                  public key [Table   secret key [Table                 ciphertext, 1 octet remaining
-     36    ML-KEM-1024+X448       3], 1568-octet      3], 64-octet       N/A            length, [1-octet algorithm ID in  [RFC-ietf-openpgp-pqc-16,
-                                  ML-KEM-1024 public  ML-KEM-1024 secret                the case of v3 PKESK,] n octets   Section 4]
-                                  key [Table 4]       key [Table 4]                     wrapped session key
-                                                                                        [RFC-ietf-openpgp-pqc-16, Section
-                                                                                        4.3.1]
+                                      32-octet Ed25519 public 32-octet Ed25519       64-octet Ed25519
+                                      key [Table 6],          secret key [Table 6],  signature [Table                                  [RFC9980,
+     30    ML-DSA-65+Ed25519          1952-octet ML-DSA-65    32-octet ML-DSA-65     6], 3309-octet      N/A                           Section 5]
+                                      public key [Table 7]    secret key [Table 7]   ML-DSA-65 signature
+                                                                                     [Table 7]
+                                      57-octet Ed448 public   57-octet Ed448 secret  114-octet Ed448
+                                      key [Table 6],          key [Table 6],         signature [Table                                  [RFC9980,
+     31    ML-DSA-87+Ed448            2592-octet ML-DSA-87    32-octet ML-DSA-87     6], 4627-octet      N/A                           Section 5]
+                                      public key [Table 7]    secret key [Table 7]   ML-DSA-87 signature
+                                                                                     [Table 7]
+     32    SLH-DSA-SHAKE-128s         32-octet public key     64-octet secret key    7856-octet          N/A                           [RFC9980,
+                                      [Table 8]               [Table 8]              signature [Table 8]                               Section 6.1]
+     33    SLH-DSA-SHAKE-128f         32-octet public key     64-octet secret key    17088-octet         N/A                           [RFC9980,
+                                      [Table 8]               [Table 8]              signature [Table 8]                               Section 6.1]
+     34    SLH-DSA-SHAKE-256s         64-octet public key     128-octet secret key   29792-octet         N/A                           [RFC9980,
+                                      [Table 8]               [Table 8]              signature [Table 8]                               Section 6.1]
+                                                                                                         32-octet X25519 ciphertext,
+                                      32-octet X25519 public  32-octet X25519 secret                     1088-octet ML-KEM-768
+                                      key [Table 3],          key [Table 3],                             ciphertext, 1 octet remaining [RFC9980,
+     35    ML-KEM-768+X25519          1184-octet ML-KEM-768   64-octet ML-KEM-768    N/A                 length, [1-octet algorithm ID Section 4]
+                                      public key [Table 4]    secret key [Table 4]                       in the case of v3 PKESK,] n
+                                                                                                         octets wrapped session key
+                                                                                                         [RFC9980, Section 4.3.1]
+                                                                                                         56-octet X448 ciphertext,
+                                      56-octet X448 public    56-octet X448 secret                       1568-octet ML-KEM-1024
+                                      key [Table 3],          key [Table 3],                             ciphertext, 1 octet remaining [RFC9980,
+     36    ML-KEM-1024+X448           1568-octet ML-KEM-1024  64-octet ML-KEM-1024   N/A                 length, [1-octet algorithm ID Section 4]
+                                      public key [Table 4]    secret key [Table 4]                       in the case of v3 PKESK,] n
+                                                                                                         octets wrapped session key
+                                                                                                         [RFC9980, Section 4.3.1]
     37-99  Unassigned
-   100-110 Private or
-           Experimental Use
+   100-110 Private or Experimental
+           Use
    111-255 Unassigned
 
 OpenPGP Symmetric Key Algorithms
