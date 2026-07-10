@@ -1,0 +1,78 @@
+(registered 2026-07-09, last updated 2026-07-09)
+
+Type name: application
+
+Subtype name: jumbf
+
+Required parameters: None
+
+Optional parameters: None
+
+Encoding considerations:
+
+binary — JUMBF files are binary box-structured data and should be transmitted as-is. Base64 encoding (base64) should be used when transmitted over transports that are not binary-clean.
+
+Security considerations:
+
+JUMBF files are structured binary containers that may embed metadata of various types, including XML, JSON, CBOR, YAML, image codestreams, and arbitrary binary files. Implementations should be aware of the following:
+
+      - Embedded content of any media type inherits the security considerations of that type.
+      - JUMBF supports a requestability mechanism that allows referencing and requesting embedded content; implementations should validate and sanitize any URI references to prevent unauthorized data exposure.
+      - Files may contain nested JUMBF boxes of unbounded depth; implementations should defend against excessive nesting and malformed length fields.
+      - JUMBF does not provide inherent integrity protection or encryption; security-sensitive deployments should layer appropriate cryptographic mechanisms on top.
+      - No executable code is defined by this format.
+
+Interoperability considerations:
+
+JUMBF is defined by ISO/IEC 19566-5 and is designed to be embedded within box-based JPEG file formats (e.g., JPEG 2000 per ISO/IEC 15444-1, JPEG XL per ISO/IEC 18181-2) or within JPEG 1 images via APP11 marker segments (per ISO/IEC 18477-3). The media type application/jumbf is intended for use when a JUMBF payload is stored or transmitted as a standalone file, independent of any parent image container. The file extension for standalone JUMBF files is .jumbf.
+
+Published specification:
+
+ISO/IEC 19566-5, "Information technology — JPEG Systems — Part 5: JPEG Universal Metadata Box Format (JUMBF)", ISO/IEC JTC 1/SC 29/WG 1. Available from: https://www.iso.org/standard/84635.html
+
+Applications that use this media type:
+
+JUMBF is used to embed and reference metadata within JPEG-family image formats. It is employed by ISO/IEC 19566-4 (JPEG Privacy & Security) and ISO/IEC 19566-6 (JPEG 360), among other standards. It is the basis for JPEG Trust Records as per ISO/IEC 21617-1.
+
+Standalone JUMBF files may be used when embedding within a parent image is impractical (e.g., due to size constraints), inappropriate (e.g., to avoid modifying a protected asset), or when the JUMBF payload is to be associated with a media asset at a later stage.
+
+Fragment identifier considerations:
+
+JUMBF supports a URI fragment and query syntax for referencing embedded JUMBF boxes by label. References follow the pattern:
+      jumbf=<label>[/<label>...]
+conforming to the W3C Media Fragments specification (W3C REC-media-frags-20120925). No fragment identifier syntax specific to the application/jumbf media type beyond this is defined.
+
+Additional information:
+
+Deprecated alias names for this type: None
+Magic number(s):
+      Bytes 4–7 (0-indexed): 0x6A 0x75 0x6D 0x62 ('jumb') — the JUMBF Box type field.
+      Note: The first four bytes are the LBox (box length) field and are variable.
+File extension(s): .jumbf
+Macintosh file type code(s): None
+Object Identifier(s) or OID(s): None
+
+Person & email address to contact for further information:
+
+Leonard Rosenthol
+Project Leader, JUMBF
+ISO/IEC JTC 1/SC 29/WG 1
+ lrosenth&adobe.com
+
+Frederik Temmermans
+Chair, Systems & Integrations
+ISO/IEC JTC 1/SC 29/WG 1
+frederik.temmermans&vub.be
+
+Intended usage: COMMON
+
+Restrictions on usage: None
+
+Author:
+
+  ISO/IEC JTC 1/SC 29/WG 1 (the JPEG Committee)
+
+Change controller:
+
+  ISO/IEC JTC 1/SC 29/WG 1
+  Secretariat: SAC (Standardization Administration of China)

@@ -1,0 +1,47 @@
+(registered 2026-07-09, last updated 2026-07-09)
+
+Media type name: application
+
+Media subtype name: vnd.cxzip
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+A .cxzip file is a ZIP archive and must be treated as binary data.
+
+Security considerations: .cxzip files are ZIP archives containing a CXTF text file (__main.cxtf) and associated image assets. They contain no executable content. The ZIP format is susceptible to zip-slip path traversal attacks; implementations must validate that all archive entry paths are relative and do not escape the extraction directory. Decompression of maliciously crafted archives (zip bombs) should be guarded against by enforcing reasonable size limits. No privacy or integrity services are inherent; TLS should be used where confidentiality is required.
+
+Interoperability considerations: The archive must contain a file named __main.cxtf as the primary entry point. Image files within the archive must have unique basenames. All image paths in the CXTF file are resolved against the archive root, not the file system. Uses standard ZIP compression (DEFLATE, method 8, or stored, method 0).
+
+Published specification: https://heightmap.org
+
+Applications which use this media: CX Editor (Windows); <cxtf-view> web component. Used to distribute self-contained CXTF maps with embedded image assets as a single file.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: None
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): PK\x03\x04 (ZIP local file header signature, bytes 0–3)
+3. File extension(s): .cxzip
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+6. Windows clipboard name: CXZIP
+
+General Comments: A .cxzip archive is a self-contained distribution unit for a single CXTF map and its associated assets. The entry point is always named __main.cxtf. Image filenames within the archive must be unique regardless of subdirectory, as all images are resolved by basename only.
+
+Person to contact for further information:
+
+1. Name: Stefan Gies
+2. Email: ich&stefan-gies.com
+
+Intended usage: COMMON
+
+Used for embedding and distributing vector map files on the web and in desktop applications. Suitable for use in HTTP content negotiation, <a> download links, and fetch() API responses.
+
+Author/Change controller: Stefan Gies, independent developer — heightmap.org
