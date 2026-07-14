@@ -331,6 +331,34 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'flags-multipath-cap-tlv'">
+        <tr>
+          <th>Bit</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'flags-path-attrib-object'">
+        <tr>
+          <th>Bit</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'flags-multipath-oppdir-path-tlv'">
+        <tr>
+          <th>Bit</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'flags-multipath-forward-class-tlv'">
+        <tr>
+          <th>Bit</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <th>Value</th>
