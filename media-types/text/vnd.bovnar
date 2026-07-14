@@ -1,0 +1,81 @@
+(registered 2026-07-13, last updated 2026-07-13)
+
+Media type name: text
+
+Media subtype name: vnd.bovnar
+
+Required parameters: N/A
+
+Optional parameters:
+
+`charset` — per RFC 6657. Bovnar documents are Unicode text encoded as UTF-8;
+
+`UTF-8` is the only interoperable value and the assumed default. Other charsets SHOULD NOT be used.
+
+Encoding considerations: 8bit
+
+Bovnar document is UTF-8 text and may contain non-ASCII octets in string values, identifiers, and unit symbols (e.g. `m/s²`, `µ`). Embedded binary data is carried as *escaped octet streams* (`\xNN …`), so the byte stream remains text; no transfer encoding is required for 8-bit-clean transports. Over 7-bit-only transports, use quoted-printable or base64.
+
+Security considerations: A Bovnar document is passive data. It carries no scripting, macros, external entity references, or instructions that a conforming parser executes; processing a document cannot, by itself, cause code execution.
+
+Implementations consuming untrusted documents should nonetheless note:
+
+- *Resource consumption.* Deeply nested structures/arrays and very large octet streams or array dimensions can consume memory and CPU. Parsers SHOULD bound input size and nesting depth. The reference implementation exposes a configurable maximum document size and recovers from malformed input rather than aborting.
+
+- *Internal references.* The `&.path` reference syntax names another value within the *same* document only; it does not trigger any network or filesystem access, so it is not an SSRF/XXE vector. Cyclic or dangling references are a validation error, not a fetch.
+
+- *Numeric / unit values.* Values are validated against their declared type, bit-width, base, and physical unit. A mismatch is a parse error. Consumers should still range-check semantically significant quantities.
+
+- *Binary payloads.* Octet streams are opaque bytes; a consumer that interprets or executes them is responsible for its own validation.
+
+The reference implementation is built with standard hardening (bounds checks, stack protection, FORTIFY) and is exercised by a fuzz suite.
+
+Interoperability considerations: The format is strongly and explicitly typed: each value's type family, bit-width, numeric base, and physical unit travel inline with the value. Producers SHOULD emit canonical type annotations; consumers MUST reject documents whose inline values contradict their annotations (e.g. a unit mismatch). Units outside a consumer's known set are a validation error rather than silently ignored. The grammar is specified in EBNF (see published specification) to support independent, interoperable implementations.
+
+Published specification:
+
+Project website
+https://www.bovnar.io
+
+Source repository on GitHub
+https://github.com/sothis/bovnar
+
+Specification — the authoritative format spec (v1.1)
+https://github.com/sothis/bovnar/blob/main/doc/1_bovnar_spec.md
+
+Unit System Reference — physical units, currencies, prefixes, and symbols
+https://github.com/sothis/bovnar/blob/main/doc/2_bovnar_unit_system.md
+
+Formal EBNF Grammar — machine-readable grammar for the format
+https://github.com/sothis/bovnar/blob/main/doc/5_bovnar.ebnf
+
+FAQ — common questions on the format, types, units, and limits
+https://github.com/sothis/bovnar/blob/main/doc/6_bovnar_faq.md
+
+Conformance Test Tool — test suite and IUT protocol for implementations
+https://github.com/sothis/bovnar/blob/main/doc/7_bovnar_conformance.md
+
+Applications which use this media: Configuration and data interchange for scientific, engineering, financial, and industrial systems where values must carry their physical unit and exact numeric type. Implementations include the Bovnar C99 reference library and command-line tool, and the `bovnar` Python package on PyPI (<https://pypi.org/project/bovnar/>).
+
+Editor support exists for VS Code, Sublime Text, Vim, and Geany.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: N/A
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): N/A
+3. File extension(s): bvnr, bovnar
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+Person to contact for further information:
+
+1. Name: Janos Sonntag
+2. Email: janos.sonntag&mail.de
+
+Intended usage: COMMON
+
+Author/Change controller: Janos Sonntag (the Bovnar project maintainer)
