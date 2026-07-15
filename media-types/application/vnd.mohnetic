@@ -1,0 +1,52 @@
+(registered 2026-07-15, last updated 2026-07-15)
+
+Media type name: application
+
+Media subtype name: vnd.mohnetic
+
+Required parameters: N/A.
+
+Optional parameters: N/A.
+
+Encoding considerations: binary
+
+Will be used only my SaaS platform to keep the encrypted customers data which is exported from the platform.
+
+Security considerations: The media type comprises statically encrypted, non-executable data requiring robust, native, and external privacy and integrity protections, in accordance with RFC 6838, section 4.6. It employs a proprietary binary format without using compression or external references, ensuring no risks related to container parsing or external resource fetching. Detailed security considerations are provided below, which address all IANA requirements.Security Considerations(1) Active or Executable ContentThe media type does not contain any active, executable, or interpretable content. The files consist entirely of static, encrypted data intended for storage or transit, which cannot be executed by the receiving system or any interpreter.(2) Privacy and Integrity NeedsYes, the information contained in this media type represents sensitive customer data and requires robust privacy and integrity protections to prevent unauthorized access or tampering.(3) Provision of Privacy and
+Integrity ServicesPrivacy and integrity are handled both natively and externally:Natively: The payload itself is fully encrypted at rest using strong cryptographic standards prior to export from the SaaS platform, ensuring privacy. Integrity is maintained natively through cryptographic signatures or message authentication codes (MACs) embedded within the encrypted data structure.Externally: When transported over networks (such as downloading from the SaaS platform), transport-layer security (SSL/TLS) must be used to provide external privacy and integrity protections.(4) Underlying Format ConsiderationsThe media type is structured as a proprietary binary envelope wrapping the encrypted payload. It does not natively employ XML, JSON, or any other high-level text-based serialization format prone to expansion or parsing exploits.(4a) Compression ConsiderationsThis media type does not employ compression algorithms. Therefore, it is not vulnerable to compression-related security risks, su
+ch as decompression bombs (zip bombs) or side-channel attack vectors like CRIME or BREACH.(4b) Container Format ConsiderationsThis media type does not utilize a generic container format (such as ZIP or OCF). It is a monolithic encrypted data file, eliminating security issues related to container traversal, archive loops, or malicious file inclusion.(5) External Links and ReferencesThe media type does not incorporate any external links, URIs, or remote references. All data required to store or eventually decrypt the file (given the correct keys) is contained entirely within the file itself or managed securely by the originating SaaS platform. Proper interpretation of the type does not rely on fetching external resources.
+
+Interoperability considerations: The media type is restricted to ecosystem-specific internal processing, deliberately eliminating general-purpose cross-platform compatibility requirements. In accordance with RFC 6838, Section 4.5, it does not mandate specific hardware or operating system architectures.
+
+Platform Independence: The data structure relies on a standardized, platform-independent byte order (big-endian). It remains entirely independent of specific operating systems, hardware architectures, or CPU endianness.
+
+Ecosystem Restriction: This format is explicitly designed for consumption and generation by a single proprietary SaaS platform. It is not intended for generic cross-platform interoperability, public data exchange, or processing by third-party applications.
+
+Version Control: Future iterations or structural changes to the internal encrypted payload will be governed internally by explicit version flags embedded within the file header. This mechanism ensures backward compatibility or predictable fallback behavior within the SaaS architecture.
+
+Published specification: There is no publicly available technical specification for this media type. The internal data structures, cryptographic layouts, and encoding schemas are proprietary to the originating SaaS platform. The format is explicitly reserved for private use and internal ecosystem processing.
+
+Applications which use this media: This media type is utilized exclusively by the originating SaaS platform and its authorized client applications (such as official desktop utilities, companion sync tools, or browser-based dashboard download managers). It facilitates the secure export, backup, offline archival, and subsequent re-import of encrypted customer data back into the SaaS platform. It is not processed, read, or modified by any third-party or general-purpose applications.
+
+Fragment identifier considerations: The media type does not define or support fragment identifiers. The internal payload consists of encrypted binary data that must be decrypted and processed as a single, monolithic file. Addressing, referencing, or extracting individual fragments or sub-resources using a fragment identifier (e.g., appended #fragment syntax) is not meaningful and is not supported. See RFC 6838, section 4.3.
+
+Restrictions on usage: This media type is restricted solely to the storage and transit of encrypted data generated by the specific SaaS platform. It must not be used for unencrypted text, generic file distribution, or general-purpose data exchange. Use of this media type is strictly limited to environments that can safely handle the platform's proprietary cryptographic protocols.
+
+Additional information:
+
+1. Deprecated alias names for this type: None
+2. Magic number(s): None
+3. File extension(s): mohnetic
+4. Macintosh file type code: None
+5. Object Identifiers: None
+
+General Comments:
+
+Person to contact for further information:
+
+1. Name: Kostiantyn Cherednychenko
+2. Email: mohno18&gmail.com
+
+Intended usage: LIMITED USE
+
+Author/Change controller: Kostiantyn Cherednychenko
