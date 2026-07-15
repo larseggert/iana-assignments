@@ -8,7 +8,7 @@ IANA-MAU-MIB DEFINITIONS ::= BEGIN
        ;
 
      ianaMauMIB MODULE-IDENTITY
-       LAST-UPDATED "202404020000Z" -- April 2, 2024
+       LAST-UPDATED "202607150000Z" -- July 15, 2026
        ORGANIZATION "IANA"
        CONTACT-INFO "        Internet Assigned Numbers Authority
 
@@ -52,6 +52,17 @@ IANA-MAU-MIB DEFINITIONS ::= BEGIN
          RFC 4836; for full legal notices see the RFC itself.
          Supplementary information may be available at:
          http://www.ietf.org/copyrights/ianamib.html"
+
+       REVISION     "202607150000Z" -- July 15, 2026
+       DESCRIPTION  "Added coverage for IEEE Std 802.3cs-2022 (Super-PON 10GBASE-SP1
+                    and 10/2.5GBASE-SP1 PHYs), IEEE Std 802.3db-2022 (100GBASE-SR1,
+                    100GBASE-VR1, 200GBASE-SR2, 200GBASE-VR2, 400GBASE-SR4, and
+                    400GBASE-VR4 PHYs), IEEE Std 802.3ck-2022 (100GBASE-CR1/KR1,
+                    200GBASE-CR2/KR2, and 400GBASE-CR4/KR4 PHYs and associated
+                    Auto-Negotiation capabilities), IEEE Std 802.3da-2026 (10BASE-T1M
+                    PHY), IEEE Std 802.3dk-2026 (100GBASE-BR10, 100GBASE-BR20, and
+                    100GBASE-BR40 PHYs), and IEEE Std 802.3dg-2026 (100BASE-T1L PHY and
+                    associated Auto-Negotiation capability)."
 
        REVISION     "202404020000Z" -- April 2, 2024
        DESCRIPTION  "Added support for IEEE Std 802.3df-2024 (400GBASE-DR4-2, 
@@ -369,7 +380,31 @@ IANA-MAU-MIB DEFINITIONS ::= BEGIN
               b800GbaseKR8(223), -- 800GBASE-KR8
               b800GbaseR(224), -- 800GBASE-R
               b800GbaseSR8(225), -- 800GBASE-SR8
-              b800GbaseVR8(226) -- 800GBASE-VR8
+              b800GbaseVR8(226), -- 800GBASE-VR8
+              b10GbaseSP1D(227), -- 10GBASE-SP1-D
+              b10GbaseSP1U(228), -- 10GBASE-SP1-U
+              b10G2p5GbaseSP1D(229), -- 10/2.5GBASE-SP1-D
+              b10G2p5GbaseSP1U(230), -- 10/2.5GBASE-SP1-U
+              b100GbaseSR1(231), -- 100GBASE-SR1
+              b100GbaseVR1(232), -- 100GBASE-VR1
+              b200GbaseSR2(233), -- 200GBASE-SR2
+              b200GbaseVR2(234), -- 200GBASE-VR2
+              b400GbaseSR4(235), -- 400GBASE-SR4
+              b400GbaseVR4(236), -- 400GBASE-VR4
+              b100GbaseCR1(237), -- 100GBASE-CR1
+              b100GbaseKR1(238), -- 100GBASE-KR1
+              b200GbaseCR2(239), -- 200GBASE-CR2
+              b200GbaseKR2(240), -- 200GBASE-KR2
+              b400GbaseCR4(241), -- 400GBASE-CR4
+              b400GbaseKR4(242), -- 400GBASE-KR4
+              b10baseT1M(243), -- 10BASE-T1M
+              b100GbaseBR10D(244), -- 100GBASE-BR10-D
+              b100GbaseBR10U(245), -- 100GBASE-BR10-U
+              b100GbaseBR20D(246), -- 100GBASE-BR20-D
+              b100GbaseBR20U(247), -- 100GBASE-BR20-U
+              b100GbaseBR40D(248), -- 100GBASE-BR40-D
+              b100GbaseBR40U(249), -- 100GBASE-BR40-U
+              b100baseT1L(250) -- 100BASE-T1L
          }
 
      IANAifMauMediaAvailable ::= TEXTUAL-CONVENTION
@@ -619,7 +654,11 @@ IANA-MAU-MIB DEFINITIONS ::= BEGIN
               b5GbaseT1(44), -- 5GBASE-T1
               b10GbaseT1(45), -- 10GBASE-T1
               b25GbaseT1(46), -- 25GBASE-T1
-              b800GR8(47) -- 800GBASE-CR8 or 800GBASE-KR8
+              b800GR8(47), -- 800GBASE-CR8 or 800GBASE-KR8
+              b100GbaseR1(48), -- 100GBASE-CR1 or 100GBASE-KR1
+              b200GbaseR2(49), -- 200GBASE-CR2 or 200GBASE-KR2
+              b400GbaseR4(50), -- 400GBASE-CR4 or 400GBASE-KR4
+              b100baseT1L(51) -- 100BASE-T1L
          }
 
      IANAifJackType ::= TEXTUAL-CONVENTION
@@ -2018,4 +2057,149 @@ IANA-MAU-MIB DEFINITIONS ::= BEGIN
          DESCRIPTION "800GBASE-R PCS/PMA over 8 multimode fibers in each direction
                       PMD with reach up to at least 50 m as specified in Clause 167"
          ::= { dot3MauType 226 }
+
+       dot3MauType10GbaseSP1D OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "Super-PON OLT PHY, 10 Gb/s downstream, over one single-mode fiber
+                      supporting a distance of at least 50 km as specified in Clause 164"
+         ::= { dot3MauType 227 }
+
+       dot3MauType10GbaseSP1U OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "Super-PON ONU PHY, 10 Gb/s upstream, over one single-mode fiber
+                      supporting a distance of at least 50 km as specified in Clause 164"
+         ::= { dot3MauType 228 }
+
+       dot3MauType10G2p5GbaseSP1D OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "Super-PON OLT PHY, 10 Gb/s downstream / 2.5 Gb/s upstream, over one
+                      single-mode fiber supporting a distance of at least 50 km as
+                      specified in Clause 164"
+         ::= { dot3MauType 229 }
+
+       dot3MauType10G2p5GbaseSP1U OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "Super-PON ONU PHY, 10 Gb/s downstream / 2.5 Gb/s upstream, over one
+                      single-mode fiber supporting a distance of at least 50 km as
+                      specified in Clause 164"
+         ::= { dot3MauType 230 }
+
+       dot3MauType100GbaseSR1 OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "100GBASE-R PCS/PMA over 1 multimode fiber in each direction
+                      PMD with reach up to at least 100 m as specified in Clause 167"
+         ::= { dot3MauType 231 }
+
+       dot3MauType100GbaseVR1 OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "100GBASE-R PCS/PMA over 1 multimode fiber in each direction
+                      PMD with reach up to at least 50 m as specified in Clause 167"
+         ::= { dot3MauType 232 }
+
+       dot3MauType200GbaseSR2 OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "200GBASE-R PCS/PMA over 2 multimode fibers in each direction
+                      PMD with reach up to at least 100 m as specified in Clause 167"
+         ::= { dot3MauType 233 }
+
+       dot3MauType200GbaseVR2 OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "200GBASE-R PCS/PMA over 2 multimode fibers in each direction
+                      PMD with reach up to at least 50 m as specified in Clause 167"
+         ::= { dot3MauType 234 }
+
+       dot3MauType400GbaseSR4 OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "400GBASE-R PCS/PMA over 4 multimode fibers in each direction
+                      PMD with reach up to at least 100 m as specified in Clause 167"
+         ::= { dot3MauType 235 }
+
+       dot3MauType400GbaseVR4 OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "400GBASE-R PCS/PMA over 4 multimode fibers in each direction
+                      PMD with reach up to at least 50 m as specified in Clause 167"
+         ::= { dot3MauType 236 }
+
+       dot3MauType100GbaseCR1 OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "100GBASE-R PCS/PMA over 1-lane shielded balanced copper cable
+                      PMD as specified in Clause 162"
+         ::= { dot3MauType 237 }
+
+       dot3MauType100GbaseKR1 OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "100GBASE-R PCS/PMA over an electrical backplane PMD as specified
+                      in Clause 163"
+         ::= { dot3MauType 238 }
+
+       dot3MauType200GbaseCR2 OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "200GBASE-R PCS/PMA over 2-lane shielded balanced copper cable
+                      PMD as specified in Clause 162"
+         ::= { dot3MauType 239 }
+
+       dot3MauType200GbaseKR2 OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "200GBASE-R PCS/PMA over an electrical backplane PMD as specified
+                      in Clause 163"
+         ::= { dot3MauType 240 }
+
+       dot3MauType400GbaseCR4 OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "400GBASE-R PCS/PMA over 4-lane shielded balanced copper cable
+                      PMD as specified in Clause 162"
+         ::= { dot3MauType 241 }
+
+       dot3MauType400GbaseKR4 OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "400GBASE-R PCS/PMA over an electrical backplane PMD as specified
+                      in Clause 163"
+         ::= { dot3MauType 242 }
+
+       dot3MauType10baseT1M OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "10BASE-T1M Single balanced pair multidrop PHY as specified in
+                      Clause 188"
+         ::= { dot3MauType 243 }
+
+       dot3MauType100GbaseBR10D OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "One single-mode fiber OLT PHY supporting a distance of at least
+                      10 km as specified in Clause 168"
+         ::= { dot3MauType 244 }
+
+       dot3MauType100GbaseBR10U OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "One single-mode fiber ONU PHY supporting a distance of at least
+                      10 km as specified in Clause 168"
+         ::= { dot3MauType 245 }
+
+       dot3MauType100GbaseBR20D OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "One single-mode fiber OLT PHY supporting a distance of at least
+                      20 km as specified in Clause 168"
+         ::= { dot3MauType 246 }
+
+       dot3MauType100GbaseBR20U OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "One single-mode fiber ONU PHY supporting a distance of at least
+                      20 km as specified in Clause 168"
+         ::= { dot3MauType 247 }
+
+       dot3MauType100GbaseBR40D OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "One single-mode fiber OLT PHY supporting a distance of at least
+                      40 km as specified in Clause 168"
+         ::= { dot3MauType 248 }
+
+       dot3MauType100GbaseBR40U OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "One single-mode fiber ONU PHY supporting a distance of at least
+                      40 km as specified in Clause 168"
+         ::= { dot3MauType 249 }
+
+       dot3MauType100baseT1L OBJECT-IDENTITY
+         STATUS current
+         DESCRIPTION "100BASE-T1L Single balanced pair PHY as specified in Clause 190"
+         ::= { dot3MauType 250 }
 END
