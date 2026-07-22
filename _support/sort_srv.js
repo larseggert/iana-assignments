@@ -29,6 +29,16 @@
 
 var NS_XHTML = "http://www.w3.org/1999/xhtml";
 
+var SORT_SRV_SUPPORT_BASE = (function() {
+    var scripts = document.getElementsByTagName('script');
+    for ( var i = 0; i < scripts.length; ++i ) {
+        var src = scripts[i].getAttribute('src');
+        if ( src && src.match(/(^|\/)sort_srv\.js$/) )
+            return src.replace(/sort_srv\.js$/, '');
+    }
+    return '../_support/';
+})();
+
 $(document).ready( function() {
     var uri = new Uri(window.location.href);
     var tables = document.getElementsByTagName('table');
@@ -49,13 +59,13 @@ $(document).ready( function() {
 	    var add = "";
 	    for(var k = 0; k < skeys.length; ++k) {
 		    if (skeys[k] < 0 && -skeys[k] == j + 1) {
-			    add = " <img style=\"vertical-align:middle\" src=\"../_support/sort_down.gif\"/>";
+			    add = " <img style=\"vertical-align:middle\" src=\"" + SORT_SRV_SUPPORT_BASE + "sort_down.gif\"/>";
 		    } else if (skeys[k] == j + 1) {
-			    add = " <img style=\"vertical-align:middle\" src=\"../_support/sort_up.gif\"/>";
+			    add = " <img style=\"vertical-align:middle\" src=\"" + SORT_SRV_SUPPORT_BASE + "sort_up.gif\"/>";
 		    }
 	    }
 	    if (add == "") {
-		    th.innerHTML += " <img style=\"vertical-align:middle\" src=\"../_support/sort_none.gif\"/>";
+		    th.innerHTML += " <img style=\"vertical-align:middle\" src=\"" + SORT_SRV_SUPPORT_BASE + "sort_none.gif\"/>";
 	    } else {
 		    th.innerHTML += add
 	    }

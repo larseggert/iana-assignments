@@ -13,7 +13,7 @@
   <xsl:template match="iana:record">
     <tr>
       <td align="center" style="white-space:nowrap">
-        <a href="{iana:value}.xml"><xsl:value-of select="iana:value"/></a>
+        <a href="{concat($assignments_base, 'collation/', iana:value, '.xml')}"><xsl:value-of select="iana:value"/></a>
       </td>
       <td><xsl:apply-templates select="iana:description"/></td>
       <td><xsl:apply-templates select="iana:xref"/></td>

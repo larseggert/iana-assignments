@@ -31,18 +31,19 @@
   <xsl:param name="registry_json_base_url" select="''"/>
   <xsl:param name="registry_csv_base_url" select="''"/>
   <xsl:param name="enable_json_export" select="'false'"/>
+  <xsl:param name="assignments_base" select="'../'"/>
 
   <xsl:template match="/iana:registry">
 
     <head>
-      <link rel="stylesheet" href="../_support/iana-registry.css" type="text/css"/>
+      <link rel="stylesheet" href="{concat($assignments_base, '_support/iana-registry.css')}" type="text/css"/>
       <!-- IE insists on having <script ...></script>, not <script .../> when it
       displays XML converted on the fly using XSLT. -->
-      <script type="text/javascript" src="../_support/jquery.js"></script>
-      <script type="text/javascript" src="../_support/sort.js"></script>
+      <script type="text/javascript" src="{concat($assignments_base, '_support/jquery.js')}"></script>
+      <script type="text/javascript" src="{concat($assignments_base, '_support/sort.js')}"></script>
       <xsl:if test="iana:pagination">
-        <script type="text/javascript" src="../_support/sort_srv.js"></script>
-        <script type="text/javascript" src="../_support/jsuri.js"></script>
+        <script type="text/javascript" src="{concat($assignments_base, '_support/sort_srv.js')}"></script>
+        <script type="text/javascript" src="{concat($assignments_base, '_support/jsuri.js')}"></script>
       </xsl:if>
       <xsl:call-template name="iana:head"/>
       <title><xsl:value-of select="iana:title" /></title>
@@ -52,7 +53,7 @@
         <div id="header">
           <div id="logo">
             <a href="{concat($website_base_url, '/')}">
-              <img src="../_support/iana-logo-header.svg" alt="Internet Assigned Numbers Authority"/>
+              <img src="{concat($assignments_base, '_support/iana-logo-header.svg')}" alt="Internet Assigned Numbers Authority"/>
             </a>
           </div>
           <div class="navigation">
@@ -298,20 +299,20 @@
     <dd>
         <xsl:if test="iana:record">
             <a class="altformat" href="{concat($registry_csv_base_url, '/assignments/', $group_id, '/', $registry_id, '.csv')}">
-                <img src="../_support/export-csv.png"/>
+                <img src="{concat($assignments_base, '_support/export-csv.png')}"/>
                 <br/>CSV
             </a>
             <xsl:if test="$enable_json_export = 'true'">
                 <a class="altformat" href="{concat($registry_json_base_url, '/assignments/', $group_id, '/', $registry_id, '-v1.json')}">
-                    <img src="../_support/export-json.svg" height="25"/>
+                    <img src="{concat($assignments_base, '_support/export-json.svg')}" height="25"/>
                     <br/>JSON
                 </a>
             </xsl:if>
         </xsl:if>
       <xsl:if test="not(parent::*)">
-        <a class="altformat" href="{$registry_id}.xml"><img src="../_support/export-xml.png"/><br/>XML</a>
-        <a class="altformat" href="{$registry_id}.xhtml"><img src="../_support/export-html.png"/><br/>HTML</a>
-        <a class="altformat" href="{$registry_id}.txt"><img src="../_support/export-plain.png"/><br/>Plain text</a>
+        <a class="altformat" href="{concat($assignments_base, $group_id, '/', $registry_id, '.xml')}"><img src="{concat($assignments_base, '_support/export-xml.png')}"/><br/>XML</a>
+        <a class="altformat" href="{concat($assignments_base, $group_id)}"><img src="{concat($assignments_base, '_support/export-html.png')}"/><br/>HTML</a>
+        <a class="altformat" href="{concat($assignments_base, $group_id, '/', $registry_id, '.txt')}"><img src="{concat($assignments_base, '_support/export-plain.png')}"/><br/>Plain text</a>
       </xsl:if>
     </dd>
   </xsl:template>
@@ -509,7 +510,14 @@
   <xsl:template match="iana:file">
     <a>
       <xsl:attribute name="href">
-        <xsl:value-of select="."/>
+        <xsl:choose>
+          <xsl:when test="starts-with(., 'http://') or starts-with(., 'https://') or starts-with(., '//')">
+            <xsl:value-of select="."/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="concat($assignments_base, /iana:registry/@id, '/', .)"/>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:attribute>
       <xsl:choose>
         <xsl:when test="@name">

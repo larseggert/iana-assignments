@@ -29,6 +29,16 @@
 
 var NS_XHTML = "http://www.w3.org/1999/xhtml";
 
+var SORT_SUPPORT_BASE = (function() {
+    var scripts = document.getElementsByTagName('script');
+    for ( var i = 0; i < scripts.length; ++i ) {
+        var src = scripts[i].getAttribute('src');
+        if ( src && src.match(/(^|\/)sort\.js$/) )
+            return src.replace(/sort\.js$/, '');
+    }
+    return '../_support/';
+})();
+
 $(document).ready( function() {
     var tables = document.getElementsByTagName('table');
     for ( var i = 0; i < tables.length; ++i ) {
@@ -70,7 +80,7 @@ $(document).ready( function() {
                 /* for Internet Explorer */
                 th.attachEvent( "onclick", sortTable );
             }
-            th.innerHTML += " <img style=\"vertical-align:middle\" src=\"../_support/sort_none.gif\"/>";
+            th.innerHTML += " <img style=\"vertical-align:middle\" src=\"" + SORT_SUPPORT_BASE + "sort_none.gif\"/>";
         }
 
         tables[i].tHead.rows[0].style.cursor = 'pointer';
@@ -191,13 +201,13 @@ function sortTable()
         if ( $(el).hasClass('sorted') ) {
             $(el).removeClass('sorted');
             $(el).addClass('reversed');
-            el.getElementsByTagName('img')[0].setAttribute( 'src', '../_support/sort_up.gif' );
+            el.getElementsByTagName('img')[0].setAttribute( 'src', SORT_SUPPORT_BASE + 'sort_up.gif' );
             reverseRows( el.sortTable );
         }
         else if ( $(el).hasClass('reversed') ) {
             $(el).removeClass('reversed');
             $(el).addClass('sorted');
-            el.getElementsByTagName('img')[0].setAttribute( 'src', '../_support/sort_down.gif' );
+            el.getElementsByTagName('img')[0].setAttribute( 'src', SORT_SUPPORT_BASE + 'sort_down.gif' );
             reverseRows( el.sortTable );
         }
         else {
@@ -232,10 +242,10 @@ function sortTable()
             }
             var imgs = el.parentNode.getElementsByTagName('img');
             for ( var i = 0; i < imgs.length; ++i )
-                imgs[i].setAttribute( 'src', '../_support/sort_none.gif' );
+                imgs[i].setAttribute( 'src', SORT_SUPPORT_BASE + 'sort_none.gif' );
 
             $(el).addClass('sorted');
-            el.getElementsByTagName('img')[0].setAttribute( 'src', '../_support/sort_down.gif' );
+            el.getElementsByTagName('img')[0].setAttribute( 'src', SORT_SUPPORT_BASE + 'sort_down.gif' );
         }
     }
     setTimeout( continuation, 0 );
