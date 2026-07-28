@@ -1,0 +1,339 @@
+URN Namespace Registration for GS1
+==============================
+
+   Artefact version: v1.0.0
+   Registration version: 1
+   Date: 2026-07-27
+   Status: Candidate for Expert Review and IANA registration
+
+   This document is the concise GS1 URN registration request. It
+   follows the field names and order of the registration template in RFC
+   8141, Appendix A. A fuller GS1 URN namespace specification is planned
+   for publication through the RFC Independent Submissions Stream. The
+   fuller specification is expected to contain a Version 2 registration
+   template that points to the published RFC while preserving every URN
+   validly assigned under this Version 1 registration.
+
+Namespace Identifier
+--------------------
+
+   gs1
+
+Version
+-------
+
+   1
+
+Date
+----
+
+   2026-07-27
+
+Registrant
+----------
+
+   Organisation: GS1 AISBL
+   Role-based contact: Standards Development / GSMP Help Desk
+   Postal address: Avenue Louise 523, 1050 Brussels, Belgium
+   Email: gsmp&gs1.org
+   Telephone: +1 609 557 4569
+   URI: https://www.gs1.org/
+
+   GS1 AISBL submits this request as a standards development
+   organisation and requests consideration under the fast-track
+   procedure described in RFC 8141, Section 6.3.
+
+Purpose
+-------
+
+   The gs1 namespace provides persistent, location-independent names for
+   resources governed within the GS1 system. Version 1 supports three
+   coordinated classes of names:
+
+   1. GS1 Application Identifier assertion collections. These names
+     express one GS1 primary identification key together with any
+     permitted key qualifiers and data attributes as an ordered
+     collection of Application Identifier/value assertions.
+   2. GS1 semantic dictionary artefacts. These names identify Business
+     Information Elements, Business Data Types, Code Lists and Code
+     Values historically or currently governed through GS1 semantic
+     and Global Data Dictionary / Global Data Synchronisation Network
+     processes.
+   3. GS1 standards and standards components. These names identify GS1
+     standards, editions and numbered clauses.
+
+   The namespace is intended for global use on public and private
+   networks by GS1, GS1 Member Organisations, standards implementers,
+   registries, data spaces, publishers, regulatory systems, software
+   applications and autonomous agents. It provides stable references for
+   standards citation, semantic linking, knowledge graphs,
+   machine-readable publication and long-lived data exchange.
+
+   The namespace complements the epc URN namespace defined by RFC 5134.
+   The namespaces coexist and retain independent syntax, governance and
+   assignment rules. No urn:gs1 name is lexically equivalent to a
+   urn:epc name. A mapping between names in the two namespaces does not,
+   by itself, establish lexical or semantic equivalence.
+
+   GS1 intends to publish a fuller specification through the RFC
+   Independent Submissions Stream. This Version 1 registration is
+   intended to enable GS1 standardisation and assignment work to proceed
+   while that publication is developed. A subsequent Version 2
+   registration may add documentation and clarification but will not
+   invalidate names validly assigned under Version 1.
+
+Syntax
+------
+
+   The following Augmented Backus-Naur Form (ABNF) defines the
+   assigned-name syntax. The productions ALPHA, DIGIT and HEXDIG are
+   compatible with the core rules of RFC 5234.
+
+   gs1-urn       = "urn" ":" "gs1" ":" gs1-nss
+   gs1-nss       = ai-branch / gdd-branch / std-branch
+   
+   ai-branch     = ai ":" ai-value *( ":" ai ":" ai-value )
+   ai            = 2*4DIGIT
+   ai-value      = 1*( unreserved / pct-encoded / sub-delims /
+                       "@" / "/" )
+   
+   gdd-branch    = "gdd" ":" ( bie-branch / bdt-branch /
+                       cl-branch )
+   bie-branch    = "bie" ":" bie-ref
+   bdt-branch    = "bdt" ":" datatype-name
+   cl-branch     = "cl" ":" codelist-name [ ":" code-value ]
+   
+   bie-ref       = class-name
+                 / class-name "." class-name
+                 / class-name "." lower-name
+                 / class-name "." lower-name "." class-name
+   class-name    = UPPER *( ALPHA / DIGIT )
+   lower-name    = LOWER *( ALPHA / DIGIT )
+   datatype-name = class-name
+   codelist-name = class-name
+   code-value    = UPPER *( UPPER / DIGIT / "_" )
+   
+   std-branch    = "std" ":" std-id
+                   [ ":" version [ ":" clause ] ]
+   std-id        = LOWER *( LOWER / DIGIT / "-" )
+   version       = 1*DIGIT "." 1*DIGIT *( "." 1*DIGIT )
+   clause        = 1*DIGIT *( "." 1*DIGIT )
+   
+   unreserved    = ALPHA / DIGIT / "-" / "." / "_" / "~"
+   pct-encoded   = "%" HEXDIG HEXDIG
+   sub-delims    = "!" / "$" / "&" / "'" / "(" / ")" /
+                   "*" / "+" / "," / ";" / "="
+   UPPER         = %x41-5A
+   LOWER         = %x61-7A
+   ALPHA         = UPPER / LOWER
+   DIGIT         = %x30-39
+   HEXDIG        = DIGIT / %x41-46 / %x61-66
+
+   The three forms are therefore:
+
+   urn:gs1:<ai>:<value>[:<ai>:<value>]...
+   urn:gs1:gdd:(bie|bdt|cl):<assigned-name>
+   urn:gs1:std:<standard-id>[:<version>[:<clause>]]
+
+   The literals urn, gs1, gdd, bie, bdt, cl and std are case-insensitive
+   for lexical comparison. Their canonical representation is lowercase.
+   Assigned values are case-sensitive unless the governing GS1
+   specification explicitly states otherwise.
+
+   Version 1 assigns no namespace-specific semantics to RFC 8141
+   r-components, q-components or f-components. GS1 assignments under
+   this registration consist of the assigned-name only.
+
+Assignment
+----------
+
+   GS1 AISBL is the change controller and ultimate assignment authority
+   for the namespace. Assignment may be delegated to GS1 Member
+   Organisations or GS1-governed maintenance groups only under
+   documented GS1 rules. An assigned name MUST have an authoritative
+   GS1-managed specification, registry record, publication or standards
+   artefact that defines what it identifies.
+
+Application Identifier branch
+
+   An Application Identifier branch name is interpreted as one ordered
+   collection of GS1 Application Identifier assertions.
+
+   * The first ai:value pair MUST contain a GS1 primary identification
+     key permitted by the GS1 General Specifications and, where
+     applicable, the GS1 Digital Link URI Syntax standard.
+   * Subsequent pairs MUST be valid key qualifiers or data attributes
+     that are permitted with the leading primary identification key.
+   * Key qualifiers MUST appear in the order prescribed for that primary
+     key by the GS1 Digital Link URI Syntax standard.
+   * Data attributes MUST follow all key qualifiers and MUST be ordered
+     lexically by their Application Identifier code.
+   * The same Application Identifier code MUST NOT occur more than once
+     in an assigned name unless a governing GS1 specification expressly
+     defines repeatability and a canonical ordering rule.
+   * Every value MUST satisfy the length, character repertoire, check-
+     digit, association and other semantic constraints defined for that
+     Application Identifier.
+   * Characters not admitted directly by the ai-value production MUST be
+     percent-encoded. A literal colon within a value MUST
+     therefore be encoded as %3A.
+
+   For example:
+
+   urn:gs1:01:09506000134352:10:ABC123:17:250101
+
+   identifies an ordered assertion collection containing a Global Trade
+   Item Number under Application Identifier 01, a batch or lot number
+   under Application Identifier 10, and an expiration date under
+   Application Identifier 17. The URN does not identify an arbitrary
+   concatenation of strings; the semantics of every pair and of the
+   permitted collection are determined by GS1 specifications.
+
+Semantic dictionary branch
+
+   The gdd branch is assigned only to an authoritative GS1 semantic
+   artefact. The following canonical patterns apply:
+
+   urn:gs1:gdd:bie:TradeItem
+   urn:gs1:gdd:bie:TradeItem.netContent
+   urn:gs1:gdd:bie:TradeItem.brandOwner.PartyInRole
+   urn:gs1:gdd:bdt:StringAttributeValuePair
+   urn:gs1:gdd:cl:ContainerMaterialCode
+   urn:gs1:gdd:cl:ContainerMaterialCode:STAINLESS_STEEL
+
+   Class, datatype and Code List names use initial-capital CamelCase;
+   attribute and association names use initial-lowercase camelCase; Code
+   Values use uppercase letters, digits and underscores. Existing valid
+   GS1 assignments are preserved. New assignments require an
+   authoritative semantic registry entry or publication.
+
+Standards branch
+
+   The std branch uses a GS1-controlled standard identifier. A version,
+   when present, precedes a clause. A clause cannot be assigned without
+   a version.
+
+   urn:gs1:std:genspec
+   urn:gs1:std:genspec:25.0
+   urn:gs1:std:genspec:25.0:4.14.2
+   urn:gs1:std:epcis:2.0:4.2
+
+   The governing GS1 standards publication defines the resource
+   identified by the standard, version or clause name.
+
+Uniqueness and persistence
+
+   GS1 assignment processes MUST prevent duplicate assignment and MUST
+   NOT reassign an existing URN to a different resource. Deprecation,
+   withdrawal, supersession, migration of semantic infrastructure,
+   publication-format changes or resolver changes do not invalidate an
+   assigned URN. Historical or withdrawn resources retain their names
+   and SHOULD remain documented through a retained record or tombstone.
+
+Security and Privacy
+--------------------
+
+   GS1 URNs contain structured components that are intended to be
+   parsed. Possession of a URN does not grant authority to perform an
+   operation on the identified resource, and this registration defines
+   no operation that is triggered solely by possession of a URN.
+
+   A URN is not a confidentiality mechanism. Application Identifier
+   values can disclose product, asset, location, document,
+   service-relation or person-related identifiers and attributes.
+   Assigners and implementers MUST NOT place confidential, personal or
+   regulated information in a publicly distributed URN unless its
+   disclosure is lawful, authorised and appropriate for the use case.
+   Systems that resolve or otherwise process URNs remain responsible for
+   authentication, authorisation, access control, audit, integrity and
+   privacy controls.
+
+   The use of non-authoritative metadata or resolver services can
+   produce incorrect or stale information. This is an implementation
+   risk associated with resolution, not a property of lexical validity.
+
+Interoperability
+----------------
+
+   All names assigned under this registration conform to the generic URN
+   syntax and equivalence rules of RFC 8141. Generic URI and URN
+   processors can parse and compare the names without understanding
+   GS1-specific semantics.
+
+   Canonical assignment rules prevent multiple names from being created
+   merely because key qualifiers or data attributes were reordered.
+   Percent-encoded octets follow RFC 8141 and RFC 3986 normalisation
+   rules. Branch literals are compared case-insensitively; assigned
+   values retain the case significance defined by their governing GS1
+   specification.
+
+   The Application Identifier branch is designed to preserve the meaning
+   of GS1 Application Identifier element strings and to support
+   deterministic conversion to or from corresponding uncompressed GS1
+   Digital Link identifiers where the necessary information and GS1
+   rules permit it. Such conversion is a semantic mapping and does not
+   make a URN lexically equivalent to a GS1 Digital Link URI.
+
+   The urn:gs1 and urn:epc namespaces coexist. No name in one namespace
+   is lexically equivalent to a name in the other. Any claimed semantic
+   mapping MUST be defined by a GS1 standard or implementation guideline
+   and MUST NOT alter the independent assignment rules of either
+   namespace.
+
+Resolution
+----------
+
+   Resolution is optional. The validity and persistence of a urn:gs1
+   name do not depend on the availability of a resolver.
+
+   Version 1 does not normatively designate or claim deployment of a
+   resolver endpoint. GS1 may subsequently publish or designate one or
+   more authoritative resolution services. Such services may return
+   metadata, current locators, semantic descriptions, standards
+   representations or other services associated with the identified
+   resource, and may apply authentication or content negotiation. A
+   future Version 2 registration or the planned RFC can document such
+   services without changing the lexical identity of names assigned
+   under Version 1.
+
+Documentation
+-------------
+
+   The namespace is governed in conjunction with the following stable
+   specifications and resources:
+
+   * RFC 8141, Uniform Resource Names (URNs).
+   * RFC 3986, Uniform Resource Identifier (URI): Generic Syntax.
+   * RFC 5234, Augmented BNF for Syntax Specifications: ABNF.
+   * RFC 5134, A Uniform Resource Name Namespace for EPCglobal.
+   * GS1 General Specifications: https://ref.gs1.org/standards/genspecs/
+   * GS1 Application Identifiers: https://ref.gs1.org/ai/
+   * GS1 Digital Link Standard: URI Syntax:
+     https://ref.gs1.org/standards/digital-link/uri-syntax/
+   * GS1 standards reference directory: https://ref.gs1.org/standards/
+   * GS1 glossary: https://xchange.gs1.org/sites/glossary/en-gb
+
+   GS1 intends to publish A Uniform Resource Name (URN) Namespace for
+   GS1 through the RFC Independent Submissions Stream. The resulting RFC
+   is expected to provide fuller architectural rationale, examples,
+   resolver guidance and a Version 2 registration template.
+
+Additional Information
+----------------------
+
+   Change controller: GS1 AISBL
+   Operational contact: Standards Development / GSMP Help Desk
+   Email: gsmp&gs1.org
+   Telephone: +1 609 557 4569
+   GS1 Global Office: https://www.gs1.org/gs1-global-office
+
+   GS1 will maintain controlled registries or publications for standard
+   identifiers, semantic artefact names and other assigned components.
+   Changes to assignment rules are governed through GS1 standards
+   processes. Updates to the formal URN registration follow the RFC 8141
+   review and IANA registration procedure.
+
+Revision Information
+--------------------
+
+   None. This is the initial registration, Version 1.
