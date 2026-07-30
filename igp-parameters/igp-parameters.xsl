@@ -11,6 +11,7 @@
       <xsl:when test="@id = 'igp-algorithm-types'">
         <tr>
           <th>Value</th>
+          <th>Name</th>
           <th>Description</th>
           <th>Reference</th>
         </tr>
@@ -33,6 +34,7 @@
       <xsl:when test="@id = 'igp-metric-type'">
         <tr>
           <th>Type</th>
+          <th>Name</th>
           <th>Description</th>
           <th>Reference</th>
           <th>Allowed in Generic-Metric</th>
@@ -82,6 +84,7 @@
       <xsl:when test="../@id = 'igp-algorithm-types'">
       <tr>
         <td><xsl:value-of select="iana:value"/></td>
+        <td><xsl:apply-templates select="iana:name"/></td>
         <td><xsl:apply-templates select="iana:description"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
@@ -104,6 +107,7 @@
     <xsl:when test="../@id = 'igp-metric-type'">
       <tr>
         <td><xsl:value-of select="iana:value"/></td>
+        <td><xsl:apply-templates select="iana:name"/></td>
         <td><xsl:apply-templates select="iana:description"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
         <td><xsl:apply-templates select="iana:allowed"/></td>

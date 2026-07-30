@@ -10,7 +10,7 @@ Created
         2017-12-18
 
 Last Updated
-        2026-07-10
+        2026-07-29
 
 Available Formats
         [IMG]
@@ -37,21 +37,27 @@ Registration Procedure(s)
  Standards Action
 
 Reference
-        [RFC8665]
+        [RFC8665][RFC-ietf-lsr-ospf-flex-algo-yang-16]
+
+Note
+
+ When this registry is modified, the YANG module [iana-igp-algo-types]
+ must be updated as defined in [RFC-ietf-lsr-ospf-flex-algo-yang-16].
+
 
 Available Formats
         [IMG]
         CSV
 
- Value                                                         Description                                                             Reference
-        Shortest Path First (SPF) algorithm based on link metric. This is the standard shortest path algorithm as computed by the
-0       IGP protocol. Consistent with the deployed practice for link-state protocols, Algorithm 0 permits any node to overwrite   [RFC8665]
-        the SPF path with a different path based on its local policy.
-        Strict Shortest Path First (SPF) algorithm based on link metric. The algorithm is identical to Algorithm 0 but Algorithm
-1       1 requires that all nodes along the path will honor the SPF routing decision. Local policy at the node claiming support   [RFC8665]
-        for Algorithm 1 MUST NOT alter the SPF paths computed by Algorithm 1.
-2-127   Unassigned
-128-255 Flexible Algorithms                                                                                                       [RFC9350, Section 4]
+ Value     Name                                                     Description                                                        Reference
+                   Shortest Path First (SPF) algorithm based on link metric. This is the standard shortest path algorithm as
+0       SPF        computed by the IGP protocol. Consistent with the deployed practice for link-state protocols, Algorithm 0      [RFC8665]
+                   permits any node to overwrite the SPF path with a different path based on its local policy.
+                   Strict Shortest Path First (SPF) algorithm based on link metric. The algorithm is identical to Algorithm 0 but
+1       Strict SPF Algorithm 1 requires that all nodes along the path will honor the SPF routing decision. Local policy at the    [RFC8665]
+                   node claiming support for Algorithm 1 MUST NOT alter the SPF paths computed by Algorithm 1.
+2-127              Unassigned
+128-255            Flexible Algorithms                                                                                            [RFC9350, Section 4]
 
 IGP MSD-Types
 
@@ -117,7 +123,13 @@ Bit               Name                    Reference
 IGP Metric-Type
 
 Reference
-        [RFC9350][RFC9843]
+        [RFC9350][RFC-ietf-lsr-ospf-flex-algo-yang-16][RFC9843]
+
+Note
+
+ When this registry is modified, the YANG module [iana-igp-metric-types]
+ must be updated as defined in [RFC-ietf-lsr-ospf-flex-algo-yang-16].
+
 
 Available Formats
         [IMG]
@@ -127,14 +139,16 @@ Available Formats
 0-127   Standards Action
 128-255 User-Defined Metric
 
- Type                                            Description                                                Reference        Allowed in Generic-Metric
-0       IGP Metric                                                                                    [RFC9350, Section 5.1] No
-1       Min Unidirectional Link Delay as defined in [RFC8570, Section 4.2] and [RFC7471, Section 4.2] [RFC9350, Section 5.1] No
-2       Traffic Engineering Default Metric as defined in [RFC5305, Section 3.7] and Traffic           [RFC9350, Section 5.1] No
-        Engineering Metric as defined in [RFC3630, Section 2.5.5]
-3       Bandwidth Metric                                                                              [RFC9843]              Yes
-4-127   Unassigned
-128-255 Reserved for User-Defined Metric                                                              [RFC9843]              Yes
+ Type               Name                                        Description                                 Reference        Allowed in Generic-Metric
+0       IGP Metric                    IGP Metric                                                      [RFC9350, Section 5.1] No
+1       Min Unidirectional Link Delay Min Unidirectional Link Delay as defined in [RFC8570, Section   [RFC9350, Section 5.1] No
+                                      4.2] and [RFC7471, Section 4.2]
+                                      Traffic Engineering Default Metric as defined in [RFC5305,
+2       TE Default Metric             Section 3.7] and Traffic Engineering Metric as defined in       [RFC9350, Section 5.1] No
+                                      [RFC3630, Section 2.5.5]
+3       Bandwidth Metric              Bandwidth Metric                                                [RFC9843]              Yes
+4-127                                 Unassigned
+128-255                               Reserved for User-Defined Metric                                [RFC9843]              Yes
 
 IGP Flexible Algorithm Definition Flags
 
