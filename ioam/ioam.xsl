@@ -33,6 +33,14 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'integrity-protection-methods'">
+        <tr>
+          <th>ID</th>
+          <th>Description</th>
+          <th>Protected Header Fields</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <th>Bit</th>
@@ -67,6 +75,14 @@
           <td><xsl:apply-templates select="iana:name"/></td>
           <td><xsl:apply-templates select="iana:description"/></td>
           <td><xsl:value-of select="iana:status"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'integrity-protection-methods'">
+        <tr>
+          <td><xsl:value-of select="iana:value"/></td>
+          <td><xsl:apply-templates select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:header"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>

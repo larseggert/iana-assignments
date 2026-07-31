@@ -4,7 +4,7 @@
 <registry xmlns="http://www.iana.org/assignments" id="ioam">
   <title>In Situ OAM (IOAM)</title>
   <created>2021-12-20</created>
-  <updated>2025-10-23</updated>
+  <updated>2026-07-31</updated>
   
   <registry id="option-type">
     <title>IOAM Option-Type</title>
@@ -45,33 +45,29 @@
       <name>Unassigned</name>
       <description/>
     </record>
-    <record date="2022-11-24" updated="2024-08-28">
+    <record date="2022-11-24" updated="2026-07-31">
       <value>64</value>
-      <name>IOAM Integrity Protected Pre-allocated Trace Option-Type (TEMPORARY - registered 2022-11-24, extension registered 2025-10-23, expires 2026-11-24)
-      </name>
-      <description>See Section 4</description>
-      <xref type="draft" data="draft-ietf-ippm-ioam-data-integrity-15"/>
+      <name>IOAM Integrity-Protected Pre-allocated Trace Option-Type</name>
+      <description>Pre-allocated Trace with Integrity Protection</description>
+      <xref type="draft" data="RFC-ietf-ippm-ioam-data-integrity-20" section="4">RFC-ietf-ippm-ioam-data-integrity-20, Section 4</xref>
     </record>
-    <record date="2022-11-24" updated="2024-08-28">
+    <record date="2022-11-24" updated="2026-07-31">
       <value>65</value>
-      <name>IOAM Integrity Protected Incremental Trace Option-Type (TEMPORARY - registered 2022-11-24, extension registered 2025-10-23, expires 2026-11-24)
-      </name>
-      <description>See Section 4</description>
-      <xref type="draft" data="draft-ietf-ippm-ioam-data-integrity-15"/>
+      <name>IOAM Integrity-Protected Incremental Trace Option-Type</name>
+      <description>Incremental Trace with Integrity Protection</description>
+      <xref type="draft" data="RFC-ietf-ippm-ioam-data-integrity-20" section="4">RFC-ietf-ippm-ioam-data-integrity-20, Section 4</xref>
     </record>
-    <record date="2022-11-24" updated="2024-08-28">
+    <record date="2022-11-24" updated="2026-07-31">
       <value>66</value>
-      <name>IOAM Integrity Protected POT Option-Type (TEMPORARY - registered 2022-11-24, extension registered 2025-10-23, expires 2026-11-24)
-      </name>
-      <description>See Section 4</description>
-      <xref type="draft" data="draft-ietf-ippm-ioam-data-integrity-15"/>
+      <name>IOAM Integrity-Protected POT Option-Type</name>
+      <description>POT with Integrity Protection</description>
+      <xref type="draft" data="RFC-ietf-ippm-ioam-data-integrity-20" section="4">RFC-ietf-ippm-ioam-data-integrity-20, Section 4</xref>
     </record>
-    <record date="2022-11-24" updated="2024-08-28">
+    <record date="2022-11-24" updated="2026-07-31">
       <value>67</value>
-      <name>IOAM Integrity Protected E2E Option-Type (TEMPORARY - registered 2022-11-24, extension registered 2025-10-23, expires 2026-11-24)
-      </name>
-      <description>See Section 4</description>
-      <xref type="draft" data="draft-ietf-ippm-ioam-data-integrity-15"/>
+      <name>IOAM Integrity-Protected E2E Option-Type</name>
+      <description>E2E with Integrity Protection</description>
+      <xref type="draft" data="RFC-ietf-ippm-ioam-data-integrity-20" section="4">RFC-ietf-ippm-ioam-data-integrity-20, Section 4</xref>
     </record>
     <record>
       <value>68-127</value>
@@ -316,6 +312,48 @@
     <record>
       <value>4-7</value>
       <description>Unassigned</description>
+    </record>
+  </registry>
+
+  <registry id="integrity-protection-methods">
+    <title>IOAM Integrity Protection Methods</title>
+    <xref type="draft" data="RFC-ietf-ippm-ioam-data-integrity-20"/>
+    <registration_rule>IETF Review</registration_rule>
+    <note>When this registry is modified, the YANG module <xref type="registry" data="iana-ioam-integrity-protection-methods">iana-ioam-integrity-protection-methods</xref> 
+must be updated as defined in <xref type="draft" data="RFC-ietf-ippm-ioam-integrity-yang-08"/>.
+    </note>
+    <record date="2026-07-31">
+      <value>0x00</value>
+      <description>AES-GMAC, 16-octet (full) Authentication Tag, 12-octet Initialization Vector.</description>
+      <header>Pre-allocated Trace and Incremental Trace:<br/>
+      - Namespace-ID (mask = 0xffff)<br/>
+      - NodeLen + Flags + RemainingLen (mask = 0xfb00)<br/>
+      - IOAM Trace-Type (mask = 0xffffff)<br/>
+      - Reserved (mask = 0x00)<br/>
+      <br/>
+
+      POT:<br/>
+      - Namespace-ID (mask = 0xffff)<br/>
+      - IOAM-POT-Type (mask = 0xff)<br/>
+      - IOAM-POT-Flags (mask = 0x00)<br/>
+      <br/>
+
+      E2E:<br/>
+      - Namespace-ID (mask = 0xffff)<br/>
+      - IOAM-E2E-Type (mask = 0xffff)<br/>
+    </header>
+      <xref type="draft" data="RFC-ietf-ippm-ioam-data-integrity-20" section="5">RFC-ietf-ippm-ioam-data-integrity-20, Section 5</xref>
+    </record>
+    <record>
+      <value>0x01-0xFE</value>
+      <description>Unassigned</description>
+      <header/>
+    </record>
+    <record date="2026-07-31">
+      <value>0xFF</value>
+      <description>Reserved</description>
+      <header/>
+      <xref type="draft" data="RFC-ietf-ippm-ioam-data-integrity-20"/>
     </record>
   </registry>
 
