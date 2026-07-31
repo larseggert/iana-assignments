@@ -123,6 +123,29 @@
           <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'extra-text-json-names'">
+        <tr>
+          <th>JSON Name</th>
+          <th>Field Meaning</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'contact-uri-schemes'">
+        <tr>
+          <th>Name</th>
+          <th>Meaning</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'extended-dns-sub-error-codes'">
+        <tr>
+          <th>Number</th>
+          <th>Meaning</th>
+          <th>EDE Codes Applicability</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:when test="@id = 'zonemd-schemes'">
         <tr>
           <th>Value</th>
@@ -311,6 +334,29 @@
         <td><xsl:apply-templates select="iana:value"/></td>
         <td><xsl:apply-templates select="iana:scheme"/></td>
         <td><xsl:apply-templates select="iana:purpose"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'extra-text-json-names'">
+        <tr>
+        <td><xsl:apply-templates select="iana:name"/></td>
+        <td><xsl:apply-templates select="iana:meaning"/></td>
+        <td><xsl:apply-templates select="iana:description"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'contact-uri-schemes'">
+        <tr>
+        <td><xsl:apply-templates select="iana:name"/></td>
+        <td><xsl:apply-templates select="iana:meaning"/></td>
+        <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'extended-dns-sub-error-codes'">
+        <tr>
+        <td><xsl:apply-templates select="iana:number"/></td>
+        <td><xsl:apply-templates select="iana:meaning"/></td>
+        <td><xsl:apply-templates select="iana:ede"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>

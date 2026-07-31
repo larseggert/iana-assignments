@@ -7,7 +7,7 @@ Internet Assigned Numbers Authority
                                                          Domain Name System (DNS) Parameters
 
 Last Updated
-        2026-07-20
+        2026-07-31
 
 Available Formats
         [IMG]
@@ -33,6 +33,9 @@ Registries Included Below
   • Underscored and Globally Scoped DNS Node Names
   • DSO Type Codes
   • Extended DNS Error Codes
+  • EXTRA-TEXT JSON Names
+  • Contact URI Schemes
+  • Extended DNS Sub-Error Codes
   • ZONEMD Schemes
   • ZONEMD Hash Algorithms
   • DNS Server Cookie Methods
@@ -548,7 +551,8 @@ Available Formats
     23      FILTERING-CONTACT       Optional [draft-muks-dns-filtering-05]
     24      FILTERING-ORGANIZATION  Optional [draft-muks-dns-filtering-05]
     25      FILTERING-DB            Optional [draft-muks-dns-filtering-05]
- 26-20291   Unassigned
+    26      Structured DNS Error    Standard [RFC-ietf-dnsop-structured-dns-error-27]
+ 27-20291   Unassigned
    20292    Umbrella Ident          Optional [https://developer.cisco.com/docs/cloud-security/#!integrating-network-devices/rdata-description][Cisco_CIE_DNS_team]
 20293-26945 Unassigned
    26946    DeviceID                Optional [https://developer.cisco.com/docs/cloud-security/#!network-devices-getting-started/response-codes][Cisco_CIE_DNS_team]
@@ -810,8 +814,72 @@ Available Formats
 32          Over Quota                         [draft-muks-dns-ede-rate-limited-02, Section 3]
 33          Negative Trust Anchor              [draft-farrokhi-dnsop-ede-nta-00]
 34          New Delegation Only                [draft-ietf-deleg-10]
-35-49151    Unassigned
+35          Blocked by Upstream DNS Server     [RFC-ietf-dnsop-structured-dns-error-27]
+36-49151    Unassigned
 49152-65535 Reserved for Private Use           [RFC8914, Section 5.2]
+
+EXTRA-TEXT JSON Names
+
+Registration Procedure(s)
+
+ IETF Review
+
+Reference
+        [RFC-ietf-dnsop-structured-dns-error-27]
+
+Available Formats
+        [IMG]
+        CSV
+
+JSON Name Field Meaning                                Description                                                      Reference
+c         contact       The contact details of the IT/InfoSec team to report misclassified DNS     [RFC-ietf-dnsop-structured-dns-error-27, Section 4]
+                        filtering
+j         justification UTF-8-encoded [RFC5198] textual justification for a particular DNS         [RFC-ietf-dnsop-structured-dns-error-27, Section 4]
+                        filtering
+s         sub-error     Integer representing the sub-error code for this DNS filtering case        [RFC-ietf-dnsop-structured-dns-error-27, Section 4]
+o         organization  UTF-8-encoded human-friendly name of the organization that filtered this   [RFC-ietf-dnsop-structured-dns-error-27, Section 4]
+                        particular DNS query
+l         language      Indicates the language of the "j" and "o" fields as defined in [RFC5646]   [RFC-ietf-dnsop-structured-dns-error-27, Section 4]
+
+Contact URI Schemes
+
+Registration Procedure(s)
+
+ IETF Review
+
+Reference
+        [RFC-ietf-dnsop-structured-dns-error-27]
+
+Available Formats
+        [IMG]
+        CSV
+
+ Name      Meaning      Reference
+tel    Telephone Number [RFC3966]
+mailto Internet mail    [RFC6068]
+
+Extended DNS Sub-Error Codes
+
+Registration Procedure(s)
+
+ IETF Review
+
+Reference
+        [RFC-ietf-dnsop-structured-dns-error-27]
+
+Available Formats
+        [IMG]
+        CSV
+
+Number         Meaning                         EDE Codes Applicability                                       Reference
+0      Reserved                Not used                                                [RFC-ietf-dnsop-structured-dns-error-27, Section 6.1]
+1      Malware                 "Blocked", "Blocked by Upstream DNS Server", "Filtered" [RFC5901, Section 5.5]
+2      Phishing                "Blocked", "Blocked by Upstream DNS Server", "Filtered" [RFC5901, Section 5.5]
+3      Spam                    "Blocked", "Blocked by Upstream DNS Server", "Filtered" [RFC4949]
+4      Spyware                 "Blocked", "Blocked by Upstream DNS Server", "Filtered" [RFC4949]
+5      Network operator policy "Blocked"                                               [RFC-ietf-dnsop-structured-dns-error-27, Section 6.2]
+6      DNS operator policy     "Blocked"                                               [RFC-ietf-dnsop-structured-dns-error-27, Section 6.3]
+7-255  Unassigned
 
 ZONEMD Schemes
 

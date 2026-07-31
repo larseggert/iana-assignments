@@ -3,7 +3,7 @@
 <?xml-model href="dns-parameters.rng" schematypens="http://relaxng.org/ns/structure/1.0" ?>
 <registry xmlns="http://www.iana.org/assignments" id="dns-parameters">
   <title>Domain Name System (DNS) Parameters</title>
-  <updated>2026-07-20</updated>
+  <updated>2026-07-31</updated>
 
 
   <registry id="dns-parameters-2">
@@ -1440,8 +1440,14 @@ which there are no final specifications are listed as "On-Hold."
       <status>Optional</status>
       <xref type="draft" data="draft-muks-dns-filtering-05"/>
     </record>
+    <record date="2026-07-31">
+      <value>26</value>
+      <description>Structured DNS Error</description>
+      <status>Standard</status>
+      <xref type="draft" data="RFC-ietf-dnsop-structured-dns-error-27"/>
+    </record>
     <record>
-      <value>26-20291</value>
+      <value>27-20291</value>
       <description>Unassigned</description>
     </record>
     <record date="2021-08-31">
@@ -2269,8 +2275,13 @@ specification.
       <description>New Delegation Only</description>
       <xref type="draft" data="draft-ietf-deleg-10"/>
     </record>
+    <record date="2026-07-31">
+      <value>35</value>
+      <description>Blocked by Upstream DNS Server</description>
+      <xref type="draft" data="RFC-ietf-dnsop-structured-dns-error-27"/>
+    </record>
     <record>
-      <value>35-49151</value>
+      <value>36-49151</value>
       <description>Unassigned</description>
     </record>
     <record date="2020-05-07">
@@ -2279,7 +2290,112 @@ specification.
       <xref type="rfc" data="rfc8914">RFC8914, Section 5.2</xref>
     </record>
   </registry>
-  
+
+  <registry id="extra-text-json-names">
+    <title>EXTRA-TEXT JSON Names</title>
+    <xref type="draft" data="RFC-ietf-dnsop-structured-dns-error-27"/>
+    <registration_rule>IETF Review</registration_rule>
+    <record date="2026-07-31">
+      <name>c</name>
+      <meaning>contact</meaning>
+      <description>The contact details of the IT/InfoSec team to report misclassified DNS filtering</description>
+      <xref type="draft" data="RFC-ietf-dnsop-structured-dns-error-27" section="4">RFC-ietf-dnsop-structured-dns-error-27, Section 4</xref>
+    </record>
+    <record date="2026-07-31">
+      <name>j</name>
+      <meaning>justification</meaning>
+      <description>UTF-8-encoded <xref type="rfc" data="rfc5198"/> textual justification for a particular DNS filtering</description>
+      <xref type="draft" data="RFC-ietf-dnsop-structured-dns-error-27" section="4">RFC-ietf-dnsop-structured-dns-error-27, Section 4</xref>
+    </record>
+    <record date="2026-07-31">
+      <name>s</name>
+      <meaning>sub-error</meaning>
+      <description>Integer representing the sub-error code for this DNS filtering case</description>
+      <xref type="draft" data="RFC-ietf-dnsop-structured-dns-error-27" section="4">RFC-ietf-dnsop-structured-dns-error-27, Section 4</xref>
+    </record>
+    <record date="2026-07-31">
+      <name>o</name>
+      <meaning>organization</meaning>
+      <description>UTF-8-encoded human-friendly name of the organization that filtered this particular DNS query</description>
+      <xref type="draft" data="RFC-ietf-dnsop-structured-dns-error-27" section="4">RFC-ietf-dnsop-structured-dns-error-27, Section 4</xref>
+    </record>
+    <record date="2026-07-31">
+      <name>l</name>
+      <meaning>language</meaning>
+      <description>Indicates the language of the "j" and "o" fields as defined in <xref type="rfc" data="rfc5646"/></description>
+      <xref type="draft" data="RFC-ietf-dnsop-structured-dns-error-27" section="4">RFC-ietf-dnsop-structured-dns-error-27, Section 4</xref>
+    </record>
+  </registry>
+    
+  <registry id="contact-uri-schemes">
+    <title>Contact URI Schemes</title>
+    <xref type="draft" data="RFC-ietf-dnsop-structured-dns-error-27"/>
+    <registration_rule>IETF Review</registration_rule>
+    <record date="2026-07-31">
+      <name>tel</name>
+      <meaning>Telephone Number</meaning>
+      <xref type="rfc" data="rfc3966"/>
+    </record>
+    <record date="2026-07-31">
+      <name>mailto</name>
+      <meaning>Internet mail</meaning>
+      <xref type="rfc" data="rfc6068"/>
+    </record>
+  </registry>
+
+  <registry id="extended-dns-sub-error-codes">
+    <title>Extended DNS Sub-Error Codes</title>
+    <xref type="draft" data="RFC-ietf-dnsop-structured-dns-error-27"/>
+    <registration_rule>IETF Review</registration_rule>
+    <record date="2026-07-31">
+      <number>0</number>     
+      <meaning>Reserved</meaning>
+      <ede>Not used</ede>
+      <xref type="draft" data="RFC-ietf-dnsop-structured-dns-error-27" section="6.1">RFC-ietf-dnsop-structured-dns-error-27, Section 6.1</xref>
+    </record>
+    <record date="2026-07-31">
+      <number>1</number>     
+      <meaning>Malware</meaning>
+      <ede>"Blocked", "Blocked by Upstream DNS Server", "Filtered"</ede>
+      <xref type="rfc" data="rfc5901" section="5.5">RFC5901, Section 5.5</xref>
+    </record>
+    <record date="2026-07-31">
+      <number>2</number>     
+      <meaning>Phishing</meaning>
+      <ede>"Blocked", "Blocked by Upstream DNS Server", "Filtered"</ede>
+      <xref type="rfc" data="rfc5901" section="5.5">RFC5901, Section 5.5</xref>
+    </record>
+    <record date="2026-07-31">
+      <number>3</number>     
+      <meaning>Spam</meaning>
+      <ede>"Blocked", "Blocked by Upstream DNS Server", "Filtered"</ede>
+      <xref type="rfc" data="rfc4949"/>
+    </record>
+    <record date="2026-07-31">
+      <number>4</number>     
+      <meaning>Spyware</meaning>
+      <ede>"Blocked", "Blocked by Upstream DNS Server", "Filtered"</ede>
+      <xref type="rfc" data="rfc4949"/>
+    </record>
+    <record date="2026-07-31">
+      <number>5</number>     
+      <meaning>Network operator policy</meaning>
+      <ede>"Blocked"</ede>
+      <xref type="draft" data="RFC-ietf-dnsop-structured-dns-error-27" section="6.2">RFC-ietf-dnsop-structured-dns-error-27, Section 6.2</xref>
+    </record>
+    <record date="2026-07-31">
+      <number>6</number>     
+      <meaning>DNS operator policy</meaning>
+      <ede>"Blocked"</ede>
+      <xref type="draft" data="RFC-ietf-dnsop-structured-dns-error-27" section="6.3">RFC-ietf-dnsop-structured-dns-error-27, Section 6.3</xref>
+    </record>
+    <record>
+      <number>7-255</number>     
+      <meaning>Unassigned</meaning>
+      <ede/>
+    </record>
+  </registry>
+
   <registry id="zonemd-schemes">
     <title>ZONEMD Schemes</title>
     <xref type="rfc" data="rfc8976"/>
