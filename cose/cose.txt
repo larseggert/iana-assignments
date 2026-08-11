@@ -10,7 +10,7 @@ Created
         2017-01-11
 
 Last Updated
-        2026-07-17
+        2026-08-11
 
 Available Formats
         [IMG]
@@ -53,197 +53,170 @@ Strings of length 1                      Standards Action With Expert Review
 Strings of length 2                      Specification Required
 Strings of length greater than 2         Expert Review
 
-            Name               Label          Value Type           Value Registry          Description                       Reference
-Reserved for Private Use     less than                                                                        [RFC9052]
+            Name               Label          Value Type           Value Registry            Description                       Reference
+Reserved for Private Use     less than                                                                           [RFC9052]
                              -65536
 delegated to the COSE Header -65536 to
 Algorithm Parameters         -1
 registry
-Reserved                     0                                                                                [RFC9052]
-alg                          1         int / tstr                [COSE Algorithms]   Cryptographic algorithm  [RFC9052]
-                                                                                     to use
-crit                         2         [+ label]                 [COSE Header        Critical headers to be   [RFC9052]
+Reserved                     0                                                                                   [RFC9052]
+alg                          1         int / tstr                [COSE Algorithms]   Cryptographic algorithm to  [RFC9052]
+                                                                                     use
+crit                         2         [+ label]                 [COSE Header        Critical headers to be      [RFC9052]
                                                                  Parameters]         understood
-                                                                 [COAP               Content type of the
-content type                 3         tstr / uint               Content-Formats] or payload                  [RFC9052]
+                                                                 [COAP
+content type                 3         tstr / uint               Content-Formats] or Content type of the payload [RFC9052]
                                                                  [Media Types]
-kid                          4         bstr                                          Key identifier           [RFC9052]
-IV                           5         bstr                                          Full Initialization      [RFC9052]
-                                                                                     Vector
-Partial IV                   6         bstr                                          Partial Initialization   [RFC9052]
+kid                          4         bstr                                          Key identifier              [RFC9052]
+IV                           5         bstr                                          Full Initialization Vector  [RFC9052]
+Partial IV                   6         bstr                                          Partial Initialization      [RFC9052]
                                                                                      Vector
                                        COSE_Signature / [+                           CBOR-encoded signature
-counter signature            7         COSE_Signature ]                              structure (Deprecated by [RFC8152]
+counter signature            7         COSE_Signature ]                              structure (Deprecated by    [RFC8152]
                                                                                      [RFC9338])
 Unassigned                   8
                                                                                      Counter signature with
-CounterSignature0            9         bstr                                          implied signer and       [RFC8152]
-                                                                                     headers (Deprecated by
-                                                                                     [RFC9338])
-kid context                  10        bstr                                          Identifies the context   [RFC8613, Section 5.1]
-                                                                                     for the key identifier
-Countersignature version 2   11        COSE_Countersignature /                       V2 countersignature      [RFC9338]
+CounterSignature0            9         bstr                                          implied signer and headers  [RFC8152]
+                                                                                     (Deprecated by [RFC9338])
+kid context                  10        bstr                                          Identifies the context for  [RFC8613, Section 5.1]
+                                                                                     the key identifier
+Countersignature version 2   11        COSE_Countersignature /                       V2 countersignature         [RFC9338]
                                        [+ COSE_Countersignature]                     attribute
-Countersignature0 version 2  12        COSE_Countersignature0                        V2 Abbreviated           [RFC9338]
+Countersignature0 version 2  12        COSE_Countersignature0                        V2 Abbreviated              [RFC9338]
                                                                                      Countersignature
                                                                                      A CBOR Web Token (CWT)
-                                                                                     containing a COSE_Key in
-                                                                                     a 'cnf' claim and
-kcwt                         13        COSE_Messages                                 possibly other claims.   [RFC9528]
-                                                                                     CWT is defined in
-                                                                                     [RFC8392]. COSE_Messages
-                                                                                     is defined in [RFC9052].
+                                                                                     containing a COSE_Key in a
+                                                                                     'cnf' claim and possibly
+kcwt                         13        COSE_Messages                                 other claims. CWT is        [RFC9528]
+                                                                                     defined in [RFC8392].
+                                                                                     COSE_Messages is defined in
+                                                                                     [RFC9052].
                                                                                      A CWT Claims Set (CCS)
-                                                                                     containing a COSE_Key in
-kccs                         14        map                                           a 'cnf' claim and        [RFC9528]
-                                                                                     possibly other claims.
-                                                                                     CCS is defined in
-                                                                                     [RFC8392].
-                                                                 map keys in [CWT    Location for CWT Claims
-CWT Claims                   15        map                       Claims]             in COSE Header           [RFC9597, Section 2]
-                                                                                     Parameters.
+                                                                                     containing a COSE_Key in a
+kccs                         14        map                                           'cnf' claim and possibly    [RFC9528]
+                                                                                     other claims. CCS is
+                                                                                     defined in [RFC8392].
+CWT Claims                   15        map                       map keys in [CWT    Location for CWT Claims in  [RFC9597, Section 2]
+                                                                 Claims]             COSE Header Parameters.
                                                                  [COAP               Content type of the
-typ (type)                   16        uint / tstr               Content-Formats] or complete COSE object     [RFC9596, Section 2]
+typ (type)                   16        uint / tstr               Content-Formats] or complete COSE object        [RFC9596, Section 2]
                                                                  [Media Types]
                                                                                      A list of selectively
-                                                                                     disclosed claims, which
-sd_claims (TEMPORARY -                                                               were originally
-registered 2026-01-16,       17        [ +bstr ]                                     redacted, then later     [RFC-ietf-spice-sd-cwt-06, Section 4]
-expires 2027-01-16)                                                                  disclosed at the
-                                                                                     discretion of the
-                                                                                     sender.
+sd_claims (TEMPORARY -                                                               disclosed claims, which
+registered 2026-01-16,       17        [ +bstr ]                                     were originally redacted,   [RFC-ietf-spice-sd-cwt-06, Section 4]
+expires 2027-01-16)                                                                  then later disclosed at the
+                                                                                     discretion of the sender.
 Unassigned                   18-21
-c5t (TEMPORARY - registered                                                          Hash of a
-2024-03-11, publication      22        COSE_CertHash                                 C509Certificate          [draft-ietf-cose-cbor-encoded-cert-12]
-requested 2025-09-23)
-c5u (TEMPORARY - registered                                                          URI pointing to a
-2024-03-11, publication      23        uri                                           COSE_C509 containing an  [draft-ietf-cose-cbor-encoded-cert-12]
-requested 2025-09-23)                                                                ordered chain of
-                                                                                     certificates
-c5b (TEMPORARY - registered                                                          An unordered bag of C509
-2024-03-11, publication      24        COSE_C509                                     certificates             [draft-ietf-cose-cbor-encoded-cert-12]
-requested 2025-09-23)
-c5c (TEMPORARY - registered                                                          An ordered chain of C509
-2024-03-11, publication      25        COSE_C509                                     certificates             [draft-ietf-cose-cbor-encoded-cert-12]
-requested 2025-09-23)
-Unassigned                   26-31
-x5bag                        32        COSE_X509                                     An unordered bag of      [RFC9360]
-                                                                                     X.509 certificates
-x5chain                      33        COSE_X509                                     An ordered chain of      [RFC9360]
-                                                                                     X.509 certificates
-x5t                          34        COSE_CertHash                                 Hash of an X.509         [RFC9360]
+c5t                          22        COSE_CertHash                                 Hash of a C509Certificate   [RFC-ietf-cose-cbor-encoded-cert-20]
+c5u                          23        uri                                           URI pointing to a C509      [RFC-ietf-cose-cbor-encoded-cert-20]
                                                                                      certificate
-x5u                          35        uri                                           URI pointing to an X.509 [RFC9360]
+c5b                          24        COSE_C509                                     An unordered bag of C509    [RFC-ietf-cose-cbor-encoded-cert-20]
+                                                                                     certificates
+c5c                          25        COSE_C509                                     An ordered chain of C509    [RFC-ietf-cose-cbor-encoded-cert-20]
+                                                                                     certificates
+Unassigned                   26-31
+x5bag                        32        COSE_X509                                     An unordered bag of X.509   [RFC9360]
+                                                                                     certificates
+x5chain                      33        COSE_X509                                     An ordered chain of X.509   [RFC9360]
+                                                                                     certificates
+x5t                          34        COSE_CertHash                                 Hash of an X.509            [RFC9360]
+                                                                                     certificate
+x5u                          35        uri                                           URI pointing to an X.509    [RFC9360]
                                                                                      certificate
 Unassigned                   36-169
-sd_alg (TEMPORARY -                                                                  The hash algorithm used
-registered 2026-01-16,       170       int                       [COSE Algorithms]   for redacting            [RFC-ietf-spice-sd-cwt-06, Section 7]
-expires 2027-01-16)                                                                  disclosures.
+sd_alg (TEMPORARY -                                                                  The hash algorithm used for
+registered 2026-01-16,       170       int                       [COSE Algorithms]   redacting disclosures.      [RFC-ietf-spice-sd-cwt-06, Section 7]
+expires 2027-01-16)
                                                                                      A list of AEAD encrypted
 sd_aead_encrypted_claims                                                             selectively disclosed
-(TEMPORARY - registered                                                              claims, which were
-2026-01-16, expires          171       [ +[bstr,bstr,bstr] ]                         originally redacted,     [RFC-ietf-spice-sd-cwt-06, Section 12.1]
-2027-01-16)                                                                          then later disclosed at
-                                                                                     the discretion of the
-                                                                                     sender.
-sd_aead (TEMPORARY -                                                                 The AEAD algorithm used
-registered 2026-01-16,       172       uint .size 2              [AEAD Algorithms]   for encrypting           [RFC-ietf-spice-sd-cwt-06, Section 12.1]
-expires 2027-01-16)                                                                  disclosures.
+(TEMPORARY - registered      171       [ +[bstr,bstr,bstr] ]                         claims, which were          [RFC-ietf-spice-sd-cwt-06, Section
+2026-01-16, expires                                                                  originally redacted, then   12.1]
+2027-01-16)                                                                          later disclosed at the
+                                                                                     discretion of the sender.
+sd_aead (TEMPORARY -                                                                 The AEAD algorithm used for [RFC-ietf-spice-sd-cwt-06, Section
+registered 2026-01-16,       172       uint .size 2              [AEAD Algorithms]   encrypting disclosures.     12.1]
+expires 2027-01-16)
 Unassigned                   173-255
-CUPHNonce                    256       bstr                                          Challenge Nonce          [FIDO Device Onboard Specification]
-CUPHOwnerPubKey              257       array                                         Public Key               [FIDO Device Onboard Specification]
-                                                                                     The hash algorithm used
-payload-hash-alg             258       int                       [COSE Algorithms]   to produce the payload   [RFC9995, Section 3]
-                                                                                     of a COSE_Sign1
-                                                                                     The content-format
-                                                                                     number or content-type
-                                                                 [CoAP               (media-type name) of
-preimage-content-type        259       uint / tstr               Content-Formats]    data that has been       [RFC9995, Section 3]
+CUPHNonce                    256       bstr                                          Challenge Nonce             [FIDO Device Onboard Specification]
+CUPHOwnerPubKey              257       array                                         Public Key                  [FIDO Device Onboard Specification]
+                                                                                     The hash algorithm used to
+payload-hash-alg             258       int                       [COSE Algorithms]   produce the payload of a    [RFC9995, Section 3]
+                                                                                     COSE_Sign1
+                                                                                     The content-format number
+                                                                 [CoAP               or content-type (media-type
+preimage-content-type        259       uint / tstr               Content-Formats]    name) of data that has been [RFC9995, Section 3]
                                                                                      hashed to produce the
-                                                                                     payload of the
-                                                                                     COSE_Sign1
-                                                                                     The string or URI hint
-                                                                                     for the location of the
-payload-location             260       tstr                                          data hashed to produce   [RFC9995, Section 3]
-                                                                                     the payload of a
-                                                                                     COSE_Sign1
-x5ts                         261       array of COSE_CertHash                        CBOR array of instances  [TS 119 152-1 V0.0.9, Clause 5.2.2]
-                                                                                     of COSE_CertHash
+                                                                                     payload of the COSE_Sign1
+                                                                                     The string or URI hint for
+payload-location             260       tstr                                          the location of the data    [RFC9995, Section 3]
+                                                                                     hashed to produce the
+                                                                                     payload of a COSE_Sign1
+x5ts                         261       array of COSE_CertHash                        CBOR array of instances of  [TS 119 152-1 V0.0.9, Clause 5.2.2]
+                                                                                     COSE_CertHash
                                                                                      set of commitments and
-srCms                        262       array of SrCm                                 optional commitments     [TS 119 152-1 V0.0.9, Clause 5.2.3]
+srCms                        262       array of SrCm                                 optional commitments        [TS 119 152-1 V0.0.9, Clause 5.2.3]
                                                                                      qualifiers
-                                                                                     CBOR map for indicating
-                                                                                     the location where the
-                                                                                     signature was generated.
-                                                                                     It may contain an
-sigPl                        263       map                                           indication of the        [TS 119 152-1 V0.0.9, Clause 5.2.4]
-                                                                                     country, the locality,
-                                                                                     the region, a box number
-                                                                                     in a post office, the
-                                                                                     postal code, and the
+                                                                                     CBOR map for indicating the
+                                                                                     location where the
+                                                                                     signature was generated. It
+                                                                                     may contain an indication
+sigPl                        263       map                                           of the country, the         [TS 119 152-1 V0.0.9, Clause 5.2.4]
+                                                                                     locality, the region, a box
+                                                                                     number in a post office,
+                                                                                     the postal code, and the
                                                                                      street address
-                                                                                     CBOR map that may
-                                                                                     contain: an array of
-                                                                                     attributes that the
-                                                                                     signer claims to be in
-                                                                                     possession of, an array
-                                                                                     of attribute
-                                                                                     certificates (X.509
-srAts                        264       map                                           attribute certificates   [TS 119 152-1 V0.0.9, Clause 5.2.5]
-                                                                                     or other) issued to the
-                                                                                     signer, an array of
-                                                                                     signed assertions issued
-                                                                                     by a third party to the
-                                                                                     signer, or any
+                                                                                     CBOR map that may contain:
+                                                                                     an array of attributes that
+                                                                                     the signer claims to be in
+                                                                                     possession of, an array of
+                                                                                     attribute certificates
+                                                                                     (X.509 attribute
+srAts                        264       map                                           certificates or other)      [TS 119 152-1 V0.0.9, Clause 5.2.5]
+                                                                                     issued to the signer, an
+                                                                                     array of signed assertions
+                                                                                     issued by a third party to
+                                                                                     the signer, or any
                                                                                      combination of the three
-                                                                                     aforementioned CBOR
-                                                                                     arrays
-                                                                                     CBOR map that
-                                                                                     encapsulates one or more
-                                                                                     electronic time-stamps,
-                                                                                     generated before the
-adoTst                       265       map                                           signature production,    [TS 119 152-1 V0.0.9, Clause 5.2.6]
-                                                                                     and whose message
-                                                                                     imprint computation
-                                                                                     input is the COSE
-                                                                                     Payload of the CB-AdES
-                                                                                     signature
-                                                                                     CBOR map that identifies
-                                                                                     a certain signature
-sigPId                       266       map                                           policy and may contain   [TS 119 152-1 V0.0.9, Clause 5.2.7]
-                                                                                     the digest of the
-                                                                                     document defining this
-                                                                                     signature policy.
+                                                                                     aforementioned CBOR arrays
+                                                                                     CBOR map that encapsulates
+                                                                                     one or more electronic
+                                                                                     time-stamps, generated
+adoTst                       265       map                                           before the signature        [TS 119 152-1 V0.0.9, Clause 5.2.6]
+                                                                                     production, and whose
+                                                                                     message imprint computation
+                                                                                     input is the COSE Payload
+                                                                                     of the CB-AdES signature
+                                                                                     CBOR map that identifies a
+                                                                                     certain signature policy
+sigPId                       266       map                                           and may contain the digest  [TS 119 152-1 V0.0.9, Clause 5.2.7]
+                                                                                     of the document defining
+                                                                                     this signature policy.
                                                                                      CBOR map that references
                                                                                      data objects that are
-sigD                         267       map                                           detached from the        [TS 119 152-1 V0.0.9, Clause 5.2.8]
-                                                                                     CB-AdES signature and
-                                                                                     that are collectively
-                                                                                     signed.
-                                                                                     CBOR array that contains
-                                                                                     a number of CBOR
-                                                                                     elements that are placed
-uHeaders                     268       [+bstr]                                       within the array in the  [TS 119 152-1 V0.0.9, Clause 5.3.1]
-                                                                                     order they are
+sigD                         267       map                                           detached from the CB-AdES   [TS 119 152-1 V0.0.9, Clause 5.2.8]
+                                                                                     signature and that are
+                                                                                     collectively signed.
+                                                                                     CBOR array that contains a
+                                                                                     number of CBOR elements
+uHeaders                     268       [+bstr]                                       that are placed within the  [TS 119 152-1 V0.0.9, Clause 5.3.1]
+                                                                                     array in the order they are
                                                                                      incorporated into the
                                                                                      CB-AdES signature
                                                                                      Timestamp Token per
-3161-ttc                     269       bstr                                          [RFC3161]: Timestamp,    [RFC9921, Section 3.2]
-                                                                                     Then COSE
+3161-ttc                     269       bstr                                          [RFC3161]: Timestamp, Then  [RFC9921, Section 3.2]
+                                                                                     COSE
                                                                                      Timestamp Token per
-3161-ctt                     270       bstr                                          [RFC3161]: COSE, Then    [RFC9921, Section 3.1]
+3161-ctt                     270       bstr                                          [RFC3161]: COSE, Then       [RFC9921, Section 3.1]
                                                                                      Timestamp
 Unassigned                   271-393
-                                                                                     Priority ordered
-receipts                     394       array                                         sequence of CBOR encoded [RFC9942, Section 2]
-                                                                                     Receipts
-                                                                                     Algorithm identifier for
-                                                                 [COSE Verifiable    verifiable data
-vds                          395       int                       Data Structure      structures, used to      [RFC9942, Section 2]
-                                                                 Algorithms]         produce verifiable data
-                                                                                     structure proofs
+receipts                     394       array                                         Priority ordered sequence   [RFC9942, Section 2]
+                                                                                     of CBOR encoded Receipts
+                                                                 [COSE Verifiable    Algorithm identifier for
+vds                          395       int                       Data Structure      verifiable data structures, [RFC9942, Section 2]
+                                                                 Algorithms]         used to produce verifiable
+                                                                                     data structure proofs
                                                                  map key in [COSE    Location for verifiable
-vdp                          396       map                       Verifiable Data     data structure proofs in [RFC9942, Section 2]
+vdp                          396       map                       Verifiable Data     data structure proofs in    [RFC9942, Section 2]
                                                                  Structure Proofs]   COSE Header Parameters
 
 COSE Header Algorithm Parameters
