@@ -1,0 +1,62 @@
+(registered 2026-08-11, last updated 2026-08-11)
+
+Media type name: application
+
+Media subtype name: prs.archive-markdown-format
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+Security considerations: 
+
+(1) This media type DOESN'T contain active or executable content.
+
+(2) The information contained in this media type DOESN'T need privacy or integrity services.
+
+(3) This media type identifies a file format based on the 7z container format. The following security considerations apply:
+
+(3.1) Decompression bomb: The 7z format uses high-compression-ratio algorithms such as LZMA/LZMA2. An archive may contain a small amount of compressed data that expands to an extremely large size. User agents should rigorously check the size and validity of decompressed data to prevent denial-of-service attacks via disk space exhaustion.
+
+(3.2) Path traversal: Archive entries may contain relative paths (e.g., ../). Extracting such entries without proper sanitization could overwrite files outside the intended target directory. Implementations should extract files into an empty, isolated directory and reject entries with dangerous path components.
+
+(3.3) Malicious content: As a generic container format, a 7z archive may contain executable content, scripts, or other files that pose security risks. User agents should not automatically execute or process untrusted content from the archive.
+
+(3.4)Encryption considerations: The 7z format supports AES-256 encryption with key derivation using SHA-256 (262,144 iterations). However, the implementation does not use a salt, which may make encrypted archives with the same password vulnerable to parallel cracking attacks. Users are advised to use strong, high-entropy passphrases.
+
+(3.5) Parser vulnerabilities: Historical vulnerabilities have been found in 7z parsers (e.g., CVE-2025-11001, CVE-2025-11002). Implementations should use up-to-date, patched versions of 7z libraries and reject malformed archives.
+
+(4) This media type DOESN'T incorporate links that must be referenced in order to properly interpret the type.
+
+Interoperability considerations: No interoperability issues have been identified. Implementers should ensure that all text strings are encoded in UTF-8 without BOM, and that numeric values are stored in little-endian byte order. Parsers are advised to ignore unrecognized optional data blocks to maintain forward compatibility. Implementations should use forward slashes (/) for archive entry paths to ensure cross-platform consistency.
+
+Published specification: This specification is defined in the document "SPEC.md, Version 1.2.0", available at:
+
+https://github.com/ScottSmith666/Archive-Markdown-Editor/releases/download/1.2.0/SPEC.md
+
+Applications which use this media: Archive Markdown Editor, available at:
+
+https://github.com/ScottSmith666/Archive-Markdown-Editor
+
+Fragment identifier considerations: No fragment identifier semantics are defined for this media type. Fragment identifiers are not applicable to this format, and any fragment included in a URI referencing a resource of this type SHOULD be ignored by the user agent.
+
+Restrictions on usage: None. This media type is a general-purpose container format and is not restricted to any specific application, operating system, or network environment. Implementers should note that the underlying 7z compression format is publicly available and imposes no known patent or licensing restrictions for typical use.
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): N/A
+3. File extension(s): mdz
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+Person to contact for further information:
+
+1. Name: Scott Smith
+2. Email: scott_smith666&163.com
+
+Intended usage: COMMON
+
+Author/Change controller: Scott Smith
