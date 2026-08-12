@@ -514,6 +514,9 @@
           <xsl:when test="starts-with(., 'http://') or starts-with(., 'https://') or starts-with(., '//')">
             <xsl:value-of select="."/>
           </xsl:when>
+          <xsl:when test="@registry">
+            <xsl:value-of select="concat($assignments_base, @registry, '/', .)"/>
+          </xsl:when>
           <xsl:otherwise>
             <xsl:value-of select="concat($assignments_base, /iana:registry/@id, '/', .)"/>
           </xsl:otherwise>
@@ -522,6 +525,9 @@
       <xsl:choose>
         <xsl:when test="@name">
           <xsl:value-of select="@name"/>
+        </xsl:when>
+        <xsl:when test="@registry">
+          <xsl:value-of select="concat(@registry, '/', .)"/>
         </xsl:when>
         <xsl:otherwise>
           <xsl:value-of select="."/>
