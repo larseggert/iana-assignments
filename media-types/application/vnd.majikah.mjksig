@@ -1,0 +1,50 @@
+(registered 2026-08-12, last updated 2026-08-12)
+
+Media type name: application
+
+Media subtype name: vnd.majikah.mjksig
+
+Required parameters: N/A
+
+Optional parameters: NA
+
+Encoding considerations: binary
+
+Security considerations: Active/Executable Content: The media type does not contain active or executable content. Files are parsed strictly as static signature envelopes and data structures. Parsers must ensure input validation on header length fields to prevent buffer allocation attacks or out-of-bounds reads.
+
+Privacy and Integrity: The format inherently provides integrity, authenticity, and non-repudiation services through hybrid classical (Ed25519) and post-quantum (ML-DSA-87) cryptographic signatures. Confidentiality is not provided by the envelope format itself; sensitive files must be encrypted externally or in transit (e.g., via TLS).
+
+JSON Usage: The binary header wraps a UTF-8 JSON structure (MultiSigEnvelope). standard JSON parser security considerations apply (e.g., handling unexpected keys gracefully, avoiding resource exhaustion on deep nestings or malformed structures).
+
+Compression/Containers: The format does not use compression or container formats (such as ZIP).
+
+External Links: The format does not rely on external URI referencing to execute baseline parsing or signature verification.
+
+Interoperability considerations: Interoperability relies on strict adherence to the 12-byte big-endian header structure, UTF-8 parsing of the payload JSON, and deterministic canonicalization ("majik-signature-v1:" + JSON.stringify(...)) prior to signature evaluation. Implementations across different processor architectures must strictly enforce big-endian byte order handling for integer fields.
+
+Published specification: https://github.com/Majikah/majik-signature/blob/main/MJKSIG_SPEC.md
+
+Applications which use this media: Used by the majik-signature SDK, CLI tools, document signing applications, and cryptographic integrity platforms to generate, attach, and verify hybrid classical and post-quantum digital signatures for files and software packages.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: N/A
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): 0x4D 0x4A 0x4B 0x53 0x49 0x47 (MJKSIG in ASCII) at offset 0
+3. File extension(s): mjksig
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+General Comments: Majik Signature is a hybrid post-quantum content signing and verification library for the Majikah ecosystem. Built on top of Majik Key, it produces tamper-evident, forgery-resistant digital signatures for any content — plaintext, JSON, PDFs, audio, video, Office documents, or raw binary — using a dual-algorithm architecture that combines classical Ed25519 with post-quantum ML-DSA-87 (FIPS-204).
+
+Person to contact for further information:
+
+1. Name: Josef Elijah Fabian
+2. Email: business&majikah.solutions
+
+Intended usage: COMMON
+
+Author/Change controller: Josef Elijah Fabian / Majikah Solutions OPC
