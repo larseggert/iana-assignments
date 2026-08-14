@@ -1,0 +1,42 @@
+(registered 2026-08-13, last updated 2026-08-13)
+
+Media type name: application
+
+Media subtype name: vnd.salvanote.sal
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+Security considerations: The content is an opaque AES-256-GCM ciphertext preceded by an 18-octet plaintext header (4-octet magic “SPEP”, 1-octet format version, 1-octet cipher-suite identifier, 12-octet nonce). The format carries no executable or active content, no macros, no external references, and no compression (no decompression-amplification attack class). It contains no plaintext metadata: no filenames, timestamps, identities, or key material. Decryption keys are never present in the file; confidentiality and integrity are provided by AES-256-GCM under keys delivered out of band via a hybrid ML-KEM-1024 + ECDH P-384 key-encapsulation mechanism. The authentication tag is verifiable only by a key holder, so parsers must treat the body as untrusted, unverifiable octets and must not infer integrity from format conformance. Total file length reveals the plaintext length (length − 34 octets); this is a documented, deliberate property. Parsers should reject files with unrecognised version or suite identifiers rather than attempting interpretation.
+
+Interoperability considerations: Single canonical binary form; no character-set or line-ending variability; byte-identical across platforms. The 6-octet identification header is stable; implementations dispatch on the version and suite octets and hard-fail on unrecognised values (no fallback parsing).
+
+Published specification: https://www.salvanote.com/security/salvanote-sds-encrypted-file-formats/
+
+Applications which use this media: Salvanote SDS (Salvanote Document Safe), a secure document platform; file-identification tools.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: none
+
+Additional information:
+
+1. Deprecated alias names for this type: none
+2. Magic number(s): first 4 octets 53 50 45 50 (ASCII “SPEP”) at offset 0; octet 4 is the format version (currently 0x01); octet 5 is the cipher-suite identifier (currently 0x01). Current files therefore begin 53 50 45 50 01 01.
+3. File extension(s): .sal
+4. Macintosh file type code: none
+5. Object Identifiers: none
+
+Person to contact for further information:
+
+1. Name: Geoff Ellison
+2. Email: formats&salvanote.com
+
+Intended usage: COMMON
+
+encrypted document payloads produced and consumed by Salvanote SDS.
+
+Author/Change controller: Salvanote Pty Ltd

@@ -1,0 +1,70 @@
+(registered 2026-08-13, last updated 2026-08-13)
+
+Media type name: application
+
+Media subtype name: vnd.deckyard.deck
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+A `.deck` bundle is a ZIP archive containing binary asset data; it must be treated as opaque binary and requires a content-transfer-encoding such as base64 for transports that are not 8-bit clean. The JSON members inside the archive (`manifest.json`, `deck.json`) are UTF-8 encoded.
+
+Security considerations: A `.deck` bundle is a ZIP archive carrying JSON documents and image/video assets. It is a data format: neither `deck.json` nor `manifest.json` has any member whose defined semantics are "execute this". Three risks nevertheless apply and implementers are expected to address them.
+
+*Archive-level risks inherent to the ZIP container.
+
+* A bundle may be crafted to expand to a size far larger than its compressed form (a decompression bomb), or to name entries with `..` path components or absolute paths so that a naive extractor writes outside the intended directory (path traversal, "zip slip").
+Readers should enforce a size and entry-count limit before extraction and must never derive a filesystem path from an archive entry name without validating it. The format itself does not require extraction to disk: entries are addressed through the manifest's asset inventory, and a conforming reader can consume the archive entirely in memory.
+
+*Author-supplied markup and third-party embedding.
+
+* Deck content may include author-supplied HTML fragments and URLs to be embedded in a frame. A bundle is therefore untrusted input with the same exposure as an untrusted HTML document: a renderer that inserts such content into a privileged origin without sanitisation is vulnerable to script injection, and an embedded third-party URL
+is loaded from the network at render time, with the tracking and content-substitution exposure that implies. Renderers should sanitise author-supplied markup and isolate embedded content (a sandboxed frame, a separate origin, or an explicit user opt-in per bundle).
+
+*Asset content.
+
+* Assets are arbitrary bytes with an advertised MIME type. The advertised type must not be trusted over the actual content, and image and video data should be handled by decoders hardened against malformed input. SVG assets in particular can carry script and should be rendered inert or rasterised.
+
+The format has one integrity mechanism working in the reader's favour: every asset is content-addressed by the SHA-256 of its bytes, recorded in the manifest and in the archive entry name, so a reader can and should verify that each asset's bytes hash to the value the manifest claims and reject a mismatch. This detects corruption and tampering in transit; it is not a signature and it authenticates nothing about the origin of the bundle.
+
+The format carries no active content, no macros, no scripting language of its own, and no external references that are resolved automatically other than the embed URLs and external image URLs an author placed in the deck.
+
+Interoperability considerations: The archive layout follows the OCF/EPUB convention: the first entry is named `mimetype`, is stored uncompressed, and contains exactly the media type string, so a bundle can be identified by magic number without decompressing anything. Readers that ignore this convention and rely on the ZIP central directory interoperate correctly; the convention exists only to make sniffing cheap.
+
+The payload document `deck.json` carries an explicit integer `version` field (the envelope version, `1` at the time of registration), bumped only for a breaking change to the envelope. Slide content is versioned independently through the JSON Schema `$id` (`https://deckyard.eu/schema/v<N>/…`), which lets a reader validate content against the schema version it understands. Readers are expected to be lenient: an unrecognised slide type or an unrecognised member must not be a fatal error, and the reference implementation degrades an unknown slide type to a placeholder that preserves the original content.
+
+`manifest.json` and `deck.json` each carry a `format` sentinel with the value `deckyard.deck`. Bundles written before the format was renamed carry `slidecreator.deck` and the media type `application/vnd.slidecreator.deck` instead. Conforming readers accept both on read; only the current values are written.
+
+Published specification: 
+
+- Container format: <https://deckyard.eu/spec/deck-bundle/>
+- Payload envelope: <https://deckyard.eu/spec/deck-format/>
+- Machine-readable JSON Schema: <https://deckyard.eu/schema/v3/deck.schema.json> (index at <https://deckyard.eu/schema/v3/index.json>)
+
+The specification text is dedicated to the public domain under CC0 1.0 Universal. (The reference implementation is separately licensed under MIT; that licence does not apply to the specification text.)
+
+Applications which use this media: Deckyard, an open-source self-hosted presentation engine (<https://deckyard.eu>), which reads and writes this format for portable export and import of presentations, including transfer between independently hosted instances. The format is published to allow independent implementations; readers may include presentation viewers, converters and archival tools.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: None
+
+Additional information:
+
+1. Deprecated alias names for this type: application/vnd.slidecreator.deck
+2. Magic number(s): `50 4B 03 04` (ZIP local file header) at offset 0; the ASCII string `mimetype` at offset 30; the ASCII string `application/vnd.deckyard.deck` at offset 38. (Same construction as `application/epub+zip`.)
+3. File extension(s): .deck
+4. Macintosh file type code: ZIP
+5. Object Identifiers: N/A
+
+Person to contact for further information:
+
+1. Name: Jaap Stronks
+2. Email: spec&deckyard.eu
+
+Intended usage: COMMON
+
+Author/Change controller: Jaap Stronks and the Deckyard Contributors

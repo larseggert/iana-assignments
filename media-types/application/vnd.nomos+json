@@ -1,0 +1,52 @@
+(registered 2026-08-13, last updated 2026-08-13)
+
+Type Name: application
+
+Subtype Name: vnd.nomos+json
+
+Required Parameters: N/A
+
+Optional Parameters: N/A
+
+Encoding Considerations: binary
+
+A .nomos file is UTF-8-encoded JSON per RFC 8259. Canonical (sealed) form is a single unbroken line via JCS (RFC 8785), routinely exceeding 998 octets, so binary transfer encoding applies — consistent with the application/json registration.
+
+Security Considerations: The .nomos file is a governance artifact containing cryptographically sealed rules and policies. It is not executable code; it is a data structure evaluated by a deterministic, deny-by-default runtime evaluation engine to govern agent actions, and does not contain active content. 
+
+The seal (Ed25519 signature, or HMAC for legacy artifacts) provides integrity and authenticity — tampering after sealing is detectable, and the signer's identity is verifiable via the published public key. 
+
+It does not provide confidentiality: contents are readable by anyone holding the file. Deployments requiring confidentiality should 
+
+transmit .nomos files over TLS/HTTPS and control access to storage. Any action not explicitly permitted by the sealed rules is blocked by default, and all governance decisions are fully auditable via a hash-chained execution log. 
+
+As a JSON-based format, this media type inherits the security considerations of application/json (RFC 8259 §12); implementations use strict, conformant JSON parsing and canonicalize with JCS (RFC 8785) before hashing, eliminating parser-disagreement risks (duplicate keys, numeric precision) for seal verification specifically. 
+
+This media type does not employ compression or a container format (e.g. ZIP). 
+
+The governed decision logic is fully self-contained within the artifact and requires no external dereferencing to evaluate. 
+
+Seal verification may optionally reference a published public key at a .well-known URI to confirm the signer's identity, but this is not required to interpret or evaluate the artifact, and may be performed fully offline given the public key out-of-band.
+
+Interoperability Considerations: Prior to the publication of NOMOS-SPEC-001, an internal pre-specification representation existed with an incompatible JSON structure; it predates this registration and is not covered by it. The registered format is versioned via a meta.nomos_version field (semver): conformant runtimes must reject an artifact whose nomos_version they don't support, and backward compatibility is not guaranteed across major protocol versions. Minor extensions (NOMOS-SPEC-002 agents, -003 replay, -004 composition) are additive and remain compatible with runtimes implementing only the base spec.
+
+Published specification: https://www.nomosprotocol.com/spec
+
+Application Usage: Independent implementations of the NOMOS Protocol runtime read and produce .nomos files as their native governance-artifact format, conforming to the published specification (NOMOS-SPEC-001 and its extensions).
+
+Fragment Identifier Considerations: As specified for application/json (RFC 8259); no additional fragment identifier semantics are currently defined for this media type.
+
+Restrictions on Usage: None beyond those inherited from application/json. Typically used with the .nomos file extension and TP(S) with this media type as the Content-Type.
+
+Deprecated alias names for this type: N/A
+Magic number(s): N/A
+File extension(s): .nomos
+Macintosh File Type Code(s): N/A
+Object Identifier(s)/OID(s): N/A
+
+Intended Usage: COMMON
+
+Contact Name: Allan Sendagi
+Contact Email Address: allan&nomosprotocol.com
+
+Author/Change Controller: Safehaven AI Corp. / NOMOS Protocol Working Group
