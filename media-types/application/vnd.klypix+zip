@@ -1,0 +1,60 @@
+(registered 2026-08-14, last updated 2026-08-14)
+
+Media type name: application
+
+Media subtype name: vnd.klypix+zip
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+The format is a ZIP archive (a binary container).
+
+Security considerations: The application/vnd.klypix+zip format is a ZIP archive containing a JSON manifest (canvas.json) and an assets/ directory of embedded images and files.
+
+(1) Active/executable content: The format contains no active or executable content and is not designed to be executed. All embedded assets must be treated as passive, untrusted data.
+
+(2)/(3) Privacy and integrity: The format itself provides no confidentiality or integrity guarantees. When instances are transmitted over a network, those services should be provided by the transport (e.g., TLS). Applications may additionally encrypt instances at rest.
+
+(4) Underlying formats: The container is ZIP and the manifest is JSON, so the security considerations of both apply.
+
+(4a) Compression: As a ZIP archive, instances are subject to decompression-bomb risks; consumers should bound extraction size and entry count.
+
+(4b) Container: ZIP entry names must be validated to prevent path traversal (reject absolute paths and names containing ".."). Consumers should validate canvas.json against the published schema before processing and reject entries outside the documented structure.
+
+(5) Links: Instances may reference external resources; consumers that resolve them should apply normal precautions for untrusted URLs.
+
+Interoperability considerations: The manifest is a versioned JSON document (schema versions v1-v4) carried inside the ZIP container. Producers and consumers should honor the manifest's "version" field and the documented migration path. The format is losslessly convertible to and from Markdown and JSON Canvas 1.0 (https://jsoncanvas.org), aiding interoperability with other canvas and note-taking tools.
+
+Published specification: https://github.com/dahshanlabs/klypix-mcp/blob/master/FORMAT.md
+
+Applications which use this media: KLYPIX (desktop app, https://klypix.com), klypix-mcp (https://www.npmjs.com/package/klypix-mcp), and any tool implementing the published specification.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: N/A
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): 50 4B 03 04 (PK\x03\x04) — ZIP local file header
+3. File extension(s): klypix
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+General Comments: KLYPIX and the .klypix format are products of Dahshan Labs.
+
+Ownership: https://klypix.com (product) · https://www.npmjs.com/package/klypix-mcp (open engine) · https://github.com/dahshanlabs (source).
+
+Contact: Abdullah Aldahshan <abdullah&dahshanlabs.com>.
+
+Person to contact for further information:
+
+1. Name: Abdullah Jamal (Moh'd Ata) Aldahshan
+2. Email: abdullah&dahshanlabs.com
+
+Intended usage: COMMON
+
+Author/Change controller: Dahshan Labs (Abdullah Aldahshan)

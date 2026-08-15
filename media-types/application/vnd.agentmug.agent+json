@@ -1,0 +1,106 @@
+(registered 2026-08-14, last updated 2026-08-14)
+
+Media type name: application
+
+Media subtype name: vnd.agentmug.agent+json
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+JSON text encoded in UTF-8 as required by RFC 8259. Line length is unbounded, so "binary" applies per the JSON guidance in this form.
+
+Security considerations: A .agent file is a declarative agent definition consumed by an autonomous LLM-driven runtime. It contains NO active or executable content and is pure JSON, so parsing it does not by itself execute anything. The security risk arises entirely from what a runtime DOES with the declaration after parsing. The format employs no compression and no container format.
+
+The information in a .agent file needs both privacy and integrity services. The format itself provides neither: it carries no signatures and no encryption. Integrity and authenticity MUST therefore be provided externally by the transport or distribution channel, for example TLS.
+
+Because the format is JSON, the security considerations of RFC 8259 apply in full. One JSON-specific extensibility issue is called out in item 7 below.
+
+Consumers MUST treat any .agent file from an untrusted source as untrusted input and MUST NOT execute it without explicit, informed user consent.
+
+1. Instruction injection. The `blueprint.systemPrompt` member is natural-language text supplied verbatim to a large language model as its governing instructions. A hostile file can direct the agent to exfiltrate data reachable through its granted tools, misrepresent its identity, or take destructive actions. This cannot be mitigated by validation alone; it requires user review and runtime-side policy enforcement. The format carries an optional `blueprint.guardrails.sideEffectGate` member for this purpose, which consumers should honour.
+
+2. Capability declaration and remote code. The `blueprint.tools` array can declare tools of kind "mcp" (naming an arbitrary npm package or URL to be loaded as a tool server), "webhook" (an arbitrary HTTP endpoint and method), and "nango" (a proxied third-party API path). These are links that MUST be dereferenced in order to execute the agent as described, and a hostile file can therefore designate attacker-controlled endpoints or supply-chain-compromised packages. Runtimes MUST present all declared tools, servers, endpoints and URLs to the user for approval before first execution, MUST apply SSRF protections to outbound targets (rejecting loopback, link-local and private address ranges and validating after DNS resolution), and SHOULD execute tool servers with least privilege.
+
+3. Credential solicitation. Tools may set `requiresUserAuth: true` together with a `provider` and `scopes`. A runtime honouring this will prompt the user to connect real third-party credentials. A hostile file can request excessive or misleading scopes as a credential-phishing vector. Runtimes MUST display the provider and the exact scopes requested, and SHOULD warn on scopes not justified by the declared tools.
+
+4. Write and delete authority. The `sources` array may request write, append, create or delete capabilities over the user's own documents and folders. Runtimes MUST NOT grant these implicitly on import. The format requires that any write capability carry an explicit approval mode and that delete access require per-action approval; consumers MUST enforce declared write boundaries rather than merely displaying them.
+
+5. Unattended execution. The `triggers` array may declare "schedule" (cron), "webhook" or "api" triggers, which can cause the agent to run without a human present. Runtimes MUST NOT activate non-manual triggers on import without explicit user consent, and MUST NOT auto-execute a file merely because it was opened or double-clicked.
+
+6. Private data in personal exports. The optional `brain` (structured
+knowledge) and `memory` (flat learned facts) arrays carry the agent's
+accumulated private knowledge about its owner, and are included only in an owner-initiated personal export. Such files are sensitive personal data, MUST NOT be published or shared, and SHOULD be transmitted and stored only over confidential channels.
+
+7. Private-locator leakage (JSON extensibility). Source requirements are a deliberately CLOSED schema: they carry the shape of a needed resource, never its location. Consumers MUST reject a source requirement bearing any undeclared member, because tolerating unknown keys - the usual JSON extensibility posture - would allow runtime-private binding data (local paths, provider item identifiers, credential references, revision hashes, filenames) to survive parsing and travel onward when the file is shared.
+
+8. Structural disclosure. Structure contracts describe shape rather than content, but sheet, column and folder names may themselves be sensitive. Producers SHOULD review them before publishing a file.
+
+9. Secrets. The format is designed never to carry credentials: it declares which credentials are needed and the runtime obtains them separately. However, nothing prevents a user from hand-editing secrets into free-text members such as `systemPrompt` or a parameter default. Consumers SHOULD NOT assume a .agent file is free of secrets, and SHOULD avoid logging its contents verbatim.
+
+10. Resource consumption. The optional `blueprint.maxTokens` and
+`blueprint.extendedThinkingBudget` members are author-supplied and carry cost implications for whoever runs the file. Runtimes MUST clamp them to locally acceptable ranges rather than honouring arbitrary values.
+
+11. Parser hardening. Standard JSON parsing considerations apply. Consumers SHOULD enforce limits on document size and nesting depth to resist resource-exhaustion attacks, and MUST validate the `$schema` member against the set of schema URLs they support before interpreting any other member.
+
+12. Privacy. Files may contain the agent name, description, prompts, and provenance metadata (`metadata.sourceUrl`, `metadata.sourceUserId`) that can identify the authoring user or organisation.
+
+The format does not employ signatures or encryption; integrity and
+authenticity must be provided by the transport or distribution channel.
+
+Interoperability considerations: The `$schema` member is the canonical version marker and is REQUIRED. Consumers MUST verify it against the set of schema URLs they support before interpreting any other member, and MUST reject documents whose `$schema` is unrecognised rather than attempting a best-effort parse.
+
+Two schema URLs are currently valid and denote the identical v1 format; the second is retained for backwards compatibility following a project rename:
+
+https://agentmug.com/schemas/agent.v1.json
+https://agentlit.dahshanlabs.com/schemas/agent.v1.json (legacy alias)
+
+Producers MUST emit the first. Consumers SHOULD accept both.
+
+The format is forward-compatible: consumers MUST ignore members they do not recognise and SHOULD preserve them when re-serialising, so that files written by newer producers remain usable by older consumers. There is one deliberate exception: source requirements are a closed schema whose undeclared members MUST be rejected, for the privacy reason given in the security considerations.
+
+The `blueprint.tools` member accepts two shapes for backwards compatibility - an array of plain tool-identifier strings (legacy) or an array of structured tool-reference objects (current). Consumers MUST accept both; a bare string is equivalent to an object of kind "builtin" with that name.
+
+Trigger parsing is deliberately lenient: an unrecognised trigger type MUST NOT cause a parse failure, so that an older runtime can still load a file written by a newer producer. Capability degradation is instead handled by explicit failure at execution time - a runtime that cannot honour a declared trigger, input modality, tool kind, or source capability is expected to report that clearly rather than executing a partial agent.
+
+Published specification: https://agentmug.com/spec/agent-v1.md
+
+The JSON Schema for the format is published at:
+
+https://agentmug.com/schemas/agent.v1.json
+
+Applications which use this media: Software that produces or consumes .agent files, including:
+
+- AgentMug (agentmug.com) - web platform; exports and imports agents
+- AgentMug Desktop - cross-platform desktop runtime; the .agent file
+extension is registered for double-click open
+- @agentmug/runtime - the reference agent execution engine (npm)
+- AgentMug CLI - runs a .agent file locally from a terminal
+- @agentmug/mcp-bridge - exposes a .agent file's tools over MCP
+
+The format is open and intended for use by any conforming runtime.
+
+Fragment identifier considerations: The syntax and semantics of fragment identifiers are as specified for application/json. (At publication of this registration, no fragment identifier syntax is defined for application/json.)
+
+Restrictions on usage: None.
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): N/A
+3. File extension(s): agent
+4. Macintosh file type code: TEXT
+5. Object Identifiers: N/A
+
+General Comments: The .agent format is open; any party may implement a producer or consumer without permission or fee. A reference implementation and the JSON Schema are maintained by the change controller and linked from the published specification.
+
+Person to contact for further information:
+
+1. Name: Abdullah Jamal Aldahshan
+2. Email: abdullah&dahshanlabs.com
+
+Intended usage: COMMON
+
+Author/Change controller: Dahshan Labs (AgentMug)
