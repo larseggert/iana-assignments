@@ -332,7 +332,14 @@
       <xsl:when test="../@id = 'dsync-location-of-synchronization-endpoints'">
         <tr>
         <td><xsl:apply-templates select="iana:value"/></td>
-        <td><xsl:apply-templates select="iana:scheme"/></td>
+        <td>
+          <xsl:value-of select="iana:scheme"/>
+          <xsl:if test="iana:mnemonic">
+            <xsl:text> (</xsl:text>
+            <xsl:value-of select="iana:mnemonic"/>
+            <xsl:text>)</xsl:text>
+          </xsl:if>
+        </td>
         <td><xsl:apply-templates select="iana:purpose"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>

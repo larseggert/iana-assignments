@@ -199,6 +199,13 @@
     </xsl:if>
   </xsl:template>
 
+  <xsl:template name="iana:registry_files">
+    <dt>Registry File(s)</dt>
+    <xsl:for-each select="iana:file">
+      <dd><xsl:apply-templates select="."/></dd>
+    </xsl:for-each>
+  </xsl:template>
+
   <xsl:template match="/iana:registry/iana:title">
     <h1><xsl:apply-templates select="child::node()" /></h1>
   </xsl:template>
@@ -290,6 +297,13 @@
         <xsl:apply-templates/>
   </xsl:template>
 
+  <xsl:template match="iana:registry/iana:files">
+    <dt>Registry File(s)</dt>
+    <xsl:for-each select="iana:file">
+      <dd><xsl:apply-templates select="."/></dd>
+    </xsl:for-each>
+  </xsl:template>
+
   <xsl:template name="iana:formats">
     <xsl:variable name="registry_id" select="./@id"/>
     <xsl:variable name="group_id">
@@ -320,13 +334,16 @@
   <xsl:template match="iana:registry">
     <xsl:apply-templates select="iana:title"/>
     <xsl:if
-      test="iana:registration_rule|iana:expert|iana:description|iana:note|iana:xref|iana:record">
+      test="iana:created|iana:updated|iana:registration_rule|iana:expert|iana:description|iana:note|iana:xref|iana:record|iana:file">
       <dl>
+        <xsl:apply-templates select="iana:created" />
+        <xsl:apply-templates select="iana:updated" />
         <xsl:apply-templates select="iana:registration_rule" />
         <xsl:apply-templates select="iana:expert" />
         <xsl:apply-templates select="iana:description" />
         <xsl:call-template name="iana:references"/>
         <xsl:apply-templates select="iana:note" />
+        <xsl:if test="iana:file"><xsl:call-template name="iana:registry_files"/></xsl:if>
         <xsl:if test="iana:record"><xsl:call-template name="iana:formats"/></xsl:if>
       </dl>
     </xsl:if>
@@ -514,6 +531,9 @@
           <xsl:when test="starts-with(., 'http://') or starts-with(., 'https://') or starts-with(., '//')">
             <xsl:value-of select="."/>
           </xsl:when>
+            <xsl:when test="@type = 'mib'">
+              <xsl:value-of select="concat($assignments_base, .)"/>
+            </xsl:when>
           <xsl:when test="@registry">
             <xsl:value-of select="concat($assignments_base, @registry, '/', .)"/>
           </xsl:when>
