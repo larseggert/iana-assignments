@@ -1,0 +1,47 @@
+(registered 2026-08-17, last updated 2026-08-17)
+
+Media type name: application
+
+Media subtype name: vnd.aep+zip
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+Binary (ZIP container; see RFC 6839 for the +zip structured syntax suffix).
+
+Security considerations: An AEP (Action Evidence Package) is a signed, append-only evidence container: a ZIP archive with a flat internal layout carrying a canonical action record (RFC 8785 JCS), its SHA-256 hash, a detached signature, an RFC 3161 timestamp token, and metadata. Consumers MUST verify the enclosed signature and hash chain before trusting any member file; the signature proves possession of the runtime's key, not the integrity of the platform that held it (composition with remote attestation per RFC 9334 is specified separately in draft-sokolov-rats-aep-composition). Standard ZIP-parsing hazards apply and are constrained by the profile: nested directories are forbidden, member names are fixed by the profile, maximum uncompressed size is 10 MB (decompression-bomb bound), and duplicate entry names MUST be rejected. The container itself provides no confidentiality; if the recorded action contains personal or confidential data, transport- or object-layer encryption is requir
+ed.
+
+Interoperability considerations: The payload is a standard PKZIP archive (store or deflate) readable by any ZIP library. The profile (v1) fixes the member set and forbids features (nesting, encryption, ZIP64) that commonly break interoperability.
+
+Published specification: AEP profile v1, urn:eatf:spec:aep:1.0 - https://schemas.tyche.institute/eatf/aep-v1.schema.json (metadata schema); composition context: draft-sokolov-rats-aep-composition (IETF Datatracker).
+
+Applications which use this media: EATF verifier (open source), AEP sandbox tooling, RATS Conceptual Message Wrapper (RFC 9999) Record/Collection carriage of application-layer action evidence.
+
+Fragment identifier considerations: As specified for +zip (none defined for application/zip).
+
+Restrictions on usage: None.
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A.
+2. Magic number(s): 50 4B 03 04 (ZIP local file header)
+3. File extension(s): .aep
+4. Macintosh file type code: N/A.
+5. Object Identifiers: N/A.
+
+General Comments: Vendor designation "eatf" refers to the EATF open verification tooling published by Tyche Institute (Tallinn, Estonia).
+
+Person to contact for further information:
+
+1. Name: Anton Sokolov
+2. Email: anton.sokolov&tyche.institute
+
+Intended usage: COMMON
+
+Evidence interchange for accountability of automated (e.g. AI-agent) actions.
+
+Author/Change controller: Tyche Institute (Tallinn, Estonia); anton.sokolov&tyche.institute
