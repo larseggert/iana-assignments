@@ -7,17 +7,46 @@
   <xsl:import href="../_support/iana-registry.xsl" />
 
   <xsl:template name="iana:record_header">
-    <tr><th colspan="2">Number</th><th rowspan="2">Description</th><th rowspan="2">Reference</th></tr>
-    <tr><th>Decimal</th><th>Hex</th></tr>
+    <xsl:choose>
+      <xsl:when test="@id = 'socks-methods-1'">
+        <tr>
+          <th colspan="2">Number</th>
+          <th rowspan="2">Description</th>
+          <th rowspan="2">Reference</th>
+       </tr>
+       <tr>
+         <th>Decimal</th>
+         <th>Hex</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'reply-codes'">
+       <tr>
+         <th>Value</th>
+         <th>Description</th>
+         <th>Reference</th>
+        </tr>
+      </xsl:when>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="iana:record">
-    <tr>
-      <td align="center"><xsl:value-of select="iana:decimal"/></td>
-      <td align="center"><xsl:value-of select="iana:hex"/></td>
-      <td><xsl:value-of select="iana:description"/></td>
-      <td><xsl:apply-templates select="iana:xref"/></td>
-    </tr>
+    <xsl:choose>
+      <xsl:when test="../@id = 'socks-methods-1'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:decimal"/></td>
+          <td align="center"><xsl:value-of select="iana:hex"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:xref"/></td>
+        </tr>
+      </xsl:when>
+      <xsl:when test="../@id = 'reply-codes'">
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
+    </xsl:choose>
   </xsl:template>
 
 </xsl:stylesheet>
