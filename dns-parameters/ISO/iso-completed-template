@@ -1,0 +1,115 @@
+A. Submission Date:  14 August 2026
+
+B.1 Submission Type:  [X] New RRTYPE  [ ] Modification to RRTYPE
+B.2 Kind of RR:  [X] Data RR  [ ] Meta-RR
+
+C. Contact Information for submitter:
+
+   Name: Bill Woodcock
+   Email address: woody&pch.net
+   Telephone number: +1 510 409 6620
+
+   Other contact: co-author Patrik Fältström
+   Other contact email: paf&netnod.se
+
+D. Motivation for the new RRTYPE application.
+
+   Many applications need to publish, in DNS records, values whose
+   controlled vocabularies are maintained by external standards
+   organizations: countries, country subdivisions, currencies, and
+   languages.  The ISO RRTYPE carries a value coded by a registry
+   defined in a standard of the International Organization for
+   Standardization (initially ISO 639, 3166-1, 3166-2, and 4217),
+   with the code carried verbatim and its semantics remaining
+   entirely with ISO and its maintenance agencies.  No IANA mirror
+   of the external registries is created, and unrecognized codes
+   are carried and displayed rather than rejected, so the type
+   tracks the external registries without protocol changes or IANA
+   registry actions.
+
+   The immediate motivation is the DIEM (Digital Emblems) working
+   group's work on cryptographically signed record-bundles
+   identifying assets protected under international law, which must
+   express countries, jurisdictions, currencies, and languages in
+   standardized, verifiable form.  The type is general-purpose.
+
+E. Description of the proposed RR type.
+
+   Full specification: draft-woodcock-faltstrom-dnsop-external-
+   registry-rrtypes-00 (attached; datatracker posting imminent,
+   intended for the DNSOP working group).  Summary:
+
+   RDATA wire format (no domain names, no compression):
+
+     Standard Length:  8-bit unsigned integer, MUST be nonzero.
+     Standard:  that many octets, US-ASCII: a token formed
+        deterministically from the standard's identifier ("3166-1"
+        for ISO 3166-1, "4217", "639"), identifying the code list
+        from which the Code is drawn.
+     Value Length:  8-bit unsigned integer.
+     Value:  that many octets, US-ASCII, per an ABNF grammar
+        expressing a decimal quantity with optional precision, or
+        "?" (value unknown to the Issuer at signing time).  A
+        zero-length Value encodes "not applicable"; the grammar
+        admits exactly one representation of each number.
+     Code Length:  8-bit unsigned integer, MUST be nonzero.
+     Code:  that many octets, US-ASCII, verbatim from the cited
+        standard; compared octet-for-octet.  Alpha-2 codes are
+        RECOMMENDED for ISO 3166-1, alphabetic codes for ISO 4217,
+        and two-letter (Set 1) identifiers for ISO 639 where they
+        exist.
+     Descriptor:  all remaining octets, UTF-8, possibly empty, at
+        most 255 octets in total: a free-text display hint, never 
+        machine semantics.
+
+   Presentation format:
+
+     ISO <standard> <value> <code> ["<descriptor>"]
+
+   Examples:
+
+     @ IN ISO 4217 125000 USD "declared cargo value"
+     @ IN ISO 3166-1 - QA "flag state"
+     @ IN ISO 639 - ar "working language"
+
+F. What existing RRTYPE or RRTYPEs come closest to filling that
+   need and why are they unsatisfactory?
+
+   TXT is the closest, and is how such data is carried today, under
+   private conventions.  TXT forfeits type-distinct queries, field
+   structure, and single-RRset signing of just this data, and
+   private conventions defeat interoperability.  No existing RRTYPE
+   allows the expression of a (registry discriminator, value, code)
+   set utilizing externally standardized codes.
+
+G. What mnemonic is requested for the new RRTYPE (optional)?
+
+   ISO
+
+H. Does the requested RRTYPE make use of any existing IANA registry
+   or require the creation of a new IANA subregistry in DNS
+   Parameters?
+
+   No.  By design, IANA action is limited to the RRTYPE code point
+   itself.  The code lists remain authoritative with ISO and its
+   designated maintenance agencies; the defining document expressly
+   creates no IANA subregistry duplicating them.
+
+I. Does the proposal require/expect any changes in DNS
+   servers/resolvers that prevent the new type from being processed
+   as an unknown RRTYPE (see [RFC3597])?
+   No.  RDATA contains no domain names and requires no compression,
+   rewriting, or additional-section processing; the type is fully
+   compatible with unknown-type handling.
+
+J. Comments:
+
+   A companion application for a second type, UNECE, defined in the
+   same Internet-Draft and following the same pattern, is being
+   submitted concurrently; the two types are intended to be
+   assigned together.  Per the draft's IANA Considerations,
+   assignment via Expert Review may complete ahead of the
+   document's publication, in which case the registry reference
+   should be updated to the document upon publication.  The draft
+   is co-authored by Bill Woodcock (PCH) and Patrik Fältström
+   (Netnod).
