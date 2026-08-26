@@ -19,6 +19,14 @@
         <tr>
           <th>Opcode</th>
           <th>Description</th>
+          <th>Applicability</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
+      <xsl:when test="@id = 'post-stack-mpls-header-types'">
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
@@ -38,9 +46,17 @@
         <tr>
           <td align="center"><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:value-of select="iana:applicability"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
+      <xsl:otherwise>
+        <tr>
+          <td align="center"><xsl:value-of select="iana:value"/></td>
+          <td><xsl:value-of select="iana:description"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
