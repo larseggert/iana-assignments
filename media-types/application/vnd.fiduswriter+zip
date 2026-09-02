@@ -1,0 +1,115 @@
+(registered 2026-09-01, last updated 2026-09-01)
+
+Media type name: application
+
+Media subtype name: vnd.fiduswriter+zip
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+Security considerations: The content is a ZIP archive
+(https://www.iana.org/assignments/media-types/application/zip)
+that contains a declarative JSON document (RFC 8259)
+together with images and optional template assets. The security
+considerations are therefore similar to those of other ZIP-based
+container formats (application/zip, ODF, EPUB), with the additional
+concerns of JSON processing:
+
+- Archive handling: The archive may contain compressed entries.
+Implementations must bound the total uncompressed size and the number
+of entries to mitigate decompression-bomb ("zip bomb") attacks, and
+must not write archive entries outside a designated target directory to
+avoid path-traversal ("zip slip") vulnerabilities.
+
+- Entry name handling: Entry names must be treated as opaque identifiers
+inside the archive. Applications must not use them as filesystem paths
+without sanitisation, and must not allow absolute paths or ".."
+segments to escape the extraction directory.
+
+- JSON payloads: The archive contains JSON files (document.json,
+images.json, bibliography.json and optional template metadata).
+Implementations must parse them with a strict JSON parser, reject
+malformed input, and ignore unknown or unexpected fields. There is no
+scripting or executable content defined by this media type; the JSON is
+purely declarative.
+
+- Embedded resources: The archive may contain images and template assets.
+These must be treated as untrusted binary data. Applications should not
+execute, render with active content, or otherwise run anything contained
+in the archive.
+
+- Content-type confusion: Because the container is a generic ZIP file, a
+malicious actor could disguise unrelated ZIP content as a Fidus Writer
+document. Implementations must validate the "mimetype" entry and the
+"filetype-version" entry before processing the archive and must not rely
+on the filename extension alone.
+
+Interoperability considerations: The format is a ZIP archive that 
+follows the ODF container convention:
+
+the first entry is "mimetype", stored uncompressed (compression method 0,
+no extra fields), containing the exact media type string. This puts the
+string at a fixed byte offset (38), which makes the format reliably
+identifiable by content sniffers and by shared-mime-info magic rules.
+
+The archive contains a "filetype-version" entry carrying a decimal
+version number. The format is backwards-compatible but not
+forward-compatible: files produced by an older version of Fidus Writer
+are expected to be readable by newer versions, while files produced by a
+newer version are not guaranteed to be readable by older versions.
+Readers use the "filetype-version" value to decide whether they support a
+given file.
+
+The vendor-tree type registered here is the canonical name. Files already
+in circulation and existing implementations use the historical string
+"application/fidus+zip" in the "mimetype" entry; that string is listed as
+a deprecated alias below. Readers should accept both the canonical and the
+legacy string so that existing files continue to work unchanged.
+
+Published specification: The Fidus Writer file container format specification (FORMAT.md), which
+describes the archive layout, entries and versioning, is the reference
+document for this registration. It is published with the Fidus Writer
+source code and at:
+https://www.fiduswriter.org/spec/FORMAT.md
+
+Applications which use this media:
+
+- Fidus Writer, the collaborative word processor for academics
+(https://www.fiduswriter.org/), distributed both as an online service
+and, from version 5.0, as a desktop application. Both produce and
+consume this format; files are interchangeable between them.
+
+- fidusconvert, the command-line document converter from the
+@fiduswriter/cli package, which imports and exports this format.
+
+- Fidus Writer book-plugin and related import/export tooling, which embed
+documents of this type.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: N/A
+
+Additional information:
+
+1. Deprecated alias names for this type: application/fidus+zip
+2. Magic number(s): - "PK\003\004" (50 4B 03 04) at byte offset 0 (ZIP local file header), then - "application/fidus+zip" or "application/vnd.fiduswriter+zip" at byte offset 38 (the content of the first, uncompressed "mimetype" archive entry).
+3. File extension(s): fidus
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+General Comments: The media type describe the file format itself and are independent of how
+the application is delivered: Fidus Writer 5.0 is distributed both as an
+online service and as a desktop application, and `.fidus` files are
+interchangeable between them.
+
+Person to contact for further information:
+
+1. Name: Johannes Wilm
+2. Email: johannes&fiduswriter.org
+
+Intended usage: COMMON
+
+Author/Change controller: Fidus Writer Project, Lund Info AB
