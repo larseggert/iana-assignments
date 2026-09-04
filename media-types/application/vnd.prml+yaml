@@ -1,0 +1,70 @@
+(registered 2026-09-03, last updated 2026-09-03)
+
+Media type name: application
+
+Media subtype name: vnd.prml+yaml
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+PRML manifests are YAML 1.2 documents encoded in UTF-8. The canonical byte serialisation defined by the specification is UTF-8 with Unicode NFC normalisation and no byte order mark. Because the hash commitment is computed over exact bytes, transports MUST NOT re-encode, re-wrap, or normalise line endings; any such transformation invalidates the commitment and will be reported as a mismatch by conforming verifiers.
+
+Security considerations: A PRML manifest is a public commitment to the success criteria of a machine learning evaluation: the metric, comparator, threshold, dataset identity and seed, serialised to canonical bytes and committed to a SHA-256 digest before the evaluation runs. The security properties therefore concern integrity and ordering, not confidentiality.
+
+What the format protects against. PRML detects silent post-hoc revision of a registered claim. A manifest altered after publication produces a different canonical hash, and any conforming verifier recanonicalising the document will detect the mismatch and report a distinct failure state (specification section 7, exit code 3). Canonicalisation correctness rests with the verifier, not with the trust path.
+
+What the format does NOT protect against, stated explicitly:
+
+- a producer who never publishes the manifest at all;
+- a producer who publishes privately, runs the evaluation, and publishes only on a favourable outcome (selective publication);
+- a producer colluding with a dataset host to alter dataset content while preserving the declared dataset hash, which presupposes a broken hash function;
+- a producer signing a manifest with a key the verifier cannot validate.
+Mitigating these requires mechanisms outside the media type: RFC 3161 timestamping, publication to an append-only registry before the run, or monotonic claim identifier sequences that make omissions detectable. The specification documents these mitigations in section 8.1.
+
+Parsing considerations. Implementations parse untrusted YAML. Conforming parsers MUST use a safe-loading mode that does not construct arbitrary language objects, MUST reject documents containing duplicate mapping keys, MUST reject non-finite numeric values, MUST reject strings that are not in Unicode NFC, and MUST reject C0/C1 control characters, U+007F, U+2028, U+2029 and U+FEFF. A twenty-vector negative-conformance suite covering these classes is published with the specification, and all reference implementations are required to reject every vector in it. Implementers SHOULD also apply a size limit; the public reference registry rejects documents above 64 KiB.
+
+Manifests are not executable and carry no active content. They may contain identifiers such as dataset names and producer names; publishers should treat those fields as public.
+
+The format fixes SHA-256 and provides no algorithm agility in this revision. Verifiers conforming to version 0.1 MUST reject manifests declaring any other hash algorithm. Should SHA-256 be weakened, a subsequent revision of the specification will be required.
+
+Interoperability considerations: The specification defines a canonical byte serialisation so that independent implementations compute identical digests for the same manifest. Four byte-equivalent reference implementations (Python, JavaScript, Go, Rust) are maintained and are exercised in continuous integration against 21 positive conformance vectors and a 20-vector rejection suite. The vectors and the specification are public, so a third-party implementer can verify interoperability without contacting the maintainer.
+
+Known interoperability hazards, all addressed by the canonical form: mapping key ordering, Unicode normalisation, number formatting, duplicate keys, and integer values above 2^53-1 which cannot survive a round trip through some JavaScript YAML parsers. Implementations that read the format as JSON rather than YAML skip four YAML-only rejection vectors; this is documented in the conformance suite.
+
+Published specification: 
+
+PRML - Pre-Registered ML Manifest Specification, version 0.1.
+https://spec.falsify.dev/v0.1
+DOI: 10.5281/zenodo.20177839
+Source repository: https://github.com/studio-11-co/falsify
+The specification is published under an open licence, together with its conformance vectors and four reference implementations.
+
+Applications which use this media: Tools that record and verify pre-registered evaluation criteria for machine learning systems. Current users include the falsify command line tool and library (PyPI: falsify; npm: falsify-js), a GitHub Action for continuous integration verification, adapters for MLflow, for the UK AI Security Institute's Inspect evaluation framework, and for Giskard, and a public verification registry. Consumers are typically evaluation pipelines that emit a manifest before a run, and auditors or reviewers who later verify offline that the criteria preceded the result.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: None.
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): N/A
+3. File extension(s): .prml, .prml.yaml
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+General Comments: This registration fulfils the request recorded in section 11 (IANA Considerations) of the published PRML v0.1 specification. The subtype follows the +yaml structured syntax suffix convention already used by other registrations in this registry.
+
+Person to contact for further information:
+
+1. Name: Cuneyt Ozturk
+2. Email: hello&falsify.dev
+
+Intended usage: COMMON
+
+A detached digest may accompany a manifest using the sidecar extension .prml.sha256. The PRML JSON Schema is published in the SchemaStore catalogue, so files matching these extensions are validated by editors that use it.
+
+Author/Change controller: Falsify OU (registry code 17574308, Estonia)
