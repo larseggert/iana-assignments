@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+  xmlns:epp="urn:ietf:params:xml:ns:epp-1.0"
+  xmlns:reverse="https://gavinbrown.xyz/xmlns/epp/reverse-1.0"
+  targetNamespace="https://gavinbrown.xyz/xmlns/epp/reverse-1.0"
+  elementFormDefault="qualified">
+  <annotation>
+    <documentation>
+      Extensible Provisioning Protocol v1.0 extension
+      schema for command reverseal.
+    </documentation>
+  </annotation>
+
+  <import
+    namespace="urn:ietf:params:xml:ns:epp-1.0"
+    schemaLocation="epp-1.0.xsd"/>
+
+  <!-- command element -->
+  <element name="reverse" type="reverse:reverseType"/>
+
+  <complexType name="reverseType">
+    <sequence>
+      <element name="reason" type="epp:msgType"
+        minOccurs="0" />
+        <element name="trID" type="reverse:trIDType"/>
+        <element name="clTRID" type="epp:trIDStringType"
+          minOccurs="0" />
+    </sequence>
+  </complexType>
+
+  <complexType name="trIDType">
+    <sequence>
+      <element name="clTRID" type="epp:trIDStringType"
+        minOccurs="0" />
+      <element name="svTRID" type="epp:trIDStringType" />
+    </sequence>
+  </complexType>
+
+  <!-- poll response element -->
+  <element name="revData" type="reverse:revDataType" />
+
+  <complexType name="revDataType">
+    <sequence>
+      <element name="reTRID" type="reverse:reTRIDType" />
+      <element name="reDate" type="dateTime" />
+    </sequence>
+  </complexType>
+
+  <complexType name="reTRIDType">
+    <complexContent>
+      <extension base="reverse:trIDType">
+        <attribute name="reResult" type="boolean" use="required" />
+      </extension>
+    </complexContent>
+  </complexType>
+
+</schema>
