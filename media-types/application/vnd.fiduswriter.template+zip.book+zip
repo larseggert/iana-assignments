@@ -1,0 +1,65 @@
+(registered 2026-09-10, last updated 2026-09-10)
+
+Media type name: application
+
+Media subtype name: vnd.fiduswriter.template+zip
+
+Required parameters: N/A.
+
+Optional parameters: N/A.
+
+Encoding considerations: binary
+
+Security considerations: Identical to those of application/vnd.fiduswriter+zip. A document
+template is a ZIP container (https://www.iana.org/assignments/media-types/application/zip)
+holding template definitions as JSON documents (RFC 8259) and template assets.
+Implementations must validate the "mimetype" and "filetype-version" entries, bound
+decompression sizes, reject malformed JSON, and treat template assets as untrusted data
+that is never executed.
+
+Interoperability considerations: Same container convention as application/vnd.fiduswriter+zip: a first,
+uncompressed "mimetype" entry puts the media type string at byte offset
+38. Existing files carry the legacy string
+"application/fidustemplate+zip", which is a deprecated alias; readers
+should accept both strings.
+
+Published specification: The Fidus Writer file container format specification (FORMAT.md), at
+https://www.fiduswriter.org/spec/FORMAT.md, and the Fidus Writer
+document-template format documentation, at https://www.fiduswriter.org/spec/TEMPLATE.md.
+
+Applications which use this media:
+
+- Fidus Writer, which exports and imports document templates
+(.fidustemplate files); available in the online service and, from
+version 5.0, in the desktop application.
+
+- The Fidus Writer document-template editor
+(@fiduswriter/document-template-editor).
+
+Fragment identifier considerations: N/A.
+
+Restrictions on usage: N/A.
+
+Provisional registration? (standards tree only): No
+
+Additional information:
+
+1. Deprecated alias names for this type: application/fidustemplate+zip
+2. Magic number(s): - "PK\003\004" (50 4B 03 04) at byte offset 0 (ZIP local file header), then - "application/fidustemplate+zip" or "application/vnd.fiduswriter.template+zip" at byte offset 38 (the content of the first, uncompressed "mimetype" archive entry).
+3. File extension(s): fidustemplate
+4. Macintosh file type code: N/A.
+5. Object Identifiers: N/A.
+
+General Comments: The media type describe the file format itself and are independent of how
+the application is delivered: Fidus Writer 5.0 is distributed both as an
+online service and as a desktop application, and `.fidustemplate` files are
+interchangeable between them.
+
+Person to contact for further information:
+
+1. Name: Johannes Wilm
+2. Email: johannes&fiduswriter.org
+
+Intended usage: COMMON
+
+Author/Change controller: Fidus Writer Project, Lund Info AB

@@ -1,0 +1,68 @@
+(registered 2026-09-10, last updated 2026-09-10)
+
+Media type name: application
+
+Media subtype name: vnd.fiduswriter.book+zip
+
+Required parameters: N/A.
+
+Optional parameters: N/A.
+
+Encoding considerations: binary
+
+Security considerations: Identical to those of application/vnd.fiduswriter+zip.
+A book is a ZIP container (https://www.iana.org/assignments/media-types/application/zip)
+holding a composite book definition (book.json) as a JSON document
+(RFC 8259) together with embedded Fidus Writer documents, images
+and template assets. The container, entry-name, JSON-parsing and
+content-type-confusion considerations from that registration apply
+unchanged; in particular, implementations must validate the "mimetype"
+and "filetype-version" entries, bound decompression sizes, and treat all
+archive content as untrusted.
+
+Interoperability considerations: Same container convention as application/vnd.fiduswriter+zip: a first,
+uncompressed "mimetype" entry puts the media type string at byte offset
+38. The "filetype-version" entry governs backwards-only compatibility as
+described there. Existing files carry the legacy string
+"application/fidusbook+zip", which is a deprecated alias; readers should
+accept both strings.
+
+Published specification: The Fidus Writer file container format specification (FORMAT.md), at
+https://www.fiduswriter.org/spec/FORMAT.md, and the Fidus Writer book
+format documentation, at https://www.fiduswriter.org/spec/BOOK.md.
+
+Applications which use this media:
+
+- Fidus Writer book plugin, which creates, exports and imports composite
+books from this format; available in the online service and, from
+version 5.0, in the desktop application.
+
+- fidusconvert (@fiduswriter/cli), which converts .fidusbook files.
+
+Fragment identifier considerations: N/A.
+
+Restrictions on usage: N/A.
+
+Provisional registration? (standards tree only): No
+
+Additional information:
+
+1. Deprecated alias names for this type: application/fidusbook+zip
+2. Magic number(s): - "PK\003\004" (50 4B 03 04) at byte offset 0 (ZIP local file header), then - "application/fidusbook+zip" or "application/vnd.fiduswriter.book+zip" at byte offset 38 (the content of the first, uncompressed "mimetype" archive entry).
+3. File extension(s): fidusbook
+4. Macintosh file type code: N/A.
+5. Object Identifiers: N/A.
+
+General Comments: The media type describe the file format itself and are independent of how
+the application is delivered: Fidus Writer 5.0 is distributed both as an
+online service and as a desktop application, and `.fidusbook` files are
+interchangeable between them.
+
+Person to contact for further information:
+
+1. Name: Johannes Wilm
+2. Email: johannes&fiduswriter.org
+
+Intended usage: COMMON
+
+Author/Change controller: Fidus Writer Project, Lund Info AB
