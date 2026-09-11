@@ -1,0 +1,261 @@
+Namespace Registration for National Archive Number (NAN)
+
+Namespace ID:  NAN Requested of IANA.
+
+Version:  1
+
+Date:  2023-08-01
+
+Registrant: 
+
+The National Archives of Finland
+Contact person: Lauri Leinonen
+E-mail: urn.nan&kansallisarkisto.fi
+Kansallisarkisto, Rauhankatu 17, P.O.Box 258, 00171 Helsinki
+Web URL: https://kansallisarkisto.fi/
+
+Purpose:  
+
+National Archive Number is a generic name for any identifier system 
+used by national archives and their partner organizations to identify 
+archival collections and resources.
+
+In the past, there was no need to develop an international standard 
+identifier for archival resources. Resources in archival collections 
+are usually unique and therefore archive-specific identifier systems 
+have been sufficient. Many national archives have developed their own 
+identifier systems, but such identifiers are unique only locally.  
+
+However, the digitization or archival resources and long term 
+preservation of such digital surrogates has created a need for 
+developing a globally unique, persistent and actionable identifier 
+system for the national archives and their partner organizations. With 
+URN:NAN, existing local identifier systems meet this requirement. 
+
+NAN assignment:
+
+National Archive Number (NAN) is a generic term referring to a group of 
+identifier systems administered by national archives and institutions 
+authorized by them. The NAN assignment is typically performed by the 
+organization hosting the resource.
+
+Assignment of NAN-based URNs is controlled on a national level by the 
+national archive (or national archives, if there is more than one). 
+National guidelines can differ, but the identified resources themselves 
+are usually persistent.
+
+NAN assignment policies may differ. Manual assignment by the archive 
+personnel provides the tightest control. In many (national) archives, 
+NANs are also generated programmatically as a part of e.g. digitization 
+processes. Usage rules can vary within one country, between URN:NAN 
+sub-namespaces.
+
+Each national archive uses NANs independently of other national 
+archives; apart from this registration, there are no guidelines that 
+specify or control NAN usage. As such, NANs are unique only on the 
+national level. When used as URNs, base NAN strings MUST be augmented 
+with a controlled prefix, which is the particular nation's ISO 3166-1 
+alpha-2 two-letter country code (referred to as "ISO country code" 
+below).  These prefixes help to guarantee uniqueness of the URN:NANs 
+at the global scale.
+
+National archives using URN:NANs usually specify local assignment 
+policies for themselves. Such policy can limit the URN:NAN usage to, 
+e.g., the born digital or digitized resources stored in the national 
+archive's fonds.  Although this specification does not specify 
+principles for URN:NAN assignment policies that can be applied, NANs 
+assigned to resources which are not archived permanently should not be 
+made URN:NANs unless such policy can be justified.
+
+NANs as such are locally but not globally unique; two national archives 
+can assign the same NAN to different resources. A prefix, based on the 
+ISO country code as described above, help to guarantee the global 
+uniqueness of URN:NANs. Once an NAN has been assigned to a resource, it 
+MUST be persistent, and therefore URN:NANs are persistent as well.
+
+A URN:NAN, once it has been generated from a NAN, MUST NOT be reused for 
+another resource.
+
+Users of the URN:NAN namespace MUST ensure that they do not assign the 
+same URN:NAN twice. Different policies can be applied to guarantee this.  
+For instance, NANs and corresponding URN:NANs can be assigned 
+sequentially by programs in order to avoid human mistakes. It is also 
+possible to use printable representations of checksums such as SHA-1 
+[RFC6234] as NANs.
+
+Syntax:  
+
+URN:NAN syntax is similar to the URN:NBN syntax. The Namespace-Specific 
+String (NSS) consists of three parts:
+
+- a prefix consisting of an ISO 3166-1 alpha-2 country code and optional 
+  sub-namespace code(s) separated by a colon(s);
+
+- a hyphen (-) as the delimiting character; and,
+
+- a NAN string assigned by the national archive or sub-delegated
+      authority.
+
+The following formal definition uses ABNF [RFC5234].
+
+    nan-nss     = prefix "-" nan-string
+
+    prefix      = iso-cc *( ":" subspc )
+                ; The entire prefix is case insensitive.
+
+    iso-cc      = 2ALPHA
+                ; Alpha-2 country code as assigned by part 1 of ISO 3166
+                ; (identifies the national archive to which the branch
+                ; is delegated).
+
+    subspc      = 1*(ALPHA / DIGIT)
+                ; As assigned by the respective national archive.
+
+    nan-string  = path-rootless
+                ; The "path-rootless" rule is defined in RFC 3986.
+                ; Syntax requirements specified in RFC 8141 MUST be
+                ; taken into account.
+
+A colon MUST be used within the prefix only as a delimiting character 
+between the ISO 3166-1 country code and sub-namespace code(s), which 
+splits the national namespace into smaller parts.
+
+The structure (if any) of the NAN_string is determined by the authority 
+for the prefix. Whereas the prefix is regarded as case insensitive, NAN 
+strings can be case sensitive at the preference of the assigning 
+authority; parsers therefore MUST treat these as case sensitive, and 
+any case mapping needed to introduce case insensitivity is the 
+responsibility of the relevant resolution system.
+
+A hyphen MUST be used as the delimiting character between the prefix 
+and the NAN string.  Within the NAN string, a hyphen MAY be used for 
+separating different sections of the identifier from one another.
+
+All two-letter codes are reserved by the ISO 3166 Maintenance Agency 
+for either existing or possible future ISO country codes (or for private 
+use).
+
+Sub-namespace identifiers MUST be registered on the national level by 
+the national archive that assigned the identifier.  The list of such 
+identifiers can be made publicly available via the Web.
+
+Encoding considerations and lexical equivalence:
+
+Expressing NANs as URNs is usually straightforward, as normally only 
+ASCII characters are used in NAN strings. If this is not the case, 
+non-ASCII characters in NANs MUST be translated into canonical form as 
+specified in RFC 8141. If a national archive uses NANs that can contain 
+percent-encoded characters higher than U+007F, the archive needs to 
+carefully define the canonical transformation from these NANs into 
+URNs, including normalization forms.
+
+When an NAN is used as a URN, the NSS MUST consist of three parts:
+
+- a prefix, structured as a primary prefix, which is a two-letter ISO
+  3166-1 country code of the national archive's country, and zero or 
+  more secondary prefixes that are each indicated by a delimiting colon 
+  character (:) and a sub-namespace identifier;
+
+- a hyphen (-) as a delimiting character; and,
+
+- the NAN string.
+
+Different delimiting characters are not semantically equivalent.
+
+The syntax and roles of the three parts listed above are described in 
+the previous paragraph. 
+
+If there are several national archives in one country or if the national 
+archive consists of several independent units, these archives MUST agree 
+on how to divide the national namespace between themselves using this 
+method before the URN:NAN assignment begins in any of these archives.
+
+A national archive MAY also assign URN:NAN sub-namespaces to other 
+organizations with archival fonds such as government institutions.  
+The sub-namespace MAY be further divided by the partner organization. 
+All sub-namespace identifiers used within a country-code-based namespace 
+MUST be registered on the national level by the national archive that 
+assigned the code.  The national register of these codes SHOULD be made 
+available online.
+
+Being part of the prefix, sub-namespace identifier strings are 
+case-insensitive. They MUST NOT contain any colons or hyphens.
+
+Formally, two URN:NANs are lexically equivalent if they are 
+octet-by-octet equal after the following (conceptional) preprocessing:
+
+   1.  convert all characters in the leading "urn:nan:" token to a
+       single case;
+
+   2.  convert all characters in the prefix (country code and its
+       optional sub-divisions) to a single case; and,
+
+   3.  convert all characters embedded in any percent-encodings to a
+       single case.
+
+Models (indicated line break inserted for readability):
+
+      URN:NAN:<ISO 3166 alpha-2 country code>-<assigned NAN string>
+
+      URN:NAN:<ISO 3166 alpha-2 country code>:<sub-namespace code>-\
+      <assigned NAN string>
+
+   Example:
+
+      URN:NAN:fi:ka:a-1510439051
+
+Security and Privacy:
+
+This document defines means of encoding NANs as URNs.  A URN resolution 
+service for NAN-based URNs is technically possible but not described 
+herein; thus, questions of secure or authenticated resolution mechanisms 
+and authentication of users are out of scope of this document.
+
+Although no validation mechanisms are specified on the global level 
+(beyond a routine check of those characters that require special 
+encoding when employed in URIs), NANs assigned by any given authority 
+can have a well-specified and rich syntax (including, e.g., fixed 
+length and checksum). In such cases, it is possible to validate the 
+correctness of NANs programmatically.
+
+Issues regarding intellectual property rights or confidentiality 
+associated with objects identified by the URN:NANs are beyond the 
+scope of this document, as are questions about rights to the databases 
+that might be used to construct resolution services.
+
+No specific security threats have been identified for URN:NANs.
+
+Interoperability:  
+
+There is no international standard identifier system URN:NANs would 
+replace. URN:NAN is compliant with existing local identifier systems, 
+and will assist the national archives and their partners in making 
+these systems actionable and globally unique. 
+
+Some overlap with other URN namespaces is possible, depending on the 
+archived resources.
+
+NANs may contain characters which must be percent-encoded when 
+presented as URN:NANs.
+
+Resolution:  
+
+Depending on the local policy and the nature of the identified resource, 
+URN:NANs may or may not be actionable. 
+
+No centralized resolution service for URN:NANs will be established. The
+country-code-based prefix part of the URN:NAN namespace-specific string 
+will provide a hint needed to find the correct resolution service for a 
+URN:NAN. 
+
+Additional Documentation:  
+
+None
+
+Revision Information:  
+
+None. 
+
+References:
+
+None.

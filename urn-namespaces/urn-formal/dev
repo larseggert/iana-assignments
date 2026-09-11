@@ -1,0 +1,186 @@
+Namespace Identifier: "dev" requested
+
+Version: 1
+
+Date: 2020-06-24
+
+Registrant: 
+
+IETF and the CORE working group.  Should the working
+group cease to exist, discussion should be directed to the
+application area or general IETF discussion forums, or the IESG.
+
+Purpose: The DEV URNs identify devices with device-specific
+identifiers such as network card hardware addresses.  DEV URNs are
+scoped to be globally applicable (see [RFC8141] Section 6.4.1) and,
+in general, enable systems to use these identifiers from multiple
+sources in an interoperable manner.  Note that in some deployments,
+ensuring uniqueness requires care if manual or local assignment
+mechanisms are used, as discussed in Section 3.3.
+
+Some typical DEV URN applications include equipment inventories and
+smart object systems.
+
+DEV URNs can be used in various ways in applications, software
+systems, and network components, in tasks ranging from discovery (for
+instance when discovering 1-Wire network devices or detecting MAC-
+addressable devices on a LAN) to intrusion detection systems and
+simple catalogues of system information.
+
+While it is possible to implement resolution systems for specific
+applications or network locations, DEV URNs are typically not used in
+a way that requires resolution beyond direct observation of the
+relevant identifier fields in local link communication.  However, it
+is often useful to be able to pass device identifier information in
+generic URN fields in databases or protocol fields, which makes the
+use of URNs for this purpose convenient.
+
+The DEV URN name space complements existing name spaces such as those
+involving IMEI or UUID identifiers.  DEV URNs are expected to be a
+part of the IETF-provided basic URN types, covering identifiers that
+have previously not been possible to use in URNs.
+
+Syntax: 
+
+The identifier is expressed in ASCII characters and has a
+hierarchical structure as follows:
+
+devurn = "urn:dev:" body componentpart
+body = macbody / owbody / orgbody / osbody / opsbody / otherbody
+macbody = %s"mac:" hexstring
+owbody = %s"ow:" hexstring
+orgbody = %s"org:" posnumber "-" identifier *( ":"  identifier )
+osbody = %s"os:" posnumber "-" serial *( ":"  identifier )
+opsbody = %s"ops:" posnumber "-" product "-" serial *( ":"  identifier )
+otherbody = subtype ":" identifier *( ":"  identifier )
+subtype = LALPHA *(DIGIT / LALPHA)
+identifier = 1*devunreserved
+identifiernodash = 1*devunreservednodash
+product = identifiernodash
+serial = identifier
+componentpart = *( "_" identifier )
+devunreservednodash = ALPHA / DIGIT / "."
+devunreserved = devunreservednodash / "-"
+hexstring = 1*(hexdigit hexdigit)
+hexdigit = DIGIT / "a" / "b" / "c" / "d" / "e" / "f"
+posnumber = NZDIGIT *DIGIT
+ALPHA =  %x41-5A / %x61-7A
+LALPHA =  %x41-5A
+NZDIGIT = %x31-39
+DIGIT =  %x30-39
+
+The above syntax is represented in Augmented Backus-Naur Form (ABNF)
+form as defined in [RFC5234] and [RFC7405].  The syntax also copies
+the DIGIT and ALPHA rules originally defined in [RFC5234], exactly as
+defined there.
+
+The device identifier namespace includes five subtypes (see
+Section 4, and more may be defined in the future as specified in
+Section 7.
+
+The optional underscore-separated components at the end of the DEV
+URN depict individual aspects of a device.  The specific strings and
+their semantics are up to the designers of the device, but could be
+used to refer to specific interfaces or functions within the device.
+
+With the exception of the MAC-address and 1-Wire DEV URNs, each DEV
+URN may also contain optional colon-separated identifiers.  These are
+provided for extensibility.
+
+There are no special character encoding rules or considerations for
+conforming with the URN syntax, beyond those applicable for URNs in
+general [RFC8141], or the context where these URNs are carried (e.g.,
+inside JSON [RFC8259] or SenML [RFC8428]).  Due to the SenML RFC 8428
+Section 4.5.1 rules, it is not desirable to use percent-encoding in
+DEV URNs, and the subtypes defined in this specification do not
+really benefit from percent-encoding.  However, this specification
+does not deviate from the general syntax of URNs or their processing
+and normalization rules as specified in [RFC3986] and [RFC8141].
+
+DEV URNs do not use r-, q-, or f-components as defined in [RFC8141].
+
+Specific subtypes of DEV URNs may be validated through mechanisms
+discussed in Section 4.
+
+The string representation of the device identifier URN is fully
+compatible with the URN syntax.
+
+
+Character Case and URN-Equivalence:
+
+The DEV URN syntax allows both upper and lower case characters.  The
+URN-equivalence of the DEV URNs is defined per [RFC8141] Section 3.1,
+i.e., two URNs are URN-equivalent if their assigned-name portions are
+octet-by-octet equal after applying case normalization to the URI
+scheme ("urn") and namespace identifier ("dev").  The rest of the DEV
+URN is compared in a case sensitive manner.  It should be noted that
+URN-equivalence matching merely quickly shows that two URNs are
+definitely the same for the purposes of caching and other similar
+uses.  Two DEV URNs may still refer to the same entity, and not be
+found URN-equivalent according to the RFC 8141 definition.  For
+instance, in ABNF, strings are case-insensitive (see [RFC5234]
+Section 2.3), and a MAC address could be represented either with
+uppercase or lowercase hexadecimal digits.
+
+Character case is not otherwise significant for the DEV URN subtypes
+defined in this document.  However, future subtypes might include
+identifiers that use encodings such as BASE64, which encode strings
+in a larger variety of characters, and might even encode binary data.
+
+To facilitate equivalence checks, it is RECOMMENDED that
+implementations always use lower case letters where they have a
+choice in case, unless there is a reason otherwise.  (Such a reason
+might be, for instance, the use of a subtype that requires the use of
+both upper case and lower case letters.)
+
+Assignment: 
+
+The process for identifier assignment is dependent on the
+used subtype, and documented in the specific subsection under
+Section 4.
+
+Device identifiers are generally expected to identify a unique
+device, barring the accidental issue of multiple devices with the
+same identifiers.  In many cases, device identifiers can also be
+changed by users, or sometimes assigned in an algorithmic or local
+fashion.  Any potential conflicts arising from such assignments are
+not something that the DEV URNs as such manage; they simply are there
+to refer to a particular identifier.  And of course, a single device
+may (and often does) have multiple identifiers, e.g., identifiers
+associated with different link technologies it supports.
+
+The DEV URN type SHOULD only be used for hardware-based identifiers
+that are expected to be persistent (with some limits, as discussed
+above).
+
+Security and Privacy: 
+
+As discussed in Section 6, care must be taken
+in the use of device-identifier-based identifiers due to their nature
+as long-term identifiers that are not normally changeable.  Leakage
+of these identifiers outside systems where their use is justified
+should be controlled.
+
+Interoperability: 
+
+There are no specific interoperability concerns.
+
+Resolution: 
+
+The device identifiers are not expected to be globally
+resolvable.  No identifier resolution system is expected.  Systems
+may perform local matching of identifiers to previously seen
+identifiers or configured information, however.
+
+Documentation:
+
+See RFC 9039.
+
+Additional Information:
+
+See Section 1 of RFC 9039 for a discussion of related name spaces.
+
+Revision Information: 
+
+This is the first version of this registration.
+

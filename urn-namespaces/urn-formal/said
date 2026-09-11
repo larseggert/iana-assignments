@@ -1,0 +1,373 @@
+Namespace Registration for Self-Addressing Identifiers (SAID)
+
+Namespace Identifier:  said
+
+Version:  1
+
+Date:  2026-03-16
+
+Registrant:
+
+Sam Smith, Wenjing Chu, and Carly Huitema on behalf of ToIP (Trust
+over IP), a project of the Linux Foundation Decentralized Trust
+https://trustoverip.org/
+
+Contact email: (Wenjing Chu) trustoverip&lfdecentralizedtrust.org
+
+Purpose:
+
+Self-Addressing Identifiers (SAIDs) are self-referential,
+content-addressable identifiers based on Composable Event Streaming
+Representation (CESR) [1] encoded cryptographic digest. This proposal
+defines a method to unambiguously identify digital assets that contain
+their SAIDs via their SAID identifiers in the urn:said namespace. Such
+urn:said identifiers can ease the ways of adopting SAIDs anywhere URNs
+are accepted and can also improve interoperability. These URNs are
+typically non-resolvable, serving as unique identifiers. However,
+optional mechanisms could be introduced in the future in addressing
+such requirements. Another future improvement may introduce optional
+SAID location/format indicator to facilitate structure-free
+verification.
+
+Syntax:
+
+A `said` URN shall consist of two mandatory components in the following
+order, with `:` characters between each section.
+
+  - URN identifier (`urn:said`): REQUIRED
+
+  - SAID, in string representation as per Composable Event Streaming
+    Representation (CESR) [1], Section 11.6 and represented with
+    Base64URLSafe alphabet of RFC 4648 (with the exception of `=` pad
+    character which is not used in CESR). REQUIRED
+
+The ABNF of a `said` URN is as follows:
+
+```ABNF
+said-urn = "urn:said:" said
+
+said = cesr-code cesr-digest-value
+
+cesr-code = <CESR type code identifying the digest algorithm>
+
+cesr-digest-value = <Base64URLSafe encoded digest, length determined by cesr-code>
+
+; Base64URLSafe characters (RFC 4648, excluding padding)
+base64urlsafe = ALPHA / DIGIT / "-" / "_"
+
+; The complete SAID primitive MUST conform to CESR code table [2], CESR
+; spec Section 11.4.2. The following currently defined digest codes, for
+; example, produce SAIDs of 44 or 88 characters total.
+;
+; 256-bit SAIDs: 44 characters total (1 char code + 43 Base64URLSafe)
+; one-char-code = "E" / "F" / "G" / "H" / "I"
+; said-256 = one-char-code 43base64urlsafe
+
+; 512-bit SAIDs: 88 characters total (2 char code + 86 Base64URLSafe)
+; two-char-code = "0D" / "0E" / "0F" / "0G"
+; said-512 = two-char-code 86base64urlsafe
+```
+
+Here are two examples:
+
+  - `urn:said:E8wYuBjhslETYaLZcxMkWrhVbMcA8RS1pKYl7nJ77ntA`
+     (44 characters, Blake3-256)
+  - `urn:said:0FCNcm3MGi3efpdqsmmzGU2tnEPpAndgeCQErutCuu82VfaZqc1BbxL0a2-fOrGilCK2XuHcMqtILo2nc7M2mUuw`
+     (88 characters, SHA3-512)
+
+The first example is 44 characters long in text representation, where
+`E` indicates Blake3-256 digest and the remaining 43 characters encode
+256 bit digest. The second example has a two character code `0F`,
+followed by 86 characters encoding 512-bit SHA3-512 digest. Additional
+digest functions are listed in CESR Spec code table, Section 11.4.2 [2].
+
+Assignment:
+
+The SAID strings conforming to this scheme are algorithmically
+generated, based on the derivation of the SAID as per CESR Spec [1].
+
+CESR (Composable Event Streaming Representation) is a dual text-binary
+encoding format providing lossless round-trip conversion between text
+(Base64URLSafe) and binary domains. CESR primitives are self-framing:
+each primitive includes a prepended type code identifying both the
+cryptographic algorithm and value length, enabling stream parsing
+without external delimiters. A Self-Addressing Identifier (SAID) is
+derived by: (1) designating a location within the data for the SAID,
+(2) inserting a placeholder of the appropriate length at that location,
+(3) computing a cryptographic digest over the entire byte sequence, and
+(4) replacing the placeholder with the CESR-encoded digest. The
+placeholder length equals the final SAID length: 33 bytes in the binary
+domain or 44 characters in the text domain for a 256-bit digest.
+Verification reverses this process. The CESR type code (e.g., `E` for
+Blake3-256) makes the digest algorithm self-describing, providing
+cryptographic agility.
+
+The digital assets identified by an `urn:said` identifier must contain
+the SAID identifier in itself (i.e. self-referential). The SAID
+derivation procedure defined by CESR Spec [1] (Section 11.6) requires
+a consistent serialization scheme for the digital assets in order to
+ensure correct representation and verification. In other words, a SAID
+identifies the serialized digital asset where it is also contained.
+
+The serialization scheme used for SAID derivation must be known to
+verifiers. This is typically established by the application context or
+protocol in which the SAID appears. The serialization scheme information
+is not encoded in the SAID. Note that applications can choose their own
+serialization schemes, but for reproducibility and verification the
+chosen scheme must preserve the size and order of data fields in the
+structure. For interoperability over a network, standardized
+serialization methods such as JSON, CBOR, MessagePack, and CESR can be
+used. Note that this requirement may be loosened in the future by
+introducing an optional SAID location/format indicator within the
+string to facilitate verification without prior knowledge of the
+serialization scheme.
+
+To illustrate, here are some examples of how the derivation works
+(from CESR [1], Section 11.6):
+
+(1) CESR format example
+
+Suppose the initial value of the fixed field serialization is the
+76-character string as follows:
+
+field_0_01234567field_1_ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789field_2_98765432
+
+where:
+
+- field0 is the 16-character string "field_0_01234567"
+
+- field1 is the 44-character placeholder string
+  "field_1_ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+
+- field2 is the 16 character string "field_2_98765432"
+
+The first step in generating the SAID for this serialization is to
+replace the placeholder contents of field1 with a dummy string of '#'
+characters of length 44. This produces a dummied 76-character string
+as follows:
+
+field_0_01234567############################################field_2_98765432
+
+Let's say we choose to use Blake3-256. The digest is then computed on
+the above string and encoded in CESR format. Thus the SAID of the
+76-character string is as follows:
+
+ENI2bDYghiu1KYYkFrPofH8tJ5tNiNt8WrTIc4s_5IIH
+
+where the first letter 'E' signifies the use of Blake3-256 Digest as
+specified in the code table [2] (Section 11.4.2 of the CESR
+specification where all codes for supported digest functions are
+defined) and the rest of the string is the Blake3-256 digest of the
+string "field_0_01234567############################################field_2_98765432".
+
+Replacing the 44 dummy characters with the SAID of the same length
+produces the final "SAID-ified" string as follows:
+
+field_0_01234567ENI2bDYghiu1KYYkFrPofH8tJ5tNiNt8WrTIc4s_5IIHfield_2_98765432
+
+To verify the embedded SAID with respect to its encompassing
+serialization above, just reverse the generation steps. In other
+words, replace the SAID in the string with dummy characters of the
+same length, compute the Blake3 digest as the SAID of this dummied
+version, and then compare the SAIDs.
+
+The resulting URN is:
+
+`urn:said:ENI2bDYghiu1KYYkFrPofH8tJ5tNiNt8WrTIc4s_5IIH`
+
+(2) JSON serialized data example
+
+Suppose the initial value of Python dict data structure is as follows:
+
+{
+    "said": "",
+    "first": "Sue",
+    "last": "Smith",
+    "role": "Founder"
+}
+
+If we choose the 44 CESR character Blake3-256 digest for SAID
+derivation and use JSON serialization, the first step of the
+derivation procedure is to insert the `#` character in place of
+the future SAID string:
+
+{
+    "said": "############################################",
+    "first": "Sue",
+    "last": "Smith",
+    "role": "Founder"
+}
+
+For consistent JSON serialization, we remove all extra white space:
+
+{"said":"############################################","first":"Sue","last":"Smith","role":"Founder"}
+
+Applying Blake3-256 digest algorithm to this representation, we
+obtain the SAID (encoded in CESR) string (in text format):
+
+`EJymtAC4piy_HkHWRs4JSRv0sb53MZJr8BQ4SMixXIVJ`
+
+Now, replacing the `#` spaceholder with the SAID string, the data
+asset with the SAID becomes:
+
+{"said":"EJymtAC4piy_HkHWRs4JSRv0sb53MZJr8BQ4SMixXIVJ","first":"Sue","last":"Smith","role":"Founder"}
+
+The URN for the above data representation is:
+
+`urn:said:EJymtAC4piy_HkHWRs4JSRv0sb53MZJr8BQ4SMixXIVJ`
+
+Now, the Python data structure may be updated to:
+
+{
+    "said": "EJymtAC4piy_HkHWRs4JSRv0sb53MZJr8BQ4SMixXIVJ",
+    "first": "Sue",
+    "last": "Smith",
+    "role": "Founder"
+}
+
+The verification of SAID (therefore `urn:said`) reverses the
+generation process. Note that the data fields do not have to be
+text; they can be binary, but for verification to work they must
+be fixed in their size and consistent in their order.
+
+The resulting URN is:
+
+`urn:said:EJymtAC4piy_HkHWRs4JSRv0sb53MZJr8BQ4SMixXIVJ`
+
+(3) JSON Schema $id example
+
+Applying the same procedure as the above example, we produce this
+self-referential JSON Schema:
+
+{
+    "$id": "EGU_SHY-8ywNBJOqPKHr4sXV9tOtOwpYzYOM63_zUCDW",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "full_name": {
+            "type": "string"
+        }
+    }
+}
+
+The resulting URN is:
+
+`urn:said:EGU_SHY-8ywNBJOqPKHr4sXV9tOtOwpYzYOM63_zUCDW`
+
+(4) Binary data example
+
+Assume a fixed-format binary record with the following layout:
+
+Offset      Size        Field
+0           2           Record type (big-endian)
+2           33          SAID slot (256-bit, binary domain)
+35          4           Payload
+
+Step 1: Initial data with placeholder
+
+The application defines a record with type 0x0001 and payload
+0xDEADBEEF. Insert 33 placeholder bytes (0x23 = #) at the SAID
+slot:
+
+Hex: 0001 23232323232323232323232323232323
+          23232323232323232323232323232323
+          23 DEADBEEF
+Total: 39 bytes
+
+Step 2: Compute digest
+
+Apply Blake2b-256 over the 39-byte sequence, yielding the 32-byte
+digest:
+
+116a3b1b50225060df5c2bf4154a2539b5ae9345ddc68f0c4fd59f5bd64757b2
+
+Step 3: Encode as CESR
+
+Text domain (44 characters):
+FBFqOxtQIlBg31wr9BVKJTm1rpNF3caPDE_Vn1vWR1ey
+
+Note that we choose Blake2b-256 in this example whose one-character
+code is `F` (as defined in the CESR code table [2]).
+
+Binary domain (33 bytes):
+14116a3b1b50225060df5c2bf4154a2539b5ae9345ddc68f0c4fd59f5bd64757b2
+
+Step 4: Replace placeholder with SAID
+
+Final binary record (39 bytes):
+Hex: 0001 14116a3b1b50225060df5c2bf4154a25
+          39b5ae9345ddc68f0c4fd59f5bd64757
+          b2 DEADBEEF
+
+The resulting URN is:
+
+`urn:said:FBFqOxtQIlBg31wr9BVKJTm1rpNF3caPDE_Vn1vWR1ey`
+
+Note that the `said` identifier is a Base64URLSafe character string
+for `urn:said` identifiers. The SAID contained in the binary data
+structure is in binary.
+
+Security and Privacy:
+
+`urn:said` identifiers are designed to identify digital assets. Do not
+assume they are random or hard to guess. In fact, if the digital content
+itself is known they can be deterministically derived for a given digest
+algorithm. Such identifiers, therefore, should not be naively used for
+security capabilities (e.g., identifiers whose mere possesion grants
+privileged access).
+
+The SAID must be encoded with one of the digest algorithms provided
+in the CESR code tables, as defined in Section 11.4.2 of CESR
+specification [2] (which may be viewed as the security considerations
+for SAID). This normative requirement is that cryptographic primitives
+that are entered in the table must maintain 128 bits of cryptographic
+strength. This strength protects against attempts to alter the binding
+between a `urn:said` identifier and its self-referenced content.
+Additional digest algorithms may be added to the code table in the
+future, e.g. for approved NIST post-quantum resistant cryptographic
+operations.
+
+Adding the `urn:said` identifier to the self-referenced digital asset
+does not modify its privacy considerations.
+
+Interoperability:
+
+A SAID string MUST be CESR-encoded, which self-identifies the digest
+algorithm used to generate it. This greatly enhances interoperability
+and future adaptability. In addition, the use of CESR encoding allows
+lossless transformation between binary and text domains. This property
+is useful in digital assets which may be most optimally represented in
+binary or serialization schemes such as CBOR.
+
+The serialization method used MUST be known out of band or by context
+to the verifiers. A future revision may extend the urn:said string
+to specify an optional SAID location and format indicator in order to
+facilitate verification and further improve interoperability.
+
+Adopters MAY consider narrowing selections of digest functions to
+reduce complexity and improve interoperability with some cost in
+flexibility.
+
+Resolution:
+
+These URNs are non-resolvable and serve as globally unique identifiers.
+A future version of this registration may define optional information
+that makes it easier to resolve SAID URNs.
+
+Documentation:
+
+- [1] Smith, S., & Feairheller, P. (2026). Composable Event Streaming
+  Representation (CESR). Zenodo. https://doi.org/10.5281/zenodo.18879946
+  See also: https://trustoverip.github.io/kswg-cesr-specification
+
+- [2] Section 11.4.2 of reference [1], "Master code table for
+  genus/version -_AAACAA (KERI/ACDC protocol stack Version 2.00)".
+  See also:
+  https://trustoverip.github.io/kswg-cesr-specification/#keriacdc-protocol-genus-version-table
+
+- [3] RFC 4648: The Base16, Base32, and Base64 Data Encodings,
+  https://datatracker.ietf.org/doc/html/rfc4648
+
+Additional Information:  NONE
+
+Revision Information:  N/A

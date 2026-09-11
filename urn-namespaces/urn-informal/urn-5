@@ -1,0 +1,168 @@
+Namespace ID:
+    urn-5
+
+Registration Information:
+
+    Version 2
+    Date: 2003-05-06
+
+Declared registrant of the namespace:
+
+    Name:    University of Jyväskylä Hyperstructure Group
+    Address: Dept. of Mathematical Information Technology
+             University of Jyväskylä
+             PO. Box 35 (Agora)
+             FIN-40014 Jyväskylä
+             Finland
+
+    Contact: B. Fallenstein <b.fallenstein&gmx.de>
+
+Declaration of syntactic structure:
+
+    The identifier structure is:
+
+       urn:<assigned number>:<random number>[:<local part>]
+
+    where <random number> is a string consisting of at least 27 of the
+    following characters: Lowercase (a-z) and uppercase (A-Z) letters,
+    digits (0-9), the hyphen (-) and the plus sign (+). If present, the
+    optional <local part> is an arbitrary string of characters allowed
+    in a URN without escaping.
+
+    The <random number> is a pseudo-random number (160 or more bits)
+    encoded in base64 [RFC-2045]. As slashes (/) are not currently
+    allowed as part of URNs, hyphens (-) are used instead. The padding
+    character (=) is not used.
+
+    (An earlier version of this specification allowed <random number>
+    to be only 26 characters long, making for only 156 random bits.
+    Such identifiers must still be recognized, but new identifiers
+    should contain at least 27 random characters.)
+
+    The <local part> is a counter, intended to allow
+    re-use of a pseudo-random number; this allows a program to generate
+    only one pseudo-random number per session, only incrementing a
+    counter each time a new identifier is generated. Compression of
+    documents containing many different identifiers of this form is
+    improved if some of the identifiers share the <random number> part.
+
+    Examples of possible URNs in this namespace include:
+        urn:urn-n:-URS6S2A3+chjjHVlTkQ9KT5nu2
+        urn:urn-n:JtTCacwJ1e1N0yqTULRG7C1GLq8:4
+        urn:urn-n:Od4rB2QNOLt1e5wITWSJ+9U2Ve+Zon6N3d:17
+
+    (In these examples, urn-n is a placeholder for the namespace id
+    to be assigned by IANA. The examples are not URNs in actual use.)
+
+Relevant ancillary documentation:
+
+    RFC 2045 [RFC-2045] defines the base64 encoding. Note that the
+    hyphen (-) is used instead of the slash (/).
+
+Identifier uniqueness considerations:
+
+    Provided that the source of pseudo-random data used is good enough,
+    it can be reasonably assumed that identifiers are unique
+    (for example, SHA-1 [FIPS-180-1] also assumes uniqueness of 160 bit
+    identifiers).
+
+Identifier persistence considerations:
+
+    Users must not re-assign an identifier. This is not a problem, since
+    they are free to create new identifiers at any time.
+
+Process of identifier assignment:
+
+    Identifiers can be informally assigned by users at any time. There is
+    no central authority assigning identifiers or specifying meaning for
+    them. New identifiers are created when a user or program wants to
+    name some entity globally without contacting a naming authority
+    first. Examples include RDF resources [RDF] and XML namespace names
+    [XML-namespaces]. Users specify meaning for identifiers by starting
+    to use them, for example in an RDF graph.
+
+    If local parts are not used, an identifier is created by generating
+    160 or more bits of pseudo-random data from a trusted source and
+    encoding them in base64, using the characters allowable in the
+    <random number> part as defined above. If local parts are used,
+    the <random number> part is generated beforehand (usually when
+    the program generating the identifiers is started, or when the first
+    identifier in a particular session is created); each time a new
+    identifier is needed, a counter is incremented and used as the
+    <local part>.
+
+Process for identifier resolution:
+
+    None specified.
+
+    Note that the namespace is primarily meant for resources that are
+    only named, not resolved (such as XML namespace names).
+
+Rules for Lexical Equivalence:
+
+    The normal rules for lexical equivalence of URNs apply.
+
+Conformance with URN Syntax:
+
+    No special considerations.
+
+Validation mechanism:
+
+    The namespace-specific string (nss) must abide the following
+    ABNF [RFC-2234] grammar:
+
+       nss           = random-number / (random-number ":" urn-string)
+
+       random-number = 26*base64
+
+       urn-string    = ALPHA / DIGIT / other
+
+       base64        = ALPHA / DIGIT / "+" / "-"
+
+       other         = "(" / ")" / "+" / "," / "-" / "." /
+                       ":" / "=" / "@" / ";" / "$" /
+                       "_" / "!" / "*" /  "'"
+
+    For new identifiers, random-number must be at least 27
+    characters long.
+
+Scope:
+
+    Global.
+
+References:
+
+    [FIPS-180-1]
+       NIST, FIPS PUB 180-1: Secure Hash Standard, April 1995.
+       http://csrc.nist.gov/fips/fip180-1.txt (ascii)
+       http://csrc.nist.gov/fips/fip180-1.ps  (postscript)
+
+    [RDF]
+       RDF Model and Syntax.
+       http://www.w3.org/TR/1999/REC-rdf-syntax-19990222
+
+    [RFC-2045]
+       Freed, N., and Borenstein, N., "Multipurpose Internet Mail
+       Extensions (MIME) Part One: Format of Internet
+       Message Bodies", RFC 2045, November 1996.
+
+    [RFC-2234]
+       Crocker, D., and Overell, P., "Augmented BNF for Syntax
+       Specifications: ABNF", RFC 2234, November 1997.
+
+    [XML-Namespaces]
+       Namespaces in XML.
+       http://www.w3.org/TR/1999/REC-xml-names-19990114
+
+CHANGE HISTORY:
+From Version 1 to Version 2
+-For new identifiers, 27 random characters (162 bits) rather than 26
+characters (156 bits) are required.
+- "160 bytes" has been changed to "160 bits" in two places.
+- The notion that using the local part for anything but counting is
+'strongly discouraged' has been removed.
+
+(created 2002-08-16)
+
+[]
+

@@ -24,7 +24,7 @@
       <xsl:when test="../@id = 'urn-namespaces-2'">
         <tr>
           <td><xsl:value-of select="iana:name"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
+          <td><xsl:apply-templates select="iana:file"/></td>
           <td><xsl:apply-templates select="iana:contact"/></td>
         </tr>
       </xsl:when>
