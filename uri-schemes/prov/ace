@@ -1,0 +1,95 @@
+(registered 2026-09-15, last updated 2026-09-15)
+
+Scheme name:
+ace
+
+Status:
+Provisional
+
+Applications/protocols that use this scheme name:
+The "ace" URI scheme identifies governed ACE objects in a
+transport-independent namespace. An "ace" URI identifies an object or
+protocol resource; it does not by itself establish verification,
+authority, permission to act, execution, observation, or settlement.
+Applications parse and validate ace URIs, compare them for equivalence,
+request discovery or resolution of the identified object, retrieve a
+candidate public representation or receipt, verify a representation
+using an applicable ACE verification profile, and return machine-readable
+refusals when a result cannot be established.
+
+Contact:
+Frank Bryan
+Seqentra
+Sydney, Australia
+ip&seqentra.com
+
+Change controller:
+Seqentra IP Holdings Pty Ltd
+Sydney, Australia
+ip&seqentra.com
+
+Syntax:
+The scheme conforms to the generic URI syntax in RFC 3986:
+
+ace-URI = "ace:" hier-part [ "?" query ] [ "#" fragment ]
+
+The initial profile uses hierarchical form:
+
+ace://namespace-class/resource-segment *( "/" resource-segment )
+
+Where:
+
+namespace-class = "root" / "ai" / "x" / "kernel" / "cortex" /
+"federation" / "agent" / "service" / "repo" /
+"capsule"
+
+resource-segment = 1*64(segment-char)
+segment-char = ALPHA / DIGIT / "." / "_" / "~" / "-"
+
+The external profile is case-sensitive after the scheme name. Producers
+MUST emit lowercase namespace classes and lowercase resource segments.
+Consumers MUST reject ambiguous or non-canonical forms rather than
+silently rewriting identity-bearing components.
+
+Examples:
+ace://agent/delta
+ace://kernel/current
+ace://cortex/current
+ace://federation/current
+ace://repo/example-project
+ace://capsule/example-object
+
+Encoding considerations / Internationalisation:
+The initial profile limits namespace classes and resource segments to
+ASCII. Non-ASCII names MUST be represented through a separately defined
+encoding or mapping profile before being placed in an ace URI.
+Implementations MUST NOT apply locale-dependent case conversion or
+Unicode normalization to canonical identity components. Scheme names are
+compared case-insensitively under RFC 3986; all remaining identity-bearing
+components are compared octet-for-octet after URI syntax validation and
+permitted percent-encoding normalization.
+
+Interoperability considerations:
+The scheme follows RFC 3986 generic syntax. Canonical identity-bearing
+components are compared octet-for-octet after permitted URI normalization.
+The scheme is transport independent. External aliases, projections,
+redirects or compatibility mappings do not create a second canonical
+identity. Implementations must preserve the distinction between
+identifier, discovered representation, verified representation, authority,
+action, observation and settlement.
+
+Security considerations:
+Implementations must treat resolution as discovery only, and must fail
+closed where a result is malformed, ambiguous, contradictory, stale,
+revoked, expired or unverifiable. A registry, resolver, gateway, redirect,
+transport or hosting provider does not create authority. Implementations
+must not represent discovery as successful verification. Implementations
+should minimise disclosure of private identifiers, internal topology,
+custody information and non-public metadata. An ace URI must not embed
+secrets, private keys, bearer credentials or sensitive personal
+information.
+
+References:
+- RFC 3986, Uniform Resource Identifier (URI): Generic Syntax.
+- RFC 7595, Guidelines and Registration Procedures for URI Schemes.
+- Provisional public specification: https://seqentra.com/specifications/ace-uri-scheme
