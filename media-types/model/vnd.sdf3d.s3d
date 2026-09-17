@@ -1,0 +1,102 @@
+(registered 2026-09-16, last updated 2026-09-16)
+
+Media type name: model
+
+Media subtype name: vnd.sdf3d.s3d
+
+Required parameters: N/A
+
+Optional parameters: version
+
+Specifies the format specification version or grammar revision (e.g., version=1.0). If omitted, implementations SHOULD assume the latest syntax defined by the published open-source specification repository.
+
+Encoding considerations: binary
+
+UTF-8 plain text containing DSL expressions. Binary is specified per RFC 6838 section 4.8 because files may use bare LF line endings without CR and single-line expressions may exceed 998 octets.
+
+Security considerations: 
+
+1. Active or Executable Content:
+
+The model/vnd.sdf3d media type contains functional domain-specific language (DSL) expressions evaluated into an Abstract Syntax Tree (AST) for real-time GPU raymarching. It does not contain arbitrary machine code, system calls, network primitives, or file system access commands. However, processing untrusted DSL files introduces potential Denial of Service (DoS) risks:
+
+- GPU Timeout / Resource Exhaustion: Excessively nested constructive solid geometry (CSG) combinators, non-linear space deformations (e.g., twist, bend), or unconstrained raymarching distances can consume excessive GPU resources or trigger driver Timeout Detection and Recovery (TDR).
+
+- Parser Stack Overflow: Arbitrarily deep function nesting or recursive/duplicated named group expansions can lead to call stack exhaustion or memory exhaustion during parsing.
+
+- Mitigations: Implementing engines MUST enforce safety sandboxes, including hard limits on parser recursion depth, maximum AST node counts, conservative bounding volumes, and raymarching step caps on the GPU.
+
+2. Privacy and Integrity Services:
+
+The format does not natively provide cryptographic signatures, access control, or integrity checks. When files are stored or transmitted over public networks, privacy, confidentiality, and tamper-resistance MUST be provided externally using transport security (e.g., HTTPS / TLS) or storage encryption.
+
+3. Format Specifics, Compression, and Containers:
+
+This media type is a custom plain-text DSL. It does not use existing structured syntaxes (such as XML or JSON), compression layers, or archive container formats (such as ZIP).
+
+4. External Resource References:
+
+Files may contain material directives that reference external assets via resource location identifiers (e.g., texture = "namespace:path"). Applications MUST sanitize and resolve these identifiers exclusively within a restricted asset registry or sandboxed virtual filesystem to prevent directory traversal attacks or unauthorized asset execution.
+
+Interoperability considerations:
+
+1. Format Evolution & Forward Compatibility:
+
+The SDF3D media type is an open-source specification that may evolve to incorporate new primitive shapes, material directives, or transform nodes over time. To ensure robust interoperability across different application versions:
+
+- Parsers encountering unrecognized functions, parameters, or material directives SHOULD log a warning and gracefully fallback (e.g., ignoring the unknown directive or bypassing the unsupported subtree) rather than halting parser execution.
+
+- Syntax revisions are tracked via the project's open-source repository and can be explicitly declared via the optional "version" parameter.
+
+2. Platform & Encoding Independence:
+
+Files are platform-independent UTF-8 text. Parsers MUST support both Unix LF (\n) and Windows CRLF (\r\n) line-ending conventions, as well as arbitrary whitespace and inline comments.
+
+3. Numerical Precision & Units:
+
+- Coordinate and distance expressions rely on IEEE 754 single-precision (32-bit float) floating-point arithmetic on both CPU parsers and GPU raymarching shaders.
+
+- Spatial dimensions follow a standardized right-handed coordinate system where +Y is up, and 1.0 unit corresponds to one world-space block unit.
+
+4. External Asset Resolution:
+
+Material directives utilize URI-style namespaced resource strings (e.g., "namespace:textures/path"). Host applications exchanging .s3d models across different software environments MUST resolve or remap these asset paths to local environment textures.
+
+Published specification: The specification for the model/vnd.sdf3d format is publicly published and maintained as an open-source document at:
+https://github.com/ff6f8d68/sdf3d/blob/master/s3d.md
+
+Applications which use this media: SDF3D modeling applications, SDF3D standard rendering tools, and compatible 3D graphics software or modding frameworks implementing signed distance function (SDF) GPU raymarching.
+
+Fragment identifier considerations: Fragment identifiers are used to reference specific named group definitions (`group("name")`) declared within the SDF3D document.
+
+When a URI containing a fragment identifier (e.g., "http://example.com/model.s3d#head") is resolved:
+
+- The fragment string refers to the sub-shape subtree defined by `group("fragment_name")` inside the file.
+
+- Applications MAY isolate, extract, or render only the referenced group rather than evaluating the root expression.
+
+- If no matching group definition exists within the document, the fragment SHOULD be ignored and the root document evaluated as normal.
+
+Restrictions on usage: none
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): None
+3. File extension(s): s3d
+4. Macintosh file type code: TEXT
+5. Object Identifiers: N/A
+
+Person to contact for further information:
+
+1. Name: ff6f8d68 (https://github.com/ff6f8d68) (name provided to IANA)
+2. Email: openwebweb4&gmail.com
+
+Intended usage: LIMITED USE
+
+This media type is specifically intended for use within the SDF3D modeling application and rendering engine ecosystem for procedural signed distance function (SDF) models. It is not designed as a general-purpose 3D asset interchange format.
+
+Author/Change controller:
+
+ff6f8d68 (https://github.com/ff6f8d68)
+openwebweb4&gmail.com
