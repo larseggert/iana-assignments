@@ -96,10 +96,10 @@
           <xsl:when test="count(iana:registry/iana:title) = 0">
           </xsl:when>
           <xsl:when test="count(iana:registry/iana:title) = 1">
-            <p><b>Registry Included Below</b></p>
+            <p class="registry-toc-heading"><b>Registry Included Below</b></p>
           </xsl:when>
           <xsl:otherwise>
-            <p><b>Registries Included Below</b></p>
+            <p class="registry-toc-heading"><b>Registries Included Below</b></p>
           </xsl:otherwise>
         </xsl:choose>
         <xsl:call-template name="table-of-contents"/>
@@ -326,7 +326,7 @@
       <xsl:if test="not(parent::*)">
         <a class="altformat" href="{concat($assignments_base, $group_id, '/', $registry_id, '.xml')}"><img src="{concat($assignments_base, '_support/export-xml.png')}"/><br/>XML</a>
         <a class="altformat" href="{concat($assignments_base, $group_id)}"><img src="{concat($assignments_base, '_support/export-html.png')}"/><br/>HTML</a>
-        <a class="altformat" href="{concat($assignments_base, $group_id, '/', $registry_id, '.txt')}"><img src="{concat($assignments_base, '_support/export-plain.png')}"/><br/>Plain text</a>
+        <a class="altformat" href="{concat($assignments_base, $group_id, '/', $registry_id, '.txt')}"><img src="{concat($assignments_base, '_support/export-plain.png')}"/><br/>TXT</a>
       </xsl:if>
     </dd>
   </xsl:template>
@@ -582,7 +582,7 @@
           <xsl:variable name="base">
             <xsl:choose>
               <xsl:when test="@type = 'rfc'">
-                <xsl:value-of select="translate(@data, $alpha, $ALPHA)"/>
+                <xsl:value-of select="concat('RFC ', substring(@data, 4))"/>
               </xsl:when>
               <xsl:otherwise>
                 <xsl:value-of select="@data"/>
