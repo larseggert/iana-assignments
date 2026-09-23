@@ -1,0 +1,93 @@
+(registered 2026-09-22, last updated 2026-09-22)
+
+Type name: application
+
+Subtype name: vnd.fabylon.book
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+Security considerations:
+
+The format carries no scripting and no executable content, so it presents no
+code execution surface of its own.
+
+The principal risk is decompression. The container uses Zstandard (RFC 8878) for
+its manifest, its page block and optionally its assets. Both the manifest and
+each chunk declare their uncompressed length in the file before the compressed
+data is read, so a conforming decoder can bound its allocation in advance and
+reject a declared size that exceeds local policy rather than trusting the
+compressed stream. Implementations that ignore the declared sizes are vulnerable
+to decompression bombs.
+
+Byte offsets and sizes in the manifest are attacker-controlled in an untrusted
+file. Implementations must validate every offset and length against the declared
+arena length and the actual file length before dereferencing.
+
+The container may embed font and image assets. Those are processed by the
+implementation's own font and image handling and inherit whatever risks those
+libraries carry; the container adds none of its own.
+
+The format carries no active content and no external references that are
+fetched automatically. It contains no privacy-sensitive fields beyond the
+bibliographic metadata an author chooses to include (title, author, language).
+
+Interoperability considerations:
+
+The container generation is encoded in a 16-byte magic string at offset 0 rather
+than in a field inside the file, so an implementation can reject an unknown
+generation before parsing. The current generation is FABYLON_BOOK_02!. A
+previous generation used FABYLON_REALM_01 with a different internal structure;
+readers may support it for compatibility, and writers no longer produce it. An
+incompatible future generation will change the magic string.
+
+The manifest is JSON, so unknown fields can be ignored safely by older readers.
+The two length fields in the fixed header are little-endian unsigned 32-bit
+integers.
+
+Published specification:
+
+https://fabylon.net/fab/specification/
+
+The same specification, with a sample file, is also published at
+
+https://github.com/mbenders/fab-format
+
+Applications that use this media type:
+
+Fabylon Bookmaker (writer) and Fabylon Reader (reader). Use is at present
+limited to those tools and their publisher. The registration is requested for
+correct identification and interchange, not on the basis of wide deployment.
+
+Fragment identifier considerations: N/A
+
+Additional information:
+
+Deprecated alias names for this type: N/A
+Magic number(s): FABYLON_BOOK_02!
+(hex 46 41 42 59 4C 4F 4E 5F 42 4F 4F 4B 5F 30 32 21)
+16 bytes at offset 0
+File extension(s): fab
+Macintosh file type code(s): N/A
+
+Person & email address to contact for further information:
+
+M.H.H. Benders <m.benders&fabylon.net>
+
+Intended usage: COMMON
+
+Restrictions on usage: N/A
+
+Author: M.H.H. Benders <m.benders&fabylon.net>
+
+Change controller: Fabylon, Karjalohja, Finland <m.benders&fabylon.net>
+
+Additional notes:
+
+A publicly downloadable sample file is available at
+https://github.com/mbenders/fab-format/blob/master/samples/fab-book-format-en.fab
+and further samples in five languages at https://fabylon.net/fab, so the magic
+number and container structure can be verified directly.

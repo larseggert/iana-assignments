@@ -1,0 +1,126 @@
+(registered 2026-09-22, last updated 2026-09-22)
+
+Media type name: application
+
+Media subtype name: vnd.drawoble.drawing+zip
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+Security considerations: A .drawo file is a ZIP archive (RFC 1951 DEFLATE 
+members inside the ZIP container defined by the APPNOTE specification), and 
+it inherits the risksof that container. A reader MUST bound decompression by 
+both ratio andabsolute output size and MUST bound the number of entries it 
+will process; a crafted archive is otherwise a decompression bomb. Entry 
+names MUST be treated as untrusted: a reader that extracts to disk without 
+rejecting absolute paths and "../" traversal can be made to write outside 
+its target directory.
+
+The payload is data, not code. The drawing itself is a JSON document, and
+its schema is internal to the producing application: it is deliberately not
+published, it changes with the product, and nothing about identifying a file
+requires it. A reader therefore has no normative schema to validate against
+and MUST treat every value in the document as untrusted input, bounding
+string lengths, collection sizes and nesting depth as it would for any other
+foreign JSON. The format defines no scripting, no macros, no formulas, no
+embedded executable content, and no external references of any kind, so
+processing a document performs no network access and evaluates nothing. A
+reader that nonetheless passes document strings to an interpreter or to a
+markup renderer introduces a risk the format does not.
+
+The optional thumbnail is a PNG, and an asset entry carrying one of the
+three recognised image extensions (.png, .jpg or .jpeg, .webp) is an image.
+Those are handed to the host's own image decoders. Malformed images are a
+risk in those decoders rather than in this format, and a reader SHOULD treat
+them as untrusted input and bound their decoded dimensions.
+
+Asset entries are NOT limited to images. An asset whose media type is
+outside that small set is written with a ".bin" extension and read back as
+application/octet-stream, and non-image assets — subset fonts among them —
+are anticipated. An entry's extension is the only type information the
+container carries about it, that extension is chosen by the producer, and
+nothing verifies that the bytes behind it match. A reader MUST therefore
+treat any asset it does not itself recognise as opaque, untrusted content,
+and MUST NOT hand it to an image decoder, a font engine or any other parser
+on the strength of its extension alone.
+
+The manifest carries a SHA-256 digest over the exact drawing bytes. It is an
+integrity check against accidental corruption and truncation only. The
+format defines no signature and no key material, so a matching digest says
+nothing about the origin or authenticity of a file, and a reader MUST NOT
+treat it as a trust decision.
+
+The format defines no encryption. A .drawo is exactly as confidential as the
+medium carrying it. Documents may contain names, annotations and embedded
+images supplied by their author, so they can carry personal data as ordinary
+document content.
+
+Text is UTF-8 and is NFC-normalised on write. A reader MUST NOT assume
+normalisation on input, and SHOULD normalise before comparing strings that
+reach a filesystem or an access-control decision.
+
+Interoperability considerations: The container is a ZIP archive and is 
+deliberately readable by generic ZIP tooling; the freedesktop definition 
+declares it a sub-class of application/zip for that reason.
+
+The first entry is named "mimetype", is STORED (no compression) and carries
+no extra field, so its content — the media type string above, with no
+trailing newline — begins at byte offset 38. This is the identification
+anchor pattern used by OpenDocument and EPUB. Producers MUST preserve it;
+writing that entry compressed, out of order, or with a ZIP extra field moves
+the media type and silently breaks byte-level identification while leaving
+the file readable.
+
+Readers tolerate the anchor being absent. Files written before it was
+introduced carry no such entry and remain valid; they identify by extension
+alone.
+
+The payload schema version is carried inside the archive, in manifest.json,
+and is NOT expressed as a media type parameter. All schema versions share
+this one media type.
+
+Forward compatibility is deliberately narrow. Unrecognised ZIP entries are
+ignored rather than treated as an error: a container carrying an entry a
+reader does not know still opens. Inside the payload the tolerance is
+confined to one named region — the optional "extensions" object in
+drawing.json, whose unknown keys are carried through a load and written back
+out unchanged. Everywhere else, in manifest.json and in the rest of
+drawing.json, an unrecognised member is refused rather than ignored and the
+file does not open at all. A writer that needs a value to survive a round
+trip through a release that does not understand it therefore puts that value
+under "extensions" rather than beside the fields already defined.
+
+Published specification: https://app.drawoble.com/spec/drawo-container/
+
+Applications which use this media: Drawoble, a browser-based precision CAD 
+application, reads and writes this type as its native document format. 
+Generic archive tooling can list and extract the container, and 
+digital-preservation tooling identifies it by the byte signature described 
+above.
+
+Fragment identifier considerations: N/A — this media type defines no 
+fragment identifier syntax.
+
+Restrictions on usage: none
+
+Additional information:
+
+1. Deprecated alias names for this type: application/x-drawoble
+2. Magic number(s): 50 4B 03 04 at offset 0 (ZIP local file header); the 
+ASCII string "mimetype" at offset 30; the ASCII string 
+"application/vnd.drawoble.drawing+zip" at offset 38
+3. File extension(s): .drawo
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+Person to contact for further information:
+
+1. Name: Drawoble Support
+2. Email: support&drawoble.com
+
+Intended usage: COMMON
+
+Author/Change controller: Drawoble
