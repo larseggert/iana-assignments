@@ -669,7 +669,7 @@
         </a>
       </xsl:when>
       <xsl:when test="@type = 'rfc-errata'">
-        <a href="http://www.rfc-editor.org/errata_search.php?eid={@data}">
+          <a href="{concat($website_base_url, '/go/eid', @data)}">
           <xsl:text>RFC Errata </xsl:text>
           <xsl:choose>
             <xsl:when test="normalize-space()">
