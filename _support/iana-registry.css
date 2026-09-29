@@ -1,6 +1,12 @@
 @charset "UTF-8";
 /* Generated from the SCSS sources in web/scss/ — do not edit directly. */
 :root {
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 600px;
+  --breakpoint-md: 800px;
+  --breakpoint-lg: 1000px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1400px;
   --font-body: Noto, sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
   --font-size-base: 16px;
@@ -10,6 +16,7 @@
   --gray-light: oklch(0.805 0 0);
   --color-green: oklch(0.643 0.161 143.4);
   --color-red: oklch(0.461 0.157 29);
+  --color-white: #fff;
   --color-text-strong: #333;
   --color-text-secondary: #666;
   --color-text-muted: #999;
@@ -58,7 +65,8 @@
   --color-table-count-text: #444444;
   --color-table-search: #f2f2f5;
   --table-radius: 8px;
-  --shadow-panel: 0 2px 4px 0 oklch(0 0 0 / 0.16);
+  --color-shadow: oklch(0 0 0 / 0.16);
+  --shadow-panel: 0 2px 4px 0 var(--color-shadow);
   --space-xs: 10px;
   --space-sm: 15px;
   --space-md: 25px;
@@ -73,20 +81,21 @@
   --nav-drop: 75px;
 }
 
+/* Generated from the SCSS sources in web/scss/ — do not edit directly. */
 header {
   width: 100%;
   background: var(--color-chrome);
   border-bottom: 1px solid var(--color-surface);
 }
 header.header_white {
-  background: #fff;
+  background: var(--color-white);
 }
 header.header_warning {
   background: var(--color-notice-bg);
 }
 
 #header {
-  max-width: calc(1200px - var(--page-margin) * 2);
+  max-width: calc(var(--breakpoint-xl) - var(--page-margin) * 2);
   margin: 0 auto;
   padding: var(--panel-pad) var(--page-margin);
   display: flow-root;
@@ -216,6 +225,11 @@ header #header_banner {
 article {
   padding: var(--panel-pad);
 }
+@media (width <= 1000px) {
+  article {
+    padding: var(--panel-pad-md);
+  }
+}
 
 footer {
   width: 100%;
@@ -227,19 +241,27 @@ footer {
     padding: var(--space-xs) 0 var(--space-xs);
   }
 }
+footer > div:not(#footer) {
+  padding: 0 var(--panel-pad);
+}
+@media (width <= 1000px) {
+  footer > div:not(#footer) {
+    padding: 0 var(--panel-pad-md);
+  }
+}
 
 #footer {
-  max-width: 1200px;
+  max-width: var(--breakpoint-xl);
   margin: 0;
   color: var(--color-footer-text);
   font-size: 12px;
 }
 #footer .navigation {
-  margin: var(--space-xs) var(--space-lg);
+  margin: var(--space-xs) var(--panel-pad);
 }
 @media (width <= 1000px) {
   #footer .navigation {
-    margin: var(--space-xs) var(--space-md);
+    margin: var(--space-xs) var(--panel-pad-md);
   }
 }
 #footer .navigation tr {
@@ -283,13 +305,13 @@ footer {
   margin: 0 5px 0 5px;
 }
 #footer #custodian {
-  margin: var(--space-xs) var(--space-lg);
+  margin: var(--space-xs) var(--panel-pad);
   color: var(--color-footer-text);
   display: flow-root;
 }
 @media (width <= 1000px) {
   #footer #custodian {
-    margin: var(--space-xs) var(--space-md);
+    margin: var(--space-xs) var(--panel-pad-md);
   }
 }
 #footer #custodian a {
@@ -315,13 +337,13 @@ footer {
   margin: 1.2em 0;
 }
 #footer #legalnotice {
-  margin: var(--space-xs) var(--space-lg);
+  margin: var(--space-xs) var(--panel-pad);
   color: var(--color-footer-text);
   display: flow-root;
 }
 @media (width <= 1000px) {
   #footer #legalnotice {
-    margin: var(--space-xs) var(--space-md);
+    margin: var(--space-xs) var(--panel-pad-md);
   }
 }
 #footer #legalnotice a {
@@ -386,7 +408,7 @@ table.fn {
 
 thead,
 tfoot {
-  background-color: #e2e2e2;
+  background-color: var(--color-table-count-bg);
 }
 
 th {
@@ -402,7 +424,7 @@ td {
 }
 
 tr {
-  border-top: 1px solid #eceff8;
+  border-top: 1px solid var(--color-table-band);
 }
 tr.unallocated {
   color: var(--gray);
@@ -411,7 +433,7 @@ tr.hidden {
   visibility: hidden;
 }
 tr:last-child {
-  border-bottom: 1px solid #919699;
+  border-bottom: 1px solid var(--color-table-muted);
 }
 
 td.date {
@@ -460,6 +482,19 @@ label {
   vertical-align: middle;
 }
 
+div.pagination {
+  font-size: 125%;
+  font-weight: bold;
+  text-align: center;
+}
+
+td.registryempty {
+  vertical-align: middle;
+  font-style: italic;
+  text-align: center;
+  height: 4em;
+}
+
 div.registry {
   padding-left: var(--panel-pad);
 }
@@ -470,12 +505,6 @@ div.level4,
 div.level5,
 div.level6 {
   border-left: 1px dotted var(--gray);
-}
-
-div.pagination {
-  font-size: 125%;
-  font-weight: bold;
-  text-align: center;
 }
 
 a.altformat:link,
@@ -492,15 +521,8 @@ img {
   border-style: none;
 }
 
-td.registryempty {
-  vertical-align: middle;
-  font-style: italic;
-  text-align: center;
-  height: 4em;
-}
-
 .hemmed-panel {
-  max-width: calc(1200px - var(--page-margin) * 2);
+  max-width: calc(var(--breakpoint-xl) - var(--page-margin) * 2);
   padding: var(--panel-pad) var(--page-margin);
   margin: 0 auto;
 }
