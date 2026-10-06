@@ -1,0 +1,56 @@
+(registered 2026-10-06, last udpated 2026-10-06)
+
+Media type name: application
+
+Media subtype name: vnd.dai
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+The file is a sectioned container: a header, a section table, page-aligned sections holding a JSON manifest, a zip archive of the application, and a SQLite database, and a 64-byte footer. The footer carries a generation counter and the SHA-256 of the database section.
+
+Security considerations:
+
+A DAI container carries executable content: an HTML application intended to run only inside a host that applies the isolation defined in §4 of the specification (an opaque-origin sandboxed frame under a Content Security Policy permitting no network connection). The specification requires that a host not applying that isolation does not execute the content.
+
+The container is a sectioned binary file holding a JSON manifest, a zip archive of the application, and a SQLite database. The manifest carries SHA-256 digests of every archive entry and may carry an ECDSA P-256 signature over them in a COSE_Sign1 envelope. The specification requires a host to verify every digest before running anything and to verify the signature when a key is present (§7). The signature covers the manifest and the application, not the database; the database section is verified separately against a SHA-256 digest held in the file's footer (§2). Verification establishes that the file is unchanged since it was signed, not the identity of the signer; §8 and §9.6 describe what a host may claim about a publisher.
+
+Because the archive is inflated before its manifest can be checked, the specification requires a reader to bound decompression in advance — a limit on the bytes produced for any one entry, on the total across entries, and on the number of entries — refusing rather than allocating when a declared size, the declared total, or the entry count exceeds that limit, and stopping if an entry inflates past the size it declares (§7). The manifest contains no active content.
+
+The application may read and write the SQLite database. The format grants it no capability to reach the network, the filesystem beyond the file itself, or other origins.
+
+Privacy: the file may contain personal data the application stored. It contains no tracking, and the specification requires that a host send nothing when opening a file.
+
+Interoperability considerations:
+
+The format is versioned by the manifestVersion field in the manifest. A reader accepts the versions it implements and refuses others, reporting a refusal that tells the person to update the host (§9.1). The specification defines versions 2 and 3. A conformance suite and an independent reference reader in Python are published with the specification.
+
+Published specification: DAI Container Format v0.2, §2 (the sectioned form), §7 (verification), and §9 (manifestVersion 3): https://github.com/dynamicapplicationinterface/dai-core/blob/main/docs/spec-v0.2.md
+
+Applications which use this media: The DAI opener (https://opendai.app), the DAI desktop application, and the dai command line tool; any host implementing the specification.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: N/A
+
+Additional information:
+
+Deprecated alias names for this type: N/A
+Magic number(s): the first four bytes are "DAI" followed by a NULL byte (0x44 0x41 0x49 0x00)
+File extension(s): .dai
+Macintosh file type code: N/A
+Object Identifiers: N/A
+
+Other Information & Comments: N/A
+
+Person to contact for further information:
+
+Name: Christopher Whitlow
+Email: info&dynamicapplicationinterface.io
+
+Intended usage: COMMON
+
+Author/Change controller: Christopher Whitlow / Dynamic Application Interface Opensource Project

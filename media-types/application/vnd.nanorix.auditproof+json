@@ -1,0 +1,76 @@
+(registered 2026-10-06, last udpated 2026-10-06)
+
+Media type name: application
+
+Media subtype name: vnd.nanorix.auditproof+json
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+The payload is JSON and is not line-oriented; a serialised document may contain lines longer than 998 octets, so "binary" is selected per the guidance for JSON-based formats.
+
+Security considerations: An AuditProof document is a signed, offline-verifiable record of a bounded execution lifecycle.
+
+(1) Active or executable content: none. The document is a JSON object consisting of hash values, timestamps, subsystem identifiers, specification-constant method names and an Ed25519 signature. The format defines no scripting, macro, external-entity or reference-resolution facility. A conforming consumer parses it as data and never as code.
+
+(2) Privacy and integrity services: integrity is the entire purpose of the format and is provided intrinsically. Confidentiality is not provided and is not required by construction: the document carries evidence about a computation (hash values, step ordering and timestamps) and by design carries none of the data that computation processed. Documents are nevertheless routinely handed between parties who do not trust one another.
+
+(3) Integrity services the format itself provides: lifecycle steps form a hash chain in which each step commits to its predecessor, computed as SHA-512(prev_hash || 0x00 || subsystem || 0x00 || operation || 0x00 || method || 0x00 || timestamp), with the genesis value fixed as the hash of the empty string so that the first link is not attacker-chosen. The final chain value is signed with Ed25519. Verification is offline and requires no contact with the issuer. Two constraints are security-relevant and normative: "method" is a specification constant rather than a value copied from the document, so a chain cannot validate a document against itself; and the canonical view is a fixed field set in which optional semantics are expressed as always-present nullable slots, so a field cannot be stripped to yield a document that still verifies. A verifier MUST reject a document whose chain does not match the declared profile, and MUST NOT reach a verdict by reading any human-readable or display
+field, since those lie outside the signed message. Because documents are exchanged between mutually untrusting parties, implementations SHOULD transfer them over TLS to prevent substitution in transit; substitution is detectable by verification but is better prevented.
+
+(4) Underlying format: the payload is JSON, and the security considerations of RFC 8259 apply in full, including parser behaviour on deeply nested structures, duplicate object names and numbers outside the interoperable range. The "+json" structured syntax suffix applies per RFC 6839. The format employs no compression and no container format, so the considerations associated with those do not arise. Because the document is a security artifact received from an untrusted source, implementations SHOULD parse with explicit resource limits, and MUST NOT use content sniffing to decide what the document claims to be.
+
+(5) Links: interpreting a document does not require dereferencing any link. Signature verification requires a public key, which is either carried in the document or resolved by key identifier. A verifier that resolves a key out of band MUST bind that resolution to an out-of-band identity pin, and MUST NOT trust the document's own assertion of who issued it.
+
+Trust boundary: a valid signature establishes that a particular issuer produced the document and that it has not been altered since. It does not establish that the issuer is trustworthy. The specification is explicit that establishing issuer identity lies outside the format and belongs to the deployment.
+
+Interoperability considerations: The specification mandates a canonicalisation scheme for the signed view. This is the whole basis of cross-implementation agreement: two implementations that serialise differently will disagree about a document neither has tampered with. The canonical view is a fixed field set; fields outside it (display strings, human-readable summaries, post-signing annotations) are not part of the signed message and MUST NOT be treated as evidence by a verifier.
+
+Two wire-format decisions are normative precisely because they are the points implementations would otherwise diverge on. First, the signed message is the canonical hash in its ASCII hexadecimal representation, not as raw bytes. Second, step count, order and subsystem names are fixed by the profile in use and are not negotiable per document; a verifier MUST reject a document whose chain does not match the declared profile.
+
+Interoperability has been demonstrated rather than asserted: four independent implementations (Rust, Go, Python and TypeScript) agree byte-for-byte on a public conformance corpus.
+
+A consumer that does not recognise this media type may still process the payload as generic JSON under the "+json" structured syntax suffix (RFC 6839), which is the intended behaviour for generic tooling.
+
+Published specification:
+
+Arra, Chaitanya Kumar. "Signed Containment Evidence: specification and reference verifiers",
+version 1.0.2, Nanorix Inc.
+Concept DOI (always resolves to the latest version): https://doi.org/10.5281/zenodo.21901019
+https://www.google.com/url?q=https://doi.org/10.5281/zenodo.21901019&source=gmail&ust=1787078674536000&sa=E
+
+The media type is specified in Section 2.3; the canonicalisation scheme in Section 2.1; the chain construction in Section 3; the signature in Section 4. The reference implementation and the offline verifier are released under Apache-2.0.
+
+Applications which use this media: Documents of this type carry evidence of a completed execution lifecycle between parties who share no software and do not necessarily trust one another: the operator of a bounded execution environment, the customer whose workload ran inside it, and a third-party auditor examining the record afterwards.
+
+Current implementations: the Nanorix capsule runtime and its REST API emit documents of this type; an Apache-2.0 command-line verifier, a browser-based verifier and client SDKs for Python, TypeScript and Go consume them; four independent verifier implementations are maintained for conformance testing.
+
+Implementations set this type on HTTP responses carrying a proof, and are required by the specification to accept a proof regardless of the type declared on it, because the verdict comes from cryptographic verification and never from the transport label. The registered type serves so that a recipient can know what a file claims to be before parsing it, which matters specifically because such a file arrives from a party the recipient does not trust.
+
+Fragment identifier considerations: None. The "+json" structured syntax suffix applies, and no fragment identifier syntax is defined for application/json (RFC 8259), so none is inherited and none is defined here.
+
+Restrictions on usage: None.
+
+Additional information:
+
+1. Deprecated alias names for this type: None
+2. Magic number(s): None. A serialised document is a JSON object and therefore begins with "{", optionally preceded by whitespace; this is not a distinguishing magic number and MUST NOT be used to identify the type.
+3. File extension(s): None registered. Documents are conventionally stored with the .json extension.
+4. Macintosh file type code: None
+5. Object Identifiers: None
+
+The reference implementation, the offline verifier and the shared verification result types are published under Apache-2.0, so a third party can implement and verify this format independently of the registrant. That is deliberate rather than incidental: the format exists so that an auditor who does not trust the issuer can still reach a verdict about a document, which requires that verification not depend on the issuer's software.
+
+Person to contact for further information:
+
+1. Name: Chaitanya Kumar Arra
+2. Email: ck&nanorix.io
+
+Intended usage: COMMON
+
+Used in HTTP responses, in files exchanged between an operator, a customer and an external auditor, and as evidence attached to compliance and audit records.
+
+Author/Change controller: Nanorix Inc.
