@@ -1,0 +1,105 @@
+(registered 2026-10-07, last updated 2026-10-07)
+
+Media type name: application
+
+Media subtype name: vnd.majikah.mjksmap
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+The media type consists of an unrestricted sequence of octets. MJKSMAP is a binary container whose Version 1 representation consists of:
+
+a 7-byte ASCII magic sequence, MJKSMAP;
+a 1-byte format version;
+a 1-byte reserved field;
+a 4-byte unsigned big-endian payload length; and
+a UTF-8 encoded JSON payload.
+
+The Version 1 fixed header is therefore 13 octets.
+
+The JSON payload is not itself the complete media representation and must not be interpreted without first processing the binary container header.
+
+Security considerations: MJKSMAP is a declarative batch-signature manifest and does not define executable code, scripting instructions, or other active-content directives. However, implementations process attacker-controlled binary data, JSON data, file paths, and embedded cryptographic envelope data and therefore require normal input-validation and resource-management precautions.
+
+Each map entry contains a contentHash and a MajikSignatureEnvelope representing the signatures associated with the corresponding content. The embedded envelope can provide cryptographic integrity and signer-authentication evidence for the signed content using the signature algorithms and verification rules defined by the Majik Signature specification.
+
+The MJKSMAP container itself does not cryptographically authenticate the manifest structure. In particular, the map format does not independently authenticate the entry paths, entry ordering, manifest membership, or completeness of the manifest. A party capable of modifying an MJKSMAP file may alter those structural fields, add or remove entries, or replace an entry with another envelope. Consumers that require authenticated manifest membership, path provenance, or completeness must apply a separate integrity or signature mechanism to the manifest itself.
+
+The media type does not provide confidentiality or encryption. Applications requiring confidentiality must use an external encryption mechanism appropriate to their deployment.
+
+The embedded JSON is parsed as untrusted input. Implementations should enforce appropriate limits on total input size, payload size, JSON nesting depth, number of entries, entry size, and other resource consumption to reduce denial-of-service and memory-exhaustion risks. The reference implementation validates the declared payload length against the supplied input buffer before decoding and parsing the payload, but does not define a universal maximum payload size.
+
+Implementations must validate the binary header and supported format version before interpreting the payload. The reference format uses a 32-bit unsigned big-endian payload-length field.
+
+JSON interoperability and security considerations described by RFC 8259 apply to the embedded JSON payload, including the interoperability problems associated with duplicate object member names. Implementations should reject or otherwise handle duplicate member names consistently rather than relying on parser-specific behavior.
+
+The reference implementation generates the payload using UTF-8 JSON encoding. Implementations interoperating across systems should use UTF-8 for the JSON payload.
+
+File paths stored in entries are metadata and must not automatically be treated as safe filesystem paths. Applications that materialize entries onto a filesystem must apply appropriate sandboxing and path validation and should explicitly reject dangerous path components such as .., NUL characters, and platform-specific special path forms. The MJKSMAP path-normalization routine is intended for logical map lookup and cross-platform normalization; it is not a general-purpose filesystem path sanitization mechanism.
+
+The format itself does not employ compression. Applications that additionally compress an MJKSMAP object introduce the normal security considerations of the external compression format and processing implementation.
+
+Embedded signature envelopes may contain additional metadata, including trusted timestamp information, sealing information, file-version information, or external chain-anchor information. Interpretation and trust decisions concerning such metadata are governed by the corresponding Majik Signature specifications and by the consuming application.
+
+Interoperability considerations: The binary header uses fixed field positions and network byte order for the payload length:
+
+Magic: 7 octets
+Version: 1 octet
+Reserved: 1 octet
+Payload length: 4 octets, unsigned, big-endian
+Payload: UTF-8 JSON
+
+Version 1 defines the magic sequence MJKSMAP and version value 0x01. The reserved header byte is 0x00 in Version 1.
+
+The reference implementation normalizes entry paths for storage and lookup using the following transformations:
+
+Backslashes (\) are replaced with forward slashes (/).
+An ASCII Windows-style drive-letter prefix matching [A-Za-z]: is removed.
+Leading forward slashes are removed.
+Leading and trailing whitespace is trimmed.
+
+The normalization routine does not perform case folding, Unicode normalization, resolution of . or .. path components, or filesystem-specific canonicalization.
+
+The JSON payload is encoded as UTF-8. JSON member ordering is not semantically significant to the parsed representation. The binary container's payload-length field defines the number of bytes occupied by the JSON payload.
+
+The Version 1 reference implementation represents a map as an ordered array of entries. Consumers should not assume that entry order itself conveys semantic meaning unless explicitly defined by the consuming application.
+
+Published specification: Majik Signature Map (MJKSMAP) Specification v1.0
+
+https://github.com/Majikah/majik-signature/blob/main/MJKSMAP_SPEC.md
+
+Applications which use this media: MJKSMAP is used by the Majik Signature software and SDK ecosystem for representing batch detached-signature manifests. It maps logical file paths within a batch, directory, or archive to their detached MajikSignatureEnvelope data and associated content hashes.
+
+Typical uses include:
+
+batch signing of files in directories or ZIP archives;
+detached verification of extracted batch contents;
+relocation-tolerant lookup of signed files using their content hashes;
+storage and transport of batch signature manifests; and
+integration with Majik Signature desktop, web, CLI, MCP, and automation workflows.
+
+Fragment identifier considerations: N/A
+
+MJKSMAP does not define fragment identifiers or a fragment-specific dereferencing model.
+
+Restrictions on usage: None.
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): 4D 4A 4B 53 4D 41 50
+3. File extension(s): MJKSMAP
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+Person to contact for further information:
+
+1. Name: Josef Elijah Delos Santos Fabian
+2. Email: business&majikah.solutions
+
+Intended usage: COMMON
+
+Author/Change controller: Josef Elijah Delos Santos Fabian / Majikah Solutions OPC
