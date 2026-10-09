@@ -17,6 +17,13 @@
           <th>Comments</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'no-vary-search-dictionary-keys'">
+        <tr>
+          <th>Key</th>
+          <th>Description</th>
+          <th>Reference</th>
+        </tr>
+      </xsl:when>
       <xsl:otherwise>
         <tr>
           <th>Value</th>
