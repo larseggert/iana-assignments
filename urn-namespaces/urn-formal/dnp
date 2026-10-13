@@ -1,0 +1,499 @@
+Namespace Registration for Pakistan Digital Authority
+
+Namespace Identifier:
+
+   dnp
+
+Version:
+
+   1
+
+Date:
+
+   2026-10-12
+
+Registrant:
+
+   Pakistan Digital Authority (PDA)
+   Government of Pakistan
+   4th Floor, 5-A Constitution Avenue, Sector F-5/1
+   Islamabad, Pakistan
+
+   Designated contact:  Hira Sohail
+                        Director of Partnerships & Stakeholder
+                        Engagement
+   Email:               director-se&pda.gov.pk
+   Telephone:           +92 302 516 1211
+   Web:                 https://pda.gov.pk/
+
+   PDA is a federal statutory body established under the Digital
+   Nation Pakistan Act, 2025, with statutory responsibility for
+   national digital standards. PDA is not requesting the fast-track
+   registration procedure of Section 6.3 of RFC 8141; this
+   registration is submitted under the Expert Review procedure of
+   Section 6.2.
+
+Purpose:
+
+   Names in this namespace identify normative and authoritative
+   instruments published under the Digital Nation Pakistan
+   programme: national digital policies, frameworks, technical
+   standards, reference architectures, specifications,
+   implementation guidelines, data schemas, application programming
+   interface contracts, public registries, published datasets, the
+   National Digital Masterplan and its sectoral plans, and formal
+   directives issued by PDA.
+
+   The primary community of use is the Government of Pakistan --
+   federal ministries and divisions, provincial governments and
+   their attached departments and autonomous bodies -- together
+   with the private-sector entities that build on or must conform
+   to Pakistan's digital public infrastructure. Secondary
+   communities include international standards bodies, multilateral
+   development institutions with programmes in Pakistan,
+   comparative policy researchers, the archival and library sector,
+   and implementers in other jurisdictions who reference Pakistani
+   specifications when designing interoperable systems.
+
+   The Internet community at large benefits in three respects.
+   First, the corpus is published openly and is of direct interest
+   to the growing body of practice on digital public
+   infrastructure, in which Pakistan is both an adopter and a
+   contributor; stable citation makes that corpus usable in the
+   scholarly and technical record. Second, Pakistani specifications
+   describe interfaces with which non-Pakistani systems
+   interoperate, so unambiguous identification of a specific
+   edition of a specification has engineering value beyond
+   Pakistan. Third, government publications are among the most
+   frequent victims of reference decay; a managed namespace with an
+   explicit non-reassignment commitment reduces that decay for a
+   corpus that would otherwise be cited by ordinary HTTP URI alone.
+
+   This namespace complements rather than duplicates existing
+   namespaces. The "lex" namespace (RFC 9676) identifies legal
+   norms and is the appropriate identifier system for Pakistani
+   legislation, which this namespace does not cover. The "iso" and
+   "ietf" namespaces identify the outputs of those bodies; where a
+   DNP instrument profiles or adopts such an output it cites it in
+   the native namespace rather than reassigning it. Where an
+   instrument also bears a Digital Object Identifier or, in future,
+   a Pakistani National Bibliography Number, those assignments
+   coexist with the URN and are recorded as equivalences in the
+   Register.
+
+   Software that can make use of these names includes citation
+   managers and reference-checking tools; document management and
+   records systems within government; conformance and procurement
+   tooling that must assert which edition of a standard a system
+   was built against; long-term digital preservation systems in the
+   national archival and library sector; and standards-registry
+   software operated by PDA.
+
+   Resolution services are available and are described under
+   Resolution below.
+
+   Neither this namespace nor its definition is expected to become
+   a constituent part of a standard developed in the IETF. The
+   namespace is expected to be referenced normatively by standards
+   issued by PDA itself.
+
+Syntax:
+
+   Names conform to the URN syntax of Section 2 of RFC 8141. The
+   Namespace Specific String is further constrained as follows,
+   using the ABNF of RFC 5234. ALPHA and DIGIT are imported from
+   RFC 5234.
+
+     NSS         = class ":" local-id [ ":" edition ]
+
+     class       = 2*24( ALPHA )
+
+     local-id    = id-start *62( id-char ) id-end
+     id-start    = ALPHA / DIGIT
+     id-char     = ALPHA / DIGIT / "-" / "."
+     id-end      = ALPHA / DIGIT
+
+     edition     = ver-form / date-form
+     ver-form    = "v" 1*3DIGIT [ "." 1*3DIGIT ]
+     date-form   = 4DIGIT "-" 2DIGIT "-" 2DIGIT
+
+   The grammar above defines the set of well-formed names. It is wider
+   than the set of names PDA assigns: the assignment practice for
+   local-id and the canonical form given under URN-equivalence below
+   are narrower, and a name presented in a form the grammar admits but
+   PDA would not have assigned is still well-formed and still
+   URN-equivalent to the assigned name.
+
+   The NSS contains at most two colon characters and consists of
+   exactly two or three fields. No structure is implied by the
+   colon beyond that field division.
+
+   The 'class' field states the kind of instrument. The initially 
+   registered classes are: policy, framework, standard, architecture,
+   specification, guideline, directive, schema, api, registry,
+   dataset, masterplan, publication. The set is fixed at any given
+   time and is extended only by amendment to the PDA specification
+   cited under Documentation. A registered class is never withdrawn
+   or redefined; a class no longer used for new assignments is
+   marked closed and the names already assigned within it remain
+   valid.
+
+   The 'local-id' field carries the identifier already assigned 
+   to the instrument under PDA's document nomenclature framework,
+   transformed to lower case, or a mnemonic assigned by PDA where
+   no such identifier exists. It is unique within its class and is
+   never reassigned. It does not encode subject matter, issuing
+   unit, date or status, and consumers must not parse it for such
+   information.
+
+   The optional 'edition' field distinguishes two things that are
+   deliberately identified separately. A name without an 'edition'
+   field identifies the instrument as a continuing work -- the
+   standard or policy as an institutional object persisting across
+   revisions -- and is appropriate where the citing party means
+   "this instrument, whichever edition is current". A name with an
+   'edition' field identifies one fixed, immutable published state,
+   and is appropriate where the citing party means "this exact
+   text". Both forms are permanent; neither is ever reassigned; the
+   work-level name survives withdrawal of the instrument from
+   current effect, withdrawal being a status change rather than a
+   change of identity. The two forms are distinct names for
+   distinct resources and are not URN-equivalent to one another.
+   The ver-form of edition is used where the instrument carries an
+   editorial version number; the date-form, a Gregorian calendar
+   date as YYYY-MM-DD, where the instrument is identified by date
+   of issue. An instrument uses one form consistently throughout
+   its life.
+
+   Character handling. Every character permitted by the grammar is
+   a member of the "pchar" production of RFC 3986 and requires no
+   percent-encoding. Names therefore never contain percent-encoded
+   octets; a candidate name containing a percent character is
+   malformed and must be rejected rather than decoded. Characters
+   outside the ASCII range must not appear. PDA publishes in Urdu
+   and English and carries titles in both, but those titles are
+   metadata held in the Register, not identifiers.
+
+   URN-equivalence. Two names are URN-equivalent if they are
+   URN-equivalent under Section 3.1 of RFC 8141 after additionally
+   applying ASCII case folding to the entire NSS. That is, the NSS
+   in this namespace is case-insensitive, so that
+
+     urn:dnp:standard:dnp-d.002:v1
+     urn:dnp:standard:DNP-D.002:v1
+     URN:DNP:STANDARD:DNP-D.002:V1
+
+   are URN-equivalent. Because names never contain percent-encoded
+   octets, the percent-encoding provisions of Section 3.1 have no
+   effect here. No further equivalence rules are defined; hyphens
+   and full stops within local-id are significant and are not
+   elided. This rule only eliminates false negatives relative to
+   the base procedure and does not cause any two names to be
+   treated as distinct that the base procedure treats as
+   URN-equivalent. PDA assigns in lower case and the lower-case
+   form is canonical.
+
+   Components. This namespace defines no r-component semantics;
+   consistent with Section 2.3.1 of RFC 8141, PDA does not use them
+   and will not do so before their semantics are standardised. A
+   PDA resolver presented with an r-component ignores it and
+   resolves the assigned-name. No q-component semantics of its own
+   are defined; where a name resolves to a URI that is a locator, a
+   q-component is handled per Section 2.3.2, and PDA resolution
+   does not depend on q-component information. f-components are
+   interpreted per Section 2.3.3, according to the media type of
+   the retrieved representation; where PDA publishes an instrument
+   in HTML it provides stable fragment identifiers corresponding to
+   the numbered clauses, so that a clause-level citation such as
+   urn:dnp:standard:dnp-x.001:v2#clause-4.3 is durable.
+
+   Examples (illustrative, not assignments):
+
+     urn:dnp:standard:dnp-x.001
+     urn:dnp:standard:dnp-x.001:v2
+     urn:dnp:architecture:dnp-d.002:v1
+     urn:dnp:masterplan:ndmp-2026-2035
+     urn:dnp:masterplan:ndmp-2026-2035:v1
+     urn:dnp:directive:pda-2026-014:2026-03-11
+     urn:dnp:schema:person-name:v1
+     urn:dnp:api:consent:v2
+     urn:dnp:dataset:connectivity-index:2026-06-30
+
+Assignment:
+
+   Assignment is restricted. Names are assigned solely by PDA, or by
+   an entity acting under a written instrument of delegation issued by
+   PDA. Assignment is not open to application by third parties and
+   there is no procedure by which an external party may request a
+   name for a resource of its own.
+
+   Delegation is contemplated because instruments within scope may
+   be issued by federal or provincial entities under PDA's
+   coordinating mandate. A delegation instrument specifies the
+   classes and local-id ranges within which the delegate may
+   assign and binds the delegate to the persistence commitment
+   below. Delegations in force are listed in the Register. A
+   delegation may be withdrawn; withdrawal has no effect on names
+   already assigned under it, which remain valid and remain the
+   responsibility of PDA.
+
+   Uniqueness is enforced by construction. PDA maintains a single
+   authoritative Register of all assigned names. A name comes into
+   existence only by an entry in the Register, and the Register
+   rejects any entry whose assigned-name is URN-equivalent to an
+   existing entry. Delegated assignment operates against the same
+   Register within non-overlapping allocations, so a delegate
+   cannot create a collision.
+
+   The Register records, for each name: the assigned-name; the
+   instrument or edition identified; date of assignment; assigning
+   entity; current status; current authoritative location(s); a
+   SHA-256 digest of each edition-level resource as published, with
+   the algorithm named in the record so it can be migrated without
+   invalidating existing entries; titles and descriptive metadata in
+   English and Urdu; and any equivalent identifiers in other
+   identifier systems.
+
+   Persistence. An assigned name is never reassigned to a different
+   resource and is never withdrawn or deleted, under any
+   circumstance. This holds where the instrument is superseded,
+   repealed, withdrawn from effect or found to have been issued in
+   error; where the issuing unit is abolished or merged; and where
+   the instrument is no longer published. Each such fact is
+   recorded as a status change in the Register and the name
+   continues to identify what it has always identified. An error in
+   assignment is corrected by recording the error and, if
+   necessary, assigning a new name -- never by reusing the
+   erroneous name.
+
+   Institutional continuity. PDA is created by primary legislation
+   rather than administrative order, and its dissolution or
+   reconstitution would require an act of the legislature.
+   Pakistani legislative practice on the reconstitution of
+   statutory bodies provides for devolution of the functions,
+   assets and records of a dissolved body upon a successor or upon
+   the Division concerned; stewardship of this namespace is a
+   function within the meaning of that practice. In addition, and
+   not dependent on PDA's continued existence: the Register is
+   published in full as a machine-readable open dataset on a
+   regular cycle, so a complete copy exists outside PDA's systems
+   at all times; PDA deposits the Register and the published corpus
+   with Pakistan's national depository institutions and offers the
+   same deposit to international web-archiving initiatives; and if
+   stewardship is transferred, PDA or its successor will submit a
+   revised registration template recording the change. Transfer of
+   stewardship does not affect names already assigned.
+
+Security and Privacy:
+
+   Absence of personal data. Names are assigned only to published
+   institutional instruments. A name must not be assigned to a
+   natural person, to an identifier of a natural person, to an
+   individual transaction or record, or to any resource whose
+   representation contains personal data. This is stated
+   normatively because PDA's statutory mandate includes national
+   digital identity and data exchange infrastructure, and because
+   the persistence properties that make URNs attractive for
+   institutional documents make them actively harmful for
+   identifiers of people: a URN cannot be revoked, and the
+   non-reassignment commitment above is incompatible with any right
+   of erasure. Extending this namespace to personal or
+   transactional data would require a separate registration with a
+   materially different persistence model, and PDA does not propose
+   one. The Register records the names of officers only in their
+   institutional capacity as approving authority, which is
+   information already disclosed on the face of the published
+   instrument.
+
+   Comparison and confusion. The case-insensitivity rule introduces
+   the general risks discussed in RFC 6943 for identifiers compared
+   under case folding. Those risks are bounded here: the NSS is
+   restricted to ASCII letters, digits, hyphen and full stop, so
+   ASCII case folding is locale-independent, involves no expansion
+   or contraction of characters, and admits no Unicode confusables;
+   the Turkish dotless-i problem does not arise because folding is
+   defined over the ASCII range only. Implementations must perform
+   case folding over the ASCII range only and must not apply
+   locale-sensitive case mapping. A false positive could cause a
+   system to treat a conformance assertion against one instrument
+   as an assertion against another; because the identified
+   resources are public and the Register is published, such an
+   error is detectable by inspection. Separately, because the
+   work-level and edition-level forms are similar in appearance but
+   identify different resources, an implementation that truncates
+   or elides the 'edition' field silently substitutes a work-level
+   citation for an edition-level one, changing its meaning in
+   conformance and contractual contexts. Implementations must not
+   truncate names, and applications displaying names should display
+   them in full, consistent with Section 4.4 of RFC 8141.
+
+   Authenticity and spoofing. A name asserts nothing about the
+   authenticity of any document it may be attached to; a third
+   party can place the string "urn:dnp:standard:..." on an
+   unauthorised document as easily as any other string. The
+   Register, retrieved over an authenticated channel, is the sole
+   authority for what a name identifies, and the cryptographic
+   digests it records for edition-level resources allow a retrieved
+   document to be checked against the published text. Consistent
+   with Section 8 of RFC 8141, the information in this registration
+   is a declaration and should be treated as advisory.
+
+   Resolver operation. Queries to a PDA resolver reveal to PDA
+   which instruments a client is interested in and, absent
+   transport security, reveal the same to network observers.
+   Because the corpus includes policy and regulatory instruments,
+   that interest may be sensitive: a pattern of queries could
+   indicate the direction of an entity's compliance work or a
+   researcher's enquiry. Accordingly the PDA resolver is offered
+   over HTTPS, does not require authentication, and does not
+   require or set cookies. PDA retains resolver request logs only
+   in aggregate form and only for capacity planning, and does not
+   disclose individual query records. Directory harvesting is not a
+   concern: the Register is published in full and complete
+   enumeration of the namespace is an intended feature.
+
+Interoperability:
+
+   The string "DNP". "DNP" is used as a corporate brand by at least
+   one substantial commercial enterprise unconnected with Pakistan,
+   which holds trademark registrations in that string in several
+   jurisdictions and operates a brand top-level domain under it.
+   "DNP" is also an established abbreviation in chemistry and in
+   professional sport. PDA claims no association with any of these,
+   and registration of this NID neither asserts nor implies any
+   right in the string outside the URN namespace registry. PDA has
+   selected the string because it is the statutory short form of
+   Digital Nation Pakistan, the programme established by the Act of
+   the same name, and not for any associative value. PDA notes that
+   a URN NID and a trademark occupy different registries with
+   different scopes, that no resource identified in this namespace
+   is a commercial good or service, and that Section 5.1 of
+   RFC 8141 leaves disputes over strings to the parties concerned.
+   PDA will engage in good faith with any objection raised during
+   Expert Review.
+
+   Legal norms. Names in this namespace are not assigned to primary
+   legislation of the Islamic Republic of Pakistan; authority over
+   the authoritative text of Acts of Parliament rests with organs
+   of the State other than PDA, and the "lex" namespace (RFC 9676)
+   is the appropriate vehicle. Instruments in this namespace
+   frequently cite Pakistani legislation; such citations use "lex"
+   or the Gazette reference. An instrument issued by PDA under a
+   statutory power is identified here as a directive; the statutory
+   power itself is not.
+
+   Bibliographic identifiers. Pakistan has no registered National
+   Bibliography Number sub-namespace under RFC 8458 at the time of
+   writing. Should the national library register one and assign
+   numbers within this corpus, the resulting names would coexist
+   with names in this namespace and be recorded as equivalences in
+   the Register. The same applies to Digital Object Identifiers,
+   which PDA assigns to some publications through a DOI
+   registration agency.
+
+   Internal document codes. PDA's internal document nomenclature
+   codes appear within local-id in transformed form. Those codes
+   circulate outside the URN context and a reader may encounter one
+   in isolation. A bare code is not a URN and must not be treated
+   as one. The transformation from code to local-id is defined in
+   the PDA specification cited under Documentation; it is not in
+   general reversible by inspection and implementations must not
+   attempt to reverse it algorithmically.
+
+   Character handling. Because names never contain percent-encoded
+   octets or non-ASCII characters, the encoding pitfalls that arise
+   when pre-existing identifier systems are mapped into URN syntax
+   do not arise here.
+
+   Protocol slots. Consistent with Section 4.1 of RFC 8141, a name
+   in this namespace is not a locator and should not be placed in a
+   URI protocol slot whose defined semantics require dereferencing
+   to a representation. It is appropriate in citation fields,
+   metadata records, conformance declarations and provenance
+   assertions.
+
+Resolution:
+
+   Resolution is intended. PDA operates and undertakes to continue
+   to operate a resolution service for names in this namespace.
+
+   The service is offered over HTTPS at the endpoint
+   https://urn.dnp.gov.pk/, operated by PDA under a Government of
+   Pakistan domain. A client resolves a name by requesting the
+   assigned-name as a path component of that endpoint, for example
+   <https://urn.dnp.gov.pk/urn:dnp:standard:dnp-x.001:v2>. The
+   endpoint is also recorded in the PDA specification cited under
+   Documentation; should it ever change, the specification and this
+   registration will be revised, and names already assigned will be
+   unaffected.
+
+   Resolution follows the work/edition distinction. A work-level
+   name resolves to the current authoritative edition of the
+   instrument where one is in force, and otherwise to a record
+   describing the instrument and its editions. An edition-level
+   name resolves to that fixed edition and continues to do so after
+   it has been superseded; a superseded edition remains
+   retrievable, marked as superseded with a reference to the
+   edition that superseded it. PDA does not remove superseded
+   editions from publication.
+
+   A client requesting a representation of the identified resource
+   receives it, or a redirection to its current location. A client
+   requesting metadata by content negotiation receives the Register
+   record, including status, provenance, digests and equivalent
+   identifiers. Resolution of a syntactically valid but unassigned
+   name is distinguishable from resolution of a name assigned to an
+   instrument no longer in force; the two are different conditions
+   and are reported differently.
+
+   Resolution is a convenience and is not constitutive. A name
+   remains valid, and continues to identify what the Register says
+   it identifies, irrespective of whether any resolver is reachable
+   and irrespective of whether the identified resource is currently
+   retrievable.
+
+   PDA does not at present operate a registration process for
+   third-party publicly advertised resolution services for this
+   namespace and does not at present recommend any resolver other
+   than its own. Should PDA establish such a process, the
+   requirements for being publicly advertised will be published
+   alongside the specification cited under Documentation and this
+   registration will be revised. PDA defines no r-components and
+   its resolver ignores any that are presented.
+
+Documentation:
+
+   [1] Sohail, H., Ed., "A Uniform Resource Name (URN) Namespace for
+       Digital Nation Pakistan (DNP)", Work in Progress,
+       Internet-Draft, draft-sohail-urn-dnp-01, 10 August 2026,
+       <https://datatracker.ietf.org/doc/draft-sohail-urn-dnp/>.
+
+   A stable specification maintained by PDA is published at
+   https://standards.dnp.gov.pk/ under the PDA document
+   nomenclature framework and is kept synchronised with this
+   registration.
+
+Additional Information:
+
+   The Digital Nation Pakistan Act, 2025 establishes PDA and sets
+   out its functions, including the specification of national
+   digital standards and the coordination of digitalisation across
+   government. The Act is the source of PDA's authority to issue
+   the instruments identified in this namespace and of the
+   institutional continuity described under Assignment.
+
+   Registrations by national government bodies in the URN namespaces
+   registry include those of the Federal Chancellery of the Republic
+   of Austria and of New Zealand (RFC 4350), and by national memory
+   institutions including the National Archives of Finland. This
+   registration follows the same pattern: a national public
+   authority seeking durable identification of a defined corpus of
+   official material, without any claim to a country-code-derived
+   namespace. PDA notes that Section 5.1 of RFC 8141 reserves
+   strings of the form ALPHA ALPHA "-" for possible future
+   country-code-based registration; this registration does not use,
+   anticipate or depend on any such reservation.
+
+Revision Information:
+
+   None. This is the initial registration.
