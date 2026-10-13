@@ -79,7 +79,7 @@
       <xsl:when test="../@id = 'gmpls-sig-parameters-7'">
         <td align="center"><xsl:value-of select="iana:type"/></td>
         <td><xsl:value-of select="iana:length"/></td>
-        <td><xsl:value-of select="iana:format"/></td>
+        <td><xsl:apply-templates select="iana:format/node()"/></td>
         <td><xsl:value-of select="iana:description"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
       </xsl:when>

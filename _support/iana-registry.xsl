@@ -32,6 +32,11 @@
   <xsl:param name="registry_csv_base_url" select="''"/>
   <xsl:param name="enable_json_export" select="'false'"/>
   <xsl:param name="assignments_base" select="'../'"/>
+  <!-- 'true' (set by the website): a cross-reference in a table row (record or range) is output as
+       <span class="xref"> instead of in [brackets]; note references keep their brackets. -->
+  <xsl:param name="mark_table_xrefs" select="'false'"/>
+  <!-- 'false' leaves adjacent xrefs back to back (the CSV export keeps its reference format) -->
+  <xsl:param name="separate_xrefs" select="'true'"/>
 
   <xsl:template match="/iana:registry">
 
@@ -83,8 +88,8 @@
         <dl>
           <xsl:apply-templates select="iana:created" />
           <xsl:apply-templates select="iana:updated" />
-          <xsl:apply-templates select="iana:registration_rule" />
-          <xsl:apply-templates select="iana:expert" />
+          <xsl:call-template name="iana:registration_rules"/>
+          <xsl:call-template name="iana:experts"/>
           <xsl:apply-templates select="iana:description" />
           <xsl:call-template name="iana:references"/>
           <xsl:apply-templates select="iana:note" />
@@ -237,12 +242,26 @@
     <pre><xsl:value-of select="." /></pre>
   </xsl:template>
 
-  <xsl:template match="iana:registry/iana:registration_rule">
-    <dt>Registration Procedure(s)</dt><dd><pre><xsl:apply-templates/></pre></dd>
+  <!-- All registration rules of a registry under one Registration Procedure(s) heading, one per line -->
+  <xsl:template name="iana:registration_rules">
+    <xsl:if test="iana:registration_rule">
+      <dt>Registration Procedure(s)</dt>
+      <dd><pre><xsl:for-each select="iana:registration_rule">
+        <span class="registration-rule"><xsl:apply-templates/></span>
+        <xsl:if test="position() != last()"><xsl:text>&#10;</xsl:text></xsl:if>
+      </xsl:for-each></pre></dd>
+    </xsl:if>
   </xsl:template>
 
-  <xsl:template match="iana:registry/iana:expert">
-    <dt>Expert(s)</dt><dd><pre><xsl:apply-templates/></pre></dd>
+  <!-- All experts of a registry under one Expert(s) heading, one per line -->
+  <xsl:template name="iana:experts">
+    <xsl:if test="iana:expert">
+      <dt>Expert(s)</dt>
+      <dd><pre><xsl:for-each select="iana:expert">
+        <span class="expert"><xsl:apply-templates/></span>
+        <xsl:if test="position() != last()"><xsl:text>&#10;</xsl:text></xsl:if>
+      </xsl:for-each></pre></dd>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="iana:registry/iana:created">
@@ -262,11 +281,26 @@
       <xsl:when test="@title">
        <dt><xsl:value-of select="@title"/></dt>
       </xsl:when>
+      <!-- A warning note without a title has no heading: just its box -->
+      <xsl:when test="@type = 'warning'"/>
       <xsl:otherwise>
        <dt>Note</dt>
       </xsl:otherwise>
     </xsl:choose>
-    <dd>
+    <dd class="note">
+      <xsl:choose>
+        <!-- An important note: the same text, in a highlighted box -->
+        <xsl:when test="@type = 'warning'">
+          <div class="panel_warning icon"><xsl:call-template name="iana:note_text"/></div>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:call-template name="iana:note_text"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </dd>
+  </xsl:template>
+
+  <xsl:template name="iana:note_text">
       <xsl:choose>
         <xsl:when test="@format = 'rich'">
           <xsl:apply-templates/>
@@ -275,7 +309,6 @@
           <pre><xsl:apply-templates/></pre>
         </xsl:otherwise>
       </xsl:choose>
-    </dd>
   </xsl:template>
 
   <xsl:template name="iana:notes">
@@ -338,8 +371,8 @@
       <dl>
         <xsl:apply-templates select="iana:created" />
         <xsl:apply-templates select="iana:updated" />
-        <xsl:apply-templates select="iana:registration_rule" />
-        <xsl:apply-templates select="iana:expert" />
+        <xsl:call-template name="iana:registration_rules"/>
+        <xsl:call-template name="iana:experts"/>
         <xsl:apply-templates select="iana:description" />
         <xsl:call-template name="iana:references"/>
         <xsl:apply-templates select="iana:note" />
@@ -572,6 +605,166 @@
     </tr>
   </xsl:template>
 
+  <!-- Fragment kind of an rfc/draft xref, used in labels: Section, Page, Appendix, Table, Figure; empty for anchor or none -->
+  <xsl:template name="iana:xref_fragment_kind">
+    <xsl:choose>
+      <xsl:when test="@section">Section</xsl:when>
+      <xsl:when test="@page">Page</xsl:when>
+      <xsl:when test="@appendix">Appendix</xsl:when>
+      <xsl:when test="@table">Table</xsl:when>
+      <xsl:when test="@figure">Figure</xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
+  <!-- Fragment value of an rfc/draft xref, e.g. 6.11.3 -->
+  <xsl:template name="iana:xref_fragment_value">
+    <xsl:value-of select="(@section|@page|@appendix|@table|@figure|@anchor)[1]"/>
+  </xsl:template>
+
+  <!-- URL fragment of an rfc/draft xref, e.g. #section-6.11.3 -->
+  <xsl:template name="iana:xref_fragment_href">
+    <xsl:choose>
+      <xsl:when test="@section">
+        <xsl:value-of select="concat('#section-', @section)"/>
+      </xsl:when>
+      <xsl:when test="@page">
+        <xsl:value-of select="concat('#page-', @page)"/>
+      </xsl:when>
+      <xsl:when test="@appendix">
+        <xsl:value-of select="concat('#appendix-', @appendix)"/>
+      </xsl:when>
+      <xsl:when test="@table">
+        <xsl:value-of select="concat('#table-', @table)"/>
+      </xsl:when>
+      <xsl:when test="@figure">
+        <xsl:value-of select="concat('#figure-', @figure)"/>
+      </xsl:when>
+      <xsl:when test="@anchor">
+        <xsl:value-of select="concat('#', @anchor)"/>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
+  <!-- Document URL of an rfc/draft xref, without fragment -->
+  <xsl:template name="iana:xref_doc_href">
+    <xsl:choose>
+      <xsl:when test="@type = 'draft' and starts-with(@data, 'RFC-')">
+        <xsl:value-of select="concat($website_base_url, '/go/draft-', substring(@data,5))"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="concat($website_base_url, '/go/', @data)"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <!-- Document label of an rfc/draft xref, without fragment: RFC 8994 or the draft name -->
+  <xsl:template name="iana:xref_doc_label">
+    <xsl:choose>
+      <xsl:when test="@type = 'rfc'">
+        <xsl:value-of select="concat('RFC ', substring(@data, 4))"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="@data"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <!-- Linked fragment value of a bare xref, e.g. <a href="...#section-6.11.4">6.11.4</a>.
+       On its own (standalone), a fragment other than a section keeps its word: "Table 6". -->
+  <xsl:template name="iana:xref_bare_link">
+    <xsl:param name="standalone" select="false()"/>
+    <xsl:variable name="doc_href"><xsl:call-template name="iana:xref_doc_href"/></xsl:variable>
+    <xsl:variable name="fragment_href"><xsl:call-template name="iana:xref_fragment_href"/></xsl:variable>
+    <xsl:variable name="fragment_value"><xsl:call-template name="iana:xref_fragment_value"/></xsl:variable>
+    <a href="{concat($doc_href, $fragment_href)}">
+      <xsl:choose>
+        <xsl:when test="$standalone and (@page|@appendix|@table|@figure)">
+          <xsl:call-template name="iana:xref_fragment_kind"/>
+          <xsl:value-of select="concat(' ', $fragment_value)"/>
+        </xsl:when>
+        <xsl:when test="string($fragment_value)"><xsl:value-of select="$fragment_value"/></xsl:when>
+        <xsl:otherwise><xsl:call-template name="iana:xref_doc_label"/></xsl:otherwise>
+      </xsl:choose>
+    </a>
+  </xsl:template>
+
+  <!--
+    label-format values follow xml2rfc v3 sectionFormat, RFC 7991 Section 2.66.1 (with verified errata):
+      "of"      Section 6.1.1.1 of RFC 7285
+      "comma"   RFC 7285, Section 6.1.1.1
+      "parens"  RFC 7285 (Section 6.1.1.1)
+      "bare"    6.1.1.1
+    It applies to rfc/draft xrefs with a section, page, appendix, table or figure attribute.
+    Unlike RFC 7991 (default "of"), the default here when the attribute is absent is "comma",
+    the format the registries have always used.
+
+    label-format="bare": render only the linked fragment value.
+    A bare xref that directly follows an xref to the same document (only whitespace in between)
+    is attached to it and rendered inside its brackets, e.g.
+      <xref type="rfc" data="rfc8994" section="6.11.3"/>
+      <xref type="rfc" data="rfc8994" section="6.11.4" label-format="bare"/>
+    renders as [RFC 8994, Section 6.11.3, 6.11.4] (default, "comma"); with label-format="of"
+    on the first xref as [Sections 6.11.3, 6.11.4 of RFC 8994], and with label-format="parens"
+    as [RFC 8994 (Section 6.11.3, 6.11.4)].
+    Each value is linked to its own section.
+    A bare xref that is not attached renders as the linked value alone, without brackets;
+    a page, appendix, table or figure keeps its word ("Table 6"), so
+      <xref type="rfc" data="rfc9142" table="12" label-format="bare"/> in <xref ... section="4" label-format="of"/>
+    renders as Table 12 in [Section 4 of RFC 9142].
+  -->
+  <xsl:template match="iana:xref[@label-format = 'bare']">
+    <xsl:variable name="attached">
+      <xsl:call-template name="iana:xref_bare_attached"/>
+    </xsl:variable>
+    <xsl:if test="$attached != 'yes'">
+      <xsl:call-template name="iana:xref_bare_link">
+        <xsl:with-param name="standalone" select="true()"/>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
+  <!-- Whitespace between attached bare xrefs is part of the group, not output -->
+  <xsl:template match="text()[not(normalize-space())][following-sibling::*[1][self::iana:xref[@label-format = 'bare']]]">
+    <xsl:variable name="attached">
+      <xsl:for-each select="following-sibling::*[1]">
+        <xsl:call-template name="iana:xref_bare_attached"/>
+      </xsl:for-each>
+    </xsl:variable>
+    <xsl:if test="$attached != 'yes'">
+      <xsl:value-of select="."/>
+    </xsl:if>
+  </xsl:template>
+
+  <!-- 'yes' when the bare context xref is attached to a preceding non-bare xref to the same document -->
+  <xsl:template name="iana:xref_bare_attached">
+    <xsl:variable name="prev" select="preceding-sibling::node()[self::* or (self::text() and normalize-space())][1]"/>
+    <xsl:choose>
+      <xsl:when test="$prev/self::iana:xref[@type = current()/@type and @data = current()/@data]">
+        <xsl:choose>
+          <xsl:when test="$prev/@label-format = 'bare'">
+            <xsl:for-each select="$prev">
+              <xsl:call-template name="iana:xref_bare_attached"/>
+            </xsl:for-each>
+          </xsl:when>
+          <xsl:otherwise>yes</xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>no</xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <!-- Bare xrefs attached after the context xref, each as ", <a>value</a>" -->
+  <xsl:template name="iana:xref_bare_run">
+    <xsl:variable name="next" select="following-sibling::node()[self::* or (self::text() and normalize-space())][1]"/>
+    <xsl:if test="$next/self::iana:xref[@label-format = 'bare' and @type = current()/@type and @data = current()/@data]">
+      <xsl:for-each select="$next">
+        <xsl:text>, </xsl:text>
+        <xsl:call-template name="iana:xref_bare_link"/>
+        <xsl:call-template name="iana:xref_bare_run"/>
+      </xsl:for-each>
+    </xsl:if>
+  </xsl:template>
+
   <xsl:template match="iana:xref">
     <xsl:variable name="link_label">
       <xsl:choose>
@@ -579,168 +772,169 @@
           <xsl:value-of select="."/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:variable name="base">
+          <xsl:variable name="base"><xsl:call-template name="iana:xref_doc_label"/></xsl:variable>
+          <xsl:variable name="kind"><xsl:call-template name="iana:xref_fragment_kind"/></xsl:variable>
+          <xsl:variable name="value"><xsl:call-template name="iana:xref_fragment_value"/></xsl:variable>
+          <xsl:choose>
+            <!-- label-format="of": Section 5.2 of RFC 1234 -->
+            <xsl:when test="string($kind) and @label-format = 'of'">
+              <xsl:value-of select="concat($kind, ' ', $value, ' of ', $base)"/>
+            </xsl:when>
+            <!-- label-format="parens": RFC 1234 (Section 5.2) -->
+            <xsl:when test="string($kind) and @label-format = 'parens'">
+              <xsl:value-of select="concat($base, ' (', $kind, ' ', $value, ')')"/>
+            </xsl:when>
+            <!-- default (label-format="comma" or absent): RFC 1234, Section 5.2 -->
+            <xsl:when test="string($kind)">
+              <xsl:value-of select="concat($base, ', ', $kind, ' ', $value)"/>
+            </xsl:when>
+            <xsl:when test="@anchor">
+              <xsl:value-of select="concat($base, '#', @anchor)"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="$base"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="doc_href"><xsl:call-template name="iana:xref_doc_href"/></xsl:variable>
+    <xsl:variable name="fragment_href"><xsl:call-template name="iana:xref_fragment_href"/></xsl:variable>
+    <xsl:variable name="link_href" select="concat($doc_href, $fragment_href)"/>
+    <!-- An rfc/draft xref without text, with a fragment, followed by bare xrefs to the same document -->
+    <xsl:variable name="groups_bare" select="(@type = 'rfc' or @type = 'draft') and not(normalize-space())
+                                             and (@section|@page|@appendix|@table|@figure)
+                                             and following-sibling::node()[self::* or (self::text() and normalize-space())][1]
+                                                 /self::iana:xref[@label-format = 'bare' and @type = current()/@type and @data = current()/@data]"/>
+    <xsl:variable name="ref">
+      <xsl:choose>
+        <xsl:when test="$groups_bare and @label-format = 'of'">
+          <!-- "of" format with attached bare xrefs: [Sections 3.1, 3.2 of RFC 9999] -->
+          <xsl:variable name="kind"><xsl:call-template name="iana:xref_fragment_kind"/></xsl:variable>
+          <a href="{$link_href}">
             <xsl:choose>
-              <xsl:when test="@type = 'rfc'">
-                <xsl:value-of select="concat('RFC ', substring(@data, 4))"/>
+              <xsl:when test="$kind = 'Appendix'">Appendices</xsl:when>
+              <xsl:otherwise><xsl:value-of select="concat($kind, 's')"/></xsl:otherwise>
+            </xsl:choose>
+            <xsl:text> </xsl:text>
+            <xsl:call-template name="iana:xref_fragment_value"/>
+          </a>
+          <xsl:call-template name="iana:xref_bare_run"/>
+          <xsl:text> of </xsl:text>
+          <a href="{$doc_href}"><xsl:call-template name="iana:xref_doc_label"/></a>
+        </xsl:when>
+        <xsl:when test="$groups_bare and @label-format = 'parens'">
+          <!-- "parens" format with attached bare xrefs: [RFC 9999 (Section 3.1, 3.2)] -->
+          <xsl:variable name="kind"><xsl:call-template name="iana:xref_fragment_kind"/></xsl:variable>
+          <a href="{$doc_href}"><xsl:call-template name="iana:xref_doc_label"/></a>
+          <xsl:text> (</xsl:text>
+          <a href="{$link_href}">
+            <xsl:value-of select="concat($kind, ' ')"/>
+            <xsl:call-template name="iana:xref_fragment_value"/>
+          </a>
+          <xsl:call-template name="iana:xref_bare_run"/>
+          <xsl:text>)</xsl:text>
+        </xsl:when>
+        <xsl:when test="@type = 'rfc' or @type = 'draft'">
+          <a href="{$link_href}"><xsl:value-of select="$link_label"/></a>
+          <xsl:call-template name="iana:xref_bare_run"/>
+        </xsl:when>
+        <xsl:when test="@type = 'rfc-errata'">
+            <a href="{concat($website_base_url, '/go/eid', @data)}">
+            <xsl:text>RFC Errata </xsl:text>
+            <xsl:choose>
+              <xsl:when test="normalize-space()">
+                <xsl:value-of select="."/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="translate(@data,$alpha,$ALPHA)"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </a>
+        </xsl:when>
+        <xsl:when test="@type = 'uri'">
+          <a href="{@data}">
+            <xsl:choose>
+              <xsl:when test="normalize-space()">
+                <xsl:value-of select="."/>
               </xsl:when>
               <xsl:otherwise>
                 <xsl:value-of select="@data"/>
               </xsl:otherwise>
             </xsl:choose>
-          </xsl:variable>
-          <xsl:variable name="suffix">
+          </a>
+        </xsl:when>
+        <xsl:when test="@type = 'person'">
+          <a href="#{@data}"><xsl:value-of select="@data"/></a>
+        </xsl:when>
+        <xsl:when test="@type = 'note'">
+          <a href="#note{@data}"><xsl:value-of select="@data"/></a>
+        </xsl:when>
+        <xsl:when test="@type = 'registry'">
+          <a href="{concat($website_base_url, '/assignments/', @data)}">
             <xsl:choose>
-              <xsl:when test="@section">
-                <xsl:value-of select="concat(', Section ', @section)"/>
+              <xsl:when test="normalize-space()">
+                <xsl:value-of select="."/>
               </xsl:when>
-              <xsl:when test="@page">
-                <xsl:value-of select="concat(', Page ', @page)"/>
-              </xsl:when>
-              <xsl:when test="@appendix">
-                <xsl:value-of select="concat(', Appendix ', @appendix)"/>
-              </xsl:when>
-              <xsl:when test="@table">
-                <xsl:value-of select="concat(', Table ', @table)"/>
-              </xsl:when>
-              <xsl:when test="@figure">
-                <xsl:value-of select="concat(', Figure ', @figure)"/>
-              </xsl:when>
-              <xsl:when test="@anchor">
-                <xsl:value-of select="concat('#', @anchor)"/>
-              </xsl:when>
-              <xsl:otherwise/>
+              <xsl:otherwise><xsl:value-of select="@data"/> registry</xsl:otherwise>
             </xsl:choose>
-          </xsl:variable>
-          <xsl:value-of select="concat($base, $suffix)"/>
+          </a>
+        </xsl:when>
+        <xsl:when test="@type = 'unicode'">
+          <xsl:choose>
+            <xsl:when test="starts-with(@data, 'ucd')">
+              <a href="http://unicode.org/Public/{substring-after(@data, 'ucd')}">
+                <xsl:choose>
+                  <xsl:when test="normalize-space()">
+                    <xsl:value-of select="."/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:text>Unicode Character Database </xsl:text>
+                    <xsl:value-of select="substring-after(@data, 'ucd')"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </a>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="."/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:variable name="link_href">
-      <xsl:variable name="base">
-        <xsl:choose>
-          <xsl:when test="@type = 'rfc'">
-            <xsl:value-of select="concat($website_base_url, '/go/', @data)"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:choose>
-              <xsl:when test="starts-with(@data, 'RFC-')">
-                <xsl:value-of select="concat($website_base_url, '/go/draft-', substring(@data,5))"/>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:value-of select="concat($website_base_url, '/go/', @data)"/>
-              </xsl:otherwise>
-            </xsl:choose>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:variable>
-      <xsl:variable name="suffix">
-        <xsl:choose>
-          <xsl:when test="@section">
-            <xsl:value-of select="concat('#section-', @section)"/>
-          </xsl:when>
-          <xsl:when test="@page">
-            <xsl:value-of select="concat('#page-', @page)"/>
-          </xsl:when>
-          <xsl:when test="@appendix">
-            <xsl:value-of select="concat('#appendix-', @appendix)"/>
-          </xsl:when>
-          <xsl:when test="@table">
-            <xsl:value-of select="concat('#table-', @table)"/>
-          </xsl:when>
-          <xsl:when test="@figure">
-            <xsl:value-of select="concat('#figure-', @figure)"/>
-          </xsl:when>
-          <xsl:when test="@anchor">
-            <xsl:value-of select="concat('#', @anchor)"/>
-          </xsl:when>
-        </xsl:choose>
-      </xsl:variable>
-      <xsl:value-of select="concat($base, $suffix)"/>
-    </xsl:variable>
-    <xsl:text>[</xsl:text>
     <xsl:choose>
-      <xsl:when test="@type = 'rfc'">
-        <a>
-          <xsl:attribute name="href">
-            <xsl:value-of select="$link_href"/>
-          </xsl:attribute>
-          <xsl:value-of select="$link_label"/>
-        </a>
-      </xsl:when>
-      <xsl:when test="@type = 'rfc-errata'">
-          <a href="{concat($website_base_url, '/go/eid', @data)}">
-          <xsl:text>RFC Errata </xsl:text>
-          <xsl:choose>
-            <xsl:when test="normalize-space()">
-              <xsl:value-of select="."/>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:value-of select="translate(@data,$alpha,$ALPHA)"/>
-            </xsl:otherwise>
-          </xsl:choose>
-        </a>
-      </xsl:when>
-      <xsl:when test="@type = 'draft'">
-        <a>
-          <xsl:attribute name="href">
-            <xsl:value-of select="$link_href"/>
-          </xsl:attribute>
-          <xsl:value-of select="$link_label"/>
-        </a>
-      </xsl:when>
-      <xsl:when test="@type = 'uri'">
-        <a href="{@data}">
-          <xsl:choose>
-            <xsl:when test="normalize-space()">
-              <xsl:value-of select="."/>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:value-of select="@data"/>
-            </xsl:otherwise>
-          </xsl:choose>
-        </a>
-      </xsl:when>
-      <xsl:when test="@type = 'person'">
-        <a href="#{@data}"><xsl:value-of select="@data"/></a>
-      </xsl:when>
-      <xsl:when test="@type = 'note'">
-        <a href="#note{@data}"><xsl:value-of select="@data"/></a>
-      </xsl:when>
-      <xsl:when test="@type = 'registry'">
-        <a href="{concat($website_base_url, '/assignments/', @data)}">
-          <xsl:choose>
-            <xsl:when test="normalize-space()">
-              <xsl:value-of select="."/>
-            </xsl:when>
-            <xsl:otherwise>IANA registry <i><xsl:value-of select="@data"/></i></xsl:otherwise>
-          </xsl:choose>
-        </a>
-      </xsl:when>
-      <xsl:when test="@type = 'unicode'">
-        <xsl:choose>
-          <xsl:when test="starts-with(@data, 'ucd')">
-            <a href="http://unicode.org/Public/{substring-after(@data, 'ucd')}">
-              <xsl:choose>
-                <xsl:when test="normalize-space()">
-                  <xsl:value-of select="."/>
-                </xsl:when>
-                <xsl:otherwise>
-                  <xsl:text>Unicode Character Database </xsl:text>
-                  <xsl:value-of select="substring-after(@data, 'ucd')"/>
-                </xsl:otherwise>
-              </xsl:choose>
-            </a>
-          </xsl:when>
-        </xsl:choose>
+      <xsl:when test="$mark_table_xrefs = 'true' and (ancestor::iana:record or ancestor::iana:range) and not(@type = 'note')">
+        <span class="xref"><xsl:copy-of select="$ref"/></span>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:value-of select="."/>
+        <xsl:text>[</xsl:text>
+        <xsl:copy-of select="$ref"/>
+        <xsl:text>]</xsl:text>
       </xsl:otherwise>
     </xsl:choose>
-    <xsl:text>]</xsl:text>
     <xsl:if test="@lastupdated">
       (<xsl:value-of select="@lastupdated"/>)
+    </xsl:if>
+    <xsl:call-template name="iana:xref_separator"/>
+  </xsl:template>
+
+  <!--
+    Two xrefs next to each other (nothing but whitespace between) are separated
+    with "; ": [RFC 821]; [RFC 5321]. Not after a footnote marker (type="note") or
+    before one, not before the bare xrefs grouped into this one, not between the
+    registry's own references (the Reference list), not in table cells the
+    website lays out itself (mark_table_xrefs), and not after the last node a
+    template selected, so a cell that shows only some xrefs (person xrefs in
+    their own column) doesn't end with a separator.
+  -->
+  <xsl:template name="iana:xref_separator">
+    <xsl:variable name="next" select="following-sibling::node()[self::* or (self::text() and normalize-space())]
+                                      [not(self::iana:xref[@label-format = 'bare' and @type = current()/@type and @data = current()/@data])][1]"/>
+    <xsl:if test="$separate_xrefs = 'true'
+                  and $next/self::iana:xref[not(@type = 'note')] and not(@type = 'note') and not(parent::iana:registry)
+                  and position() != last()
+                  and not($mark_table_xrefs = 'true' and (ancestor::iana:record or ancestor::iana:range))">
+      <xsl:text>; </xsl:text>
     </xsl:if>
   </xsl:template>
 
@@ -751,6 +945,9 @@
   <xsl:template match="iana:paragraph">
     <p><xsl:apply-templates select="child::node()"/></p>
   </xsl:template>
+
+  <!-- A paragraph with no text or child elements renders nothing, not an empty <p> -->
+  <xsl:template match="iana:paragraph[not(normalize-space()) and not(*)]"/>
 
   <xsl:template match="iana:list">
     <ul><xsl:apply-templates select="child::node()"/></ul>

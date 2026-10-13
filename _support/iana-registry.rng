@@ -21,13 +21,15 @@
       <optional><element name="title"><ref name="text_with_references"/></element></optional>
       <optional><element name="created"><ref name="genericDate"/></element></optional>
       <optional><element name="updated"><data type="date"/></element></optional>
-      <optional><element name="registration_rule"><ref
-        name="text_with_references"/></element></optional>
-      <optional><element name="expert"><text/></element></optional>
+      <zeroOrMore><element name="registration_rule"><ref
+        name="text_with_references"/></element></zeroOrMore>
+      <zeroOrMore><element name="expert"><text/></element></zeroOrMore>
       <optional><element name="description"><ref name="text_with_references"/></element></optional>
       <zeroOrMore>
         <element name="note">
           <optional><attribute name="title"><text/></attribute></optional>
+          <!-- warning: an important note, shown in a highlighted box -->
+          <optional><attribute name="type"><choice><value>warning</value></choice></attribute></optional>
           <ref name="text_with_references"/>
         </element>
       </zeroOrMore>
@@ -85,6 +87,18 @@
       <attribute name="figure"><data type="string"/></attribute>
       <attribute name="anchor"><data type="string"/></attribute>
     </choice>
+    <!-- label-format, values as in RFC 7991 sectionFormat, Section 2.66.1 (with verified errata);
+         optional, default "comma" (RFC 7991's own default is "of"):
+         "of"      Section 6.1.1.1 of RFC 7285
+         "comma"   RFC 7285, Section 6.1.1.1
+         "parens"  RFC 7285 (Section 6.1.1.1)
+         "bare"    6.1.1.1 (only the linked fragment value; on its own, a page,
+                   appendix, table or figure keeps its word: "Table 6") -->
+    <optional>
+      <attribute name="label-format">
+        <choice><value>of</value><value>comma</value><value>parens</value><value>bare</value></choice>
+      </attribute>
+    </optional>
   </define>
 
   <define name="xref">
@@ -121,7 +135,10 @@
         </group>
         <group>
           <attribute name="type"><value>registry</value></attribute>
-          <attribute name="data"><data type="NCName"/></attribute>
+          <!-- a registry id, optionally with a sub-registry anchor: "aaa-parameters#aaa-parameters-16" -->
+          <attribute name="data">
+            <data type="string"><param name="pattern">[A-Za-z_][A-Za-z0-9_.\-]*(#[A-Za-z0-9_.\-]+)?</param></data>
+          </attribute>
         </group>
         <group>
           <attribute name="type"><value>person</value></attribute>
