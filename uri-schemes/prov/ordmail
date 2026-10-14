@@ -1,0 +1,53 @@
+(registered 2026-10-13, last updated 2026-10-13)
+
+Scheme name: ordmail
+
+Status: provisional
+
+Applications/protocols that use this scheme name:
+On-chain mail applications on the ORDnet stack (ORDmail for iOS, with
+the wire format deployed on BSV: mail carried as an on-chain OP_RETURN
+envelope, optionally encrypted to the recipient's public key). An
+"ordmail" URI opens a compose view with the recipient pre-filled;
+sending is always an explicit user action. The scheme is deliberately
+separate from "mailto:" — web2 and web3 mail actions are never mixed,
+so applications can support both worlds without ambiguity. Specified in
+ODNCA-STD-011 (public draft); this registration will be updated as that
+specification is adopted.
+
+Contact: Alexander Taytelbaum, ODNCA — ORDnet Decentralized Names
+Coordination Authority, info&odnca.org
+
+Change controller: ODNCA (odnca.org)
+
+References:
+- ODNCA-STD-011 "WEB3-ACTIONS-1 - The URI Scheme Family" (public draft
+v0.5) — https://odnca.org/docs/ODNCA-STD-011-WEB3-ACTIONS-1.pdf
+- ODNCA-STD-003 "SNS-NAME-1 - Name Format Standard" —
+https://odnca.org/docs/ODNCA-STD-003-SNS-NAME-1.pdf
+
+Scheme syntax:
+ordmail:<recipient>
+recipient := <address> | <mailbox> "@" <name> "." <tld>
+| <name> "." <tld> | <opns-name>
+Colon-only form; producers MUST NOT emit "ordmail://". Names are UTF-8,
+no whitespace or control characters. No DNS interaction at any point.
+
+Scheme semantics: opens mail composition addressed to the recipient,
+resolved through the client's name-resolution ladder (bare address,
+mailbox at a name, SNS name, OpNS name — first match decides). Sending
+the message is a separate, explicit user action; the URI itself never
+sends anything.
+
+Encoding considerations: UTF-8 names; percent-encoding per RFC 3986.
+No IDNA/punycode processing.
+
+Interoperability considerations: no DNS resolution and no relation to
+"mailto:"; unaware applications treat it as an unknown scheme per
+RFC 3986. No authority component, no default port.
+
+Security considerations: composition only — handlers MUST NOT send
+without an explicit user action. Recipient resolution follows the same
+rules as the payment schemes: display the resolved destination, prefer
+verification against committed on-chain state where available.
+Visually confusable Unicode names carry the usual homograph risks.

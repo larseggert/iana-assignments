@@ -1,0 +1,59 @@
+(registered 2026-10-13, last updated 2026-10-13)
+
+Scheme name: ord
+
+Status: provisional
+
+Applications/protocols that use this scheme name:
+Client applications that resolve human-readable on-chain names to
+blockchain-inscribed content ("1Sat ordinals" model on BSV), including
+the ORDnet web3 browser, the ORD/plug wallet extension and mobile
+wallets, and indexers/search services implementing ODNCA standards.
+"ord" is a content locator: it dereferences a name (mutable reference,
+per the adopted scheme specification ODNCA-STD-005) or a 64-hex txid
+(immutable reference) to inscribed content. It does not initiate
+payments or other actions; action-oriented companion schemes are
+registered separately (see sns, opns, ordmail below).
+
+Contact: Alexander Taytelbaum, ODNCA — ORDnet Decentralized Names
+Coordination Authority, info&odnca.org
+
+Change controller: ODNCA (odnca.org)
+
+References:
+- ODNCA-STD-005 "URI Schemes" v1.0 (adopted scheme specification) —
+https://odnca.org/docs/ODNCA-STD-005-URI-Schemes.pdf
+- ODNCA-STD-003 "SNS-NAME-1 - Name Format Standard" —
+https://odnca.org/docs/ODNCA-STD-003-SNS-NAME-1.pdf
+- ODNCA-STD-011 "WEB3-ACTIONS-1 - The URI Scheme Family" (successor
+specification, public draft v0.5) —
+https://odnca.org/docs/ODNCA-STD-011-WEB3-ACTIONS-1.pdf
+
+Scheme syntax:
+ord://<name.tld>[/<path>] (name form — mutable reference)
+ord://<txid>[/<vout>] (txid form — immutable; vout defaults to 0)
+The authority is a naming-system identifier: with exactly one dot it is
+an SNS name per ODNCA-STD-003; without a dot it is an OpNS name. UTF-8
+throughout, no whitespace or control characters. <path> is an optional
+slash-prefixed route within the named site; an absent path is
+equivalent to "/". Resolution is performed against on-chain state; no
+DNS interaction occurs at any point.
+
+Scheme semantics: per ODNCA-STD-005 §4 — the name form loads the
+content currently coupled to the name (the coupling follows the name);
+the txid form always loads that exact inscription.
+
+Encoding considerations: the authority component carries UTF-8 names;
+percent-encoding per RFC 3986 applies. No IDNA/punycode processing —
+names are not DNS labels.
+
+Interoperability considerations: the scheme deliberately does not
+resolve via DNS; applications unaware of it treat it as an unknown
+scheme per RFC 3986. No default port.
+
+Security considerations: resolution depends on the client's view of
+on-chain state; clients SHOULD verify name-holder bindings against a
+committed state (ODNCA commit chain) rather than trust a single index.
+Dereferencing "ord" URIs never initiates payments or signing
+operations. Visually confusable Unicode names carry the usual homograph
+risks; client display policies apply.

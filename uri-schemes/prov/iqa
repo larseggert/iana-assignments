@@ -1,0 +1,54 @@
+(registered 2026-10-13, last updated 2026-10-13)
+
+URI scheme name:
+iqa
+
+Status:
+Provisional
+
+Applications/protocols that use this scheme name:
+The IQA (Identity Quality Assurance) certification layer of the Aicent
+Stack - a subject-attestation scheme in which a sovereign identity is
+audited and issued a 256-bit Radiant Seal by a certification authority.
+
+An iqa URI references the attestation standing of a subject as reported
+by one of the three certification organs. Used by the IQA reference
+implementation and by tooling that cites attestations in documents and
+configuration.
+
+Scheme syntax:
+iqa://<subject>.<organ>.<root>/<action>
+
+subject = 8 lowercase hex digits (AID routing hash), or
+32/64 lowercase hex digits (128-/256-bit AID), or
+a human-readable token [a-z0-9-]+
+organ = "forge" / "tss" / "gateway" (RFC-009-A / -B / -C)
+root = sovereign root label e.g. iqa
+action = "verify" / "audit" / "attest" / "revoke" (optional)
+
+Lowercase US-ASCII only. The scheme defines no userinfo, port, query
+or fragment.
+
+Dereferencing a URI without an "action" performs a read-only standing
+lookup and is a safe operation (RFC 7595, Section 3.4). Of the defined
+actions, "verify" is likewise read-only, while "audit", "attest" and
+"revoke" are state-transitioning and are explicitly not reachable by
+dereferencing a URI.
+
+On naming (RFC 7595, Section 3.8): the acronym is not the
+computer-vision field of Image Quality Assessment, and it is not
+affiliated with the historical UK Institute of Quality Assurance. A
+naming note to that effect appears in the specification, References [1].
+
+Contact:
+Registering party: ShaoBao Li <lee&iqa.org>
+Scheme creator: IQA.ORG Organization
+
+Author/Change controller:
+IQA.ORG Organization
+Contact: lee&iqa.org
+
+References:
+draft-li-rttp-iqa-addressing-00
+IQA: Identity Quality Assurance - scheme specification
+https://iqa.org/AICENT-009

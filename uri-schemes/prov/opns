@@ -1,0 +1,47 @@
+(registered 2026-10-13, last updated 2026-10-13)
+
+Scheme name: opns
+
+Status: provisional
+
+Applications/protocols that use this scheme name:
+Wallet applications on the ORDnet stack that support OpNS names
+(dot-less on-chain names, e.g. opns:alex). "opns" expresses a payment
+intent to the current holder of an OpNS name, resolved via an OpNS
+index and always confirmed explicitly by the user before any signing
+operation. Specified in ODNCA-STD-011 (public draft); this registration
+will be updated as that specification is adopted.
+
+Contact: Alexander Taytelbaum, ODNCA — ORDnet Decentralized Names
+Coordination Authority, info&odnca.org
+
+Change controller: ODNCA (odnca.org)
+
+References:
+- ODNCA-STD-011 "WEB3-ACTIONS-1 - The URI Scheme Family" (public draft
+v0.5) — https://odnca.org/docs/ODNCA-STD-011-WEB3-ACTIONS-1.pdf
+
+Scheme syntax:
+opns:<name>
+<name> is an OpNS name: UTF-8, contains no dot, no whitespace or
+control characters. Colon-only form; producers MUST NOT emit "opns://".
+No DNS interaction at any point.
+
+Scheme semantics: a payment intent addressed to the name's current
+holder; the handling wallet resolves the name, displays the resolved
+address, and requires explicit user confirmation. Never executed
+automatically.
+
+Encoding considerations: UTF-8 names; percent-encoding per RFC 3986.
+No IDNA/punycode processing.
+
+Interoperability considerations: no DNS resolution; unaware
+applications treat it as an unknown scheme per RFC 3986. No authority
+component, no default port.
+
+Security considerations: OpNS name state is not yet covered by ODNCA's
+committed-state anchoring (the specification tracks implementation
+status honestly in its §9); clients therefore resolve via an index and
+MUST display the resolved address before any signing operation, and
+MUST NOT auto-sign. Visually confusable Unicode names carry the usual
+homograph risks.

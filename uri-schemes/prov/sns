@@ -1,0 +1,60 @@
+(registered 2026-10-13, last updated 2026-10-13)
+
+Scheme name: sns
+
+Status: provisional
+
+Applications/protocols that use this scheme name:
+Wallet and mail applications on the ORDnet stack (the ORD/plug wallet
+extension, ORDnet mobile wallets, ORDmail) and web clients that link to
+on-chain names. "sns" identifies an SNS name (sns:alex.web3) or a
+mailbox at a name (sns:bob&alex.web3) per the adopted scheme
+specification ODNCA-STD-005; deployed applications dereference it to
+initiate a payment to the name's current holder or to compose mail to
+the mailbox, always behind an explicit user confirmation. The successor
+specification (ODNCA-STD-011, public draft) narrows the scheme to the
+payment action; existing URIs remain valid — this registration will be
+updated on its adoption.
+
+Contact: Alexander Taytelbaum, ODNCA — ORDnet Decentralized Names
+Coordination Authority, info&odnca.org
+
+Change controller: ODNCA (odnca.org)
+
+References:
+- ODNCA-STD-005 "URI Schemes" v1.0 (adopted scheme specification) —
+https://odnca.org/docs/ODNCA-STD-005-URI-Schemes.pdf
+- ODNCA-STD-003 "SNS-NAME-1 - Name Format Standard" —
+https://odnca.org/docs/ODNCA-STD-003-SNS-NAME-1.pdf
+- ODNCA-STD-001 "SNS Resolution Specification" —
+https://odnca.org/docs/ODNCA-STD-001-SNS-Resolution-Specification.pdf
+- ODNCA-STD-011 "WEB3-ACTIONS-1 - The URI Scheme Family" (successor
+specification, public draft v0.5) —
+https://odnca.org/docs/ODNCA-STD-011-WEB3-ACTIONS-1.pdf
+
+Scheme syntax:
+sns:<address>
+address := [ <mailbox> "@" ] <name> "." <tld>
+Colon-only form; producers MUST NOT emit "sns://" (per ODNCA-STD-005;
+consumers MAY accept and strip a stray "//" on input). <name>.<tld> is
+an SNS name per ODNCA-STD-003: UTF-8, exactly one dot, no whitespace or
+control characters. No DNS interaction at any point.
+
+Scheme semantics: per ODNCA-STD-005 §2 — the URI names the identifier;
+the action is taken from context by the handling application (payment
+to the name's holder, or mail to the mailbox), never executed without
+explicit user confirmation.
+
+Encoding considerations: UTF-8 names; percent-encoding per RFC 3986.
+No IDNA/punycode processing.
+
+Interoperability considerations: no DNS resolution; unaware
+applications treat it as an unknown scheme per RFC 3986. No authority
+component, no default port.
+
+Security considerations: dereferencing resolves a mutable
+name-to-holder binding; clients MUST display the resolved address
+before any signing operation and SHOULD verify the binding against a
+committed on-chain state rather than trust a single index. Handlers
+MUST NOT auto-sign: a "sns" URI is an intent, not an authorization.
+Visually confusable Unicode names carry the usual homograph risks.
