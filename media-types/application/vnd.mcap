@@ -1,0 +1,65 @@
+(registered 2026-10-22, last updated 2026-10-22)
+
+Media type name: application
+
+Media subtype name: vnd.mcap
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+MCAP is a binary format. It contains arbitrary binary record content, including optionally LZ4- or Zstandard-compressed chunks, and must be transferred without transformation. For transports that are not 8-bit clean, base64 encoding is required
+
+Security considerations: MCAP is a passive container format. It contains no executable code and defines no scripting or active-content facility. The following considerations nonetheless apply to implementations that parse it.
+
+Resource exhaustion. Each MCAP record is prefixed with a 64-bit length, and Chunk records declare an uncompressed size for their compressed payload. A malicious or corrupt file may declare lengths or uncompressed sizes far larger than the data actually present, or may compress highly redundant data at very high ratios (a "decompression bomb"). Readers should validate declared lengths against the remaining bytes in the file, impose a ceiling on any single allocation, and bound the total decompressed output rather than trusting the declared uncompressed size.
+
+Untrusted offsets. The optional Summary, Summary Offset, Chunk Index, Message Index, Attachment Index and Metadata Index records contain byte offsets into the file, and the Footer record contains offsets to the summary sections. Readers that seek to these offsets must treat them as untrusted input and bounds-check them against the actual file size, since a crafted file can direct a reader to arbitrary offsets, including offsets that overlap record headers or lie beyond the end of the file.
+
+Checksums are not integrity protection. MCAP defines optional CRC32 checksums over chunk contents, the data section, and the summary section. CRC32 detects accidental corruption only. It is not a cryptographic integrity mechanism and provides no protection against deliberate modification. A value of zero indicates the checksum was not computed, so its presence must not be relied on. Applications requiring authenticity or integrity guarantees must apply a digital signature or message authentication code at another layer.
+
+Embedded schemas. Schema records embed message definitions -- for example Protocol Buffers FileDescriptorSets, JSON Schema documents, or OMG IDL text. Consumers that feed these definitions to a dynamic message parser, a code generator, or a compiler are processing untrusted input with the security characteristics of that toolchain, which may include recursive type definitions, deeply nested structures, or schema features that trigger network retrieval. Schema data should be validated, size-bounded, and processed by parsers hardened against untrusted input.
+
+Attachments. Attachment records embed arbitrary files, each labeled with its own media type supplied by the writer of the file. Consumers must treat both the attachment content and its declared media type as untrusted; in particular, attachments must not be executed, and should not be written to disk under a writer-supplied name without path sanitization, nor dispatched to a handler on the basis of the declared media type alone.
+
+Extension points. Record opcodes 0x80-0xFF are reserved for private, application-specific records, and the chunk compression field is an extensible string. Readers encountering unknown opcodes or unsupported compression algorithms should skip or reject them rather than guess.
+
+Privacy. MCAP is used predominantly to record robot and vehicle telemetry. Files routinely contain camera and microphone data, precise location traces, and timestamps -- data that may identify individuals or reveal their movements, and that may be subject to data protection law. The format itself provides no encryption or access control, and its Metadata and Attachment records may carry further identifying information. Systems that transfer or store MCAP files should apply encryption in transit and at rest, along with appropriate access controls.
+
+Interoperability considerations: An MCAP file begins and ends with an 8-byte magic sequence whose sixth byte is the ASCII digit giving the specification's major version; the only major version defined to date is 0. Changes within a major version -- new record types, or new fields appended to existing records -- are specified to be binary backward compatible, and every record is self-delimiting by a leading opcode and length, so readers can and should skip records and trailing fields they do not recognize.
+
+Several features of the format are optional at the writer's discretion: chunking, compression, message and chunk indexes, the summary and summary offset sections, statistics, and CRC32 checksums. A conforming reader must therefore handle files that lack an index (which can only be read sequentially) and files whose recording was interrupted before the summary was written, which remain readable up to the last complete record. Writers that emit Chunk Index records are expected to place all Message records inside chunks, since messages outside chunks cannot be indexed.
+
+Because the format is serialization-agnostic, interoperability of the messages inside a file additionally depends on the consumer supporting the message and schema encodings declared by each Channel and Schema record. Well-known values for these encodings, for compression algorithms, and for ecosystem profiles are maintained in the MCAP format registry cited below.
+
+Published specification: 
+
+MCAP Format Specification, https://mcap.dev/spec
+MCAP Format Registry, https://mcap.dev/spec/registry
+MCAP Implementation Notes, https://mcap.dev/spec/notes
+Kaitai Struct definition, https://github.com/foxglove/mcap/blob/main/website/docs/spec/mcap.ksy
+
+Applications which use this media: MCAP is the default recording format of rosbag2, the recording framework of the Robot Operating System (ROS) 2, from the Iron Irwini release (2023) onward. It is read and written by the Foxglove visualization and data management products, by the MCAP command-line tool, and by MCAP reader and writer libraries for C++, Go, Python, Rust, Swift and TypeScript/JavaScript. It is used more broadly as a recording and interchange format for multimodal robotics and autonomous vehicle log data, and as an input format for robot learning datasets.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: N/A
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): The 8-byte sequence 89 4D 43 41 50 30 0D 0A appears at offset 0 and, for a complete file, also as the final 8 bytes of the file. Rendered as text this is \x89MCAP0\r\n, where the sixth byte (ASCII "0") is the specification major version and may increment in future versions.
+3. File extension(s): mcap
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+Person to contact for further information:
+
+1. Name: Mat Sadowski
+2. Email: mcap&foxglove.dev
+
+Intended usage: COMMON
+
+Author/Change controller: Foxglove Technologies Inc.
