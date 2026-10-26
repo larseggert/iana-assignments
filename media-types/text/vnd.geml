@@ -1,0 +1,228 @@
+(registered 2026-10-26, last updated 2026-10-26)
+
+Type name: text
+
+Subtype name: vnd.geml
+
+Required parameters: N/A
+
+Optional parameters:
+
+charset -- if present, MUST be "UTF-8". See "Additional information".
+
+Encoding considerations: binary
+
+GEML content is UTF-8 text. In the canonical form required of text/*
+types by RFC 2046 section 4.1.1, line breaks are CRLF.
+
+Security considerations:
+
+A GEML document is frequently machine-generated and frequently
+untrusted: it may arrive from a language model, a pipeline, or a pull
+request. Section 9 of the specification is normative about what a
+processor must guarantee when the document is hostile.
+
+Documents are data, never code. A processor MUST NOT execute or
+evaluate any part of a document: a code block's body is stored text
+and MUST NOT be run; a diagram body is passed verbatim to an external
+renderer and is never interpreted by the processor; there is no
+raw-HTML escape hatch and no expression language beyond a closed table
+arithmetic that has no conditionals, no lookups, no cross-table
+references and no embedded program by construction.
+
+Document-controlled text is untrusted. Block ids, class names and
+attribute values all come from the document. A processor MUST NOT
+construct a regular expression, a shell command, or any other
+executable form from such text without escaping it for the target
+grammar.
+
+Resource exhaustion. A processor MUST bound the depth to which it
+recurses over typed-block nesting, list nesting and inline nesting,
+emit the corresponding diagnostic on reaching a bound, and continue;
+it MUST NOT overflow its call stack or fail to produce a model.
+
+Non-termination. Internal references cannot loop, because ids are
+unique within a document and resolution is a lookup. Cross-document
+reference checking is performed exactly one level deep, so two
+documents that reference each other terminate. Content transclusion is
+recursive, and a processor MUST track the chain of expanded documents
+and stop with a transclusion-cycle error. Computed table columns see
+only earlier columns, making the dependency graph acyclic by
+construction.
+
+Path traversal. Resolving a cross-document reference reads a file
+named by the document. A processor MUST confine that resolution to an
+explicitly configured root directory, MUST resolve every symbolic link
+before deciding whether a target lies inside the root, and MUST refuse
+a target that escapes it. Resolution MUST fail closed: a processor
+that cannot establish a confinement root resolves nothing rather than
+falling back to an unconfined lookup.
+
+Disclosure through render-time fetches. A media src, and a table
+source naming an http(s) URL, are fetched at render time by the
+renderer and are never read by the parser. A fetched URL discloses the
+reader's address, and the fact and time of reading, to whoever
+controls it. A renderer SHOULD confine src to the document's own
+origin or directory and SHOULD require an explicit opt-in before
+performing http(s) fetches.
+
+Dangerous sinks. A link or embed destination naming a URL scheme other
+than http, https, mailto or tel MUST NOT be emitted as a navigable or
+loadable target. The check MUST be applied when building the model
+rather than at the rendering sink, so that every consumer of the model
+inherits it, and it MUST ignore leading and embedded characters in the
+range U+0000-U+0020 when determining the scheme, because user agents
+strip them before acting on a URL. A renderer emitting a markup format
+MUST escape document-controlled text for the position it occupies --
+element text, attribute value, or URL.
+
+Truncation. U+0000 MUST be replaced with U+FFFD, so that a document
+cannot make one tool in a pipeline see less content than the parser
+saw.
+
+Charset confusion. Ill-formed byte sequences decode to U+FFFD and a
+processor MUST NOT re-interpret the input in another encoding, which
+removes encoding-detection as an attack surface.
+
+Sidecar disclosure. The version sidecar described under "File
+extension(s)" below is itself a GEML document and carries superseded
+revisions of the document it accompanies. Publishing, mirroring or
+transmitting a sidecar discloses content that was deliberately removed
+from the live document. Consumers that copy directories wholesale
+SHOULD treat a sidecar as carrying at least the sensitivity of every
+revision it holds.
+
+Interoperability considerations:
+
+A GEML processor also accepts LF and bare CR and normalizes every line
+ending to a single LF before parsing; the choice of line ending MUST
+NOT change the document model (specification section 0.3), so
+converting between the canonical form and a local line-ending
+convention never changes the document. The encoding is binary rather
+than 8bit because GEML imposes no line-length limit: lines longer than
+998 octets are permitted. A single leading U+FEFF is removed before
+parsing (section 0.2).
+
+A processor MUST degrade gracefully on constructs it does not
+recognize, so adding a block type or a diagram format is not a
+breaking change. The typed block registry is open: an unregistered
+type name should contain a hyphen, leaving hyphen-free names to future
+versions of the specification.
+
+An implementation may claim conformance to GEML 1.0 once it reproduces
+the published conformance suite case for case. No permission or
+sign-off from the project is required.
+
+An unresolved reference is an error, so both fragment forms described
+under "Fragment identifier considerations" MUST be resolvable by every
+processor: a fragment one processor understands and another does not
+is the same document building in one and failing in the other.
+
+Published specification:
+
+GEML 1.0 (Stable):
+https://github.com/geml-spec/geml/blob/main/spec/GEML-spec.md
+
+Chinese translation:
+https://github.com/geml-spec/geml/blob/main/spec/GEML-spec_CN.md
+
+Conformance suite:
+https://github.com/geml-spec/geml/tree/main/geml-parser/test/conformance
+
+Applications that use this media type:
+
+The reference parser, CLI and MCP server (npm package @geml/geml,
+MIT); a Visual Studio Code extension; a browser extension that renders
+.geml resources in place; a tree-sitter grammar; Logseq and Obsidian
+integrations; a GitHub Action that validates documents in CI; and
+documentation toolchains that validate .geml at build time. Documents
+are also authored and consumed programmatically by language-model
+agents.
+
+Fragment identifier considerations:
+
+A fragment identifier on a text/vnd.geml resource denotes the block
+bearing that id, matching the reference syntax of the specification:
+other.geml#budget names the same block whether it is written as a GEML
+reference or as a URL. Ids are unique within a document, so resolution
+is a lookup rather than a traversal.
+
+A fragment may also denote prose: a run of ordinary text, such as
+paragraphs or lists, that sits between id-bearing blocks and so has no
+id of its own. Its address is derived from the ids around it, with a
+relation word fixed by the structure (specification section 4):
+"P-between-N" for prose between P and N, "C-before-N" for prose that
+opens the section or block C, and "C-after-P" for prose that closes
+it. In the document
+
+# Install {#install}
+
+Download the archive and unpack it.
+
+=== code {#unpack lang=sh}
+tar xf geml.tar.gz
+===
+
+Then put the binary on your PATH.
+
+=== code {#verify lang=sh}
+geml --version
+===
+
+That should print the version.
+
+#install-before-unpack denotes "Download the archive and unpack it.",
+#unpack-between-verify denotes "Then put the binary on your PATH.",
+and #install-after-verify denotes "That should print the version."
+Because each address names both ends of the run, inserting a block
+between #unpack and #verify makes #unpack-between-verify stop
+resolving rather than silently naming a shorter run. A declared id
+always takes precedence over a derived prose address. A processor MUST
+resolve both forms.
+
+Additional information:
+
+Charset: A GEML document is always UTF-8 (specification section 0.1);
+the charset is determined by the format, not by this parameter. The
+parameter is optional despite the advice of RFC 6838 section 4.2.1,
+because requiring a value that can never vary would make every sender
+that omits it nonconforming while conveying no information. It is
+defined at all so that the "charset=UTF-8" many HTTP servers append to
+text/* responses by default is a permitted value rather than an
+undefined parameter. Any other value is an error, not a request to
+transcode.
+
+Deprecated alias names for this type: N/A
+
+Magic number(s): N/A
+
+A GEML document is UTF-8 text. A typed block opens with a line
+beginning "===", but no construct is required to appear first and a
+byte order mark is permitted, so there is no reliable leading
+signature.
+
+File extension(s): "geml", "gemlhistory"
+
+A ".gemlhistory" file is a complete, valid GEML document of the same
+media type: a version sidecar that declares its vocabulary in its
+own metadata block like any other document. The separate extension
+marks the document's role, not its format, so that a directory walk
+collecting documents can take ".geml" and leave the sidecar, whose
+stored blobs hold superseded text. Neither extension is a vocabulary
+declaration.
+
+Macintosh file type code(s): TEXT
+
+Person & email address to contact for further information:
+
+Jieying Xiong <xiongjy2104&gmail.com>
+
+Intended usage: COMMON
+
+Restrictions on usage: N/A
+
+Author: The GEML project (geml-spec) -- https://github.com/geml-spec
+
+Change controller:
+
+The GEML project (geml-spec) -- https://github.com/geml-spec
