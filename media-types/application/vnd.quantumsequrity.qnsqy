@@ -1,0 +1,52 @@
+(registered 2026-10-27, last updated 2026-10-27)
+
+Media type name: application
+
+Media subtype name: vnd.quantumsequrity.qnsqy
+
+Required parameters: N/A
+
+Optional parameters: version: the format version of the content, as ASCII decimal MAJOR.MINOR. The current value is 6.1. Example: application/vnd.quantumsequrity.qnsqy; version=6.1. The major number indicates format compatibility (see Interoperability considerations) and the minor number is informational. The version recorded in the content itself is authoritative. The content is binary, so the charset parameter does not apply to this type.
+
+Encoding considerations: binary
+
+The content can contain any octet values. Transports that are not binary-clean, such as Internet mail, need a content transfer encoding such as base64 (RFC 2045).
+
+Security considerations: The content is an encrypted container that provides its own confidentiality and integrity protection and does not depend on the transport for them. Section 8 of the published specification gives the full analysis. The main points:
+
+Active content: This media type does not contain active content. It carries no executable code, scripts, or references that cause code to run or data to be fetched when the content is parsed or decrypted. The decrypted payload is arbitrary data chosen by the sender, possibly a program, and the receiving application is responsible for handling it. A payload can be a tar archive of a directory; unpacking it safely means keeping every output path inside the destination directory.
+
+Resource use: The fixed header is read before any key is available, so a hostile file can declare large sizes and costly password hashing. The specification sets limits on the declared sizes, counts and costs, and on the decompressed size of each chunk (data can be compressed with Zstandard before encryption).
+
+Disclosure: The 128-byte fixed header is authenticated but not encrypted. It reveals the format version, the algorithms, the password-hashing parameters and salt and, for multi-recipient containers, the number of recipients. The container also reveals how large the original data is. An optional padding mode pads the encrypted data, but in version 6.1 it does not hide the original size, which is still recorded in the fixed header. A planned minor revision will seal the size for files written in that mode, marked by a new flag bit that older readers reject.
+
+Keys and origin: A password-protected container can be attacked by offline guessing. Anyone who knows the password or holds a recipient's public key can create a valid container, so encryption does not identify the sender. An optional signature trailer (for example ML-DSA, FIPS 204) authenticates the signer, but only if the recipient already trusts the signer's public key, and the trailer can be removed without detection unless the recipient expects one.
+
+Interoperability considerations: All multi-byte integers in the fixed header are little-endian. The major version (two bytes at offset 4) changes only for incompatible format changes, and algorithms are identified by one-byte tags at offsets 9 to 13. Conforming readers reject a file with an unsupported major version or an unknown algorithm tag, so such a file fails to open instead of being misread. Readers of version 6.1 also read version 6.0 files. Sections 3, 4 and 9 of the published specification give the complete rules.
+
+Published specification: https://quantumsequrity.com/spec/qnsqy
+
+Applications which use this media: QNSQY CLI (qnsqy), QNSQY GUI (Slint desktop app), QNSQY TUI (terminal interface), and QNSQY MCP server (JSON-RPC 2.0 over stdio). All four ship as a single unified qnsqy binary (mode selected at launch) and read and write the same on-disk format described in the published specification.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: N/A
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): QNS6 (hexadecimal 51 4E 53 36) at file offset 0
+3. File extension(s): qs
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+General Comments: This registration covers the QNSQY container format (magic number QNS6, file extension .qs). QNSQY tooling also uses the extensions .qsdn, .qspg, .qss2, .qsv, .qsig, .qsthresh, .qstl, .qsym, .qskf and .qsabe for related files; these are not being registered as separate media types.
+
+Person to contact for further information:
+
+1. Name: Quantum Sequrity
+2. Email: hello&quantumsequrity.com
+
+Intended usage: COMMON
+
+Author/Change controller: Quantum Sequrity (hello&quantumsequrity.com). The change controller is responsible for any future revisions of this registration, including additions to the algorithm tag space, additions to the public flag bits, and major-version bumps.
