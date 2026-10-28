@@ -1,0 +1,53 @@
+(Registered 2026-10-28, updated 2026-10-28)
+
+Media type name: application
+
+Media subtype name: vnd.ibus+json
+
+Required parameters: N/A
+
+Optional parameters: N/A. The representation is UTF-8 JSON; no charset parameter is defined.
+
+Encoding considerations: binary
+
+UTF-8 JSON as specified in RFC 8259. Binary is selected because JSON documents may contain lines longer than 998 octets and do not require CRLF line endings. The format itself is neither compressed nor an archive.
+
+Security considerations: The security considerations of RFC 8259, Section 12, apply (https://www.rfc-editor.org/rfc/rfc8259.html#section-12). The format represents application data and does not define executable scripts or active content. Use a JSON parser, never eval or an equivalent code interpreter. Treat imported documents as untrusted: validate the format discriminator, supported versions, object structure, identifiers and application-specific model values before processing. Implementations should bound file size, nesting, collection sizes, and geometry-processing work to limit resource exhaustion. Project titles, identifiers, measurements and plant geometry may be commercially confidential or identify people or locations. The format provides no encryption, authentication, digital signatures or integrity protection; use appropriate access controls and protected storage and transport, such as TLS, where needed. File-provided identifiers do not confer authorization to access or ov
+erwrite records. The format does not define compression or an archive container. Its JSON envelope does not require dereferencing external URLs; consumers should not automatically fetch arbitrary locations found in imported data.
+
+Interoperability considerations: Documents are UTF-8 JSON objects. The current file envelope uses fileType "ibus.sketcher.draft" and fileVersion 1. Its payload contains a separately versioned draft envelope: version 1 has savedAt, kind and state; version 2 additionally has profile and schemaVersion. Draft kinds include "equipment" and "iso"; version-2 profiles distinguish "local-edit" from "viewer-upload". Editable snapshots and derived viewer data are not interchangeable. Model interpretation requires compatible IBUS payload-schema support; successful generic JSON parsing alone does not establish compatibility. Unsupported versions or kinds need explicit handling rather than silent reinterpretation. Optional derived viewer caches may be present and may require regeneration. JSON member order and whitespace are not semantic. Current releases may use the unregistered media type application/vnd.ibus.sketcher+json with a charset=utf-8 parameter; this application requests application/vnd
+.ibus+json for the described format.
+
+Published specification: No separate publicly available, versioned IBUS format specification is currently identified. The application-specific format is maintained by IBUS GmbH. For review, the current format is summarized here: a UTF-8 JSON object contains fileType ("ibus.sketcher.draft"), fileVersion (1), exportedAt (a timestamp in milliseconds since the Unix epoch), source (project, assembly and subassembly identifiers and titles, plus kind), and payload (a draft snapshot envelope). The payload contains version, savedAt, kind and state; version 2 also contains profile and schemaVersion. The state member contains the application-specific serialized model; equipment exports may additionally carry derived viewer-cache members. The outer file version, draft-envelope version and model schema version are separate compatibility indicators. JSON syntax is specified by RFC 8259 (https://www.rfc-editor.org/rfc/rfc8259.html); that RFC does not define IBUS model semantics. Further application
+-specific details can be requested from the listed IBUS contact.
+
+Applications which use this media: IBUS GmbH applications for digital measurement, isometric equipment modelling and sheet-metal cladding workflows. Current implementations of the described .ibus format include model export in IBUS Field and local isometry import/export in IBUSv3. These applications use or will use the requested media type. This application list is not exhaustive; compatible consumers may also implement the format.
+
+Fragment identifier considerations: No IBUS-specific fragment identifier syntax or semantics are defined. The generic considerations for the +json structured syntax suffix apply (https://www.iana.org/assignments/media-type-structured-suffix).
+
+Restrictions on usage: Intended for the exchange of IBUS model and measurement documents. It is not a media type for arbitrary JSON. No restriction to a particular transport is defined.
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): N/A. No fixed byte signature; the parsed JSON member fileType is "ibus.sketcher.draft" in the current format.
+3. File extension(s): .ibus
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+General Comments: Request for permanent vendor-tree registration of application/vnd.ibus+json, associated with the .ibus extension. The +json suffix identifies the underlying JSON representation. Existing application labels mentioned under interoperability are not claimed to be registered or requested as additional aliases. This registration does not request a new structured syntax suffix.
+
+Person to contact for further information:
+
+1. Name: Boris Opalic
+2. Email: boris.opalic&gmail.com
+
+Intended usage: LIMITED USE
+
+LIMITED USE reflects the application-specific IBUS model semantics. Documents may be exchanged as local files, email attachments or network representations.
+
+Author/Change controller: 
+
+IBUS GmbH
+boris.opalic&ibus-system.de
+https://www.ibus-system.de
