@@ -1,0 +1,50 @@
+(registered 2026-10-29, last updated 2026-10-29)
+
+Media type name: application
+
+Media subtype name: vnd.jupiter.jdx+json
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+Security considerations: JDX documents are JSON texts (RFC 8259, I-JSON profile RFC 7493) and share the security considerations of application/json (RFC 8259, Section 12). They contain no active or executable content, and no links need to be dereferenced to interpret them (see clause 4.4 of the specification).
+
+JDX documents carry personal data of authors, publishers and other rights holders (names, national and tax identifiers, addresses, contact data). They therefore need confidentiality in transit and at rest. The format itself does not encrypt; confidentiality must be provided by the transport (for example TLS or an encrypted channel) and by the receiver's storage controls.
+
+Integrity and authenticity are provided by a detached JSON Web Signature (RFC 7515, ES256) computed over the exact bytes of the document and delivered alongside it. The signature binds the declaration identifier, revision, SHA-256 digest and size of the document. Receivers verify it against a signed list of authorized issuer keys and must reject documents whose signature does not verify.
+
+Hostile input could be used for denial of service. The specification bounds nesting depth and document size and excludes duplicate member names (clause 6.1), and limits the number of reported validation results (clause 8.7).
+
+Interoperability considerations: A JDX document declares its schema version in the top-level member "jdx" (major.minor). Minor versions only add optional members or values to open lists. Each minor version has an open JSON Schema (draft 2020-12) that tolerates unknown members and a strict one that rejects them outside the "extensions" object. Text is UTF-8 without BOM. Percentages are exchanged as JSON numbers with at most four decimals and must be compared as exact decimals, never as binary floating point.
+
+Published specification: JDX (Jupiter Data eXchange) Specification, Edition 1.0 (draft). Fernando Daniel García, Agilmind SRL, 2026.
+
+https://doi.org/10.5281/zenodo.23137511
+
+Applications which use this media: Exchange of musical work registration data (works, rights holders, shares, agreements and the hashes of related documents) between music publishers and collective management organizations (CMOs), and between their software systems. The first producer is the Jupiter platform of Agilmind SRL.
+
+Fragment identifier considerations: Same as for application/json (RFC 8259): none defined.
+
+Restrictions on usage: None.
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): N/A
+3. File extension(s): .jdx.json
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+General Comments: Each document is accompanied by a detached JWS in compact serialization (application/jose), in a file named after the document with the ".jws" extension appended.
+
+Person to contact for further information:
+
+1. Name: FERNANDO DANIEL GARCIA
+2. Email: jdx&jupiter.ar
+
+Intended usage: COMMON
+
+Author/Change controller: Agilmind SRL

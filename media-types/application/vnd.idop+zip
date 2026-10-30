@@ -1,0 +1,153 @@
+(registered 2026-10-29, last updated 2026-10-29)
+
+Media type name: application
+
+Media subtype name: vnd.idop+zip
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+Security considerations: An IDOP package is a ZIP archive that 
+contains active content: HTML, CSS, JavaScript and WebAssembly under 
+the "code/" root, which a conforming Reader executes. The published 
+specification is organised around this fact (Sections 4-12 and 17).
+
+Validation before execution. A Reader validates the complete package
+before any of its code runs: ZIP structure, entry names, size, 
+entry-count and compression-ratio limits, the manifest, and a static
+executable-boundary policy. It refuses the whole package on any failure.
+The static policy is defence in depth: code can reach the constructs 
+it forbids indirectly, so the isolation below is the security 
+boundary.
+
+Isolation. Document code runs in an isolated execution context. In web
+browsers this is a sandboxed iframe on an opaque origin, with a Content
+Security Policy that permits no network connections, and a Permissions
+Policy that denies device and payment features. The context has no access
+to the Reader, its storage or credentials, or other documents. Dedicated
+workers inherit the same isolation; shared and service workers are
+refused. Some channels are not governed by a Content Security Policy in
+current browser engines: WebRTC (STUN/TURN over UDP and the DNS lookups
+it causes), nested "srcdoc" frames and speculative loading such as
+<link rel="prerender">. The specification requires a Reader to close them
+before document code runs (Section 9.3); the reference Reader removes the
+WebRTC interfaces from the document's realm and refuses, synchronously,
+to create or insert frames and speculative links to remote addresses.
+
+Data paths. Network access exists only as a capability the user grants,
+to exact HTTPS origins, through a Reader-side broker. The broker does not
+follow redirects, bounds request and response size, time and the number
+of requests, and injects credentials the document can never read. No
+interface returns a secret. Files enter or leave a document only through
+Reader dialogs the user confirms. Data can also leave without such a
+dialog in three ways tied to the user: text written to the clipboard
+after a user gesture, the document's state saved into its own file after
+a user gesture, and automatic saving into a revision-keeping location the
+user opened the document from.
+
+Processing outside a Reader. Any ZIP tool can extract a package. If the
+extracted entry point is opened directly in a web browser, or the entries
+are served from a web origin, the code runs with that context's
+privileges and none of the protections above apply. Software that does
+not implement the specification should treat the type as opaque data and
+not execute or render its entries. SVG and similar resources can contain
+script; they are passive only as a Reader serves them.
+
+Container and parser risks. The ZIP profile forbids ZIP64, encryption,
+multi-volume archives, compression methods other than Store and Deflate,
+bytes before the first entry or after the archive, bytes the central
+directory does not account for, special entries, and disagreement between
+local and central headers. Path rules prevent traversal and name
+collisions on case-insensitive file systems (Unicode full case folding).
+Limits on total size, per-entry size, entry count and compression ratio
+bound decompression attacks. The security considerations of ZIP as a
+structured syntax (RFC 6839, Section 3.6) apply. The manifest is JSON
+(RFC 8259; the considerations of its Section 12 apply), validated against
+a published JSON Schema with duplicate keys refused and size, depth and
+node limits.
+
+Integrity, authenticity and confidentiality. The format provides no
+integrity protection beyond ZIP CRC-32 values, which detect accidental
+damage only, and no authenticity: metadata such as title and author is
+self-declared, and packages are neither signed nor encrypted in this
+version. Saved state is stored in plain form, readable by anyone who
+holds the file. Integrity and confidentiality in transit and at rest must
+be provided externally, for example by TLS.
+
+External references. Interpreting a package does not require
+dereferencing any external link.
+
+Residual risks. Defects in the hosting browser engine; egress channels of
+an engine that neither its Content Security Policy nor the Reader's
+measures close, including ones added by future web platform features;
+side channels; denial of service through CPU or memory use by running
+code; and social engineering, since a document can display anything,
+including imitations of a Reader's or another site's interface.
+
+Interoperability considerations: The container is a ZIP archive 
+(PKWARE APPNOTE) restricted to the Store and Deflate methods, with no
+ZIP64. Its first entry is a Stored "mimetype" entry without an extra 
+field, as in OpenDocument and EPUB, so the media type sits at a fixed 
+offset. Some general-purpose ZIP tools add extra fields or reorder 
+entries by default; a package re-created with such a tool is usually 
+refused by conforming Readers. Entry names are UTF-8, normalised to 
+NFC, and restricted so that they extract safely on common file 
+systems. The manifest is JSON validated by a published JSON Schema. 
+Minor versions (1.x) only add features; a Reader refuses a package 
+that uses members or required features it does not implement, so a 
+file written for a later 1.x may be refused by an earlier Reader. A 
+new major version will use a new media type. A public conformance 
+suite lists packages that must be opened and packages that must be 
+refused.
+
+Published specification: IDOP Format Specification 1.0, IDOP LABS.
+This version: https://idoplabs.com/spec/idop/1.0/2026-10-13/
+Latest version: https://idoplabs.com/spec/idop/1.0/
+JSON Schema: https://idoplabs.com/spec/idop/1.0/schemas/manifest.json
+Conformance suite: https://idoplabs.com/spec/idop/1.0/conformance/
+
+Applications which use this media: IDOP Cloud 
+(https://cloud.idoplabs.com), a browser-based Reader; the "idop" 
+command-line validator and packer 
+(https://idoplabs.com/developers/sdk/); and other software that 
+produces IDOP documents, including AI assistants.
+
+Fragment identifier considerations: No fragment identifier syntax is 
+defined for this type. In line with the +zip structured syntax suffix 
+(RFC 6839, Section 3.6), which defines none for application/zip, 
+fragment identifiers have no meaning for this type.
+
+Restrictions on usage: N/A
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): "PK" 0x03 0x04 at offset 0; the ASCII string 
+"mimetype" at offset 30; the ASCII string "application/vnd.idop+zip" 
+at offset 38.
+3. File extension(s): .idop
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+General Comments: The "+zip" suffix follows RFC 6839; the file is an 
+ordinary ZIP archive.
+
+Uniform Type Identifier used on Apple platforms (informative):
+com.idoplabs.idop, conforming to public.zip-archive. Pre-release files
+(format versions 0.1-draft and 0.2-draft) carried the unregistered 
+label "application/vnd.idop.foundation+zip"; they are not instances 
+of this type.
+
+Person to contact for further information:
+
+1. Name: Kacper Gościniak
+2. Email: spec&idoplabs.com
+
+Intended usage: COMMON
+
+Author/Change controller: Kacper Gościniak, trading as IDOP LABS
+(https://idoplabs.com)
+
