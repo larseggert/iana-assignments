@@ -1,0 +1,119 @@
+(registered 2026-10-30, last updated 2026-10-30)
+
+Media type name: text
+
+Media subtype name: prs.rowih
+
+Required parameters: N/A
+
+Optional parameters: encoding: the form of the message's text. "transliteration", 
+the default, is the canonical serialisation in the nineteen Latin letters of the 
+language's phonology, with payloads in the lowercase letters and the digits 2 to 7. 
+"native" writes each of those nineteen symbols as its code point in the Private 
+Use Area, U+F3A0 to U+F3B2, with payloads, separators and lines as in the 
+transliteration.
+
+The "charset" parameter is not used: a message is always UTF-8 (RFC 3629). A message
+states its own version, so the type has no version parameter.
+
+Encoding considerations: binary
+
+In the canonical form of the type, each line ends in CRLF (RFC 2046, section 
+4.1.1), and a line may exceed 998 octets: the envelope and each move occupy one 
+line, and a payload, such as a relayed message, counts as one word whatever its 
+length. A message in the transliteration uses only US-ASCII characters within 
+UTF-8; a message in the native form uses three-octet UTF-8 sequences. A reader 
+accepts any run of space, tab, line feed and carriage return between words, and 
+computes the check values over a normalised text that it rebuilds from the words, 
+in which words are separated by one space and lines end in a line feed. A transport 
+that converts line endings, expands tabs or collapses spaces therefore does not 
+affect a message; one that breaks a word, by wrapping or escaping it, changes a 
+count and is detected.
+
+Security considerations: A Rowih message is text and contains no executable content. 
+A reader parses it under fixed maxima that each protocol release states (in protocol 
+0.5, 155 words a message and a nesting of 5), and reads embedded material by its 
+stated length, so that nothing inside the material can end it.
+
+Integrity. Every number, word count and move carries a check word, and a message may
+carry an integrity check value, the SHA-256 digest of its canonical serialisation
+reduced modulo 10^9. These detect damage in transit: where the integrity check value
+is carried, any single edit of a symbol or a word makes the message ill-formed or
+fails the value. They are unkeyed, and give no protection against deliberate
+alteration, since whoever alters a message can compute new values.
+
+Authentication. A message may be signed with Ed25519 (RFC 8032). The signature covers
+the whole message except its authentication and integrity fields, the sender and the
+time included. Keys are never taken from a message: a participant holds the public
+keys of the agents it knows from its own configuration, and refuses a message from
+such an agent unless the signature verifies. Without a key, a claim of provenance
+carries no weight.
+
+Embedded material. Quotations, reports, examples and declared data are inert by
+kind, and declared data is never parsed as the language. The language marks an
+instruction, a quoted instruction and untrusted content apart, but cannot make a
+receiving agent respect the difference: an agent that does not analyse what it
+receives can still obey an imperative inside a quotation.
+
+Confidentiality. The type provides none. A message names its sender and recipients
+by participant number and states the time it was sent, and relies on its transport
+for confidentiality.
+
+Display. The native form uses code points of the Private Use Area, which a system
+without the language's font shows as other glyphs or as replacement characters. A
+text in that range is read as the language only if it parses, and any other use of
+the range is reported as foreign use.
+
+Interoperability considerations: A message states the releases of the language, the 
+lexicon and the protocol it is written in, outside its moves; a reader lacking a 
+release reports what it lacks and what it reads, and two agents settle the releases 
+they share before relying on them. A reader accepts any run of separators between 
+words. The reference toolchain has two implementations, in Python and in 
+TypeScript, whose readers are tested to agree byte for byte over the conformance 
+suite. The specification binds the type to the Agent2Agent protocol, as a part's 
+mediaType, and to the Model Context Protocol, as an embedded resource's mimeType.
+
+Published specification:
+
+https://github.com/rowih/rowih/blob/v1.1.5/specification/protocol.md#the-media-type-and-the-binding-to-agent-transports
+
+The reference specification as a whole, under CC BY 4.0:
+
+https://github.com/rowih/rowih/tree/v1.1.5/specification
+
+Applications which use this media: AI agents that exchange messages in Rowih, a 
+language for agents to communicate with one another, over agent transports such as 
+the Agent2Agent protocol and the Model Context Protocol. The reference toolchain 
+reads, checks, writes and renders it: the Python package "rowih" 
+(https://pypi.org/project/rowih/), with its command and its Model Context Protocol 
+server, and a TypeScript reader and renderer.
+
+Fragment identifier considerations: None. No fragment identifier syntax is defined 
+for this type.
+
+Restrictions on usage: None.
+
+Additional information:
+
+1. Deprecated alias names for this type: None.
+2. Magic number(s): A message in its canonical serialisation begins with the word 
+"wila", the envelope's word count: the bytes 77 69 6C 61 at offset 0 in the 
+transliteration, and EF 8E AB EF 8E B0 EF 8E A9 EF 8E AE in the native form.
+3. File extension(s): None.
+4. Macintosh file type code: None.
+5. Object Identifiers: None.
+
+General Comments: Rowih was designed by an AI agent, Claude, under the auspices of 
+Semiosphere (https://semiosphere.co.uk/). Its specification and data are published 
+under CC BY 4.0 and its code under Apache-2.0, and it is not distributed 
+commercially, which is why the registration is in the personal tree (RFC 6838, 
+section 3.3).
+
+Person to contact for further information:
+
+1. Name: William Short
+2. Email: wmshort&semiosphere.co.uk
+
+Intended usage: COMMON
+
+Author/Change controller: William Short <wmshort&semiosphere.co.uk>
