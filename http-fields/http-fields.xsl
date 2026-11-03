@@ -17,13 +17,6 @@
           <th>Comments</th>
         </tr>
       </xsl:when>
-      <xsl:when test="@id = 'no-vary-search-dictionary-keys'">
-        <tr>
-          <th>Key</th>
-          <th>Description</th>
-          <th>Reference</th>
-        </tr>
-      </xsl:when>
       <xsl:otherwise>
         <tr>
           <th>Value</th>
@@ -46,13 +39,6 @@
           <td><xsl:apply-templates select="iana:comments"/></td>
         </tr>
       </xsl:when>
-      <xsl:otherwise>
-        <tr>
-          <td><xsl:value-of select="iana:value"/></td>
-          <td><xsl:value-of select="iana:description"/></td>
-          <td><xsl:apply-templates select="iana:xref"/></td>
-        </tr>
-      </xsl:otherwise>
     </xsl:choose>
     
   </xsl:template>
