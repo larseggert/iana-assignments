@@ -58,7 +58,7 @@
     <xsl:when test="../@id = 'ietf-yang-sid-modules'">
       <tr>
         <td><xsl:apply-templates select="iana:name"/></td>
-        <td><xsl:apply-templates select="iana:file"/></td>
+        <td><xsl:apply-templates select="iana:yangref"/></td>
         <td><xsl:apply-templates select="iana:file"/></td>
         <td><xsl:value-of select="iana:size"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
