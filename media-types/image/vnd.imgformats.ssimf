@@ -1,0 +1,64 @@
+(registered 2026-11-04, last updated 2026-11-04)
+
+Media type name: image
+
+Media subtype name: vnd.imgformats.ssimf
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+SSIMF files are binary and may contain NUL octets and arbitrary byte values, so they require base64 or similar encoding on transports that are not 8-bit/binary safe.
+
+Security considerations:
+
+SSIMF files contain only image data (dimensions, a flags byte and range-coded pixel data). They contain no active or executable content, scripts or macros.
+
+The format carries no metadata fields (no EXIF, location, author or device information), so a file reveals nothing beyond the image itself. SSIMF provides no privacy or integrity services of its own.
+
+Where confidentiality or integrity is needed, it must be provided externally, for example by TLS during transfer or by digital signatures.
+
+SSIMF is not based on XML, JSON or any container format.
+
+SSIMF uses lossless compression, so a very small file can decode to a very large image (a "decompression bomb"). The header declares the width and height before any pixel data. Decoders should check these against their own limits and refuse images that would need more memory than they can safely allocate. All long-range copy distances and table indices in the compressed data refer only to previously decoded data; decoders must check every distance and index against the data decoded so far and reject the file if it is out of range. The reference decoder performs these checks and rejects malformed headers. It has not yet been formally fuzz-tested, so implementers should treat all input as untrusted.
+
+No container format is used.
+
+SSIMF files contain no links or references to external resources and can be interpreted on their own.
+
+Interoperability considerations: All multi-byte header values are big-endian. Every file starts with the 5-byte signature "SSIMF" followed by a 1-byte format version (currently 1). Decoders must reject versions they do not support. Pixel data is 8-bit RGB, or RGBA when bit 0 of the flags byte is set. A reference implementation is available in C and JavaScript; both produce byte-identical files and are published under the MIT license.
+
+Published specification: 
+
+Specification (file layout, version 1) and reference implementation in C and JavaScript:
+https://github.com/ahmadathania/ssimf-imgformats
+
+Project page: https://imgformats.com/ssimf/
+
+Applications which use this media: Lossless storage and exchange of screenshots and other screen content (app screens, web pages, documents, user interfaces). Applications using this media type: the imgformats SSIMF Converter (web, https://imgformats.com/ssimf/), SSIMF Viewer for Windows, the ssimf command-line tool, and any software using the open-source C or JavaScript library.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: N/A
+
+Additional information:
+
+1. Deprecated alias names for this type: image/x-ssimf
+2. Magic number(s): At offset 0: 53 53 49 4D 46 01 (ASCII "SSIMF" followed by version byte 0x01)
+3. File extension(s): .ssimf
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+General Comments: SSIMF (ScreenShot IMage Format) is developed by imgformats (https://imgformats.com/). The format and reference implementation are open source under the MIT license.
+
+Person to contact for further information:
+
+1. Name: Ahmad NoorMohammed Athania
+2. Email: ahmadnoor0000p&gmail.com
+
+Intended usage: COMMON
+
+Author/Change controller: imgformats (https://imgformats.com/)
+
