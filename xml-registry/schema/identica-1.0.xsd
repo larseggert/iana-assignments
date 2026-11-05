@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:identica="https://namingo.org/epp/identica-1.0"
+           targetNamespace="https://namingo.org/epp/identica-1.0"
+           elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:annotation>
+    <xs:documentation>
+      Namingo Identica Contact Extension for EPP, version 1.0.
+      https://namingo.org/epp/identica-1.0.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <!-- Children of epp:command/epp:extension. -->
+  <xs:element name="create" type="identica:createType"/>
+  <xs:element name="update" type="identica:updateType"/>
+  <!-- Child of epp:response/epp:extension. -->
+  <xs:element name="infData" type="identica:infDataType"/>
+
+  <xs:complexType name="createType">
+    <xs:sequence>
+      <xs:element name="nin" type="identica:ninType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="updateType">
+    <xs:sequence>
+      <xs:element name="nin" type="identica:ninType"/>
+      <xs:element name="status" type="identica:statusType"/>
+      <xs:element name="date" type="identica:timestampType"/>
+      <xs:element name="details" type="identica:detailsType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="infDataType">
+    <xs:sequence>
+      <xs:element name="nin" type="identica:ninType"/>
+      <xs:element name="status" type="identica:statusType" minOccurs="0"/>
+      <xs:element name="date" type="identica:timestampType" minOccurs="0"/>
+      <xs:element name="details" type="identica:detailsType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ninType">
+    <xs:simpleContent>
+      <xs:extension base="identica:identifierType">
+        <xs:attribute name="type" type="identica:ninCategoryType" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="identifierType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value=".*[0-9].*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ninCategoryType">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="personal"/>
+      <xs:enumeration value="business"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="statusType">
+    <xs:restriction base="xs:integer">
+      <xs:enumeration value="0"/>
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+      <xs:enumeration value="3"/>
+      <xs:enumeration value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Existing wire format is NOT XML Schema xs:dateTime. -->
+  <xs:simpleType name="timestampType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{3}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="detailsType">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
