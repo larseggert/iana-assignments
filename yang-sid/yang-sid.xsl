@@ -58,8 +58,18 @@
     <xsl:when test="../@id = 'ietf-yang-sid-modules'">
       <tr>
         <td><xsl:apply-templates select="iana:name"/></td>
-        <td><xsl:apply-templates select="iana:yangref"/></td>
-        <td><xsl:apply-templates select="iana:file"/></td>
+         <td>
+          <xsl:choose>
+            <xsl:when test="iana:yang"><xsl:apply-templates select="iana:yang"/></xsl:when>
+            <xsl:otherwise><i>Pending RFC publication.</i></xsl:otherwise>
+          </xsl:choose>
+        </td>
+        <td>
+          <xsl:choose>
+            <xsl:when test="iana:sid"><xsl:apply-templates select="iana:sid"/></xsl:when>
+            <xsl:otherwise><i>Pending RFC publication.</i></xsl:otherwise>
+          </xsl:choose>
+        </td>
         <td><xsl:value-of select="iana:size"/></td>
         <td><xsl:apply-templates select="iana:xref"/></td>
       </tr>
