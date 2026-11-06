@@ -21,6 +21,13 @@
         <th>Reference</th>
         </tr>
       </xsl:when>
+      <xsl:when test="@id = 'voucher-extensions'">
+        <tr>
+        <th>Extension Name</th>
+        <th>Extension SID</th>
+        <th>Reference</th>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -32,13 +39,20 @@
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
-      <xsl:otherwise>
+      <xsl:when test="../@id = 'brski-well-known-uris'">
         <tr>
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:description"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
-      </xsl:otherwise>
+      </xsl:when>
+      <xsl:when test="../@id = 'voucher-extensions'">
+        <tr>
+          <td><xsl:value-of select="iana:name"/></td>
+          <td><xsl:apply-templates select="iana:sid"/></td>
+          <td><xsl:apply-templates select="iana:reference"/></td>
+        </tr>
+      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
