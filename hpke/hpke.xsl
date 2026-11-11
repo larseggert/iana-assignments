@@ -25,6 +25,7 @@
           <th>Value</th>
           <th>KDF</th>
           <th>Nh</th>
+          <th>Two-Stage</th>
           <th>Reference</th>
         </tr>
       </xsl:when>
@@ -60,6 +61,7 @@
           <td><xsl:value-of select="iana:value"/></td>
           <td><xsl:value-of select="iana:kdf"/></td>
           <td><xsl:value-of select="iana:nh"/></td>
+          <td><xsl:value-of select="iana:two-stage"/></td>
           <td><xsl:apply-templates select="iana:xref"/></td>
         </tr>
       </xsl:when>
