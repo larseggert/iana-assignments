@@ -239,7 +239,7 @@
   </xsl:template>
 
   <xsl:template match="iana:artwork">
-    <pre><xsl:value-of select="." /></pre>
+    <pre><xsl:apply-templates/></pre>
   </xsl:template>
 
   <!-- All registration rules of a registry under one Registration Procedure(s) heading, one per line -->
