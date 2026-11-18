@@ -1,0 +1,201 @@
+(registered 2026-11-18, last updated 2026-11-18)
+
+Media type name: application
+
+Media subtype name: vnd.emirian.blueprint
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+The representation is a proprietary binary container with an
+authenticated cleartext header and an encrypted body.
+
+The encrypted body contains the workflow blueprint and its internal
+approval seal, including the approval statement and signature.
+The seal is not a separate file or an unencrypted trailing block.
+
+Blueprint JSON is canonicalized using the JSON Canonicalization
+Scheme (JCS, RFC 8785) and compressed using DEFLATE with zlib framing
+(RFC 1950) before encryption.
+
+The top-level representation is not JSON, XML, or ZIP.
+
+Security considerations: The format contains declarative agentic workflow definitions, not
+embedded native executable code or script programs. However,
+interpreting and deploying a blueprint can direct agents,
+capabilities, document access, and external operations. Importing or
+previewing a file must not authorize or execute its workflow.
+Deployment and execution require separate approval, authorization,
+and enforcement of tenant capability restrictions.
+
+The blueprint and approval provenance can contain confidential
+information requiring confidentiality, integrity, and authenticity
+protection. EMRI-1 requires AES-256-GCM encryption of the body, with
+the cleartext header included as additional authenticated data.
+Each payload-encryption operation uses a freshly generated 256-bit
+file key and a 96-bit nonce. File keys must not be reused for a
+subsequent payload-encryption operation.
+
+The file key is wrapped using AES-256-KW under the owning tenant's
+key-encryption key, following RFC 3394. AES-KW does not require a
+wrapping nonce. The wrapped key and its routing metadata are
+included in the authenticated header.
+
+Tenant secret keys are maintained server-side within the tenant's
+authorized boundary. Unwrapped file keys, tenant key-encryption
+keys, and signing private keys must not be included in the file or
+embedded in distributed client software. Implementations must
+protect key generation, storage, use, backup, and retirement.
+
+Key lookup must be restricted to an independently established,
+authorized tenant context. Identifiers supplied by a file must not
+authorize access to another tenant's keys. The trusted tenant
+context, authenticated header, and signed approval statement must
+agree.
+
+Approval is established separately from successful decryption.
+An internal seal binds a SHA-256 digest of the canonical blueprint
+to its approval context, tenant, blueprint identity, artifact
+version, schema identity, approving authority, approval timestamp,
+and signing-key identity. The approval statement is signed using
+ECDSA P-256 with SHA-256 and deterministic signing under RFC 6979.
+
+The approval statement, content digest, and signature are inside the
+encrypted body. Neither a plaintext content digest nor a declared
+uncompressed length is exposed in the cleartext header. Header
+contents and total container size remain visible.
+
+The verification algorithm is determined by the authorized key
+record in the tenant trust store. In-file algorithm identifiers are
+cross-checked against that record and must not select an arbitrary
+verification algorithm. Unknown or unauthorized keys, mismatched
+identifiers, and invalid signatures must not confer approval or
+authorize deployment.
+
+Readers must validate container boundaries and lengths and reject
+malformed or unsupported representations. Header fields remain
+untrusted until authentication succeeds. Plaintext must not be
+released for decompression, parsing, rendering, or workflow
+processing before successful AES-GCM authentication.
+
+Readers must enforce local limits on input size, decompressed
+output, memory consumption, processing time, JSON nesting depth,
+and workflow complexity. Output limits must be enforced during
+decompression, including for authenticated files. File-supplied
+lengths must not override local resource limits.
+
+Compression can disclose information through ciphertext length.
+Authoring and export interfaces must not expose an oracle that
+allows unauthorized parties to combine attacker-controlled input
+with undisclosed blueprint content and repeatedly observe resulting
+file sizes. Compressing each blueprint separately does not remove
+all content-dependent size leakage.
+
+The JSON security considerations in RFC 8259, Section 12, and the
+JCS security considerations in RFC 8785, Section 5, apply to JSON
+structures in the format. Readers must parse JSON as data, never
+evaluate it as code, reject duplicate object member names, and
+enforce the applicable schema, canonicalization rules, numeric
+constraints, and workflow semantic checks before use.
+
+Blueprints can reference agents, capabilities, documents, and other
+resources outside the file. Resolution of these references requires
+tenant authorization. Their presence in an authenticated or signed
+file does not independently grant access or authorize automatic
+external retrieval.
+
+A valid seal does not establish that approval remains current or
+that the artifact is the latest authorized version. Deployment must
+apply current tenant policies for approval status, key trust,
+revocation, artifact versions, and replay or rollback prevention.
+
+Encryption maintenance must preserve the original content approval
+only when the signed content and approval statement are unchanged.
+Changing authenticated container metadata requires a newly
+authenticated container. Re-encryption must use a fresh file key
+and nonce; it must not reuse the original key and nonce with changed
+authenticated data. Maintenance must not be represented as a new
+human approval.
+
+The format does not prevent an authorized recipient from disclosing
+decrypted content and does not protect plaintext in a compromised
+authorized processing environment.
+
+References:
+https://www.rfc-editor.org/rfc/rfc3394.html
+https://www.rfc-editor.org/rfc/rfc5116.html
+https://www.rfc-editor.org/rfc/rfc6979.html
+https://www.rfc-editor.org/rfc/rfc8259.html#section-12
+https://www.rfc-editor.org/rfc/rfc8785.html#section-5
+https://www.rfc-editor.org/rfc/rfc8725.html#section-2.4
+
+Interoperability considerations: Compatibility depends on support for the container version,
+blueprint schema, and cryptographic profile used by the file.
+Readers must reject unsupported container versions, incompatible
+schemas, and unsupported cryptographic profiles rather than
+guessing or silently substituting alternatives.
+
+Published specification: N/A
+
+Status: in preparation; not yet published.
+
+Proprietary format controlled by Archiplexus Architects LLC.
+
+Contact for specification and implementation inquiries: formats&emirian.ai
+
+Applications which use this media: Emirian Agentic Governance Platform, developed by Archiplexus
+Architects LLC.
+
+Emirian Mandate provides visual authoring of governed multi-agent
+workflow blueprints. Emirian Global Command provides blueprint
+governance, approval, and controlled deployment.
+
+The media type is intended for blueprint interchange and archival
+storage within the owning tenant's authorized environment.
+
+Fragment identifier considerations: Fragment identifiers are not defined for this media type.
+
+Restrictions on usage: This proprietary format is intended for creation and interpretation
+by licensed installations of the Emirian Agentic Governance
+Platform.
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): 45 4D 52 49 1A 0A (hexadecimal; 6 octets at byte offset 0).
+3. File extension(s): .emri, .emir
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+General Comments: A proprietary, sealed, tenant-bound governed workflow definition
+authored in the Emirian Agentic Governance Platform, with associated
+provenance and approval metadata.
+
+The protected workflow content is cryptographically bound to the
+owning licensed tenant and carries an approval signature issued by
+that tenant's governance authority. Access to the protected content
+requires tenant-authorized decryption. Deployment additionally
+requires valid tenant approval and applicable permissions.
+
+General-purpose tools can store or transfer the container but cannot
+directly interpret its encrypted workflow content.
+
+Person to contact for further information:
+
+1. Name: Archiplexus Architects LLC
+2. Email: formats&emirian.ai
+
+Intended usage: LIMITED USE
+
+Intended for governed workflow blueprint interchange and archival
+storage within licensed Emirian Agentic Governance Platform
+environments.
+
+General-purpose interpretation or deployment outside the platform
+is not supported.
+
+Author/Change controller: Archiplexus Architects LLC
+formats&emirian.ai

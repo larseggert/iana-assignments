@@ -1,0 +1,58 @@
+(registered 2026-11-18, last updated 2026-11-18)
+
+Media type name: application
+
+Media subtype name: vnd.codynamicslab.latchdoc
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+The format is a binary container. It must be transferred without modification, using base64 or similar where a transport is not 8-bit or binary safe.
+
+Security considerations: Active content: The format itself defines no executable or active content. However, a package carries original source documents (for example PDF or Office files), and those files may contain active content such as scripts or macros from their original authors. Readers must not execute or render anything inside a package automatically. Original files should be opened only in applications that apply their normal protections for that file type. Extracted text may also contain instructions aimed at AI models that later read it, so systems that pass package text to a language model should treat it as untrusted data, not as instructions.
+
+Privacy and integrity: Packages can contain confidential material such as legal or medical documents, so they need both privacy and integrity protection.
+
+Services provided by the format: The archive is encrypted with AES-256-GCM. The key is derived from a passphrase or organization key using Argon2id. The GCM tag authenticates the ciphertext and the cleartext header. Each package is signed with Ed25519 by the device that created it. The manifest lists a SHA-256 digest for every file, and readers must check the tag, the signature, and every digest before using any content. The cleartext header holds only format metadata, never document content. Anyone with the passphrase or key can read the contents, so keys must be protected and shared separately from the file.
+
+Use of existing formats: The header and the manifest files are JSON, and the security considerations of RFC 8259, Section 12 apply. Readers should limit header size, reject duplicate keys and malformed input, and treat all fields as untrusted until the signature and GCM tag have been verified. The format does not use JSON extensibility to carry executable content. Unknown fields and unknown payload kinds must be ignored, not interpreted.
+
+Compression: The archive is compressed with Zstandard, and the security considerations of RFC 8878, Section 7 apply. Readers should enforce limits on decompressed size and file count to protect against decompression bombs, and should check sizes listed in the manifest before extracting.
+
+Container format: The decrypted payload is a tar archive. Readers must reject absolute paths, ".." path segments, symbolic links, hard links, and device files, so that extraction cannot write outside the target directory or overwrite existing files. Readers must reject any archive member not listed in the signed manifest, and any member whose SHA-256 digest does not match the manifest.
+
+Links: The format does not include links that must be fetched to interpret it. All source documents, extracted text, and metadata are contained in the package itself, and references between files inside the package use SHA-256 digests, not URLs. Readers must not fetch remote resources while processing a package.
+
+Additional note: Some optional payloads contain model-specific data (for example embeddings or attention caches). That data can reveal information about the source text, so it is protected by the same encryption as the documents.
+
+Interoperability considerations: Files begin with the 8-byte magic number "LATCH2" followed by two null bytes, then a 4-byte little-endian header length and a UTF-8 JSON header. The header carries a spec_version field. Readers must reject files with an unknown major version and must ignore unknown header fields and unknown payload kinds. Model-specific payloads (embeddings, attention caches, compressed memory) are optional. A reader that cannot use one can rebuild it from the source documents in the package, so a package stays readable and verifiable when models change. Version 1 files use the magic number "LATCH1" and are a different, legacy layout. They are not compatible with this registration's format, though a reader may support both.
+
+Published specification: https://www.codynamicslab.com/docs/formats/latchdoc
+
+Applications which use this media: The CoDynamics LATCH document appliance and its verification tools. The format is used to archive and exchange sealed, verifiable document sets, for example between law firms, co-counsel, experts, and medical practices, with original documents, extracted text, and derived data packaged together.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: None
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): 4C 41 54 43 48 32 00 00 at offset 0 ("LATCH2" followed by two null bytes). Shared with application/vnd.codynamicslab.latch; the header field package_type distinguishes them.
+3. File extension(s): .latchdoc
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+General Comments: A companion type, application/vnd.codynamicslab.latch (finding packages), will be submitted separately. The two types share an envelope and magic number and are distinguished by the package_type header field. The published specification is version 2.0 (draft); legacy version 1 files use a different magic number ("LATCH1").
+
+Person to contact for further information:
+
+1. Name: Mike Holford
+2. Email: mike&codynamicslab.com
+
+Intended usage: COMMON
+
+Author/Change controller: CoDynamics Lab Corporation

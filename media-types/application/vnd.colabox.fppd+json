@@ -1,0 +1,80 @@
+(registered 2026-11-18, last updated 2026-11-18)
+
+Media type name: application
+
+Media subtype name: vnd.colabox.fppd+json
+
+Required parameters: N/A
+
+Optional parameters: N/A
+
+Encoding considerations: binary
+
+UTF-8 encoded JSON text (RFC 8259); lines may exceed 998 octets.
+
+Security considerations: The media type contains no active or
+executable content. It is a JSON document describing a quilt block
+design: line geometry, colours, numeric settings, and
+optionally one embedded reference image as a base64 data URL
+(image/png or image/jpeg).
+
+The content does not require privacy or integrity services beyond
+those of the transport; the format itself provides none. A file may
+contain a user's own photograph, so users should
+treat files as personal content when sharing.
+
+If protection is wanted, TLS is recommended for files in transit
+(for example, HTTPS; see BCP 195). For files that are stored, or that
+pass through intermediaries such as email or cloud
+storage, JSON Object Signing and Encryption (JOSE) is the preferred
+mechanism, because the payload is a JSON document. JSON Web Encryption
+(RFC 7516) provides confidentiality and
+integrity. JSON Web Signature (RFC 7515) provides integrity and,
+when a digital signature is used, authenticity of origin. The whole
+file is used as the JOSE payload, and the "cty" header
+parameter may be set to "vnd.colabox.fppd+json". The result is a
+JOSE object, not a document of this media type, and it must be
+decrypted or verified before it is processed as one.
+Readers of this media type are not required to support these mechanisms.
+
+The security considerations of JSON (RFC 8259, section 12) apply.
+Readers should validate all numeric values and array sizes, and should
+limit the decoded size of the embedded image
+before decoding it, to avoid resource exhaustion. The image must be
+processed only by a safe image decoder.
+
+The format does not use compression itself; the embedded image uses
+PNG or JPEG compression, whose decoder considerations apply.
+
+No container format is used.
+
+The "spec" member contains the URL of the specification for
+information only; no links need to be dereferenced to interpret the
+content.
+
+Interoperability considerations: Files are UTF-8 JSON objects. They are identified by the top-level member "format" with the value "fpp-studio-pattern" and an integer "version" (currently 2). Readers must ignore unknown members and must refuse files whose "format" member has another value. Earlier files without a "format" member (version 1, extension .ppd) may still be accepted by readers.
+
+Published specification: https://colabox.net/fppd
+
+Applications which use this media: FPP Studio (Android), a foundation paper piecing (FPP) quilt pattern designer by Colabox Studio, uses this type to save, share and open pattern files. A web version is planned.
+
+Fragment identifier considerations: N/A
+
+Restrictions on usage: N/A
+
+Additional information:
+
+1. Deprecated alias names for this type: N/A
+2. Magic number(s): The file begins with the bytes {"format":"fpp-studio-pattern"
+3. File extension(s): fppd
+4. Macintosh file type code: N/A
+5. Object Identifiers: N/A
+
+Person to contact for further information:
+
+1. Name: Oleksandr Prokopchuk
+2. Email: prime&colabox.net
+
+Intended usage: COMMON
+
+Author/Change controller: Oleksandr Prokopchuk (Colabox.NET Studio)
